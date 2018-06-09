@@ -13,5 +13,15 @@ namespace TheParsnipWeb
         {
 
         }
+
+        protected void BenTextBox_TextChanged(object sender, EventArgs e)
+        {
+            BenLabel.Text = BenTextBox.Text;
+        }
+
+        protected void BenButton_Click(object sender, EventArgs e)
+        {
+            BenLabel.Text = BenTextBox.Text;
+        }
     }
 }

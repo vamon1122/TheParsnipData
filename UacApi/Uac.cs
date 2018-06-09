@@ -8,5 +8,13 @@ namespace UacApi
 {
     public class Uac
     {
+        public Account LogIn(string pUserName, string pPwd)
+        {
+
+        }
+
+
     }
+
+    
 }
