@@ -76,6 +76,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.txt" />
+    <Content Include="App_Data\ParsnipDb.mdf" />
+    <Content Include="App_Data\ParsnipDb_log.ldf">
+      <DependentUpon>ParsnipDb.mdf</DependentUpon>
+    </Content>
     <Content Include="Default.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
