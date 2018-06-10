@@ -33,37 +33,28 @@ namespace UacApi
 
         public bool LogIn(string pUsername, string pPwd)
         {
-
-
             string dbPwd = null;
+            username = pUsername;
 
             using (SqlConnection conn = new SqlConnection(sqlConnectionString))
             {
                 conn.Open();
-                try
-                {
-                    SqlCommand GetLogInDetails = new SqlCommand("SELECT Pwd FROM t_Users WHERE username = @username", conn);
-                    GetLogInDetails.Parameters.Add(new SqlParameter("username", pUsername));
 
-                    using (SqlDataReader reader = GetLogInDetails.ExecuteReader())
+                if (GetPwdFromDb() && pPwd == dbPwd)
+                { 
+                    if (GetUserDetails())
                     {
-                        while (reader.Read())
-                        {
-                            dbPwd = reader[0].ToString();
-                        }
+                        return true;
                     }
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine("There was an exception whilst getting da password: " + e);
-                }
-
-                if (pPwd == dbPwd)
+                return false;
+                
+                bool GetPwdFromDb()
                 {
                     try
                     {
-                        SqlCommand GetLogInDetails = new SqlCommand("SELECT email, fname, sname, dob, address1, address2, address3, postcode, mobilephone, homephone, workphone FROM t_Users WHERE username = @username", conn);
-                        GetLogInDetails.Parameters.Add(new SqlParameter("username", pUsername));
+                        SqlCommand GetLogInDetails = new SqlCommand("SELECT Pwd FROM t_Users WHERE username = @username", conn);
+                        GetLogInDetails.Parameters.Add(new SqlParameter("username", username));
 
                         using (SqlDataReader reader = GetLogInDetails.ExecuteReader())
                         {
@@ -75,13 +66,79 @@ namespace UacApi
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("There was an exception whilst getting da user data: " + e);
+                        Console.WriteLine("There was an exception whilst getting da password: " + e);
+                        return false;
                     }
                     return true;
                 }
-                else
+
+                bool GetUserDetails()
                 {
-                    return false;
+                    try
+                    {
+                        SqlCommand GetLogInDetails = new SqlCommand("SELECT email, fname, sname, dob, address1, address2, address3, postcode, mobilephone, homephone, workphone FROM t_Users WHERE username = @username", conn);
+                        GetLogInDetails.Parameters.Add(new SqlParameter("username", username));
+
+                        using (SqlDataReader reader = GetLogInDetails.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if(reader[0] != DBNull.Value)
+                                {
+                                    email = reader[0].ToString();
+                                }
+                                
+                                fname = reader[1].ToString();
+                                sname = reader[2].ToString();
+
+                                if(reader[3] != DBNull.Value)
+                                {
+                                    dob = Convert.ToDateTime(reader[3]);
+                                }
+                                
+                                if(reader[4] != DBNull.Value)
+                                {
+                                    address1 = reader[4].ToString();
+                                }
+
+                                if (reader[5] != DBNull.Value)
+                                {
+                                    address2 = reader[5].ToString();
+                                }
+
+                                if (reader[6] != DBNull.Value)
+                                {
+                                    address3 = reader[6].ToString();
+                                }
+
+                                if (reader[7] != DBNull.Value)
+                                {
+                                    postcode = reader[7].ToString();
+                                }
+
+                                if (reader[8] != DBNull.Value)
+                                {
+                                    mobilephone = reader[8].ToString();
+                                }
+
+                                if (reader[9] != DBNull.Value)
+                                {
+                                    homephone = reader[9].ToString();
+                                }
+
+                                if (reader[10] != DBNull.Value)
+                                {
+                                    workphone = reader[10].ToString();
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("There was an exception whilst getting da user data: " + e);
+                        return false;
+                    }
+                    return true;
                 }
             }
         }
