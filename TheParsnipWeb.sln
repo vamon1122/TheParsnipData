@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UacApi", "UacApi\UacApi.csproj", "{CB9E3C22-C371-4E16-81D9-3B83A0EFB355}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheParsnipWeb", "TheParsnipWeb\TheParsnipWeb.csproj", "{8C3A9372-A884-4197-B3ED-71CBE4D99652}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CB9E3C22-C371-4E16-81D9-3B83A0EFB355} = {CB9E3C22-C371-4E16-81D9-3B83A0EFB355}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaApi", "MediaApi\MediaApi.csproj", "{4351CA47-1474-47BB-B472-610848B47858}"
 EndProject

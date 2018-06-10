@@ -17,7 +17,16 @@ namespace ConsoleTest
             if (DoLogIn())
             {
                 BenText.Success("Successfully logged in!");
-                PrintAccount();
+                PrintAccount(MyAccount);
+
+                if (CreateNewAccount())
+                {
+                    BenText.Success("Successfully created new account!");
+                }
+                else
+                {
+                    BenText.Error("Failed to create new account!");
+                }
             }
             else
             {
@@ -27,9 +36,26 @@ namespace ConsoleTest
 
         }
 
-        public static void PrintAccount()
+        public static bool CreateNewAccount()
         {
-            if(MyAccount == null)
+            Account MyNewAccount = new Account();
+            MyNewAccount.username = "jbloggs";
+            MyNewAccount.fname = "Joe";
+            MyNewAccount.sname = "Bloggs";
+
+            if (MyNewAccount.DbInsert())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static void PrintAccount(Account pAccount)
+        {
+            if(pAccount == null)
             {
                 throw new InvalidOperationException("Account MyAccount has not been initialised!");
             }

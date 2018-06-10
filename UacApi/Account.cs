@@ -29,7 +29,7 @@ namespace UacApi
         public string homephone { get; set; }
         public string workphone { get; set; }
 
-        
+        private bool HasBeenInserted;
 
         public bool LogIn(string pUsername, string pPwd)
         {
@@ -143,6 +143,63 @@ namespace UacApi
             }
         }
 
-        private Guid _id;
+        public bool DbUpdate()
+        {
+            if (HasBeenInserted)
+            {
+                return true;
+            }
+            else
+            {
+                throw new System.InvalidOperationException("Account cannot be updated. Account must be inserted into the database before it can be updated!");
+            }
+        }
+
+        public bool DbInsert()
+        {
+            if(username != null && fname != null && sname != null)
+            {
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    conn.Open();
+
+                    bool UsernameExists()
+                    {
+                        SqlCommand FindUsername = new SqlCommand("SELECT count(1) FROM t_Users WHERE username = @username");
+                        FindUsername.Parameters.Add(new SqlParameter("username", username));
+
+
+
+                        using(SqlDataReader reader = FindUsername.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if(reader[0].ToString() == "1")
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                        throw new Exception("Some exception");
+                    }
+
+                    SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (username, fname, sname) VALUES(@username, @fname, @sname)", conn);
+                    InsertIntoDb.Parameters.Add(new SqlParameter("username", username));
+                    InsertIntoDb.Parameters.Add(new SqlParameter("fname", fname));
+                    InsertIntoDb.Parameters.Add(new SqlParameter("sname", sname));
+
+                    InsertIntoDb.ExecuteNonQuery();
+                }
+                    return true;
+            }
+            else
+            {
+                throw new InvalidOperationException("Account cannot be inserted. The account's properties: username, fname & sname, must be initialised before it can be inserted!");
+            }
+        }
     }
 }
