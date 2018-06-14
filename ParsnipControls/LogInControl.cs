@@ -42,11 +42,36 @@ namespace ParsnipControls
 
         Account MyAccount;
 
-        private bool LogIn()
+        string CookieUsername;
+        string CookiePwd;
+
+        LogInControl()
+        {
+            if (MyAccount.LogIn())
+            {
+                if(LogIn(CookieUsername, CookiePwd))
+                {
+
+                }
+            }
+
+
+            
+        }
+
+        private bool LogIn(string pUsername, string pPwd)
         {
             MyAccount = new Account();
-            if (MyAccount.LogIn(inUsername.Text, inPwd.Text))
+            if (MyAccount.LogIn(pUsername, pPwd))
             {
+                Response.Cookies["userName"].Value = "patrick";
+                Response.Cookies["userName"].Expires = DateTime.Now.AddDays(1);
+
+                HttpCookie aCookie = new HttpCookie("lastVisit");
+                aCookie.Value = DateTime.Now.ToString();
+                aCookie.Expires = DateTime.Now.AddDays(1);
+                Response.Cookies.Add(aCookie);
+
                 indicator.ForeColor = System.Drawing.Color.Green;
                 indicator.Text = "Logged in succeeded!";
                 return true;
@@ -61,9 +86,27 @@ namespace ParsnipControls
 
         void butLogIn_Click(Object sender, EventArgs e)
         {
-            LogIn();
+            LogIn(inUsername.Text, inPwd.Text);
             //Do callbacks https://msdn.microsoft.com/en-us/library/aa479299.aspx
         }
+
+
+        /*void ICallbackEventHandler.RaiseCallbackEvent(string argument)
+        {
+            // No input data to process; just returns
+            return;
+        }
+        string ICallbackEventHandler.GetCallbackResult()
+        {
+            // Get the feed
+            GetFeed();
+
+            // Process the feed
+            RssInfo info = ProcessFeed();
+
+            // Prepare the return value for the client
+            return RssHelpers.SerializeFeed(info);
+        }*/
 
 
         protected override void CreateChildControls()
@@ -82,7 +125,7 @@ namespace ParsnipControls
             butLogIn.Click += new EventHandler(this.butLogIn_Click);
             
 
-            indicator = new Label();
+            indicator = new Label() { Text = "Default indicator text" };
 
             void StyleTextBox(TextBox pTextBox)
             {

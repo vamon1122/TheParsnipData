@@ -1,6 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TheParsnipWeb.Default" %>
-
-<%@ Register Assembly="ParsnipControls" Namespace="ParsnipControls" TagPrefix="cc1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="TheParsnipWeb.Home" %>
 
 <!DOCTYPE html>
 
@@ -8,13 +6,10 @@
 <head runat="server">
     <title></title>
 </head>
-<body style="font-family:Verdana">
+<body>
     <form id="form1" runat="server">
         <h1>#TheParsnip</h1>
         <img src="https://ao.com/life/kitchen/kitchen-tips/vegetable-cookbook/images/main/parsnips.jpg" width="200" />
-        
-        <h1>Log In Barrier</h1>
-        <cc1:LogInControl ID="LogInControl1" runat="server" />
 
 
         <div>

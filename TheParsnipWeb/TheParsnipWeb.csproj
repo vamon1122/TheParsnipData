@@ -81,6 +81,7 @@
       <DependentUpon>ParsnipDb.mdf</DependentUpon>
     </Content>
     <Content Include="Default.aspx" />
+    <Content Include="Home.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -91,12 +92,23 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParsnipControls\ParsnipControls.csproj">
       <Project>{2a6f76ec-9afa-4e38-accf-9691e65c28c2}</Project>
       <Name>ParsnipControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UacApi\UacApi.csproj">
+      <Project>{cb9e3c22-c371-4e16-81d9-3b83a0efb355}</Project>
+      <Name>UacApi</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

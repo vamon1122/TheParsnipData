@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Web;
 
 namespace UacApi
 {
@@ -31,7 +32,136 @@ namespace UacApi
 
         private bool HasBeenInserted;
 
-        public bool LogIn(string pUsername, string pPwd)
+        public bool LogIn()
+        {
+            string[] Cookies = GetCookies();
+            string CookieUsername = Cookies[0];
+            string CookiePwd = Cookies[1];
+
+            if (String.IsNullOrEmpty(CookieUsername) || String.IsNullOrWhiteSpace(CookieUsername) || String.IsNullOrEmpty(CookiePwd) || String.IsNullOrWhiteSpace(CookiePwd))
+            {
+                return false;
+            }
+            else
+            {
+                if (LogIn(CookieUsername, false, CookiePwd, false))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
+
+        private string[] GetCookies()
+        {
+            HttpCookie userName;
+            HttpCookie userPwd;
+            string[] UserDetails = new string[2];
+
+            if (HttpContext.Current.Request.Cookies["userName"] != null)
+            {
+                userName = HttpContext.Current.Request.Cookies["userName"];
+                UserDetails[0] = userName.Value;
+            }
+            else
+            {
+                UserDetails[0] = "";
+            }
+
+            if (HttpContext.Current.Request.Cookies["userPwd"] != null)
+            {
+                userPwd = HttpContext.Current.Request.Cookies["userPwd"];
+                UserDetails[1] = userPwd.Value;
+            }
+            else
+            {
+                UserDetails[1] = "";
+            }
+
+            return UserDetails;
+        }
+         
+        private bool WritePermUserCookie(string pUsername)
+        {
+            if(WritePermCookie("userName", pUsername))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool WriteSessionPwdCookie(string pPwd)
+        {
+            if(WriteSessionCookie("userPwd", pPwd))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool WritePermCookie(string pName, string pVal)
+        {
+            try
+            {
+                HttpContext.Current.Response.Cookies[pName].Value = pVal;
+                HttpContext.Current.Response.Cookies[pName].Expires = DateTime.Now.AddDays(365);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool WriteSessionCookie(string pName, string pVal)
+        {
+            try
+            {
+                HttpContext.Current.Response.Cookies[pName].Value = pVal;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool WritePermUserTempPwdCookies(string pUsername, string pPwd)
+        {
+            if(WritePermUserCookie(pUsername) && WriteSessionPwdCookie(pPwd))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool WritePermCookies(string pUsername, string pPwd)
+        {
+            if(WritePermUserCookie(pUsername) &&
+            WritePermCookie("userPwd", pPwd))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
         {
             string dbPwd = null;
             username = pUsername;
