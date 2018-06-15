@@ -80,6 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.txt" />
+    <Content Include="AccessDenied.aspx" />
+    <Content Include="Admin.aspx" />
     <Content Include="App_Data\ParsnipDb.mdf" />
     <Content Include="App_Data\ParsnipDb_log.ldf">
       <DependentUpon>ParsnipDb.mdf</DependentUpon>
@@ -92,6 +94,20 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessDenied.aspx.cs">
+      <DependentUpon>AccessDenied.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccessDenied.aspx.designer.cs">
+      <DependentUpon>AccessDenied.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin.aspx.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin.aspx.designer.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
