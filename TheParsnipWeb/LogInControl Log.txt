@@ -3,3 +3,5 @@
 <info> 15/06/2018 14:52:55 - Login control was initialised
 <info> 15/06/2018 14:55:05 - Login control was initialised
 <info> 15/06/2018 15:00:40 - Login control was initialised
+<info> 15/06/2018 15:30:15 - Login control was initialised
+<info> 15/06/2018 18:06:51 - Login control was initialised

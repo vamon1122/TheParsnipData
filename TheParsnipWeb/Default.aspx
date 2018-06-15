@@ -10,10 +10,6 @@
 </head>
 <body style="font-family:Verdana">
     <form id="form1" runat="server">
-        
-        <h1>Log In Barrier</h1>
-        <cc1:LogInControl ID="LogInControl1" runat="server" />
-        <asp:Button runat="server" ID="MyTestButton" OnClick="MyTestButton_Click" />
     </form>
 </body>
 </html>

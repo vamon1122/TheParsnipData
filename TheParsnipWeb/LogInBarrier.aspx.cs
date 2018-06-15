@@ -41,7 +41,7 @@ namespace TheParsnipWeb
                 {
 
                     AccountLog.Warning("Input username was reset");
-                    inputUsername.Text = MyAccount.username;
+                    inputUsername.Text = MyAccount.Username;
 
                 }
             }
