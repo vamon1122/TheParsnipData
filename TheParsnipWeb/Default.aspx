@@ -10,16 +10,10 @@
 </head>
 <body style="font-family:Verdana">
     <form id="form1" runat="server">
-        <h1>#TheParsnip</h1>
-        <img src="https://ao.com/life/kitchen/kitchen-tips/vegetable-cookbook/images/main/parsnips.jpg" width="200" />
         
         <h1>Log In Barrier</h1>
         <cc1:LogInControl ID="LogInControl1" runat="server" />
-
-
-        <div>
-            Big Balls
-        </div>
+        <asp:Button runat="server" ID="MyTestButton" OnClick="MyTestButton_Click" />
     </form>
 </body>
 </html>

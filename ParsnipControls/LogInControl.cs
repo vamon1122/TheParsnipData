@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using UacApi;
+using BenLog;
 
 namespace ParsnipControls
 {
@@ -41,52 +42,46 @@ namespace ParsnipControls
         Label indicator;
 
         Account MyAccount;
+        LogWriter LogInControlLog;
 
-        string CookieUsername;
-        string CookiePwd;
-
-        LogInControl()
+        public LogInControl()
         {
-            if (MyAccount.LogIn())
-            {
-                if(LogIn(CookieUsername, CookiePwd))
-                {
-
-                }
-            }
-
+            LogInControlLog = new LogWriter("LogInControl Log.txt", AppDomain.CurrentDomain.BaseDirectory);
 
             
+            
+
+            LogInControlLog.Info("Login control was initialised");
         }
 
         private bool LogIn(string pUsername, string pPwd)
         {
-            MyAccount = new Account();
-            if (MyAccount.LogIn(pUsername, pPwd))
+            LogInControlLog.Info(String.Format("Attempting log in with details: Username = {0} Password = {1}", pUsername, pPwd));
+            //MyAccount = new Account();
+            if(MyAccount.LogIn(pUsername, true, pPwd, false))
             {
-                Response.Cookies["userName"].Value = "patrick";
-                Response.Cookies["userName"].Expires = DateTime.Now.AddDays(1);
-
-                HttpCookie aCookie = new HttpCookie("lastVisit");
-                aCookie.Value = DateTime.Now.ToString();
-                aCookie.Expires = DateTime.Now.AddDays(1);
-                Response.Cookies.Add(aCookie);
-
-                indicator.ForeColor = System.Drawing.Color.Green;
-                indicator.Text = "Logged in succeeded!";
+                LogInControlLog.Info(String.Format("Successfully logged in  with details: Username = {0} Password = {1}", pUsername, pPwd));
                 return true;
             }
             else
             {
-                indicator.ForeColor = System.Drawing.Color.Red;
-                indicator.Text = "Logged in falied";
+                LogInControlLog.Info(String.Format("Failed to log in with details: Username = {0} Password = {1}", pUsername, pPwd));
                 return false;
             }
+            
         }
 
-        void butLogIn_Click(Object sender, EventArgs e)
+        void ButLogIn_Click(object sender, EventArgs e)
         {
-            LogIn(inUsername.Text, inPwd.Text);
+            LogInControlLog.Info("LogIn buton was clicked! Attempting LogIn...");
+            if (LogIn(inUsername.Text, inPwd.Text))
+            {
+                LogInControlLog.Info("LogIn buton was clicked! Log in was successful!");
+            }
+            else
+            {
+                LogInControlLog.Info("LogIn buton was clicked! Log in was unsuccessful.");
+            }
             //Do callbacks https://msdn.microsoft.com/en-us/library/aa479299.aspx
         }
 
@@ -111,19 +106,28 @@ namespace ParsnipControls
 
         protected override void CreateChildControls()
         {
-            
+
+            MyAccount = new Account();
+
+            MyAccount.LogIn();
 
             title = new Label() { Text = "Log In" };
 
             inUsername = new TextBox();
+            if(MyAccount.username != null && !String.IsNullOrEmpty(MyAccount.username) && !String.IsNullOrWhiteSpace(MyAccount.username)){
+                inUsername.Text = MyAccount.username;
+            }
             StyleTextBox(inUsername);
 
             inPwd = new TextBox();
             StyleTextBox(inPwd);
 
             butLogIn = new Button() { Text = "Log In" };
-            butLogIn.Click += new EventHandler(this.butLogIn_Click);
+            butLogIn.Click += new EventHandler(ButLogIn_Click);
+            LogInControlLog.Info("Event handler was appended to butLogIn");
+
             
+
 
             indicator = new Label() { Text = "Default indicator text" };
 

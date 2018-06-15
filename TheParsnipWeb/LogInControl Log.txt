@@ -1,0 +1,5 @@
+<info> 15/06/2018 14:52:55 - You are using BenLog 1.3!
+<info> 15/06/2018 14:52:55 - Log "LogInControl Log.txt" did not exist. Log has been created
+<info> 15/06/2018 14:52:55 - Login control was initialised
+<info> 15/06/2018 14:55:05 - Login control was initialised
+<info> 15/06/2018 15:00:40 - Login control was initialised

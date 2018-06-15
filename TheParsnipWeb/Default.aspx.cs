@@ -12,9 +12,30 @@ namespace TheParsnipWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if()
+            Account MyAccount = new Account();
+
+            /*if (MyAccount.LogIn("vamon1122", true, "BBTbbt1704",false))
+            {
+                Response.Redirect("Home.aspx");
+            }
+             else
+            {
+                Response.Redirect("LogInBarrier.aspx");
+            }*/
+
+            if (MyAccount.LogIn())
+            {
+                Response.Redirect("Home.aspx");
+            }
+            else
+            {
+                Response.Redirect("LogInBarrier.aspx");
+            }
         }
 
-        
+        protected void MyTestButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

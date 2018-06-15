@@ -11,6 +11,7 @@
         <h1>#TheParsnip</h1>
         <img src="https://ao.com/life/kitchen/kitchen-tips/vegetable-cookbook/images/main/parsnips.jpg" width="200" />
 
+        <asp:Label runat="server" ID="WelcomeLabel"></asp:Label>
 
         <div>
             Big Balls
