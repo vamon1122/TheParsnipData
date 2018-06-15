@@ -5,12 +5,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="ParsnipStyle.css" />
 </head>
 <body>
-    <form id="form1" runat="server">
-        <div>
-            <h1>Admin</h1>
-        </div>
+    <div>
+        <h1>Admin</h1>
+    </div>
+    <form id="CreateUser" runat="server">
+        <h2>Create User</h2>
+        <label></label>
     </form>
 </body>
 </html>

@@ -327,3 +327,115 @@
 <debug> 15/06/2018 21:48:44 - username = jbloggs
 <debug> 15/06/2018 21:48:44 - [LogIn] Set LastLogIn successfully! 1 records were affected.
 <info> 15/06/2018 21:48:44 - [LogIn] Logged in successfully!
+<info> 15/06/2018 21:52:25 - Getting user details from cookies...
+<debug> 15/06/2018 21:52:25 - Found a username cookie! Username = jbloggs
+<debug> 15/06/2018 21:52:25 - No password cookie was found.
+<info> 15/06/2018 21:52:25 - Returning user details from cookies.
+<warning> 15/06/2018 21:52:25 - PAGE IS BEING LOADED
+<info> 15/06/2018 21:52:25 - Getting user details from cookies...
+<debug> 15/06/2018 21:52:25 - Found a username cookie! Username = jbloggs
+<debug> 15/06/2018 21:52:25 - No password cookie was found.
+<info> 15/06/2018 21:52:25 - Returning user details from cookies.
+<warning> 15/06/2018 21:52:25 - Input username was reset
+<warning> 15/06/2018 21:52:30 - PAGE IS BEING LOADED
+<warning> 15/06/2018 21:52:30 - Button Was clicked!
+<info> 15/06/2018 21:52:30 - [LogIn] Logging in with Username = jbloggs & Pwd = password...
+<debug> 15/06/2018 21:52:30 - [LogIn] Sql connection opened succesfully!
+<debug> 15/06/2018 21:52:30 - [LogIn] Attempting to get password from database...
+<debug> 15/06/2018 21:52:30 - [LogIn] Got password from database successfully!
+<debug> 15/06/2018 21:52:30 - [LogIn] DbPwd == Pwd (password == password)
+<debug> 15/06/2018 21:52:30 - [LogIn] Attempting to get user details...
+<debug> 15/06/2018 21:52:31 - [LogIn] Got user's details successfully!
+<debug> 15/06/2018 21:52:31 - [LogIn] RememberUsername = true. Writing permanent username cookie (userName = jbloggs)
+<info> 15/06/2018 21:52:31 - Attempting to write permanant userName cookie...
+<info> 15/06/2018 21:52:31 - Permanent userName cookie (userName = jbloggs) was written successfully!
+<debug> 15/06/2018 21:52:31 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = jbloggs)
+<info> 15/06/2018 21:52:31 - Attempting to write session userPwd cookie...
+<info> 15/06/2018 21:52:31 - Session userPwd cookie (userPwd = password) was written successfully!
+<debug> 15/06/2018 21:52:31 - [LogIn] Attempting to set LastLogIn...
+<debug> 15/06/2018 21:52:31 - username = jbloggs
+<debug> 15/06/2018 21:52:31 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 15/06/2018 21:52:31 - [LogIn] Logged in successfully!
+<info> 15/06/2018 21:52:31 - Getting user details from cookies...
+<debug> 15/06/2018 21:52:31 - Found a username cookie! Username = jbloggs
+<debug> 15/06/2018 21:52:31 - Found a password cookie! Password = password
+<info> 15/06/2018 21:52:31 - Returning user details from cookies.
+<info> 15/06/2018 21:52:31 - [LogIn] Logging in with Username = jbloggs & Pwd = password...
+<debug> 15/06/2018 21:52:31 - [LogIn] Sql connection opened succesfully!
+<debug> 15/06/2018 21:52:31 - [LogIn] Attempting to get password from database...
+<debug> 15/06/2018 21:52:31 - [LogIn] Got password from database successfully!
+<debug> 15/06/2018 21:52:31 - [LogIn] DbPwd == Pwd (password == password)
+<debug> 15/06/2018 21:52:31 - [LogIn] Attempting to get user details...
+<debug> 15/06/2018 21:52:31 - [LogIn] Got user's details successfully!
+<debug> 15/06/2018 21:52:31 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = jbloggs)
+<info> 15/06/2018 21:52:31 - Attempting to write session userPwd cookie...
+<info> 15/06/2018 21:52:31 - Session userPwd cookie (userPwd = password) was written successfully!
+<debug> 15/06/2018 21:52:31 - [LogIn] Attempting to set LastLogIn...
+<debug> 15/06/2018 21:52:31 - username = jbloggs
+<debug> 15/06/2018 21:52:31 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 15/06/2018 21:52:31 - [LogIn] Logged in successfully!
+<info> 15/06/2018 21:52:31 - Getting user details from cookies...
+<debug> 15/06/2018 21:52:31 - Found a username cookie! Username = jbloggs
+<debug> 15/06/2018 21:52:31 - Found a password cookie! Password = password
+<info> 15/06/2018 21:52:31 - Returning user details from cookies.
+<info> 15/06/2018 21:52:31 - [LogIn] Logging in with Username = jbloggs & Pwd = password...
+<debug> 15/06/2018 21:52:31 - [LogIn] Sql connection opened succesfully!
+<debug> 15/06/2018 21:52:31 - [LogIn] Attempting to get password from database...
+<debug> 15/06/2018 21:52:31 - [LogIn] Got password from database successfully!
+<debug> 15/06/2018 21:52:31 - [LogIn] DbPwd == Pwd (password == password)
+<debug> 15/06/2018 21:52:31 - [LogIn] Attempting to get user details...
+<debug> 15/06/2018 21:52:31 - [LogIn] Got user's details successfully!
+<debug> 15/06/2018 21:52:31 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = jbloggs)
+<info> 15/06/2018 21:52:31 - Attempting to write session userPwd cookie...
+<info> 15/06/2018 21:52:31 - Session userPwd cookie (userPwd = password) was written successfully!
+<debug> 15/06/2018 21:52:31 - [LogIn] Attempting to set LastLogIn...
+<debug> 15/06/2018 21:52:31 - username = jbloggs
+<debug> 15/06/2018 21:52:31 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 15/06/2018 21:52:31 - [LogIn] Logged in successfully!
+<info> 15/06/2018 21:52:39 - Getting user details from cookies...
+<debug> 15/06/2018 21:52:39 - Found a username cookie! Username = jbloggs
+<debug> 15/06/2018 21:52:39 - No password cookie was found.
+<info> 15/06/2018 21:52:39 - Returning user details from cookies.
+<warning> 15/06/2018 21:52:39 - PAGE IS BEING LOADED
+<info> 15/06/2018 21:52:40 - Getting user details from cookies...
+<debug> 15/06/2018 21:52:40 - Found a username cookie! Username = jbloggs
+<debug> 15/06/2018 21:52:40 - No password cookie was found.
+<info> 15/06/2018 21:52:40 - Returning user details from cookies.
+<warning> 15/06/2018 21:52:40 - Input username was reset
+<warning> 15/06/2018 21:52:52 - PAGE IS BEING LOADED
+<warning> 15/06/2018 21:52:52 - Button Was clicked!
+<info> 15/06/2018 21:52:52 - [LogIn] Logging in with Username = graystomizer & Pwd = P4ssw0rd...
+<debug> 15/06/2018 21:52:52 - [LogIn] Sql connection opened succesfully!
+<debug> 15/06/2018 21:52:52 - [LogIn] Attempting to get password from database...
+<debug> 15/06/2018 21:52:52 - [LogIn] Got password from database successfully!
+<debug> 15/06/2018 21:52:52 - [LogIn] DbPwd == Pwd (P4ssw0rd == P4ssw0rd)
+<debug> 15/06/2018 21:52:52 - [LogIn] Attempting to get user details...
+<debug> 15/06/2018 21:52:52 - [LogIn] Got user's details successfully!
+<debug> 15/06/2018 21:52:52 - [LogIn] RememberUsername = true. Writing permanent username cookie (userName = graystomizer)
+<info> 15/06/2018 21:52:52 - Attempting to write permanant userName cookie...
+<info> 15/06/2018 21:52:52 - Permanent userName cookie (userName = graystomizer) was written successfully!
+<debug> 15/06/2018 21:52:52 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = graystomizer)
+<info> 15/06/2018 21:52:52 - Attempting to write session userPwd cookie...
+<info> 15/06/2018 21:52:52 - Session userPwd cookie (userPwd = P4ssw0rd) was written successfully!
+<debug> 15/06/2018 21:52:52 - [LogIn] Attempting to set LastLogIn...
+<debug> 15/06/2018 21:52:52 - username = graystomizer
+<debug> 15/06/2018 21:52:52 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 15/06/2018 21:52:52 - [LogIn] Logged in successfully!
+<info> 15/06/2018 21:52:52 - Getting user details from cookies...
+<debug> 15/06/2018 21:52:52 - Found a username cookie! Username = graystomizer
+<debug> 15/06/2018 21:52:52 - Found a password cookie! Password = P4ssw0rd
+<info> 15/06/2018 21:52:52 - Returning user details from cookies.
+<info> 15/06/2018 21:52:52 - [LogIn] Logging in with Username = graystomizer & Pwd = P4ssw0rd...
+<debug> 15/06/2018 21:52:52 - [LogIn] Sql connection opened succesfully!
+<debug> 15/06/2018 21:52:52 - [LogIn] Attempting to get password from database...
+<debug> 15/06/2018 21:52:52 - [LogIn] Got password from database successfully!
+<debug> 15/06/2018 21:52:52 - [LogIn] DbPwd == Pwd (P4ssw0rd == P4ssw0rd)
+<debug> 15/06/2018 21:52:52 - [LogIn] Attempting to get user details...
+<debug> 15/06/2018 21:52:52 - [LogIn] Got user's details successfully!
+<debug> 15/06/2018 21:52:52 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = graystomizer)
+<info> 15/06/2018 21:52:52 - Attempting to write session userPwd cookie...
+<info> 15/06/2018 21:52:52 - Session userPwd cookie (userPwd = P4ssw0rd) was written successfully!
+<debug> 15/06/2018 21:52:52 - [LogIn] Attempting to set LastLogIn...
+<debug> 15/06/2018 21:52:52 - username = graystomizer
+<debug> 15/06/2018 21:52:52 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 15/06/2018 21:52:52 - [LogIn] Logged in successfully!
