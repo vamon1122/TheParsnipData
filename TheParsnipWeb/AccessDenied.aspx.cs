@@ -18,7 +18,7 @@ namespace TheParsnipWeb
             
             if (Request.QueryString["url"] != null)
             {
-                if (!MyAccount.LogIn())
+                if (MyAccount.LogIn())
                 {
                     Info.Text = String.Format("You aren't allowed to visit \"{0}\". Nice try {1}...", Request.QueryString["url"], MyAccount.Fname);
                 }
