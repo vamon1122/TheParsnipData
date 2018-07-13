@@ -1,14 +1,14 @@
 ﻿using System;
+using UacApi;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UacApi;
 
 namespace TheParsnipWeb
 {
-    public partial class Home : System.Web.UI.Page
+    public partial class minecraft : System.Web.UI.Page
     {
         private Account MyAccount;
         protected void Page_Load(object sender, EventArgs e)
@@ -16,11 +16,11 @@ namespace TheParsnipWeb
             MyAccount = new Account();
             if (!MyAccount.LogIn())
             {
-                Response.Redirect("login.aspx?url=home.aspx");
+                Response.Redirect("login.aspx?url=minecraft.aspx");
             }
             else
             {
-                WelcomeLabel.Text = String.Format("Welcome back {0}!", MyAccount.Fname);
+
             }
         }
     }

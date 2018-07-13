@@ -8,19 +8,20 @@ using UacApi;
 
 namespace TheParsnipWeb
 {
-    public partial class Home : System.Web.UI.Page
+    public partial class Admin : System.Web.UI.Page
     {
-        private Account MyAccount;
+        Account MyAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
             MyAccount = new Account();
             if (!MyAccount.LogIn())
             {
-                Response.Redirect("login.aspx?url=home.aspx");
+                Response.Redirect("LogInBarrier.aspx?url=Admin.aspx");
             }
-            else
+
+            if(MyAccount.AccountType != "admin")
             {
-                WelcomeLabel.Text = String.Format("Welcome back {0}!", MyAccount.Fname);
+                Response.Redirect("AccessDenied.aspx?url=Admin.aspx");
             }
         }
     }

@@ -1,8 +1,11 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%; width: 99%;">
-<head>
-    <link id="link_style" rel="stylesheet" type="text/css" href="../CSS/old/style.css">
-    <link id="link_style" rel="stylesheet" type="text/css" href="../CSS/style.css">
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="minecraft.aspx.cs" Inherits="TheParsnipWeb.minecraft" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link rel="stylesheet" type="text/css" href="../CSS/old/style.css" />
+    <link rel="stylesheet" type="text/css" href="../CSS/style.css" />
     <title>Minecraft</title>
 </head>
 <body class="fade0p5" id="body">

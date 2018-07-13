@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="NotTheHomePage.aspx.cs" Inherits="TheParsnipWeb.NotTheHomePage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="access-denied.aspx.cs" Inherits="TheParsnipWeb.AccessDenied" %>
 
 <!DOCTYPE html>
 
@@ -10,7 +10,8 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            THIS IS NOT THE HOME PAGE!!!
+            <h1>Pfft... Bitch please...</h1>
+            <asp:Label runat="server" ID="Info"></asp:Label>
         </div>
     </form>
 </body>

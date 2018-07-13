@@ -1,9 +1,12 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%; width: 99%;">
-<head>
-    <link id="link_style" rel="stylesheet" type="text/css" href="../CSS/old/style.css">
-    <link id="link_style" rel="stylesheet" type="text/css" href="../CSS/style.css">
-    <title></title>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="photos.aspx.cs" Inherits="TheParsnipWeb.photos" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link rel="stylesheet" type="text/css" href="../CSS/old/style.css" />
+    <link rel="stylesheet" type="text/css" href="../CSS/style.css" />
+    <title>Photos</title>
 </head>
 <body class="fade0p5" id="body">
     <label class="censored" id="pageId">photos.html</label>

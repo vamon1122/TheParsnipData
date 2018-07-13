@@ -45,12 +45,12 @@ else{
 }
 
 /////Buttons/////
-createButton("Home", "home.html");
-createButton("Videos", "youtube.html");
-createButton("Memes", "memes.html");
-createButton("Photos", "photos.html");
-createButton("Minecraft", "minecraft.html");
-createButton("Bios", "bios.html");
+createButton("Home", "home.aspx");
+createButton("Videos", "youtube.aspx");
+createButton("Memes", "memes.aspx");
+createButton("Photos", "photos.aspx");
+createButton("Minecraft", "minecraft.aspx");
+createButton("Bios", "bios.aspx");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //document.getElementById("body").style.backgroundColor = "white";
@@ -186,7 +186,7 @@ function funcCreateButton(title, href) {
     var buttAnk = document.createElement("a");
     buttAnk.style.color = fontCol;
     buttAnk.innerHTML = title;
-    buttAnk.href = href;
+    buttAnk.href = "LogInBarrier.aspx?url=" + href;
     buttAnk.style.width = "100%";
     buttAnk.style.padding = "0px"
     buttAnk.style.textDecoration = "none";

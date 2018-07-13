@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserForm.ascx.cs" Inherits="TheParsnipWeb.UserForm" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="user-form.ascx.cs" Inherits="TheParsnipWeb.UserForm" %>
 <link rel="stylesheet" type="text/css" href="ParsnipStyle.css" />
 
 

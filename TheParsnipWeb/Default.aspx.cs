@@ -25,11 +25,11 @@ namespace TheParsnipWeb
 
             if (MyAccount.LogIn())
             {
-                Response.Redirect("Home.aspx");
+                Response.Redirect("home.aspx");
             }
             else
             {
-                Response.Redirect("LogInBarrier.aspx");
+                Response.Redirect("login.aspx");
             }
         }
 

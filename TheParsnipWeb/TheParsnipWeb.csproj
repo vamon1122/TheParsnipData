@@ -70,8 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Patterns 2\LICENCE\LICENCE as of 19.04.16.rtf" />
-    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\Publish To Folder.pubxml" />
+    <None Include="Properties\PublishProfiles\Publish To Live.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -80,9 +80,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.txt" />
-    <Content Include="AccessDenied.aspx" />
-    <Content Include="Admin.aspx" />
+    <Content Include="access-denied.aspx" />
+    <Content Include="admin.aspx" />
     <Content Include="admin\adminPage\CSS\admin_m_style.css" />
     <Content Include="admin\adminPage\CSS\admin_style.css" />
     <Content Include="admin\adminPage\html\admin.html" />
@@ -108,224 +107,23 @@
     <Content Include="App_Data\ParsnipDb_log.ldf">
       <DependentUpon>ParsnipDb.mdf</DependentUpon>
     </Content>
-    <Content Include="bios.html" />
-    <Content Include="Camping.html" />
-    <Content Include="Carl%27s Bullshit.html" />
-    <Content Include="content removal.html" />
+    <Content Include="bios.aspx" />
+    <Content Include="carls-bullshit.html" />
+    <Content Include="content-removal.html" />
     <Content Include="CSS\old\m_style.css" />
     <Content Include="CSS\old\style.css" />
     <Content Include="CSS\style-BRANSON.css" />
     <Content Include="CSS\style.css" />
-    <Content Include="Default.aspx" />
+    <Content Include="default.aspx" />
     <Content Include="downloads\#TheParsnipRemix2016.mp3" />
-    <Content Include="Home.aspx" />
-    <Content Include="home.html" />
-    <Content Include="index.html" />
+    <Content Include="home.aspx" />
     <Content Include="javascript\menu.js" />
     <Content Include="javascript\old\globalBody.js" />
     <Content Include="Links.txt" />
-    <Content Include="LogInBarrier.aspx" />
-    <Content Include="memes.html" />
-    <Content Include="minecraft.html" />
-    <Content Include="NotTheHomePage.aspx" />
+    <Content Include="login.aspx" />
+    <Content Include="memes.aspx" />
+    <Content Include="minecraft.aspx" />
     <Content Include="ParsnipStyle.css" />
-    <Content Include="Patterns 2\Black &amp; White\128-162.jpg" />
-    <Content Include="Patterns 2\Black &amp; White\128-192.jpg" />
-    <Content Include="Patterns 2\Black &amp; White\128-215.jpg" />
-    <Content Include="Patterns 2\Black &amp; White\128-219.jpg" />
-    <Content Include="Patterns 2\Black &amp; White\brickwall.png" />
-    <Content Include="Patterns 2\Black &amp; White\brickwall_%402X.png" />
-    <Content Include="Patterns 2\Black &amp; White\grey linen.jpg" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-11c.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-14a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-19c.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-2.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-20d.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-22a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-31a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-34a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-34b.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-34c.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-36.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-37b.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-4.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-42a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-4a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-52a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-52b.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-52c.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-55b.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-57a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-57b.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-5a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-5b.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-5c.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-5d.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-5e.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-5f.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-5g.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-61a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-64a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-71a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-71b.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-76b.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-8b.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-geo-1a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-geo-1b.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-geo-1c.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern-zebra-1a.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern53b.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern53c.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern70b.png" />
-    <Content Include="Patterns 2\Black &amp; White\pattern8-pattern70c.png" />
-    <Content Include="Patterns 2\Black &amp; White\website-analytics.png" />
-    <Content Include="Patterns 2\Black &amp; White\white cubes.jpg" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-010.gif" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-015.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-03.gif" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-05.gif" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-07.gif" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-12b.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-15a.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-24a.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-26b.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-28c.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-31c.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-35b.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-37c.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-43a.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-44a.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-49a.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-54b.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-56c.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-58b.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-58c.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-61b.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-71c.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-76a.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-7a.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern-camo-1b.png" />
-    <Content Include="Patterns 2\Blue\pattern8-pattern53a.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-01.gif" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-013.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-04.gif" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-08.gif" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-09.gif" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-10b.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-11a.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-19c.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-20c.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-22c.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-23a.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-23b.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-23c.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-25a.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-3.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-38a.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-40b.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-47c.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-51a.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-54c.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-58a.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-61c.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-72a.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-76a.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-76c.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-8c.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-camo-1a.png" />
-    <Content Include="Patterns 2\Brown\pattern8-pattern-camo-1c.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-012.gif" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-06.gif" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-10a.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-10c.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-16a.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-17a.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-17c.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-18a.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-19b.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-20a.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-21a.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-22b.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-24b.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-25b.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-31b.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-40b.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-41a.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-47a.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-56a.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-71c.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-74c.png" />
-    <Content Include="Patterns 2\Green\pattern8-pattern-camo-1a.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-014.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-14b.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-14c.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-16b.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-20d.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-21b.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-28b.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-34c.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-40a.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-54a.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-58c.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-5g.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-63a.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-63b.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-63c.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern-64a.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern53c.png" />
-    <Content Include="Patterns 2\Grey\pattern8-pattern70b.png" />
-    <Content Include="Patterns 2\LICENCE\Evidence 1.PNG" />
-    <Content Include="Patterns 2\LICENCE\Evidence 2.PNG" />
-    <Content Include="Patterns 2\Multicolor\pattern8-pattern-26a.png" />
-    <Content Include="Patterns 2\Multicolor\pattern8-pattern-26c.png" />
-    <Content Include="Patterns 2\Multicolor\pattern8-pattern-35a.png" />
-    <Content Include="Patterns 2\Multicolor\pattern8-pattern-72b.png" />
-    <Content Include="Patterns 2\Multicolor\pattern8-pattern-72c.png" />
-    <Content Include="Patterns 2\Multicolor\pattern8-pattern-73a.png" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-01.gif" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-10b.png" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-17b.png" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-19a.png" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-20b.png" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-21c.png" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-23a.png" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-28a.png" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-37a.png" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-55a.png" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-55c.png" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-73a.png" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-73b.png" />
-    <Content Include="Patterns 2\Orange\pattern8-pattern-73c.png" />
-    <Content Include="Patterns 2\Pink\pattern8-pattern-011.gif" />
-    <Content Include="Patterns 2\Pink\pattern8-pattern-12a.png" />
-    <Content Include="Patterns 2\Pink\pattern8-pattern-15b.png" />
-    <Content Include="Patterns 2\Pink\pattern8-pattern-6a.png" />
-    <Content Include="Patterns 2\Pink\pattern8-pattern-6b.png" />
-    <Content Include="Patterns 2\Pink\pattern8-pattern-6c.png" />
-    <Content Include="Patterns 2\Pink\pattern8-pattern-zebra-1c.png" />
-    <Content Include="Patterns 2\Pink\pattern8-pattern70a.png" />
-    <Content Include="Patterns 2\Purple\pattern8-pattern-16c.png" />
-    <Content Include="Patterns 2\Purple\pattern8-pattern-18c.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-016.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-02.gif" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-18b.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-24c.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-25c.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-30.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-35c.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-40c.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-47b.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-73a.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-73b.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-73c.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-74a.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-74b.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-74c.png" />
-    <Content Include="Patterns 2\Red\pattern8-pattern-8a.png" />
-    <Content Include="Patterns 2\Yellow\pattern8-pattern-11b.png" />
-    <Content Include="Patterns 2\Yellow\pattern8-pattern-12c.png" />
-    <Content Include="Patterns 2\Yellow\pattern8-pattern-15c.png" />
-    <Content Include="Patterns 2\Yellow\pattern8-pattern-zebra-1b.png" />
     <Content Include="Patterns\parsnip.png" />
     <Content Include="Patterns\pattern_black.rose.png" />
     <Content Include="Patterns\pattern_black1.png" />
@@ -335,7 +133,7 @@
     <Content Include="Patterns\pattern_black4.jpeg" />
     <Content Include="Patterns\pattern_grey1.jpeg" />
     <Content Include="Patterns\pattern_white1.png" />
-    <Content Include="photos.html" />
+    <Content Include="photos.aspx" />
     <Content Include="Photos\Bios\Fat Kieron.JPG" />
     <Content Include="Photos\Bios\Kieron_chat.PNG" />
     <Content Include="Photos\Bullshit\_Carl Bullshit.jpg" />
@@ -389,62 +187,96 @@
     <Content Include="Photos\Photos\tom_2.JPG" />
     <Content Include="Photos\Photos\tom_glasses.JPG" />
     <Content Include="rounded.png" />
-    <Content Include="UserForm.ascx" />
+    <Content Include="user-form.ascx" />
     <Content Include="Web.config" />
-    <Content Include="youtube.html" />
-    <Content Include="_template.html" />
-    <Content Include="__admin.html" />
+    <Content Include="youtube.aspx" />
+    <Content Include="_TEMPLATE.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessDenied.aspx.cs">
-      <DependentUpon>AccessDenied.aspx</DependentUpon>
+    <Compile Include="access-denied.aspx.cs">
+      <DependentUpon>access-denied.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AccessDenied.aspx.designer.cs">
-      <DependentUpon>AccessDenied.aspx</DependentUpon>
+    <Compile Include="access-denied.aspx.designer.cs">
+      <DependentUpon>access-denied.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin.aspx.cs">
-      <DependentUpon>Admin.aspx</DependentUpon>
+    <Compile Include="admin.aspx.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin.aspx.designer.cs">
-      <DependentUpon>Admin.aspx</DependentUpon>
+    <Compile Include="admin.aspx.designer.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="bios.aspx.cs">
+      <DependentUpon>bios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="bios.aspx.designer.cs">
+      <DependentUpon>bios.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Home.aspx.cs">
-      <DependentUpon>Home.aspx</DependentUpon>
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Home.aspx.designer.cs">
-      <DependentUpon>Home.aspx</DependentUpon>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="LogInBarrier.aspx.cs">
-      <DependentUpon>LogInBarrier.aspx</DependentUpon>
+    <Compile Include="home.aspx.cs">
+      <DependentUpon>home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="LogInBarrier.aspx.designer.cs">
-      <DependentUpon>LogInBarrier.aspx</DependentUpon>
+    <Compile Include="home.aspx.designer.cs">
+      <DependentUpon>home.aspx</DependentUpon>
     </Compile>
-    <Compile Include="NotTheHomePage.aspx.cs">
-      <DependentUpon>NotTheHomePage.aspx</DependentUpon>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="NotTheHomePage.aspx.designer.cs">
-      <DependentUpon>NotTheHomePage.aspx</DependentUpon>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="memes.aspx.cs">
+      <DependentUpon>memes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="memes.aspx.designer.cs">
+      <DependentUpon>memes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="minecraft.aspx.cs">
+      <DependentUpon>minecraft.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="minecraft.aspx.designer.cs">
+      <DependentUpon>minecraft.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="photos.aspx.cs">
+      <DependentUpon>photos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="photos.aspx.designer.cs">
+      <DependentUpon>photos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserForm.ascx.cs">
-      <DependentUpon>UserForm.ascx</DependentUpon>
+    <Compile Include="user-form.ascx.cs">
+      <DependentUpon>user-form.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserForm.ascx.designer.cs">
-      <DependentUpon>UserForm.ascx</DependentUpon>
+    <Compile Include="user-form.ascx.designer.cs">
+      <DependentUpon>user-form.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="youtube.aspx.cs">
+      <DependentUpon>youtube.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="youtube.aspx.designer.cs">
+      <DependentUpon>youtube.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_TEMPLATE.aspx.cs">
+      <DependentUpon>_TEMPLATE.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="_TEMPLATE.aspx.designer.cs">
+      <DependentUpon>_TEMPLATE.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

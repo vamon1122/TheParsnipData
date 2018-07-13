@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LogInBarrier.aspx.cs" Inherits="TheParsnipWeb.LogInBarrier" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="TheParsnipWeb.LogInBarrier" %>
 
 <!DOCTYPE html>
 
