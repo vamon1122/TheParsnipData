@@ -79,6 +79,7 @@ namespace UacApi
             return UserDetails;
         }
          
+        /*
         private bool WritePermUserCookie(string pUsername)
         {
             if(WritePermCookie("userName", pUsername))
@@ -91,6 +92,7 @@ namespace UacApi
             }
         }
 
+        
         private bool WriteSessionPwdCookie(string pPwd)
         {
             if (WriteSessionCookie("userPwd", pPwd))
@@ -102,6 +104,7 @@ namespace UacApi
                 return false;
             }
         }
+        */
 
         private bool WritePermCookie(string pName, string pVal)
         {
@@ -136,6 +139,7 @@ namespace UacApi
             }
         }
 
+        /*
         private bool WritePermUserTempPwdCookies(string pUsername, string pPwd)
         {
             if(WritePermUserCookie(pUsername) && WriteSessionPwdCookie(pPwd))
@@ -160,7 +164,7 @@ namespace UacApi
                 return false;
             }
         }
-
+        */
 
         public bool LogIn()
         {
@@ -168,6 +172,9 @@ namespace UacApi
             string CookieUsername = Cookies[0];
             Username = Cookies[0];
             string CookiePwd = Cookies[1];
+
+            System.Diagnostics.Debug.WriteLine("CookieUsername = " + CookieUsername);
+            System.Diagnostics.Debug.WriteLine("CookiePwd = " + CookiePwd);
 
             if (String.IsNullOrEmpty(CookieUsername) || String.IsNullOrWhiteSpace(CookieUsername) || String.IsNullOrEmpty(CookiePwd) || String.IsNullOrWhiteSpace(CookiePwd))
             {
@@ -210,18 +217,33 @@ namespace UacApi
                         if (pRememberUsername)
                         {
                             AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
-                            WritePermUserCookie(pUsername);
+                            System.Diagnostics.Debug.WriteLine("Username permanently remembered!");
+                            WritePermCookie("userName", pUsername);
                         }
 
                         if (pRememberPwd)
                         {
                             AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
+                            System.Diagnostics.Debug.WriteLine("Password permanently remembered!");
                             WritePermCookie("userPwd", pPwd);
+                            System.Diagnostics.Debug.WriteLine("PERMANENT Password cookie = " + GetCookies()[1]); 
                         }
                         else
                         {
-                            AccountLog.Debug(String.Format("[LogIn] RememberPassword = false. Writing session password cookie (userPwd = {0})", pUsername));
-                            WriteSessionPwdCookie(pPwd);
+                            AccountLog.Debug(String.Format("[LogIn] RememberPassword = false. Writing session password cookie (userPwd = {0})", pPwd));
+                            if(GetCookies()[1] == pPwd)
+                            {
+                                AccountLog.Debug(String.Format("[LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.", pPwd));
+                            }
+                            else
+                            {
+                                AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
+                                WriteSessionCookie("userPwd", pPwd);
+                                AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
+                                System.Diagnostics.Debug.WriteLine("Password stored for SESSION ONLY.");
+                            }
+                            
+                            
                         }
 
                         if (SetLastLogIn())
@@ -369,6 +391,21 @@ namespace UacApi
                     return true;
                 }
             }
+        }
+
+        public bool LogOut()
+        {
+            try
+            {
+                WriteSessionCookie("userName", "");
+                WriteSessionCookie("userPwd", "");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            
         }
 
         public bool DbUpdate()

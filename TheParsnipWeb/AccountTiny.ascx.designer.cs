@@ -10,24 +10,24 @@
 namespace TheParsnipWeb {
     
     
-    public partial class Home {
+    public partial class AccountTiny {
         
         /// <summary>
-        /// WelcomeLabel control.
+        /// Name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label WelcomeLabel;
+        protected global::System.Web.UI.WebControls.Label Name;
         
         /// <summary>
-        /// AccountTiny control.
+        /// LogOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::TheParsnipWeb.AccountTiny AccountTiny;
+        protected global::System.Web.UI.WebControls.Button LogOut;
     }
 }

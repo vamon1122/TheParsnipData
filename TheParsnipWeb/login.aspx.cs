@@ -50,7 +50,10 @@ namespace TheParsnipWeb
         protected void ButLogIn_Click(object sender, EventArgs e)
         {
             AccountLog.Warning("Button Was clicked!");
-            if(MyAccount.LogIn(inputUsername.Text, true, inputPwd.Text, false))
+
+            System.Diagnostics.Debug.WriteLine("CheckBox = " + RememberPwd.Checked);
+
+            if (MyAccount.LogIn(inputUsername.Text, true, inputPwd.Text, RememberPwd.Checked))
             {
                 Response.Redirect(Redirect);
             }

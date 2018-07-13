@@ -1,3 +1,17 @@
 ﻿body {
     font-family: Verdana;
 }
+
+input[type=text].login, input[type=password].login {
+    border-radius: 3px;
+    background-color: lightgoldenrodyellow;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+    line-height: 20px;
+}
+
+input[type=submit].login {
+    border-radius: 3px;
+    padding: 5px;
+}

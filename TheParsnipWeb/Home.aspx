@@ -1,4 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="home.aspx.cs" Inherits="TheParsnipWeb.Home" %>
+<%@ Register Src="~/AccountTiny.ascx" TagPrefix="uc1" TagName="AccountTiny" %>
+
+
 
 <!DOCTYPE html>
 
@@ -46,6 +49,10 @@
 
     <h2>Home</h2>
     <asp:Label runat="server" ID="WelcomeLabel"></asp:Label>
+    
+    <div style="position:fixed; top:100px; right:0px;">
+    <uc1:AccountTiny runat="server" id="AccountTiny" />
+        </div>
     <!--LATEST VIDEO START-->
     <hr class="break" />
     <div id="latestVideo" style="width:100%"></div>

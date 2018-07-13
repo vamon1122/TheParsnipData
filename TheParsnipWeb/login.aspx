@@ -10,11 +10,14 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <label>Username</label> <asp:TextBox runat="server" ID="inputUsername"></asp:TextBox>
+            <label>Username</label> <asp:TextBox runat="server" ID="inputUsername" CssClass="login"></asp:TextBox>
             <br />
-            <label>Password:</label> <asp:TextBox runat="server" ID="inputPwd"></asp:TextBox>
+            <label>Password:</label> <asp:TextBox runat="server" ID="inputPwd" TextMode="Password" CssClass="login"></asp:TextBox>
             <br />
-            <asp:Button runat="server" ID="ButLogIn" OnClick="ButLogIn_Click" Text="Log In" />
+            <asp:Button runat="server" ID="ButLogIn" OnClick="ButLogIn_Click" Text="Log In" CssClass="login" />
+            <label>Remember password</label> <asp:CheckBox runat="server" ID="RememberPwd" />
+
+            <asp:Label runat="server" ID="StatusIndicator"></asp:Label>
         </div>
     </form>
 </body>

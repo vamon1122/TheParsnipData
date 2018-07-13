@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="access-denied.aspx" />
+    <Content Include="AccountTiny.ascx" />
     <Content Include="admin.aspx" />
     <Content Include="admin\adminPage\CSS\admin_m_style.css" />
     <Content Include="admin\adminPage\CSS\admin_style.css" />
@@ -112,7 +113,6 @@
     <Content Include="content removal.html" />
     <Content Include="CSS\old\m_style.css" />
     <Content Include="CSS\old\style.css" />
-    <Content Include="CSS\style-BRANSON.css" />
     <Content Include="CSS\style.css" />
     <Content Include="default.aspx" />
     <Content Include="downloads\#TheParsnipRemix2016.mp3" />
@@ -199,6 +199,13 @@
     </Compile>
     <Compile Include="access-denied.aspx.designer.cs">
       <DependentUpon>access-denied.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AccountTiny.ascx.cs">
+      <DependentUpon>AccountTiny.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccountTiny.ascx.designer.cs">
+      <DependentUpon>AccountTiny.ascx</DependentUpon>
     </Compile>
     <Compile Include="admin.aspx.cs">
       <DependentUpon>admin.aspx</DependentUpon>
