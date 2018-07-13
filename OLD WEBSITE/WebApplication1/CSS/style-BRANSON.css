@@ -1,0 +1,19 @@
+﻿html,body{
+    margin:0;
+    padding:0;
+}
+
+.menButt:hover{
+    animation: rotate 1s;
+}
+
+@keyframes rotate{
+    from{
+    }
+    to{
+        transform:rotate(180deg);
+        transform-origin: 50% 56%;
+
+        
+    }
+}

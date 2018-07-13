@@ -1,0 +1,109 @@
+﻿html, body {
+    padding:0px;
+    margin:0px;
+    font-family:Verdana;
+}
+
+
+li{
+    text-align:center;
+}
+
+.censored{
+    display:none;
+}
+
+.rotate{
+       animation:rotate 0.5s;
+}
+
+@keyframes rotate{
+    from{
+
+    }
+    to{
+        transform: rotate(180deg);
+        transform-origin: 50% 56%;
+    }
+}
+.menu:hover{
+    animation: pulse 0.5s;
+    animation-fill-mode:forwards;
+}
+
+@keyframes pulse {
+    from {
+        
+
+    }
+
+    to{
+        color:grey;
+        background-color:white;
+        
+    }
+}
+
+.mMenVis{
+    animation: mMenVis 0.5s;
+    animation-fill-mode:forwards;
+}
+
+@keyframes mMenVis{
+    from{
+top:-100%;
+    }
+    to{
+      top:112.5px;
+      visibility:visible;
+    }
+}
+
+.mMenHide{
+    animation: mMenHide 0.5s;
+    animation-fill-mode:forwards;
+}
+
+@keyframes mMenHide{
+    from{
+        top:90px;
+    }
+    to{
+      top:-100%;
+      visibility:hidden;
+    }
+}
+
+.menVis{
+    animation: menVis 0.5s;
+    animation-fill-mode:forwards;
+}
+
+@keyframes menVis{
+    from{
+top:-50%;
+    }
+    to{
+      top:45px;
+      visibility:visible;
+    }
+}
+
+.menHide{
+    animation: menHide 0.5s;
+    animation-fill-mode:forwards;
+}
+
+@keyframes menHide{
+    from{
+        top:45px;
+    }
+    to{
+      top:-50%;
+      visibility:hidden;
+    }
+}
+
+.menHidden{
+    visibility:hidden;
+}

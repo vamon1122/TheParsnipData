@@ -30,7 +30,7 @@ namespace TheParsnipWeb
             pwd.Text = "CLASSIFIED";
             fname.Text = MyAccount.Fname;
             sname.Text = MyAccount.Sname;
-            dob.Text = MyAccount.Dob;
+            dob.Text = MyAccount.Dob.ToString();
         }
 
         protected void but_Submit_Click(object sender, EventArgs e)

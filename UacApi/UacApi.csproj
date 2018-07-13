@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BenLog">
-      <HintPath>..\..\..\BenCsv\BenCsv\bin\Debug\BenLog.dll</HintPath>
+      <HintPath>..\BenLog .NET 4.0\BenLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
