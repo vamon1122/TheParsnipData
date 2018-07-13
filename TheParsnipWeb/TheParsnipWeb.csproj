@@ -109,7 +109,7 @@
     </Content>
     <Content Include="bios.aspx" />
     <Content Include="carls-bullshit.html" />
-    <Content Include="content-removal.html" />
+    <Content Include="content removal.html" />
     <Content Include="CSS\old\m_style.css" />
     <Content Include="CSS\old\style.css" />
     <Content Include="CSS\style-BRANSON.css" />

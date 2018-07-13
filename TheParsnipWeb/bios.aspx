@@ -4,7 +4,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <link rel="stylesheet" type="text/css" href="../CSS/old/style.css" />
+    <link rel="stylesheet" type="text/css" href="../CSS/style.css" />
+    <title>Bios</title>
 </head>
 <body class="fade0p5" id="body">
     <label class="censored" id="pageId">bios.html</label>

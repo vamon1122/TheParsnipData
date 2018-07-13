@@ -186,7 +186,7 @@ function funcCreateButton(title, href) {
     var buttAnk = document.createElement("a");
     buttAnk.style.color = fontCol;
     buttAnk.innerHTML = title;
-    buttAnk.href = "LogInBarrier.aspx?url=" + href;
+    buttAnk.href = href;
     buttAnk.style.width = "100%";
     buttAnk.style.padding = "0px"
     buttAnk.style.textDecoration = "none";
