@@ -16,12 +16,12 @@ namespace TheParsnipWeb
             MyAccount = new Account();
             if (!MyAccount.LogIn())
             {
-                Response.Redirect("LogInBarrier.aspx?url=Admin.aspx");
+                Response.Redirect("login.aspx?url=admin.aspx");
             }
 
             if(MyAccount.AccountType != "admin")
             {
-                Response.Redirect("AccessDenied.aspx?url=Admin.aspx");
+                Response.Redirect("access-denied.aspx?url=admin.aspx");
             }
         }
     }

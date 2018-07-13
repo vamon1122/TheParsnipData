@@ -2,16 +2,22 @@
     font-family: Verdana;
 }
 
-input[type=text].login, input[type=password].login {
-    border-radius: 3px;
-    background-color: lightgoldenrodyellow;
-    border-style: solid;
-    border-width: 1px;
-    border-color: gray;
-    line-height: 20px;
+input[type=email].form-control {
+    aria-describedby: "emailHelp";
+    placeholder: "Enter email";
 }
 
-input[type=submit].login {
-    border-radius: 3px;
-    padding: 5px;
+input[type=text].form-control.login {
+    aria-describedby: "emailHelp";
+    placeholder: "Enter username";
+}
+
+input[type=password].form-control.login {
+    aria-describedby: "passwordHelp";
+    placeholder: "Password";
+}
+
+.center_div {
+    margin: 0 auto;
+    width: 80% /* value of your choice which suits your alignment */
 }

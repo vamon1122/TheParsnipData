@@ -13,15 +13,6 @@ namespace TheParsnipWeb {
     public partial class LogInBarrier {
         
         /// <summary>
-        /// form1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
-        /// <summary>
         /// inputUsername control.
         /// </summary>
         /// <remarks>
@@ -40,15 +31,6 @@ namespace TheParsnipWeb {
         protected global::System.Web.UI.WebControls.TextBox inputPwd;
         
         /// <summary>
-        /// ButLogIn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButLogIn;
-        
-        /// <summary>
         /// RememberPwd control.
         /// </summary>
         /// <remarks>
@@ -58,12 +40,12 @@ namespace TheParsnipWeb {
         protected global::System.Web.UI.WebControls.CheckBox RememberPwd;
         
         /// <summary>
-        /// StatusIndicator control.
+        /// ButLogIn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label StatusIndicator;
+        protected global::System.Web.UI.WebControls.Button ButLogIn;
     }
 }

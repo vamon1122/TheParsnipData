@@ -117,6 +117,8 @@
     <Content Include="default.aspx" />
     <Content Include="downloads\#TheParsnipRemix2016.mp3" />
     <Content Include="home.aspx" />
+    <Content Include="Images\fat_kieron_cutout.JPG" />
+    <Content Include="Images\parsnip_silhouette.jpg" />
     <Content Include="javascript\menu.js" />
     <Content Include="javascript\old\globalBody.js" />
     <Content Include="Links.txt" />
