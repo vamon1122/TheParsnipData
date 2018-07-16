@@ -7,10 +7,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    
     <link rel="stylesheet" type="text/css" href="../CSS/old/style.css" />
     <link rel="stylesheet" type="text/css" href="../CSS/style.css" />
+        
+    <link rel="stylesheet" type="text/css" href="ParsnipStyle.css" />
+        
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="ParsnipStyle.css" />
+    
 </head>
 <body class="fade0p5" id="body">
     <label class="censored" id="pageId">home.html</label>
@@ -50,9 +55,11 @@
     <h2>Home</h2>
     <asp:Label runat="server" ID="WelcomeLabel"></asp:Label>
     
-    <div style="position:fixed; top:100px; right:0px;">
+    <!--
+    <div style="position:fixed; top:5px; right:2px; z-index:99999">
     <uc1:AccountTiny runat="server" id="AccountTiny" />
         </div>
+    -->
     <!--LATEST VIDEO START-->
     <hr class="break" />
     <div id="latestVideo" style="width:100%"></div>

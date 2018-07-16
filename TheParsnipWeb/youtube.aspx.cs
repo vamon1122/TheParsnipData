@@ -1,4 +1,5 @@
 ﻿using System;
+using UacApi;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,8 +10,21 @@ namespace TheParsnipWeb
 {
     public partial class youtube : System.Web.UI.Page
     {
+        private Account MyAccount;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            MyAccount = new Account();
+            if (!MyAccount.LogIn())
+            {
+                Response.Redirect("login.aspx?url=youtube.aspx");
+            }
+            else
+            {
+
+            }
+
 
         }
     }

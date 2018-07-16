@@ -69,6 +69,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bootstrap-4.1.2-dist\css\bootstrap-grid.css.map" />
+    <Content Include="bootstrap-4.1.2-dist\css\bootstrap-grid.min.css.map" />
+    <Content Include="bootstrap-4.1.2-dist\css\bootstrap-reboot.css.map" />
+    <Content Include="bootstrap-4.1.2-dist\css\bootstrap-reboot.min.css.map" />
+    <Content Include="bootstrap-4.1.2-dist\css\bootstrap.css.map" />
+    <Content Include="bootstrap-4.1.2-dist\css\bootstrap.min.css.map" />
+    <Content Include="bootstrap-4.1.2-dist\js\bootstrap.bundle.js.map" />
+    <Content Include="bootstrap-4.1.2-dist\js\bootstrap.bundle.min.js.map" />
+    <Content Include="bootstrap-4.1.2-dist\js\bootstrap.js.map" />
+    <Content Include="bootstrap-4.1.2-dist\js\bootstrap.min.js.map" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Publish To Folder.pubxml" />
     <None Include="Properties\PublishProfiles\Publish To Live.pubxml" />
@@ -109,6 +119,16 @@
       <DependentUpon>ParsnipDb.mdf</DependentUpon>
     </Content>
     <Content Include="bios.aspx" />
+    <Content Include="bootstrap-4.1.2-dist\css\bootstrap-grid.css" />
+    <Content Include="bootstrap-4.1.2-dist\css\bootstrap-grid.min.css" />
+    <Content Include="bootstrap-4.1.2-dist\css\bootstrap-reboot.css" />
+    <Content Include="bootstrap-4.1.2-dist\css\bootstrap-reboot.min.css" />
+    <Content Include="bootstrap-4.1.2-dist\css\bootstrap.css" />
+    <Content Include="bootstrap-4.1.2-dist\css\bootstrap.min.css" />
+    <Content Include="bootstrap-4.1.2-dist\js\bootstrap.bundle.js" />
+    <Content Include="bootstrap-4.1.2-dist\js\bootstrap.bundle.min.js" />
+    <Content Include="bootstrap-4.1.2-dist\js\bootstrap.js" />
+    <Content Include="bootstrap-4.1.2-dist\js\bootstrap.min.js" />
     <Content Include="carls-bullshit.html" />
     <Content Include="content removal.html" />
     <Content Include="CSS\old\m_style.css" />
@@ -123,6 +143,8 @@
     <Content Include="javascript\old\globalBody.js" />
     <Content Include="Links.txt" />
     <Content Include="login.aspx" />
+    <Content Include="logout#].aspx" />
+    <Content Include="logout.aspx" />
     <Content Include="memes.aspx" />
     <Content Include="minecraft.aspx" />
     <Content Include="ParsnipStyle.css" />
@@ -190,8 +212,10 @@
     <Content Include="Photos\Photos\tom_glasses.JPG" />
     <Content Include="rounded.png" />
     <Content Include="user-form.ascx" />
+    <Content Include="UserForm.ascx" />
     <Content Include="Web.config" />
     <Content Include="youtube.aspx" />
+    <Content Include="_NEW TEMPLATE.aspx" />
     <Content Include="_TEMPLATE.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +268,20 @@
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="logout#].aspx.cs">
+      <DependentUpon>logout#].aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="logout#].aspx.designer.cs">
+      <DependentUpon>logout#].aspx</DependentUpon>
+    </Compile>
+    <Compile Include="logout.aspx.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="logout.aspx.designer.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+    </Compile>
     <Compile Include="memes.aspx.cs">
       <DependentUpon>memes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -273,12 +311,26 @@
     <Compile Include="user-form.ascx.designer.cs">
       <DependentUpon>user-form.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserForm.ascx.cs">
+      <DependentUpon>UserForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserForm.ascx.designer.cs">
+      <DependentUpon>UserForm.ascx</DependentUpon>
+    </Compile>
     <Compile Include="youtube.aspx.cs">
       <DependentUpon>youtube.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="youtube.aspx.designer.cs">
       <DependentUpon>youtube.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_NEW TEMPLATE.aspx.cs">
+      <DependentUpon>_NEW TEMPLATE.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="_NEW TEMPLATE.aspx.designer.cs">
+      <DependentUpon>_NEW TEMPLATE.aspx</DependentUpon>
     </Compile>
     <Compile Include="_TEMPLATE.aspx.cs">
       <DependentUpon>_TEMPLATE.aspx</DependentUpon>

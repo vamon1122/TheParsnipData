@@ -51,6 +51,7 @@ createButton("Memes", "memes.aspx");
 createButton("Photos", "photos.aspx");
 createButton("Minecraft", "minecraft.aspx");
 createButton("Bios", "bios.aspx");
+createButton("Log Out", "logout.aspx");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //document.getElementById("body").style.backgroundColor = "white";

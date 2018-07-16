@@ -22,6 +22,8 @@ namespace TheParsnipWeb
             if (Request.QueryString["url"] != null)
             {
                 Redirect = Request.QueryString["url"];
+                Warning.Attributes.CssStyle.Add("display", "block");
+                WebpageLabel.Text = Redirect;
             }
             else
             {

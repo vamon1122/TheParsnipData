@@ -16,7 +16,7 @@ namespace TheParsnipWeb
             MyAccount = new Account();
             if (!MyAccount.LogIn())
             {
-                Response.Redirect("login.aspx?url=minecraft.aspx");
+                Response.Redirect("login.aspx?url=memes.aspx");
             }
             else
             {
