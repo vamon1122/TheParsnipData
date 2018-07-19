@@ -143,7 +143,6 @@
     <Content Include="javascript\old\globalBody.js" />
     <Content Include="Links.txt" />
     <Content Include="login.aspx" />
-    <Content Include="logout#].aspx" />
     <Content Include="logout.aspx" />
     <Content Include="memes.aspx" />
     <Content Include="minecraft.aspx" />
@@ -211,8 +210,9 @@
     <Content Include="Photos\Photos\tom_2.JPG" />
     <Content Include="Photos\Photos\tom_glasses.JPG" />
     <Content Include="rounded.png" />
-    <Content Include="user-form.ascx" />
-    <Content Include="UserForm.ascx" />
+    <Content Include="CustomControls\UacApi\UserForm.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="youtube.aspx" />
     <Content Include="_NEW TEMPLATE.aspx" />
@@ -268,13 +268,6 @@
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="logout#].aspx.cs">
-      <DependentUpon>logout#].aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="logout#].aspx.designer.cs">
-      <DependentUpon>logout#].aspx</DependentUpon>
-    </Compile>
     <Compile Include="logout.aspx.cs">
       <DependentUpon>logout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -304,18 +297,11 @@
       <DependentUpon>photos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="user-form.ascx.cs">
-      <DependentUpon>user-form.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="user-form.ascx.designer.cs">
-      <DependentUpon>user-form.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserForm.ascx.cs">
+    <Compile Include="CustomControls\UacApi\UserForm.ascx.cs">
       <DependentUpon>UserForm.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserForm.ascx.designer.cs">
+    <Compile Include="CustomControls\UacApi\UserForm.ascx.designer.cs">
       <DependentUpon>UserForm.ascx</DependentUpon>
     </Compile>
     <Compile Include="youtube.aspx.cs">

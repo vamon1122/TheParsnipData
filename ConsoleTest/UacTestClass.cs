@@ -40,8 +40,8 @@ namespace ConsoleTest
         {
             Account MyNewAccount = new Account();
             MyNewAccount.Username = "jbloggs";
-            MyNewAccount.Fname = "Joe";
-            MyNewAccount.Sname = "Bloggs";
+            MyNewAccount.Forename = "Joe";
+            MyNewAccount.Surname = "Bloggs";
 
             if (MyNewAccount.DbInsert())
             {
@@ -64,9 +64,9 @@ namespace ConsoleTest
             BenText.WriteYellow("email = ");
             Console.WriteLine(MyAccount.Email);
             BenText.WriteYellow("fname = ");
-            Console.WriteLine(MyAccount.Fname);
+            Console.WriteLine(MyAccount.Forename);
             BenText.WriteYellow("sname = ");
-            Console.WriteLine(MyAccount.Sname);
+            Console.WriteLine(MyAccount.Surname);
         }
 
         public static bool DoLogIn()

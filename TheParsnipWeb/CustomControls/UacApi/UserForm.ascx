@@ -4,47 +4,47 @@
 
   <div class="form-group">
       <label>Username</label>
-      <asp:TextBox runat="server" CssClass="form-control login" ID="username"  />
+      <asp:TextBox runat="server" CssClass="form-control login" ID="username" MaxLength="50" />
   </div>
             <div class="form-group">
     <label>Email</label>
-    <asp:TextBox runat="server" TextMode="email" CssClass="form-control login" ID="email"  />
+    <asp:TextBox runat="server" TextMode="email" CssClass="form-control login" ID="email"  MaxLength="254"/>
   </div>
   <div class="form-group">
     <label>Password</label>
-    <asp:TextBox runat="server" TextMode="password" CssClass="form-control login" ID="password1"  />
+    <asp:TextBox runat="server" TextMode="password" CssClass="form-control login" ID="password1" MaxLength="50" />
   </div>
   <div class="form-group">
     <label>Confirm Password</label>
-    <asp:TextBox runat="server" TextMode="password" CssClass="form-control login" ID="password2"  />
+    <asp:TextBox runat="server" TextMode="password" CssClass="form-control login" ID="password2" MaxLength="50" />
   </div>
             <div class="form-group">
       <label>Forename</label>
-      <asp:TextBox runat="server" CssClass="form-control login" ID="forename"  />
+      <asp:TextBox runat="server" CssClass="form-control login" ID="forename" MaxLength ="50" />
   </div>
             <div class="form-group">
       <label>Surname</label>
-      <asp:TextBox runat="server" CssClass="form-control login" ID="surname"  />
+      <asp:TextBox runat="server" CssClass="form-control login" ID="surname" MaxLength ="50" />
   </div>
             <div class="form-group">
       <label>Address Line 1</label>
-      <asp:TextBox runat="server" CssClass="form-control login" ID="address1"  />
+      <asp:TextBox runat="server" CssClass="form-control login" ID="address1" MaxLength ="50" />
   </div>
             <div class="form-group">
       <label>Address Line 2</label>
-      <asp:TextBox runat="server" CssClass="form-control login" ID="address2"  />
+      <asp:TextBox runat="server" CssClass="form-control login" ID="address2" MaxLength ="50" />
   </div>
             <div class="form-group">
       <label>Address Line 3</label>
-      <asp:TextBox runat="server" CssClass="form-control login" ID="address3"  />
+      <asp:TextBox runat="server" CssClass="form-control login" ID="address3" MaxLength ="50" />
   </div>
             <div class="form-group">
       <label>Post Code</label>
-      <asp:TextBox runat="server" CssClass="form-control login" ID="postCode"  />
+      <asp:TextBox runat="server" CssClass="form-control login" ID="postCode" MaxLength ="16" />
   </div>
             <div class="form-group">
       <label>Mobile Phone</label>
-      <asp:TextBox runat="server" CssClass="form-control login" ID="mobilePhone"  />
+      <asp:TextBox runat="server" CssClass="form-control login" ID="mobilePhone" MaxLength ="32" />
   </div>
             <div class="form-group">
       <label>Home Phone</label>
@@ -55,18 +55,14 @@
       <asp:TextBox runat="server" CssClass="form-control login" ID="workPhone"  />
   </div>
             <div class="form-group">
-      <label>Post Code</label>
-      <asp:TextBox runat="server" CssClass="form-control login" ID="TextBox3"  />
-  </div>
-            <div class="form-group">
-    <label for="exampleFormControlSelect1">Account Type</label>
+    <label>Account Type</label>
     <select runat="server" class="form-control" id="accountType">
       <option>user</option>
       <option>admin</option>
     </select>
   </div>
             <div class="form-group">
-    <label for="exampleFormControlSelect1">Account Status</label>
+    <label>Account Status</label>
     <select runat="server" class="form-control" id="accountStatus">
       <option>active</option>
       <option>suspended</option>
@@ -80,7 +76,7 @@
   </div>
               <div class="form-group">
                   <label class="form-check-label">Date Created</label>
-<input class="form-control" type="text" placeholder="17/04/1999" readonly>
+<input runat="server" class="form-control" type="text" placeholder="17/04/1999" id="dateTimeCreated" readonly>
             
  </div>
             

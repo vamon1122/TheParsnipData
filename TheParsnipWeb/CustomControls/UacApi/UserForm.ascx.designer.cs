@@ -10,7 +10,7 @@
 namespace TheParsnipWeb {
     
     
-    public partial class UserForm {
+    public partial class UserForm1 {
         
         /// <summary>
         /// username control.
@@ -31,40 +31,40 @@ namespace TheParsnipWeb {
         protected global::System.Web.UI.WebControls.TextBox email;
         
         /// <summary>
-        /// pwd control.
+        /// password1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox pwd;
+        protected global::System.Web.UI.WebControls.TextBox password1;
         
         /// <summary>
-        /// fname control.
+        /// password2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox fname;
+        protected global::System.Web.UI.WebControls.TextBox password2;
         
         /// <summary>
-        /// sname control.
+        /// forename control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox sname;
+        protected global::System.Web.UI.WebControls.TextBox forename;
         
         /// <summary>
-        /// dob control.
+        /// surname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox dob;
+        protected global::System.Web.UI.WebControls.TextBox surname;
         
         /// <summary>
         /// address1 control.
@@ -94,66 +94,75 @@ namespace TheParsnipWeb {
         protected global::System.Web.UI.WebControls.TextBox address3;
         
         /// <summary>
-        /// postcode control.
+        /// postCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox postcode;
+        protected global::System.Web.UI.WebControls.TextBox postCode;
         
         /// <summary>
-        /// mobfon control.
+        /// mobilePhone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox mobfon;
+        protected global::System.Web.UI.WebControls.TextBox mobilePhone;
         
         /// <summary>
-        /// homefon control.
+        /// homePhone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox homefon;
+        protected global::System.Web.UI.WebControls.TextBox homePhone;
         
         /// <summary>
-        /// workfon control.
+        /// workPhone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox workfon;
+        protected global::System.Web.UI.WebControls.TextBox workPhone;
         
         /// <summary>
-        /// acctype control.
+        /// accountType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox acctype;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect accountType;
         
         /// <summary>
-        /// accstatus control.
+        /// accountStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox accstatus;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect accountStatus;
         
         /// <summary>
-        /// but_Submit control.
+        /// dateTimeCreated control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button but_Submit;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText dateTimeCreated;
+        
+        /// <summary>
+        /// btnCreate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreate;
     }
 }

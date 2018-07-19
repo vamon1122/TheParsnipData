@@ -13,12 +13,12 @@ namespace TheParsnipWeb {
     public partial class Admin {
         
         /// <summary>
-        /// CreateUser control.
+        /// UserForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm CreateUser;
+        protected global::TheParsnipWeb.UserForm1 UserForm;
     }
 }
