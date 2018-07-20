@@ -78,33 +78,6 @@ namespace UacApi
             AccountLog.Info("Returning user details from cookies.");
             return UserDetails;
         }
-         
-        /*
-        private bool WritePermUserCookie(string pUsername)
-        {
-            if(WritePermCookie("userName", pUsername))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        
-        private bool WriteSessionPwdCookie(string pPwd)
-        {
-            if (WriteSessionCookie("userPwd", pPwd))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        */
 
         private bool WritePermCookie(string pName, string pVal)
         {
@@ -139,33 +112,6 @@ namespace UacApi
             }
         }
 
-        /*
-        private bool WritePermUserTempPwdCookies(string pUsername, string pPwd)
-        {
-            if(WritePermUserCookie(pUsername) && WriteSessionPwdCookie(pPwd))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private bool WritePermCookies(string pUsername, string pPwd)
-        {
-            if(WritePermUserCookie(pUsername) &&
-            WritePermCookie("userPwd", pPwd))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        */
-
         public bool LogIn()
         {
             string[] Cookies = GetCookies();
@@ -194,13 +140,206 @@ namespace UacApi
             }
         }
 
-        internal bool LogIn(string pUsername)
+        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
         {
+            AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...", pUsername, pPwd));
+
+            string dbPwd = null;
             Username = pUsername;
-            return DbSelect(new SqlConnection(sqlConnectionString));
+
+            using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+            {
+                conn.Open();
+                AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
+
+
+
+                if (GetPwdFromDb() && pPwd == dbPwd)
+                {
+                    AccountLog.Debug(String.Format("[LogIn] DbPwd == Pwd ({0} == {1})", dbPwd, pPwd));
+                    if (DbSelect())
+                    {
+
+                        if (pRememberUsername)
+                        {
+                            AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
+                            System.Diagnostics.Debug.WriteLine("Username permanently remembered!");
+                            WritePermCookie("userName", pUsername);
+                        }
+
+                        if (pRememberPwd)
+                        {
+                            AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
+                            System.Diagnostics.Debug.WriteLine("Password permanently remembered!");
+                            WritePermCookie("userPwd", pPwd);
+                            System.Diagnostics.Debug.WriteLine("PERMANENT Password cookie = " + GetCookies()[1]);
+                        }
+                        else
+                        {
+                            AccountLog.Debug(String.Format("[LogIn] RememberPassword = false. Writing session password cookie (userPwd = {0})", pPwd));
+                            if (GetCookies()[1] == pPwd)
+                            {
+                                AccountLog.Debug(String.Format("[LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.", pPwd));
+                            }
+                            else
+                            {
+                                AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
+                                WriteSessionCookie("userPwd", pPwd);
+                                AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
+                                System.Diagnostics.Debug.WriteLine("Password stored for SESSION ONLY.");
+                            }
+
+
+                        }
+
+                        if (SetLastLogIn())
+                        {
+                            AccountLog.Info("[LogIn] Logged in successfully!");
+                            return true;
+                        }
+
+                    }
+                }
+                else
+                {
+                    AccountLog.Debug(String.Format("[LogIn] DbPwd != Pwd ({0} != {1}", dbPwd, pPwd));
+                }
+                AccountLog.Error("[LogIn] Failed to log in.");
+                return false;
+
+                bool SetLastLogIn()
+                {
+                    int RecordsAffected;
+
+                    AccountLog.Debug("[LogIn] Attempting to set LastLogIn...");
+                    try
+                    {
+                        AccountLog.Debug("username = " + Username);
+                        SqlCommand Command = new SqlCommand("UPDATE t_Users SET col_LastLogIn = GETDATE() WHERE col_Username = @Username;", conn);
+                        Command.Parameters.Add(new SqlParameter("Username", Username));
+                        RecordsAffected = Command.ExecuteNonQuery();
+
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("[LogIn] There was an exception whilst setting the LastLogIn: " + e);
+                        return false;
+                    }
+
+                    AccountLog.Debug(String.Format("[LogIn] Set LastLogIn successfully! {0} records were affected.", RecordsAffected));
+                    return true;
+                }
+
+                bool GetPwdFromDb()
+                {
+                    AccountLog.Debug("[LogIn] Attempting to get password from database...");
+                    try
+                    {
+                        SqlCommand GetLogInDetails = new SqlCommand("SELECT col_Pwd FROM t_Users WHERE col_Username = @Username", conn);
+                        GetLogInDetails.Parameters.Add(new SqlParameter("Username", pUsername));
+
+                        using (SqlDataReader reader = GetLogInDetails.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                dbPwd = reader[0].ToString().Trim();
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("[LogIn] There was an exception whilst getting the password from the database: " + e);
+                        return false;
+                    }
+                    AccountLog.Debug("[LogIn] Got password from database successfully!");
+                    return true;
+                }
+
+                bool DbSelect()
+                {
+                    AccountLog.Debug("[LogIn] Attempting to get user details...");
+                    try
+                    {
+                        SqlCommand GetLogInDetails = new SqlCommand("SELECT col_Email, col_Fname, col_Sname, col_Dob, col_Address1, col_Address2, col_Address3, col_PostCode, col_MobilePhone, col_HomePhone, col_WorkPhone, col_DateTimeCreated, col_LastLogIn, col_AccountType, col_AccountStatus FROM t_Users WHERE col_Username = @Username", conn);
+                        GetLogInDetails.Parameters.Add(new SqlParameter("Username", Username));
+
+                        using (SqlDataReader reader = GetLogInDetails.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader[0] != DBNull.Value)
+                                {
+                                    Email = reader[0].ToString().Trim();
+                                }
+
+                                Forename = reader[1].ToString().Trim();
+                                Surname = reader[2].ToString().Trim();
+
+                                if (reader[3] != DBNull.Value)
+                                {
+                                    Dob = Convert.ToDateTime(reader[3]);
+                                }
+
+                                if (reader[4] != DBNull.Value)
+                                {
+                                    Address1 = reader[4].ToString().Trim();
+                                }
+
+                                if (reader[5] != DBNull.Value)
+                                {
+                                    Address2 = reader[5].ToString().Trim();
+                                }
+
+                                if (reader[6] != DBNull.Value)
+                                {
+                                    Address3 = reader[6].ToString().Trim();
+                                }
+
+                                if (reader[7] != DBNull.Value)
+                                {
+                                    Postcode = reader[7].ToString().Trim();
+                                }
+
+                                if (reader[8] != DBNull.Value)
+                                {
+                                    MobilePhone = reader[8].ToString().Trim();
+                                }
+
+                                if (reader[9] != DBNull.Value)
+                                {
+                                    HomePhone = reader[9].ToString().Trim();
+                                }
+
+                                if (reader[10] != DBNull.Value)
+                                {
+                                    WorkPhone = reader[10].ToString().Trim();
+                                }
+
+                                DateTimeCreated = Convert.ToDateTime(reader[11]);
+
+                                if (reader[12] != DBNull.Value)
+                                {
+                                    DateTimeCreated = Convert.ToDateTime(reader[12]);
+                                }
+
+                                AccountType = reader[13].ToString().Trim();
+
+                                AccountStatus = reader[14].ToString().Trim();
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("[LogIn] There was an exception whilst getting da user data: " + e);
+                        return false;
+                    }
+                    AccountLog.Debug("[LogIn] Got user's details successfully!");
+                    return true;
+                }
+            }
         }
 
-        bool DbSelect(SqlConnection pConn)
+        public bool DbSelect(SqlConnection pConn)
         {
             AccountLog.Debug("Attempting to get user details...");
             try
@@ -278,208 +417,9 @@ namespace UacApi
                 Console.WriteLine("There was an exception whilst getting da user data: " + e);
                 return false;
             }
+            HasBeenInserted = true;
             AccountLog.Debug("Got user's details successfully!");
             return true;
-        }
-        
-
-        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
-        {
-            AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
-
-            string dbPwd = null;
-            Username = pUsername;
-
-            using (SqlConnection conn = new SqlConnection(sqlConnectionString))
-            {
-                conn.Open();
-                AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
-
-
-
-                if (GetPwdFromDb() && pPwd == dbPwd)
-                {
-                    AccountLog.Debug(String.Format("[LogIn] DbPwd == Pwd ({0} == {1})", dbPwd, pPwd));
-                    if (DbSelect())
-                    {
-                        
-                        if (pRememberUsername)
-                        {
-                            AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
-                            System.Diagnostics.Debug.WriteLine("Username permanently remembered!");
-                            WritePermCookie("userName", pUsername);
-                        }
-
-                        if (pRememberPwd)
-                        {
-                            AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
-                            System.Diagnostics.Debug.WriteLine("Password permanently remembered!");
-                            WritePermCookie("userPwd", pPwd);
-                            System.Diagnostics.Debug.WriteLine("PERMANENT Password cookie = " + GetCookies()[1]); 
-                        }
-                        else
-                        {
-                            AccountLog.Debug(String.Format("[LogIn] RememberPassword = false. Writing session password cookie (userPwd = {0})", pPwd));
-                            if(GetCookies()[1] == pPwd)
-                            {
-                                AccountLog.Debug(String.Format("[LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.", pPwd));
-                            }
-                            else
-                            {
-                                AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
-                                WriteSessionCookie("userPwd", pPwd);
-                                AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
-                                System.Diagnostics.Debug.WriteLine("Password stored for SESSION ONLY.");
-                            }
-                            
-                            
-                        }
-
-                        if (SetLastLogIn())
-                        {
-                            AccountLog.Info("[LogIn] Logged in successfully!");
-                            return true;
-                        }
-                        
-                    }
-                }
-                else
-                {
-                    AccountLog.Debug(String.Format("[LogIn] DbPwd != Pwd ({0} != {1}", dbPwd, pPwd));
-                }
-                AccountLog.Error("[LogIn] Failed to log in.");
-                return false;
-                
-                bool SetLastLogIn()
-                {
-                    int RecordsAffected;
-
-                    AccountLog.Debug("[LogIn] Attempting to set LastLogIn...");
-                    try
-                    {
-                        AccountLog.Debug("username = " + Username);
-                        SqlCommand Command = new SqlCommand("UPDATE t_Users SET col_LastLogIn = GETDATE() WHERE col_Username = @Username;", conn);
-                        Command.Parameters.Add(new SqlParameter("Username", Username));
-                        RecordsAffected = Command.ExecuteNonQuery();
-                        
-                    }
-                    catch(Exception e)
-                    {
-                        Console.WriteLine("[LogIn] There was an exception whilst setting the LastLogIn: " + e);
-                        return false;
-                    }
-
-                    AccountLog.Debug(String.Format("[LogIn] Set LastLogIn successfully! {0} records were affected.", RecordsAffected));
-                    return true;
-                }
-
-                bool GetPwdFromDb()
-                {
-                    AccountLog.Debug("[LogIn] Attempting to get password from database...");
-                    try
-                    {
-                        SqlCommand GetLogInDetails = new SqlCommand("SELECT col_Pwd FROM t_Users WHERE col_Username = @Username", conn);
-                        GetLogInDetails.Parameters.Add(new SqlParameter("Username", pUsername));
-
-                        using (SqlDataReader reader = GetLogInDetails.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                dbPwd = reader[0].ToString().Trim();
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("[LogIn] There was an exception whilst getting the password from the database: " + e);
-                        return false;
-                    }
-                    AccountLog.Debug("[LogIn] Got password from database successfully!");
-                    return true;
-                }
-
-                bool DbSelect()
-                {
-                    AccountLog.Debug("[LogIn] Attempting to get user details...");
-                    try
-                    {
-                        SqlCommand GetLogInDetails = new SqlCommand("SELECT col_Email, col_Fname, col_Sname, col_Dob, col_Address1, col_Address2, col_Address3, col_PostCode, col_MobilePhone, col_HomePhone, col_WorkPhone, col_DateTimeCreated, col_LastLogIn, col_AccountType, col_AccountStatus FROM t_Users WHERE col_Username = @Username", conn);
-                        GetLogInDetails.Parameters.Add(new SqlParameter("Username", Username));
-
-                        using (SqlDataReader reader = GetLogInDetails.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                if(reader[0] != DBNull.Value)
-                                {
-                                    Email = reader[0].ToString().Trim();
-                                }
-                                
-                                Forename = reader[1].ToString().Trim();
-                                Surname = reader[2].ToString().Trim();
-
-                                if(reader[3] != DBNull.Value)
-                                {
-                                    Dob = Convert.ToDateTime(reader[3]);
-                                }
-                                
-                                if(reader[4] != DBNull.Value)
-                                {
-                                    Address1 = reader[4].ToString().Trim();
-                                }
-
-                                if (reader[5] != DBNull.Value)
-                                {
-                                    Address2 = reader[5].ToString().Trim();
-                                }
-
-                                if (reader[6] != DBNull.Value)
-                                {
-                                    Address3 = reader[6].ToString().Trim();
-                                }
-
-                                if (reader[7] != DBNull.Value)
-                                {
-                                    Postcode = reader[7].ToString().Trim();
-                                }
-
-                                if (reader[8] != DBNull.Value)
-                                {
-                                    MobilePhone = reader[8].ToString().Trim();
-                                }
-
-                                if (reader[9] != DBNull.Value)
-                                {
-                                    HomePhone = reader[9].ToString().Trim();
-                                }
-
-                                if (reader[10] != DBNull.Value)
-                                {
-                                    WorkPhone = reader[10].ToString().Trim();
-                                }
-
-                                DateTimeCreated = Convert.ToDateTime(reader[11]);
-
-                                if(reader[12] != DBNull.Value)
-                                {
-                                    DateTimeCreated = Convert.ToDateTime(reader[12]);
-                                }
-
-                                AccountType = reader[13].ToString().Trim();
-
-                                AccountStatus = reader[14].ToString().Trim();
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("[LogIn] There was an exception whilst getting da user data: " + e);
-                        return false;
-                    }
-                    AccountLog.Debug("[LogIn] Got user's details successfully!");
-                    return true;
-                }
-            }
         }
 
         public bool LogOut()
@@ -497,10 +437,33 @@ namespace UacApi
             
         }
 
-        public bool DbUpdate()
+        public bool DbUpdate(string pPwd)
         {
             if (HasBeenInserted)
             {
+                using(SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    SqlCommand UpdateAccount = new SqlCommand("UPDATE col_Email = email, col_Fname = forename, col_Sname = surname, col_Dob = dob, col_Address1 = address1, " +
+                        "col_Address2 = address2, col_Address3 = address3, col_PostCode = postCode, col_MobilePhone = mobilePhone, col_HomePhone = homePhone, col_WorkPhone = workPhone, " +
+                        "col_AccountType = accountType, col_AccountStatus = accountStatus WHERE col_Username = @username;");
+
+                    UpdateAccount.Parameters.Add(new SqlParameter("username", Username.Trim()));
+                    UpdateAccount.Parameters.Add(new SqlParameter("email", Email.Trim()));
+                    UpdateAccount.Parameters.Add(new SqlParameter("forename" , Forename.Trim()));
+                    UpdateAccount.Parameters.Add(new SqlParameter("surname", Surname.Trim()));
+                    UpdateAccount.Parameters.Add(new SqlParameter("dob", Dob));
+                    UpdateAccount.Parameters.Add(new SqlParameter("address1",Address1.Trim()));
+                    UpdateAccount.Parameters.Add(new SqlParameter("address2", Address2.Trim()));
+                    UpdateAccount.Parameters.Add(new SqlParameter("address3", Address3.Trim()));
+                    UpdateAccount.Parameters.Add(new SqlParameter("postCode", Postcode.Trim()));
+                    UpdateAccount.Parameters.Add(new SqlParameter("mobilePhone", MobilePhone.Trim()));
+                    UpdateAccount.Parameters.Add(new SqlParameter("homePhone", HomePhone.Trim()));
+                    UpdateAccount.Parameters.Add(new SqlParameter("workPhone", WorkPhone.Trim()));
+                    UpdateAccount.Parameters.Add(new SqlParameter("accountType", AccountType.Trim()));
+                    UpdateAccount.Parameters.Add(new SqlParameter("accountStatus", AccountStatus.Trim()));
+                    UpdateAccount.Parameters.Add(new SqlParameter("pwd", pPwd.Trim()));
+
+                }
                 return true;
             }
             else
@@ -513,43 +476,58 @@ namespace UacApi
         {
             if(Username != null && Forename != null && Surname != null)
             {
-                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                try
                 {
-                    conn.Open();
-
-                    bool UsernameExists()
+                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand FindUsername = new SqlCommand("SELECT count(1) FROM t_Users WHERE username = @username");
-                        FindUsername.Parameters.Add(new SqlParameter("username", Username));
+                        conn.Open();
 
-
-
-                        using(SqlDataReader reader = FindUsername.ExecuteReader())
+                        bool UsernameExists()
                         {
-                            while (reader.Read())
+                            SqlCommand FindUsername = new SqlCommand("SELECT count(1) FROM t_Users WHERE username = @username");
+                            FindUsername.Parameters.Add(new SqlParameter("username", Username));
+
+
+
+                            using (SqlDataReader reader = FindUsername.ExecuteReader())
                             {
-                                if(reader[0].ToString() == "1")
+                                while (reader.Read())
                                 {
-                                    return true;
-                                }
-                                else
-                                {
-                                    return false;
+                                    if (reader[0].ToString() == "1")
+                                    {
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
                                 }
                             }
+                            throw new Exception("Some exception");
                         }
-                        throw new Exception("Some exception");
+
+                        SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (col_Username, col_Fname, col_Sname) VALUES(@username, @fname, @sname)", conn);
+                        InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("fname", Forename.Trim()));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("sname", Surname.Trim()));
+
+                        InsertIntoDb.ExecuteNonQuery();
                     }
-
-                    SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (col_Username, col_Fname, col_Sname, col_Pwd) VALUES(@username, @fname, @sname, @pwd)", conn);
-                    InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
-                    InsertIntoDb.Parameters.Add(new SqlParameter("fname", Forename.Trim()));
-                    InsertIntoDb.Parameters.Add(new SqlParameter("sname", Surname.Trim()));
-                    InsertIntoDb.Parameters.Add(new SqlParameter("pwd", pPwd.Trim()));
-
-                    InsertIntoDb.ExecuteNonQuery();
                 }
+                catch
+                {
+                    return false;
+                }
+                HasBeenInserted = true;
+                if (DbUpdate(pPwd))
+                {
                     return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
             }
             else
             {

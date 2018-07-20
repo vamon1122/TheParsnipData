@@ -50,22 +50,34 @@ namespace TheParsnipWeb
 
             bool Validate()
             {
-                validateUsername();
-                validateEmail();
-                validatePwd();
-                validateForename();
-                validateSurname();
-                validateAddress1();
-                validateAddress2();
-                validateAddress3();
-                validatePostCode();
-                validateMobilePhone();
-                validateHomePhone();
-                validateWorkPhone();
-                validateDateTimeCreated();
-                validateAccountType();
-                validateAccountStatus();
-                return true;
+                if(validateUsername() &&
+                validateEmail() &&
+                validatePwd() &&
+                validateForename() &&
+                validateSurname() &&
+                validateAddress1() &&
+                validateAddress2() &&
+                validateAddress3() &&
+                validatePostCode() &&
+                validateMobilePhone() &&
+                validateHomePhone() &&
+                validateWorkPhone() &&
+                validateDateTimeCreated() &&
+                validateAccountType() &&
+                validateAccountStatus())
+                {
+                    SuccessText.Text = "Account created successfully!";
+                    Success.Style.Add("display", "true");
+
+                    return true;
+                }
+                else
+                {
+                    WarningText.Text = "Failed to create account";
+                    Warning.Style.Add("display", "true");
+                    return false;
+                }
+                
                 
                 bool validateUsername()
                 {
