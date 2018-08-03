@@ -50,38 +50,34 @@ namespace TheParsnipWeb
 
             bool Validate()
             {
-                if(validateUsername() &&
-                validateEmail() &&
-                validatePwd() &&
-                validateForename() &&
-                validateSurname() &&
-                validateAddress1() &&
-                validateAddress2() &&
-                validateAddress3() &&
-                validatePostCode() &&
-                validateMobilePhone() &&
-                validateHomePhone() &&
-                validateWorkPhone() &&
-                validateDateTimeCreated() &&
-                validateAccountType() &&
-                validateAccountStatus())
-                {
-                    SuccessText.Text = "Account created successfully!";
-                    Success.Style.Add("display", "true");
+                bool ValidateSuccess = true;
 
-                    return true;
-                }
-                else
-                {
-                    WarningText.Text = "Failed to create account";
-                    Warning.Style.Add("display", "true");
-                    return false;
-                }
-                
+                ValidateSuccess = (validateUsername()) ? ValidateSuccess : false;
+                ValidateSuccess = (validateEmail()) ? ValidateSuccess : false;
+                ValidateSuccess = (validatePwd()) ? ValidateSuccess : false;
+                ValidateSuccess = (validateForename()) ? ValidateSuccess : false;
+                ValidateSuccess = (validateSurname()) ? ValidateSuccess : false;
+                ValidateSuccess = (validateAddress1()) ? ValidateSuccess : false;
+                ValidateSuccess = (validateAddress2()) ? ValidateSuccess : false;
+                ValidateSuccess = (validateAddress3()) ? ValidateSuccess : false;
+                ValidateSuccess = (validatePostCode()) ? ValidateSuccess : false;
+                ValidateSuccess = (validateMobilePhone()) ? ValidateSuccess : false;
+                ValidateSuccess = (validateHomePhone()) ? ValidateSuccess : false;
+                ValidateSuccess = (validateWorkPhone()) ? ValidateSuccess : false;
+                ValidateSuccess = (validateDateTimeCreated()) ? ValidateSuccess : false;
+                ValidateSuccess = (validateAccountType()) ? ValidateSuccess : false;
+                ValidateSuccess = (validateAccountStatus()) ? ValidateSuccess : false;
+
+                return ValidateSuccess;
                 
                 bool validateUsername()
                 {
                     if(username.Text.Trim().Length == 0)
+                    {
+                        username.CssClass = "invalid";
+                        return false;
+                    }
+                    else if(username.Text.Trim().Length > 50)
                     {
                         username.CssClass = "invalid";
                         return false;
