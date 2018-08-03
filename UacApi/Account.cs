@@ -38,9 +38,6 @@ namespace UacApi
         public DateTime LastLogIn { get; set; }
         public string AccountType { get; set; }
         public string AccountStatus { get; set; }
-
-        private bool HasBeenInserted;
-
         
 
         private string[] GetCookies()
@@ -499,8 +496,37 @@ namespace UacApi
 
         public bool DbUpdate()
         {
+            bool HasBeenInserted = true;
+
             if (HasBeenInserted)
             {
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                    {
+                        SqlCommand UpdateDb = new SqlCommand("UPDATE t_Users SET col_Username = @username, col_Email = @email, col_Forename = @forename, col_Surname = @surname, col_Dob = dob, col_Address1 = @address1, col_Address2 = @address2, col_Address3 = @address3, col_PostCode = @postcode, " +
+                            "col_MobilePhone = @mobilePhone, col_WorkPhone = @workPhone, col_AccountType = @accountType, col_AccountStatus = @accountStatus WHERE col_Username = @username");
+
+                        UpdateDb.Parameters.Add(new SqlParameter("username", Username));
+                        UpdateDb.Parameters.Add(new SqlParameter("email", Email));
+                        UpdateDb.Parameters.Add(new SqlParameter("forename", Forename));
+                        UpdateDb.Parameters.Add(new SqlParameter("surname", Surname));
+                        UpdateDb.Parameters.Add(new SqlParameter("dob", Dob));
+                        UpdateDb.Parameters.Add(new SqlParameter("address1", Address1));
+                        UpdateDb.Parameters.Add(new SqlParameter("address2", Address2));
+                        UpdateDb.Parameters.Add(new SqlParameter("address3", Address3));
+                        UpdateDb.Parameters.Add(new SqlParameter("postode", Postcode));
+                        UpdateDb.Parameters.Add(new SqlParameter("mobilePhone", MobilePhone));
+                        UpdateDb.Parameters.Add(new SqlParameter("homePhone", HomePhone));
+                        UpdateDb.Parameters.Add(new SqlParameter("accountType", AccountType));
+                        UpdateDb.Parameters.Add(new SqlParameter("accountStatus", AccountStatus));
+
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
                 return true;
             }
             else
@@ -513,6 +539,10 @@ namespace UacApi
         {
             if(Username != null && Forename != null && Surname != null)
             {
+                try
+                {
+
+                
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     conn.Open();
@@ -549,7 +579,13 @@ namespace UacApi
 
                     InsertIntoDb.ExecuteNonQuery();
                 }
-                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+
+                return DbUpdate();
             }
             else
             {

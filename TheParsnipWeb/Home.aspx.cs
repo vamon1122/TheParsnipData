@@ -20,7 +20,7 @@ namespace TheParsnipWeb
             }
             else
             {
-                WelcomeLabel.Text = String.Format("Welcome back {0}!", MyAccount.Fname);
+                WelcomeLabel.Text = String.Format("Welcome back {0}!", MyAccount.Forename);
             }
         }
     }
