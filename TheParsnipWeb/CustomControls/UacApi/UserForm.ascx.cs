@@ -31,7 +31,7 @@ namespace TheParsnipWeb
             address1.Text = MyAccount.Address1;
             address2.Text = MyAccount.Address2;
             address3.Text = MyAccount.Address3;
-            postCode.Text = MyAccount.Postcode;
+            postCode.Text = MyAccount.PostCode;
             mobilePhone.Text = MyAccount.MobilePhone;
             homePhone.Text = MyAccount.HomePhone;
             workPhone.Text = MyAccount.WorkPhone;
@@ -42,189 +42,11 @@ namespace TheParsnipWeb
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            if (Validate())
+            WriteToObj();
+            if (MyAccount.Validate())
             {
-                WriteToObj();
-                MyAccount.DbInsert(password1.Text);
-            }
-
-            bool Validate()
-            {
-                bool ValidateSuccess = true;
-
-                ValidateSuccess = (validateUsername()) ? ValidateSuccess : false;
-                ValidateSuccess = (validateEmail()) ? ValidateSuccess : false;
-                ValidateSuccess = (validatePwd()) ? ValidateSuccess : false;
-                ValidateSuccess = (validateForename()) ? ValidateSuccess : false;
-                ValidateSuccess = (validateSurname()) ? ValidateSuccess : false;
-                ValidateSuccess = (validateAddress1()) ? ValidateSuccess : false;
-                ValidateSuccess = (validateAddress2()) ? ValidateSuccess : false;
-                ValidateSuccess = (validateAddress3()) ? ValidateSuccess : false;
-                ValidateSuccess = (validatePostCode()) ? ValidateSuccess : false;
-                ValidateSuccess = (validateMobilePhone()) ? ValidateSuccess : false;
-                ValidateSuccess = (validateHomePhone()) ? ValidateSuccess : false;
-                ValidateSuccess = (validateWorkPhone()) ? ValidateSuccess : false;
-                ValidateSuccess = (validateDateTimeCreated()) ? ValidateSuccess : false;
-                ValidateSuccess = (validateAccountType()) ? ValidateSuccess : false;
-                ValidateSuccess = (validateAccountStatus()) ? ValidateSuccess : false;
-
-                return ValidateSuccess;
                 
-                bool validateUsername()
-                {
-                    if(username.Text.Trim().Length == 0)
-                    {
-                        username.CssClass = "invalid";
-                        return false;
-                    }
-                    else if(username.Text.Trim().Length > 50)
-                    {
-                        username.CssClass = "invalid";
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
-
-                bool validateEmail()
-                {
-                    string EmailAddress = email.Text.Trim();
-
-                    if (EmailAddress.Length != 0)
-                    {
-                        int AsperandIndex; //Index of "@" sign
-                        int PointIndex; //Index of "."
-                        string Username;
-                        string MailServer;
-                        string DomainExtension;
-                        
-                        if (EmailAddress.Contains("@"))
-                        {
-                            int NoOfAsperand = EmailAddress.Split('@').Length - 1;
-                            if (NoOfAsperand == 1)
-                            {
-                                AsperandIndex = EmailAddress.IndexOf("@");
-                                Username = EmailAddress.Substring(0, AsperandIndex);
-                                //MyLog.Debug("Email: Username = " + Username);
-                                if (EmailAddress.Substring(AsperandIndex + 1, EmailAddress.Length - AsperandIndex - 1).Contains("."))
-                                {
-                                    PointIndex = EmailAddress.LastIndexOf('.');
-                                    MailServer = EmailAddress.Substring(AsperandIndex + 1, PointIndex - AsperandIndex - 1);
-                                    //MyLog.Debug("Email: Mail server = " + MailServer);
-                                    DomainExtension = EmailAddress.Substring(PointIndex + 1, EmailAddress.Length - PointIndex - 1);
-                                    return true;
-                                }
-                                else
-                                {
-                                    //MyLog.Warning("Email address domain does not contain a \".\". Email address will be blank!");
-                                    email.CssClass = "invalid";
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                //MyLog.Warning("Email address contains too many @'s. Email address will be blank!");
-                                email.CssClass = "invalid";
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            //MyLog.Warning("Email address does not contain an \"@\" sign. Email address will be blank!");
-                            email.CssClass = "invalid";
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        //Don't really need to be warned about blank fields.
-                        //MyLog.Warning(String.Format("Email \"{0}\" is made up from blank characters! Email address will be blank!", EmailVal));
-                        email.CssClass = "invalid";
-                        return false;
-                    }
-                }
-
-                bool validatePwd()
-                {
-                    if (password1.Text.Trim().Length == 0)
-                    {
-                        password1.CssClass = "invalid";
-                        password2.CssClass = "invalid";
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
-
-                bool validateForename(){
-                    return true;
-                }
-
-                bool validateSurname()
-                {
-                    return true;
-                }
-
-                /*
-                bool validateDob()
-                {
-
-                }
-                */
-
-                bool validateAddress1()
-                {
-                    return true;
-                }
-
-                bool validateAddress2()
-                {
-                    return true;
-                }
-
-                bool validateAddress3()
-                {
-                    return true;
-                }
-
-                bool validatePostCode()
-                {
-                    return true;
-                }
-
-                bool validateMobilePhone()
-                {
-                    return true;
-                }
-
-                bool validateHomePhone()
-                {
-                    return true;
-                }
-
-                bool validateWorkPhone()
-                {
-                    return true;
-                }
-
-                bool validateDateTimeCreated()
-                {
-                    return true;
-                }
-
-                bool validateAccountType()
-                {
-                    return true;
-                }
-
-                bool validateAccountStatus()
-                {
-                    return true;
-                }
+                MyAccount.DbInsert(password1.Text);
             }
 
 
@@ -239,7 +61,7 @@ namespace TheParsnipWeb
                 MyAccount.Address1 = address1.Text;
                 MyAccount.Address2 = address2.Text;
                 MyAccount.Address3 = address3.Text;
-                MyAccount.Postcode = postCode.Text;
+                MyAccount.PostCode = postCode.Text;
                 MyAccount.MobilePhone = mobilePhone.Text;
                 MyAccount.HomePhone = homePhone.Text;
                 MyAccount.WorkPhone = workPhone.Text;
