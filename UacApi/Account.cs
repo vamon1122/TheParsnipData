@@ -203,8 +203,7 @@ namespace UacApi
                 return true;
             }
         }
-
-
+        
         private string sqlConnectionString;
 
         public string Email { get; set; }
