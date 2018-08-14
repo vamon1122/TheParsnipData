@@ -65,7 +65,7 @@ namespace TheParsnipWeb
                 MyAccount.MobilePhone = mobilePhone.Text;
                 MyAccount.HomePhone = homePhone.Text;
                 MyAccount.WorkPhone = workPhone.Text;
-                MyAccount.DateTimeCreated = DateTime.Now;
+                //MyAccount.DateTimeCreated = DateTime.Now;
                 MyAccount.AccountType = accountType.Value;
                 MyAccount.AccountStatus = accountStatus.Value;
                 MyAccount.AccountType = accountType.Value;

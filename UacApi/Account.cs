@@ -206,8 +206,9 @@ namespace UacApi
         
         private string sqlConnectionString;
 
-        public string Email { get; set; }
         public string Username { get; set; }
+        public string Email { get; set; }
+        public string Pwd { get; set; }
         public string Forename { get; set; }
         public string Surname { get; set; }
         public DateTime Dob { get; set; }
@@ -223,7 +224,6 @@ namespace UacApi
         public string AccountType { get; set; }
         public string AccountStatus { get; set; }
         
-
         private string[] GetCookies()
         {
             AccountLog.Info("Getting user details from cookies...");
@@ -389,23 +389,49 @@ namespace UacApi
             AccountLog.Debug("Attempting to get user details...");
 
             string[] DbAccountDetails = DbSelectValues(pConn);
+            
+            Account ValidateMe = new Account();
 
-            Username = DbAccountDetails[0].ToString().Trim();
-            Email = DbAccountDetails[1].ToString().Trim();
-            Forename = DbAccountDetails[3].ToString().Trim();
-            Surname = DbAccountDetails[4].ToString().Trim();
-            Dob = Convert.ToDateTime(DbAccountDetails[5]);
-            Address1 = DbAccountDetails[6].ToString().Trim();
-            Address2 = DbAccountDetails[7].ToString().Trim();
-            Address3 = DbAccountDetails[8].ToString().Trim();
-            PostCode = DbAccountDetails[9].ToString().Trim();
-            MobilePhone = DbAccountDetails[10].ToString().Trim();
-            HomePhone = DbAccountDetails[11].ToString().Trim();
-            WorkPhone = DbAccountDetails[12].ToString().Trim();
-            DateTimeCreated = Convert.ToDateTime(DbAccountDetails[13]);
-            LastLogIn = Convert.ToDateTime(DbAccountDetails[14]);
-            AccountType = DbAccountDetails[15].ToString().Trim();
-            AccountStatus = DbAccountDetails[16].ToString().Trim();
+            ValidateMe.Username = DbAccountDetails[0].ToString().Trim();
+            ValidateMe.Email = DbAccountDetails[1].ToString().Trim();
+            ValidateMe.Pwd = DbAccountDetails[2].ToString().Trim();
+            ValidateMe.Forename = DbAccountDetails[3].ToString().Trim();
+            ValidateMe.Surname = DbAccountDetails[4].ToString().Trim();
+            ValidateMe.Dob = Convert.ToDateTime(DbAccountDetails[5]);
+            ValidateMe.Address1 = DbAccountDetails[6].ToString().Trim();
+            ValidateMe.Address2 = DbAccountDetails[7].ToString().Trim();
+            ValidateMe.Address3 = DbAccountDetails[8].ToString().Trim();
+            ValidateMe.PostCode = DbAccountDetails[9].ToString().Trim();
+            ValidateMe.MobilePhone = DbAccountDetails[10].ToString().Trim();
+            ValidateMe.HomePhone = DbAccountDetails[11].ToString().Trim();
+            ValidateMe.WorkPhone = DbAccountDetails[12].ToString().Trim();
+            ValidateMe.DateTimeCreated = Convert.ToDateTime(DbAccountDetails[13]);
+            ValidateMe.LastLogIn = Convert.ToDateTime(DbAccountDetails[14]);
+            ValidateMe.AccountType = DbAccountDetails[15].ToString().Trim();
+            ValidateMe.AccountStatus = DbAccountDetails[16].ToString().Trim();
+
+            if (ValidateMe.Validate())
+            {
+                Username = DbAccountDetails[0].ToString().Trim();
+                Email = DbAccountDetails[1].ToString().Trim();
+                //Pwd = DbAccountDetails[2].ToString().Trim();
+                Forename = DbAccountDetails[3].ToString().Trim();
+                Surname = DbAccountDetails[4].ToString().Trim();
+                Dob = Convert.ToDateTime(DbAccountDetails[5]);
+                Address1 = DbAccountDetails[6].ToString().Trim();
+                Address2 = DbAccountDetails[7].ToString().Trim();
+                Address3 = DbAccountDetails[8].ToString().Trim();
+                PostCode = DbAccountDetails[9].ToString().Trim();
+                MobilePhone = DbAccountDetails[10].ToString().Trim();
+                HomePhone = DbAccountDetails[11].ToString().Trim();
+                WorkPhone = DbAccountDetails[12].ToString().Trim();
+                DateTimeCreated = Convert.ToDateTime(DbAccountDetails[13]);
+                LastLogIn = Convert.ToDateTime(DbAccountDetails[14]);
+                AccountType = DbAccountDetails[15].ToString().Trim();
+                AccountStatus = DbAccountDetails[16].ToString().Trim();
+            }
+
+            
             
             AccountLog.Debug("Got user's details successfully!");
 
@@ -414,36 +440,35 @@ namespace UacApi
 
         private string[] DbSelectValues(SqlConnection pConn)
         {
-            AccountLog.Debug("Attempting to get user details...");
-            string[] rVals = new string[14];
+            Debug.WriteLine("Attempting to get user details...");
+            string[] rVals = new string[18];
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT col_Email, col_Fname, col_Sname, col_Dob, col_Address1, col_Address2, col_Address3, col_PostCode, col_MobilePhone, col_HomePhone, col_WorkPhone, col_DateTimeCreated, col_LastLogIn, col_AccountType, col_AccountStatus FROM t_Users WHERE col_Username = @Username", pConn);
+                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Users WHERE col_Username = @Username", pConn);
                 SelectAccount.Parameters.Add(new SqlParameter("Username", Username));
 
                 using (SqlDataReader reader = SelectAccount.ExecuteReader())
                 {
-                    
-
-                    
                     while (reader.Read())
                     {
-                        for(int i = 0; i < 15; i++)
+                        for(int i = 0; i < 17; i++)
                         {
-                            if(reader[i] != DBNull.Value)
-                            {
-                                rVals[i] = reader[i].ToString().Trim();
-                            }
+                            /*if(reader[i] != DBNull.Value)
+                            {*/
+                            Debug.WriteLine(String.Format("reader[{0}].ToString().Trim() = {1}", i, reader[i].ToString().Trim()));
+                            rVals[i] = reader[i].ToString().Trim();
+                                Debug.WriteLine(String.Format("rVals[{0}] = {1}", i, reader[i].ToString().Trim()));
+                            //}
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("There was an exception whilst getting da user data: " + e);
-                throw new Exception("Ben Exception!");
+                Debug.WriteLine("There was an exception whilst getting user data: " + e);
+                throw e;
             }
-            AccountLog.Debug("Got user's details successfully!");
+            Debug.WriteLine("Got user's details successfully!");
             return rVals;
         }
 
@@ -675,6 +700,16 @@ namespace UacApi
                         conn.Open();
 
                         string[] DbAccountDetails = DbSelectValues(conn);
+
+                        if(DbAccountDetails == null)
+                        {
+                            Debug.WriteLine("No details were retrieved 1");
+                        }
+
+                        if (DbAccountDetails[0] == null)
+                        {
+                            Debug.WriteLine("No details were retrieved 2");
+                        }
 
                         string DbUsername = DbAccountDetails[0].ToString().Trim();
                         string DbEmail = DbAccountDetails[1].ToString().Trim();
@@ -991,7 +1026,7 @@ namespace UacApi
                                     }
                                 }
                             }
-                            throw new Exception("Some exception");
+                            throw new Exception("Expression evaluated to neither true or false");
                         }
 
                         SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (col_Username, col_Fname, col_Sname, col_Pwd) VALUES(@username, @fname, @sname, @pwd)", conn);
@@ -1001,11 +1036,13 @@ namespace UacApi
                         InsertIntoDb.Parameters.Add(new SqlParameter("pwd", pPwd.Trim()));
 
                         InsertIntoDb.ExecuteNonQuery();
+
+                        Debug.WriteLine(String.Format("Successfully inserted account \"{0}\" into database: ", Username));
                     }
                 }
                 catch(Exception e)
                 {
-                    Debug.WriteLine("Insert into Db falied: " + e);
+                    Debug.WriteLine("Failed to insert account into database: " + e);
                     return false;
                 }
 
