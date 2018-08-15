@@ -711,21 +711,60 @@ namespace UacApi
                             Debug.WriteLine("No details were retrieved 2");
                         }
 
+                        Debug.WriteLine(String.Format("string DbUsername: Converting x = DbAccountDetails[0] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[0]));
                         string DbUsername = DbAccountDetails[0].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string DbEmail: Converting x = DbAccountDetails[1] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[1]));
                         string DbEmail = DbAccountDetails[1].ToString().Trim();
+
+                        Debug.Write("Skipping DbAccountDetails[2]");
+
+                        Debug.WriteLine(String.Format("string DbForename: Converting x = DbAccountDetails[3] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[3]));
                         string dbForename = DbAccountDetails[3].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string DbSurname: Converting x = DbAccountDetails[4] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[4]));
                         string DbSurname = DbAccountDetails[4].ToString().Trim();
-                        DateTime DbDob = Convert.ToDateTime(DbAccountDetails[5]);
+
+                        DateTime DbDob;
+                        if (DbAccountDetails[5] == String.Empty || DbAccountDetails[5].ToString() == String.Empty)
+                        {
+                            Debug.WriteLine(String.Format("string DbDob: Converting x = DbAccountDetails[5] / x = \"{0}\" (DateTime.MinValue)", DbAccountDetails[5]));
+                            DbDob = DateTime.MinValue;
+                        }
+                        else
+                        {
+                            Debug.WriteLine(String.Format("string DbDob: Converting x = DbAccountDetails[5] / x = \"{0}\" (Convert.ToDateTime(x))", DbAccountDetails[5]));
+                            DbDob = Convert.ToDateTime(DbAccountDetails[5]);
+                        }
+                        
+
+                        Debug.WriteLine(String.Format("string DbAddress1: Converting x = DbAccountDetails[6] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[6]));
                         string DbAddress1 = DbAccountDetails[6].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string DbAddress2: Converting x = DbAccountDetails[7] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[7]));
                         string DbAddress2 = DbAccountDetails[7].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string DbAddress3: Converting x = DbAccountDetails[8] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[8]));
                         string DbAddress3 = DbAccountDetails[8].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string DbPostCode: Converting x = DbAccountDetails[9] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[9]));
                         string DbPostCode = DbAccountDetails[9].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string DbMobilePhone: Converting x = DbAccountDetails[10] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[10]));
                         string DbMobilePhone = DbAccountDetails[10].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string DbHomePhone: Converting x = DbAccountDetails[11] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[11]));
                         string DbHomePhone = DbAccountDetails[11].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string DbWorkPhone: Converting x = DbAccountDetails[12] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[12]));
                         string DbWorkPhone = DbAccountDetails[12].ToString().Trim();
                         //DateTime DbDateTimeCreated = Convert.ToDateTime(DbValues[13]);
                         //DateTime DbLastLogIn = Convert.ToDateTime(DbValues[14]);
+
+                        Debug.WriteLine(String.Format("string DbAccountType: Converting x = DbAccountDetails[15] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[15]));
                         string DbAccountType = DbAccountDetails[15].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string DbAccountStatus: Converting x = DbAccountDetails[16] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[16]));
                         string DbAccountStatus = DbAccountDetails[16].ToString().Trim();
                         
                         if(Username != DbUsername)
