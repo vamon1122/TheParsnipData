@@ -455,9 +455,8 @@ namespace UacApi
                         {
                             /*if(reader[i] != DBNull.Value)
                             {*/
-                            Debug.WriteLine(String.Format("reader[{0}].ToString().Trim() = {1}", i, reader[i].ToString().Trim()));
+                            Debug.WriteLine(String.Format("reader[{0}].ToString().Trim() = {1} (rVals[{0}] = {1})", i, reader[i].ToString().Trim()));
                             rVals[i] = reader[i].ToString().Trim();
-                                Debug.WriteLine(String.Format("rVals[{0}] = {1}", i, reader[i].ToString().Trim()));
                             //}
                         }
                     }
@@ -592,7 +591,7 @@ namespace UacApi
                     AccountLog.Debug("[LogIn] Attempting to get user details...");
                     try
                     {
-                        SqlCommand GetLogInDetails = new SqlCommand("SELECT col_Email, col_Fname, col_Sname, col_Dob, col_Address1, col_Address2, col_Address3, col_PostCode, col_MobilePhone, col_HomePhone, col_WorkPhone, col_DateTimeCreated, col_LastLogIn, col_AccountType, col_AccountStatus FROM t_Users WHERE col_Username = @Username", conn);
+                        SqlCommand GetLogInDetails = new SqlCommand("SELECT col_Email, col_Forename, col_Surname, col_Dob, col_Address1, col_Address2, col_Address3, col_PostCode, col_MobilePhone, col_HomePhone, col_WorkPhone, col_DateTimeCreated, col_LastLogIn, col_AccountType, col_AccountStatus FROM t_Users WHERE col_Username = @Username", conn);
                         GetLogInDetails.Parameters.Add(new SqlParameter("Username", Username));
 
                         using (SqlDataReader reader = GetLogInDetails.ExecuteReader())
@@ -717,7 +716,7 @@ namespace UacApi
                         Debug.WriteLine(String.Format("string DbEmail: Converting x = DbAccountDetails[1] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[1]));
                         string DbEmail = DbAccountDetails[1].ToString().Trim();
 
-                        Debug.Write("Skipping DbAccountDetails[2]");
+                        Debug.WriteLine("Skipping DbAccountDetails[2] (password)");
 
                         Debug.WriteLine(String.Format("string DbForename: Converting x = DbAccountDetails[3] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[3]));
                         string dbForename = DbAccountDetails[3].ToString().Trim();
@@ -737,7 +736,6 @@ namespace UacApi
                             DbDob = Convert.ToDateTime(DbAccountDetails[5]);
                         }
                         
-
                         Debug.WriteLine(String.Format("string DbAddress1: Converting x = DbAccountDetails[6] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[6]));
                         string DbAddress1 = DbAccountDetails[6].ToString().Trim();
 
@@ -758,8 +756,30 @@ namespace UacApi
 
                         Debug.WriteLine(String.Format("string DbWorkPhone: Converting x = DbAccountDetails[12] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[12]));
                         string DbWorkPhone = DbAccountDetails[12].ToString().Trim();
-                        //DateTime DbDateTimeCreated = Convert.ToDateTime(DbValues[13]);
-                        //DateTime DbLastLogIn = Convert.ToDateTime(DbValues[14]);
+
+                        DateTime DbDateTimeCreated;
+                        if (DbAccountDetails[13] == String.Empty || DbAccountDetails[13].ToString() == String.Empty)
+                        {
+                            Debug.WriteLine(String.Format("string DbDateTimeCreated: Converting x = DbAccountDetails[13] / x = \"{0}\" (DateTime.MinValue)", DbAccountDetails[13]));
+                            DbDateTimeCreated = DateTime.MinValue;
+                        }
+                        else
+                        {
+                            Debug.WriteLine(String.Format("string DbDateTimeCreated: Converting x = DbAccountDetails[13] / x = \"{0}\" (Convert.ToDateTime(x))", DbAccountDetails[13]));
+                            DbDateTimeCreated = Convert.ToDateTime(DbAccountDetails[13]);
+                        }
+
+                        DateTime DbLastLogIn;
+                        if (DbAccountDetails[14] == String.Empty || DbAccountDetails[14].ToString() == String.Empty)
+                        {
+                            Debug.WriteLine(String.Format("string DbLastLogIn: Converting x = DbAccountDetails[14] / x = \"{0}\" (DateTime.MinValue)", DbAccountDetails[14]));
+                            DbLastLogIn = DateTime.MinValue;
+                        }
+                        else
+                        {
+                            Debug.WriteLine(String.Format("string DbLastLogIn: Converting x = DbAccountDetails[14] / x = \"{0}\" (Convert.ToDateTime(x))", DbAccountDetails[14]));
+                            DbLastLogIn = Convert.ToDateTime(DbAccountDetails[14]);
+                        }
 
                         Debug.WriteLine(String.Format("string DbAccountType: Converting x = DbAccountDetails[15] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[15]));
                         string DbAccountType = DbAccountDetails[15].ToString().Trim();
@@ -838,7 +858,7 @@ namespace UacApi
                             Debug.WriteLine("Surname was not changed. Not updating surname.");
                         }
 
-                        if (Dob != DbDob)
+                        if (Dob != DbDob && Dob != DateTime.MinValue)
                         {
                             Debug.WriteLine("Updating dob...");
 
@@ -1046,7 +1066,9 @@ namespace UacApi
 
                         bool UsernameExists()
                         {
-                            SqlCommand FindUsername = new SqlCommand("SELECT count(1) FROM t_Users WHERE username = @username");
+                            Debug.WriteLine(String.Format("Checking that username \"{0}\" does not exist in database before attempting insert...", Username.Trim()));
+
+                            SqlCommand FindUsername = new SqlCommand("SELECT count(1) FROM t_Users WHERE col_Username = @username", conn);
                             FindUsername.Parameters.Add(new SqlParameter("username", Username));
 
 
@@ -1057,10 +1079,12 @@ namespace UacApi
                                 {
                                     if (reader[0].ToString() == "1")
                                     {
+                                        Debug.WriteLine(String.Format("Username \"{0}\" already exists in the database! Returning true.", Username.Trim()));
                                         return true;
                                     }
                                     else
                                     {
+                                        Debug.WriteLine(String.Format("Username \"{0}\" does not already exist in the database! Returning false.", Username.Trim()));
                                         return false;
                                     }
                                 }
@@ -1068,15 +1092,19 @@ namespace UacApi
                             throw new Exception("Expression evaluated to neither true or false");
                         }
 
-                        SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (col_Username, col_Fname, col_Sname, col_Pwd) VALUES(@username, @fname, @sname, @pwd)", conn);
-                        InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("fname", Forename.Trim()));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("sname", Surname.Trim()));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("pwd", pPwd.Trim()));
+                        if (!UsernameExists())
+                        {
+                            SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (col_Username, col_Forename, col_Surname, col_Pwd, col_DateTimeCreated) VALUES(@username, @fname, @sname, @pwd, getdate())", conn);
+                            InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("fname", Forename.Trim()));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("sname", Surname.Trim()));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("pwd", pPwd.Trim()));
 
-                        InsertIntoDb.ExecuteNonQuery();
+                            InsertIntoDb.ExecuteNonQuery();
 
-                        Debug.WriteLine(String.Format("Successfully inserted account \"{0}\" into database: ", Username));
+                            Debug.WriteLine(String.Format("Successfully inserted account \"{0}\" into database: ", Username));
+                        }
+                        
                     }
                 }
                 catch(Exception e)
