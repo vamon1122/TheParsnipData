@@ -35,7 +35,7 @@ namespace TheParsnipWeb
             MyAccount = new Account();
 
             if (String.IsNullOrEmpty(inputUsername.Text) && String.IsNullOrWhiteSpace(inputUsername.Text)){
-                if (MyAccount.LogIn())
+                if (MyAccount.LogIn(false))
                 {
                     Response.Redirect(Redirect);
                 }
@@ -55,7 +55,7 @@ namespace TheParsnipWeb
 
             System.Diagnostics.Debug.WriteLine("CheckBox = " + RememberPwd.Checked);
 
-            if (MyAccount.LogIn(inputUsername.Text, true, inputPwd.Text, RememberPwd.Checked))
+            if (MyAccount.LogIn(inputUsername.Text, true, inputPwd.Text, RememberPwd.Checked, false))
             {
                 Response.Redirect(Redirect);
             }

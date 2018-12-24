@@ -3,10 +3,86 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace LogApi
 {
-    class Data
+    public static class Data
     {
+        private static string sqlConnectionString = "Server=198.38.83.33;Database=vamon112_parsnipdb;Uid=vamon112_ben;Password=ccjO07JT;";
+        public static List<LogEntry> LogEntries = new List<LogEntry>();
+
+
+
+        public static bool LoadLogEntries()
+        {
+            try
+            {
+                using(SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    conn.Open();
+                    SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM t_LogEntries", conn);
+
+                    using(SqlDataReader reader = selectLogEntries.ExecuteReader())
+                    {
+                        LogEntries.Add(new LogEntry(new Guid(reader[0].ToString()))
+                        {
+                            userId = new Guid(reader[1].ToString()),
+                            date = Convert.ToDateTime(reader[2].ToString()),
+                            type = reader[3].ToString(),
+                            text = reader[4].ToString()
+                        });
+                    }
+                }
+                return true;
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+
+        }
+
+        internal static bool InsertLogEntry(LogEntry pLogEntry)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand insertLogEntry = new SqlCommand("INSERT INTO t_LogEntries (id, datetime, value) VALUES(@id, @datetime, @value)", conn);
+                    insertLogEntry.Parameters.Add(new SqlParameter("id", pLogEntry.id));
+                    insertLogEntry.Parameters.Add(new SqlParameter("datetime", pLogEntry.date));
+                    insertLogEntry.Parameters.Add(new SqlParameter("value", pLogEntry.text));
+
+                    insertLogEntry.ExecuteNonQuery();
+
+                    if(pLogEntry.userId != null && pLogEntry.userId != Guid.Empty)
+                    {
+                        SqlCommand insertLogEntry_updateUserId = new SqlCommand("UPDATE t_LogEntries SET userId = @userId WHERE id = @id", conn);
+                        insertLogEntry_updateUserId.Parameters.Add(new SqlParameter("userId", pLogEntry.userId));
+                        insertLogEntry_updateUserId.Parameters.Add(new SqlParameter("id", pLogEntry.id));
+
+                        insertLogEntry_updateUserId.ExecuteNonQuery();
+                    }
+
+                    if (pLogEntry.type != null)
+                    {
+                        SqlCommand insertLogEntry_updateType = new SqlCommand("UPDATE t_LogEntries SET type = @type WHERE id = @id", conn);
+                        insertLogEntry_updateType.Parameters.Add(new SqlParameter("type", pLogEntry.type));
+                        insertLogEntry_updateType.Parameters.Add(new SqlParameter("id", pLogEntry.id));
+
+                        insertLogEntry_updateType.ExecuteNonQuery();
+                    }
+                    
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

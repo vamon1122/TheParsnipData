@@ -58,5 +58,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogApi\LogApi.csproj">
+      <Project>{a463135f-93cf-4c00-8f13-b324a5d291e3}</Project>
+      <Name>LogApi</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

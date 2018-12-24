@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Web;
 using BenLog;
 using System.Diagnostics;
+using LogApi;
 
 namespace UacApi
 {
@@ -15,6 +16,7 @@ namespace UacApi
         private LogWriter AccountLog;
         private string sqlConnectionString;
 
+        public Guid id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public string Pwd { get; set; }
@@ -355,10 +357,16 @@ namespace UacApi
 
         public bool LogIn()
         {
+            return LogIn(true);
+        }
+
+        public bool LogIn(bool silent)
+        {   
             string[] Cookies = GetCookies();
             string CookieUsername = Cookies[0];
             Username = Cookies[0];
             string CookiePwd = Cookies[1];
+            
 
             System.Diagnostics.Debug.WriteLine("CookieUsername = " + CookieUsername);
             System.Diagnostics.Debug.WriteLine("CookiePwd = " + CookiePwd);
@@ -368,8 +376,8 @@ namespace UacApi
                 return false;
             }
             else
-            {
-                if (LogIn(CookieUsername, false, CookiePwd, false))
+            {   
+                if (LogIn(CookieUsername, false, CookiePwd, false, silent))
                 {
                     return true;
                 }
@@ -395,43 +403,45 @@ namespace UacApi
             
             Account ValidateMe = new Account();
 
-            ValidateMe.Username = DbAccountDetails[0].ToString().Trim();
-            ValidateMe.Email = DbAccountDetails[1].ToString().Trim();
-            ValidateMe.Pwd = DbAccountDetails[2].ToString().Trim();
-            ValidateMe.Forename = DbAccountDetails[3].ToString().Trim();
-            ValidateMe.Surname = DbAccountDetails[4].ToString().Trim();
-            ValidateMe.Dob = Convert.ToDateTime(DbAccountDetails[5]);
-            ValidateMe.Address1 = DbAccountDetails[6].ToString().Trim();
-            ValidateMe.Address2 = DbAccountDetails[7].ToString().Trim();
-            ValidateMe.Address3 = DbAccountDetails[8].ToString().Trim();
-            ValidateMe.PostCode = DbAccountDetails[9].ToString().Trim();
-            ValidateMe.MobilePhone = DbAccountDetails[10].ToString().Trim();
-            ValidateMe.HomePhone = DbAccountDetails[11].ToString().Trim();
-            ValidateMe.WorkPhone = DbAccountDetails[12].ToString().Trim();
-            ValidateMe.DateTimeCreated = Convert.ToDateTime(DbAccountDetails[13]);
-            ValidateMe.LastLogIn = Convert.ToDateTime(DbAccountDetails[14]);
-            ValidateMe.AccountType = DbAccountDetails[15].ToString().Trim();
-            ValidateMe.AccountStatus = DbAccountDetails[16].ToString().Trim();
+            ValidateMe.id = new Guid(DbAccountDetails[0].ToString());
+            ValidateMe.Username = DbAccountDetails[1].ToString().Trim();
+            ValidateMe.Email = DbAccountDetails[2].ToString().Trim();
+            ValidateMe.Pwd = DbAccountDetails[3].ToString().Trim();
+            ValidateMe.Forename = DbAccountDetails[4].ToString().Trim();
+            ValidateMe.Surname = DbAccountDetails[5].ToString().Trim();
+            ValidateMe.Dob = Convert.ToDateTime(DbAccountDetails[6]);
+            ValidateMe.Address1 = DbAccountDetails[7].ToString().Trim();
+            ValidateMe.Address2 = DbAccountDetails[8].ToString().Trim();
+            ValidateMe.Address3 = DbAccountDetails[9].ToString().Trim();
+            ValidateMe.PostCode = DbAccountDetails[10].ToString().Trim();
+            ValidateMe.MobilePhone = DbAccountDetails[11].ToString().Trim();
+            ValidateMe.HomePhone = DbAccountDetails[12].ToString().Trim();
+            ValidateMe.WorkPhone = DbAccountDetails[13].ToString().Trim();
+            ValidateMe.DateTimeCreated = Convert.ToDateTime(DbAccountDetails[14]);
+            ValidateMe.LastLogIn = Convert.ToDateTime(DbAccountDetails[15]);
+            ValidateMe.AccountType = DbAccountDetails[16].ToString().Trim();
+            ValidateMe.AccountStatus = DbAccountDetails[17].ToString().Trim();
 
             if (ValidateMe.Validate())
             {
-                Username = DbAccountDetails[0].ToString().Trim();
-                Email = DbAccountDetails[1].ToString().Trim();
-                //Pwd = DbAccountDetails[2].ToString().Trim();
-                Forename = DbAccountDetails[3].ToString().Trim();
-                Surname = DbAccountDetails[4].ToString().Trim();
-                Dob = Convert.ToDateTime(DbAccountDetails[5]);
-                Address1 = DbAccountDetails[6].ToString().Trim();
-                Address2 = DbAccountDetails[7].ToString().Trim();
-                Address3 = DbAccountDetails[8].ToString().Trim();
-                PostCode = DbAccountDetails[9].ToString().Trim();
-                MobilePhone = DbAccountDetails[10].ToString().Trim();
-                HomePhone = DbAccountDetails[11].ToString().Trim();
-                WorkPhone = DbAccountDetails[12].ToString().Trim();
-                DateTimeCreated = Convert.ToDateTime(DbAccountDetails[13]);
-                LastLogIn = Convert.ToDateTime(DbAccountDetails[14]);
-                AccountType = DbAccountDetails[15].ToString().Trim();
-                AccountStatus = DbAccountDetails[16].ToString().Trim();
+                id = new Guid(DbAccountDetails[0].ToString());
+                Username = DbAccountDetails[1].ToString().Trim();
+                Email = DbAccountDetails[2].ToString().Trim();
+                //Pwd = DbAccountDetails[3].ToString().Trim();
+                Forename = DbAccountDetails[4].ToString().Trim();
+                Surname = DbAccountDetails[5].ToString().Trim();
+                Dob = Convert.ToDateTime(DbAccountDetails[6]);
+                Address1 = DbAccountDetails[7].ToString().Trim();
+                Address2 = DbAccountDetails[8].ToString().Trim();
+                Address3 = DbAccountDetails[9].ToString().Trim();
+                PostCode = DbAccountDetails[10].ToString().Trim();
+                MobilePhone = DbAccountDetails[11].ToString().Trim();
+                HomePhone = DbAccountDetails[12].ToString().Trim();
+                WorkPhone = DbAccountDetails[13].ToString().Trim();
+                DateTimeCreated = Convert.ToDateTime(DbAccountDetails[14]);
+                LastLogIn = Convert.ToDateTime(DbAccountDetails[15]);
+                AccountType = DbAccountDetails[16].ToString().Trim();
+                AccountStatus = DbAccountDetails[17].ToString().Trim();
             }
 
             
@@ -447,14 +457,14 @@ namespace UacApi
             string[] rVals = new string[18];
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Users WHERE col_Username = @Username", pConn);
-                SelectAccount.Parameters.Add(new SqlParameter("Username", Username));
+                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Users WHERE Username = @username", pConn);
+                SelectAccount.Parameters.Add(new SqlParameter("username", Username));
 
                 using (SqlDataReader reader = SelectAccount.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        for(int i = 0; i < 17; i++)
+                        for(int i = 0; i < 18; i++)
                         {
                             /*if(reader[i] != DBNull.Value)
                             {*/
@@ -476,7 +486,14 @@ namespace UacApi
 
         public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
         {
+            return LogIn(pUsername, pRememberUsername, pPwd, pRememberPwd, true);
+        }
+
+        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd, bool silent)
+        {
             AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
+
+            
 
             string dbPwd = null;
             Username = pUsername;
@@ -528,7 +545,19 @@ namespace UacApi
 
                         if (SetLastLogIn())
                         {
+                            
+
                             AccountLog.Info("[LogIn] Logged in successfully!");
+                            if (!silent)
+                            {
+                                System.Diagnostics.Debug.WriteLine(String.Format("----------{0} logged in LOUDLY", pUsername));
+                                new LogEntry() { text = String.Format("{0} logged in", pUsername), userId = id  }.Insert();
+                            }
+                            else
+                            {
+                                System.Diagnostics.Debug.WriteLine(String.Format("----------{0} logged in SILENTLY", pUsername));
+                            }
+                            
                             return true;
                         }
                         
@@ -549,7 +578,7 @@ namespace UacApi
                     try
                     {
                         AccountLog.Debug("username = " + Username);
-                        SqlCommand Command = new SqlCommand("UPDATE t_Users SET col_LastLogIn = GETDATE() WHERE col_Username = @Username;", conn);
+                        SqlCommand Command = new SqlCommand("UPDATE t_Users SET LastLogIn = GETDATE() WHERE Username = @Username;", conn);
                         Command.Parameters.Add(new SqlParameter("Username", Username));
                         RecordsAffected = Command.ExecuteNonQuery();
                         
@@ -569,7 +598,7 @@ namespace UacApi
                     AccountLog.Debug("[LogIn] Attempting to get password from database...");
                     try
                     {
-                        SqlCommand GetLogInDetails = new SqlCommand("SELECT col_Pwd FROM t_Users WHERE col_Username = @Username", conn);
+                        SqlCommand GetLogInDetails = new SqlCommand("SELECT Pwd FROM t_Users WHERE Username = @Username", conn);
                         GetLogInDetails.Parameters.Add(new SqlParameter("Username", pUsername));
 
                         using (SqlDataReader reader = GetLogInDetails.ExecuteReader())
@@ -594,7 +623,7 @@ namespace UacApi
                     AccountLog.Debug("[LogIn] Attempting to get user details...");
                     try
                     {
-                        SqlCommand GetLogInDetails = new SqlCommand("SELECT col_Email, col_Forename, col_Surname, col_Dob, col_Address1, col_Address2, col_Address3, col_PostCode, col_MobilePhone, col_HomePhone, col_WorkPhone, col_DateTimeCreated, col_LastLogIn, col_AccountType, col_AccountStatus FROM t_Users WHERE col_Username = @Username", conn);
+                        SqlCommand GetLogInDetails = new SqlCommand("SELECT Email, Forename, Surname, Dob, Address1, Address2, Address3, PostCode, MobilePhone, HomePhone, WorkPhone, DateTimeCreated, LastLogIn, AccountType, AccountStatus FROM t_Users WHERE Username = @Username", conn);
                         GetLogInDetails.Parameters.Add(new SqlParameter("Username", Username));
 
                         using (SqlDataReader reader = GetLogInDetails.ExecuteReader())
@@ -794,7 +823,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating username...");
 
-                            SqlCommand UpdateUsername = new SqlCommand("UPDATE t_Users SET col_Username = @username WHERE col_Username = @username", conn);
+                            SqlCommand UpdateUsername = new SqlCommand("UPDATE t_Users SET Username = @username WHERE Username = @username", conn);
 
                             UpdateUsername.Parameters.Add(new SqlParameter("username", Username));
 
@@ -811,7 +840,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating email...");
 
-                            SqlCommand UpdateEmail = new SqlCommand("UPDATE t_Users SET col_Email = @email WHERE col_Username = @username", conn);
+                            SqlCommand UpdateEmail = new SqlCommand("UPDATE t_Users SET Email = @email WHERE Username = @username", conn);
 
                             UpdateEmail.Parameters.Add(new SqlParameter("username", Username));
                             UpdateEmail.Parameters.Add(new SqlParameter("email", Email));
@@ -829,7 +858,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating forename...");
 
-                            SqlCommand UpdateForename = new SqlCommand("UPDATE t_Users SET col_Forename = @forename WHERE col_Username = @username", conn);
+                            SqlCommand UpdateForename = new SqlCommand("UPDATE t_Users SET Forename = @forename WHERE Username = @username", conn);
 
                             UpdateForename.Parameters.Add(new SqlParameter("username", Username));
                             UpdateForename.Parameters.Add(new SqlParameter("forename", Email));
@@ -847,7 +876,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating surname...");
 
-                            SqlCommand UpdateSurname = new SqlCommand("UPDATE t_Users SET col_Surname = @surname WHERE col_Username = @username", conn);
+                            SqlCommand UpdateSurname = new SqlCommand("UPDATE t_Users SET Surname = @surname WHERE Username = @username", conn);
 
                             UpdateSurname.Parameters.Add(new SqlParameter("username", Username));
                             UpdateSurname.Parameters.Add(new SqlParameter("surname", Surname));
@@ -865,7 +894,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating dob...");
 
-                            SqlCommand UpdateDob = new SqlCommand("UPDATE t_Users SET col_Dob = @dob WHERE col_Username = @username", conn);
+                            SqlCommand UpdateDob = new SqlCommand("UPDATE t_Users SET Dob = @dob WHERE Username = @username", conn);
 
                             UpdateDob.Parameters.Add(new SqlParameter("username", Username));
                             UpdateDob.Parameters.Add(new SqlParameter("dob", Dob));
@@ -883,7 +912,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating address1...");
 
-                            SqlCommand UpdateAddress1 = new SqlCommand("UPDATE t_Users SET col_Address1 = @address1 WHERE col_Username = @username", conn);
+                            SqlCommand UpdateAddress1 = new SqlCommand("UPDATE t_Users SET Address1 = @address1 WHERE Username = @username", conn);
 
                             UpdateAddress1.Parameters.Add(new SqlParameter("username", Username));
                             UpdateAddress1.Parameters.Add(new SqlParameter("address1", Address1));
@@ -901,7 +930,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating address2...");
 
-                            SqlCommand UpdateAddress2 = new SqlCommand("UPDATE t_Users SET col_Address2 = @address2 WHERE col_Username = @username", conn);
+                            SqlCommand UpdateAddress2 = new SqlCommand("UPDATE t_Users SET Address2 = @address2 WHERE Username = @username", conn);
 
                             UpdateAddress2.Parameters.Add(new SqlParameter("username", Username));
                             UpdateAddress2.Parameters.Add(new SqlParameter("address2", Address2));
@@ -919,7 +948,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating address3...");
 
-                            SqlCommand UpdateAddress3 = new SqlCommand("UPDATE t_Users SET col_Address3 = @address3 WHERE col_Username = @username", conn);
+                            SqlCommand UpdateAddress3 = new SqlCommand("UPDATE t_Users SET Address3 = @address3 WHERE Username = @username", conn);
 
                             UpdateAddress3.Parameters.Add(new SqlParameter("username", Username));
                             UpdateAddress3.Parameters.Add(new SqlParameter("address3", Address3));
@@ -937,7 +966,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating postcode...");
 
-                            SqlCommand UpdatePostCode = new SqlCommand("UPDATE t_Users SET col_PostCode = @postCode WHERE col_Username = @username", conn);
+                            SqlCommand UpdatePostCode = new SqlCommand("UPDATE t_Users SET PostCode = @postCode WHERE Username = @username", conn);
 
                             UpdatePostCode.Parameters.Add(new SqlParameter("username", Username));
                             UpdatePostCode.Parameters.Add(new SqlParameter("postCode", PostCode));
@@ -955,7 +984,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating mobile phone...");
 
-                            SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE t_Users SET col_MobilePhone = @mobilePhone WHERE col_Username = @username", conn);
+                            SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE t_Users SET MobilePhone = @mobilePhone WHERE Username = @username", conn);
 
                             UpdateMobilePhone.Parameters.Add(new SqlParameter("username", Username));
                             UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", MobilePhone));
@@ -973,7 +1002,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating home phone...");
 
-                            SqlCommand UpdateHomePhone = new SqlCommand("UPDATE t_Users SET col_HomePhone = @homePhone WHERE col_Username = @username", conn);
+                            SqlCommand UpdateHomePhone = new SqlCommand("UPDATE t_Users SET HomePhone = @homePhone WHERE Username = @username", conn);
 
                             UpdateHomePhone.Parameters.Add(new SqlParameter("username", Username));
                             UpdateHomePhone.Parameters.Add(new SqlParameter("homePhone", HomePhone));
@@ -991,7 +1020,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating work phone...");
 
-                            SqlCommand UpdateWorkPhone = new SqlCommand("UPDATE t_Users SET col_WorkPhone = @workPhone WHERE col_Username = @username", conn);
+                            SqlCommand UpdateWorkPhone = new SqlCommand("UPDATE t_Users SET WorkPhone = @workPhone WHERE Username = @username", conn);
 
                             UpdateWorkPhone.Parameters.Add(new SqlParameter("username", Username));
                             UpdateWorkPhone.Parameters.Add(new SqlParameter("workPhone", WorkPhone));
@@ -1009,7 +1038,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating account type...");
 
-                            SqlCommand UpdateAccountType = new SqlCommand("UPDATE t_Users SET col_AccountType = @accountType WHERE col_Username = @username", conn);
+                            SqlCommand UpdateAccountType = new SqlCommand("UPDATE t_Users SET AccountType = @accountType WHERE Username = @username", conn);
 
                             UpdateAccountType.Parameters.Add(new SqlParameter("username", Username));
                             UpdateAccountType.Parameters.Add(new SqlParameter("accountType", AccountType));
@@ -1027,7 +1056,7 @@ namespace UacApi
                         {
                             Debug.WriteLine("Updating account status...");
 
-                            SqlCommand UpdateAccountStatus = new SqlCommand("UPDATE t_Users SET col_AccountStatus = @accountStatus WHERE col_Username = @username", conn);
+                            SqlCommand UpdateAccountStatus = new SqlCommand("UPDATE t_Users SET AccountStatus = @accountStatus WHERE Username = @username", conn);
 
                             UpdateAccountStatus.Parameters.Add(new SqlParameter("username", Username));
                             UpdateAccountStatus.Parameters.Add(new SqlParameter("accountStatus", AccountStatus));
@@ -1071,7 +1100,7 @@ namespace UacApi
                         {
                             Debug.WriteLine(String.Format("Checking that username \"{0}\" does not exist in database before attempting insert...", Username.Trim()));
 
-                            SqlCommand FindUsername = new SqlCommand("SELECT count(1) FROM t_Users WHERE col_Username = @username", conn);
+                            SqlCommand FindUsername = new SqlCommand("SELECT count(1) FROM t_Users WHERE Username = @username", conn);
                             FindUsername.Parameters.Add(new SqlParameter("username", Username));
 
 
@@ -1097,7 +1126,7 @@ namespace UacApi
 
                         if (!UsernameExists())
                         {
-                            SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (col_Username, col_Forename, col_Surname, col_Pwd, col_DateTimeCreated) VALUES(@username, @fname, @sname, @pwd, getdate())", conn);
+                            SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (Username, Forename, Surname, Pwd, DateTimeCreated) VALUES(@username, @fname, @sname, @pwd, getdate())", conn);
                             InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
                             InsertIntoDb.Parameters.Add(new SqlParameter("fname", Forename.Trim()));
                             InsertIntoDb.Parameters.Add(new SqlParameter("sname", Surname.Trim()));
