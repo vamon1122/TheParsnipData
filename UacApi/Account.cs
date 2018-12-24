@@ -14,9 +14,9 @@ namespace UacApi
     public class Account
     {
         private LogWriter AccountLog;
-        private string sqlConnectionString;
+        private static string sqlConnectionString = "Server=198.38.83.33;Database=vamon112_parsnipdb;Uid=vamon112_ben;Password=ccjO07JT;";
 
-        public Guid id { get; set; }
+        public Guid id { get; private set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public string Pwd { get; set; }
@@ -40,9 +40,14 @@ namespace UacApi
 
         public Account()
         {
+            id = Guid.NewGuid();
+            DateTimeCreated = DateTime.Now.AddHours(8);
             AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
-            //sqlConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"M:\\Users\\benba\\My Documents\\Production\\Coding\\TheParsnipWeb\\Program\\TheParsnipWeb\\App_Data\\ParsnipDb.mdf\";Integrated Security=True";
-            sqlConnectionString = "Server=198.38.83.33;Database=vamon112_parsnipdb;Uid=vamon112_ben;Password=ccjO07JT;";
+        }
+
+        public Account(Guid pGuid)
+        {
+            id = pGuid;
         }
 
         public bool Validate()
@@ -402,26 +407,25 @@ namespace UacApi
 
             string[] DbAccountDetails = DbSelectValues(pConn);
             
-            Account ValidateMe = new Account();
-
-            ValidateMe.id = new Guid(DbAccountDetails[0].ToString());
-            ValidateMe.Username = DbAccountDetails[1].ToString().Trim();
-            ValidateMe.Email = DbAccountDetails[2].ToString().Trim();
-            ValidateMe.Pwd = DbAccountDetails[3].ToString().Trim();
-            ValidateMe.Forename = DbAccountDetails[4].ToString().Trim();
-            ValidateMe.Surname = DbAccountDetails[5].ToString().Trim();
-            ValidateMe.Dob = Convert.ToDateTime(DbAccountDetails[6]);
-            ValidateMe.Address1 = DbAccountDetails[7].ToString().Trim();
-            ValidateMe.Address2 = DbAccountDetails[8].ToString().Trim();
-            ValidateMe.Address3 = DbAccountDetails[9].ToString().Trim();
-            ValidateMe.PostCode = DbAccountDetails[10].ToString().Trim();
-            ValidateMe.MobilePhone = DbAccountDetails[11].ToString().Trim();
-            ValidateMe.HomePhone = DbAccountDetails[12].ToString().Trim();
-            ValidateMe.WorkPhone = DbAccountDetails[13].ToString().Trim();
-            ValidateMe.DateTimeCreated = Convert.ToDateTime(DbAccountDetails[14]);
-            ValidateMe.LastLogIn = Convert.ToDateTime(DbAccountDetails[15]);
-            ValidateMe.AccountType = DbAccountDetails[16].ToString().Trim();
-            ValidateMe.AccountStatus = DbAccountDetails[17].ToString().Trim();
+            Account ValidateMe = new Account(new Guid(DbAccountDetails[0].ToString())) {
+                Username = DbAccountDetails[1].ToString().Trim(),
+                Email = DbAccountDetails[2].ToString().Trim(),
+                Pwd = DbAccountDetails[3].ToString().Trim(),
+                Forename = DbAccountDetails[4].ToString().Trim(),
+                Surname = DbAccountDetails[5].ToString().Trim(),
+                Dob = Convert.ToDateTime(DbAccountDetails[6]),
+                Address1 = DbAccountDetails[7].ToString().Trim(),
+                Address2 = DbAccountDetails[8].ToString().Trim(),
+                Address3 = DbAccountDetails[9].ToString().Trim(),
+                PostCode = DbAccountDetails[10].ToString().Trim(),
+                MobilePhone = DbAccountDetails[11].ToString().Trim(),
+                HomePhone = DbAccountDetails[12].ToString().Trim(),
+                WorkPhone = DbAccountDetails[13].ToString().Trim(),
+                DateTimeCreated = Convert.ToDateTime(DbAccountDetails[14]),
+                LastLogIn = Convert.ToDateTime(DbAccountDetails[15]),
+                AccountType = DbAccountDetails[16].ToString().Trim(),
+                AccountStatus = DbAccountDetails[17].ToString().Trim()
+        };
 
             if (ValidateMe.Validate())
             {

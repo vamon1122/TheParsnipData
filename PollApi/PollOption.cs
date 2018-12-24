@@ -8,10 +8,27 @@ namespace PollApi
 {
     class PollOption
     {
-        public Guid PollId { get; set; }
-        public string Value { get; set; }
-        public Guid CreatedByUserId { get; set; }
-        public DateTime DateTimeCreated { get; set; }
-        
+        public Guid id { get; set; }
+        public Guid pollId { get; set; }
+        public Guid createdByUserId { get; set; }
+        public DateTime dateCreated { get; set; }
+        public string value { get; set; }
+
+        public PollOption(Guid pPollId)
+        {
+            id = pPollId;
+        }
+
+        public PollOption()
+        {
+            id = Guid.NewGuid();
+            dateCreated = DateTime.Now.AddHours(8);
+        }
+
+        public bool Insert()
+        {
+            return Data.InsertPollOption(this);
+
+        }
     }
 }

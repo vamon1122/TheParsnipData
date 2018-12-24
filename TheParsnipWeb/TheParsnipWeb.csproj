@@ -135,6 +135,7 @@
     <Content Include="CSS\old\m_style.css" />
     <Content Include="CSS\old\style.css" />
     <Content Include="CSS\style.css" />
+    <Content Include="CustomControls\PollApi\PollControl.ascx" />
     <Content Include="default.aspx" />
     <Content Include="downloads\#TheParsnipRemix2016.mp3" />
     <Content Include="home.aspx" />
@@ -211,10 +212,12 @@
     <Content Include="Photos\Photos\tom_1.JPG" />
     <Content Include="Photos\Photos\tom_2.JPG" />
     <Content Include="Photos\Photos\tom_glasses.JPG" />
+    <Content Include="polls.aspx" />
     <Content Include="rounded.png" />
     <Content Include="CustomControls\UacApi\UserForm.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="UacService.asmx" />
     <Content Include="Web.config" />
     <Content Include="youtube.aspx" />
     <Content Include="_NEW TEMPLATE.aspx" />
@@ -255,6 +258,13 @@
     </Compile>
     <Compile Include="create-user.aspx.designer.cs">
       <DependentUpon>create-user.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\PollApi\PollControl.ascx.cs">
+      <DependentUpon>PollControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomControls\PollApi\PollControl.ascx.designer.cs">
+      <DependentUpon>PollControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
@@ -312,6 +322,13 @@
     <Compile Include="photos.aspx.designer.cs">
       <DependentUpon>photos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="polls.aspx.cs">
+      <DependentUpon>polls.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="polls.aspx.designer.cs">
+      <DependentUpon>polls.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CustomControls\UacApi\UserForm.ascx.cs">
       <DependentUpon>UserForm.ascx</DependentUpon>
@@ -319,6 +336,10 @@
     </Compile>
     <Compile Include="CustomControls\UacApi\UserForm.ascx.designer.cs">
       <DependentUpon>UserForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UacService.asmx.cs">
+      <DependentUpon>UacService.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="youtube.aspx.cs">
       <DependentUpon>youtube.aspx</DependentUpon>

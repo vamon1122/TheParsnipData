@@ -29,7 +29,7 @@ var titleColor = "white";
 var fontCol = "white";
 
 /////Mobile / Desktop Variables/////
-if (isMobile() == true){
+if (isMobile() === true){
     height = "112.5px";
     buttFontSize = "50px";
     buttonPadding = "30px";
@@ -46,6 +46,7 @@ else{
 
 /////Buttons/////
 createButton("Home", "home.aspx");
+createButton("NEW! Polls", "polls.aspx");
 createButton("Videos", "youtube.aspx");
 createButton("Memes", "memes.aspx");
 createButton("Photos", "photos.aspx");
@@ -63,7 +64,7 @@ menuDiv.style.backgroundColor = colDarkest;
 menuDiv.style.display = "inline-block";
 menuDiv.style.height = height;
 menuDiv.style.listStyle = "none";
-menuDiv.style.position = "fixed"
+menuDiv.style.position = "fixed";
 menuDiv.style.top = "0px";
 menuDiv.style.left = "0px";
 menuDiv.style.padding = "0px";
@@ -107,7 +108,7 @@ menuLabel.style.fontSize = "50px";
 menuLabel.addEventListener("click", function (e) {
 menuLabel.className = "rotate";
 if (isMobile()) {
-    if (list.className == "mMenHide" || list.className == "menHidden") {
+    if (list.className === "mMenHide" || list.className === "menHidden") {
         list.className = "mMenVis";
     }
     else {
@@ -116,7 +117,7 @@ if (isMobile()) {
     }
 }
 else {
-    if (list.className == "menHide" || list.className == "menHidden") {
+    if (list.className === "menHide" || list.className === "menHidden") {
         list.className = "menVis";
     }
     else {
@@ -126,9 +127,9 @@ else {
 
 
 }
-setTimeout(function (e) { menuLabel.className = ""; }
+    setTimeout(function (e) { menuLabel.className = ""; }
 
-, 500)
+        , 500);
 }
 );
 
@@ -139,7 +140,7 @@ function createButton(title, href) {
         funcCreateButton(title, href);
     }
     else{
-        createList()
+        createList();
         funcCreateButton(title, href);
     }
 }
@@ -161,7 +162,7 @@ function createList() {
     list.id = "list";
     document.getElementById("body").appendChild(list);
     
-};
+}
 
 //list.onmouseout = function (e) { alert("Left") };
 
@@ -172,11 +173,8 @@ function createList() {
 var firstButton;
 function funcCreateButton(title, href) {
     var butt = document.createElement("li");
-    if (firstButton == false) {
+    if (firstButton === false) {
         butt.style.textAlign = "center";
-    }
-    else
-    {
     }
 
     butt.style.width = "100%";
@@ -189,10 +187,10 @@ function funcCreateButton(title, href) {
     buttAnk.innerHTML = title;
     buttAnk.href = href;
     buttAnk.style.width = "100%";
-    buttAnk.style.padding = "0px"
+    buttAnk.style.padding = "0px";
     buttAnk.style.textDecoration = "none";
     buttAnk.style.display = "block";
-    buttAnk.className = "menu"
+    buttAnk.className = "menu";
     buttAnk.style.fontSize = buttFontSize;
     buttAnk.style.paddingTop = buttonPadding;
     buttAnk.style.paddingBottom = buttonPadding;
@@ -214,9 +212,9 @@ function isMobile() {
     || navigator.userAgent.match(/BlackBerry/i)
     || navigator.userAgent.match(/Windows Phone/i)
     ) {
-        return true
+        return true;
     }
     else {
-        return false
+        return false;
     }
 }

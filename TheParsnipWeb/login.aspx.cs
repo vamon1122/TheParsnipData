@@ -14,7 +14,6 @@ namespace TheParsnipWeb
         private Account MyAccount;
         private string Redirect;
         LogWriter AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
-        bool PageLoaded;
 
         protected void Page_Load(object sender, EventArgs e)
         {
