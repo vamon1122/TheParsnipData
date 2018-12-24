@@ -13,6 +13,27 @@ namespace UacApi
     public class Account
     {
         private LogWriter AccountLog;
+        private string sqlConnectionString;
+
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string Pwd { get; set; }
+        public string Forename { get; set; }
+        public string Surname { get; set; }
+        public DateTime Dob { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string PostCode { get; set; }
+        public string MobilePhone { get; set; }
+        public string HomePhone { get; set; }
+        public string WorkPhone { get; set; }
+        public DateTime DateTimeCreated { get; set; }
+        public DateTime LastLogIn { get; set; }
+        public string AccountType { get; set; }
+        public string AccountStatus { get; set; }
+        public Guid CreatedByUserId { get; set; }
+        
 
         public Account()
         {
@@ -204,25 +225,7 @@ namespace UacApi
             }
         }
         
-        private string sqlConnectionString;
-
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public string Pwd { get; set; }
-        public string Forename { get; set; }
-        public string Surname { get; set; }
-        public DateTime Dob { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string Address3 { get; set; }
-        public string PostCode { get; set; }
-        public string MobilePhone { get; set; }
-        public string HomePhone { get; set; }
-        public string WorkPhone { get; set; }
-        public DateTime DateTimeCreated { get; set; }
-        public DateTime LastLogIn { get; set; }
-        public string AccountType { get; set; }
-        public string AccountStatus { get; set; }
+        
         
         private string[] GetCookies()
         {
