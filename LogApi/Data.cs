@@ -12,6 +12,8 @@ namespace LogApi
         private static string sqlConnectionString = "Server=198.38.83.33;Database=vamon112_parsnipdb;Uid=vamon112_ben;Password=ccjO07JT;";
         public static List<LogEntry> LogEntries = new List<LogEntry>();
 
+        
+
 
 
         public static bool LoadLogEntries()
@@ -25,13 +27,21 @@ namespace LogApi
 
                     using(SqlDataReader reader = selectLogEntries.ExecuteReader())
                     {
-                        LogEntries.Add(new LogEntry(new Guid(reader[0].ToString()))
+                        while (reader.Read())
                         {
-                            userId = new Guid(reader[1].ToString()),
-                            date = Convert.ToDateTime(reader[2].ToString()),
-                            type = reader[3].ToString(),
-                            text = reader[4].ToString()
-                        });
+                            LogEntry temp = new LogEntry(new Guid(reader[0].ToString()))
+                            {
+                                date = Convert.ToDateTime(reader[2].ToString()),
+                                text = reader[4].ToString()
+                            };
+
+                            if (reader[1] != DBNull.Value) temp.userId = new Guid(reader[1].ToString());
+                            if (reader[3] != DBNull.Value) temp.type = reader[3].ToString();
+
+                            LogEntries.Add(temp);
+                        }
+                        
+                        
                     }
                 }
                 return true;

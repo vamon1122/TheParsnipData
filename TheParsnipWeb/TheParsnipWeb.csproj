@@ -131,6 +131,7 @@
     <Content Include="bootstrap-4.1.2-dist\js\bootstrap.min.js" />
     <Content Include="carls-bullshit.html" />
     <Content Include="content removal.html" />
+    <Content Include="create-user.aspx" />
     <Content Include="CSS\old\m_style.css" />
     <Content Include="CSS\old\style.css" />
     <Content Include="CSS\style.css" />
@@ -144,6 +145,7 @@
     <Content Include="Links.txt" />
     <Content Include="login.aspx" />
     <Content Include="logout.aspx" />
+    <Content Include="logs.aspx" />
     <Content Include="memes.aspx" />
     <Content Include="minecraft.aspx" />
     <Content Include="ParsnipStyle.css" />
@@ -247,6 +249,13 @@
     <Compile Include="bios.aspx.designer.cs">
       <DependentUpon>bios.aspx</DependentUpon>
     </Compile>
+    <Compile Include="create-user.aspx.cs">
+      <DependentUpon>create-user.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="create-user.aspx.designer.cs">
+      <DependentUpon>create-user.aspx</DependentUpon>
+    </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -274,6 +283,13 @@
     </Compile>
     <Compile Include="logout.aspx.designer.cs">
       <DependentUpon>logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="logs.aspx.cs">
+      <DependentUpon>logs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="logs.aspx.designer.cs">
+      <DependentUpon>logs.aspx</DependentUpon>
     </Compile>
     <Compile Include="memes.aspx.cs">
       <DependentUpon>memes.aspx</DependentUpon>

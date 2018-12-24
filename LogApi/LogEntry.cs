@@ -39,7 +39,7 @@ namespace LogApi
         public LogEntry()
         {
             id = Guid.NewGuid();
-            date = DateTime.Now;
+            date = DateTime.Now.AddHours(8);
 
         }
 

@@ -30,5 +30,15 @@ namespace TheParsnipWeb
                 Response.Redirect("access-denied.aspx?url=admin.aspx");
             }
         }
+
+        protected void OpenLogsButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("logs.aspx");
+        }
+
+        protected void NewUserButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("create-user.aspx");
+        }
     }
 }
