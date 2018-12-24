@@ -35,7 +35,8 @@ namespace UacApi
         public string AccountType { get; set; }
         public string AccountStatus { get; set; }
         public Guid CreatedByUserId { get; set; }
-        
+        public string fullName { get { return string.Format("{0} {1}", Forename, Surname); } }
+
 
         public Account()
         {
@@ -550,12 +551,12 @@ namespace UacApi
                             AccountLog.Info("[LogIn] Logged in successfully!");
                             if (!silent)
                             {
-                                System.Diagnostics.Debug.WriteLine(String.Format("----------{0} logged in LOUDLY", pUsername));
-                                new LogEntry() { text = String.Format("{0} logged in", pUsername), userId = id  }.Insert();
+                                System.Diagnostics.Debug.WriteLine(String.Format("----------{0} logged in LOUDLY", fullName));
+                                new LogEntry() { text = String.Format("{0} logged in", fullName), userId = id  }.Insert();
                             }
                             else
                             {
-                                System.Diagnostics.Debug.WriteLine(String.Format("----------{0} logged in SILENTLY", pUsername));
+                                System.Diagnostics.Debug.WriteLine(String.Format("----------{0} logged in SILENTLY", fullName));
                             }
                             
                             return true;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using LogApi;
 
 namespace TheParsnipWeb
 {
@@ -20,7 +21,7 @@ namespace TheParsnipWeb
             }
             else
             {
-                
+                new LogEntry() { text = String.Format("{0} accessed the bios page", MyAccount.fullName), userId = MyAccount.id }.Insert();
             }
         }
     }

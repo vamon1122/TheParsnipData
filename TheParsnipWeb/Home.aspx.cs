@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using UacApi;
+using LogApi;
 
 namespace TheParsnipWeb
 {
@@ -20,6 +21,7 @@ namespace TheParsnipWeb
             }
             else
             {
+                new LogEntry() { text = String.Format("{0} accessed the home page", MyAccount.fullName), userId = MyAccount.id }.Insert();
                 WelcomeLabel.Text = String.Format("Welcome back {0}!", MyAccount.Forename);
             }
         }

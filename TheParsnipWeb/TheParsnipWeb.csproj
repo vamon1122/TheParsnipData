@@ -327,6 +327,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LogApi\LogApi.csproj">
+      <Project>{a463135f-93cf-4c00-8f13-b324a5d291e3}</Project>
+      <Name>LogApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ParsnipControls\ParsnipControls.csproj">
       <Project>{2a6f76ec-9afa-4e38-accf-9691e65c28c2}</Project>
       <Name>ParsnipControls</Name>
