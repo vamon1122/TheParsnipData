@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using UacApi;
+using LogApi;
 
 namespace TheParsnipWeb
 {
@@ -18,11 +19,26 @@ namespace TheParsnipWeb
             {
                 Response.Redirect("login.aspx?url=admin.aspx");
             }
+            else
+            {
+                new LogEntry() { text = String.Format("{0} accessed the admin page", MyAccount.fullName), userId = MyAccount.id }.Insert();
+            }
 
             if(MyAccount.AccountType != "admin")
             {
+                new LogEntry() { text = String.Format("{0} attempted (and failed) to access the admin page", MyAccount.fullName), userId = MyAccount.id }.Insert();
                 Response.Redirect("access-denied.aspx?url=admin.aspx");
             }
+        }
+
+        protected void OpenLogsButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("logs.aspx");
+        }
+
+        protected void NewUserButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("create-user.aspx");
         }
     }
 }

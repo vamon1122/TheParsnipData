@@ -1,5 +1,6 @@
 ﻿using System;
 using UacApi;
+using LogApi;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,8 @@ namespace TheParsnipWeb
 {
     public partial class UserForm1 : System.Web.UI.UserControl
     {
-        Account MyAccount = new Account();
+        Account formAccount = new Account();
+        Account MyAccount;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -18,57 +20,70 @@ namespace TheParsnipWeb
             {
                 MyAccount.LogIn(e.ToString());
             }*/
+
+            MyAccount = new Account();
+            if (!MyAccount.LogIn())
+            {
+                Response.Redirect("login.aspx?url=create-user.aspx");
+            }
+            else
+            {
+                new LogEntry() { text = String.Format("{0} accessed the create-user page", MyAccount.fullName), userId = MyAccount.id }.Insert();
+            }
+
+
         }
 
         void UpdateForm()
         {
-            username.Text = MyAccount.Username;
-            email.Text = MyAccount.Email;
+            username.Text = formAccount.Username;
+            email.Text = formAccount.Email;
             //updatePwd()
-            forename.Text = MyAccount.Forename;
-            surname.Text = MyAccount.Surname;
+            forename.Text = formAccount.Forename;
+            surname.Text = formAccount.Surname;
             //updateDob()
-            address1.Text = MyAccount.Address1;
-            address2.Text = MyAccount.Address2;
-            address3.Text = MyAccount.Address3;
-            postCode.Text = MyAccount.PostCode;
-            mobilePhone.Text = MyAccount.MobilePhone;
-            homePhone.Text = MyAccount.HomePhone;
-            workPhone.Text = MyAccount.WorkPhone;
+            address1.Text = formAccount.Address1;
+            address2.Text = formAccount.Address2;
+            address3.Text = formAccount.Address3;
+            postCode.Text = formAccount.PostCode;
+            mobilePhone.Text = formAccount.MobilePhone;
+            homePhone.Text = formAccount.HomePhone;
+            workPhone.Text = formAccount.WorkPhone;
             // updateDateTimeCreated()
-            accountType.Value = MyAccount.AccountType;
-            accountStatus.Value = MyAccount.AccountStatus;
+            accountType.Value = formAccount.AccountType;
+            accountStatus.Value = formAccount.AccountStatus;
         }
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             WriteToObj();
-            if (MyAccount.Validate())
+            if (formAccount.Validate())
             {
                 
-                MyAccount.DbInsert(password1.Text);
+                formAccount.DbInsert(password1.Text);
+                new LogEntry() { text = String.Format("{0} created an account for {1} via the create-user page", MyAccount.fullName, formAccount.fullName), userId = MyAccount.id }.Insert();
             }
 
 
             void WriteToObj()
             {
-                MyAccount.Username = username.Text;
-                MyAccount.Email = email.Text;
+                formAccount.Username = username.Text;
+                formAccount.Email = email.Text;
                 //MyAccount.Pwd = password1.Text;
-                MyAccount.Forename = forename.Text;
-                MyAccount.Surname = surname.Text;
+                formAccount.Forename = forename.Text;
+                formAccount.Surname = surname.Text;
                 //MyAccount.Dob = dob.Text;
-                MyAccount.Address1 = address1.Text;
-                MyAccount.Address2 = address2.Text;
-                MyAccount.Address3 = address3.Text;
-                MyAccount.PostCode = postCode.Text;
-                MyAccount.MobilePhone = mobilePhone.Text;
-                MyAccount.HomePhone = homePhone.Text;
-                MyAccount.WorkPhone = workPhone.Text;
+                formAccount.Address1 = address1.Text;
+                formAccount.Address2 = address2.Text;
+                formAccount.Address3 = address3.Text;
+                formAccount.PostCode = postCode.Text;
+                formAccount.MobilePhone = mobilePhone.Text;
+                formAccount.HomePhone = homePhone.Text;
+                formAccount.WorkPhone = workPhone.Text;
                 //MyAccount.DateTimeCreated = DateTime.Now;
-                MyAccount.AccountType = accountType.Value;
-                MyAccount.AccountStatus = accountStatus.Value;
-                MyAccount.AccountType = accountType.Value;
+                formAccount.AccountType = accountType.Value;
+                formAccount.AccountStatus = accountStatus.Value;
+                formAccount.AccountType = accountType.Value;
                 
             }
         }

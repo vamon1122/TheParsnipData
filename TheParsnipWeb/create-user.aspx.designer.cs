@@ -11,5 +11,14 @@ namespace TheParsnipWeb {
     
     
     public partial class create_user {
+        
+        /// <summary>
+        /// UserForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::TheParsnipWeb.UserForm1 UserForm;
     }
 }

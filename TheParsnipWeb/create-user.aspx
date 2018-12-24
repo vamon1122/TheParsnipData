@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="create-user.aspx.cs" Inherits="TheParsnipWeb.create_user" %>
 
+<%@ Register Src="~/CustomControls/UacApi/UserForm.ascx" TagPrefix="uc1" TagName="UserForm" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,7 +15,9 @@
 <body>
         <div>
             <h2>Create User</h2>
-        <uc1:UserForm runat="server" ID="UserForm" />
+        
+            
+            <uc1:UserForm runat="server" ID="UserForm" />
         </div>
     
 </body>
