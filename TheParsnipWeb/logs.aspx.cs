@@ -21,12 +21,12 @@ namespace TheParsnipWeb
             }
             else
             {
-                new LogEntry() { text = String.Format("{0} accessed the logs page", MyAccount.fullName), userId = MyAccount.id }.Insert();
+                new LogEntry() { text = String.Format("{0} accessed the logs page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id }.Insert();
             }
 
             if (MyAccount.AccountType != "admin")
             {
-                new LogEntry() { text = String.Format("{0} attempted (and failed) to access the logs page", MyAccount.fullName), userId = MyAccount.id }.Insert();
+                new LogEntry() { text = String.Format("{0} attempted (and failed) to access the logs page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id }.Insert();
                 Response.Redirect("access-denied.aspx?url=logs.aspx");
             }
 

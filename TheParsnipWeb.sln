@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollApi", "PollApi\PollApi.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogApi", "LogApi\LogApi.csproj", "{A463135F-93CF-4C00-8F13-B324A5D291E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieApi", "CookieApi\CookieApi.csproj", "{01A82BC2-2491-4381-981A-6540C8A93B45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{A463135F-93CF-4C00-8F13-B324A5D291E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A463135F-93CF-4C00-8F13-B324A5D291E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A463135F-93CF-4C00-8F13-B324A5D291E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01A82BC2-2491-4381-981A-6540C8A93B45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01A82BC2-2491-4381-981A-6540C8A93B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01A82BC2-2491-4381-981A-6540C8A93B45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01A82BC2-2491-4381-981A-6540C8A93B45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

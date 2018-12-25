@@ -21,7 +21,7 @@ namespace TheParsnipWeb
             }
             else
             {
-                new LogEntry() { text = String.Format("{0} accessed the photos page", MyAccount.fullName), userId = MyAccount.id }.Insert();
+                new LogEntry() { text = String.Format("{0} accessed the photos page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id }.Insert();
             }
         }
     }

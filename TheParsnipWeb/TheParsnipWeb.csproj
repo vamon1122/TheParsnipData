@@ -114,10 +114,6 @@
     <Content Include="admin\newSite\newPatterns\pattern_black4.jpeg" />
     <Content Include="admin\newSite\newPatterns\pattern_grey1.jpeg" />
     <Content Include="admin\newSite\newPatterns\pattern_white1.png" />
-    <Content Include="App_Data\ParsnipDb.mdf" />
-    <Content Include="App_Data\ParsnipDb_log.ldf">
-      <DependentUpon>ParsnipDb.mdf</DependentUpon>
-    </Content>
     <Content Include="bios.aspx" />
     <Content Include="bootstrap-4.1.2-dist\css\bootstrap-grid.css" />
     <Content Include="bootstrap-4.1.2-dist\css\bootstrap-grid.min.css" />
@@ -266,6 +262,7 @@
     <Compile Include="CustomControls\PollApi\PollControl.ascx.designer.cs">
       <DependentUpon>PollControl.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Data.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -364,6 +361,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CookieApi\CookieApi.csproj">
+      <Project>{01a82bc2-2491-4381-981a-6540c8a93b45}</Project>
+      <Name>CookieApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogApi\LogApi.csproj">
       <Project>{a463135f-93cf-4c00-8f13-b324a5d291e3}</Project>
       <Name>LogApi</Name>

@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using UacApi;
 using BenLog;
+using CookieApi;
 
 namespace TheParsnipWeb
 {
@@ -17,6 +18,10 @@ namespace TheParsnipWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            
+            
+
             AccountLog.Warning("PAGE IS BEING LOADED");
             if (Request.QueryString["url"] != null)
             {
