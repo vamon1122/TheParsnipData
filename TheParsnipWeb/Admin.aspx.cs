@@ -26,7 +26,7 @@ namespace TheParsnipWeb
 
             if(MyAccount.AccountType != "admin")
             {
-                new LogEntry() { text = String.Format("{0} attempted (and failed) to access the admin page", MyAccount.fullName), userId = MyAccount.id }.Insert();
+                new LogEntry() { text = String.Format("{0} attempted (and failed) to access the admin page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id }.Insert();
                 Response.Redirect("access-denied.aspx?url=admin.aspx");
             }
         }

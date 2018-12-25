@@ -14,8 +14,6 @@
     <!--<script src="bootstrap-4.1.2-dist/js/bootstrap.js"></script>-->
     <script src="../javascript/old/globalBody.js"></script>
     <script>
-        alert('deviceDetect = ' + deviceDetect());
-        //createCookiePerm("deviceType", deviceDetect())
         createCookie("deviceType", deviceDetect())
     </script>
 
