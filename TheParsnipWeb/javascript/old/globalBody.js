@@ -610,7 +610,7 @@ function getLocation() {
 
 
 function showPosition(position) {
-    createCookie("deviceLocation", "Latitude: " + position.coords.latitude + " "
+    createCookie("deviceLocation", "Latitude: " + position.coords.latitude + " " +
         "Longitude: " + position.coords.longitude);
 }
 
