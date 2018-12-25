@@ -15,6 +15,8 @@
     <script src="../javascript/old/globalBody.js"></script>
     <script>
         createCookie("deviceType", deviceDetect())
+        getLocation();
+        
     </script>
 
 </head>

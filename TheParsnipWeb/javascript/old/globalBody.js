@@ -598,6 +598,39 @@ function setUser(username) {
 }
 
 
+function getLocation() {
+    createCookie("deviceLocation", "Geolocation function was called.");
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        createCookie("deviceLocation", "Geolocation is not supported by this browser.");
+    }
+}
+
+
+
+function showPosition(position) {
+    createCookie("deviceLocation", "Latitude: " + position.coords.latitude + " "
+        "Longitude: " + position.coords.longitude);
+}
+
+function showError(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            createCookie("deviceLocation", "User denied the request for Geolocation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            createCookie("deviceLocation", "Location information is unavailable.");
+            break;
+        case error.TIMEOUT:
+            createCookie("deviceLocation", "The request to get user location timed out.");
+            break;
+        case error.UNKNOWN_ERROR:
+            createCookie("deviceLocation", "An unknown error occurred.");
+            break;
+    }
+}
+
 //Get cookie
 function getCookie(cname) {
     var name = cname + "=";

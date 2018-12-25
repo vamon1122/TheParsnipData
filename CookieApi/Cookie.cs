@@ -21,7 +21,7 @@ namespace CookieApi
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine("Failed to read cookie \"{0}\"", pName);
+                System.Diagnostics.Debug.WriteLine(String.Format("Failed to read cookie \"{0}\"", pName));
                 return null;
             }
             
