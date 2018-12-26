@@ -610,23 +610,27 @@ function getLocation() {
 
 
 function showPosition(position) {
-    createCookie("deviceLocation", "Latitude: " + position.coords.latitude + " " +
-        "Longitude: " + position.coords.longitude);
+    createCookie("deviceLatitude", position.coords.latitude);
+    createCookie("deviceLongitude", position.coords.longitude);
 }
 
 function showError(error) {
     switch (error.code) {
         case error.PERMISSION_DENIED:
-            createCookie("deviceLocation", "User denied the request for Geolocation.");
+            createCookie("deviceLatitude", "User denied the request for Geolocation.");
+            createCookie("deviceLongitude", "User denied the request for Geolocation.");
             break;
         case error.POSITION_UNAVAILABLE:
-            createCookie("deviceLocation", "Location information is unavailable.");
+            createCookie("deviceLatitude", "Location information is unavailable.");
+            createCookie("deviceLongitude", "Location information is unavailable.");
             break;
         case error.TIMEOUT:
-            createCookie("deviceLocation", "The request to get user location timed out.");
+            createCookie("deviceLatitude", "The request to get user location timed out.");
+            createCookie("deviceLongitude", "The request to get user location timed out.");
             break;
         case error.UNKNOWN_ERROR:
-            createCookie("deviceLocation", "An unknown error occurred.");
+            createCookie("deviceLatitude", "An unknown error occurred.");
+            createCookie("deviceLongitude", "An unknown error occurred.");
             break;
     }
 }

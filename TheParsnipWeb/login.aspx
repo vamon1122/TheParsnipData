@@ -15,7 +15,7 @@
     <script src="../javascript/old/globalBody.js"></script>
     <script>
         createCookie("deviceType", deviceDetect())
-        getLocation();
+        alert("An alert before the page has loaded");
         
     </script>
 
@@ -51,6 +51,9 @@
   <asp:Button runat="server" ID="ButLogIn" OnClick="ButLogIn_Click" CssClass="btn btn-primary" Text="Log In"></asp:Button>
 </div>
 </form>
-    
+    <script>
+        alert('I will now get the location');
+        getLocation();
+    </script>
 </body>
 </html>

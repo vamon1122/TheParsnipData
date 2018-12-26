@@ -9,6 +9,7 @@ namespace TheParsnipWeb
     public static class Data
     {
         public static string deviceType { get { return Cookie.Read("deviceType"); } }
-        public static string deviceLocation { get { return Cookie.Read("deviceLocation"); } }
+        public static string deviceLatitude { get { return Cookie.Read("deviceLatitude"); } }
+        public static string deviceLongitude { get { return Cookie.Read("deviceLongitude"); } }
     }
 }
