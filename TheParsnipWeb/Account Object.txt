@@ -12853,3 +12853,9 @@
 <debug> 26/12/2018 14:57:24 - username = vamon1122
 <debug> 26/12/2018 14:57:24 - [LogIn] Set LastLogIn successfully! 1 records were affected.
 <info> 26/12/2018 14:57:24 - [LogIn] Logged in successfully!
+<warning> 26/12/2018 15:35:58 - PAGE IS BEING LOADED
+<info> 26/12/2018 15:35:58 - Getting user details from cookies...
+<debug> 26/12/2018 15:35:58 - No username cookie was found.
+<debug> 26/12/2018 15:35:58 - No password cookie was found.
+<info> 26/12/2018 15:35:58 - Returning user details from cookies.
+<warning> 26/12/2018 15:35:58 - Input username was reset
