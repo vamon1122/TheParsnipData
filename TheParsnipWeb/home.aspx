@@ -74,7 +74,7 @@
 
     <!--DEVICE DETECT END-->
     <!--SCRIPTS-->
-    <script src="../javascript/old/globalBodyV1.1.js"></script>
+    <script src="../javascript/old/globalBodyV1.3.js"></script>
     <script src="../javascript/menu.js"></script>
 </body>
 </html>

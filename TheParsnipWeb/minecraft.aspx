@@ -20,7 +20,7 @@
     <br /><br />
     <h1>IP: mc.theparsnip.co.uk</h1>
 
-    <script src="../javascript/old/globalBodyV1.2.js"></script>
+    <script src="../javascript/old/globalBodyV1.3.js"></script>
     <script src="../javascript/menu.js"></script>
 </body>
 </html>

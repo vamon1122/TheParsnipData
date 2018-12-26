@@ -12859,3 +12859,13 @@
 <debug> 26/12/2018 15:35:58 - No password cookie was found.
 <info> 26/12/2018 15:35:58 - Returning user details from cookies.
 <warning> 26/12/2018 15:35:58 - Input username was reset
+<info> 26/12/2018 15:38:40 - Getting user details from cookies...
+<debug> 26/12/2018 15:38:40 - No username cookie was found.
+<debug> 26/12/2018 15:38:40 - No password cookie was found.
+<info> 26/12/2018 15:38:40 - Returning user details from cookies.
+<warning> 26/12/2018 15:38:40 - PAGE IS BEING LOADED
+<info> 26/12/2018 15:38:40 - Getting user details from cookies...
+<debug> 26/12/2018 15:38:40 - No username cookie was found.
+<debug> 26/12/2018 15:38:40 - No password cookie was found.
+<info> 26/12/2018 15:38:40 - Returning user details from cookies.
+<warning> 26/12/2018 15:38:40 - Input username was reset
