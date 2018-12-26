@@ -46,7 +46,7 @@
     <img src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477059052/Photos/Bios/Kieron_chat.PNG" id="Kieron_chat"><img />
     <br />
     <br />
-    <script src="../javascript/old/globalBody.js"></script>
+    <script src="../javascript/old/globalBodyV1.1.js"></script>
     <script src="../javascript/menu.js"></script>
     <script>
         var chat = document.getElementById("Kieron_chat")
