@@ -22,7 +22,7 @@ namespace UacApi
             }
             else
             {
-                new LogEntry() { text = String.Format("Someone tried to access the {0} page from an {1}, without logging in!", pUrl, pDeviceType), userId = myUser.id };
+                new LogEntry() { text = String.Format("Someone tried to access the {0} page from {1} '{2}' device, without logging in!", pUrl, myUser.posessivePronoun, pDeviceType), userId = myUser.id };
                 pPage.Response.Redirect(String.Format("login.aspx?url={0}.aspx", pUrl));
             }
             return myUser;
