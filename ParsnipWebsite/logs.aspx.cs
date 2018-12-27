@@ -15,7 +15,7 @@ namespace TheParsnipWeb
         protected void Page_Load(object sender, EventArgs e)
         {
             myUser = new User();
-            myUser = Uac.SecurePage("minecraft", this, Data.deviceType);
+            myUser = Uac.SecurePage("logs", this, Data.deviceType);
 
             if (myUser.AccountType != "admin")
             {
