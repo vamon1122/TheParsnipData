@@ -15,7 +15,7 @@ namespace TheParsnipWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = Uac.SecurePage("minecraft", this, Data.deviceType);
+            myUser = Uac.SecurePage("youtube", this, Data.deviceType);
         }
     }
 }
