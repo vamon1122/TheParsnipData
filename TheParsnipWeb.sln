@@ -5,11 +5,6 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UacApi", "UacApi\UacApi.csproj", "{CB9E3C22-C371-4E16-81D9-3B83A0EFB355}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheParsnipWeb", "TheParsnipWeb\TheParsnipWeb.csproj", "{8C3A9372-A884-4197-B3ED-71CBE4D99652}"
-	ProjectSection(ProjectDependencies) = postProject
-		{CB9E3C22-C371-4E16-81D9-3B83A0EFB355} = {CB9E3C22-C371-4E16-81D9-3B83A0EFB355}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaApi", "MediaApi\MediaApi.csproj", "{4351CA47-1474-47BB-B472-610848B47858}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParsnipControls", "ParsnipControls\ParsnipControls.csproj", "{2A6F76EC-9AFA-4E38-ACCF-9691E65C28C2}"
@@ -24,6 +19,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieApi", "CookieApi\Cook
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParsnipApi", "ParsnipApi\ParsnipApi.csproj", "{F0504054-EED6-4F6F-B35C-C684381181D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParsnipWebsite", "ParsnipWebsite\ParsnipWebsite.csproj", "{8C3A9372-A884-4197-B3ED-71CBE4D99652}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F0504054-EED6-4F6F-B35C-C684381181D3} = {F0504054-EED6-4F6F-B35C-C684381181D3}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,10 +34,6 @@ Global
 		{CB9E3C22-C371-4E16-81D9-3B83A0EFB355}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB9E3C22-C371-4E16-81D9-3B83A0EFB355}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB9E3C22-C371-4E16-81D9-3B83A0EFB355}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C3A9372-A884-4197-B3ED-71CBE4D99652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C3A9372-A884-4197-B3ED-71CBE4D99652}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C3A9372-A884-4197-B3ED-71CBE4D99652}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C3A9372-A884-4197-B3ED-71CBE4D99652}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4351CA47-1474-47BB-B472-610848B47858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4351CA47-1474-47BB-B472-610848B47858}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4351CA47-1474-47BB-B472-610848B47858}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -66,6 +62,10 @@ Global
 		{F0504054-EED6-4F6F-B35C-C684381181D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0504054-EED6-4F6F-B35C-C684381181D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0504054-EED6-4F6F-B35C-C684381181D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C3A9372-A884-4197-B3ED-71CBE4D99652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C3A9372-A884-4197-B3ED-71CBE4D99652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C3A9372-A884-4197-B3ED-71CBE4D99652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C3A9372-A884-4197-B3ED-71CBE4D99652}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -22,6 +22,8 @@ namespace LogApi
                 if (value.Length < 8001)
                 {
                     _text = value;
+                    System.Diagnostics.Debug.WriteLine(text);
+                    Insert();
                 }
                 else
                 {
@@ -44,7 +46,7 @@ namespace LogApi
 
         }
 
-        public bool Insert()
+        private bool Insert()
         {
             return Data.InsertLogEntry(this);
         }

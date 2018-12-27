@@ -9,24 +9,20 @@ using LogApi;
 
 namespace TheParsnipWeb
 {
-    public partial class youtube : System.Web.UI.Page
+    public partial class bios : System.Web.UI.Page
     {
         private User MyAccount;
-
         protected void Page_Load(object sender, EventArgs e)
         {
-
             MyAccount = new User();
             if (!MyAccount.LogIn())
             {
-                Response.Redirect("login.aspx?url=youtube.aspx");
+                Response.Redirect("login.aspx?url=bios.aspx");
             }
             else
             {
-                new LogEntry() { text = String.Format("{0} accessed the youtube page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id }.Insert();
+                new LogEntry() { text = String.Format("{0} accessed the bios page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id };
             }
-
-
         }
     }
 }

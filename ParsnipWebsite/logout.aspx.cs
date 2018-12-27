@@ -14,7 +14,7 @@ namespace TheParsnipWeb
         protected void Page_Load(object sender, EventArgs e)
         {
             User myAccount = new User();
-            new LogEntry() { text = String.Format("{0} logged out from '{1}'", myAccount.fullName, Data.deviceType), userId = myAccount.id }.Insert();
+            new LogEntry() { text = String.Format("{0} logged out from '{1}'", myAccount.fullName, Data.deviceType), userId = myAccount.id };
             new User().LogOut();
             Response.Redirect("login.aspx");
         }

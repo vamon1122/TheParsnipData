@@ -59,6 +59,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CookieApi\CookieApi.csproj">
+      <Project>{01a82bc2-2491-4381-981a-6540c8a93b45}</Project>
+      <Name>CookieApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogApi\LogApi.csproj">
       <Project>{a463135f-93cf-4c00-8f13-b324a5d291e3}</Project>
       <Name>LogApi</Name>

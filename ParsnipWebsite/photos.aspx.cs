@@ -9,7 +9,7 @@ using LogApi;
 
 namespace TheParsnipWeb
 {
-    public partial class memes : System.Web.UI.Page
+    public partial class photos : System.Web.UI.Page
     {
         private User MyAccount;
         protected void Page_Load(object sender, EventArgs e)
@@ -17,11 +17,11 @@ namespace TheParsnipWeb
             MyAccount = new User();
             if (!MyAccount.LogIn())
             {
-                Response.Redirect("login.aspx?url=memes.aspx");
+                Response.Redirect("login.aspx?url=photos.aspx");
             }
             else
             {
-                new LogEntry() { text = String.Format("{0} accessed the memes page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id }.Insert();
+                new LogEntry() { text = String.Format("{0} accessed the photos page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id };
             }
         }
     }

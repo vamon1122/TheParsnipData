@@ -12869,3 +12869,2263 @@
 <debug> 26/12/2018 15:38:40 - No password cookie was found.
 <info> 26/12/2018 15:38:40 - Returning user details from cookies.
 <warning> 26/12/2018 15:38:40 - Input username was reset
+<info> 27/12/2018 20:51:30 - Getting user details from cookies...
+<debug> 27/12/2018 20:51:31 - No username cookie was found.
+<debug> 27/12/2018 20:51:31 - No password cookie was found.
+<info> 27/12/2018 20:51:31 - Returning user details from cookies.
+<warning> 27/12/2018 20:51:31 - PAGE IS BEING LOADED
+<info> 27/12/2018 20:51:31 - Getting user details from cookies...
+<debug> 27/12/2018 20:51:31 - No username cookie was found.
+<debug> 27/12/2018 20:51:31 - No password cookie was found.
+<info> 27/12/2018 20:51:31 - Returning user details from cookies.
+<warning> 27/12/2018 20:51:31 - Input username was reset
+<warning> 27/12/2018 20:51:55 - PAGE IS BEING LOADED
+<warning> 27/12/2018 20:51:55 - Button Was clicked!
+<info> 27/12/2018 20:51:55 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:51:56 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:51:56 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:51:56 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:51:56 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:51:56 - [LogIn] Attempting to get user details...
+<error> 27/12/2018 20:51:56 - [LogIn] Failed to log in.
+<warning> 27/12/2018 20:52:14 - PAGE IS BEING LOADED
+<warning> 27/12/2018 20:52:14 - Button Was clicked!
+<info> 27/12/2018 20:52:14 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:52:14 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:52:14 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:52:14 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:52:14 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:52:14 - [LogIn] Attempting to get user details...
+<error> 27/12/2018 20:52:14 - [LogIn] Failed to log in.
+<info> 27/12/2018 20:53:55 - Getting user details from cookies...
+<debug> 27/12/2018 20:53:55 - No username cookie was found.
+<debug> 27/12/2018 20:53:55 - No password cookie was found.
+<info> 27/12/2018 20:53:55 - Returning user details from cookies.
+<warning> 27/12/2018 20:53:55 - PAGE IS BEING LOADED
+<info> 27/12/2018 20:53:55 - Getting user details from cookies...
+<debug> 27/12/2018 20:53:55 - No username cookie was found.
+<debug> 27/12/2018 20:53:55 - No password cookie was found.
+<info> 27/12/2018 20:53:55 - Returning user details from cookies.
+<warning> 27/12/2018 20:53:55 - Input username was reset
+<warning> 27/12/2018 20:53:57 - PAGE IS BEING LOADED
+<warning> 27/12/2018 20:53:57 - Button Was clicked!
+<info> 27/12/2018 20:53:57 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:53:58 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:53:58 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:53:58 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:53:58 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:53:58 - [LogIn] Attempting to get user details...
+<error> 27/12/2018 20:53:58 - [LogIn] Failed to log in.
+<info> 27/12/2018 20:56:23 - Getting user details from cookies...
+<debug> 27/12/2018 20:56:23 - No username cookie was found.
+<debug> 27/12/2018 20:56:23 - No password cookie was found.
+<info> 27/12/2018 20:56:23 - Returning user details from cookies.
+<warning> 27/12/2018 20:56:23 - PAGE IS BEING LOADED
+<info> 27/12/2018 20:56:23 - Getting user details from cookies...
+<debug> 27/12/2018 20:56:23 - No username cookie was found.
+<debug> 27/12/2018 20:56:23 - No password cookie was found.
+<info> 27/12/2018 20:56:23 - Returning user details from cookies.
+<warning> 27/12/2018 20:56:23 - Input username was reset
+<warning> 27/12/2018 20:56:25 - PAGE IS BEING LOADED
+<warning> 27/12/2018 20:56:25 - Button Was clicked!
+<info> 27/12/2018 20:56:25 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:56:25 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:56:25 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:56:26 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:56:26 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:56:26 - [LogIn] Attempting to get user details...
+<error> 27/12/2018 20:56:26 - [LogIn] Failed to log in.
+<info> 27/12/2018 20:57:12 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:12 - No username cookie was found.
+<debug> 27/12/2018 20:57:12 - No password cookie was found.
+<info> 27/12/2018 20:57:12 - Returning user details from cookies.
+<warning> 27/12/2018 20:57:12 - PAGE IS BEING LOADED
+<info> 27/12/2018 20:57:12 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:12 - No username cookie was found.
+<debug> 27/12/2018 20:57:12 - No password cookie was found.
+<info> 27/12/2018 20:57:12 - Returning user details from cookies.
+<warning> 27/12/2018 20:57:12 - Input username was reset
+<warning> 27/12/2018 20:57:14 - PAGE IS BEING LOADED
+<warning> 27/12/2018 20:57:14 - Button Was clicked!
+<info> 27/12/2018 20:57:14 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:57:14 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:57:14 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:57:14 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:57:14 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:57:14 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 20:57:14 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 20:57:14 - [LogIn] RememberUsername = true. Writing permanent username cookie (userName = vamon1122)
+<debug> 27/12/2018 20:57:14 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 20:57:14 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:14 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:14 - No password cookie was found.
+<info> 27/12/2018 20:57:14 - Returning user details from cookies.
+<debug> 27/12/2018 20:57:14 - [LogIn] Cookie does not exist. Writing temporary password cookie.
+<debug> 27/12/2018 20:57:14 - [LogIn] Password stored for SESSION ONLY.
+<debug> 27/12/2018 20:57:14 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 20:57:14 - username = vamon1122
+<debug> 27/12/2018 20:57:15 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 20:57:15 - [LogIn] Logged in successfully!
+<info> 27/12/2018 20:57:15 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:15 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:15 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:15 - Returning user details from cookies.
+<info> 27/12/2018 20:57:15 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:57:15 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:57:15 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:57:15 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:57:15 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:57:15 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 20:57:16 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 20:57:16 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 20:57:16 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:16 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:16 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:16 - Returning user details from cookies.
+<debug> 27/12/2018 20:57:16 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 20:57:16 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 20:57:16 - username = vamon1122
+<debug> 27/12/2018 20:57:16 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 20:57:16 - [LogIn] Logged in successfully!
+<info> 27/12/2018 20:57:16 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:16 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:16 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:16 - Returning user details from cookies.
+<info> 27/12/2018 20:57:16 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:57:16 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:57:16 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:57:16 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:57:16 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:57:16 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 20:57:16 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 20:57:16 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 20:57:16 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:16 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:16 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:16 - Returning user details from cookies.
+<debug> 27/12/2018 20:57:16 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 20:57:16 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 20:57:16 - username = vamon1122
+<debug> 27/12/2018 20:57:16 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 20:57:16 - [LogIn] Logged in successfully!
+<info> 27/12/2018 20:57:40 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:40 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:40 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:40 - Returning user details from cookies.
+<info> 27/12/2018 20:57:40 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:57:40 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:57:40 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:57:40 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:57:40 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:57:40 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 20:57:41 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 20:57:41 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 20:57:41 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:41 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:41 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:41 - Returning user details from cookies.
+<debug> 27/12/2018 20:57:41 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 20:57:41 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 20:57:41 - username = vamon1122
+<debug> 27/12/2018 20:57:41 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 20:57:41 - [LogIn] Logged in successfully!
+<info> 27/12/2018 20:57:41 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:41 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:41 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:41 - Returning user details from cookies.
+<info> 27/12/2018 20:57:41 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:57:41 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:57:41 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:57:41 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:57:41 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:57:41 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 20:57:41 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 20:57:41 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 20:57:41 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:41 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:41 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:41 - Returning user details from cookies.
+<debug> 27/12/2018 20:57:41 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 20:57:41 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 20:57:41 - username = vamon1122
+<debug> 27/12/2018 20:57:41 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 20:57:41 - [LogIn] Logged in successfully!
+<info> 27/12/2018 20:57:41 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:41 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:41 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:41 - Returning user details from cookies.
+<info> 27/12/2018 20:57:41 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:57:41 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:57:41 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:57:42 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:57:42 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:57:42 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 20:57:42 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 20:57:42 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 20:57:42 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:42 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:42 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:42 - Returning user details from cookies.
+<debug> 27/12/2018 20:57:42 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 20:57:42 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 20:57:42 - username = vamon1122
+<debug> 27/12/2018 20:57:42 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 20:57:42 - [LogIn] Logged in successfully!
+<info> 27/12/2018 20:57:50 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:50 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:50 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:50 - Returning user details from cookies.
+<info> 27/12/2018 20:57:50 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:57:50 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:57:50 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:57:50 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:57:50 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:57:50 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 20:57:51 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 20:57:51 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 20:57:51 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:51 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:51 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:51 - Returning user details from cookies.
+<debug> 27/12/2018 20:57:51 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 20:57:51 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 20:57:51 - username = vamon1122
+<debug> 27/12/2018 20:57:51 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 20:57:51 - [LogIn] Logged in successfully!
+<info> 27/12/2018 20:57:53 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:53 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:53 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:53 - Returning user details from cookies.
+<info> 27/12/2018 20:57:53 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:57:53 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:57:53 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:57:53 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:57:53 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:57:53 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 20:57:53 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 20:57:53 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 20:57:53 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:53 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:53 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:53 - Returning user details from cookies.
+<debug> 27/12/2018 20:57:53 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 20:57:53 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 20:57:53 - username = vamon1122
+<debug> 27/12/2018 20:57:53 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 20:57:53 - [LogIn] Logged in successfully!
+<info> 27/12/2018 20:57:53 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:53 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:53 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:53 - Returning user details from cookies.
+<info> 27/12/2018 20:57:53 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:57:53 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:57:53 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:57:54 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:57:54 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:57:54 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 20:57:54 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 20:57:54 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 20:57:54 - Getting user details from cookies...
+<debug> 27/12/2018 20:57:54 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:57:54 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:57:54 - Returning user details from cookies.
+<debug> 27/12/2018 20:57:54 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 20:57:54 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 20:57:54 - username = vamon1122
+<debug> 27/12/2018 20:57:54 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 20:57:54 - [LogIn] Logged in successfully!
+<info> 27/12/2018 20:58:27 - Getting user details from cookies...
+<debug> 27/12/2018 20:58:27 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:58:27 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:58:27 - Returning user details from cookies.
+<info> 27/12/2018 20:58:27 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 20:58:27 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 20:58:27 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 20:58:27 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 20:58:27 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 20:58:27 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 20:58:27 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 20:58:27 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 20:58:27 - Getting user details from cookies...
+<debug> 27/12/2018 20:58:27 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 20:58:27 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 20:58:27 - Returning user details from cookies.
+<debug> 27/12/2018 20:58:27 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 20:58:27 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 20:58:27 - username = vamon1122
+<debug> 27/12/2018 20:58:27 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 20:58:27 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:26:38 - Getting user details from cookies...
+<debug> 27/12/2018 21:26:38 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:26:38 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:26:38 - Returning user details from cookies.
+<info> 27/12/2018 21:26:38 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:26:39 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:26:39 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:26:39 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:26:39 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:26:39 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:26:39 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:26:39 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:26:39 - Getting user details from cookies...
+<debug> 27/12/2018 21:26:39 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:26:39 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:26:39 - Returning user details from cookies.
+<debug> 27/12/2018 21:26:39 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:26:39 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:26:39 - username = vamon1122
+<debug> 27/12/2018 21:26:39 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:26:39 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:26:39 - Getting user details from cookies...
+<debug> 27/12/2018 21:26:39 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:26:39 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:26:40 - Returning user details from cookies.
+<info> 27/12/2018 21:26:40 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:26:40 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:26:40 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:26:40 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:26:40 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:26:40 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:26:40 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:26:40 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:26:40 - Getting user details from cookies...
+<debug> 27/12/2018 21:26:40 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:26:40 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:26:40 - Returning user details from cookies.
+<debug> 27/12/2018 21:26:40 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:26:40 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:26:40 - username = vamon1122
+<debug> 27/12/2018 21:26:40 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:26:40 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:26:40 - Getting user details from cookies...
+<debug> 27/12/2018 21:26:40 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:26:40 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:26:40 - Returning user details from cookies.
+<info> 27/12/2018 21:26:40 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:26:40 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:26:40 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:26:40 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:26:40 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:26:40 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:26:40 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:26:40 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:26:40 - Getting user details from cookies...
+<debug> 27/12/2018 21:26:40 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:26:40 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:26:40 - Returning user details from cookies.
+<debug> 27/12/2018 21:26:40 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:26:40 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:26:40 - username = vamon1122
+<debug> 27/12/2018 21:26:40 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:26:40 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:26:46 - Getting user details from cookies...
+<debug> 27/12/2018 21:26:46 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:26:46 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:26:46 - Returning user details from cookies.
+<info> 27/12/2018 21:26:46 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:26:46 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:26:46 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:26:46 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:26:46 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:26:46 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:26:46 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:26:46 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:26:46 - Getting user details from cookies...
+<debug> 27/12/2018 21:26:46 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:26:46 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:26:46 - Returning user details from cookies.
+<debug> 27/12/2018 21:26:46 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:26:46 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:26:46 - username = vamon1122
+<debug> 27/12/2018 21:26:46 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:26:46 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:26:48 - Getting user details from cookies...
+<debug> 27/12/2018 21:26:48 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:26:48 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:26:48 - Returning user details from cookies.
+<info> 27/12/2018 21:26:48 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:26:48 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:26:48 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:26:48 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:26:48 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:26:48 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:26:48 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:26:48 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:26:48 - Getting user details from cookies...
+<debug> 27/12/2018 21:26:48 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:26:48 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:26:48 - Returning user details from cookies.
+<debug> 27/12/2018 21:26:48 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:26:48 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:26:48 - username = vamon1122
+<debug> 27/12/2018 21:26:48 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:26:48 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:26:49 - Getting user details from cookies...
+<debug> 27/12/2018 21:26:49 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:26:49 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:26:49 - Returning user details from cookies.
+<info> 27/12/2018 21:26:49 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:26:49 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:26:49 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:26:49 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:26:49 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:26:49 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:26:49 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:26:49 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:26:49 - Getting user details from cookies...
+<debug> 27/12/2018 21:26:49 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:26:49 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:26:49 - Returning user details from cookies.
+<debug> 27/12/2018 21:26:49 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:26:49 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:26:49 - username = vamon1122
+<debug> 27/12/2018 21:26:49 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:26:49 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:27:02 - Getting user details from cookies...
+<debug> 27/12/2018 21:27:02 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:27:02 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:27:02 - Returning user details from cookies.
+<info> 27/12/2018 21:27:02 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:27:02 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:27:02 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:27:02 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:27:02 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:27:02 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:27:02 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:27:02 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:27:02 - Getting user details from cookies...
+<debug> 27/12/2018 21:27:02 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:27:02 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:27:02 - Returning user details from cookies.
+<debug> 27/12/2018 21:27:02 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:27:02 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:27:02 - username = vamon1122
+<debug> 27/12/2018 21:27:02 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:27:02 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:27:03 - Getting user details from cookies...
+<debug> 27/12/2018 21:27:03 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:27:03 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:27:03 - Returning user details from cookies.
+<info> 27/12/2018 21:27:03 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:27:03 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:27:03 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:27:03 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:27:03 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:27:03 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:27:04 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:27:04 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:27:04 - Getting user details from cookies...
+<debug> 27/12/2018 21:27:04 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:27:04 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:27:04 - Returning user details from cookies.
+<debug> 27/12/2018 21:27:04 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:27:04 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:27:04 - username = vamon1122
+<debug> 27/12/2018 21:27:04 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:27:04 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:27:04 - Getting user details from cookies...
+<debug> 27/12/2018 21:27:04 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:27:04 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:27:04 - Returning user details from cookies.
+<info> 27/12/2018 21:27:04 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:27:04 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:27:04 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:27:04 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:27:04 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:27:04 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:27:04 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:27:04 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:27:04 - Getting user details from cookies...
+<debug> 27/12/2018 21:27:04 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:27:04 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:27:04 - Returning user details from cookies.
+<debug> 27/12/2018 21:27:04 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:27:04 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:27:04 - username = vamon1122
+<debug> 27/12/2018 21:27:04 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:27:04 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:27:47 - Getting user details from cookies...
+<debug> 27/12/2018 21:27:47 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:27:47 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:27:47 - Returning user details from cookies.
+<info> 27/12/2018 21:27:47 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:27:47 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:27:47 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:27:47 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:27:47 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:27:47 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:27:47 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:27:47 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:27:47 - Getting user details from cookies...
+<debug> 27/12/2018 21:27:47 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:27:47 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:27:47 - Returning user details from cookies.
+<debug> 27/12/2018 21:27:47 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:27:47 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:27:47 - username = vamon1122
+<debug> 27/12/2018 21:27:47 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:27:47 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:29:21 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:21 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:21 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:21 - Returning user details from cookies.
+<info> 27/12/2018 21:29:21 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:29:21 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:29:21 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:29:22 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:29:22 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:29:22 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:29:22 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:29:22 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:29:22 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:22 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:22 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:22 - Returning user details from cookies.
+<debug> 27/12/2018 21:29:22 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:29:22 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:29:22 - username = vamon1122
+<debug> 27/12/2018 21:29:22 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:29:22 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:29:22 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:22 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:22 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:22 - Returning user details from cookies.
+<info> 27/12/2018 21:29:22 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:29:22 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:29:22 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:29:22 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:29:22 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:29:22 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:29:22 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:29:22 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:29:22 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:22 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:22 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:22 - Returning user details from cookies.
+<debug> 27/12/2018 21:29:22 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:29:22 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:29:22 - username = vamon1122
+<debug> 27/12/2018 21:29:22 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:29:22 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:29:22 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:22 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:22 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:23 - Returning user details from cookies.
+<info> 27/12/2018 21:29:23 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:29:23 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:29:23 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:29:23 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:29:23 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:29:23 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:29:23 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:29:23 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:29:23 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:23 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:23 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:23 - Returning user details from cookies.
+<debug> 27/12/2018 21:29:23 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:29:23 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:29:23 - username = vamon1122
+<debug> 27/12/2018 21:29:23 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:29:23 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:29:29 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:29 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:29 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:29 - Returning user details from cookies.
+<info> 27/12/2018 21:29:29 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:29:29 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:29:29 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:29:30 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:29:30 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:29:30 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:29:30 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:29:30 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:29:30 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:30 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:30 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:30 - Returning user details from cookies.
+<debug> 27/12/2018 21:29:30 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:29:30 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:29:30 - username = vamon1122
+<debug> 27/12/2018 21:29:30 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:29:30 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:29:32 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:32 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:32 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:32 - Returning user details from cookies.
+<info> 27/12/2018 21:29:32 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:29:32 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:29:32 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:29:32 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:29:32 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:29:32 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:29:32 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:29:32 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:29:32 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:32 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:32 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:32 - Returning user details from cookies.
+<debug> 27/12/2018 21:29:32 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:29:32 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:29:32 - username = vamon1122
+<debug> 27/12/2018 21:29:32 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:29:32 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:29:32 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:32 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:32 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:32 - Returning user details from cookies.
+<info> 27/12/2018 21:29:32 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:29:32 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:29:32 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:29:32 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:29:32 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:29:32 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:29:33 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:29:33 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:29:33 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:33 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:33 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:33 - Returning user details from cookies.
+<debug> 27/12/2018 21:29:33 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:29:33 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:29:33 - username = vamon1122
+<debug> 27/12/2018 21:29:33 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:29:33 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:29:50 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:50 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:50 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:50 - Returning user details from cookies.
+<info> 27/12/2018 21:29:50 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:29:50 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:29:50 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:29:50 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:29:50 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:29:50 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:29:50 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:29:50 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:29:50 - Getting user details from cookies...
+<debug> 27/12/2018 21:29:50 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:29:50 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:29:50 - Returning user details from cookies.
+<debug> 27/12/2018 21:29:50 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:29:50 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:29:50 - username = vamon1122
+<debug> 27/12/2018 21:29:50 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:29:50 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:33:30 - Getting user details from cookies...
+<debug> 27/12/2018 21:33:30 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:33:30 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:33:30 - Returning user details from cookies.
+<info> 27/12/2018 21:33:30 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:33:31 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:33:31 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:33:31 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:33:31 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:33:31 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:33:31 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:33:31 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:33:31 - Getting user details from cookies...
+<debug> 27/12/2018 21:33:31 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:33:31 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:33:31 - Returning user details from cookies.
+<debug> 27/12/2018 21:33:31 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:33:31 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:33:31 - username = vamon1122
+<debug> 27/12/2018 21:33:31 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:33:31 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:33:31 - Getting user details from cookies...
+<debug> 27/12/2018 21:33:31 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:33:31 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:33:31 - Returning user details from cookies.
+<info> 27/12/2018 21:33:31 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:33:31 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:33:31 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:33:32 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:33:32 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:33:32 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:33:32 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:33:32 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:33:32 - Getting user details from cookies...
+<debug> 27/12/2018 21:33:32 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:33:32 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:33:32 - Returning user details from cookies.
+<debug> 27/12/2018 21:33:32 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:33:32 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:33:32 - username = vamon1122
+<debug> 27/12/2018 21:33:32 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:33:32 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:33:32 - Getting user details from cookies...
+<debug> 27/12/2018 21:33:32 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:33:32 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:33:32 - Returning user details from cookies.
+<info> 27/12/2018 21:33:32 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:33:32 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:33:32 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:33:32 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:33:32 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:33:32 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:33:32 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:33:32 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:33:32 - Getting user details from cookies...
+<debug> 27/12/2018 21:33:32 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:33:32 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:33:32 - Returning user details from cookies.
+<debug> 27/12/2018 21:33:32 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:33:32 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:33:32 - username = vamon1122
+<debug> 27/12/2018 21:33:33 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:33:33 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:33:42 - Getting user details from cookies...
+<debug> 27/12/2018 21:33:42 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:33:42 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:33:42 - Returning user details from cookies.
+<info> 27/12/2018 21:33:42 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:33:42 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:33:42 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:33:42 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:33:42 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:33:42 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:33:42 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:33:42 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:33:42 - Getting user details from cookies...
+<debug> 27/12/2018 21:33:42 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:33:42 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:33:42 - Returning user details from cookies.
+<debug> 27/12/2018 21:33:42 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:33:42 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:33:42 - username = vamon1122
+<debug> 27/12/2018 21:33:42 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:33:42 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:34:18 - Getting user details from cookies...
+<debug> 27/12/2018 21:34:18 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:34:18 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:34:18 - Returning user details from cookies.
+<info> 27/12/2018 21:34:18 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:34:18 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:34:18 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:34:18 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:34:18 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:34:18 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:34:19 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:34:19 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:34:19 - Getting user details from cookies...
+<debug> 27/12/2018 21:34:19 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:34:19 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:34:19 - Returning user details from cookies.
+<debug> 27/12/2018 21:34:19 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:34:19 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:34:19 - username = vamon1122
+<debug> 27/12/2018 21:34:19 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:34:19 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:34:21 - Getting user details from cookies...
+<debug> 27/12/2018 21:34:21 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:34:21 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:34:21 - Returning user details from cookies.
+<info> 27/12/2018 21:34:21 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:34:21 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:34:21 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:34:21 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:34:21 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:34:21 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:34:21 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:34:21 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:34:21 - Getting user details from cookies...
+<debug> 27/12/2018 21:34:21 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:34:21 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:34:21 - Returning user details from cookies.
+<debug> 27/12/2018 21:34:21 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:34:21 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:34:21 - username = vamon1122
+<debug> 27/12/2018 21:34:21 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:34:21 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:34:22 - Getting user details from cookies...
+<debug> 27/12/2018 21:34:22 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:34:22 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:34:22 - Returning user details from cookies.
+<info> 27/12/2018 21:34:22 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:34:22 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:34:22 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:34:22 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:34:22 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:34:22 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:34:22 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:34:22 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:34:22 - Getting user details from cookies...
+<debug> 27/12/2018 21:34:22 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:34:22 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:34:22 - Returning user details from cookies.
+<debug> 27/12/2018 21:34:22 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:34:22 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:34:22 - username = vamon1122
+<debug> 27/12/2018 21:34:22 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:34:22 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:34:45 - Getting user details from cookies...
+<debug> 27/12/2018 21:34:45 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:34:45 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:34:45 - Returning user details from cookies.
+<info> 27/12/2018 21:34:45 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:34:45 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:34:45 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:34:45 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:34:45 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:34:45 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:34:45 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:34:45 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:34:45 - Getting user details from cookies...
+<debug> 27/12/2018 21:34:45 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:34:45 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:34:45 - Returning user details from cookies.
+<debug> 27/12/2018 21:34:45 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:34:45 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:34:45 - username = vamon1122
+<debug> 27/12/2018 21:34:45 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:34:45 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:35:41 - Getting user details from cookies...
+<debug> 27/12/2018 21:35:41 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:35:41 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:35:41 - Returning user details from cookies.
+<info> 27/12/2018 21:35:41 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:35:42 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:35:42 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:35:42 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:35:42 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:35:42 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:35:42 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:35:42 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:35:42 - Getting user details from cookies...
+<debug> 27/12/2018 21:35:42 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:35:42 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:35:42 - Returning user details from cookies.
+<debug> 27/12/2018 21:35:42 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:35:42 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:35:42 - username = vamon1122
+<debug> 27/12/2018 21:35:42 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:35:42 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:35:43 - Getting user details from cookies...
+<debug> 27/12/2018 21:35:43 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:35:43 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:35:43 - Returning user details from cookies.
+<info> 27/12/2018 21:35:43 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:35:43 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:35:43 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:35:43 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:35:43 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:35:43 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:35:43 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:35:43 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:35:43 - Getting user details from cookies...
+<debug> 27/12/2018 21:35:43 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:35:43 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:35:43 - Returning user details from cookies.
+<debug> 27/12/2018 21:35:43 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:35:43 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:35:43 - username = vamon1122
+<debug> 27/12/2018 21:35:43 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:35:43 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:35:43 - Getting user details from cookies...
+<debug> 27/12/2018 21:35:43 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:35:43 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:35:43 - Returning user details from cookies.
+<info> 27/12/2018 21:35:43 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:35:43 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:35:43 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:35:43 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:35:43 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:35:43 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:35:43 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:35:43 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:35:43 - Getting user details from cookies...
+<debug> 27/12/2018 21:35:43 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:35:43 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:35:43 - Returning user details from cookies.
+<debug> 27/12/2018 21:35:43 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:35:43 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:35:43 - username = vamon1122
+<debug> 27/12/2018 21:35:44 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:35:44 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:35:50 - Getting user details from cookies...
+<debug> 27/12/2018 21:35:50 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:35:50 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:35:50 - Returning user details from cookies.
+<info> 27/12/2018 21:35:50 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:35:50 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:35:50 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:35:50 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:35:50 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:35:50 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:35:50 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:35:50 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:35:50 - Getting user details from cookies...
+<debug> 27/12/2018 21:35:50 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:35:50 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:35:50 - Returning user details from cookies.
+<debug> 27/12/2018 21:35:50 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:35:50 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:35:50 - username = vamon1122
+<debug> 27/12/2018 21:35:50 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:35:50 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:35:51 - Getting user details from cookies...
+<debug> 27/12/2018 21:35:51 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:35:51 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:35:51 - Returning user details from cookies.
+<info> 27/12/2018 21:35:51 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:35:51 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:35:51 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:35:51 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:35:51 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:35:51 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:35:51 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:35:51 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:35:51 - Getting user details from cookies...
+<debug> 27/12/2018 21:35:52 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:35:52 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:35:52 - Returning user details from cookies.
+<debug> 27/12/2018 21:35:52 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:35:52 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:35:52 - username = vamon1122
+<debug> 27/12/2018 21:35:52 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:35:52 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:35:52 - Getting user details from cookies...
+<debug> 27/12/2018 21:35:52 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:35:52 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:35:52 - Returning user details from cookies.
+<info> 27/12/2018 21:35:52 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:35:52 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:35:52 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:35:52 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:35:52 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:35:52 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:35:52 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:35:52 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:35:52 - Getting user details from cookies...
+<debug> 27/12/2018 21:35:52 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:35:52 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:35:52 - Returning user details from cookies.
+<debug> 27/12/2018 21:35:52 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:35:52 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:35:52 - username = vamon1122
+<debug> 27/12/2018 21:35:52 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:35:52 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:36:02 - Getting user details from cookies...
+<debug> 27/12/2018 21:36:02 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:36:02 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:36:02 - Returning user details from cookies.
+<info> 27/12/2018 21:36:02 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:36:02 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:36:02 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:36:02 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:36:02 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:36:02 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:36:02 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:36:02 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:36:02 - Getting user details from cookies...
+<debug> 27/12/2018 21:36:02 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:36:02 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:36:02 - Returning user details from cookies.
+<debug> 27/12/2018 21:36:02 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:36:02 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:36:02 - username = vamon1122
+<debug> 27/12/2018 21:36:03 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:36:03 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:37:49 - Getting user details from cookies...
+<debug> 27/12/2018 21:37:49 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:37:49 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:37:49 - Returning user details from cookies.
+<info> 27/12/2018 21:37:49 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:37:49 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:37:49 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:37:50 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:37:50 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:37:50 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:37:50 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:37:50 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:37:50 - Getting user details from cookies...
+<debug> 27/12/2018 21:37:50 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:37:50 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:37:50 - Returning user details from cookies.
+<debug> 27/12/2018 21:37:50 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:37:50 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:37:50 - username = vamon1122
+<debug> 27/12/2018 21:37:50 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:37:50 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:37:50 - Getting user details from cookies...
+<debug> 27/12/2018 21:37:50 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:37:50 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:37:50 - Returning user details from cookies.
+<info> 27/12/2018 21:37:50 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:37:50 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:37:50 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:37:50 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:37:50 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:37:50 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:37:50 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:37:50 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:37:50 - Getting user details from cookies...
+<debug> 27/12/2018 21:37:50 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:37:50 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:37:50 - Returning user details from cookies.
+<debug> 27/12/2018 21:37:50 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:37:50 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:37:50 - username = vamon1122
+<debug> 27/12/2018 21:37:50 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:37:50 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:37:50 - Getting user details from cookies...
+<debug> 27/12/2018 21:37:50 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:37:50 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:37:50 - Returning user details from cookies.
+<info> 27/12/2018 21:37:51 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:37:51 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:37:51 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:37:51 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:37:51 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:37:51 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:37:51 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:37:51 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:37:51 - Getting user details from cookies...
+<debug> 27/12/2018 21:37:51 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:37:51 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:37:51 - Returning user details from cookies.
+<debug> 27/12/2018 21:37:51 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:37:51 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:37:51 - username = vamon1122
+<debug> 27/12/2018 21:37:51 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:37:51 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:38:33 - Getting user details from cookies...
+<debug> 27/12/2018 21:38:33 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:38:33 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:38:33 - Returning user details from cookies.
+<info> 27/12/2018 21:38:33 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:38:33 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:38:33 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:38:33 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:38:33 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:38:33 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:38:33 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:38:33 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:38:34 - Getting user details from cookies...
+<debug> 27/12/2018 21:38:34 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:38:34 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:38:34 - Returning user details from cookies.
+<debug> 27/12/2018 21:38:34 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:38:34 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:38:34 - username = vamon1122
+<debug> 27/12/2018 21:38:34 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:38:34 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:38:34 - Getting user details from cookies...
+<debug> 27/12/2018 21:38:34 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:38:34 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:38:34 - Returning user details from cookies.
+<info> 27/12/2018 21:38:34 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:38:34 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:38:34 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:38:34 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:38:34 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:38:34 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:38:34 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:38:34 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:38:34 - Getting user details from cookies...
+<debug> 27/12/2018 21:38:34 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:38:34 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:38:34 - Returning user details from cookies.
+<debug> 27/12/2018 21:38:34 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:38:34 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:38:34 - username = vamon1122
+<debug> 27/12/2018 21:38:34 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:38:34 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:38:34 - Getting user details from cookies...
+<debug> 27/12/2018 21:38:34 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:38:34 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:38:34 - Returning user details from cookies.
+<info> 27/12/2018 21:38:34 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:38:34 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:38:34 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:38:34 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:38:34 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:38:34 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:38:35 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:38:35 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:38:35 - Getting user details from cookies...
+<debug> 27/12/2018 21:38:35 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:38:35 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:38:35 - Returning user details from cookies.
+<debug> 27/12/2018 21:38:35 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:38:35 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:38:35 - username = vamon1122
+<debug> 27/12/2018 21:38:35 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:38:35 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:40:18 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:18 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:18 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:18 - Returning user details from cookies.
+<info> 27/12/2018 21:40:18 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:40:18 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:40:18 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:40:18 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:40:18 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:40:18 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:40:19 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:40:19 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:40:19 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:19 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:19 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:19 - Returning user details from cookies.
+<debug> 27/12/2018 21:40:19 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:40:19 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:40:19 - username = vamon1122
+<debug> 27/12/2018 21:40:19 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:40:19 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:40:19 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:19 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:19 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:19 - Returning user details from cookies.
+<info> 27/12/2018 21:40:19 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:40:19 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:40:19 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:40:19 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:40:19 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:40:19 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:40:19 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:40:19 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:40:19 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:19 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:19 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:19 - Returning user details from cookies.
+<debug> 27/12/2018 21:40:19 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:40:19 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:40:19 - username = vamon1122
+<debug> 27/12/2018 21:40:19 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:40:19 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:40:19 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:19 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:19 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:19 - Returning user details from cookies.
+<info> 27/12/2018 21:40:19 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:40:19 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:40:19 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:40:19 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:40:19 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:40:19 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:40:20 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:40:20 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:40:20 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:20 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:20 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:20 - Returning user details from cookies.
+<debug> 27/12/2018 21:40:20 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:40:20 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:40:20 - username = vamon1122
+<debug> 27/12/2018 21:40:20 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:40:20 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:40:26 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:26 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:26 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:26 - Returning user details from cookies.
+<info> 27/12/2018 21:40:26 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:40:26 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:40:26 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:40:26 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:40:26 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:40:26 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:40:27 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:40:27 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:40:27 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:27 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:27 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:27 - Returning user details from cookies.
+<debug> 27/12/2018 21:40:27 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:40:27 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:40:27 - username = vamon1122
+<debug> 27/12/2018 21:40:27 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:40:27 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:40:28 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:28 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:28 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:28 - Returning user details from cookies.
+<info> 27/12/2018 21:40:28 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:40:28 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:40:28 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:40:29 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:40:29 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:40:29 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:40:29 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:40:29 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:40:29 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:29 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:29 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:29 - Returning user details from cookies.
+<debug> 27/12/2018 21:40:29 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:40:29 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:40:29 - username = vamon1122
+<debug> 27/12/2018 21:40:29 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:40:29 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:40:29 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:29 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:29 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:29 - Returning user details from cookies.
+<info> 27/12/2018 21:40:29 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:40:29 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:40:29 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:40:29 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:40:29 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:40:29 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:40:29 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:40:29 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:40:29 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:29 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:29 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:29 - Returning user details from cookies.
+<debug> 27/12/2018 21:40:29 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:40:29 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:40:29 - username = vamon1122
+<debug> 27/12/2018 21:40:29 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:40:29 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:40:42 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:42 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:43 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:43 - Returning user details from cookies.
+<info> 27/12/2018 21:40:43 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:40:43 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:40:43 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:40:43 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:40:43 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:40:43 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:40:43 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:40:43 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:40:43 - Getting user details from cookies...
+<debug> 27/12/2018 21:40:43 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:40:43 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:40:43 - Returning user details from cookies.
+<debug> 27/12/2018 21:40:43 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:40:43 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:40:43 - username = vamon1122
+<debug> 27/12/2018 21:40:43 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:40:43 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:44:38 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:38 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:38 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:38 - Returning user details from cookies.
+<info> 27/12/2018 21:44:38 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:44:39 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:44:39 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:44:39 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:44:39 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:44:39 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:44:39 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:44:39 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:44:39 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:39 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:39 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:39 - Returning user details from cookies.
+<debug> 27/12/2018 21:44:39 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:44:39 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:44:39 - username = vamon1122
+<debug> 27/12/2018 21:44:39 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:44:39 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:44:39 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:39 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:39 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:39 - Returning user details from cookies.
+<info> 27/12/2018 21:44:39 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:44:39 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:44:39 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:44:39 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:44:39 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:44:39 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:44:39 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:44:39 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:44:39 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:39 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:39 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:39 - Returning user details from cookies.
+<debug> 27/12/2018 21:44:39 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:44:39 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:44:39 - username = vamon1122
+<debug> 27/12/2018 21:44:39 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:44:39 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:44:40 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:40 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:40 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:40 - Returning user details from cookies.
+<info> 27/12/2018 21:44:40 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:44:40 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:44:40 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:44:40 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:44:40 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:44:40 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:44:40 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:44:40 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:44:40 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:40 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:40 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:40 - Returning user details from cookies.
+<debug> 27/12/2018 21:44:40 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:44:40 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:44:40 - username = vamon1122
+<debug> 27/12/2018 21:44:40 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:44:40 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:44:46 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:46 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:46 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:46 - Returning user details from cookies.
+<info> 27/12/2018 21:44:46 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:44:46 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:44:46 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:44:47 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:44:47 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:44:47 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:44:47 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:44:47 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:44:47 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:47 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:47 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:47 - Returning user details from cookies.
+<debug> 27/12/2018 21:44:47 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:44:47 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:44:47 - username = vamon1122
+<debug> 27/12/2018 21:44:47 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:44:47 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:44:48 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:48 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:48 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:48 - Returning user details from cookies.
+<info> 27/12/2018 21:44:48 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:44:48 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:44:48 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:44:48 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:44:48 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:44:48 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:44:49 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:44:49 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:44:49 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:49 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:49 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:49 - Returning user details from cookies.
+<debug> 27/12/2018 21:44:49 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:44:49 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:44:49 - username = vamon1122
+<debug> 27/12/2018 21:44:49 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:44:49 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:44:49 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:49 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:49 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:49 - Returning user details from cookies.
+<info> 27/12/2018 21:44:49 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:44:49 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:44:49 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:44:49 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:44:49 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:44:49 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:44:49 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:44:49 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:44:49 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:49 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:49 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:49 - Returning user details from cookies.
+<debug> 27/12/2018 21:44:49 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:44:49 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:44:49 - username = vamon1122
+<debug> 27/12/2018 21:44:49 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:44:49 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:44:58 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:58 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:58 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:58 - Returning user details from cookies.
+<info> 27/12/2018 21:44:58 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:44:58 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:44:58 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:44:59 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:44:59 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:44:59 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:44:59 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:44:59 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:44:59 - Getting user details from cookies...
+<debug> 27/12/2018 21:44:59 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:44:59 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:44:59 - Returning user details from cookies.
+<debug> 27/12/2018 21:44:59 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:44:59 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:44:59 - username = vamon1122
+<debug> 27/12/2018 21:44:59 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:44:59 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:50:22 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:22 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:22 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:22 - Returning user details from cookies.
+<info> 27/12/2018 21:50:22 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:50:23 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:50:23 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:50:23 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:50:23 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:50:23 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:50:23 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:50:23 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:50:23 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:23 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:23 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:23 - Returning user details from cookies.
+<debug> 27/12/2018 21:50:23 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:50:23 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:50:23 - username = vamon1122
+<debug> 27/12/2018 21:50:24 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:50:24 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:50:24 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:24 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:24 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:24 - Returning user details from cookies.
+<info> 27/12/2018 21:50:24 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:50:24 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:50:24 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:50:24 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:50:24 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:50:24 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:50:24 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:50:24 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:50:24 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:24 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:24 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:24 - Returning user details from cookies.
+<debug> 27/12/2018 21:50:24 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:50:24 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:50:24 - username = vamon1122
+<debug> 27/12/2018 21:50:24 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:50:24 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:50:24 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:24 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:24 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:24 - Returning user details from cookies.
+<info> 27/12/2018 21:50:24 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:50:24 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:50:24 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:50:24 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:50:24 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:50:24 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:50:24 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:50:24 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:50:24 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:24 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:24 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:24 - Returning user details from cookies.
+<debug> 27/12/2018 21:50:24 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:50:24 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:50:24 - username = vamon1122
+<debug> 27/12/2018 21:50:25 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:50:25 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:50:29 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:29 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:29 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:29 - Returning user details from cookies.
+<info> 27/12/2018 21:50:29 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:50:29 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:50:29 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:50:30 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:50:30 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:50:30 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:50:30 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:50:30 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:50:30 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:30 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:30 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:30 - Returning user details from cookies.
+<debug> 27/12/2018 21:50:30 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:50:30 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:50:30 - username = vamon1122
+<debug> 27/12/2018 21:50:30 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:50:30 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:50:32 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:32 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:32 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:32 - Returning user details from cookies.
+<info> 27/12/2018 21:50:32 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:50:32 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:50:32 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:50:32 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:50:32 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:50:32 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:50:32 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:50:32 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:50:32 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:32 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:32 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:32 - Returning user details from cookies.
+<debug> 27/12/2018 21:50:32 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:50:32 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:50:32 - username = vamon1122
+<debug> 27/12/2018 21:50:32 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:50:32 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:50:32 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:32 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:32 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:32 - Returning user details from cookies.
+<info> 27/12/2018 21:50:32 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:50:32 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:50:32 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:50:33 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:50:33 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:50:33 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:50:33 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:50:33 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:50:33 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:33 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:33 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:33 - Returning user details from cookies.
+<debug> 27/12/2018 21:50:33 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:50:33 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:50:33 - username = vamon1122
+<debug> 27/12/2018 21:50:33 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:50:33 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:50:42 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:42 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:42 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:42 - Returning user details from cookies.
+<info> 27/12/2018 21:50:42 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:50:42 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:50:42 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:50:42 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:50:42 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:50:42 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:50:42 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:50:42 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:50:42 - Getting user details from cookies...
+<debug> 27/12/2018 21:50:42 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:50:42 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:50:42 - Returning user details from cookies.
+<debug> 27/12/2018 21:50:42 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:50:42 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:50:42 - username = vamon1122
+<debug> 27/12/2018 21:50:42 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:50:42 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:52:55 - Getting user details from cookies...
+<debug> 27/12/2018 21:52:55 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:52:55 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:52:55 - Returning user details from cookies.
+<info> 27/12/2018 21:52:55 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:52:56 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:52:56 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:52:56 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:52:56 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:52:56 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:52:56 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:52:56 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:52:56 - Getting user details from cookies...
+<debug> 27/12/2018 21:52:56 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:52:56 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:52:56 - Returning user details from cookies.
+<debug> 27/12/2018 21:52:56 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:52:56 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:52:56 - username = vamon1122
+<debug> 27/12/2018 21:52:56 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:52:56 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:52:56 - Getting user details from cookies...
+<debug> 27/12/2018 21:52:56 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:52:56 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:52:56 - Returning user details from cookies.
+<info> 27/12/2018 21:52:56 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:52:56 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:52:56 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:52:56 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:52:56 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:52:56 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:52:56 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:52:56 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:52:56 - Getting user details from cookies...
+<debug> 27/12/2018 21:52:56 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:52:56 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:52:56 - Returning user details from cookies.
+<debug> 27/12/2018 21:52:56 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:52:56 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:52:56 - username = vamon1122
+<debug> 27/12/2018 21:52:57 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:52:57 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:52:57 - Getting user details from cookies...
+<debug> 27/12/2018 21:52:57 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:52:57 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:52:57 - Returning user details from cookies.
+<info> 27/12/2018 21:52:57 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:52:57 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:52:57 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:52:57 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:52:57 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:52:57 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:52:57 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:52:57 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:52:57 - Getting user details from cookies...
+<debug> 27/12/2018 21:52:57 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:52:57 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:52:57 - Returning user details from cookies.
+<debug> 27/12/2018 21:52:57 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:52:57 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:52:57 - username = vamon1122
+<debug> 27/12/2018 21:52:57 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:52:57 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:53:01 - Getting user details from cookies...
+<debug> 27/12/2018 21:53:01 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:53:01 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:53:01 - Returning user details from cookies.
+<info> 27/12/2018 21:53:01 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:53:01 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:53:01 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:53:01 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:53:01 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:53:01 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:53:01 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:53:01 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:53:01 - Getting user details from cookies...
+<debug> 27/12/2018 21:53:01 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:53:01 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:53:01 - Returning user details from cookies.
+<debug> 27/12/2018 21:53:01 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:53:01 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:53:01 - username = vamon1122
+<debug> 27/12/2018 21:53:01 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:53:01 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:53:03 - Getting user details from cookies...
+<debug> 27/12/2018 21:53:03 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:53:03 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:53:03 - Returning user details from cookies.
+<info> 27/12/2018 21:53:03 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:53:03 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:53:03 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:53:03 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:53:03 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:53:03 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:53:03 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:53:03 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:53:03 - Getting user details from cookies...
+<debug> 27/12/2018 21:53:03 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:53:03 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:53:03 - Returning user details from cookies.
+<debug> 27/12/2018 21:53:03 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:53:03 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:53:03 - username = vamon1122
+<debug> 27/12/2018 21:53:03 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:53:03 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:53:03 - Getting user details from cookies...
+<debug> 27/12/2018 21:53:03 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:53:03 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:53:03 - Returning user details from cookies.
+<info> 27/12/2018 21:53:03 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:53:03 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:53:03 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:53:04 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:53:04 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:53:04 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:53:04 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:53:04 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:53:04 - Getting user details from cookies...
+<debug> 27/12/2018 21:53:04 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:53:04 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:53:04 - Returning user details from cookies.
+<debug> 27/12/2018 21:53:04 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:53:04 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:53:04 - username = vamon1122
+<debug> 27/12/2018 21:53:04 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:53:04 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:53:18 - Getting user details from cookies...
+<debug> 27/12/2018 21:53:18 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:53:18 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:53:18 - Returning user details from cookies.
+<info> 27/12/2018 21:53:18 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:53:18 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:53:18 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:53:18 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:53:18 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:53:18 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:53:18 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:53:18 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:53:18 - Getting user details from cookies...
+<debug> 27/12/2018 21:53:18 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:53:18 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:53:18 - Returning user details from cookies.
+<debug> 27/12/2018 21:53:18 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:53:18 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:53:18 - username = vamon1122
+<debug> 27/12/2018 21:53:18 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:53:18 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:54:07 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:07 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:07 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:07 - Returning user details from cookies.
+<info> 27/12/2018 21:54:07 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:54:07 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:54:07 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:54:08 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:54:08 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:54:08 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:54:08 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:54:08 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:54:08 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:08 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:08 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:08 - Returning user details from cookies.
+<debug> 27/12/2018 21:54:08 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:54:08 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:54:08 - username = vamon1122
+<debug> 27/12/2018 21:54:08 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:54:08 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:54:08 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:08 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:08 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:08 - Returning user details from cookies.
+<info> 27/12/2018 21:54:08 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:54:08 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:54:08 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:54:08 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:54:08 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:54:08 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:54:08 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:54:08 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:54:08 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:08 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:08 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:08 - Returning user details from cookies.
+<debug> 27/12/2018 21:54:08 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:54:08 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:54:08 - username = vamon1122
+<debug> 27/12/2018 21:54:08 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:54:08 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:54:09 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:09 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:09 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:09 - Returning user details from cookies.
+<info> 27/12/2018 21:54:09 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:54:09 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:54:09 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:54:09 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:54:09 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:54:09 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:54:09 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:54:09 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:54:09 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:09 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:09 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:09 - Returning user details from cookies.
+<debug> 27/12/2018 21:54:09 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:54:09 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:54:09 - username = vamon1122
+<debug> 27/12/2018 21:54:09 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:54:09 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:54:13 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:13 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:13 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:13 - Returning user details from cookies.
+<info> 27/12/2018 21:54:13 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:54:13 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:54:13 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:54:13 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:54:13 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:54:13 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:54:13 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:54:13 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:54:13 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:13 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:13 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:13 - Returning user details from cookies.
+<debug> 27/12/2018 21:54:13 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:54:13 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:54:13 - username = vamon1122
+<debug> 27/12/2018 21:54:13 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:54:13 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:54:15 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:15 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:15 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:15 - Returning user details from cookies.
+<info> 27/12/2018 21:54:15 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:54:15 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:54:15 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:54:15 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:54:15 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:54:15 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:54:15 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:54:15 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:54:15 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:15 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:15 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:15 - Returning user details from cookies.
+<debug> 27/12/2018 21:54:15 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:54:15 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:54:15 - username = vamon1122
+<debug> 27/12/2018 21:54:15 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:54:15 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:54:15 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:15 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:15 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:15 - Returning user details from cookies.
+<info> 27/12/2018 21:54:15 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:54:15 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:54:15 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:54:15 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:54:15 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:54:15 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:54:16 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:54:16 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:54:16 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:16 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:16 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:16 - Returning user details from cookies.
+<debug> 27/12/2018 21:54:16 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:54:16 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:54:16 - username = vamon1122
+<debug> 27/12/2018 21:54:16 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:54:16 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:54:23 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:23 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:23 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:23 - Returning user details from cookies.
+<info> 27/12/2018 21:54:23 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:54:23 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:54:23 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:54:23 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:54:23 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:54:23 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:54:23 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:54:23 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:54:23 - Getting user details from cookies...
+<debug> 27/12/2018 21:54:23 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:54:24 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:54:24 - Returning user details from cookies.
+<debug> 27/12/2018 21:54:24 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:54:24 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:54:24 - username = vamon1122
+<debug> 27/12/2018 21:54:24 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:54:24 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:55:26 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:26 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:26 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:26 - Returning user details from cookies.
+<info> 27/12/2018 21:55:26 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:55:26 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:55:26 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:55:26 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:55:26 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:55:27 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:55:27 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:55:27 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:55:27 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:27 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:27 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:27 - Returning user details from cookies.
+<debug> 27/12/2018 21:55:27 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:55:27 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:55:27 - username = vamon1122
+<debug> 27/12/2018 21:55:27 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:55:27 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:55:27 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:27 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:27 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:27 - Returning user details from cookies.
+<info> 27/12/2018 21:55:27 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:55:27 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:55:27 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:55:27 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:55:27 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:55:27 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:55:27 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:55:27 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:55:27 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:27 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:27 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:27 - Returning user details from cookies.
+<debug> 27/12/2018 21:55:27 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:55:27 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:55:27 - username = vamon1122
+<debug> 27/12/2018 21:55:27 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:55:27 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:55:27 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:27 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:27 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:27 - Returning user details from cookies.
+<info> 27/12/2018 21:55:27 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:55:27 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:55:27 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:55:28 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:55:28 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:55:28 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:55:28 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:55:28 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:55:28 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:28 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:28 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:28 - Returning user details from cookies.
+<debug> 27/12/2018 21:55:28 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:55:28 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:55:28 - username = vamon1122
+<debug> 27/12/2018 21:55:28 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:55:28 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:55:34 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:34 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:34 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:34 - Returning user details from cookies.
+<info> 27/12/2018 21:55:34 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:55:34 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:55:34 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:55:35 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:55:35 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:55:35 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:55:35 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:55:35 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:55:35 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:35 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:35 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:35 - Returning user details from cookies.
+<debug> 27/12/2018 21:55:35 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:55:35 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:55:35 - username = vamon1122
+<debug> 27/12/2018 21:55:35 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:55:35 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:55:37 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:37 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:37 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:38 - Returning user details from cookies.
+<info> 27/12/2018 21:55:38 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:55:38 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:55:38 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:55:38 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:55:38 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:55:38 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:55:38 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:55:38 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:55:38 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:38 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:38 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:38 - Returning user details from cookies.
+<debug> 27/12/2018 21:55:38 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:55:38 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:55:38 - username = vamon1122
+<debug> 27/12/2018 21:55:38 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:55:38 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:55:38 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:38 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:38 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:38 - Returning user details from cookies.
+<info> 27/12/2018 21:55:38 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:55:38 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:55:38 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:55:38 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:55:38 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:55:38 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:55:38 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:55:38 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:55:38 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:38 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:38 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:38 - Returning user details from cookies.
+<debug> 27/12/2018 21:55:38 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:55:38 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:55:38 - username = vamon1122
+<debug> 27/12/2018 21:55:38 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:55:38 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:55:47 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:47 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:47 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:47 - Returning user details from cookies.
+<info> 27/12/2018 21:55:47 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:55:47 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:55:47 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:55:47 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:55:47 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:55:47 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:55:48 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:55:48 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:55:48 - Getting user details from cookies...
+<debug> 27/12/2018 21:55:48 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:55:48 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:55:48 - Returning user details from cookies.
+<debug> 27/12/2018 21:55:48 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:55:48 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:55:48 - username = vamon1122
+<debug> 27/12/2018 21:55:48 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:55:48 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:57:21 - Getting user details from cookies...
+<debug> 27/12/2018 21:57:21 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:57:21 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:57:21 - Returning user details from cookies.
+<info> 27/12/2018 21:57:21 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:57:22 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:57:22 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:57:22 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:57:22 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:57:22 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:57:22 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:57:22 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:57:22 - Getting user details from cookies...
+<debug> 27/12/2018 21:57:22 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:57:22 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:57:22 - Returning user details from cookies.
+<debug> 27/12/2018 21:57:22 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:57:22 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:57:22 - username = vamon1122
+<debug> 27/12/2018 21:57:22 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:57:22 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:57:22 - Getting user details from cookies...
+<debug> 27/12/2018 21:57:22 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:57:22 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:57:22 - Returning user details from cookies.
+<info> 27/12/2018 21:57:22 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:57:22 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:57:22 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:57:22 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:57:22 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:57:22 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:57:22 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:57:22 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:57:22 - Getting user details from cookies...
+<debug> 27/12/2018 21:57:22 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:57:22 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:57:22 - Returning user details from cookies.
+<debug> 27/12/2018 21:57:22 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:57:22 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:57:22 - username = vamon1122
+<debug> 27/12/2018 21:57:22 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:57:22 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:57:23 - Getting user details from cookies...
+<debug> 27/12/2018 21:57:23 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:57:23 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:57:23 - Returning user details from cookies.
+<info> 27/12/2018 21:57:23 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:57:23 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:57:23 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:57:23 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:57:23 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:57:23 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:57:23 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:57:23 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:57:23 - Getting user details from cookies...
+<debug> 27/12/2018 21:57:23 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:57:23 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:57:23 - Returning user details from cookies.
+<debug> 27/12/2018 21:57:23 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:57:23 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:57:23 - username = vamon1122
+<debug> 27/12/2018 21:57:23 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:57:23 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:57:51 - Getting user details from cookies...
+<debug> 27/12/2018 21:57:51 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:57:51 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:57:51 - Returning user details from cookies.
+<info> 27/12/2018 21:57:51 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:57:51 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:57:51 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:57:52 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:57:52 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:57:52 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:57:52 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:57:52 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:57:52 - Getting user details from cookies...
+<debug> 27/12/2018 21:57:52 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:57:52 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:57:52 - Returning user details from cookies.
+<debug> 27/12/2018 21:57:52 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:57:52 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:57:52 - username = vamon1122
+<debug> 27/12/2018 21:57:52 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:57:52 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:57:53 - Getting user details from cookies...
+<debug> 27/12/2018 21:57:53 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:57:53 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:57:53 - Returning user details from cookies.
+<info> 27/12/2018 21:57:53 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:57:53 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:57:53 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:57:53 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:57:54 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:57:54 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:57:54 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:57:54 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:57:54 - Getting user details from cookies...
+<debug> 27/12/2018 21:57:54 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:57:54 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:57:54 - Returning user details from cookies.
+<debug> 27/12/2018 21:57:54 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:57:54 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:57:54 - username = vamon1122
+<debug> 27/12/2018 21:57:54 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:57:54 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:57:54 - Getting user details from cookies...
+<debug> 27/12/2018 21:57:54 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:57:54 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:57:54 - Returning user details from cookies.
+<info> 27/12/2018 21:57:54 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:57:54 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:57:54 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:57:54 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:57:54 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:57:54 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:57:54 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:57:54 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:57:54 - Getting user details from cookies...
+<debug> 27/12/2018 21:57:54 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:57:54 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:57:54 - Returning user details from cookies.
+<debug> 27/12/2018 21:57:54 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:57:54 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:57:54 - username = vamon1122
+<debug> 27/12/2018 21:57:55 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:57:55 - [LogIn] Logged in successfully!
+<info> 27/12/2018 21:58:01 - Getting user details from cookies...
+<debug> 27/12/2018 21:58:01 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:58:01 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:58:01 - Returning user details from cookies.
+<info> 27/12/2018 21:58:01 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 21:58:01 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 21:58:01 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 21:58:01 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 21:58:01 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 21:58:01 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 21:58:01 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 21:58:01 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 21:58:01 - Getting user details from cookies...
+<debug> 27/12/2018 21:58:01 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 21:58:01 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 21:58:01 - Returning user details from cookies.
+<debug> 27/12/2018 21:58:01 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 21:58:01 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 21:58:01 - username = vamon1122
+<debug> 27/12/2018 21:58:02 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 21:58:02 - [LogIn] Logged in successfully!
+<info> 27/12/2018 22:18:10 - Getting user details from cookies...
+<debug> 27/12/2018 22:18:10 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:18:10 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:18:10 - Returning user details from cookies.
+<info> 27/12/2018 22:18:10 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 22:18:10 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 22:18:10 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 22:18:10 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 22:18:10 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 22:18:10 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 22:18:10 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 22:18:10 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 22:18:10 - Getting user details from cookies...
+<debug> 27/12/2018 22:18:10 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:18:10 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:18:10 - Returning user details from cookies.
+<debug> 27/12/2018 22:18:10 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 22:18:10 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 22:18:10 - username = vamon1122
+<debug> 27/12/2018 22:18:10 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 22:18:10 - [LogIn] Logged in successfully!
+<info> 27/12/2018 22:18:11 - Getting user details from cookies...
+<debug> 27/12/2018 22:18:11 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:18:11 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:18:11 - Returning user details from cookies.
+<info> 27/12/2018 22:18:11 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 22:18:11 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 22:18:11 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 22:18:11 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 22:18:11 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 22:18:11 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 22:18:11 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 22:18:11 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 22:18:11 - Getting user details from cookies...
+<debug> 27/12/2018 22:18:11 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:18:11 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:18:11 - Returning user details from cookies.
+<debug> 27/12/2018 22:18:11 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 22:18:11 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 22:18:11 - username = vamon1122
+<debug> 27/12/2018 22:18:11 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 22:18:11 - [LogIn] Logged in successfully!
+<info> 27/12/2018 22:18:11 - Getting user details from cookies...
+<debug> 27/12/2018 22:18:11 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:18:11 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:18:11 - Returning user details from cookies.
+<info> 27/12/2018 22:18:11 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 22:18:11 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 22:18:11 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 22:18:11 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 22:18:11 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 22:18:11 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 22:18:11 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 22:18:11 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 22:18:11 - Getting user details from cookies...
+<debug> 27/12/2018 22:18:11 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:18:11 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:18:11 - Returning user details from cookies.
+<debug> 27/12/2018 22:18:11 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 22:18:11 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 22:18:11 - username = vamon1122
+<debug> 27/12/2018 22:18:12 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 22:18:12 - [LogIn] Logged in successfully!
+<info> 27/12/2018 22:18:53 - Getting user details from cookies...
+<debug> 27/12/2018 22:18:53 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:18:53 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:18:53 - Returning user details from cookies.
+<info> 27/12/2018 22:18:53 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 22:18:53 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 22:18:53 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 22:18:53 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 22:18:53 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 22:18:53 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 22:18:53 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 22:18:53 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 22:18:53 - Getting user details from cookies...
+<debug> 27/12/2018 22:18:53 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:18:53 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:18:53 - Returning user details from cookies.
+<debug> 27/12/2018 22:18:53 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 22:18:53 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 22:18:53 - username = vamon1122
+<debug> 27/12/2018 22:18:53 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 22:18:53 - [LogIn] Logged in successfully!
+<info> 27/12/2018 22:19:07 - Getting user details from cookies...
+<debug> 27/12/2018 22:19:07 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:19:07 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:19:07 - Returning user details from cookies.
+<info> 27/12/2018 22:19:07 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 22:19:07 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 22:19:07 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 22:19:07 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 22:19:07 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 22:19:07 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 22:19:07 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 22:19:07 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 22:19:07 - Getting user details from cookies...
+<debug> 27/12/2018 22:19:07 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:19:07 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:19:07 - Returning user details from cookies.
+<debug> 27/12/2018 22:19:07 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 22:19:07 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 22:19:07 - username = vamon1122
+<debug> 27/12/2018 22:19:07 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 22:19:07 - [LogIn] Logged in successfully!
+<info> 27/12/2018 22:19:07 - Getting user details from cookies...
+<debug> 27/12/2018 22:19:07 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:19:07 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:19:07 - Returning user details from cookies.
+<info> 27/12/2018 22:19:07 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 22:19:07 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 22:19:07 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 22:19:07 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 22:19:07 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 22:19:07 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 22:19:07 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 22:19:07 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 22:19:07 - Getting user details from cookies...
+<debug> 27/12/2018 22:19:07 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:19:07 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:19:07 - Returning user details from cookies.
+<debug> 27/12/2018 22:19:07 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 22:19:07 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 22:19:07 - username = vamon1122
+<debug> 27/12/2018 22:19:08 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 22:19:08 - [LogIn] Logged in successfully!
+<info> 27/12/2018 22:19:16 - Getting user details from cookies...
+<debug> 27/12/2018 22:19:16 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:19:16 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:19:16 - Returning user details from cookies.
+<info> 27/12/2018 22:19:16 - [LogIn] Logging in with Username = vamon1122 & Pwd = BBTbbt1704...
+<debug> 27/12/2018 22:19:16 - [LogIn] Sql connection opened succesfully!
+<debug> 27/12/2018 22:19:16 - [LogIn] Attempting to get password from database...
+<debug> 27/12/2018 22:19:16 - [LogIn] Got password from database successfully!
+<debug> 27/12/2018 22:19:16 - [LogIn] DbPwd == Pwd (BBTbbt1704 == BBTbbt1704)
+<debug> 27/12/2018 22:19:16 - [LogIn] Attempting to get user details...
+<debug> 27/12/2018 22:19:17 - [LogIn] Got user's details successfully!
+<debug> 27/12/2018 22:19:17 - [LogIn] RememberPassword = false. Writing session password cookie (userPwd = BBTbbt1704)
+<info> 27/12/2018 22:19:17 - Getting user details from cookies...
+<debug> 27/12/2018 22:19:17 - Found a username cookie! Username = vamon1122
+<debug> 27/12/2018 22:19:17 - Found a password cookie! Password = BBTbbt1704
+<info> 27/12/2018 22:19:17 - Returning user details from cookies.
+<debug> 27/12/2018 22:19:17 - [LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.
+<debug> 27/12/2018 22:19:17 - [LogIn] Attempting to set LastLogIn...
+<debug> 27/12/2018 22:19:17 - username = vamon1122
+<debug> 27/12/2018 22:19:17 - [LogIn] Set LastLogIn successfully! 1 records were affected.
+<info> 27/12/2018 22:19:17 - [LogIn] Logged in successfully!

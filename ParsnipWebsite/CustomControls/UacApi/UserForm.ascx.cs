@@ -28,7 +28,7 @@ namespace TheParsnipWeb
             }
             else
             {
-                new LogEntry() { text = String.Format("{0} accessed the create-user page", MyAccount.fullName), userId = MyAccount.id }.Insert();
+                new LogEntry() { text = String.Format("{0} accessed the create-user page", MyAccount.fullName), userId = MyAccount.id };
             }
 
 
@@ -61,7 +61,11 @@ namespace TheParsnipWeb
             {
                 
                 formAccount.DbInsert(password1.Text);
-                new LogEntry() { text = String.Format("{0} created an account for {1} via the create-user page", MyAccount.fullName, formAccount.fullName), userId = MyAccount.id }.Insert();
+                new LogEntry() { text = String.Format("{0} created an account for {1} via the create-user page", MyAccount.fullName, formAccount.fullName), userId = MyAccount.id };
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("User failed to validate!");
             }
 
 

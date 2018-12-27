@@ -8,6 +8,7 @@ using System.Web;
 using BenLog;
 using System.Diagnostics;
 using LogApi;
+using CookieApi;
 using ParsnipApi;
 
 namespace UacApi
@@ -24,6 +25,7 @@ namespace UacApi
         public string Forename { get; set; }
         public string Surname { get; set; }
         public DateTime Dob { get; set; }
+        public string gender { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Address3 { get; set; }
@@ -55,22 +57,23 @@ namespace UacApi
         {
             bool ValidateSuccess = true;
 
-            ValidateSuccess = (validateUsername()) ? ValidateSuccess : false;
-            ValidateSuccess = (validateEmail()) ? ValidateSuccess : false;
-            //ValidateSuccess = (validatePwd()) ? ValidateSuccess : false;
-            ValidateSuccess = (validateForename()) ? ValidateSuccess : false;
-            ValidateSuccess = (validateSurname()) ? ValidateSuccess : false;
-            //ValidateSuccess = (validateDob()) ? ValidateSuccess : false; 
-            ValidateSuccess = (validateAddress1()) ? ValidateSuccess : false;
-            ValidateSuccess = (validateAddress2()) ? ValidateSuccess : false;
-            ValidateSuccess = (validateAddress3()) ? ValidateSuccess : false;
-            ValidateSuccess = (validatePostCode()) ? ValidateSuccess : false;
-            ValidateSuccess = (validateMobilePhone()) ? ValidateSuccess : false;
-            ValidateSuccess = (validateHomePhone()) ? ValidateSuccess : false;
-            ValidateSuccess = (validateWorkPhone()) ? ValidateSuccess : false;
-            //ValidateSuccess = (validateDateTimeCreated()) ? ValidateSuccess : false;
-            ValidateSuccess = (validateAccountType()) ? ValidateSuccess : false;
-            ValidateSuccess = (validateAccountStatus()) ? ValidateSuccess : false;
+            ValidateSuccess = validateUsername() ? ValidateSuccess : false;
+            ValidateSuccess = validateEmail() ? ValidateSuccess : false;
+            //ValidateSuccess = validatePwd() ? ValidateSuccess : false;
+            ValidateSuccess = validateForename() ? ValidateSuccess : false;
+            ValidateSuccess = validateSurname() ? ValidateSuccess : false;
+            ValidateSuccess = validateDob() ? ValidateSuccess : false;
+            ValidateSuccess = validateGender() ? ValidateSuccess : false;
+            ValidateSuccess = validateAddress1() ? ValidateSuccess : false;
+            ValidateSuccess = validateAddress2() ? ValidateSuccess : false;
+            ValidateSuccess = validateAddress3() ? ValidateSuccess : false;
+            ValidateSuccess = validatePostCode() ? ValidateSuccess : false;
+            ValidateSuccess = validateMobilePhone() ? ValidateSuccess : false;
+            ValidateSuccess = validateHomePhone() ? ValidateSuccess : false;
+            ValidateSuccess = validateWorkPhone() ? ValidateSuccess : false;
+            ValidateSuccess = validateDateTimeCreated() ? ValidateSuccess : false;
+            ValidateSuccess = validateAccountType() ? ValidateSuccess : false;
+            ValidateSuccess = validateAccountStatus() ? ValidateSuccess : false;
 
             return ValidateSuccess;
 
@@ -78,10 +81,12 @@ namespace UacApi
             {
                 if (Username.Length == 0)
                 {
+                    new LogEntry() { text = "Cannot create a user without a username!" };
                     return false;
                 }
                 else if (Username.Length > 50)
                 {
+                    new LogEntry() { text = String.Format("Username is {0} characters long. Username must be no longer than 50 characters!", Username.Length) };
                     return false;
                 }
                 else
@@ -121,17 +126,20 @@ namespace UacApi
                             else
                             {
                                 //MyLog.Warning("Email address domain does not contain a \".\". Email address will be blank!");
+                                new LogEntry() { text = String.Format("Email address \"{0}\" does not contain a dot. Email addresses must contain a dot.", EmailAddress) };
                                 return false;
                             }
                         }
                         else
                         {
                             //MyLog.Warning("Email address contains too many @'s. Email address will be blank!");
+                            new LogEntry() { text = String.Format("Email address \"{0}\" contains too many '@' signs. Email addresses must contain only one '@' sign.", EmailAddress) };
                             return false;
                         }
                     }
                     else
                     {
+                        new LogEntry() { text = String.Format("Email address \"{0}\" does not contain an '@' sign. Email addresses must contain an '@' sign.", EmailAddress) };
                         //MyLog.Warning("Email address does not contain an \"@\" sign. Email address will be blank!");
                         return false;
                     }
@@ -140,7 +148,7 @@ namespace UacApi
                 {
                     //Don't really need to be warned about blank fields.
                     //MyLog.Warning(String.Format("Email \"{0}\" is made up from blank characters! Email address will be blank!", EmailVal));
-                    return false;
+                    return true;
                 }
             }
 
@@ -172,12 +180,26 @@ namespace UacApi
                 return true;
             }
 
-            /*
+            
             bool validateDob()
             {
-
+                return true;
             }
-            */
+
+            bool validateGender()
+            {
+                if(gender != null)
+                {
+                    string tempGender = gender.ToString().ToUpper();
+                    if (tempGender == "M" || tempGender == "F" || tempGender == "O") return true; else { new LogEntry() { text = String.Format("Gender \"{0}\" is not M, F or O. Gender must be M, F or O.", tempGender) }; return false; };
+                }
+                else
+                {
+                    return true;
+                }
+                
+            }
+            
 
             bool validateAddress1()
             {
@@ -214,14 +236,11 @@ namespace UacApi
                 return true;
             }
 
-            #region bool validateDateTimeCreated()
-            /*
+            
             bool validateDateTimeCreated()
             {
                 return true;
             }
-            */
-            #endregion
 
             bool validateAccountType()
             {
@@ -233,22 +252,19 @@ namespace UacApi
                 return true;
             }
         }
-        
-        
-        
+
         private string[] GetCookies()
         {
             AccountLog.Info("Getting user details from cookies...");
-            HttpCookie userName;
-            HttpCookie userPwd;
+            
+
             string[] UserDetails = new string[2];
 
-            if (HttpContext.Current.Request.Cookies["userName"] != null)
+            if (Cookie.Read("userName") != null)
             {
-                userName = HttpContext.Current.Request.Cookies["userName"];
-                AccountLog.Debug("Found a username cookie! Username = " + userName.Value);
-                Username = userName.Value;
-                UserDetails[0] = userName.Value;
+                Username = Cookie.Read("userName");
+                AccountLog.Debug("Found a username cookie! Username = " + Username);
+                UserDetails[0] = Username;
             }
             else
             {
@@ -256,11 +272,11 @@ namespace UacApi
                 UserDetails[0] = "";
             }
 
-            if (HttpContext.Current.Request.Cookies["userPwd"] != null)
+            if (Cookie.Read("userPwd") != null)
             {
-                userPwd = HttpContext.Current.Request.Cookies["userPwd"];
-                AccountLog.Debug("Found a password cookie! Password = " + userPwd.Value);
-                UserDetails[1] = userPwd.Value;
+                UserDetails[1] = Cookie.Read("userPwd");
+                AccountLog.Debug("Found a password cookie! Password = " + UserDetails[1]);
+                
             }
             else
             {
@@ -271,96 +287,6 @@ namespace UacApi
             AccountLog.Info("Returning user details from cookies.");
             return UserDetails;
         }
-
-        private bool WritePermCookie(string pName, string pVal)
-        {
-            AccountLog.Info(String.Format("Attempting to write permanant {0} cookie...", pName));
-            try
-            {
-                HttpContext.Current.Response.Cookies[pName].Value = pVal;
-                HttpContext.Current.Response.Cookies[pName].Expires = DateTime.Now.AddDays(365);
-                AccountLog.Info(String.Format("Permanent {0} cookie ({0} = {1}) was written successfully!", pName, pVal));
-                return true;
-            }
-            catch
-            {
-                AccountLog.Error(String.Format("Failed to write permanent {0} cookie. {0} != {1}", pName, pVal));
-                return false;
-            }
-        }
-
-        private bool WriteSessionCookie(string pName, string pVal)
-        {
-            AccountLog.Info(String.Format("Attempting to write session {0} cookie...", pName));
-            try
-            {
-                HttpContext.Current.Response.Cookies[pName].Value = pVal;
-                AccountLog.Info(String.Format("Session {0} cookie ({0} = {1}) was written successfully!", pName, pVal));
-                return true;
-            }
-            catch
-            {
-                AccountLog.Error(String.Format("Failed to write session {0} cookie. {0} != {1}", pName, pVal));
-                return false;
-            }
-        }
-
-        #region Specific Cookies (Deprecaded)
-        /*
-        private bool WritePermUserCookie(string pUsername)
-        {
-            if(WritePermCookie("userName", pUsername))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        
-        private bool WriteSessionPwdCookie(string pPwd)
-        {
-            if (WriteSessionCookie("userPwd", pPwd))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        
-
-        
-        private bool WritePermUserTempPwdCookies(string pUsername, string pPwd)
-        {
-            if(WritePermUserCookie(pUsername) && WriteSessionPwdCookie(pPwd))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
-        private bool WritePermCookies(string pUsername, string pPwd)
-        {
-            if(WritePermUserCookie(pUsername) &&
-            WritePermCookie("userPwd", pPwd))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        */
-        #endregion
 
         public bool LogIn()
         {
@@ -415,17 +341,18 @@ namespace UacApi
                 Forename = DbAccountDetails[4].ToString().Trim(),
                 Surname = DbAccountDetails[5].ToString().Trim(),
                 Dob = Convert.ToDateTime(DbAccountDetails[6]),
-                Address1 = DbAccountDetails[7].ToString().Trim(),
-                Address2 = DbAccountDetails[8].ToString().Trim(),
-                Address3 = DbAccountDetails[9].ToString().Trim(),
-                PostCode = DbAccountDetails[10].ToString().Trim(),
-                MobilePhone = DbAccountDetails[11].ToString().Trim(),
-                HomePhone = DbAccountDetails[12].ToString().Trim(),
-                WorkPhone = DbAccountDetails[13].ToString().Trim(),
-                DateTimeCreated = Convert.ToDateTime(DbAccountDetails[14]),
-                LastLogIn = Convert.ToDateTime(DbAccountDetails[15]),
-                AccountType = DbAccountDetails[16].ToString().Trim(),
-                AccountStatus = DbAccountDetails[17].ToString().Trim()
+                gender = DbAccountDetails[7].ToString(),
+                Address1 = DbAccountDetails[8].ToString().Trim(),
+                Address2 = DbAccountDetails[9].ToString().Trim(),
+                Address3 = DbAccountDetails[10].ToString().Trim(),
+                PostCode = DbAccountDetails[11].ToString().Trim(),
+                MobilePhone = DbAccountDetails[12].ToString().Trim(),
+                HomePhone = DbAccountDetails[13].ToString().Trim(),
+                WorkPhone = DbAccountDetails[14].ToString().Trim(),
+                DateTimeCreated = Convert.ToDateTime(DbAccountDetails[15]),
+                LastLogIn = Convert.ToDateTime(DbAccountDetails[16]),
+                AccountType = DbAccountDetails[17].ToString().Trim(),
+                AccountStatus = DbAccountDetails[18].ToString().Trim()
         };
 
             if (ValidateMe.Validate())
@@ -437,6 +364,7 @@ namespace UacApi
                 Forename = DbAccountDetails[4].ToString().Trim();
                 Surname = DbAccountDetails[5].ToString().Trim();
                 Dob = Convert.ToDateTime(DbAccountDetails[6]);
+                gender = DbAccountDetails[6].ToString();
                 Address1 = DbAccountDetails[7].ToString().Trim();
                 Address2 = DbAccountDetails[8].ToString().Trim();
                 Address3 = DbAccountDetails[9].ToString().Trim();
@@ -460,7 +388,7 @@ namespace UacApi
         private string[] DbSelectValues(SqlConnection pConn)
         {
             Debug.WriteLine("Attempting to get user details...");
-            string[] rVals = new string[18];
+            string[] rVals = new string[19];
             try
             {
                 SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Users WHERE Username = @username", pConn);
@@ -470,12 +398,14 @@ namespace UacApi
                 {
                     while (reader.Read())
                     {
-                        for(int i = 0; i < 18; i++)
+                        for(int i = 0; i < 19; i++)
                         {
+                            Debug.WriteLine("----------1-{0}", i);
                             /*if(reader[i] != DBNull.Value)
                             {*/
                             Debug.WriteLine(String.Format("reader[{0}].ToString().Trim() = {1} (rVals[{0}] = {1})", i, reader[i].ToString().Trim()));
                             rVals[i] = reader[i].ToString().Trim();
+                            Debug.WriteLine("----------2-{0}", i);
                             //}
                         }
                     }
@@ -521,14 +451,14 @@ namespace UacApi
                         {
                             AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
                             System.Diagnostics.Debug.WriteLine("Username permanently remembered!");
-                            WritePermCookie("userName", pUsername);
+                            Cookie.WritePerm("userName", pUsername);
                         }
 
                         if (pRememberPwd)
                         {
                             AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
                             System.Diagnostics.Debug.WriteLine("Password permanently remembered!");
-                            WritePermCookie("userPwd", pPwd);
+                            Cookie.WritePerm("userPwd", pPwd);
                             System.Diagnostics.Debug.WriteLine("PERMANENT Password cookie = " + GetCookies()[1]); 
                         }
                         else
@@ -541,7 +471,7 @@ namespace UacApi
                             else
                             {
                                 AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
-                                WriteSessionCookie("userPwd", pPwd);
+                                Cookie.WriteSession("userPwd", pPwd);
                                 AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
                                 System.Diagnostics.Debug.WriteLine("Password stored for SESSION ONLY.");
                             }
@@ -551,13 +481,11 @@ namespace UacApi
 
                         if (SetLastLogIn())
                         {
-                            
-
                             AccountLog.Info("[LogIn] Logged in successfully!");
                             if (!silent)
                             {
                                 System.Diagnostics.Debug.WriteLine(String.Format("----------{0} logged in LOUDLY", fullName));
-                                new LogEntry() { text = String.Format("{0} logged in", fullName), userId = id  }.Insert();
+                                new LogEntry() { text = String.Format("{0} logged in", fullName), userId = id  };
                             }
                             else
                             {
@@ -591,7 +519,7 @@ namespace UacApi
                     }
                     catch(Exception e)
                     {
-                        Console.WriteLine("[LogIn] There was an exception whilst setting the LastLogIn: " + e);
+                        Debug.WriteLine("[LogIn] There was an exception whilst setting the LastLogIn: " + e);
                         return false;
                     }
 
@@ -617,7 +545,7 @@ namespace UacApi
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("[LogIn] There was an exception whilst getting the password from the database: " + e);
+                        Debug.WriteLine("[LogIn] There was an exception whilst getting the password from the database: " + e);
                         return false;
                     }
                     AccountLog.Debug("[LogIn] Got password from database successfully!");
@@ -629,77 +557,87 @@ namespace UacApi
                     AccountLog.Debug("[LogIn] Attempting to get user details...");
                     try
                     {
-                        SqlCommand GetLogInDetails = new SqlCommand("SELECT Email, Forename, Surname, Dob, Address1, Address2, Address3, PostCode, MobilePhone, HomePhone, WorkPhone, DateTimeCreated, LastLogIn, AccountType, AccountStatus FROM t_Users WHERE Username = @Username", conn);
+                        SqlCommand GetLogInDetails = new SqlCommand("SELECT * FROM t_Users WHERE Username = @Username", conn);
                         GetLogInDetails.Parameters.Add(new SqlParameter("Username", Username));
 
                         using (SqlDataReader reader = GetLogInDetails.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                if(reader[0] != DBNull.Value)
+                                id = new Guid(reader[0].ToString());
+                                Username = reader[1].ToString();
+
+                                if (reader[2] != DBNull.Value)
                                 {
-                                    Email = reader[0].ToString().Trim();
+                                    Email = reader[2].ToString().Trim();
                                 }
+
+                                Pwd = reader[3].ToString();
                                 
-                                Forename = reader[1].ToString().Trim();
-                                Surname = reader[2].ToString().Trim();
+                                Forename = reader[4].ToString().Trim();
+                                Surname = reader[5].ToString().Trim();
 
-                                if(reader[3] != DBNull.Value)
+                                if(reader[6] != DBNull.Value)
                                 {
-                                    Dob = Convert.ToDateTime(reader[3]);
-                                }
-                                
-                                if(reader[4] != DBNull.Value)
-                                {
-                                    Address1 = reader[4].ToString().Trim();
-                                }
-
-                                if (reader[5] != DBNull.Value)
-                                {
-                                    Address2 = reader[5].ToString().Trim();
-                                }
-
-                                if (reader[6] != DBNull.Value)
-                                {
-                                    Address3 = reader[6].ToString().Trim();
+                                    Dob = Convert.ToDateTime(reader[6]);
                                 }
 
                                 if (reader[7] != DBNull.Value)
                                 {
-                                    PostCode = reader[7].ToString().Trim();
+                                    gender = reader[7].ToString();
                                 }
 
                                 if (reader[8] != DBNull.Value)
                                 {
-                                    MobilePhone = reader[8].ToString().Trim();
+                                    Address1 = reader[8].ToString().Trim();
                                 }
 
                                 if (reader[9] != DBNull.Value)
                                 {
-                                    HomePhone = reader[9].ToString().Trim();
+                                    Address2 = reader[9].ToString().Trim();
                                 }
 
                                 if (reader[10] != DBNull.Value)
                                 {
-                                    WorkPhone = reader[10].ToString().Trim();
+                                    Address3 = reader[10].ToString().Trim();
                                 }
 
-                                DateTimeCreated = Convert.ToDateTime(reader[11]);
-
-                                if(reader[12] != DBNull.Value)
+                                if (reader[11] != DBNull.Value)
                                 {
-                                    DateTimeCreated = Convert.ToDateTime(reader[12]);
+                                    PostCode = reader[11].ToString().Trim();
                                 }
 
-                                AccountType = reader[13].ToString().Trim();
+                                if (reader[12] != DBNull.Value)
+                                {
+                                    MobilePhone = reader[12].ToString().Trim();
+                                }
 
-                                AccountStatus = reader[14].ToString().Trim();
+                                if (reader[13] != DBNull.Value)
+                                {
+                                    HomePhone = reader[13].ToString().Trim();
+                                }
+
+                                if (reader[14] != DBNull.Value)
+                                {
+                                    WorkPhone = reader[14].ToString().Trim();
+                                }
+
+                                DateTimeCreated = Convert.ToDateTime(reader[15]);
+
+                                if(reader[16] != DBNull.Value)
+                                {
+                                    LastLogIn = Convert.ToDateTime(reader[16]);
+                                }
+
+                                AccountType = reader[17].ToString().Trim();
+
+                                AccountStatus = reader[18].ToString().Trim();
                             }
                         }
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("[LogIn] There was an exception whilst getting da user data: " + e);
+                        Debug.WriteLine("[LogIn] There was an exception whilst getting da user data: " + e);
                         return false;
                     }
                     AccountLog.Debug("[LogIn] Got user's details successfully!");
@@ -712,8 +650,8 @@ namespace UacApi
         {
             try
             {
-                WriteSessionCookie("userName", "");
-                WriteSessionCookie("userPwd", "");
+                Cookie.WriteSession("userName", "");
+                Cookie.WriteSession("userPwd", "");
                 return true;
             }
             catch
@@ -736,96 +674,107 @@ namespace UacApi
                     {
                         conn.Open();
 
-                        string[] DbAccountDetails = DbSelectValues(conn);
+                        string[] dbAccountDetails = DbSelectValues(conn);
 
-                        if(DbAccountDetails == null)
+                        if(dbAccountDetails == null)
                         {
                             Debug.WriteLine("No details were retrieved 1");
                         }
 
-                        if (DbAccountDetails[0] == null)
+                        if (dbAccountDetails[0] == null)
                         {
                             Debug.WriteLine("No details were retrieved 2");
                         }
 
-                        Debug.WriteLine(String.Format("string DbUsername: Converting x = DbAccountDetails[0] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[0]));
-                        string DbUsername = DbAccountDetails[0].ToString().Trim();
+                        Debug.WriteLine(String.Format("string dbId: Converting x = DbAccountDetails[0] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[0]));
+                        string dbId = dbAccountDetails[0].ToString().Trim();
 
-                        Debug.WriteLine(String.Format("string DbEmail: Converting x = DbAccountDetails[1] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[1]));
-                        string DbEmail = DbAccountDetails[1].ToString().Trim();
+                        Debug.WriteLine(String.Format("string dbUsername: Converting x = DbAccountDetails[1] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[1]));
+                        string dbUsername = dbAccountDetails[1].ToString().Trim();
 
-                        Debug.WriteLine("Skipping DbAccountDetails[2] (password)");
+                        Debug.WriteLine(String.Format("string dbEmail: Converting x = DbAccountDetails[2] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[2]));
+                        string dbEmail = dbAccountDetails[2].ToString().Trim();
 
-                        Debug.WriteLine(String.Format("string DbForename: Converting x = DbAccountDetails[3] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[3]));
-                        string dbForename = DbAccountDetails[3].ToString().Trim();
+                        Debug.WriteLine(String.Format("string dbPwd: Converting x = DbAccountDetails[3] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[3]));
+                        string dbPwd = dbAccountDetails[3].ToString().Trim();
 
-                        Debug.WriteLine(String.Format("string DbSurname: Converting x = DbAccountDetails[4] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[4]));
-                        string DbSurname = DbAccountDetails[4].ToString().Trim();
+                        Debug.WriteLine(String.Format("string dbForename: Converting x = DbAccountDetails[4] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[4]));
+                        string dbForename = dbAccountDetails[4].ToString().Trim();
 
-                        DateTime DbDob;
-                        if (DbAccountDetails[5] == String.Empty || DbAccountDetails[5].ToString() == String.Empty)
+                        Debug.WriteLine(String.Format("string DbSurname: Converting x = DbAccountDetails[5] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[5]));
+                        string dbSurname = dbAccountDetails[5].ToString().Trim();
+
+                        DateTime dbDob;
+                        if (dbAccountDetails[6] == String.Empty || dbAccountDetails[6].ToString() == String.Empty)
                         {
-                            Debug.WriteLine(String.Format("string DbDob: Converting x = DbAccountDetails[5] / x = \"{0}\" (DateTime.MinValue)", DbAccountDetails[5]));
-                            DbDob = DateTime.MinValue;
+                            Debug.WriteLine(String.Format("string dbDob: Converting x = DbAccountDetails[6] / x = \"{0}\" (DateTime.MinValue)", dbAccountDetails[6]));
+                            dbDob = DateTime.MinValue;
                         }
                         else
                         {
-                            Debug.WriteLine(String.Format("string DbDob: Converting x = DbAccountDetails[5] / x = \"{0}\" (Convert.ToDateTime(x))", DbAccountDetails[5]));
-                            DbDob = Convert.ToDateTime(DbAccountDetails[5]);
+                            Debug.WriteLine(String.Format("string dbDob: Converting x = DbAccountDetails[6] / x = \"{0}\" (Convert.ToDateTime(x))", dbAccountDetails[6]));
+                            dbDob = Convert.ToDateTime(dbAccountDetails[6]);
                         }
+
+                        string dbGender = "";
+                        if (dbAccountDetails[7] != String.Empty || dbAccountDetails[7].ToString() != String.Empty)
+                        {
+                            Debug.WriteLine(String.Format("string dbGender: Converting x = DbAccountDetails[7] / x = \"{0}\"", dbAccountDetails[7]));
+                            dbGender = dbAccountDetails[7].ToString();
+                        }
+
+                        Debug.WriteLine(String.Format("string dbAddress1: Converting x = DbAccountDetails[8] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[8]));
+                        string dbAddress1 = dbAccountDetails[8].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string dbAddress2: Converting x = DbAccountDetails[9] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[9]));
+                        string dbAddress2 = dbAccountDetails[9].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string dbAddress3: Converting x = DbAccountDetails[10] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[10]));
+                        string dbAddress3 = dbAccountDetails[10].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string dbPostCode: Converting x = DbAccountDetails[11] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[11]));
+                        string dbPostCode = dbAccountDetails[11].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string dbMobilePhone: Converting x = DbAccountDetails[12] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[12]));
+                        string dbMobilePhone = dbAccountDetails[12].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string dbHomePhone: Converting x = DbAccountDetails[13] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[13]));
+                        string dbHomePhone = dbAccountDetails[13].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string dbWorkPhone: Converting x = DbAccountDetails[14] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[14]));
+                        string dbWorkPhone = dbAccountDetails[14].ToString().Trim();
+
+                        DateTime dbDateTimeCreated;
+                        if (dbAccountDetails[15] == String.Empty || dbAccountDetails[15].ToString() == String.Empty)
+                        {
+                            Debug.WriteLine(String.Format("string DbDateTimeCreated: Converting x = DbAccountDetails[15] / x = \"{0}\" (DateTime.MinValue)", dbAccountDetails[15]));
+                            dbDateTimeCreated = DateTime.MinValue;
+                        }
+                        else
+                        {
+                            Debug.WriteLine(String.Format("string DbDateTimeCreated: Converting x = DbAccountDetails[15] / x = \"{0}\" (Convert.ToDateTime(x))", dbAccountDetails[15]));
+                            dbDateTimeCreated = Convert.ToDateTime(dbAccountDetails[15]);
+                        }
+
+                        DateTime dbLastLogIn;
+                        if (dbAccountDetails[16] == String.Empty || dbAccountDetails[16].ToString() == String.Empty)
+                        {
+                            Debug.WriteLine(String.Format("string DbLastLogIn: Converting x = DbAccountDetails[16] / x = \"{0}\" (DateTime.MinValue)", dbAccountDetails[16]));
+                            dbLastLogIn = DateTime.MinValue;
+                        }
+                        else
+                        {
+                            Debug.WriteLine(String.Format("string DbLastLogIn: Converting x = DbAccountDetails[16] / x = \"{0}\" (Convert.ToDateTime(x))", dbAccountDetails[16]));
+                            dbLastLogIn = Convert.ToDateTime(dbAccountDetails[16]);
+                        }
+
+                        Debug.WriteLine(String.Format("string DbAccountType: Converting x = DbAccountDetails[17] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[17]));
+                        string DbAccountType = dbAccountDetails[17].ToString().Trim();
+
+                        Debug.WriteLine(String.Format("string DbAccountStatus: Converting x = DbAccountDetails[18] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[18]));
+                        string DbAccountStatus = dbAccountDetails[18].ToString().Trim();
                         
-                        Debug.WriteLine(String.Format("string DbAddress1: Converting x = DbAccountDetails[6] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[6]));
-                        string DbAddress1 = DbAccountDetails[6].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string DbAddress2: Converting x = DbAccountDetails[7] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[7]));
-                        string DbAddress2 = DbAccountDetails[7].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string DbAddress3: Converting x = DbAccountDetails[8] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[8]));
-                        string DbAddress3 = DbAccountDetails[8].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string DbPostCode: Converting x = DbAccountDetails[9] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[9]));
-                        string DbPostCode = DbAccountDetails[9].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string DbMobilePhone: Converting x = DbAccountDetails[10] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[10]));
-                        string DbMobilePhone = DbAccountDetails[10].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string DbHomePhone: Converting x = DbAccountDetails[11] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[11]));
-                        string DbHomePhone = DbAccountDetails[11].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string DbWorkPhone: Converting x = DbAccountDetails[12] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[12]));
-                        string DbWorkPhone = DbAccountDetails[12].ToString().Trim();
-
-                        DateTime DbDateTimeCreated;
-                        if (DbAccountDetails[13] == String.Empty || DbAccountDetails[13].ToString() == String.Empty)
-                        {
-                            Debug.WriteLine(String.Format("string DbDateTimeCreated: Converting x = DbAccountDetails[13] / x = \"{0}\" (DateTime.MinValue)", DbAccountDetails[13]));
-                            DbDateTimeCreated = DateTime.MinValue;
-                        }
-                        else
-                        {
-                            Debug.WriteLine(String.Format("string DbDateTimeCreated: Converting x = DbAccountDetails[13] / x = \"{0}\" (Convert.ToDateTime(x))", DbAccountDetails[13]));
-                            DbDateTimeCreated = Convert.ToDateTime(DbAccountDetails[13]);
-                        }
-
-                        DateTime DbLastLogIn;
-                        if (DbAccountDetails[14] == String.Empty || DbAccountDetails[14].ToString() == String.Empty)
-                        {
-                            Debug.WriteLine(String.Format("string DbLastLogIn: Converting x = DbAccountDetails[14] / x = \"{0}\" (DateTime.MinValue)", DbAccountDetails[14]));
-                            DbLastLogIn = DateTime.MinValue;
-                        }
-                        else
-                        {
-                            Debug.WriteLine(String.Format("string DbLastLogIn: Converting x = DbAccountDetails[14] / x = \"{0}\" (Convert.ToDateTime(x))", DbAccountDetails[14]));
-                            DbLastLogIn = Convert.ToDateTime(DbAccountDetails[14]);
-                        }
-
-                        Debug.WriteLine(String.Format("string DbAccountType: Converting x = DbAccountDetails[15] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[15]));
-                        string DbAccountType = DbAccountDetails[15].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string DbAccountStatus: Converting x = DbAccountDetails[16] / x = \"{0}\" (x.ToString()Trim()).", DbAccountDetails[16]));
-                        string DbAccountStatus = DbAccountDetails[16].ToString().Trim();
-                        
-                        if(Username != DbUsername)
+                        if(Username != dbUsername)
                         {
                             Debug.WriteLine("Updating username...");
 
@@ -842,7 +791,7 @@ namespace UacApi
                             Debug.WriteLine("Username was not changed. Not updating username.");
                         }
                         
-                        if(Email != DbEmail)
+                        if(Email != dbEmail)
                         {
                             Debug.WriteLine("Updating email...");
 
@@ -878,7 +827,7 @@ namespace UacApi
                             Debug.WriteLine("Forename was not changed. Not updating forename.");
                         }
 
-                        if (Surname != DbSurname)
+                        if (Surname != dbSurname)
                         {
                             Debug.WriteLine("Updating surname...");
 
@@ -896,7 +845,7 @@ namespace UacApi
                             Debug.WriteLine("Surname was not changed. Not updating surname.");
                         }
 
-                        if (Dob != DbDob && Dob != DateTime.MinValue)
+                        if (Dob != dbDob && Dob != DateTime.MinValue)
                         {
                             Debug.WriteLine("Updating dob...");
 
@@ -911,10 +860,28 @@ namespace UacApi
                         }
                         else
                         {
-                            Debug.WriteLine("Dob was not changed. Not updating dob.");
+                            Debug.WriteLine("Dob was not changed. Not updatg dob.");
                         }
 
-                        if (Address1 != DbAddress1)
+                        if (dbGender != null && gender != null && dbGender != gender && (gender.ToString().ToUpper() == "M" || gender.ToString().ToUpper() == "F" || gender.ToString().ToUpper() == "O"))
+                        {
+                            Debug.WriteLine("Updating gender...");
+
+                            SqlCommand UpdateGender = new SqlCommand("UPDATE t_Users SET gender = @dob WHERE Username = @username", conn);
+
+                            UpdateGender.Parameters.Add(new SqlParameter("username", Username));
+                            UpdateGender.Parameters.Add(new SqlParameter("gender", gender));
+
+                            UpdateGender.ExecuteNonQuery();
+
+                            Debug.WriteLine("Gender updated successfully!");
+                        }
+                        else
+                        {
+                            Debug.WriteLine("Gender was not changed. Not updating gender.");
+                        }
+
+                        if (Address1 != dbAddress1)
                         {
                             Debug.WriteLine("Updating address1...");
 
@@ -932,7 +899,7 @@ namespace UacApi
                             Debug.WriteLine("Address1 was not changed. Not updating address1.");
                         }
 
-                        if (Address2 != DbAddress2)
+                        if (Address2 != dbAddress2)
                         {
                             Debug.WriteLine("Updating address2...");
 
@@ -950,7 +917,7 @@ namespace UacApi
                             Debug.WriteLine("Address2 was not changed. Not updating address2.");
                         }
 
-                        if (Address3 != DbAddress3)
+                        if (Address3 != dbAddress3)
                         {
                             Debug.WriteLine("Updating address3...");
 
@@ -968,7 +935,7 @@ namespace UacApi
                             Debug.WriteLine("Address3 was not changed. Not updating address3.");
                         }
 
-                        if (PostCode != DbPostCode)
+                        if (PostCode != dbPostCode)
                         {
                             Debug.WriteLine("Updating postcode...");
 
@@ -986,7 +953,7 @@ namespace UacApi
                             Debug.WriteLine("Postcode was not changed. Not updating postcode.");
                         }
 
-                        if (MobilePhone != DbMobilePhone)
+                        if (MobilePhone != dbMobilePhone)
                         {
                             Debug.WriteLine("Updating mobile phone...");
 
@@ -1004,7 +971,7 @@ namespace UacApi
                             Debug.WriteLine("Mobile phone was not changed. Not updating mobile phone.");
                         }
 
-                        if (HomePhone != DbHomePhone)
+                        if (HomePhone != dbHomePhone)
                         {
                             Debug.WriteLine("Updating home phone...");
 
@@ -1022,7 +989,7 @@ namespace UacApi
                             Debug.WriteLine("Home phone was not changed. Not updating home phone.");
                         }
 
-                        if (WorkPhone != DbWorkPhone)
+                        if (WorkPhone != dbWorkPhone)
                         {
                             Debug.WriteLine("Updating work phone...");
 
@@ -1132,11 +1099,12 @@ namespace UacApi
 
                         if (!UsernameExists())
                         {
-                            SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (Username, Forename, Surname, Pwd, DateTimeCreated) VALUES(@username, @fname, @sname, @pwd, getdate())", conn);
+                            SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (id, Username, Forename, Surname, Pwd, DateTimeCreated) VALUES(NEWID(), @username, @fname, @sname, @pwd, @dateTimeCreated)", conn);
                             InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
                             InsertIntoDb.Parameters.Add(new SqlParameter("fname", Forename.Trim()));
                             InsertIntoDb.Parameters.Add(new SqlParameter("sname", Surname.Trim()));
                             InsertIntoDb.Parameters.Add(new SqlParameter("pwd", pPwd.Trim()));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("dateTimeCreated", ParsnipApi.Data.adjustedTime));
 
                             InsertIntoDb.ExecuteNonQuery();
 
