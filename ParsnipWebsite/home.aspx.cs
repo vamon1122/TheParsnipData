@@ -12,21 +12,10 @@ namespace TheParsnipWeb
 {
     public partial class Home : System.Web.UI.Page
     {
-        private User MyAccount;
+        private User myAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-
-            MyAccount = new User();
-            if (!MyAccount.LogIn())
-            {
-                Response.Redirect("login.aspx?url=home.aspx");
-            }
-            else
-            {
-                new LogEntry() { text = String.Format("{0} accessed the home page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id };
-                WelcomeLabel.Text = String.Format("Welcome back {0}!", MyAccount.Forename);
-            }
+            myAccount = Uac.SecurePage("home", this, Data.deviceType);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace TheParsnipWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            myUser = Uac.SecurePage("_NEW TEMPLATE", this, Data.deviceType);
         }
     }
 }

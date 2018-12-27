@@ -15,19 +15,18 @@ namespace UacApi
     {
         public static User SecurePage(string pUrl, Page pPage, string pDeviceType)
         {
-            var MyAccount = new User();
-            if (!MyAccount.LogIn())
+            var myUser = new User();
+            if (myUser.LogIn())
             {
-                pPage.Response.Redirect("login.aspx?url=home.aspx");
-                new LogEntry() { text = String.Format("Someone tried to access the home page from an {1}, without logging in!", MyAccount.fullName, pDeviceType), userId = MyAccount.id };
+                new LogEntry() { text = String.Format("{0} accessed the {1} page from {2} '{3}' device", myUser.fullName, pUrl, myUser.posessivePronoun, pDeviceType), userId = myUser.id };
             }
             else
             {
-                new LogEntry() { text = String.Format("{0} accessed the home page from {1} {2}", MyAccount.fullName, MyAccount.gender, pDeviceType), userId = MyAccount.id };
+                new LogEntry() { text = String.Format("Someone tried to access the {0} page from an {1}, without logging in!", pUrl, pDeviceType), userId = myUser.id };
+                pPage.Response.Redirect(String.Format("login.aspx?url={0}.aspx", pUrl));
             }
-            new LogEntry() { text = String.Format("{0} accessed the home page via {1}", MyAccount.fullName, pDeviceType), userId = MyAccount.id };
+            return myUser;
 
-            throw new NotImplementedException();
         }
     }
 

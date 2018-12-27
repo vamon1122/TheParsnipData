@@ -26,6 +26,18 @@ namespace UacApi
         public string Surname { get; set; }
         public DateTime Dob { get; set; }
         public string gender { get; set; }
+        public string posessivePronoun { get {
+                if(gender == "M")
+                    return "his";
+                
+                else if (gender == "F")
+                    return "her";
+                
+                else
+                    return "their";
+                
+
+            } }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Address3 { get; set; }

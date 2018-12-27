@@ -11,18 +11,10 @@ namespace TheParsnipWeb
 {
     public partial class memes : System.Web.UI.Page
     {
-        private User MyAccount;
+        private User myUser;
         protected void Page_Load(object sender, EventArgs e)
         {
-            MyAccount = new User();
-            if (!MyAccount.LogIn())
-            {
-                Response.Redirect("login.aspx?url=memes.aspx");
-            }
-            else
-            {
-                new LogEntry() { text = String.Format("{0} accessed the memes page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id };
-            }
+            myUser = Uac.SecurePage("memes", this, Data.deviceType);
         }
     }
 }

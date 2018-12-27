@@ -11,22 +11,15 @@ namespace TheParsnipWeb
 {
     public partial class Admin : System.Web.UI.Page
     {
-        User MyAccount;
+        User myAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            MyAccount = new User();
-            if (!MyAccount.LogIn())
-            {
-                Response.Redirect("login.aspx?url=admin.aspx");
-            }
-            else
-            {
-                new LogEntry() { text = String.Format("{0} accessed the admin page", MyAccount.fullName), userId = MyAccount.id };
-            }
+            myAccount = new User();
+            myAccount = Uac.SecurePage("admin", this, Data.deviceType);
 
-            if(MyAccount.AccountType != "admin")
+            if (myAccount.AccountType != "admin")
             {
-                new LogEntry() { text = String.Format("{0} attempted (and failed) to access the admin page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id };
+                new LogEntry() { text = String.Format("{0} attempted (and failed) to access the admin page via {1}", myAccount.fullName, Data.deviceType), userId = myAccount.id };
                 Response.Redirect("access-denied.aspx?url=admin.aspx");
             }
         }

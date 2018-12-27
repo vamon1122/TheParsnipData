@@ -11,22 +11,15 @@ namespace TheParsnipWeb
 {
     public partial class logs : System.Web.UI.Page
     {
-        User MyAccount;
+        User myUser;
         protected void Page_Load(object sender, EventArgs e)
         {
-            MyAccount = new User();
-            if (!MyAccount.LogIn())
-            {
-                Response.Redirect("login.aspx?url=logs.aspx");
-            }
-            else
-            {
-                new LogEntry() { text = String.Format("{0} accessed the logs page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id };
-            }
+            myUser = new User();
+            myUser = Uac.SecurePage("minecraft", this, Data.deviceType);
 
-            if (MyAccount.AccountType != "admin")
+            if (myUser.AccountType != "admin")
             {
-                new LogEntry() { text = String.Format("{0} attempted (and failed) to access the logs page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id };
+                new LogEntry() { text = String.Format("{0} attempted (and failed) to access the logs page via {1}", myUser.fullName, Data.deviceType), userId = myUser.id };
                 Response.Redirect("access-denied.aspx?url=logs.aspx");
             }
 

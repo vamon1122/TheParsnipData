@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using UacApi;
 
 namespace TheParsnipWeb
 {
@@ -11,7 +12,7 @@ namespace TheParsnipWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            myAccount = Uac.SecurePage("polls", this, Data.deviceType);
         }
     }
 }
