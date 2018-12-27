@@ -10,10 +10,10 @@ namespace TheParsnipWeb
 {
     public partial class AccessDenied : System.Web.UI.Page
     {
-        Account MyAccount;
+        User MyAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            MyAccount = new Account();
+            MyAccount = new User();
 
             
             if (Request.QueryString["url"] != null)

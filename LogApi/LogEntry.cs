@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ParsnipApi;
 
 namespace LogApi
 {
@@ -39,7 +40,7 @@ namespace LogApi
         public LogEntry()
         {
             id = Guid.NewGuid();
-            date = DateTime.Now.AddHours(8);
+            date = ParsnipApi.Data.adjustedTime;
 
         }
 

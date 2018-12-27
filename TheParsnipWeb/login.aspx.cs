@@ -12,7 +12,7 @@ namespace TheParsnipWeb
 {
     public partial class LogInBarrier : System.Web.UI.Page
     {
-        private Account MyAccount;
+        private User MyAccount;
         private string Redirect;
         LogWriter AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
 
@@ -36,7 +36,7 @@ namespace TheParsnipWeb
                 
 
 
-            MyAccount = new Account();
+            MyAccount = new User();
 
             if (String.IsNullOrEmpty(inputUsername.Text) && String.IsNullOrWhiteSpace(inputUsername.Text)){
                 if (MyAccount.LogIn(false))

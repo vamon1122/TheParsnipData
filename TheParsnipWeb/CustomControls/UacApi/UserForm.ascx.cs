@@ -11,8 +11,8 @@ namespace TheParsnipWeb
 {
     public partial class UserForm1 : System.Web.UI.UserControl
     {
-        Account formAccount = new Account();
-        Account MyAccount;
+        User formAccount = new User();
+        User MyAccount;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,7 +21,7 @@ namespace TheParsnipWeb
                 MyAccount.LogIn(e.ToString());
             }*/
 
-            MyAccount = new Account();
+            MyAccount = new User();
             if (!MyAccount.LogIn())
             {
                 Response.Redirect("login.aspx?url=create-user.aspx");

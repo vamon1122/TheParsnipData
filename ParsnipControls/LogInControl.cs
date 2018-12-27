@@ -41,7 +41,7 @@ namespace ParsnipControls
         Button butLogIn;
         Label indicator;
 
-        Account MyAccount;
+        User MyAccount;
         LogWriter LogInControlLog;
 
         public LogInControl()
@@ -107,7 +107,7 @@ namespace ParsnipControls
         protected override void CreateChildControls()
         {
 
-            MyAccount = new Account();
+            MyAccount = new User();
 
             MyAccount.LogIn();
 

@@ -11,10 +11,10 @@ namespace TheParsnipWeb
 {
     public partial class minecraft : System.Web.UI.Page
     {
-        private Account MyAccount;
+        private User MyAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            MyAccount = new Account();
+            MyAccount = new User();
             if (!MyAccount.LogIn())
             {
                 Response.Redirect("login.aspx?url=minecraft.aspx");

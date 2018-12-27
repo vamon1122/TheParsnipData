@@ -8,13 +8,14 @@ using System.Web;
 using BenLog;
 using System.Diagnostics;
 using LogApi;
+using ParsnipApi;
 
 namespace UacApi
 {
-    public class Account
+    public class User
     {
         private LogWriter AccountLog;
-        private static string sqlConnectionString = "Server=198.38.83.33;Database=vamon112_parsnipdb;Uid=vamon112_ben;Password=ccjO07JT;";
+        private static string sqlConnectionString = ParsnipApi.Data.sqlConnectionString;
 
         public Guid id { get; private set; }
         public string Username { get; set; }
@@ -38,14 +39,14 @@ namespace UacApi
         public string fullName { get { return string.Format("{0} {1}", Forename, Surname); } }
 
 
-        public Account()
+        public User()
         {
             id = Guid.NewGuid();
-            DateTimeCreated = DateTime.Now.AddHours(8);
+            DateTimeCreated = ParsnipApi.Data.adjustedTime;
             AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
-        public Account(Guid pGuid)
+        public User(Guid pGuid)
         {
             id = pGuid;
         }
@@ -407,7 +408,7 @@ namespace UacApi
 
             string[] DbAccountDetails = DbSelectValues(pConn);
             
-            Account ValidateMe = new Account(new Guid(DbAccountDetails[0].ToString())) {
+            User ValidateMe = new User(new Guid(DbAccountDetails[0].ToString())) {
                 Username = DbAccountDetails[1].ToString().Trim(),
                 Email = DbAccountDetails[2].ToString().Trim(),
                 Pwd = DbAccountDetails[3].ToString().Trim(),

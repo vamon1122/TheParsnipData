@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using UacApi;
+using LogApi;
 
 namespace TheParsnipWeb
 {
@@ -12,7 +13,9 @@ namespace TheParsnipWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            new Account().LogOut();
+            User myAccount = new User();
+            new LogEntry() { text = String.Format("{0} logged out from '{1}'", myAccount.fullName, Data.deviceType), userId = myAccount.id }.Insert();
+            new User().LogOut();
             Response.Redirect("login.aspx");
         }
     }

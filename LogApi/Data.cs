@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using ParsnipApi;
 
 namespace LogApi
 {
     public static class Data
     {
-        private static string sqlConnectionString = "Server=198.38.83.33;Database=vamon112_parsnipdb;Uid=vamon112_ben;Password=ccjO07JT;";
+        private static string sqlConnectionString = ParsnipApi.Data.sqlConnectionString;
         public static List<LogEntry> LogEntries = new List<LogEntry>();
 
         

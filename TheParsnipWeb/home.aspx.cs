@@ -12,19 +12,19 @@ namespace TheParsnipWeb
 {
     public partial class Home : System.Web.UI.Page
     {
-        private Account MyAccount;
+        private User MyAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
             
 
-            MyAccount = new Account();
+            MyAccount = new User();
             if (!MyAccount.LogIn())
             {
                 Response.Redirect("login.aspx?url=home.aspx");
             }
             else
             {
-                new LogEntry() { text = String.Format("{0} accessed the home page via {1}. Location: {2}/{3}", MyAccount.fullName, Data.deviceType, Data.deviceLatitude, Data.deviceLongitude), userId = MyAccount.id }.Insert();
+                new LogEntry() { text = String.Format("{0} accessed the home page via {1}", MyAccount.fullName, Data.deviceType), userId = MyAccount.id }.Insert();
                 WelcomeLabel.Text = String.Format("Welcome back {0}!", MyAccount.Forename);
             }
         }

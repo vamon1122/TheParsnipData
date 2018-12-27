@@ -12,7 +12,7 @@ namespace TheParsnipWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Account MyAccount = new Account();
+            User MyAccount = new User();
 
             /*if (MyAccount.LogIn("vamon1122", true, "BBTbbt1704",false))
             {

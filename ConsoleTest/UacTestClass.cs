@@ -10,7 +10,7 @@ namespace ConsoleTest
 {
     static class UacTest
     {
-        static Account MyAccount;
+        static User MyAccount;
 
         public static void DoTest()
         {
@@ -38,7 +38,7 @@ namespace ConsoleTest
 
         public static bool CreateNewAccount()
         {
-            Account MyNewAccount = new Account();
+            User MyNewAccount = new User();
             MyNewAccount.Username = "jbloggs";
             MyNewAccount.Forename = "Joe";
             MyNewAccount.Surname = "Bloggs";
@@ -53,7 +53,7 @@ namespace ConsoleTest
             }
         }
 
-        public static void PrintAccount(Account pAccount)
+        public static void PrintAccount(User pAccount)
         {
             if(pAccount == null)
             {
@@ -73,7 +73,7 @@ namespace ConsoleTest
         {
             try
             {
-                MyAccount = new Account();
+                MyAccount = new User();
                 if (MyAccount.LogIn("vamon1122", "BBTbbt1704"))
                 {   
                     return true;

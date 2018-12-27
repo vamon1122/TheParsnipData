@@ -11,10 +11,10 @@ namespace TheParsnipWeb
 {
     public partial class Admin : System.Web.UI.Page
     {
-        Account MyAccount;
+        User MyAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            MyAccount = new Account();
+            MyAccount = new User();
             if (!MyAccount.LogIn())
             {
                 Response.Redirect("login.aspx?url=admin.aspx");

@@ -10,10 +10,10 @@ namespace TheParsnipWeb
 {
     public partial class AccountTiny : System.Web.UI.UserControl
     {
-        Account MyAccount;
+        User MyAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            MyAccount = new Account();
+            MyAccount = new User();
             MyAccount.LogIn();
             Name.Text = MyAccount.Username;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ParsnipApi;
 
 namespace PollApi
 {
@@ -22,7 +23,7 @@ namespace PollApi
         public Poll()
         {
             id = Guid.NewGuid();
-            dateCreated = DateTime.Now.AddHours(8);
+            dateCreated = ParsnipApi.Data.adjustedTime;
         }
 
         public bool Insert()
