@@ -10,9 +10,10 @@ namespace TheParsnipWeb
 {
     public partial class polls : System.Web.UI.Page
     {
+        User myUser;
         protected void Page_Load(object sender, EventArgs e)
         {
-            myAccount = Uac.SecurePage("polls", this, Data.deviceType);
+            myUser = Uac.SecurePage("polls", this, Data.deviceType);
         }
     }
 }
