@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="create-user.aspx.cs" Inherits="TheParsnipWeb.create_user" %>
-
+<%@ Register Src="~/CustomControls/admin/adminMenu.ascx" TagPrefix="adminControls" TagName="adminMenu" %>
 <%@ Register Src="~/CustomControls/UacApi/UserForm.ascx" TagPrefix="uc1" TagName="UserForm" %>
 
 <!DOCTYPE html>
@@ -13,12 +13,16 @@
     <link rel="stylesheet" type="text/css" href="ParsnipStyle.css" />
 </head>
 <body>
-        <div>
-            <h2>Create User</h2>
-        
+            <div class="container">
+  <div class="jumbotron">
+    <h1>Create User</h1>
+    <p>Create a new website user</p>
+      </div>
+        <adminControls:adminMenu runat="server" id="adminMenu" />
+            
             
             <uc1:UserForm runat="server" ID="UserForm" />
-        </div>
+                </div>
     
 </body>
 </html>

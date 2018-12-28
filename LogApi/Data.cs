@@ -21,6 +21,7 @@ namespace LogApi
         {
             try
             {
+                LogEntries.Clear();
                 using(SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     conn.Open();

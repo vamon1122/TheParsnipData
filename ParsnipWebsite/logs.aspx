@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="logs.aspx.cs" Inherits="TheParsnipWeb.logs" %>
-
+<%@ Register Src="~/CustomControls/admin/adminMenu.ascx" TagPrefix="adminControls" TagName="adminMenu" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,7 +11,15 @@
     <link rel="stylesheet" type="text/css" href="ParsnipStyle.css" />
 </head>
 <body>
+    
     <form id="form1" runat="server">
+        <div class="container">
+  <div class="jumbotron">
+    <h1>Logs</h1>
+    <p>Websute management suite</p>
+      </div>
+        <adminControls:adminMenu runat="server" id="adminMenu" />
+            
         <div class="table-wrapper-scroll-y">
 
   <asp:Table class="table table-bordered table-striped" runat="server" id="LogTable">
@@ -19,6 +27,7 @@
   </asp:Table>
 
 </div>
+        </div>
     </form>
 </body>
 </html>

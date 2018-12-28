@@ -131,6 +131,7 @@
     <Content Include="CSS\old\m_style.css" />
     <Content Include="CSS\old\style.css" />
     <Content Include="CSS\style.css" />
+    <Content Include="CustomControls\admin\adminMenu.ascx" />
     <Content Include="CustomControls\PollApi\PollControl.ascx" />
     <Content Include="default.aspx" />
     <Content Include="downloads\#TheParsnipRemix2016.mp3" />
@@ -254,6 +255,13 @@
     </Compile>
     <Compile Include="create-user.aspx.designer.cs">
       <DependentUpon>create-user.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\admin\adminMenu.ascx.cs">
+      <DependentUpon>adminMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomControls\admin\adminMenu.ascx.designer.cs">
+      <DependentUpon>adminMenu.ascx</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\PollApi\PollControl.ascx.cs">
       <DependentUpon>PollControl.ascx</DependentUpon>

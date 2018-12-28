@@ -18,12 +18,14 @@ namespace LogApi
 
         private string _text;
 
+        private bool isNew;
+
         public string text { get { return _text; } set {
                 if (value.Length < 8001)
                 {
                     _text = value;
                     System.Diagnostics.Debug.WriteLine(text);
-                    Insert();
+                    if(isNew) Insert();
                 }
                 else
                 {
@@ -36,11 +38,13 @@ namespace LogApi
 
         public LogEntry(Guid pId)
         {
+            isNew = false;
             id = pId;
         }
 
         public LogEntry()
         {
+            isNew = true;
             id = Guid.NewGuid();
             date = ParsnipApi.Data.adjustedTime;
 

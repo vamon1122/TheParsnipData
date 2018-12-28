@@ -14,7 +14,6 @@ namespace TheParsnipWeb
         User myUser;
         protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = new User();
             myUser = Uac.SecurePage("logs", this, Data.deviceType);
 
             if (myUser.AccountType != "admin")

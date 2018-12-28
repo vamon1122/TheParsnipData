@@ -16,21 +16,6 @@ namespace TheParsnipWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*if (e != null)
-            {
-                MyAccount.LogIn(e.ToString());
-            }*/
-
-            MyAccount = new User();
-            if (!MyAccount.LogIn())
-            {
-                Response.Redirect("login.aspx?url=create-user.aspx");
-            }
-            else
-            {
-                new LogEntry() { text = String.Format("{0} accessed the create-user page", MyAccount.fullName), userId = MyAccount.id };
-            }
-
 
         }
 
