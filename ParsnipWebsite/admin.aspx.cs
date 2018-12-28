@@ -14,14 +14,7 @@ namespace TheParsnipWeb
         User myAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            myAccount = new User();
-            myAccount = Uac.SecurePage("admin", this, Data.deviceType);
-
-            if (myAccount.AccountType != "admin")
-            {
-                new LogEntry() { text = String.Format("{0} attempted (and failed) to access the admin page via {1}", myAccount.fullName, Data.deviceType), userId = myAccount.id };
-                Response.Redirect("access-denied.aspx?url=admin.aspx");
-            }
+            myAccount = Uac.SecurePage("admin", this, Data.deviceType, "admin");
         }
 
         protected void OpenLogsButton_Click(object sender, EventArgs e)

@@ -13,8 +13,8 @@ namespace TheParsnipWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            User myAccount = new User();
-            new LogEntry() { text = String.Format("{0} logged out from '{1}'", myAccount.fullName, Data.deviceType), userId = myAccount.id };
+            User myUser = Uac.SecurePage("logout", this, Data.deviceType);
+            new LogEntry() { text = String.Format("{0} logged out from {1} '{2}' device", myUser.fullName, myUser.posessivePronoun, Data.deviceType), userId = myUser.id };
             new User().LogOut();
             Response.Redirect("login.aspx");
         }
