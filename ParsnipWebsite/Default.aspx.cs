@@ -12,7 +12,7 @@ namespace TheParsnipWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            User myUser = Uac.SecurePage("videos", this, Data.deviceType);
+            User myUser = Uac.SecurePage("home", this, Data.deviceType);
             Response.Redirect("home");
         }
 

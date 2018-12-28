@@ -24,7 +24,7 @@ namespace TheParsnipWeb
                 }
                 else
                 {
-                    Response.Redirect("LogInBarrier.aspx?" + Request.QueryString["url"]);
+                    Response.Redirect("LogInBarrier?" + Request.QueryString["url"]);
                 }
 
                 

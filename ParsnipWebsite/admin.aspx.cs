@@ -19,12 +19,12 @@ namespace TheParsnipWeb
 
         protected void OpenLogsButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("logs.aspx");
+            Response.Redirect("logs");
         }
 
         protected void NewUserButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("create-user.aspx");
+            Response.Redirect("create-user");
         }
     }
 }

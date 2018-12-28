@@ -143,7 +143,7 @@
     <Content Include="home.aspx" />
     <Content Include="Images\fat_kieron_cutout.JPG" />
     <Content Include="Images\parsnip_silhouette.jpg" />
-    <Content Include="javascript\menuV1.7.js" />
+    <Content Include="javascript\menuV1.8.js" />
     <Content Include="javascript\old\globalBodyV1.3.js" />
     <Content Include="Links.txt" />
     <Content Include="login.aspx" />

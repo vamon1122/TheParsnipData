@@ -45,21 +45,21 @@ else{
 }
 
 /////Buttons/////
-createButton("Home", "home.aspx");
+createButton("Home", "home");
 if (getCookie("accountType") === "admin") {
-    createButton("NEW! Polls", "polls.aspx");
+    createButton("NEW! Polls", "polls");
 }
-createButton("Videos", "youtube.aspx");
-createButton("Memes", "memes.aspx");
-createButton("Photos", "photos.aspx");
-createButton("Minecraft", "minecraft.aspx");
-createButton("Bios", "bios.aspx");
+createButton("Videos", "youtube");
+createButton("Memes", "memes");
+createButton("Photos", "photos");
+createButton("Minecraft", "minecraft");
+createButton("Bios", "bios");
 
 if (getCookie("accountType") === "admin") {
-    createButton("Admin", "admin.aspx");
+    createButton("Admin", "admin");
 }
 
-createButton("Log Out", "logout.aspx");
+createButton("Log Out", "logout");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //document.getElementById("body").style.backgroundColor = "white";

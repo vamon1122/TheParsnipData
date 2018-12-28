@@ -19,7 +19,7 @@ namespace TheParsnipWeb
             if (myUser.AccountType != "admin")
             {
                 new LogEntry() { text = String.Format("{0} attempted (and failed) to access the logs page via {1}", myUser.fullName, Data.deviceType), userId = myUser.id };
-                Response.Redirect("access-denied.aspx?url=logs.aspx");
+                Response.Redirect("access-denied?url=logs");
             }
 
             LogApi.Data.LoadLogEntries();

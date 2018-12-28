@@ -21,7 +21,7 @@ namespace TheParsnipWeb
         protected void LogOut_Click(object sender, EventArgs e)
         {
             MyAccount.LogOut();
-            Response.Redirect("login.aspx");
+            Response.Redirect("login");
         }
     }
 }

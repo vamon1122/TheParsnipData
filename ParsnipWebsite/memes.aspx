@@ -120,7 +120,7 @@
        
 
     <script src="../javascript/old/globalBodyV1.3.js"></script>
-    <script src="../javascript/menuV1.7.js"></script>
+    <script src="../javascript/menuV1.8.js"></script>
     
 </body>
 

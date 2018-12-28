@@ -39,7 +39,7 @@ namespace UacApi
                 else
                 {
                     new LogEntry() { text = String.Format("{0} attempted to access the {1} page from {2} '{3}' device but did not have sufficient permissions", myUser.fullName, pUrl, myUser.posessivePronoun, pDeviceType), userId = myUser.id };
-                    pPage.Response.Redirect("access-denied.aspx?url=admin.aspx");
+                    pPage.Response.Redirect("access-denied?url=admin");
                 }
 
                 
@@ -47,7 +47,7 @@ namespace UacApi
             else
             {
                 new LogEntry() { text = String.Format("Someone tried to access the {0} page from {1} '{2}' device, without logging in!", pUrl, myUser.posessivePronoun, pDeviceType), userId = myUser.id };
-                pPage.Response.Redirect(String.Format("login.aspx?url={0}.aspx", pUrl));
+                pPage.Response.Redirect(String.Format("login?url={0}", pUrl));
             }
 
             return myUser;
