@@ -2,7 +2,7 @@
 
       <ul class="nav justify-content-left">
   <li class="nav-item active">
-    <a class="nav-link active" href="admin.aspx">Admin</a>
+    <a class="nav-link active" href="home.aspx">Home</a>
   </li>
           <li class="nav-item">
     <a class="nav-link" href="logs.aspx">Logs</a>
