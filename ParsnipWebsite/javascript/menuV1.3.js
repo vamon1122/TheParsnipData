@@ -52,6 +52,11 @@ createButton("Memes", "memes.aspx");
 createButton("Photos", "photos.aspx");
 createButton("Minecraft", "minecraft.aspx");
 createButton("Bios", "bios.aspx");
+
+if (getCookie("accountType") === "admin") {
+    createButton("Admin", "admin.aspx");
+}
+
 createButton("Log Out", "logout.aspx");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

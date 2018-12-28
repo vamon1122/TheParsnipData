@@ -41,6 +41,9 @@ namespace TheParsnipWeb
             if (String.IsNullOrEmpty(inputUsername.Text) && String.IsNullOrWhiteSpace(inputUsername.Text)){
                 if (myUser.LogIn(false))
                 {
+                    Cookie.WriteSession("accountType", myUser.AccountType);
+                    System.Diagnostics.Debug.WriteLine("----------accountType = " + myUser.AccountType);
+                    System.Diagnostics.Debug.WriteLine("----------accountType = " + Cookie.Read("accountType"));
                     Response.Redirect(Redirect);
                 }
                 else
