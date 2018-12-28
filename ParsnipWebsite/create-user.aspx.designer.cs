@@ -13,13 +13,13 @@ namespace TheParsnipWeb {
     public partial class create_user {
         
         /// <summary>
-        /// adminMenu control.
+        /// adminMenu1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ParsnipWebsite.CustomControls.adminMenu adminMenu;
+        protected global::ParsnipWebsite.CustomControls.adminMenu adminMenu1;
         
         /// <summary>
         /// UserForm control.

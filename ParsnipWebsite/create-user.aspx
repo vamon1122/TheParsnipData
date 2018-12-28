@@ -13,13 +13,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 </head>
-<body style="padding-bottom:2.5%; padding-top:1.5%">
+<body style="padding-bottom:2.5%; padding-top:4%">
     <div class="container">
         <div class="jumbotron">
-            <h1>Create User</h1>
-            <p>Create a new website user</p>
-        </div>
-        <adminControls:adminMenu runat="server" id="adminMenu" />    
+            <h1 class="display-4">Create User</h1>
+            <p class="lead">A form to create new users</p>
+            <hr class="my-4" />
+            <p><adminControls:adminMenu runat="server" id="adminMenu1" /></p>
+        </div>   
         <uc1:UserForm runat="server" ID="UserForm" />
     </div>
 </body>

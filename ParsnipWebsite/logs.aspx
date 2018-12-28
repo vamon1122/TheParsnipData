@@ -11,14 +11,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 </head>
-<body style="padding-bottom:2.5%; padding-top:1.5%">
+<body style="padding-bottom:2.5%; padding-top:4%">
     <form id="form1" runat="server">
         <div class="container">
             <div class="jumbotron">
-            <h1>Logs</h1>
-            <p>Websute management suite</p>
-        </div>
-        <adminControls:adminMenu runat="server" id="adminMenu" />    
+            <h1 class="display-4">Logs</h1>
+            <p class="lead">Manage site logs</p>
+            <hr class="my-4" />
+            <p><adminControls:adminMenu runat="server" id="adminMenu1" /></p>
+                </div>
+        
         <div class="table-wrapper-scroll-y">
             <asp:Table class="table table-bordered table-striped" runat="server" id="LogTable" />
         </div>

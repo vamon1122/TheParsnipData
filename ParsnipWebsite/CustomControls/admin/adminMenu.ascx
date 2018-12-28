@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="adminMenu.ascx.cs" Inherits="ParsnipWebsite.CustomControls.adminMenu" %>
 
-      <ul class="nav justify-content-left" style="margin-bottom:2.5%">
+      <ul class="nav justify-content-left" style="margin-bottom:5%">
   <li class="nav-item active">
     <a class="nav-link active" href="home">Home</a>
   </li>
