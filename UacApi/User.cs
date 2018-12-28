@@ -25,19 +25,66 @@ namespace UacApi
         public string Forename { get; set; }
         public string Surname { get; set; }
         public DateTime Dob { get; set; }
-        public string gender { get; set; }
-        public string posessivePronoun { get {
+        private string _gender;
+        public string Gender
+        {
+            get
+            {
+                switch (_gender)
+                {
+                    case "M":
+                        return "Male";
+                    case "F":
+                        return "Female";
+                    case "O":
+                        return "Other";
+                    default:
+                        return "Error";
+                }
+            }
+            set
+            {
+                gender = value;
+            }
+        }
+
+        public string gender
+        {
+            get
+            {
+                switch (_gender) {
+                    case "M":
+                        return "male";
+                    case "F":
+                        return "female";
+                    case "O":
+                        return "other";
+                    default:
+                        return "error";
+                }
+            }
+            set
+            {
+                string tempGender = value.Substring(0, 1).ToUpper();
+                if (tempGender == "M" || tempGender == "F" || tempGender == "O")
+                    _gender = tempGender;
+                else
+                    throw new InvalidCastException("Could not convert gender!"); } }
+
+        public string posessivePronoun
+        {
+            get
+            {
                 if(gender == "M")
                     return "his";
                 
                 else if (gender == "F")
                     return "her";
-                
                 else
                     return "their";
-                
+            }
+        }
 
-            } }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Address3 { get; set; }
