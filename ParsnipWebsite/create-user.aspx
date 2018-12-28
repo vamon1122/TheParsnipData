@@ -16,8 +16,8 @@
 <body style="padding-bottom:2.5%; padding-top:4%">
     <div class="container">
         <div class="jumbotron">
-            <h1 class="display-4">Create User</h1>
-            <p class="lead">A form to create new users</p>
+            <h1 class="display-4">Users</h1>
+            <p class="lead">Create & edit theparsnip.co.uk users</p>
             <hr class="my-4" />
             <p><adminControls:adminMenu runat="server" id="adminMenu1" /></p>
         </div>   

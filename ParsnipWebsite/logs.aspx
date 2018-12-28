@@ -16,7 +16,7 @@
         <div class="container">
             <div class="jumbotron">
             <h1 class="display-4">Logs</h1>
-            <p class="lead">Manage site logs</p>
+            <p class="lead">View theparsnip.co.uk logs</p>
             <hr class="my-4" />
             <p><adminControls:adminMenu runat="server" id="adminMenu1" /></p>
                 </div>
