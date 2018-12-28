@@ -21,6 +21,6 @@
     <h1>IP: mc.theparsnip.co.uk</h1>
 
     <script src="../javascript/old/globalBodyV1.3.js"></script>
-    <script src="../javascript/menuV1.6.js"></script>
+    <script src="../javascript/menuV1.7.js"></script>
 </body>
 </html>

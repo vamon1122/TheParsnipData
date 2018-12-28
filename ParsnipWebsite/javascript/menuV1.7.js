@@ -46,7 +46,9 @@ else{
 
 /////Buttons/////
 createButton("Home", "home.aspx");
-createButton("NEW! Polls", "polls.aspx");
+if (getCookie("accountType") === "admin") {
+    createButton("NEW! Polls", "polls.aspx");
+}
 createButton("Videos", "youtube.aspx");
 createButton("Memes", "memes.aspx");
 createButton("Photos", "photos.aspx");
