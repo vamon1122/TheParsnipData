@@ -8,7 +8,7 @@
     <a class="nav-link" href="logs">Logs</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="create-user">New User</a>
+    <a class="nav-link" href="create-user">Users</a>
   </li>
   <!--
           <li class="nav-item">
