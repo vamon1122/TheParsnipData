@@ -31,7 +31,7 @@ namespace TheParsnipWeb
             }
             else
             {
-                Redirect = "Home.aspx";
+                Redirect = "home";
             }
                 
 

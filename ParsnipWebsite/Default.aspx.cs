@@ -12,25 +12,8 @@ namespace TheParsnipWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            User MyAccount = new User();
-
-            /*if (MyAccount.LogIn("vamon1122", true, "BBTbbt1704",false))
-            {
-                Response.Redirect("Home.aspx");
-            }
-             else
-            {
-                Response.Redirect("LogInBarrier.aspx");
-            }*/
-
-            if (MyAccount.LogIn())
-            {
-                Response.Redirect("home.aspx");
-            }
-            else
-            {
-                Response.Redirect("login.aspx");
-            }
+            User myUser = Uac.SecurePage("videos", this, Data.deviceType);
+            Response.Redirect("home");
         }
 
         protected void MyTestButton_Click(object sender, EventArgs e)

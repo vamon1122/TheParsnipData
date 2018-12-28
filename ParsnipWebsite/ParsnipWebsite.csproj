@@ -222,7 +222,7 @@
     <Content Include="UacService.asmx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
-    <Content Include="youtube.aspx" />
+    <Content Include="videos.aspx" />
     <Content Include="_NEW TEMPLATE.aspx" />
     <Content Include="_TEMPLATE.aspx" />
   </ItemGroup>
@@ -370,12 +370,12 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="youtube.aspx.cs">
-      <DependentUpon>youtube.aspx</DependentUpon>
+    <Compile Include="videos.aspx.cs">
+      <DependentUpon>videos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="youtube.aspx.designer.cs">
-      <DependentUpon>youtube.aspx</DependentUpon>
+    <Compile Include="videos.aspx.designer.cs">
+      <DependentUpon>videos.aspx</DependentUpon>
     </Compile>
     <Compile Include="_NEW TEMPLATE.aspx.cs">
       <DependentUpon>_NEW TEMPLATE.aspx</DependentUpon>
