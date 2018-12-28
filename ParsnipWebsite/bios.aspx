@@ -25,7 +25,7 @@
     <h2>Bios!!!</h2>
     <h3>All credit goes to Kieron 'Gaz Beadle' Howarth</h3>
     
-    <img class="censored" id="kieron" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477059052/Photos/Bios/Fat Kieron.JPG" style="width:300px" />
+    <img class="censored" id="kieron" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477059052/media/photos/Bios/Fat Kieron.JPG" style="width:300px" />
     <hr class="break" />
     <br />
 
@@ -43,7 +43,7 @@
         Source below \/<br />
     </div>
     <br />
-    <img src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477059052/Photos/Bios/Kieron_chat.PNG" id="Kieron_chat"><img />
+    <img src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477059052/media/photos/Bios/Kieron_chat.PNG" id="Kieron_chat"><img />
     <br />
     <br />
     <script src="../javascript/old/globalBodyV1.3.js"></script>

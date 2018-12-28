@@ -28,93 +28,93 @@
 
     <div>
         <h3>Loldred back in the good old days (of abuse)</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/Loldred_Abuse.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/Loldred_Abuse.JPG" />
         <hr class="break" />
     </div>
 
     <div>
         <h3>How to spot a Fuckboy *cough* Kieron *cough*</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/kieron_how_to_spot_a_fuckboy.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/kieron_how_to_spot_a_fuckboy.JPG" />
         <hr class="break" />
     </div>
 
     <div>
     <h3>Ben get's so much pussy!</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/ben_pussy.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/ben_pussy.JPG" />
         <hr class="break" />
     </div>
     
     
     <div>
         <h3>Loldred's Drinking Problems Carlsberg</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_carlsberg.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/loldred_carlsberg.JPG" />
         <hr class="break" />
     </div>
 
     <div>
         <h3>It can't have been easy...</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_control_yourself.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/loldred_control_yourself.JPG" />
         <hr class="break" />
     </div>
 
     <div>
         <h3>When you get a free house...</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_free_house.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/loldred_free_house.JPG" />
         <hr class="break" />
     </div>
 
     <div>
         <h3>Loldred's grooming techniques are on point guys</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_lawnmowers.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/loldred_lawnmowers.JPG" />
         <hr class="break" />
     </div>
 
     <div>
         <h3>Loldred Shag Me</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_shag_me.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/loldred_shag_me.JPG" />
         <hr class="break" />
     </div>
 
     <div>
         <h3>The similarities are uncanny...</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/marshy_rat.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/marshy_rat.JPG" />
         <hr class="break" />
     </div>
 
     <div>
         <h3>Mason The Pimp</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/mason_pimp.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/mason_pimp.JPG" />
         <hr class="break" />
     </div>
 
     <div>
         <h3>Tom is (ligitimately) done</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/tom_done.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/tom_done.JPG" />
         <hr class="break" />
     </div>
    
 
     <!--<div>
         <h3>Kieron with BAE</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/kieron_with_BAE.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/kieron_with_BAE.JPG" />
         <hr class="break" />
     </div>-->
 
     <div>
         <h3>Age is just a number eh kids?</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_age_is_just_a_number.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/loldred_age_is_just_a_number.JPG" />
         <hr class="break" />
     </div>
 
     <div>
         <h3>Loldred Approves</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_approves.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/loldred_approves.JPG" />
         <hr class="break" />
     </div>  
 
     <div>
         <h3>At Least I can Pull</h3>
-        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_at_least_I_can_pull.JPG" />
+        <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/media/photos/memes/loldred_at_least_I_can_pull.JPG" />
         <hr class="break" />
     </div>
        
