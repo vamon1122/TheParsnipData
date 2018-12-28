@@ -81,44 +81,45 @@ Defining Properties of elements
 
 /* Title */        var lvpTitle = "LATEST VIDEO: Ben's BBQ Video!!!";
 
-/* Description */  var lvpDescription = "Thanks for coming :P"
+/* Description */  var lvpDescription = "Thanks for coming :P";
 
-/* Video ID */     var lvpVideoID = "wLnPNr4WpkA"
+/* Video ID */     var lvpVideoID = "wLnPNr4WpkA";
 
 //LATEST_VIDEO_PROPERTIES END
 
 
 //TITLE_PROPERTIES START
-createPage()
+createPage();
 function createPage()//This is needed for the clock
 //Title
 {
     {
         var Title = "#TheParsnip";
-        title(Title)
+        title(Title);
         hr();
     }
 
-
+    var text;
+    var href;
     //BUTTON_PROPERTIES START
     {
         //Home button
-        var text = "Home";
-        var href = "../HTML/home.html"
+         text = "Home";
+         href = "../HTML/home.html";
         createButton(text, href);
     }
 
     {
         //Youtube button
-        var text = "Youtube";
-        var href = "../HTML/youtube.html"
+        text = "Youtube";
+        href = "../HTML/youtube.html";
         createButton(text, href);
     }
 
     {
         //Camping button
-        var text = "Camping";
-        var href = "../HTML/camping.html"
+        text = "Camping";
+        href = "../HTML/camping.html";
         createButton(text, href);
     }
 
@@ -126,9 +127,9 @@ function createPage()//This is needed for the clock
         //Admin
         {
             if (checkCookie("username")) {
-                if (getCookie("username") == "admin1234") {
-                    var text = "Admin";
-                    var href = "../HTML/admin.html"
+                if (getCookie("username") === "admin1234") {
+                    text = "Admin";
+                    href = "../HTML/admin.html";
                     createButton(text, href);
                 }
             }
@@ -178,15 +179,15 @@ Functions
 //Checks if element exists
 function elementExists(element)
 {
-    if (document.getElementById(element) != null) return true; else return false
+    if (document.getElementById(element) !== null) return true; else return false;
 }
 
 
 //Creates random hexadecimal color code (e.g. #123abc)
 var colCode = "#"; //The color being made
-var colCodeTemp = "#" //Complete Color
+var colCodeTemp = "#"; //Complete Color
 var stringCharacter = 1; //This goes up every time a new character is added to the string (color value e.g. #123abc)
-resetAuto() //Auto set values to default
+resetAuto(); //Auto set values to default
 
 function randomColor() {
     resetAuto();
@@ -196,7 +197,7 @@ function randomColor() {
 function resetAuto() //Resets all values to default
 {
     colCode = "#";
-    colCodeTemp = "#"
+    colCodeTemp = "#";
     stringCharacter = 1;
     createNumber();
 }
@@ -204,38 +205,32 @@ function resetAuto() //Resets all values to default
 
 function createNumber() //Creates a random number between 1 & 15
 {
-    var x = (Math.round(Math.random() * 100));
-    if (x < 16) { letterSwitch(x) } else { createNumber() }
+    var x = Math.round(Math.random() * 100);
+    if (x < 16) { letterSwitch(x); } else { createNumber(); }
 }
 
 function letterSwitch(x) {
     switch (x) {
         case 10:
-            stringAdd('a')
+            stringAdd('a');
             break;
-
         case 11:
             stringAdd('b');
             break;
-
         case 12:
-            stringAdd('c')
+            stringAdd('c');
             break;
-
         case 13:
-            stringAdd('d')
+            stringAdd('d');
             break;
-
         case 14:
-            stringAdd('e')
+            stringAdd('e');
             break;
-
         case 15:
-            stringAdd('f')
+            stringAdd('f');
             break;
-
         default:
-            stringAdd(x)
+            stringAdd(x);
             break;
     }
 }
@@ -243,7 +238,7 @@ function letterSwitch(x) {
 function stringAdd(x) //Collates the characters for the hex number code
 {
     if (stringCharacter <= 6) {
-        stringCharacter++
+        stringCharacter++;
         colCodeTemp = colCodeTemp + x;
         createNumber();
     }
@@ -259,86 +254,60 @@ function stringAdd(x) //Collates the characters for the hex number code
 function randomLetter() {
     var x = 99;
     while (x > 25)
-    { x = randomNumber99() }
+    { x = randomNumber99(); }
     switch (x) {
         case 0:
-            return ("a");
-            break;
+            return "a";
         case 1:
-            return ("b");
-            break;
+            return "b";
         case 2:
-            return ("c");
-            break;
+            return "c";
         case 3:
-            return ("d");
-            break;
+            return "d";
         case 4:
-            return ("e");
-            break;
+            return "e";
         case 5:
-            return ("f");
-            break;
+            return "f";
         case 6:
-            return ("g");
-            break;
+            return "g";
         case 7:
-            return ("h");
-            break;
+            return "h";
         case 8:
-            return ("i");
-            break;
+            return "i";
         case 9:
-            return ("j");
-            break;
+            return "j";
         case 10:
-            return ("k");
-            break;
+            return "k";
         case 11:
-            return ("l");
-            break;
+            return "l";
         case 12:
-            return ("m");
-            break;
+            return "m";
         case 13:
-            return ("n");
-            break;
+            return "n";
         case 14:
-            return ("o");
-            break;
+            return "o";
         case 15:
-            return ("p");
-            break;
+            return "p";
         case 16:
-            return ("q");
-            break;
+            return "q";
         case 17:
-            return ("r");
-            break;
+            return "r";
         case 18:
-            return ("d");
-            break;
+            return "d";
         case 19:
-            return ("t");
-            break;
+            return "t";
         case 20:
-            return ("u");
-            break;
+            return "u";
         case 21:
-            return ("v");
-            break;
+            return "v";
         case 22:
-            return ("w");
-            break;
+            return "w";
         case 23:
-            return ("x");
-            break;
+            return "x";
         case 24:
-            return ("y");
-            break;
+            return "y";
         case 25:
-            return ("z");
-            break;
+            return "z";
         default:
             alert("ERROR! x = " + x);
             break;
@@ -349,89 +318,62 @@ function randomLetter() {
 function randomLetterCAPS() {
     var x = 99;
     while (x > 25)
-    { x = randomNumber99() }
+    { x = randomNumber99(); }
     switch (x) {
         case 0:
-            return ("A");
-            break;
+            return "A";
         case 1:
-            return ("B");
-            break;
+            return "B";
         case 2:
-            return ("C");
-            break;
+            return "C";
         case 3:
-            return ("D");
-            break;
+            return "D";
         case 4:
-            return ("E");
-            break;
+            return "E";
         case 5:
-            return ("F");
-            break;
+            return "F";
         case 6:
-            return ("G");
-            break;
+            return "G";
         case 7:
-            return ("H");
-            break;
+            return "H";
         case 8:
-            return ("I");
-            break;
+            return "I";
         case 9:
-            return ("J");
-            break;
+            return "J";
         case 10:
-            return ("K");
-            break;
+            return "K";
         case 11:
-            return ("L");
-            break;
+            return "L";
         case 12:
-            return ("M");
-            break;
+            return "M";
         case 13:
-            return ("N");
-            break;
+            return "N";
         case 14:
-            return ("O");
-            break;
+            return "O";
         case 15:
-            return ("P");
-            break;
+            return "P";
         case 16:
-            return ("Q");
-            break;
+            return "Q";
         case 17:
-            return ("R");
-            break;
+            return "R";
         case 18:
-            return ("S");
-            break;
+            return "S";
         case 19:
-            return ("T");
-            break;
+            return "T";
         case 20:
-            return ("U");
-            break;
+            return "U";
         case 21:
-            return ("V");
-            break;
+            return "V";
         case 22:
-            return ("W");
-            break;
+            return "W";
         case 23:
-            return ("X");
-            break;
+            return "X";
         case 24:
-            return ("Y");
-            break;
+            return "Y";
         case 25:
-            return ("Z");
-            break;
+            return "Z";
         default:
-            return ("ERROR");
-            break;
+            return "ERROR";
     }
 }
 
@@ -440,7 +382,7 @@ function randomLetterCAPS() {
 function randomNumber() {
     var x = 100;
     while (x > 9)
-    { x = Math.round(Math.random() * 10) }
+    { x = Math.round(Math.random() * 10); }
     return x;
 }
 
@@ -449,7 +391,7 @@ function randomNumber() {
 function randomNumber99() {
     var x = 100;
     while (x > 99)
-    { x = Math.round(Math.random() * 100) }
+    { x = Math.round(Math.random() * 100); }
     return x;
 }
 
@@ -458,48 +400,39 @@ function randomNumber99() {
 function randomNumber999() {
     var x = 100;
     while (x > 999)
-    { x = Math.round(Math.random() * 1000) }
+    { x = Math.round(Math.random() * 1000); }
     return x;
 }
 
 
 //Day (long)
 function day() {
-    var day = new Date().getDay()
+    var day = new Date().getDay();
     {
         switch (day) {
             case 0:
                 return "Sunday";
-                break;
 
             case 1:
                 return "Monday";
-                break;
 
             case 2:
                 return "Tuesday";
-                break;
 
             case 3:
                 return "Wednesday";
-                break;
 
             case 4:
                 return "Thursday";
-                break;
 
             case 5:
                 return "Friday";
-                break;
 
             case 6:
                 return "Saturday";
-                break;
 
             default:
                 return "broken";
-                break;
-
         }
     }
 }
@@ -507,41 +440,26 @@ function day() {
 
 //Day (short)
 function dayShort() {
-    var day = new Date().getDay()
+    var day = new Date().getDay();
     {
         switch (day) {
             case 0:
                 return "Sun";
-                break;
 
             case 1:
                 return "Mon";
-                break;
-
             case 2:
                 return "Tue";
-                break;
-
             case 3:
                 return "Wed";
-                break;
-
             case 4:
                 return "Thu";
-                break;
-
             case 5:
                 return "Fri";
-                break;
-
             case 6:
                 return "Sat";
-                break;
-
             default:
-                return "broken";
-                break;
-
+                return "error";
         }
     }
 }
@@ -590,7 +508,7 @@ function minute() {
     if (minute < 10) { minute = '0' + +minute; }
 
     {
-        return minute
+        return minute;
     }
 }
 
@@ -618,11 +536,11 @@ function second() {
         || navigator.userAgent.match(/Windows Phone/i)
         ) {
             link_style = document.getElementById("link_style");
-            link_style.setAttribute("href", "../CSS/m_style.css")
+            link_style.setAttribute("href", "../CSS/m_style.css");
         }
         else {
             link_style = document.getElementById("link_style");
-            link_style.setAttribute("href", "../CSS/style.css")
+            link_style.setAttribute("href", "../CSS/style.css");
         }
     }
 }
@@ -638,42 +556,42 @@ function isMobile() {
     || navigator.userAgent.match(/BlackBerry/i)
     || navigator.userAgent.match(/Windows Phone/i)
     ) {
-        return true
+        return true;
     }
     else {
-        return false
+        return false;
     }
 }
 
 
 //Device Check ----- KEYWORDS: Device, phone, pc, user, agent, useragent
 function deviceDetect() {
-    if (navigator.userAgent.match(/Android/i)) { return 'Android' }
-    else if (navigator.userAgent.match(/webOS/i)) { return 'webOS' }
-    else if (navigator.userAgent.match(/iPhone/i)) { return 'iPhone' }
-    else if (navigator.userAgent.match(/iPad/i)) { return 'iPad' }
-    else if (navigator.userAgent.match(/iPod/i)) { return 'iPod' }
-    else if (navigator.userAgent.match(/BlackBerry/i)) { return 'BlackBerry' }
-    else if (navigator.userAgent.match(/Windows Phone/i)) { return 'Windows Phone' }
-    else if (navigator.appVersion.indexOf("Win") != -1) { return "Windows"; }
-    else if (navigator.appVersion.indexOf("Mac") != -1) { return "MacOS"; }
-    else if (navigator.appVersion.indexOf("X11") != -1) { return "UNIX"; }
-    else if (navigator.appVersion.indexOf("Linux") != -1) { return "Linux"; }
+    if (navigator.userAgent.match(/Android/i)) { return 'Android'; }
+    else if (navigator.userAgent.match(/webOS/i)) { return 'webOS'; }
+    else if (navigator.userAgent.match(/iPhone/i)) { return 'iPhone'; }
+    else if (navigator.userAgent.match(/iPad/i)) { return 'iPad'; }
+    else if (navigator.userAgent.match(/iPod/i)) { return 'iPod'; }
+    else if (navigator.userAgent.match(/BlackBerry/i)) { return 'BlackBerry'; }
+    else if (navigator.userAgent.match(/Windows Phone/i)) { return 'Windows Phone'; }
+    else if (navigator.appVersion.indexOf("Win") !== -1) { return "Windows"; }
+    else if (navigator.appVersion.indexOf("Mac") !== -1) { return "MacOS"; }
+    else if (navigator.appVersion.indexOf("X11") !== -1) { return "UNIX"; }
+    else if (navigator.appVersion.indexOf("Linux") !== -1) { return "Linux"; }
 }
 
 //Device Check ----- KEYWORDS: Device, phone, pc, user, agent, useragent
 function userAgent() {
-    if (navigator.userAgent.match(/Android/i)) { return Android }
-    else if (navigator.userAgent.match(/webOS/i)) { return webOS }
-    else if (navigator.userAgent.match(/iPhone/i)) { return iPhone }
-    else if (navigator.userAgent.match(/iPad/i)) { return iPad }
-    else if (navigator.userAgent.match(/iPod/i)) { return iPod }
-    else if (navigator.userAgent.match(/BlackBerry/i)) { return BlackBerry }
-    else if (navigator.userAgent.match(/Windows Phone/i)) { return WindowsPhone }
-    else if (navigator.appVersion.indexOf("Win") != -1) { return Windows; }
-    else if (navigator.appVersion.indexOf("Mac") != -1) { return MacOS; }
-    else if (navigator.appVersion.indexOf("X11") != -1) { return UNIX; }
-    else if (navigator.appVersion.indexOf("Linux") != -1) { return Linux; }
+    if (navigator.userAgent.match(/Android/i)) { return Android; }
+    else if (navigator.userAgent.match(/webOS/i)) { return webOS; }
+    else if (navigator.userAgent.match(/iPhone/i)) { return iPhone; }
+    else if (navigator.userAgent.match(/iPad/i)) { return iPad; }
+    else if (navigator.userAgent.match(/iPod/i)) { return iPod; }
+    else if (navigator.userAgent.match(/BlackBerry/i)) { return BlackBerry; }
+    else if (navigator.userAgent.match(/Windows Phone/i)) { return WindowsPhone; }
+    else if (navigator.appVersion.indexOf("Win") !== -1) { return Windows; }
+    else if (navigator.appVersion.indexOf("Mac") !== -1) { return MacOS; }
+    else if (navigator.appVersion.indexOf("X11") !== -1) { return UNIX; }
+    else if (navigator.appVersion.indexOf("Linux") !== -1) { return Linux; }
 }
 
 
@@ -694,7 +612,7 @@ function title(Title) {
     if (elementExists("titleAndMenu"))
     {
     var div = document.getElementById("titleAndMenu");
-    var parsnip = document.createElement("h1")
+        var parsnip = document.createElement("h1");
     parsnip.innerHTML = Title;
     div.appendChild(parsnip);
     }
@@ -707,7 +625,7 @@ function hr() {
     if (elementExists("titleAndMenu"))
     {
     var div = document.getElementById("titleAndMenu");
-    var horozontalRule = document.createElement("hr")
+        var horozontalRule = document.createElement("hr");
     div.appendChild(horozontalRule);
 
     }
@@ -733,7 +651,7 @@ function buttonStyle(menuButton, buttonAnchor) {
 
         var color = "#CCCCCC";
         var backgroundImage = "url(../Patterns/pattern_black1.png)";
-        if (isMobile() == true) { //alert("MOBILE ! After isMob() = " + isMob()) 
+        if (isMobile() === true) { //alert("MOBILE ! After isMob() = " + isMob()) 
             var width = "300px";
             var height = "60px";
             var borderRadius = "20px 20px";
@@ -754,14 +672,14 @@ function buttonStyle(menuButton, buttonAnchor) {
             buttonAnchor.appendChild(menuButton);
             titleAndMenu.appendChild(buttonAnchor);
         }
-        else if (isMobile() == false) {
-            var width = "200px";
-            var height = "30px";
-            var borderRadius = "10px 10px";
-            var fontSize = "18px";
-            var marginBottom = "5px";
-            var outline = "none";
-            var marginRight = "4px"
+        else if (isMobile() === false) {
+            width = "200px";
+            height = "30px";
+            borderRadius = "10px 10px";
+            fontSize = "18px";
+            marginBottom = "5px";
+            outline = "none";
+            marginRight = "4px";
             menuButton.style.color = color;
             menuButton.style.backgroundImage = backgroundImage;
             menuButton.style.width = width;
@@ -807,42 +725,42 @@ function timeOne() {
 function testCookie()
 {
         document.cookie = "test = yes";
-         if (checkCookie("test")) { return true }
+    if (checkCookie("test")) { return true; }
 }
 
 function createCookie(cname, cvalue) {
-    document.cookie = cname + "=" + cvalue
+    document.cookie = cname + "=" + cvalue;
 }
 
 function createCookiePerm(cname, cvalue) {
-    document.cookie = cname + "=" + cvalue + "; expires=Thu, 18 Dec 2019 12:00:00 UTC"
+    document.cookie = cname + "=" + cvalue + "; expires=Thu, 18 Dec 2019 12:00:00 UTC";
 }
 
 
 //Signing in & out
 function signInFunc() {
     if (testCookie()) {
-        var person = prompt("Enter your username", "")
+        var person = prompt("Enter your username", "");
 
         //setUser(person);
 
         createCookiePerm("username", person);
 
-        signInOutAnchor()
+        signInOutAnchor();
     }
     else 
-    { alert("Cookies do not appear to work properly on your device. The log in function is not available") }
+    { alert("Cookies do not appear to work properly on your device. The log in function is not available"); }
 }
 
 
 function signOutFunc()
 {
     document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-    signInOutAnchor()
+    signInOutAnchor();
 }
 
 
-signInOutAnchor()
+signInOutAnchor();
 function signInOutAnchor()
 {
     if (elementExists("titleAndMenu")) {
@@ -884,8 +802,8 @@ function signInOutAnchor()
 
 function lastPage()
 {
-    alert(window.location)
-    createCookie("lastPage", window.location)
+    alert(window.location);
+    createCookie("lastPage", window.location);
 }
 
 
@@ -923,10 +841,10 @@ function getCookie(cname) {
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) === ' ') {
             c = c.substring(1);
         }
-        if (c.indexOf(name) == 0) {
+        if (c.indexOf(name) === 0) {
             return c.substring(name.length, c.length);
         }
     }
@@ -938,16 +856,16 @@ function getCookie(cname) {
 function checkCookie(p) {
     //alert('got here')
     var checkThis = getCookie(p);
-    if (checkThis != "") {
-        return true
+    if (checkThis !== "") {
+        return true;
     } else {
-        return false
+        return false;
     }
 }
 
 
 //Latest Video
-latestVideo()
+latestVideo();
 function latestVideo() {
     var title = lvpTitle;
     var videoID = lvpVideoID;
@@ -974,7 +892,7 @@ function latestVideo() {
     //inner div
     var playerDiv = document.createElement("div");
     playerDiv.className = "youtube-player";
-    playerDiv.setAttribute("data-id", videoID)
+    playerDiv.setAttribute("data-id", videoID);
     playerDiv.style.display = "block";
     playerDiv.style.width = "100%";
     playerDiv.style.paddingBottom = "56.25%";
@@ -1007,11 +925,11 @@ function latestVideoAppend(element) {
 function onclick_password() {
     if (testCookie()) {
         var info = document.getElementById("info");
-        var x = document.getElementById("passw").value
-        if (x == 'loldred' || x == 'loldred ' || x == 'Loldred' || x == 'Loldred ') {
+        var x = document.getElementById("passw").value;
+        if (x === 'loldred' || x === 'loldred ' || x === 'Loldred' || x === 'Loldred ') {
             //document.cookie = "password = yes"
             createCookiePerm("password", "yes");
-            unlockCamping()
+            unlockCamping();
         }
         else {
             document.getElementById("passw").setAttribute("style", "background-color:lightsalmon");
@@ -1021,7 +939,7 @@ function onclick_password() {
     }
     else
     {
-        alert("Cookies do not appear to work properly on your device. The log in function is not available")
+        alert("Cookies do not appear to work properly on your device. The log in function is not available");
         }
 }
 
@@ -1032,7 +950,7 @@ function unlockCamping()
         if (checkCookie("password"))
         {
             //alert("cookie exists")
-            if (getCookie("password") == "yes")
+            if (getCookie("password") === "yes")
             {
                 info.setAttribute('style', 'display: block');
                 document.getElementById("hide_me").setAttribute('style', 'display: none');
@@ -1056,9 +974,9 @@ External Functions
 //GOOGLE ANALYTICS START
 (function (i, s, o, g, r, a, m) {
     i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-        (i[r].q = i[r].q || []).push(arguments)
+        (i[r].q = i[r].q || []).push(arguments);
     }, i[r].l = 1 * new Date(); a = s.createElement(o),
-    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
 })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
 ga('create', 'UA-77788621-1', 'auto');

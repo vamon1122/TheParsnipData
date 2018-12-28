@@ -41,9 +41,7 @@ namespace TheParsnipWeb
             if (String.IsNullOrEmpty(inputUsername.Text) && String.IsNullOrWhiteSpace(inputUsername.Text)){
                 if (myUser.LogIn(false))
                 {
-                    Cookie.WriteSession("accountType", myUser.AccountType);
-                    System.Diagnostics.Debug.WriteLine("----------accountType = " + myUser.AccountType);
-                    System.Diagnostics.Debug.WriteLine("----------accountType = " + Cookie.Read("accountType"));
+                    WriteCookie();
                     Response.Redirect(Redirect);
                 }
                 else
@@ -56,6 +54,13 @@ namespace TheParsnipWeb
             }
         }
 
+        private void WriteCookie()
+        {
+            Cookie.WriteSession("accountType", myUser.AccountType);
+            System.Diagnostics.Debug.WriteLine("----------accountType = " + myUser.AccountType);
+            System.Diagnostics.Debug.WriteLine("----------accountType = " + Cookie.Read("accountType"));
+        }
+
         protected void ButLogIn_Click(object sender, EventArgs e)
         {
             AccountLog.Warning("Button Was clicked!");
@@ -64,6 +69,7 @@ namespace TheParsnipWeb
 
             if (myUser.LogIn(inputUsername.Text, true, inputPwd.Text, RememberPwd.Checked, false))
             {
+                WriteCookie();
                 Response.Redirect(Redirect);
             }
         }
