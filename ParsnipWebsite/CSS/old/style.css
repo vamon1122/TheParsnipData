@@ -86,7 +86,7 @@ hr.break
 input[type="button"].menu
 {
     color: #CCCCCC;
-    background-image: url(../Patterns/pattern_black1.png);
+    background-image: url(../resources/media/patterns/pattern_black1.png);
     width: 200px; 
     height: 30px;
     border-radius:10px 10px;

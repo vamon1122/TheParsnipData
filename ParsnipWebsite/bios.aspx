@@ -4,8 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link rel="stylesheet" type="text/css" href="../CSS/old/style.css" />
-    <link rel="stylesheet" type="text/css" href="../CSS/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/old/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <title>Bios</title>
 </head>
 <body class="fade0p5" id="body">
@@ -25,7 +25,7 @@
     <h2>Bios!!!</h2>
     <h3>All credit goes to Kieron 'Gaz Beadle' Howarth</h3>
     
-    <img class="censored" id="kieron" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477059052/media/photos/Bios/Fat Kieron.JPG" style="width:300px" />
+    <img class="censored" id="kieron" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477059052/resources/resources/media/photos/Bios/Fat Kieron.JPG" style="width:300px" />
     <hr class="break" />
     <br />
 
@@ -43,11 +43,11 @@
         Source below \/<br />
     </div>
     <br />
-    <img src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477059052/media/photos/Bios/Kieron_chat.PNG" id="Kieron_chat"><img />
+    <img src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477059052/resources/media/photos/Bios/Kieron_chat.PNG" id="Kieron_chat"><img />
     <br />
     <br />
-    <script src="../javascript/old/globalBodyV1.3.js"></script>
-    <script src="../javascript/menuV1.8.js"></script>
+    <script src="../javascript/globalBodyV1.3.js"></script>
+    <script src="../javascript/menuV1.9.js"></script>
     <script>
         var chat = document.getElementById("Kieron_chat")
         var kieron = document.getElementById("kieron")

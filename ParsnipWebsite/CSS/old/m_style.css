@@ -9,7 +9,7 @@
     align-content: center;
     text-align: center;
     margin-top:160px;
-    background-image: url(../Patterns/pattern_white1.png);
+    background-image: url(../resources/media/patterns/pattern_white1.png);
 }
 
 .cens_req
@@ -100,7 +100,7 @@ hr.break /*For hr*/
 input[type="button"].menu
 {
     color: #CCCCCC;
-    background-image: url(../Patterns/pattern_black1.png);
+    background-image: url(../resources/media/patterns/pattern_black1.png);
     width: 300px; 
     height: 60px;
     border-radius:20px 20px;
@@ -113,7 +113,7 @@ input[type="button"].menu
 input[type="submit"]
 {
     color: dimgray ;
-    background-image: url(../Patterns/pattern_white1.png);
+    background-image: url(../resources/media/patterns/pattern_white1.png);
     width: 300px; 
     height: 60px;
     border-radius:20px 20px;

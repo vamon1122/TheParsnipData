@@ -4,8 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link rel="stylesheet" type="text/css" href="../CSS/old/style.css" />
-    <link rel="stylesheet" type="text/css" href="../CSS/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/old/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <title>Minecraft</title>
 </head>
 <body class="fade0p5" id="body">
@@ -20,7 +20,7 @@
     <br /><br />
     <h1>IP: mc.theparsnip.co.uk</h1>
 
-    <script src="../javascript/old/globalBodyV1.3.js"></script>
-    <script src="../javascript/menuV1.8.js"></script>
+    <script src="../javascript/globalBodyV1.3.js"></script>
+    <script src="../javascript/menuV1.9.js"></script>
 </body>
 </html>

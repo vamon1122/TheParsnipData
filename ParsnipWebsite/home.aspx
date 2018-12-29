@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="home.aspx.cs" Inherits="TheParsnipWeb.Home" %>
-<%@ Register Src="~/AccountTiny.ascx" TagPrefix="uc1" TagName="AccountTiny" %>
+<%@ Register Src="~/CustomControls/AccountTiny.ascx" TagPrefix="uc1" TagName="AccountTiny" %>
 
 
 
@@ -8,13 +8,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     
-    <link rel="stylesheet" type="text/css" href="../CSS/old/style.css" />
-    <link rel="stylesheet" type="text/css" href="../CSS/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/old/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
         
-    <link rel="stylesheet" type="text/css" href="ParsnipStyle.css" />
+    <link rel="stylesheet" type="text/css" href="css/parsnipStyle.css" />
         
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="ParsnipStyle.css" />
+    <link rel="stylesheet" type="text/css" href="css/parsnipStyle.css" />
     
 </head>
 <body class="fade0p5" id="body">
@@ -74,7 +74,7 @@
 
     <!--DEVICE DETECT END-->
     <!--SCRIPTS-->
-    <script src="../javascript/old/globalBodyV1.3.js"></script>
-    <script src="../javascript/menuV1.8.js"></script>
+    <script src="../javascript/globalBodyV1.3.js"></script>
+    <script src="../javascript/menuV1.9.js"></script>
 </body>
 </html>

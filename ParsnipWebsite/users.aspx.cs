@@ -13,7 +13,7 @@ namespace TheParsnipWeb
         User myUser;
         protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = Uac.SecurePage("create-user", this, Data.deviceType, "admin");
+            myUser = Uac.SecurePage("users", this, Data.deviceType, "admin");
         }
     }
 }

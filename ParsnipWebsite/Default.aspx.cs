@@ -13,7 +13,6 @@ namespace TheParsnipWeb
         protected void Page_Load(object sender, EventArgs e)
         {
             User myUser = Uac.SecurePage("home", this, Data.deviceType);
-            Response.Redirect("home");
         }
 
         protected void MyTestButton_Click(object sender, EventArgs e)
