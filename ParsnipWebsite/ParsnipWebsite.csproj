@@ -72,16 +72,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources\bootstrap-4.1.2-dist\css\bootstrap-grid.css.map" />
-    <Content Include="resources\bootstrap-4.1.2-dist\css\bootstrap-grid.min.css.map" />
-    <Content Include="resources\bootstrap-4.1.2-dist\css\bootstrap-reboot.css.map" />
-    <Content Include="resources\bootstrap-4.1.2-dist\css\bootstrap-reboot.min.css.map" />
-    <Content Include="resources\bootstrap-4.1.2-dist\css\bootstrap.css.map" />
-    <Content Include="resources\bootstrap-4.1.2-dist\css\bootstrap.min.css.map" />
-    <Content Include="resources\bootstrap-4.1.2-dist\js\bootstrap.bundle.js.map" />
-    <Content Include="resources\bootstrap-4.1.2-dist\js\bootstrap.bundle.min.js.map" />
-    <Content Include="resources\bootstrap-4.1.2-dist\js\bootstrap.js.map" />
-    <Content Include="resources\bootstrap-4.1.2-dist\js\bootstrap.min.js.map" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Publish To Folder.pubxml" />
     <None Include="Properties\PublishProfiles\Publish To Live.pubxml" />
@@ -98,16 +88,6 @@
     <Content Include="CustomControls\AccountTiny.ascx" />
     <Content Include="admin.aspx" />
     <Content Include="bios.aspx" />
-    <Content Include="resources\bootstrap-4.1.2-dist\css\bootstrap-grid.css" />
-    <Content Include="resources\bootstrap-4.1.2-dist\css\bootstrap-grid.min.css" />
-    <Content Include="resources\bootstrap-4.1.2-dist\css\bootstrap-reboot.css" />
-    <Content Include="resources\bootstrap-4.1.2-dist\css\bootstrap-reboot.min.css" />
-    <Content Include="resources\bootstrap-4.1.2-dist\css\bootstrap.css" />
-    <Content Include="resources\bootstrap-4.1.2-dist\css\bootstrap.min.css" />
-    <Content Include="resources\bootstrap-4.1.2-dist\js\bootstrap.bundle.js" />
-    <Content Include="resources\bootstrap-4.1.2-dist\js\bootstrap.bundle.min.js" />
-    <Content Include="resources\bootstrap-4.1.2-dist\js\bootstrap.js" />
-    <Content Include="resources\bootstrap-4.1.2-dist\js\bootstrap.min.js" />
     <Content Include="carls-bullshit.html" />
     <Content Include="content removal.html" />
     <Content Include="users.aspx" />
@@ -124,7 +104,6 @@
     <Content Include="resources\media\images\parsnip_silhouette.jpg" />
     <Content Include="javascript\menuV1.9.js" />
     <Content Include="javascript\globalBodyV1.3.js" />
-    <Content Include="resources\docs\Media Links.txt" />
     <Content Include="login.aspx" />
     <Content Include="logout.aspx" />
     <Content Include="logs.aspx" />
