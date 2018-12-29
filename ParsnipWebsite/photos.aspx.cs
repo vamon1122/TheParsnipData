@@ -14,7 +14,7 @@ namespace TheParsnipWeb
         private User myUser;
         protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = Uac.SecurePage("photos", this, Data.deviceType);
+            myUser = Uac.SecurePage("photos", this, Data.deviceType, "member");
         }
     }
 }

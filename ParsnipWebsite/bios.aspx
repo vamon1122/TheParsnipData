@@ -25,7 +25,7 @@
     <h2>Bios!!!</h2>
     <h3>All credit goes to Kieron 'Gaz Beadle' Howarth</h3>
     
-    <img class="censored" id="kieron" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477059052/resources/resources/media/photos/Bios/Fat Kieron.JPG" style="width:300px" />
+    <img class="censored" id="kieron" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477059052/Photos/Bios/Fat Kieron.JPG" style="width:300px" />
     <hr class="break" />
     <br />
 
@@ -47,7 +47,7 @@
     <br />
     <br />
     <script src="../javascript/globalBodyV1.3.js"></script>
-    <script src="../javascript/menuV1.9.js"></script>
+    <script src="../javascript/menuV1.11.js"></script>
     <script>
         var chat = document.getElementById("Kieron_chat")
         var kieron = document.getElementById("kieron")

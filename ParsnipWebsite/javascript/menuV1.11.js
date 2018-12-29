@@ -49,9 +49,13 @@ createButton("Home", "home");
 if (getCookie("accountType") === "admin") {
     createButton("NEW! Polls", "polls");
 }
-createButton("Videos", "videos");
-createButton("Memes", "memes");
-createButton("Photos", "photos");
+
+if (getCookie("accountType") === "admin" || getCookie("accountType") === "member") {
+    createButton("Videos", "videos");
+    createButton("Memes", "memes");
+    createButton("Photos", "photos");
+}
+
 createButton("Minecraft", "minecraft");
 createButton("Bios", "bios");
 

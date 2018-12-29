@@ -69,6 +69,7 @@
     <label>Account Type</label>
     <select runat="server" class="form-control" id="accountType">
       <option>user</option>
+        <option>member</option>
       <option>admin</option>
     </select>
   </div>

@@ -102,7 +102,7 @@
     <Content Include="home.aspx" />
     <Content Include="resources\media\images\fat_kieron_cutout.JPG" />
     <Content Include="resources\media\images\parsnip_silhouette.jpg" />
-    <Content Include="javascript\menuV1.9.js" />
+    <Content Include="javascript\menuV1.11.js" />
     <Content Include="javascript\globalBodyV1.3.js" />
     <Content Include="login.aspx" />
     <Content Include="logout.aspx" />

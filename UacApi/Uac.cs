@@ -19,13 +19,17 @@ namespace UacApi
             if (myUser.LogIn())
             {
                 bool CanAccess;
-                switch (myUser.AccountType)
+                switch (pAccountType)
                 {
                     case "admin":
+                        if (myUser.AccountType == "admin") CanAccess = true; else CanAccess = false;
                         CanAccess = true;
                         break;
+                    case "member":
+                        if (myUser.AccountType == "admin" || myUser.AccountType == "member") CanAccess = true; else CanAccess = false;
+                        break;
                     case "user":
-                        if (pAccountType != "admin") CanAccess = true; else CanAccess = false;
+                        if (myUser.AccountType == "admin" || myUser.AccountType == "member" || myUser.AccountType == "user") CanAccess = true; else CanAccess = false;
                         break;
                     default:
                         CanAccess = false;
@@ -34,12 +38,14 @@ namespace UacApi
 
                 if (CanAccess)
                 {
+                    System.Diagnostics.Debug.WriteLine("{0} is allowed to access {1}", myUser.fullName, pUrl);
                     new LogEntry() { text = String.Format("{0} accessed the {1} page from {2} '{3}' device", myUser.fullName, pUrl, myUser.posessivePronoun, pDeviceType), userId = myUser.id };
                 }
                 else
                 {
+                    System.Diagnostics.Debug.WriteLine("{0} is NOT allowed to access {1}", myUser.fullName, pUrl);
                     new LogEntry() { text = String.Format("{0} attempted to access the {1} page from {2} '{3}' device but did not have sufficient permissions", myUser.fullName, pUrl, myUser.posessivePronoun, pDeviceType), userId = myUser.id };
-                    pPage.Response.Redirect("access-denied?url=admin");
+                    pPage.Response.Redirect(String.Format("access-denied?url={0}", pUrl));
                 }
 
                 
