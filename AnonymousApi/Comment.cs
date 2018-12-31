@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace AnonymousApi
 {
@@ -20,9 +21,21 @@ namespace AnonymousApi
             date = ParsnipApi.Data.adjustedTime;
         }
 
-        public Comment(Guid pGuid)
+        public Comment(SqlDataReader reader)
         {
-            id = pGuid;
+
+        }
+
+        public bool UpdateDb()
+        {
+            SqlConnection temp = new SqlConnection(ParsnipApi.Data.sqlConnectionString);
+            temp.Open();
+            return UpdateDb(temp);
+        }
+
+        public bool UpdateDb(SqlConnection pConn)
+        {
+
         }
     }
 }

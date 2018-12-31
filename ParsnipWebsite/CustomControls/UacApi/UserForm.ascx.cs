@@ -11,42 +11,77 @@ namespace TheParsnipWeb
 {
     public partial class UserForm1 : System.Web.UI.UserControl
     {
-        User formAccount = new User();
-        User MyAccount;
+        User myUser;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            UpdateForm();
+        }
 
+        public UserForm1()
+        {
+            myUser = new User();
+        }
+
+        public UserForm1(User pUser)
+        {
+            myUser = pUser;
+            //dateTimeCreated.Value = myUser.DateTimeCreated.Date.ToString();
+            //UpdateForm();
         }
 
         void UpdateForm()
         {
-            username.Text = formAccount.Username;
-            email.Text = formAccount.Email;
+            username.Text = myUser.Username;
+            email.Text = myUser.Email;
             //updatePwd()
-            forename.Text = formAccount.Forename;
-            surname.Text = formAccount.Surname;
-            //updateDob()
-            address1.Text = formAccount.Address1;
-            address2.Text = formAccount.Address2;
-            address3.Text = formAccount.Address3;
-            postCode.Text = formAccount.PostCode;
-            mobilePhone.Text = formAccount.MobilePhone;
-            homePhone.Text = formAccount.HomePhone;
-            workPhone.Text = formAccount.WorkPhone;
-            // updateDateTimeCreated()
-            accountType.Value = formAccount.AccountType;
-            accountStatus.Value = formAccount.AccountStatus;
+            forename.Text = myUser.Forename;
+            surname.Text = myUser.Surname;
+            gender.Value = myUser.Gender;
+            //Birthday
+            address1.Text = myUser.Address1;
+            address2.Text = myUser.Address2;
+            address3.Text = myUser.Address3;
+            postCode.Text = myUser.PostCode;
+            mobilePhone.Text = myUser.MobilePhone;
+            homePhone.Text = myUser.HomePhone;
+            workPhone.Text = myUser.WorkPhone;
+            dateTimeCreated.Value = myUser.DateTimeCreated.Date.ToString("dd/MM/yyyy");
+            accountType.Value = myUser.AccountType;
+            accountStatus.Value = myUser.AccountStatus;
+        }
+
+        void UpdateFormAccount()
+        {
+            myUser.Username = username.Text;
+            myUser.Email = email.Text;
+            //MyAccount.Pwd = password1.Text;
+            myUser.Forename = forename.Text;
+            myUser.Surname = surname.Text;
+            myUser.Gender = gender.Value.Substring(0, 1);
+            //MyAccount.Dob = dob.Text;
+            myUser.Address1 = address1.Text;
+            myUser.Address2 = address2.Text;
+            myUser.Address3 = address3.Text;
+            myUser.PostCode = postCode.Text;
+            myUser.MobilePhone = mobilePhone.Text;
+            myUser.HomePhone = homePhone.Text;
+            myUser.WorkPhone = workPhone.Text;
+            //MyAccount.DateTimeCreated = DateTime.Now;
+            myUser.AccountType = accountType.Value;
+            myUser.AccountStatus = accountStatus.Value;
+            myUser.AccountType = accountType.Value;
+
         }
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            WriteToObj();
-            if (formAccount.Validate())
+            UpdateFormAccount();
+            if (myUser.Validate())
             {
-                
-                formAccount.DbInsert(password1.Text);
-                new LogEntry() { text = String.Format("{0} created an account for {1} via the create-user page", MyAccount.fullName, formAccount.fullName), userId = MyAccount.id };
+
+                myUser.DbInsert(password1.Text);
+                new LogEntry() { text = String.Format("{0} created an account for {1} via the UserForm", myUser.fullName, myUser.fullName), userId = myUser.id };
             }
             else
             {
@@ -54,27 +89,7 @@ namespace TheParsnipWeb
             }
 
 
-            void WriteToObj()
-            {
-                formAccount.Username = username.Text;
-                formAccount.Email = email.Text;
-                //MyAccount.Pwd = password1.Text;
-                formAccount.Forename = forename.Text;
-                formAccount.Surname = surname.Text;
-                //MyAccount.Dob = dob.Text;
-                formAccount.Address1 = address1.Text;
-                formAccount.Address2 = address2.Text;
-                formAccount.Address3 = address3.Text;
-                formAccount.PostCode = postCode.Text;
-                formAccount.MobilePhone = mobilePhone.Text;
-                formAccount.HomePhone = homePhone.Text;
-                formAccount.WorkPhone = workPhone.Text;
-                //MyAccount.DateTimeCreated = DateTime.Now;
-                formAccount.AccountType = accountType.Value;
-                formAccount.AccountStatus = accountStatus.Value;
-                formAccount.AccountType = accountType.Value;
-                
-            }
+            
         }
     }
 }

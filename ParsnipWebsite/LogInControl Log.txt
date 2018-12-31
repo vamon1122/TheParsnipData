@@ -16,3 +16,6 @@
 <info> 29/12/2018 15:26:12 - Login control was initialised
 <info> 29/12/2018 15:31:11 - Login control was initialised
 <info> 29/12/2018 15:49:52 - Login control was initialised
+<info> 29/12/2018 18:48:55 - Login control was initialised
+<info> 30/12/2018 02:37:47 - Login control was initialised
+<info> 30/12/2018 23:17:10 - Login control was initialised
