@@ -75,6 +75,9 @@
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Publish To Folder.pubxml" />
     <None Include="Properties\PublishProfiles\Publish To Live.pubxml" />
+    <Content Include="anonymous.aspx" />
+    <Content Include="aspxdate.aspx" />
+    <Content Include="htmldate.html" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -191,6 +194,20 @@
     </Compile>
     <Compile Include="access-denied.aspx.designer.cs">
       <DependentUpon>access-denied.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="anonymous.aspx.cs">
+      <DependentUpon>anonymous.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="anonymous.aspx.designer.cs">
+      <DependentUpon>anonymous.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="aspxdate.aspx.cs">
+      <DependentUpon>aspxdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="aspxdate.aspx.designer.cs">
+      <DependentUpon>aspxdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\AccountTiny.ascx.cs">
       <DependentUpon>AccountTiny.ascx</DependentUpon>
@@ -358,6 +375,10 @@
     <ProjectReference Include="..\LogApi\LogApi.csproj">
       <Project>{a463135f-93cf-4c00-8f13-b324a5d291e3}</Project>
       <Name>LogApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParsnipApi\ParsnipApi.csproj">
+      <Project>{f0504054-eed6-4f6f-b35c-c684381181d3}</Project>
+      <Name>ParsnipApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\ParsnipControls\ParsnipControls.csproj">
       <Project>{2a6f76ec-9afa-4e38-accf-9691e65c28c2}</Project>

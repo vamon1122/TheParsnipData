@@ -1,6 +1,7 @@
 ﻿using System;
 using UacApi;
 using LogApi;
+using ParsnipApi;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,7 +16,7 @@ namespace TheParsnipWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            UpdateForm();
+            //UpdateForm();
         }
 
         public UserForm1()
@@ -38,7 +39,7 @@ namespace TheParsnipWeb
             forename.Text = myUser.Forename;
             surname.Text = myUser.Surname;
             gender.Value = myUser.Gender;
-            //Birthday
+            dobInput.Value = myUser.Dob.ToString();
             address1.Text = myUser.Address1;
             address2.Text = myUser.Address2;
             address3.Text = myUser.Address3;
@@ -53,13 +54,18 @@ namespace TheParsnipWeb
 
         void UpdateFormAccount()
         {
+            System.Diagnostics.Debug.WriteLine(string.Format("username.Text = {0}", username.Text));
+            System.Diagnostics.Debug.WriteLine(string.Format("forename.Text = {0}", forename.Text));
             myUser.Username = username.Text;
+            System.Diagnostics.Debug.WriteLine(string.Format("myUser.Username = username.Text ({0})", username.Text));
+
             myUser.Email = email.Text;
-            //MyAccount.Pwd = password1.Text;
+            myUser.Pwd = password1.Text;
             myUser.Forename = forename.Text;
             myUser.Surname = surname.Text;
             myUser.Gender = gender.Value.Substring(0, 1);
-            //MyAccount.Dob = dob.Text;
+            System.Diagnostics.Debug.WriteLine("DOB = " + dobInput.Value);
+            myUser.Dob = Convert.ToDateTime(dobInput.Value);
             myUser.Address1 = address1.Text;
             myUser.Address2 = address2.Text;
             myUser.Address3 = address3.Text;
@@ -67,7 +73,7 @@ namespace TheParsnipWeb
             myUser.MobilePhone = mobilePhone.Text;
             myUser.HomePhone = homePhone.Text;
             myUser.WorkPhone = workPhone.Text;
-            //MyAccount.DateTimeCreated = DateTime.Now;
+            myUser.DateTimeCreated = ParsnipApi.Data.adjustedTime;
             myUser.AccountType = accountType.Value;
             myUser.AccountStatus = accountStatus.Value;
             myUser.AccountType = accountType.Value;
@@ -79,17 +85,14 @@ namespace TheParsnipWeb
             UpdateFormAccount();
             if (myUser.Validate())
             {
-
                 myUser.DbInsert(password1.Text);
-                new LogEntry() { text = String.Format("{0} created an account for {1} via the UserForm", myUser.fullName, myUser.fullName), userId = myUser.id };
+                new LogEntry(myUser.id) { text = String.Format("{0} created an account for {1} via the UserForm", myUser.fullName, myUser.fullName) };
             }
             else
             {
                 System.Diagnostics.Debug.WriteLine("User failed to validate!");
+                new LogEntry(myUser.id) { text = String.Format("{0} attempted to create an account for {1} via the UserForm, but the user failed fo validate!", myUser.fullName, myUser.fullName) };
             }
-
-
-            
         }
     }
 }

@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TheParsnipWeb {
+namespace ParsnipWebsite {
     
     
-    public partial class UserForm1 {
+    public partial class aspxdate {
         
         /// <summary>
         /// Error control.
@@ -130,24 +130,6 @@ namespace TheParsnipWeb {
         protected global::System.Web.UI.HtmlControls.HtmlSelect gender;
         
         /// <summary>
-        /// dobInput control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText dobInput;
-        
-        /// <summary>
-        /// dobCopy2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox dobCopy2;
-        
-        /// <summary>
         /// address1 control.
         /// </summary>
         /// <remarks>
@@ -236,14 +218,5 @@ namespace TheParsnipWeb {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText dateTimeCreated;
-        
-        /// <summary>
-        /// btnCreate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCreate;
     }
 }

@@ -56,7 +56,7 @@ namespace TheParsnipWeb
 
         private void WriteCookie()
         {
-            Cookie.WriteSession("accountType", myUser.AccountType);
+            Cookie.WritePerm("accountType", myUser.AccountType);
             System.Diagnostics.Debug.WriteLine("----------accountType = " + myUser.AccountType);
             System.Diagnostics.Debug.WriteLine("----------accountType = " + Cookie.Read("accountType"));
         }

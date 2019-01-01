@@ -19,7 +19,8 @@ namespace UacApi
         private static string sqlConnectionString = ParsnipApi.Data.sqlConnectionString;
 
         public Guid id { get; private set; }
-        public string Username { get; set; }
+        private string _username;
+        public string Username { get { return _username; } set { _username = value; System.Diagnostics.Debug.WriteLine(string.Format("Username was changed to {0}", _username));  } }
         public string Email { get; set; }
         public string Pwd { get; set; }
         public string Forename { get; set; }
@@ -47,7 +48,6 @@ namespace UacApi
                 gender = value;
             }
         }
-
         public string gender
         {
             get
@@ -70,21 +70,19 @@ namespace UacApi
                     _gender = tempGender;
                 else
                     throw new InvalidCastException("Could not convert gender!"); } }
-
         public string posessivePronoun
         {
             get
             {
-                if(gender == "M")
+                if(_gender == "M")
                     return "his";
                 
-                else if (gender == "F")
+                else if (_gender == "F")
                     return "her";
                 else
                     return "their";
             }
         }
-
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Address3 { get; set; }
@@ -114,38 +112,40 @@ namespace UacApi
 
         public bool Validate()
         {
-            bool ValidateSuccess = true;
+            bool validateSuccess = true;
 
-            ValidateSuccess = validateUsername() ? ValidateSuccess : false;
-            ValidateSuccess = validateEmail() ? ValidateSuccess : false;
+            validateSuccess = validateUsername() ? validateSuccess : false;
+            validateSuccess = validateEmail() ? validateSuccess : false;
             //ValidateSuccess = validatePwd() ? ValidateSuccess : false;
-            ValidateSuccess = validateForename() ? ValidateSuccess : false;
-            ValidateSuccess = validateSurname() ? ValidateSuccess : false;
-            ValidateSuccess = validateDob() ? ValidateSuccess : false;
-            ValidateSuccess = validateGender() ? ValidateSuccess : false;
-            ValidateSuccess = validateAddress1() ? ValidateSuccess : false;
-            ValidateSuccess = validateAddress2() ? ValidateSuccess : false;
-            ValidateSuccess = validateAddress3() ? ValidateSuccess : false;
-            ValidateSuccess = validatePostCode() ? ValidateSuccess : false;
-            ValidateSuccess = validateMobilePhone() ? ValidateSuccess : false;
-            ValidateSuccess = validateHomePhone() ? ValidateSuccess : false;
-            ValidateSuccess = validateWorkPhone() ? ValidateSuccess : false;
-            ValidateSuccess = validateDateTimeCreated() ? ValidateSuccess : false;
-            ValidateSuccess = validateAccountType() ? ValidateSuccess : false;
-            ValidateSuccess = validateAccountStatus() ? ValidateSuccess : false;
+            validateSuccess = validateForename() ? validateSuccess : false;
+            validateSuccess = validateSurname() ? validateSuccess : false;
+            validateSuccess = validateDob() ? validateSuccess : false;
+            validateSuccess = validateGender() ? validateSuccess : false;
+            validateSuccess = validateAddress1() ? validateSuccess : false;
+            validateSuccess = validateAddress2() ? validateSuccess : false;
+            validateSuccess = validateAddress3() ? validateSuccess : false;
+            validateSuccess = validatePostCode() ? validateSuccess : false;
+            validateSuccess = validateMobilePhone() ? validateSuccess : false;
+            validateSuccess = validateHomePhone() ? validateSuccess : false;
+            validateSuccess = validateWorkPhone() ? validateSuccess : false;
+            validateSuccess = validateDateTimeCreated() ? validateSuccess : false;
+            validateSuccess = validateAccountType() ? validateSuccess : false;
+            validateSuccess = validateAccountStatus() ? validateSuccess : false;
 
-            return ValidateSuccess;
+            new LogEntry(id) { text = "Validate success: " + validateSuccess };
+
+            return validateSuccess;
 
             bool validateUsername()
             {
                 if (Username.Length == 0)
                 {
-                    new LogEntry() { text = "Cannot create a user without a username!" };
+                    new LogEntry(id) { text = "Cannot create a user without a username! Username: " + Username };
                     return false;
                 }
                 else if (Username.Length > 50)
                 {
-                    new LogEntry() { text = String.Format("Username is {0} characters long. Username must be no longer than 50 characters!", Username.Length) };
+                    new LogEntry(id) { text = String.Format("Username is {0} characters long. Username must be no longer than 50 characters!", Username.Length) };
                     return false;
                 }
                 else
@@ -185,20 +185,20 @@ namespace UacApi
                             else
                             {
                                 //MyLog.Warning("Email address domain does not contain a \".\". Email address will be blank!");
-                                new LogEntry() { text = String.Format("Email address \"{0}\" does not contain a dot. Email addresses must contain a dot.", EmailAddress) };
+                                new LogEntry(id) { text = String.Format("Email address \"{0}\" does not contain a dot. Email addresses must contain a dot.", EmailAddress) };
                                 return false;
                             }
                         }
                         else
                         {
                             //MyLog.Warning("Email address contains too many @'s. Email address will be blank!");
-                            new LogEntry() { text = String.Format("Email address \"{0}\" contains too many '@' signs. Email addresses must contain only one '@' sign.", EmailAddress) };
+                            new LogEntry(id) { text = String.Format("Email address \"{0}\" contains too many '@' signs. Email addresses must contain only one '@' sign.", EmailAddress) };
                             return false;
                         }
                     }
                     else
                     {
-                        new LogEntry() { text = String.Format("Email address \"{0}\" does not contain an '@' sign. Email addresses must contain an '@' sign.", EmailAddress) };
+                        new LogEntry(id) { text = String.Format("Email address \"{0}\" does not contain an '@' sign. Email addresses must contain an '@' sign.", EmailAddress) };
                         //MyLog.Warning("Email address does not contain an \"@\" sign. Email address will be blank!");
                         return false;
                     }
@@ -231,12 +231,18 @@ namespace UacApi
 
             bool validateForename()
             {
-                return true;
+                if (Forename.Length > 0)
+                    return true;
+                else
+                    return false;
             }
 
             bool validateSurname()
             {
-                return true;
+                if (Surname.Length > 0)
+                    return true;
+                else
+                    return false;
             }
 
             
@@ -247,10 +253,10 @@ namespace UacApi
 
             bool validateGender()
             {
-                if(gender != null)
+                if(_gender != null)
                 {
-                    string tempGender = gender.ToString().ToUpper();
-                    if (tempGender == "M" || tempGender == "F" || tempGender == "O") return true; else { new LogEntry() { text = String.Format("Gender \"{0}\" is not M, F or O. Gender must be M, F or O.", tempGender) }; return false; };
+                    string tempGender = _gender.ToString().ToUpper();
+                    if (tempGender == "M" || tempGender == "F" || tempGender == "O") return true; else { new LogEntry(id) { text = String.Format("Gender \"{0}\" is not M, F or O. Gender must be M, F or O.", tempGender) }; return false; };
                 }
                 else
                 {
@@ -544,7 +550,7 @@ namespace UacApi
                             if (!silent)
                             {
                                 System.Diagnostics.Debug.WriteLine(String.Format("----------{0} logged in LOUDLY", fullName));
-                                new LogEntry() { text = String.Format("{0} logged in", fullName), userId = id  };
+                                new LogEntry(id) { text = String.Format("{0} logged in", fullName)  };
                             }
                             else
                             {
@@ -868,6 +874,24 @@ namespace UacApi
                             Debug.WriteLine("Email was not changed. Not updating email.");
                         }
 
+                        if (Pwd.Length > 0 && Pwd != dbPwd)
+                        {
+                            Debug.WriteLine("Updating password...");
+
+                            SqlCommand UpdatePwd = new SqlCommand("UPDATE t_Users SET Pwd = @pwd WHERE Username = @username", conn);
+
+                            UpdatePwd.Parameters.Add(new SqlParameter("username", Username));
+                            UpdatePwd.Parameters.Add(new SqlParameter("pwd", Pwd));
+
+                            UpdatePwd.ExecuteNonQuery();
+
+                            Debug.WriteLine("Password updated successfully!");
+                        }
+                        else
+                        {
+                            Debug.WriteLine("Password was not changed. Not updating password.");
+                        }
+
                         if (Forename != dbForename)
                         {
                             Debug.WriteLine("Updating forename...");
@@ -904,6 +928,24 @@ namespace UacApi
                             Debug.WriteLine("Surname was not changed. Not updating surname.");
                         }
 
+                        if (_gender != dbGender)
+                        {
+                            Debug.WriteLine("Updating gender ({0} != {1}...", _gender, dbGender);
+
+                            SqlCommand UpdateSurname = new SqlCommand("UPDATE t_Users SET Gender = @gender WHERE Username = @username", conn);
+
+                            UpdateSurname.Parameters.Add(new SqlParameter("username", Username));
+                            UpdateSurname.Parameters.Add(new SqlParameter("gender",  _gender));
+
+                            UpdateSurname.ExecuteNonQuery();
+
+                            Debug.WriteLine("Gender updated successfully!");
+                        }
+                        else
+                        {
+                            Debug.WriteLine("Gender was not changed. Not updating gender.");
+                        }
+
                         if (Dob != dbDob && Dob != DateTime.MinValue)
                         {
                             Debug.WriteLine("Updating dob...");
@@ -922,7 +964,7 @@ namespace UacApi
                             Debug.WriteLine("Dob was not changed. Not updatg dob.");
                         }
 
-                        if (dbGender != null && gender != null && dbGender != gender && (gender.ToString().ToUpper() == "M" || gender.ToString().ToUpper() == "F" || gender.ToString().ToUpper() == "O"))
+                        /*if (dbGender != null && gender != null && dbGender != gender && (gender.ToString().ToUpper() == "M" || gender.ToString().ToUpper() == "F" || gender.ToString().ToUpper() == "O"))
                         {
                             Debug.WriteLine("Updating gender...");
 
@@ -938,7 +980,7 @@ namespace UacApi
                         else
                         {
                             Debug.WriteLine("Gender was not changed. Not updating gender.");
-                        }
+                        }*/
 
                         if (Address1 != dbAddress1)
                         {
@@ -1158,11 +1200,10 @@ namespace UacApi
 
                         if (!UsernameExists())
                         {
-                            SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (id, Username, Forename, Surname, Pwd, DateTimeCreated) VALUES(NEWID(), @username, @fname, @sname, @pwd, @dateTimeCreated)", conn);
+                            SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (id, Username, Forename, Surname, DateTimeCreated) VALUES(NEWID(), @username, @fname, @sname, @dateTimeCreated)", conn);
                             InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
                             InsertIntoDb.Parameters.Add(new SqlParameter("fname", Forename.Trim()));
                             InsertIntoDb.Parameters.Add(new SqlParameter("sname", Surname.Trim()));
-                            InsertIntoDb.Parameters.Add(new SqlParameter("pwd", pPwd.Trim()));
                             InsertIntoDb.Parameters.Add(new SqlParameter("dateTimeCreated", ParsnipApi.Data.adjustedTime));
 
                             InsertIntoDb.ExecuteNonQuery();

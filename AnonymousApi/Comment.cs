@@ -21,21 +21,45 @@ namespace AnonymousApi
             date = ParsnipApi.Data.adjustedTime;
         }
 
-        public Comment(SqlDataReader reader)
+        public Comment(SqlDataReader pReader)
         {
-
+            id = new Guid(pReader[0].ToString());
+            userId = new Guid(pReader[1].ToString());
+            postId = new Guid(pReader[2].ToString());
+            date = Convert.ToDateTime(pReader[3]);
+            text = pReader[4].ToString();
         }
 
-        public bool UpdateDb()
+        public bool Insert()
         {
             SqlConnection temp = new SqlConnection(ParsnipApi.Data.sqlConnectionString);
             temp.Open();
-            return UpdateDb(temp);
+            return Insert(temp);
         }
 
-        public bool UpdateDb(SqlConnection pConn)
+        public bool Insert(SqlConnection pConn)
         {
+            try
+            {
+                using (pConn)
+                {
+                    SqlCommand insertComment = new SqlCommand("INSERT INTO t_Comments VALUES(@id, @userid, @postid, @date, @text)", pConn);
+                    insertComment.Parameters.Add(new SqlParameter("id", id));
+                    insertComment.Parameters.Add(new SqlParameter("userid", userId));
+                    insertComment.Parameters.Add(new SqlParameter("postid", postId));
+                    insertComment.Parameters.Add(new SqlParameter("date", date));
+                    insertComment.Parameters.Add(new SqlParameter("text", text));
 
+                    insertComment.ExecuteNonQuery();
+
+                    return true;
+                }
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("There was an exception whilst inserting the post comment: {1}", e);
+                return false;
+            }
         }
     }
 }

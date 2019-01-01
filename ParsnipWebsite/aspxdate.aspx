@@ -1,6 +1,20 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserForm.ascx.cs" Inherits="TheParsnipWeb.UserForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="aspxdate.aspx.cs" Inherits="ParsnipWebsite.aspxdate" %>
 
-<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" type="text/css" href="css/parsnipStyle.css" />
+        
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+    <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
 <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
 
 <!--Font Awesome (added because you use icons in your prepend/append)-->
@@ -8,8 +22,9 @@
 
 <!-- Inline CSS based on choices in "Settings" tab -->
 <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
-
-<form runat="server">
+</head>
+<body>
+    <form runat="server">
     <div class="center_div">
         <div class="alert alert-danger alert-dismissible" runat="server" style="display:none" id="Error">
              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -60,30 +75,6 @@
                 <option>Female</option>
                 <option>Other</option>
             </select>
-        </div>
-
-        <div class="form-group">
-            <label>Date Of Birth</label>
-            <div class="bootstrap-iso">
-                <div class="form-group ">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                        <input runat="server" class="form-control" id="dobInput" name="date" placeholder="DD/MM/YYYY" type="text" onkeyup="BenUpdate()" onchange="BenUpdate()"/>
-                    </div>
-                </div>        
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>DOB Copy 1</label>
-            <input type="text" class="form-control login" id="dobCopy1" />
-        </div>
-
-        <div class="form-group">
-            <label>DOB Copy 2</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="dobCopy2" />
         </div>
 
         <div class="form-group">
@@ -148,14 +139,52 @@
             <label class="form-check-label">Date Created</label>
             <input runat="server" class="form-control" type="text" placeholder="17/04/1999" id="dateTimeCreated" readonly>
         </div>
-
-
-            
-        <br />
-            
-        <asp:Button runat="server" ID="btnCreate" OnClick="btnCreate_Click" CssClass="btn btn-primary" Text="Create"></asp:Button>
     </div>
+        <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+
+        <div class="form-group">
+<div class="bootstrap-iso">
+ <div class="container-fluid">
+  <div class="row">
+   <div class="col-md-6 col-sm-6 col-xs-12">
+     <div class="form-group ">
+      <label class="control-label col-sm-2 requiredField" for="date">
+       Date
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <div class="col-sm-10">
+       <div class="input-group">
+        <div class="input-group-addon">
+         <i class="fa fa-calendar">
+         </i>
+        </div>
+        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+       </div>
+      </div>
+     </div>
+     <div class="form-group">
+      <div class="col-sm-10 col-sm-offset-2">
+       <button class="btn btn-primary " name="submit" type="submit">
+        Submit
+       </button>
+      </div>
+     </div>
+   </div>
+  </div>
+ </div>
+</div>
+            </div>
+
 </form>
+        
+
+
+
+
+
+    
     <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
 <!-- Include jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -168,38 +197,13 @@
 	$(document).ready(function(){
 		var date_input=$('input[name="date"]'); //our date input has the name "date"
 		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-		$("[id$=dobInput]").datepicker({
-			format: 'dd/mm/yyyy',
+		date_input.datepicker({
+			format: 'mm/dd/yyyy',
 			container: container,
 			todayHighlight: true,
 			autoclose: true,
 		})
-    })
-
-    var dobInput = document.getElementById("dobInput");
-    /*
-    alert("dobInput = " + dobInput);
-    alert("dobInput = " + dobInput.nodeValue);
-    alert("dobInput = " + dobInput.textContent);
-    alert("dobInput = " + dobInput.innerHTML);
-    alert("dobInput = " + dobInput.innerText);
-    */
-
-    function BenUpdate() {
-        var dobInput = document.getElementById('dobInput').value;
-        document.getElementById('dobCopy1').value = dobInput;
-    }
-
-    var dobCopy = document.getElementById("dobCopy");
-    dobInput.addEventListener('onchange')
-    {
-        alert("onchange");
-        dobCopy.nodeValue = dobInput.nodeValue;
-    }
-
-    dobInput.addEventListener('onclick')
-    {
-        alert("onchange");
-        dobCopy.nodeValue = dobInput.nodeValue;
-    }
+	})
 </script>
+</body>
+</html>

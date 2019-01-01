@@ -18,9 +18,11 @@
             <h1 class="display-4">Logs</h1>
             <p class="lead">View theparsnip.co.uk logs</p>
             <hr class="my-4" />
-            <p><adminControls:adminMenu runat="server" id="adminMenu1" /></p>
-                </div>
-        
+            <p><adminControls:adminMenu runat="server" id="adminMenu1" />
+        </div>
+        <div style="padding-bottom : 3%">
+            <asp:Button runat="server" ID="b_ClearLogs" Text="Clear" OnClick="b_ClearLogs_Click" CssClass="btn btn-primary" />
+        </div>
         <div class="table-wrapper-scroll-y">
             <asp:Table class="table table-bordered table-striped" runat="server" id="LogTable" />
         </div>

@@ -18,13 +18,13 @@ namespace TheParsnipWeb
 
             if (myUser.AccountType != "admin")
             {
-                new LogEntry() { text = String.Format("{0} attempted (and failed) to access the logs page via {1}", myUser.fullName, Data.deviceType), userId = myUser.id };
+                new LogEntry(myUser.id) { text = String.Format("{0} attempted (and failed) to access the logs page via {1}", myUser.fullName, Data.deviceType) };
                 Response.Redirect("access-denied?url=logs");
             }
 
             LogApi.Data.LoadLogEntries();
 
-            List<LogEntry> LogEntries = LogApi.Data.LogEntries.OrderByDescending(x => x.date ).ToList();
+            List<LogEntry> LogEntries = LogApi.Data.logEntries.OrderByDescending(x => x.date ).ToList();
 
             foreach (LogEntry myEntry in LogEntries)
             {
@@ -38,6 +38,12 @@ namespace TheParsnipWeb
 
                 LogTable.Rows.Add(MyRow);
             }
+        }
+
+        protected void b_ClearLogs_Click(object sender, EventArgs e)
+        {
+            LogApi.Data.ClearLogs();
+            Response.Redirect("logs");
         }
     }
 }

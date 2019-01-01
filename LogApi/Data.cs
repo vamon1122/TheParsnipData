@@ -12,11 +12,36 @@ namespace LogApi
     {
         public static List<LogEntry> logEntries { get; internal set; }
 
+        public static bool ClearLogs()
+        {
+            
+            try
+            {
+                using(SqlConnection conn = new SqlConnection(ParsnipApi.Data.sqlConnectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand deleteLogs = new SqlCommand("DELETE FROM t_LogEntries", conn);
+                    deleteLogs.ExecuteNonQuery();
+                }
+                System.Diagnostics.Debug.WriteLine("Logs were cleared");
+                logEntries.Clear();
+                new LogEntry(Guid.Empty) { text = "Logs were cleared!" };
+                return true;
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("There was an exception whilst deleteing log entries: {0}", e);
+                return false;
+            }
+        }
+
         public static bool LoadLogEntries()
         {
             try
             {
-                logEntries.Clear();
+                logEntries = new List<LogEntry>();
+                
                 using(SqlConnection conn = new SqlConnection(ParsnipApi.Data.sqlConnectionString))
                 {
                     conn.Open();
@@ -34,7 +59,8 @@ namespace LogApi
             }
             catch(Exception e)
             {
-                throw e;
+                System.Diagnostics.Debug.WriteLine("There was an exception whilst loading log entries: {0}", e);
+                return false;
             }
         }
     }

@@ -39,12 +39,12 @@ namespace UacApi
                 if (CanAccess)
                 {
                     System.Diagnostics.Debug.WriteLine("{0} is allowed to access {1}", myUser.fullName, pUrl);
-                    new LogEntry() { text = String.Format("{0} accessed the {1} page from {2} '{3}' device", myUser.fullName, pUrl, myUser.posessivePronoun, pDeviceType), userId = myUser.id };
+                    new LogEntry(myUser.id) { text = String.Format("{0} accessed the {1} page from {2} '{3}' device", myUser.fullName, pUrl, myUser.posessivePronoun, pDeviceType) };
                 }
                 else
                 {
                     System.Diagnostics.Debug.WriteLine("{0} is NOT allowed to access {1}", myUser.fullName, pUrl);
-                    new LogEntry() { text = String.Format("{0} attempted to access the {1} page from {2} '{3}' device but did not have sufficient permissions", myUser.fullName, pUrl, myUser.posessivePronoun, pDeviceType), userId = myUser.id };
+                    new LogEntry(myUser.id) { text = String.Format("{0} attempted to access the {1} page from {2} '{3}' device but did not have sufficient permissions", myUser.fullName, pUrl, myUser.posessivePronoun, pDeviceType) };
                     pPage.Response.Redirect(String.Format("access-denied?url={0}", pUrl));
                 }
 
@@ -52,7 +52,7 @@ namespace UacApi
             }
             else
             {
-                new LogEntry() { text = String.Format("Someone tried to access the {0} page from {1} '{2}' device, without logging in!", pUrl, myUser.posessivePronoun, pDeviceType), userId = myUser.id };
+                new LogEntry(myUser.id) { text = String.Format("Someone tried to access the {0} page from {1} '{2}' device, without logging in!", pUrl, myUser.posessivePronoun, pDeviceType) };
                 pPage.Response.Redirect(String.Format("login?url={0}", pUrl));
             }
 
