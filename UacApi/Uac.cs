@@ -22,14 +22,14 @@ namespace UacApi
                 switch (pAccountType)
                 {
                     case "admin":
-                        if (myUser.AccountType == "admin") CanAccess = true; else CanAccess = false;
+                        if (myUser.accountType == "admin") CanAccess = true; else CanAccess = false;
                         CanAccess = true;
                         break;
                     case "member":
-                        if (myUser.AccountType == "admin" || myUser.AccountType == "member") CanAccess = true; else CanAccess = false;
+                        if (myUser.accountType == "admin" || myUser.accountType == "member") CanAccess = true; else CanAccess = false;
                         break;
                     case "user":
-                        if (myUser.AccountType == "admin" || myUser.AccountType == "member" || myUser.AccountType == "user") CanAccess = true; else CanAccess = false;
+                        if (myUser.accountType == "admin" || myUser.accountType == "member" || myUser.accountType == "user") CanAccess = true; else CanAccess = false;
                         break;
                     default:
                         CanAccess = false;

@@ -15,7 +15,7 @@ namespace TheParsnipWeb
         {
             MyAccount = new User();
             MyAccount.LogIn();
-            Name.Text = MyAccount.Username;
+            Name.Text = MyAccount.username;
         }
 
         protected void LogOut_Click(object sender, EventArgs e)

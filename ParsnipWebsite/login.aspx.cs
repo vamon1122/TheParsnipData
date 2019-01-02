@@ -48,7 +48,7 @@ namespace TheParsnipWeb
                 {
 
                     AccountLog.Warning("Input username was reset");
-                    inputUsername.Text = myUser.Username;
+                    inputUsername.Text = myUser.username;
 
                 }
             }
@@ -56,8 +56,8 @@ namespace TheParsnipWeb
 
         private void WriteCookie()
         {
-            Cookie.WritePerm("accountType", myUser.AccountType);
-            System.Diagnostics.Debug.WriteLine("----------accountType = " + myUser.AccountType);
+            Cookie.WritePerm("accountType", myUser.accountType);
+            System.Diagnostics.Debug.WriteLine("----------accountType = " + myUser.accountType);
             System.Diagnostics.Debug.WriteLine("----------accountType = " + Cookie.Read("accountType"));
         }
 

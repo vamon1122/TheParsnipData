@@ -16,7 +16,7 @@ namespace TheParsnipWeb
         {
             myUser = Uac.SecurePage("logs", this, Data.deviceType, "admin");
 
-            if (myUser.AccountType != "admin")
+            if (myUser.accountType != "admin")
             {
                 new LogEntry(myUser.id) { text = String.Format("{0} attempted (and failed) to access the logs page via {1}", myUser.fullName, Data.deviceType) };
                 Response.Redirect("access-denied?url=logs");

@@ -12,12 +12,14 @@ namespace TheParsnipWeb
 {
     public partial class UserForm1 : System.Web.UI.UserControl
     {
-        User myUser;
+        public User myUser;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             //UpdateForm();
         }
+
+        
 
         public UserForm1()
         {
@@ -27,56 +29,61 @@ namespace TheParsnipWeb
         public UserForm1(User pUser)
         {
             myUser = pUser;
-            //dateTimeCreated.Value = myUser.DateTimeCreated.Date.ToString();
-            //UpdateForm();
         }
 
-        void UpdateForm()
+        public void UpdateForm()
         {
-            username.Text = myUser.Username;
-            email.Text = myUser.Email;
+            System.Diagnostics.Debug.WriteLine("----------UpdateForm()");
+            System.Diagnostics.Debug.WriteLine("----------username = " + username);
+            System.Diagnostics.Debug.WriteLine("----------myUser.username = " + myUser.username);
+            username.Text = myUser.username;
+            email.Text = myUser.email;
             //updatePwd()
-            forename.Text = myUser.Forename;
-            surname.Text = myUser.Surname;
+            forename.Text = myUser.forename;
+            surname.Text = myUser.surname;
             gender.Value = myUser.Gender;
-            dobInput.Value = myUser.Dob.ToString();
-            address1.Text = myUser.Address1;
-            address2.Text = myUser.Address2;
-            address3.Text = myUser.Address3;
-            postCode.Text = myUser.PostCode;
-            mobilePhone.Text = myUser.MobilePhone;
-            homePhone.Text = myUser.HomePhone;
-            workPhone.Text = myUser.WorkPhone;
-            dateTimeCreated.Value = myUser.DateTimeCreated.Date.ToString("dd/MM/yyyy");
-            accountType.Value = myUser.AccountType;
-            accountStatus.Value = myUser.AccountStatus;
+            if (myUser.dob.ToString("dd/MM/yyyy") != "01/01/0001")
+                dobInput.Value = myUser.dob.ToString("dd/MM/yyyy");
+            else
+                dobInput.Value = "";
+            address1.Text = myUser.address1;
+            address2.Text = myUser.address2;
+            address3.Text = myUser.address3;
+            postCode.Text = myUser.postCode;
+            mobilePhone.Text = myUser.mobilePhone;
+            homePhone.Text = myUser.homePhone;
+            workPhone.Text = myUser.workPhone;
+            dateTimeCreated.Attributes.Remove("placeholder");
+            dateTimeCreated.Attributes.Add("placeholder", myUser.dateTimeCreated.Date.ToString("dd/MM/yyyy"));
+            accountType.Value = myUser.accountType;
+            accountStatus.Value = myUser.accountStatus;
         }
 
         void UpdateFormAccount()
         {
             System.Diagnostics.Debug.WriteLine(string.Format("username.Text = {0}", username.Text));
             System.Diagnostics.Debug.WriteLine(string.Format("forename.Text = {0}", forename.Text));
-            myUser.Username = username.Text;
+            myUser.username = username.Text;
             System.Diagnostics.Debug.WriteLine(string.Format("myUser.Username = username.Text ({0})", username.Text));
 
-            myUser.Email = email.Text;
-            myUser.Pwd = password1.Text;
-            myUser.Forename = forename.Text;
-            myUser.Surname = surname.Text;
+            myUser.email = email.Text;
+            myUser.pwd = password1.Text;
+            myUser.forename = forename.Text;
+            myUser.surname = surname.Text;
             myUser.Gender = gender.Value.Substring(0, 1);
             System.Diagnostics.Debug.WriteLine("DOB = " + dobInput.Value);
-            myUser.Dob = Convert.ToDateTime(dobInput.Value);
-            myUser.Address1 = address1.Text;
-            myUser.Address2 = address2.Text;
-            myUser.Address3 = address3.Text;
-            myUser.PostCode = postCode.Text;
-            myUser.MobilePhone = mobilePhone.Text;
-            myUser.HomePhone = homePhone.Text;
-            myUser.WorkPhone = workPhone.Text;
-            myUser.DateTimeCreated = ParsnipApi.Data.adjustedTime;
-            myUser.AccountType = accountType.Value;
-            myUser.AccountStatus = accountStatus.Value;
-            myUser.AccountType = accountType.Value;
+            myUser.dob = Convert.ToDateTime(dobInput.Value);
+            myUser.address1 = address1.Text;
+            myUser.address2 = address2.Text;
+            myUser.address3 = address3.Text;
+            myUser.postCode = postCode.Text;
+            myUser.mobilePhone = mobilePhone.Text;
+            myUser.homePhone = homePhone.Text;
+            myUser.workPhone = workPhone.Text;
+            myUser.dateTimeCreated = ParsnipApi.Data.adjustedTime;
+            myUser.accountType = accountType.Value;
+            myUser.accountStatus = accountStatus.Value;
+            myUser.accountType = accountType.Value;
 
         }
 

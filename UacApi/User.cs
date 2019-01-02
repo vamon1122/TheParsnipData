@@ -18,14 +18,20 @@ namespace UacApi
         private LogWriter AccountLog;
         private static string sqlConnectionString = ParsnipApi.Data.sqlConnectionString;
 
-        public Guid id { get; private set; }
+        private Guid _id;
+        public Guid id { get { return _id; } private set { Debug.WriteLine(string.Format("----------id is being set to = {0}", value)); _id = value; } }
         private string _username;
-        public string Username { get { return _username; } set { _username = value; System.Diagnostics.Debug.WriteLine(string.Format("Username was changed to {0}", _username));  } }
-        public string Email { get; set; }
-        public string Pwd { get; set; }
-        public string Forename { get; set; }
-        public string Surname { get; set; }
-        public DateTime Dob { get; set; }
+        public string username { get { return _username; } set { Debug.WriteLine(string.Format("----------username is being set to = {0}", value)); _username = value; } }
+        private string _email;
+        public string email { get { return _email; } set { Debug.WriteLine(string.Format("----------email is being set to = {0}", value)); _email = value; } }
+        private string _pwd;
+        public string pwd { get { return _pwd; } set { Debug.WriteLine(string.Format("----------pwd is being set to = {0}", value)); _pwd = value; } }
+        private string _forename;
+        public string forename { get { return _forename; } set { Debug.WriteLine(string.Format("----------forename is being set to = {0}", value)); _forename = value; } }
+        private string _surname;
+        public string surname { get { return _surname; } set { Debug.WriteLine(string.Format("----------surname is being set to = {0}", value)); _surname = value; } }
+        private DateTime _dob;
+        public DateTime dob { get { return _dob; } set { Debug.WriteLine(string.Format("----------dob is being set to = {0}", value)); _dob = value; } }
         private string _gender;
         public string Gender
         {
@@ -45,6 +51,7 @@ namespace UacApi
             }
             set
             {
+                Debug.WriteLine(string.Format("----------Gender is being set to = {0}", value));
                 gender = value;
             }
         }
@@ -65,11 +72,18 @@ namespace UacApi
             }
             set
             {
-                string tempGender = value.Substring(0, 1).ToUpper();
-                if (tempGender == "M" || tempGender == "F" || tempGender == "O")
-                    _gender = tempGender;
-                else
-                    throw new InvalidCastException("Could not convert gender!"); } }
+                Debug.WriteLine(string.Format("----------gender is being set to = {0}", value));
+                if(value.Length > 0)
+                {
+                    string tempGender = value.Substring(0, 1).ToUpper();
+                    if (tempGender == "M" || tempGender == "F" || tempGender == "O")
+                        _gender = tempGender;
+                    else
+                        throw new InvalidCastException("Could not convert gender!");
+                }
+            }
+        }
+                
         public string posessivePronoun
         {
             get
@@ -83,31 +97,48 @@ namespace UacApi
                     return "their";
             }
         }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string Address3 { get; set; }
-        public string PostCode { get; set; }
-        public string MobilePhone { get; set; }
-        public string HomePhone { get; set; }
-        public string WorkPhone { get; set; }
-        public DateTime DateTimeCreated { get; set; }
-        public DateTime LastLogIn { get; set; }
-        public string AccountType { get; set; }
-        public string AccountStatus { get; set; }
-        public Guid CreatedByUserId { get; set; }
-        public string fullName { get { return string.Format("{0} {1}", Forename, Surname); } }
+        private string _address1;
+        public string address1 { get { return _address1; } set { Debug.WriteLine(string.Format("----------address1 is being set to = {0}", value)); _address1 = value; } }
+        private string _address2;
+        public string address2 { get { return _address2; } set { Debug.WriteLine(string.Format("----------address2 is being set to = {0}", value)); _address2 = value; } }
+        private string _address3;
+        public string address3 { get { return _address3; } set { Debug.WriteLine(string.Format("----------address3 is being set to = {0}", value)); _address3 = value; } }
+        private string _postCode;
+        public string postCode { get { return _postCode; } set { Debug.WriteLine(string.Format("----------postCode is being set to = {0}", value)); _postCode = value; } }
+        private string _mobilePhone;
+        public string mobilePhone { get { return _mobilePhone; } set { Debug.WriteLine(string.Format("----------mobilePhone is being set to = {0}", value)); _mobilePhone = value; } }
+        private string _homePhone;
+        public string homePhone { get { return _homePhone; } set { Debug.WriteLine(string.Format("----------homePhone is being set to = {0}", value)); _homePhone = value; } }
+        private string _workPhone;
+        public string workPhone { get { return _workPhone; } set { Debug.WriteLine(string.Format("----------workPhone is being set to = {0}", value)); _workPhone = value; } }
+        private DateTime _dateTimeCreated;
+        public DateTime dateTimeCreated { get { return _dateTimeCreated; } set { Debug.WriteLine(string.Format("----------dateTimeCreated is being set to = {0}", value)); _dateTimeCreated = value; } }
+        private DateTime _lastLogIn;
+        public DateTime lastLogIn { get { return _lastLogIn; } set { Debug.WriteLine(string.Format("----------lastLogIn is being set to = {0}", value)); _lastLogIn = value; } }
+        private string _accountType;
+        public string accountType { get { return _accountType; } set { Debug.WriteLine(string.Format("----------accountType is being set to = {0}", value)); _accountType = value; } }
+        private string _accountStatus;
+        public string accountStatus { get { return _accountStatus; } set { Debug.WriteLine(string.Format("----------accountStatus is being set to = {0}", value)); _accountStatus = value; } }
+        private Guid _createdByUserId;
+        public Guid createdByUserId { get { return _createdByUserId; } set { Debug.WriteLine(string.Format("----------createdByUserId is being set to = {0}", value)); _createdByUserId = value; } }
+        public string fullName { get { return string.Format("{0} {1}", forename, surname); } }
 
 
         public User()
         {
             id = Guid.NewGuid();
-            DateTimeCreated = ParsnipApi.Data.adjustedTime;
+            dateTimeCreated = ParsnipApi.Data.adjustedTime;
             AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
         public User(Guid pGuid)
         {
             id = pGuid;
+        }
+
+        public User(SqlDataReader pReader)
+        {
+            AddValues(pReader);
         }
 
         public bool Validate()
@@ -138,14 +169,14 @@ namespace UacApi
 
             bool validateUsername()
             {
-                if (Username.Length == 0)
+                if (username.Length == 0)
                 {
-                    new LogEntry(id) { text = "Cannot create a user without a username! Username: " + Username };
+                    new LogEntry(id) { text = "Cannot create a user without a username! Username: " + username };
                     return false;
                 }
-                else if (Username.Length > 50)
+                else if (username.Length > 50)
                 {
-                    new LogEntry(id) { text = String.Format("Username is {0} characters long. Username must be no longer than 50 characters!", Username.Length) };
+                    new LogEntry(id) { text = String.Format("Username is {0} characters long. Username must be no longer than 50 characters!", username.Length) };
                     return false;
                 }
                 else
@@ -156,7 +187,7 @@ namespace UacApi
 
             bool validateEmail()
             {
-                string EmailAddress = Email;
+                string EmailAddress = email;
 
                 if (EmailAddress.Length != 0)
                 {
@@ -231,7 +262,7 @@ namespace UacApi
 
             bool validateForename()
             {
-                if (Forename.Length > 0)
+                if (forename.Length > 0)
                     return true;
                 else
                     return false;
@@ -239,7 +270,7 @@ namespace UacApi
 
             bool validateSurname()
             {
-                if (Surname.Length > 0)
+                if (surname.Length > 0)
                     return true;
                 else
                     return false;
@@ -327,9 +358,9 @@ namespace UacApi
 
             if (Cookie.Read("userName") != null)
             {
-                Username = Cookie.Read("userName");
-                AccountLog.Debug("Found a username cookie! Username = " + Username);
-                UserDetails[0] = Username;
+                username = Cookie.Read("userName");
+                AccountLog.Debug("Found a username cookie! Username = " + username);
+                UserDetails[0] = username;
             }
             else
             {
@@ -362,7 +393,7 @@ namespace UacApi
         {   
             string[] Cookies = GetCookies();
             string CookieUsername = Cookies[0];
-            Username = Cookies[0];
+            username = Cookies[0];
             string CookiePwd = Cookies[1];
             
 
@@ -389,100 +420,94 @@ namespace UacApi
 
         internal bool LogIn(string pUsername)
         {
-            Username = pUsername;
-            return DbSelect(new SqlConnection(sqlConnectionString));
+            username = pUsername;
+            return Select(new SqlConnection(sqlConnectionString));
         }
 
-        internal bool DbSelect(SqlConnection pConn)
+        internal bool AddValues(SqlDataReader pReader)
+        {
+            Debug.WriteLine("----------Adding values...");
+            try
+            {
+                Debug.WriteLine("----------Reading id");
+                id = new Guid(pReader[0].ToString());
+                Debug.WriteLine("----------Reading username");
+                username = pReader[1].ToString().Trim();
+                Debug.WriteLine("----------Reading email");
+                email = pReader[2].ToString().Trim();
+                //Debug.WriteLine("----------Reading pwd");
+                //pwd = pReader[3].ToString().Trim();
+                Debug.WriteLine("----------Reading forename");
+                forename = pReader[4].ToString().Trim();
+                Debug.WriteLine("----------Reading surname");
+                surname = pReader[5].ToString().Trim();
+                Debug.WriteLine("----------Reading dob");
+                dob = Convert.ToDateTime(pReader[6]);
+                Debug.WriteLine("----------Reading gender");
+                gender = pReader[7].ToString();
+                Debug.WriteLine("----------Reading address1");
+                address1 = pReader[8].ToString().Trim();
+                Debug.WriteLine("----------Reading address2");
+                address2 = pReader[9].ToString().Trim();
+                Debug.WriteLine("----------Reading address3");
+                address3 = pReader[10].ToString().Trim();
+                Debug.WriteLine("----------Reading postCode");
+                postCode = pReader[11].ToString().Trim();
+                Debug.WriteLine("----------Reading mobilePhone");
+                mobilePhone = pReader[12].ToString().Trim();
+                Debug.WriteLine("----------Reading homePhone");
+                homePhone = pReader[13].ToString().Trim();
+                Debug.WriteLine("----------Reading workPhone");
+                workPhone = pReader[14].ToString().Trim();
+                Debug.WriteLine("----------Reading dateTimeCreated");
+                dateTimeCreated = Convert.ToDateTime(pReader[15]);
+                Debug.WriteLine("----------Reading lastLogIn");
+                lastLogIn = Convert.ToDateTime(pReader[16]);
+                Debug.WriteLine("----------Reading accountType");
+                accountType = pReader[17].ToString().Trim();
+                Debug.WriteLine("----------Reading accountStatus");
+                accountStatus = pReader[18].ToString().Trim();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("There was an error whilst reading the User's values: ", e);
+                return false;
+            }
+        }
+
+        internal bool Select()
+        {
+            return Select(new SqlConnection(ParsnipApi.Data.sqlConnectionString));
+        }
+
+        internal bool Select(SqlConnection pConn)
         {
             AccountLog.Debug("Attempting to get user details...");
-
-            string[] DbAccountDetails = DbSelectValues(pConn);
-            
-            User ValidateMe = new User(new Guid(DbAccountDetails[0].ToString())) {
-                Username = DbAccountDetails[1].ToString().Trim(),
-                Email = DbAccountDetails[2].ToString().Trim(),
-                Pwd = DbAccountDetails[3].ToString().Trim(),
-                Forename = DbAccountDetails[4].ToString().Trim(),
-                Surname = DbAccountDetails[5].ToString().Trim(),
-                Dob = Convert.ToDateTime(DbAccountDetails[6]),
-                gender = DbAccountDetails[7].ToString(),
-                Address1 = DbAccountDetails[8].ToString().Trim(),
-                Address2 = DbAccountDetails[9].ToString().Trim(),
-                Address3 = DbAccountDetails[10].ToString().Trim(),
-                PostCode = DbAccountDetails[11].ToString().Trim(),
-                MobilePhone = DbAccountDetails[12].ToString().Trim(),
-                HomePhone = DbAccountDetails[13].ToString().Trim(),
-                WorkPhone = DbAccountDetails[14].ToString().Trim(),
-                DateTimeCreated = Convert.ToDateTime(DbAccountDetails[15]),
-                LastLogIn = Convert.ToDateTime(DbAccountDetails[16]),
-                AccountType = DbAccountDetails[17].ToString().Trim(),
-                AccountStatus = DbAccountDetails[18].ToString().Trim()
-        };
-
-            if (ValidateMe.Validate())
-            {
-                id = new Guid(DbAccountDetails[0].ToString());
-                Username = DbAccountDetails[1].ToString().Trim();
-                Email = DbAccountDetails[2].ToString().Trim();
-                //Pwd = DbAccountDetails[3].ToString().Trim();
-                Forename = DbAccountDetails[4].ToString().Trim();
-                Surname = DbAccountDetails[5].ToString().Trim();
-                Dob = Convert.ToDateTime(DbAccountDetails[6]);
-                gender = DbAccountDetails[6].ToString();
-                Address1 = DbAccountDetails[7].ToString().Trim();
-                Address2 = DbAccountDetails[8].ToString().Trim();
-                Address3 = DbAccountDetails[9].ToString().Trim();
-                PostCode = DbAccountDetails[10].ToString().Trim();
-                MobilePhone = DbAccountDetails[11].ToString().Trim();
-                HomePhone = DbAccountDetails[12].ToString().Trim();
-                WorkPhone = DbAccountDetails[13].ToString().Trim();
-                DateTimeCreated = Convert.ToDateTime(DbAccountDetails[14]);
-                LastLogIn = Convert.ToDateTime(DbAccountDetails[15]);
-                AccountType = DbAccountDetails[16].ToString().Trim();
-                AccountStatus = DbAccountDetails[17].ToString().Trim();
-            }
-
-            
-            
-            AccountLog.Debug("Got user's details successfully!");
-
-            return true;
-        }
-
-        private string[] DbSelectValues(SqlConnection pConn)
-        {
             Debug.WriteLine("Attempting to get user details...");
-            string[] rVals = new string[19];
+            
             try
             {
                 SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Users WHERE Username = @username", pConn);
-                SelectAccount.Parameters.Add(new SqlParameter("username", Username));
+                SelectAccount.Parameters.Add(new SqlParameter("username", username));
 
                 using (SqlDataReader reader = SelectAccount.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        for(int i = 0; i < 19; i++)
-                        {
-                            Debug.WriteLine("----------1-{0}", i);
-                            /*if(reader[i] != DBNull.Value)
-                            {*/
-                            Debug.WriteLine(String.Format("reader[{0}].ToString().Trim() = {1} (rVals[{0}] = {1})", i, reader[i].ToString().Trim()));
-                            rVals[i] = reader[i].ToString().Trim();
-                            Debug.WriteLine("----------2-{0}", i);
-                            //}
-                        }
+                        AddValues(reader);
                     }
                 }
+                Debug.WriteLine("Got user's details successfully!");
+                AccountLog.Debug("Got user's details successfully!");
+                return true;
             }
             catch (Exception e)
             {
                 Debug.WriteLine("There was an exception whilst getting user data: " + e);
-                throw e;
+                return false;
             }
-            Debug.WriteLine("Got user's details successfully!");
-            return rVals;
         }
 
         public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
@@ -497,7 +522,7 @@ namespace UacApi
             
 
             string dbPwd = null;
-            Username = pUsername;
+            username = pUsername;
 
             using (SqlConnection conn = new SqlConnection(sqlConnectionString))
             {
@@ -576,9 +601,9 @@ namespace UacApi
                     AccountLog.Debug("[LogIn] Attempting to set LastLogIn...");
                     try
                     {
-                        AccountLog.Debug("username = " + Username);
+                        AccountLog.Debug("username = " + username);
                         SqlCommand Command = new SqlCommand("UPDATE t_Users SET LastLogIn = GETDATE() WHERE Username = @Username;", conn);
-                        Command.Parameters.Add(new SqlParameter("Username", Username));
+                        Command.Parameters.Add(new SqlParameter("Username", username));
                         RecordsAffected = Command.ExecuteNonQuery();
                         
                     }
@@ -623,28 +648,28 @@ namespace UacApi
                     try
                     {
                         SqlCommand GetLogInDetails = new SqlCommand("SELECT * FROM t_Users WHERE Username = @Username", conn);
-                        GetLogInDetails.Parameters.Add(new SqlParameter("Username", Username));
+                        GetLogInDetails.Parameters.Add(new SqlParameter("Username", username));
 
                         using (SqlDataReader reader = GetLogInDetails.ExecuteReader())
                         {
                             while (reader.Read())
                             {
                                 id = new Guid(reader[0].ToString());
-                                Username = reader[1].ToString();
+                                username = reader[1].ToString();
 
                                 if (reader[2] != DBNull.Value)
                                 {
-                                    Email = reader[2].ToString().Trim();
+                                    email = reader[2].ToString().Trim();
                                 }
 
-                                Pwd = reader[3].ToString();
+                                pwd = reader[3].ToString();
                                 
-                                Forename = reader[4].ToString().Trim();
-                                Surname = reader[5].ToString().Trim();
+                                forename = reader[4].ToString().Trim();
+                                surname = reader[5].ToString().Trim();
 
                                 if(reader[6] != DBNull.Value)
                                 {
-                                    Dob = Convert.ToDateTime(reader[6]);
+                                    dob = Convert.ToDateTime(reader[6]);
                                 }
 
                                 if (reader[7] != DBNull.Value)
@@ -654,49 +679,49 @@ namespace UacApi
 
                                 if (reader[8] != DBNull.Value)
                                 {
-                                    Address1 = reader[8].ToString().Trim();
+                                    address1 = reader[8].ToString().Trim();
                                 }
 
                                 if (reader[9] != DBNull.Value)
                                 {
-                                    Address2 = reader[9].ToString().Trim();
+                                    address2 = reader[9].ToString().Trim();
                                 }
 
                                 if (reader[10] != DBNull.Value)
                                 {
-                                    Address3 = reader[10].ToString().Trim();
+                                    address3 = reader[10].ToString().Trim();
                                 }
 
                                 if (reader[11] != DBNull.Value)
                                 {
-                                    PostCode = reader[11].ToString().Trim();
+                                    postCode = reader[11].ToString().Trim();
                                 }
 
                                 if (reader[12] != DBNull.Value)
                                 {
-                                    MobilePhone = reader[12].ToString().Trim();
+                                    mobilePhone = reader[12].ToString().Trim();
                                 }
 
                                 if (reader[13] != DBNull.Value)
                                 {
-                                    HomePhone = reader[13].ToString().Trim();
+                                    homePhone = reader[13].ToString().Trim();
                                 }
 
                                 if (reader[14] != DBNull.Value)
                                 {
-                                    WorkPhone = reader[14].ToString().Trim();
+                                    workPhone = reader[14].ToString().Trim();
                                 }
 
-                                DateTimeCreated = Convert.ToDateTime(reader[15]);
+                                dateTimeCreated = Convert.ToDateTime(reader[15]);
 
                                 if(reader[16] != DBNull.Value)
                                 {
-                                    LastLogIn = Convert.ToDateTime(reader[16]);
+                                    lastLogIn = Convert.ToDateTime(reader[16]);
                                 }
 
-                                AccountType = reader[17].ToString().Trim();
+                                accountType = reader[17].ToString().Trim();
 
-                                AccountStatus = reader[18].ToString().Trim();
+                                accountStatus = reader[18].ToString().Trim();
                             }
                         }
                     }
@@ -739,113 +764,16 @@ namespace UacApi
                     {
                         conn.Open();
 
-                        string[] dbAccountDetails = DbSelectValues(conn);
-
-                        if(dbAccountDetails == null)
-                        {
-                            Debug.WriteLine("No details were retrieved 1");
-                        }
-
-                        if (dbAccountDetails[0] == null)
-                        {
-                            Debug.WriteLine("No details were retrieved 2");
-                        }
-
-                        Debug.WriteLine(String.Format("string dbId: Converting x = DbAccountDetails[0] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[0]));
-                        string dbId = dbAccountDetails[0].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string dbUsername: Converting x = DbAccountDetails[1] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[1]));
-                        string dbUsername = dbAccountDetails[1].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string dbEmail: Converting x = DbAccountDetails[2] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[2]));
-                        string dbEmail = dbAccountDetails[2].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string dbPwd: Converting x = DbAccountDetails[3] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[3]));
-                        string dbPwd = dbAccountDetails[3].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string dbForename: Converting x = DbAccountDetails[4] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[4]));
-                        string dbForename = dbAccountDetails[4].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string DbSurname: Converting x = DbAccountDetails[5] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[5]));
-                        string dbSurname = dbAccountDetails[5].ToString().Trim();
-
-                        DateTime dbDob;
-                        if (dbAccountDetails[6] == String.Empty || dbAccountDetails[6].ToString() == String.Empty)
-                        {
-                            Debug.WriteLine(String.Format("string dbDob: Converting x = DbAccountDetails[6] / x = \"{0}\" (DateTime.MinValue)", dbAccountDetails[6]));
-                            dbDob = DateTime.MinValue;
-                        }
-                        else
-                        {
-                            Debug.WriteLine(String.Format("string dbDob: Converting x = DbAccountDetails[6] / x = \"{0}\" (Convert.ToDateTime(x))", dbAccountDetails[6]));
-                            dbDob = Convert.ToDateTime(dbAccountDetails[6]);
-                        }
-
-                        string dbGender = "";
-                        if (dbAccountDetails[7] != String.Empty || dbAccountDetails[7].ToString() != String.Empty)
-                        {
-                            Debug.WriteLine(String.Format("string dbGender: Converting x = DbAccountDetails[7] / x = \"{0}\"", dbAccountDetails[7]));
-                            dbGender = dbAccountDetails[7].ToString();
-                        }
-
-                        Debug.WriteLine(String.Format("string dbAddress1: Converting x = DbAccountDetails[8] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[8]));
-                        string dbAddress1 = dbAccountDetails[8].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string dbAddress2: Converting x = DbAccountDetails[9] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[9]));
-                        string dbAddress2 = dbAccountDetails[9].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string dbAddress3: Converting x = DbAccountDetails[10] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[10]));
-                        string dbAddress3 = dbAccountDetails[10].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string dbPostCode: Converting x = DbAccountDetails[11] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[11]));
-                        string dbPostCode = dbAccountDetails[11].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string dbMobilePhone: Converting x = DbAccountDetails[12] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[12]));
-                        string dbMobilePhone = dbAccountDetails[12].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string dbHomePhone: Converting x = DbAccountDetails[13] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[13]));
-                        string dbHomePhone = dbAccountDetails[13].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string dbWorkPhone: Converting x = DbAccountDetails[14] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[14]));
-                        string dbWorkPhone = dbAccountDetails[14].ToString().Trim();
-
-                        DateTime dbDateTimeCreated;
-                        if (dbAccountDetails[15] == String.Empty || dbAccountDetails[15].ToString() == String.Empty)
-                        {
-                            Debug.WriteLine(String.Format("string DbDateTimeCreated: Converting x = DbAccountDetails[15] / x = \"{0}\" (DateTime.MinValue)", dbAccountDetails[15]));
-                            dbDateTimeCreated = DateTime.MinValue;
-                        }
-                        else
-                        {
-                            Debug.WriteLine(String.Format("string DbDateTimeCreated: Converting x = DbAccountDetails[15] / x = \"{0}\" (Convert.ToDateTime(x))", dbAccountDetails[15]));
-                            dbDateTimeCreated = Convert.ToDateTime(dbAccountDetails[15]);
-                        }
-
-                        DateTime dbLastLogIn;
-                        if (dbAccountDetails[16] == String.Empty || dbAccountDetails[16].ToString() == String.Empty)
-                        {
-                            Debug.WriteLine(String.Format("string DbLastLogIn: Converting x = DbAccountDetails[16] / x = \"{0}\" (DateTime.MinValue)", dbAccountDetails[16]));
-                            dbLastLogIn = DateTime.MinValue;
-                        }
-                        else
-                        {
-                            Debug.WriteLine(String.Format("string DbLastLogIn: Converting x = DbAccountDetails[16] / x = \"{0}\" (Convert.ToDateTime(x))", dbAccountDetails[16]));
-                            dbLastLogIn = Convert.ToDateTime(dbAccountDetails[16]);
-                        }
-
-                        Debug.WriteLine(String.Format("string DbAccountType: Converting x = DbAccountDetails[17] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[17]));
-                        string DbAccountType = dbAccountDetails[17].ToString().Trim();
-
-                        Debug.WriteLine(String.Format("string DbAccountStatus: Converting x = DbAccountDetails[18] / x = \"{0}\" (x.ToString()Trim()).", dbAccountDetails[18]));
-                        string DbAccountStatus = dbAccountDetails[18].ToString().Trim();
+                        User temp = new User(id);
+                        temp.Select();
                         
-                        if(Username != dbUsername)
+                        if(username != temp.username)
                         {
                             Debug.WriteLine("Updating username...");
 
                             SqlCommand UpdateUsername = new SqlCommand("UPDATE t_Users SET Username = @username WHERE Username = @username", conn);
 
-                            UpdateUsername.Parameters.Add(new SqlParameter("username", Username));
+                            UpdateUsername.Parameters.Add(new SqlParameter("username", username));
 
                             UpdateUsername.ExecuteNonQuery();
 
@@ -856,14 +784,14 @@ namespace UacApi
                             Debug.WriteLine("Username was not changed. Not updating username.");
                         }
                         
-                        if(Email != dbEmail)
+                        if(email != temp.email)
                         {
                             Debug.WriteLine("Updating email...");
 
                             SqlCommand UpdateEmail = new SqlCommand("UPDATE t_Users SET Email = @email WHERE Username = @username", conn);
 
-                            UpdateEmail.Parameters.Add(new SqlParameter("username", Username));
-                            UpdateEmail.Parameters.Add(new SqlParameter("email", Email));
+                            UpdateEmail.Parameters.Add(new SqlParameter("username", username));
+                            UpdateEmail.Parameters.Add(new SqlParameter("email", email));
 
                             UpdateEmail.ExecuteNonQuery();
 
@@ -874,14 +802,14 @@ namespace UacApi
                             Debug.WriteLine("Email was not changed. Not updating email.");
                         }
 
-                        if (Pwd.Length > 0 && Pwd != dbPwd)
+                        if (pwd.Length > 0 && pwd != temp.pwd)
                         {
                             Debug.WriteLine("Updating password...");
 
                             SqlCommand UpdatePwd = new SqlCommand("UPDATE t_Users SET Pwd = @pwd WHERE Username = @username", conn);
 
-                            UpdatePwd.Parameters.Add(new SqlParameter("username", Username));
-                            UpdatePwd.Parameters.Add(new SqlParameter("pwd", Pwd));
+                            UpdatePwd.Parameters.Add(new SqlParameter("username", username));
+                            UpdatePwd.Parameters.Add(new SqlParameter("pwd", pwd));
 
                             UpdatePwd.ExecuteNonQuery();
 
@@ -892,14 +820,14 @@ namespace UacApi
                             Debug.WriteLine("Password was not changed. Not updating password.");
                         }
 
-                        if (Forename != dbForename)
+                        if (forename != temp.forename)
                         {
                             Debug.WriteLine("Updating forename...");
 
                             SqlCommand UpdateForename = new SqlCommand("UPDATE t_Users SET Forename = @forename WHERE Username = @username", conn);
 
-                            UpdateForename.Parameters.Add(new SqlParameter("username", Username));
-                            UpdateForename.Parameters.Add(new SqlParameter("forename", Email));
+                            UpdateForename.Parameters.Add(new SqlParameter("username", username));
+                            UpdateForename.Parameters.Add(new SqlParameter("forename", email));
 
                             UpdateForename.ExecuteNonQuery();
 
@@ -910,14 +838,14 @@ namespace UacApi
                             Debug.WriteLine("Forename was not changed. Not updating forename.");
                         }
 
-                        if (Surname != dbSurname)
+                        if (surname != temp.surname)
                         {
                             Debug.WriteLine("Updating surname...");
 
                             SqlCommand UpdateSurname = new SqlCommand("UPDATE t_Users SET Surname = @surname WHERE Username = @username", conn);
 
-                            UpdateSurname.Parameters.Add(new SqlParameter("username", Username));
-                            UpdateSurname.Parameters.Add(new SqlParameter("surname", Surname));
+                            UpdateSurname.Parameters.Add(new SqlParameter("username", username));
+                            UpdateSurname.Parameters.Add(new SqlParameter("surname", surname));
 
                             UpdateSurname.ExecuteNonQuery();
 
@@ -928,13 +856,13 @@ namespace UacApi
                             Debug.WriteLine("Surname was not changed. Not updating surname.");
                         }
 
-                        if (_gender != dbGender)
+                        if (_gender != temp.Gender)
                         {
-                            Debug.WriteLine("Updating gender ({0} != {1}...", _gender, dbGender);
+                            Debug.WriteLine("Updating gender ({0} != {1}...", _gender, temp.Gender);
 
                             SqlCommand UpdateSurname = new SqlCommand("UPDATE t_Users SET Gender = @gender WHERE Username = @username", conn);
 
-                            UpdateSurname.Parameters.Add(new SqlParameter("username", Username));
+                            UpdateSurname.Parameters.Add(new SqlParameter("username", username));
                             UpdateSurname.Parameters.Add(new SqlParameter("gender",  _gender));
 
                             UpdateSurname.ExecuteNonQuery();
@@ -946,14 +874,14 @@ namespace UacApi
                             Debug.WriteLine("Gender was not changed. Not updating gender.");
                         }
 
-                        if (Dob != dbDob && Dob != DateTime.MinValue)
+                        if (dob != temp.dob && dob != DateTime.MinValue)
                         {
                             Debug.WriteLine("Updating dob...");
 
                             SqlCommand UpdateDob = new SqlCommand("UPDATE t_Users SET Dob = @dob WHERE Username = @username", conn);
 
-                            UpdateDob.Parameters.Add(new SqlParameter("username", Username));
-                            UpdateDob.Parameters.Add(new SqlParameter("dob", Dob));
+                            UpdateDob.Parameters.Add(new SqlParameter("username", username));
+                            UpdateDob.Parameters.Add(new SqlParameter("dob", dob));
 
                             UpdateDob.ExecuteNonQuery();
 
@@ -982,14 +910,14 @@ namespace UacApi
                             Debug.WriteLine("Gender was not changed. Not updating gender.");
                         }*/
 
-                        if (Address1 != dbAddress1)
+                        if (address1 != temp.address1)
                         {
                             Debug.WriteLine("Updating address1...");
 
                             SqlCommand UpdateAddress1 = new SqlCommand("UPDATE t_Users SET Address1 = @address1 WHERE Username = @username", conn);
 
-                            UpdateAddress1.Parameters.Add(new SqlParameter("username", Username));
-                            UpdateAddress1.Parameters.Add(new SqlParameter("address1", Address1));
+                            UpdateAddress1.Parameters.Add(new SqlParameter("username", username));
+                            UpdateAddress1.Parameters.Add(new SqlParameter("address1", address1));
 
                             UpdateAddress1.ExecuteNonQuery();
 
@@ -1000,14 +928,14 @@ namespace UacApi
                             Debug.WriteLine("Address1 was not changed. Not updating address1.");
                         }
 
-                        if (Address2 != dbAddress2)
+                        if (address2 != temp.address2)
                         {
                             Debug.WriteLine("Updating address2...");
 
                             SqlCommand UpdateAddress2 = new SqlCommand("UPDATE t_Users SET Address2 = @address2 WHERE Username = @username", conn);
 
-                            UpdateAddress2.Parameters.Add(new SqlParameter("username", Username));
-                            UpdateAddress2.Parameters.Add(new SqlParameter("address2", Address2));
+                            UpdateAddress2.Parameters.Add(new SqlParameter("username", username));
+                            UpdateAddress2.Parameters.Add(new SqlParameter("address2", address2));
 
                             UpdateAddress2.ExecuteNonQuery();
 
@@ -1018,14 +946,14 @@ namespace UacApi
                             Debug.WriteLine("Address2 was not changed. Not updating address2.");
                         }
 
-                        if (Address3 != dbAddress3)
+                        if (address3 != temp.address3)
                         {
                             Debug.WriteLine("Updating address3...");
 
                             SqlCommand UpdateAddress3 = new SqlCommand("UPDATE t_Users SET Address3 = @address3 WHERE Username = @username", conn);
 
-                            UpdateAddress3.Parameters.Add(new SqlParameter("username", Username));
-                            UpdateAddress3.Parameters.Add(new SqlParameter("address3", Address3));
+                            UpdateAddress3.Parameters.Add(new SqlParameter("username", username));
+                            UpdateAddress3.Parameters.Add(new SqlParameter("address3", address3));
 
                             UpdateAddress3.ExecuteNonQuery();
 
@@ -1036,14 +964,14 @@ namespace UacApi
                             Debug.WriteLine("Address3 was not changed. Not updating address3.");
                         }
 
-                        if (PostCode != dbPostCode)
+                        if (postCode != temp.postCode)
                         {
                             Debug.WriteLine("Updating postcode...");
 
                             SqlCommand UpdatePostCode = new SqlCommand("UPDATE t_Users SET PostCode = @postCode WHERE Username = @username", conn);
 
-                            UpdatePostCode.Parameters.Add(new SqlParameter("username", Username));
-                            UpdatePostCode.Parameters.Add(new SqlParameter("postCode", PostCode));
+                            UpdatePostCode.Parameters.Add(new SqlParameter("username", username));
+                            UpdatePostCode.Parameters.Add(new SqlParameter("postCode", postCode));
 
                             UpdatePostCode.ExecuteNonQuery();
 
@@ -1054,14 +982,14 @@ namespace UacApi
                             Debug.WriteLine("Postcode was not changed. Not updating postcode.");
                         }
 
-                        if (MobilePhone != dbMobilePhone)
+                        if (mobilePhone != temp.mobilePhone)
                         {
                             Debug.WriteLine("Updating mobile phone...");
 
                             SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE t_Users SET MobilePhone = @mobilePhone WHERE Username = @username", conn);
 
-                            UpdateMobilePhone.Parameters.Add(new SqlParameter("username", Username));
-                            UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", MobilePhone));
+                            UpdateMobilePhone.Parameters.Add(new SqlParameter("username", username));
+                            UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", mobilePhone));
 
                             UpdateMobilePhone.ExecuteNonQuery();
 
@@ -1072,14 +1000,14 @@ namespace UacApi
                             Debug.WriteLine("Mobile phone was not changed. Not updating mobile phone.");
                         }
 
-                        if (HomePhone != dbHomePhone)
+                        if (homePhone != temp.homePhone)
                         {
                             Debug.WriteLine("Updating home phone...");
 
                             SqlCommand UpdateHomePhone = new SqlCommand("UPDATE t_Users SET HomePhone = @homePhone WHERE Username = @username", conn);
 
-                            UpdateHomePhone.Parameters.Add(new SqlParameter("username", Username));
-                            UpdateHomePhone.Parameters.Add(new SqlParameter("homePhone", HomePhone));
+                            UpdateHomePhone.Parameters.Add(new SqlParameter("username", username));
+                            UpdateHomePhone.Parameters.Add(new SqlParameter("homePhone", homePhone));
 
                             UpdateHomePhone.ExecuteNonQuery();
 
@@ -1090,14 +1018,14 @@ namespace UacApi
                             Debug.WriteLine("Home phone was not changed. Not updating home phone.");
                         }
 
-                        if (WorkPhone != dbWorkPhone)
+                        if (workPhone != temp.workPhone)
                         {
                             Debug.WriteLine("Updating work phone...");
 
                             SqlCommand UpdateWorkPhone = new SqlCommand("UPDATE t_Users SET WorkPhone = @workPhone WHERE Username = @username", conn);
 
-                            UpdateWorkPhone.Parameters.Add(new SqlParameter("username", Username));
-                            UpdateWorkPhone.Parameters.Add(new SqlParameter("workPhone", WorkPhone));
+                            UpdateWorkPhone.Parameters.Add(new SqlParameter("username", username));
+                            UpdateWorkPhone.Parameters.Add(new SqlParameter("workPhone", workPhone));
 
                             UpdateWorkPhone.ExecuteNonQuery();
 
@@ -1108,14 +1036,14 @@ namespace UacApi
                             Debug.WriteLine("Work phone was not changed. Not updating work phone.");
                         }
 
-                        if (AccountType != DbAccountType)
+                        if (accountType != temp.accountType)
                         {
                             Debug.WriteLine("Updating account type...");
 
                             SqlCommand UpdateAccountType = new SqlCommand("UPDATE t_Users SET AccountType = @accountType WHERE Username = @username", conn);
 
-                            UpdateAccountType.Parameters.Add(new SqlParameter("username", Username));
-                            UpdateAccountType.Parameters.Add(new SqlParameter("accountType", AccountType));
+                            UpdateAccountType.Parameters.Add(new SqlParameter("username", username));
+                            UpdateAccountType.Parameters.Add(new SqlParameter("accountType", accountType));
 
                             UpdateAccountType.ExecuteNonQuery();
 
@@ -1126,14 +1054,14 @@ namespace UacApi
                             Debug.WriteLine("Account type was not changed. Not account type.");
                         }
 
-                        if (AccountStatus != DbAccountStatus)
+                        if (accountStatus != temp.accountStatus)
                         {
                             Debug.WriteLine("Updating account status...");
 
                             SqlCommand UpdateAccountStatus = new SqlCommand("UPDATE t_Users SET AccountStatus = @accountStatus WHERE Username = @username", conn);
 
-                            UpdateAccountStatus.Parameters.Add(new SqlParameter("username", Username));
-                            UpdateAccountStatus.Parameters.Add(new SqlParameter("accountStatus", AccountStatus));
+                            UpdateAccountStatus.Parameters.Add(new SqlParameter("username", username));
+                            UpdateAccountStatus.Parameters.Add(new SqlParameter("accountStatus", accountStatus));
 
                             UpdateAccountStatus.ExecuteNonQuery();
 
@@ -1147,7 +1075,7 @@ namespace UacApi
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("Caught an error whilst updating account (\"{0}\": {1}",Username, e);
+                    Debug.WriteLine("Caught an error whilst updating account (\"{0}\": {1}",username, e);
                     return false;
                 }
                 return true;
@@ -1160,7 +1088,7 @@ namespace UacApi
 
         public bool DbInsert(string pPwd)
         {
-            if (Username != null && Forename != null && Surname != null)
+            if (username != null && forename != null && surname != null)
             {
                 try
                 {
@@ -1172,10 +1100,10 @@ namespace UacApi
 
                         bool UsernameExists()
                         {
-                            Debug.WriteLine(String.Format("Checking that username \"{0}\" does not exist in database before attempting insert...", Username.Trim()));
+                            Debug.WriteLine(String.Format("Checking that username \"{0}\" does not exist in database before attempting insert...", username.Trim()));
 
                             SqlCommand FindUsername = new SqlCommand("SELECT count(1) FROM t_Users WHERE Username = @username", conn);
-                            FindUsername.Parameters.Add(new SqlParameter("username", Username));
+                            FindUsername.Parameters.Add(new SqlParameter("username", username));
 
 
 
@@ -1185,12 +1113,12 @@ namespace UacApi
                                 {
                                     if (reader[0].ToString() == "1")
                                     {
-                                        Debug.WriteLine(String.Format("Username \"{0}\" already exists in the database! Returning true.", Username.Trim()));
+                                        Debug.WriteLine(String.Format("Username \"{0}\" already exists in the database! Returning true.", username.Trim()));
                                         return true;
                                     }
                                     else
                                     {
-                                        Debug.WriteLine(String.Format("Username \"{0}\" does not already exist in the database! Returning false.", Username.Trim()));
+                                        Debug.WriteLine(String.Format("Username \"{0}\" does not already exist in the database! Returning false.", username.Trim()));
                                         return false;
                                     }
                                 }
@@ -1201,14 +1129,14 @@ namespace UacApi
                         if (!UsernameExists())
                         {
                             SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (id, Username, Forename, Surname, DateTimeCreated) VALUES(NEWID(), @username, @fname, @sname, @dateTimeCreated)", conn);
-                            InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
-                            InsertIntoDb.Parameters.Add(new SqlParameter("fname", Forename.Trim()));
-                            InsertIntoDb.Parameters.Add(new SqlParameter("sname", Surname.Trim()));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("username", username.Trim()));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("fname", forename.Trim()));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("sname", surname.Trim()));
                             InsertIntoDb.Parameters.Add(new SqlParameter("dateTimeCreated", ParsnipApi.Data.adjustedTime));
 
                             InsertIntoDb.ExecuteNonQuery();
 
-                            Debug.WriteLine(String.Format("Successfully inserted account \"{0}\" into database: ", Username));
+                            Debug.WriteLine(String.Format("Successfully inserted account \"{0}\" into database: ", username));
                         }
                         
                     }

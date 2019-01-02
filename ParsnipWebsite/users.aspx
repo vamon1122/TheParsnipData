@@ -20,6 +20,7 @@
 
 </head>
 <body style="padding-bottom:2.5%; padding-top:4%">
+    <form runat="server">
     <div class="container">
         <div class="jumbotron">
             <h1 class="display-4">Users</h1>
@@ -27,9 +28,17 @@
             <hr class="my-4" />
             <p><adminControls:adminMenu runat="server" id="adminMenu1" /></p>
         </div>   
+           
+        <div class="center_div">
+             <label>Users</label>
+        <asp:DropDownList ID="ddlselect" runat="server" AutoPostBack="True" CssClass="form-control" 
+        onselectedindexchanged="ddlselect_Changed">
+    </asp:DropDownList>
+            </div>
+            
         <uc1:UserForm runat="server" ID="UserForm" />
     </div>
-
+        </form>
     
 </body>
 </html>

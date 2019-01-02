@@ -9,7 +9,7 @@
 <!-- Inline CSS based on choices in "Settings" tab -->
 <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
 
-<form runat="server">
+
     <div class="center_div">
         <div class="alert alert-danger alert-dismissible" runat="server" style="display:none" id="Error">
              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -23,34 +23,35 @@
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Success!</strong> <asp:Label runat="server" ID="SuccessText"></asp:Label>
         </div>
+
         <div class="form-group">
             <label>Username</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="username" MaxLength="50" />
+            <asp:TextBox runat="server" CssClass="form-control" ID="username" MaxLength="50" />
         </div>
         
         <div class="form-group">
             <label>Email</label>
-            <asp:TextBox runat="server" TextMode="email" CssClass="form-control login" ID="email"  MaxLength="254"/>
+            <asp:TextBox runat="server" TextMode="email" CssClass="form-control" ID="email"  MaxLength="254"/>
         </div>
  
         <div class="form-group">
             <label>Password</label>
-            <asp:TextBox runat="server" TextMode="password" CssClass="form-control login" ID="password1" MaxLength="50" />
+            <asp:TextBox runat="server" TextMode="password" CssClass="form-control" ID="password1" MaxLength="50" />
         </div>
  
         <div class="form-group">
             <label>Confirm Password</label>
-            <asp:TextBox runat="server" TextMode="password" CssClass="form-control login" ID="password2" MaxLength="50" />
+            <asp:TextBox runat="server" TextMode="password" CssClass="form-control" ID="password2" MaxLength="50" />
         </div>
             
         <div class="form-group">
             <label>Forename</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="forename" MaxLength ="50" />
+            <asp:TextBox runat="server" CssClass="form-control" ID="forename" MaxLength ="50" />
         </div>
            
         <div class="form-group">
             <label>Surname</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="surname" MaxLength ="50" />
+            <asp:TextBox runat="server" CssClass="form-control" ID="surname" MaxLength ="50" />
         </div>
   
         <div class="form-group">
@@ -70,7 +71,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input runat="server" class="form-control" id="dobInput" name="date" placeholder="DD/MM/YYYY" type="text" onkeyup="BenUpdate()" onchange="BenUpdate()"/>
+                        <input runat="server" class="form-control login" id="dobInput" name="date" placeholder="DD/MM/YYYY" type="text"/>
                     </div>
                 </div>        
             </div>
@@ -83,42 +84,42 @@
 
         <div class="form-group">
             <label>DOB Copy 2</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="dobCopy2" />
+            <asp:TextBox runat="server" CssClass="form-control" ID="dobCopy2" />
         </div>
 
         <div class="form-group">
             <label>Address Line 1</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="address1" MaxLength ="50" />
+            <asp:TextBox runat="server" CssClass="form-control" ID="address1" MaxLength ="50" />
         </div>
             
         <div class="form-group">
             <label>Address Line 2</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="address2" MaxLength ="50" />
+            <asp:TextBox runat="server" CssClass="form-control" ID="address2" MaxLength ="50" />
         </div>
            
         <div class="form-group">
             <label>Address Line 3</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="address3" MaxLength ="50" />
+            <asp:TextBox runat="server" CssClass="form-control" ID="address3" MaxLength ="50" />
         </div>
             
         <div class="form-group">
             <label>Post Code</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="postCode" MaxLength ="16" />
+            <asp:TextBox runat="server" CssClass="form-control" ID="postCode" MaxLength ="16" />
         </div>
             
         <div class="form-group">
             <label>Mobile Phone</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="mobilePhone" MaxLength ="32" />
+            <asp:TextBox runat="server" CssClass="form-control" ID="mobilePhone" MaxLength ="32" />
         </div>
             
         <div class="form-group">
             <label>Home Phone</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="homePhone"  />
+            <asp:TextBox runat="server" CssClass="form-control" ID="homePhone"  />
         </div>
            
         <div class="form-group">
             <label>Work Phone</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="workPhone"  />
+            <asp:TextBox runat="server" CssClass="form-control" ID="workPhone"  />
         </div>
             
         <div class="form-group">
@@ -146,7 +147,7 @@
 
         <div class="form-group">
             <label class="form-check-label">Date Created</label>
-            <input runat="server" class="form-control" type="text" placeholder="17/04/1999" id="dateTimeCreated" readonly>
+            <input runat="server" class="form-control" type="text" placeholder="17/04/1999" id="dateTimeCreated" disabled>
         </div>
 
 
@@ -155,7 +156,6 @@
             
         <asp:Button runat="server" ID="btnCreate" OnClick="btnCreate_Click" CssClass="btn btn-primary" Text="Create"></asp:Button>
     </div>
-</form>
     <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
 <!-- Include jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
