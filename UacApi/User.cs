@@ -890,14 +890,22 @@ namespace UacApi
                         Debug.WriteLine("Username was not changed. Not updating username.");
                     }
 
-                    if (email != temp.email)
+                    
+                    if (email != temp.email || email == "")
                     {
                         Debug.WriteLine("Updating email...");
+                        Debug.WriteLine(string.Format("\"{0}\" != \"{1}\"", email, temp.email));
 
                         SqlCommand UpdateEmail = new SqlCommand("UPDATE t_Users SET Email = @email WHERE Username = @username", pOpenConn);
 
                         UpdateEmail.Parameters.Add(new SqlParameter("username", username));
-                        UpdateEmail.Parameters.Add(new SqlParameter("email", email));
+                        if(email == "")
+                            UpdateEmail.Parameters.Add(new SqlParameter("email", DBNull.Value));
+                        else
+                            UpdateEmail.Parameters.Add(new SqlParameter("email", email));
+
+
+
 
                         UpdateEmail.ExecuteNonQuery();
 
@@ -908,14 +916,17 @@ namespace UacApi
                         Debug.WriteLine("Email was not changed. Not updating email.");
                     }
 
-                    if (pwd.Length > 0 && pwd != temp.pwd)
+                    if (pwd.Length > 0 && pwd != temp.pwd || pwd == "")
                     {
                         Debug.WriteLine("Updating password...");
 
                         SqlCommand UpdatePwd = new SqlCommand("UPDATE t_Users SET Pwd = @pwd WHERE Username = @username", pOpenConn);
 
                         UpdatePwd.Parameters.Add(new SqlParameter("username", username));
-                        UpdatePwd.Parameters.Add(new SqlParameter("pwd", pwd));
+                        if(pwd == "")
+                            UpdatePwd.Parameters.Add(new SqlParameter("pwd", DBNull.Value));
+                        else
+                            UpdatePwd.Parameters.Add(new SqlParameter("pwd", pwd));
 
                         UpdatePwd.ExecuteNonQuery();
 
@@ -933,7 +944,9 @@ namespace UacApi
                         SqlCommand UpdateForename = new SqlCommand("UPDATE t_Users SET Forename = @forename WHERE Username = @username", pOpenConn);
 
                         UpdateForename.Parameters.Add(new SqlParameter("username", username));
-                        UpdateForename.Parameters.Add(new SqlParameter("forename", email));
+                        UpdateForename.Parameters.Add(new SqlParameter("forename", forename));
+                            
+                        
 
                         UpdateForename.ExecuteNonQuery();
 
@@ -948,12 +961,12 @@ namespace UacApi
                     {
                         Debug.WriteLine("Updating surname...");
 
-                        SqlCommand UpdateSurname = new SqlCommand("UPDATE t_Users SET Surname = @surname WHERE Username = @username", pOpenConn);
+                        SqlCommand updateSurname = new SqlCommand("UPDATE t_Users SET Surname = @surname WHERE Username = @username", pOpenConn);
 
-                        UpdateSurname.Parameters.Add(new SqlParameter("username", username));
-                        UpdateSurname.Parameters.Add(new SqlParameter("surname", surname));
+                        updateSurname.Parameters.Add(new SqlParameter("username", username));
+                        updateSurname.Parameters.Add(new SqlParameter("surname", surname));
 
-                        UpdateSurname.ExecuteNonQuery();
+                        updateSurname.ExecuteNonQuery();
 
                         Debug.WriteLine("Surname updated successfully!");
                     }
@@ -962,16 +975,19 @@ namespace UacApi
                         Debug.WriteLine("Surname was not changed. Not updating surname.");
                     }
 
-                    if (_gender != temp.Gender)
+                    if (_gender != temp.Gender || _gender == "")
                     {
-                        Debug.WriteLine("Updating gender ({0} != {1}...", _gender, temp.Gender);
+                        Debug.WriteLine("Updating gender ({0} != {1}...", _gender, temp.Gender.Substring(0, 1));
 
-                        SqlCommand UpdateSurname = new SqlCommand("UPDATE t_Users SET Gender = @gender WHERE Username = @username", pOpenConn);
+                        SqlCommand updateGender = new SqlCommand("UPDATE t_Users SET Gender = @gender WHERE Username = @username", pOpenConn);
 
-                        UpdateSurname.Parameters.Add(new SqlParameter("username", username));
-                        UpdateSurname.Parameters.Add(new SqlParameter("gender", _gender));
+                        updateGender.Parameters.Add(new SqlParameter("username", username));
+                        if(_gender == "")
+                            updateGender.Parameters.Add(new SqlParameter("gender", DBNull.Value));
+                        else
+                            updateGender.Parameters.Add(new SqlParameter("gender", _gender));
 
-                        UpdateSurname.ExecuteNonQuery();
+                        updateGender.ExecuteNonQuery();
 
                         Debug.WriteLine("Gender updated successfully!");
                     }
@@ -980,13 +996,17 @@ namespace UacApi
                         Debug.WriteLine("Gender was not changed. Not updating gender.");
                     }
 
-                    if (dob != temp.dob && dob != DateTime.MinValue)
+                    if (dob != temp.dob || dob.ToString() == "")
                     {
                         Debug.WriteLine("Updating dob...");
 
                         SqlCommand UpdateDob = new SqlCommand("UPDATE t_Users SET Dob = @dob WHERE Username = @username", pOpenConn);
 
                         UpdateDob.Parameters.Add(new SqlParameter("username", username));
+
+                        if(dob == DateTime.MinValue)
+                            UpdateDob.Parameters.Add(new SqlParameter("dob", DBNull.Value));
+                        else
                         UpdateDob.Parameters.Add(new SqlParameter("dob", dob));
 
                         UpdateDob.ExecuteNonQuery();
@@ -998,32 +1018,17 @@ namespace UacApi
                         Debug.WriteLine("Dob was not changed. Not updatg dob.");
                     }
 
-                    /*if (dbGender != null && gender != null && dbGender != gender && (gender.ToString().ToUpper() == "M" || gender.ToString().ToUpper() == "F" || gender.ToString().ToUpper() == "O"))
-                    {
-                        Debug.WriteLine("Updating gender...");
-
-                        SqlCommand UpdateGender = new SqlCommand("UPDATE t_Users SET gender = @dob WHERE Username = @username", conn);
-
-                        UpdateGender.Parameters.Add(new SqlParameter("username", Username));
-                        UpdateGender.Parameters.Add(new SqlParameter("gender", gender));
-
-                        UpdateGender.ExecuteNonQuery();
-
-                        Debug.WriteLine("Gender updated successfully!");
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Gender was not changed. Not updating gender.");
-                    }*/
-
-                    if (address1 != temp.address1)
+                    if (address1 != temp.address1 || address1 == "")
                     {
                         Debug.WriteLine("Updating address1...");
 
                         SqlCommand UpdateAddress1 = new SqlCommand("UPDATE t_Users SET Address1 = @address1 WHERE Username = @username", pOpenConn);
 
                         UpdateAddress1.Parameters.Add(new SqlParameter("username", username));
-                        UpdateAddress1.Parameters.Add(new SqlParameter("address1", address1));
+                        if(address1 == "")
+                            UpdateAddress1.Parameters.Add(new SqlParameter("address1", DBNull.Value));
+                        else
+                            UpdateAddress1.Parameters.Add(new SqlParameter("address1", address1));
 
                         UpdateAddress1.ExecuteNonQuery();
 
@@ -1034,14 +1039,17 @@ namespace UacApi
                         Debug.WriteLine("Address1 was not changed. Not updating address1.");
                     }
 
-                    if (address2 != temp.address2)
+                    if (address2 != temp.address2 || address2 == "")
                     {
                         Debug.WriteLine("Updating address2...");
 
                         SqlCommand UpdateAddress2 = new SqlCommand("UPDATE t_Users SET Address2 = @address2 WHERE Username = @username", pOpenConn);
 
                         UpdateAddress2.Parameters.Add(new SqlParameter("username", username));
-                        UpdateAddress2.Parameters.Add(new SqlParameter("address2", address2));
+                        if(address2 == "")
+                            UpdateAddress2.Parameters.Add(new SqlParameter("address2", DBNull.Value));
+                        else
+                            UpdateAddress2.Parameters.Add(new SqlParameter("address2", address2));
 
                         UpdateAddress2.ExecuteNonQuery();
 
@@ -1052,14 +1060,17 @@ namespace UacApi
                         Debug.WriteLine("Address2 was not changed. Not updating address2.");
                     }
 
-                    if (address3 != temp.address3)
+                    if (address3 != temp.address3 || address3 == "")
                     {
                         Debug.WriteLine("Updating address3...");
 
                         SqlCommand UpdateAddress3 = new SqlCommand("UPDATE t_Users SET Address3 = @address3 WHERE Username = @username", pOpenConn);
 
                         UpdateAddress3.Parameters.Add(new SqlParameter("username", username));
-                        UpdateAddress3.Parameters.Add(new SqlParameter("address3", address3));
+                        if(address3 == "")
+                            UpdateAddress3.Parameters.Add(new SqlParameter("address3", DBNull.Value));
+                        else
+                            UpdateAddress3.Parameters.Add(new SqlParameter("address3", address3));
 
                         UpdateAddress3.ExecuteNonQuery();
 
@@ -1070,14 +1081,17 @@ namespace UacApi
                         Debug.WriteLine("Address3 was not changed. Not updating address3.");
                     }
 
-                    if (postCode != temp.postCode)
+                    if (postCode != temp.postCode || postCode == "")
                     {
                         Debug.WriteLine("Updating postcode...");
 
                         SqlCommand UpdatePostCode = new SqlCommand("UPDATE t_Users SET PostCode = @postCode WHERE Username = @username", pOpenConn);
 
                         UpdatePostCode.Parameters.Add(new SqlParameter("username", username));
-                        UpdatePostCode.Parameters.Add(new SqlParameter("postCode", postCode));
+                        if(postCode == "")
+                            UpdatePostCode.Parameters.Add(new SqlParameter("postCode", DBNull.Value));
+                        else
+                            UpdatePostCode.Parameters.Add(new SqlParameter("postCode", postCode));
 
                         UpdatePostCode.ExecuteNonQuery();
 
@@ -1088,14 +1102,17 @@ namespace UacApi
                         Debug.WriteLine("Postcode was not changed. Not updating postcode.");
                     }
 
-                    if (mobilePhone != temp.mobilePhone)
+                    if (mobilePhone != temp.mobilePhone || mobilePhone == "")
                     {
                         Debug.WriteLine("Updating mobile phone...");
 
                         SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE t_Users SET MobilePhone = @mobilePhone WHERE Username = @username", pOpenConn);
 
                         UpdateMobilePhone.Parameters.Add(new SqlParameter("username", username));
-                        UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", mobilePhone));
+                        if(mobilePhone == "")
+                            UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", DBNull.Value));
+                        else
+                            UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", mobilePhone));
 
                         UpdateMobilePhone.ExecuteNonQuery();
 
@@ -1106,14 +1123,17 @@ namespace UacApi
                         Debug.WriteLine("Mobile phone was not changed. Not updating mobile phone.");
                     }
 
-                    if (homePhone != temp.homePhone)
+                    if (homePhone != temp.homePhone || homePhone == "")
                     {
                         Debug.WriteLine("Updating home phone...");
 
                         SqlCommand UpdateHomePhone = new SqlCommand("UPDATE t_Users SET HomePhone = @homePhone WHERE Username = @username", pOpenConn);
 
                         UpdateHomePhone.Parameters.Add(new SqlParameter("username", username));
-                        UpdateHomePhone.Parameters.Add(new SqlParameter("homePhone", homePhone));
+                        if(homePhone != "")
+                            UpdateHomePhone.Parameters.Add(new SqlParameter("homePhone", DBNull.Value));
+                        else
+                            UpdateHomePhone.Parameters.Add(new SqlParameter("homePhone", homePhone));
 
                         UpdateHomePhone.ExecuteNonQuery();
 
@@ -1124,16 +1144,19 @@ namespace UacApi
                         Debug.WriteLine("Home phone was not changed. Not updating home phone.");
                     }
 
-                    if (workPhone != temp.workPhone)
+                    if (workPhone != temp.workPhone || workPhone == "")
                     {
                         Debug.WriteLine("Updating work phone...");
 
-                        SqlCommand UpdateWorkPhone = new SqlCommand("UPDATE t_Users SET WorkPhone = @workPhone WHERE Username = @username", pOpenConn);
+                        SqlCommand updateWorkPhone = new SqlCommand("UPDATE t_Users SET WorkPhone = @workPhone WHERE id = @id", pOpenConn);
 
-                        UpdateWorkPhone.Parameters.Add(new SqlParameter("username", username));
-                        UpdateWorkPhone.Parameters.Add(new SqlParameter("workPhone", workPhone));
+                        updateWorkPhone.Parameters.Add(new SqlParameter("id", id));
+                        if(workPhone != "")
+                            updateWorkPhone.Parameters.Add(new SqlParameter("workPhone", DBNull.Value));
+                        else
+                            updateWorkPhone.Parameters.Add(new SqlParameter("workPhone", workPhone));
 
-                        UpdateWorkPhone.ExecuteNonQuery();
+                        updateWorkPhone.ExecuteNonQuery();
 
                         Debug.WriteLine("Work phone updated successfully!");
                     }
@@ -1146,12 +1169,12 @@ namespace UacApi
                     {
                         Debug.WriteLine("Updating account type...");
 
-                        SqlCommand UpdateAccountType = new SqlCommand("UPDATE t_Users SET AccountType = @accountType WHERE Username = @username", pOpenConn);
+                        SqlCommand updateAccountType = new SqlCommand("UPDATE t_Users SET AccountType = @accountType WHERE id = @id", pOpenConn);
 
-                        UpdateAccountType.Parameters.Add(new SqlParameter("username", username));
-                        UpdateAccountType.Parameters.Add(new SqlParameter("accountType", accountType));
+                        updateAccountType.Parameters.Add(new SqlParameter("id", id));
+                        updateAccountType.Parameters.Add(new SqlParameter("accountType", accountType));
 
-                        UpdateAccountType.ExecuteNonQuery();
+                        updateAccountType.ExecuteNonQuery();
 
                         Debug.WriteLine("Account type updated successfully!");
                     }
@@ -1164,12 +1187,12 @@ namespace UacApi
                     {
                         Debug.WriteLine("Updating account status...");
 
-                        SqlCommand UpdateAccountStatus = new SqlCommand("UPDATE t_Users SET AccountStatus = @accountStatus WHERE Username = @username", pOpenConn);
+                        SqlCommand updateAccountStatus = new SqlCommand("UPDATE t_Users SET AccountStatus = @accountStatus WHERE Username = @username", pOpenConn);
 
-                        UpdateAccountStatus.Parameters.Add(new SqlParameter("username", username));
-                        UpdateAccountStatus.Parameters.Add(new SqlParameter("accountStatus", accountStatus));
+                        updateAccountStatus.Parameters.Add(new SqlParameter("username", username));
+                        updateAccountStatus.Parameters.Add(new SqlParameter("accountStatus", accountStatus));
 
-                        UpdateAccountStatus.ExecuteNonQuery();
+                        updateAccountStatus.ExecuteNonQuery();
 
                         Debug.WriteLine("Account status updated successfully!");
                     }
