@@ -107,7 +107,7 @@ namespace ParsnipControls
         protected override void CreateChildControls()
         {
 
-            MyAccount = new User();
+            MyAccount = new User("LogInControl");
 
             MyAccount.LogIn();
 

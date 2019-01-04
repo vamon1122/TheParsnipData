@@ -19,19 +19,19 @@ namespace UacApi
         private static string sqlConnectionString = ParsnipApi.Data.sqlConnectionString;
 
         private Guid _id;
-        public Guid id { get { return _id; } private set { Debug.WriteLine(string.Format("----------id is being set to = {0}", value)); _id = value; } }
+        public Guid id { get { return _id; } private set { Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value)); _id = value; } }
         private string _username;
         public string username { get { return _username; } set { Debug.WriteLine(string.Format("----------username is being set to = {0}", value)); _username = value; } }
         private string _email;
-        public string email { get { return _email; } set { Debug.WriteLine(string.Format("----------email is being set to = {0}", value)); _email = value; } }
+        public string email { get { return _email; } set { /*Debug.WriteLine(string.Format("----------email is being set to = {0}", value));*/ _email = value; } }
         private string _pwd;
-        public string pwd { get { return _pwd; } set { Debug.WriteLine(string.Format("----------pwd is being set to = {0}", value)); _pwd = value; } }
+        public string pwd { get { return _pwd; } set { /*Debug.WriteLine(string.Format("----------pwd is being set to = {0}", value));*/ _pwd = value; } }
         private string _forename;
-        public string forename { get { return _forename; } set { Debug.WriteLine(string.Format("----------forename is being set to = {0}", value)); _forename = value; } }
+        public string forename { get { return _forename; } set { /*Debug.WriteLine(string.Format("----------forename is being set to = {0}", value));*/ _forename = value; } }
         private string _surname;
-        public string surname { get { return _surname; } set { Debug.WriteLine(string.Format("----------surname is being set to = {0}", value)); _surname = value; } }
+        public string surname { get { return _surname; } set { /*Debug.WriteLine(string.Format("----------surname is being set to = {0}", value));*/ _surname = value; } }
         private DateTime _dob;
-        public DateTime dob { get { return _dob; } set { Debug.WriteLine(string.Format("----------dob is being set to = {0}", value)); _dob = value; } }
+        public DateTime dob { get { return _dob; } set { /*Debug.WriteLine(string.Format("----------dob is being set to = {0}", value));*/ _dob = value; } }
         private string _gender;
         public string Gender
         {
@@ -51,7 +51,7 @@ namespace UacApi
             }
             set
             {
-                Debug.WriteLine(string.Format("----------Gender is being set to = {0}", value));
+                //Debug.WriteLine(string.Format("----------Gender is being set to = {0}", value));
                 gender = value;
             }
         }
@@ -83,7 +83,6 @@ namespace UacApi
                 }
             }
         }
-                
         public string posessivePronoun
         {
             get
@@ -98,46 +97,49 @@ namespace UacApi
             }
         }
         private string _address1;
-        public string address1 { get { return _address1; } set { Debug.WriteLine(string.Format("----------address1 is being set to = {0}", value)); _address1 = value; } }
+        public string address1 { get { return _address1; } set { /*Debug.WriteLine(string.Format("----------address1 is being set to = {0}", value));*/ _address1 = value; } }
         private string _address2;
-        public string address2 { get { return _address2; } set { Debug.WriteLine(string.Format("----------address2 is being set to = {0}", value)); _address2 = value; } }
+        public string address2 { get { return _address2; } set { /*Debug.WriteLine(string.Format("----------address2 is being set to = {0}", value));*/ _address2 = value; } }
         private string _address3;
-        public string address3 { get { return _address3; } set { Debug.WriteLine(string.Format("----------address3 is being set to = {0}", value)); _address3 = value; } }
+        public string address3 { get { return _address3; } set { /*Debug.WriteLine(string.Format("----------address3 is being set to = {0}", value));*/ _address3 = value; } }
         private string _postCode;
-        public string postCode { get { return _postCode; } set { Debug.WriteLine(string.Format("----------postCode is being set to = {0}", value)); _postCode = value; } }
+        public string postCode { get { return _postCode; } set { /*Debug.WriteLine(string.Format("----------postCode is being set to = {0}", value));*/ _postCode = value; } }
         private string _mobilePhone;
-        public string mobilePhone { get { return _mobilePhone; } set { Debug.WriteLine(string.Format("----------mobilePhone is being set to = {0}", value)); _mobilePhone = value; } }
+        public string mobilePhone { get { return _mobilePhone; } set { /*Debug.WriteLine(string.Format("----------mobilePhone is being set to = {0}", value));*/ _mobilePhone = value; } }
         private string _homePhone;
-        public string homePhone { get { return _homePhone; } set { Debug.WriteLine(string.Format("----------homePhone is being set to = {0}", value)); _homePhone = value; } }
+        public string homePhone { get { return _homePhone; } set { /*Debug.WriteLine(string.Format("----------homePhone is being set to = {0}", value));*/ _homePhone = value; } }
         private string _workPhone;
-        public string workPhone { get { return _workPhone; } set { Debug.WriteLine(string.Format("----------workPhone is being set to = {0}", value)); _workPhone = value; } }
+        public string workPhone { get { return _workPhone; } set { /*Debug.WriteLine(string.Format("----------workPhone is being set to = {0}", value));*/ _workPhone = value; } }
         private DateTime _dateTimeCreated;
-        public DateTime dateTimeCreated { get { return _dateTimeCreated; } set { Debug.WriteLine(string.Format("----------dateTimeCreated is being set to = {0}", value)); _dateTimeCreated = value; } }
+        public DateTime dateTimeCreated { get { return _dateTimeCreated; } set { /*Debug.WriteLine(string.Format("----------dateTimeCreated is being set to = {0}", value));*/ _dateTimeCreated = value; } }
         private DateTime _lastLogIn;
-        public DateTime lastLogIn { get { return _lastLogIn; } set { Debug.WriteLine(string.Format("----------lastLogIn is being set to = {0}", value)); _lastLogIn = value; } }
+        public DateTime lastLogIn { get { return _lastLogIn; } set { /*Debug.WriteLine(string.Format("----------lastLogIn is being set to = {0}", value));*/ _lastLogIn = value; } }
         private string _accountType;
-        public string accountType { get { return _accountType; } set { Debug.WriteLine(string.Format("----------accountType is being set to = {0}", value)); _accountType = value; } }
+        public string accountType { get { return _accountType; } set { /*Debug.WriteLine(string.Format("----------accountType is being set to = {0}", value));*/ _accountType = value; } }
         private string _accountStatus;
-        public string accountStatus { get { return _accountStatus; } set { Debug.WriteLine(string.Format("----------accountStatus is being set to = {0}", value)); _accountStatus = value; } }
+        public string accountStatus { get { return _accountStatus; } set { /*Debug.WriteLine(string.Format("----------accountStatus is being set to = {0}", value));*/ _accountStatus = value; } }
         private Guid _createdByUserId;
-        public Guid createdByUserId { get { return _createdByUserId; } set { Debug.WriteLine(string.Format("----------createdByUserId is being set to = {0}", value)); _createdByUserId = value; } }
+        public Guid createdByUserId { get { return _createdByUserId; } set { /*Debug.WriteLine(string.Format("----------createdByUserId is being set to = {0}", value));*/ _createdByUserId = value; } }
         public string fullName { get { return string.Format("{0} {1}", forename, surname); } }
 
 
-        public User()
+        public User(string pWhereAmI)
         {
-            id = Guid.NewGuid();
+            _id = Guid.NewGuid();
+            Debug.WriteLine(string.Format("User was initialised without a guid. WhereAmI = {0} Their guid will be: {1}", pWhereAmI, id));
             dateTimeCreated = ParsnipApi.Data.adjustedTime;
             AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
         public User(Guid pGuid)
         {
-            id = pGuid;
+            Debug.WriteLine("User was initialised with the guid: " + pGuid);
+            _id = pGuid;
         }
 
         public User(SqlDataReader pReader)
         {
+            Debug.WriteLine("User was initialised with an SqlDataReader. Guid: " + pReader[0]);
             AddValues(pReader);
         }
 
@@ -397,8 +399,8 @@ namespace UacApi
             string CookiePwd = Cookies[1];
             
 
-            System.Diagnostics.Debug.WriteLine("CookieUsername = " + CookieUsername);
-            System.Diagnostics.Debug.WriteLine("CookiePwd = " + CookiePwd);
+            //Debug.WriteLine("CookieUsername = " + CookieUsername);
+            //Debug.WriteLine("CookiePwd = " + CookiePwd);
 
             if (String.IsNullOrEmpty(CookieUsername) || String.IsNullOrWhiteSpace(CookieUsername) || String.IsNullOrEmpty(CookiePwd) || String.IsNullOrWhiteSpace(CookiePwd))
             {
@@ -429,43 +431,100 @@ namespace UacApi
             Debug.WriteLine("----------Adding values...");
             try
             {
-                Debug.WriteLine("----------Reading id");
+                Debug.WriteLine(string.Format("----------Reading id: {0}",pReader[0]));
                 id = new Guid(pReader[0].ToString());
-                Debug.WriteLine("----------Reading username");
+                Debug.WriteLine(string.Format("----------Reading username: {0}", pReader[1]));
                 username = pReader[1].ToString().Trim();
-                Debug.WriteLine("----------Reading email");
-                email = pReader[2].ToString().Trim();
+                if (pReader[2] == DBNull.Value)
+                { }   //Debug.WriteLine("----------email is blank. Skipping email");
+                else
+                {
+                    //Debug.WriteLine("----------Reading email");
+                    email = pReader[2].ToString().Trim();
+                }
+                
                 //Debug.WriteLine("----------Reading pwd");
                 //pwd = pReader[3].ToString().Trim();
-                Debug.WriteLine("----------Reading forename");
+                //Debug.WriteLine("----------Reading forename");
                 forename = pReader[4].ToString().Trim();
-                Debug.WriteLine("----------Reading surname");
+                //Debug.WriteLine("----------Reading surname");
                 surname = pReader[5].ToString().Trim();
-                Debug.WriteLine("----------Reading dob");
-                dob = Convert.ToDateTime(pReader[6]);
-                Debug.WriteLine("----------Reading gender");
-                gender = pReader[7].ToString();
-                Debug.WriteLine("----------Reading address1");
-                address1 = pReader[8].ToString().Trim();
-                Debug.WriteLine("----------Reading address2");
-                address2 = pReader[9].ToString().Trim();
-                Debug.WriteLine("----------Reading address3");
-                address3 = pReader[10].ToString().Trim();
-                Debug.WriteLine("----------Reading postCode");
-                postCode = pReader[11].ToString().Trim();
-                Debug.WriteLine("----------Reading mobilePhone");
-                mobilePhone = pReader[12].ToString().Trim();
-                Debug.WriteLine("----------Reading homePhone");
-                homePhone = pReader[13].ToString().Trim();
-                Debug.WriteLine("----------Reading workPhone");
-                workPhone = pReader[14].ToString().Trim();
-                Debug.WriteLine("----------Reading dateTimeCreated");
+                if (pReader[6] == DBNull.Value) { }
+                //Debug.WriteLine("----------dob is blank. Skipping dob");
+                else
+                {
+                    //Debug.WriteLine("----------Reading dob");
+                    dob = Convert.ToDateTime(pReader[6]);
+                }
+                if (pReader[7] == DBNull.Value || pReader[7].ToString() == "")
+                { }// Debug.WriteLine("----------gender is blank. Skipping gender");
+                else
+                {
+                    //Debug.WriteLine("----------Reading gender");
+                    gender = pReader[7].ToString();
+                }
+                if (pReader[8] == DBNull.Value)
+                { }//Debug.WriteLine("----------address1 is blank. Skipping address1");
+                else
+                {
+                    //Debug.WriteLine("----------Reading address1");
+                    address1 = pReader[8].ToString().Trim();
+                }
+                if (pReader[9] == DBNull.Value)
+                { }// Debug.WriteLine("----------address2 is blank. Skipping address2");
+                else
+                {
+                    //Debug.WriteLine("----------Reading address2");
+                    address2 = pReader[9].ToString().Trim();
+                }
+                if (pReader[10] == DBNull.Value)
+                { }// Debug.WriteLine("----------address3 is blank. Skipping address3");
+                else
+                {
+                    //Debug.WriteLine("----------Reading address3");
+                    address3 = pReader[10].ToString().Trim();
+                }
+                if (pReader[11] != DBNull.Value)
+                { }// Debug.WriteLine("----------postCode is blank. Skipping postCode");
+                else
+                {
+                    //Debug.WriteLine("----------Reading postCode");
+                    postCode = pReader[11].ToString().Trim();
+                }
+                if (pReader[12] != DBNull.Value)
+                { }   //Debug.WriteLine("----------mobilePhone is blank. Skipping mobilePhone");
+                else
+                {
+                    { }// Debug.WriteLine("----------Reading mobilePhone");
+                    mobilePhone = pReader[12].ToString().Trim();
+                }
+                if (pReader[13] != DBNull.Value)
+                { }// Debug.WriteLine("----------homePhone is blank. Skipping homePhone");
+                else
+                {
+                    //Debug.WriteLine("----------Reading homePhone");
+                    homePhone = pReader[13].ToString().Trim();
+                }
+                if (pReader[14] != DBNull.Value)
+                { }// Debug.WriteLine("----------workPhone is blank. Skipping workPhone");
+                else
+                {
+                    //Debug.WriteLine("----------Reading workPhone");
+                    workPhone = pReader[14].ToString().Trim();
+                }
+                //Debug.WriteLine("----------Reading dateTimeCreated");
                 dateTimeCreated = Convert.ToDateTime(pReader[15]);
-                Debug.WriteLine("----------Reading lastLogIn");
-                lastLogIn = Convert.ToDateTime(pReader[16]);
-                Debug.WriteLine("----------Reading accountType");
+                if (pReader[16] == DBNull.Value)
+                { }// Debug.WriteLine("----------lastLogIn is blank. Skipping lastLogIn");
+                else
+                {
+                    //Debug.WriteLine("----------Reading lastLogIn");
+                    lastLogIn = Convert.ToDateTime(pReader[16]);
+                }
+                
+                //Debug.WriteLine("----------Reading accountType");
                 accountType = pReader[17].ToString().Trim();
-                Debug.WriteLine("----------Reading accountStatus");
+                //Debug.WriteLine("----------Reading accountStatus");
                 accountStatus = pReader[18].ToString().Trim();
 
                 return true;
@@ -477,20 +536,25 @@ namespace UacApi
             }
         }
 
-        internal bool Select()
+        public bool Select()
         {
-            return Select(new SqlConnection(ParsnipApi.Data.sqlConnectionString));
+            using (SqlConnection myOpenConnection = new SqlConnection(ParsnipApi.Data.sqlConnectionString))
+            {
+                myOpenConnection.Open();
+                return Select(myOpenConnection);
+            }
+                
         }
 
-        internal bool Select(SqlConnection pConn)
+        internal bool Select(SqlConnection pOpenConn)
         {
-            AccountLog.Debug("Attempting to get user details...");
+            //AccountLog.Debug("Attempting to get user details...");
             Debug.WriteLine("Attempting to get user details...");
             
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Users WHERE Username = @username", pConn);
-                SelectAccount.Parameters.Add(new SqlParameter("username", username));
+                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Users WHERE id = @id", pOpenConn);
+                SelectAccount.Parameters.Add(new SqlParameter("id", id.ToString()));
 
                 using (SqlDataReader reader = SelectAccount.ExecuteReader())
                 {
@@ -500,7 +564,7 @@ namespace UacApi
                     }
                 }
                 Debug.WriteLine("Got user's details successfully!");
-                AccountLog.Debug("Got user's details successfully!");
+                //AccountLog.Debug("Got user's details successfully!");
                 return true;
             }
             catch (Exception e)
@@ -517,7 +581,7 @@ namespace UacApi
 
         public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd, bool silent)
         {
-            AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
+            //AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
 
             
 
@@ -527,42 +591,42 @@ namespace UacApi
             using (SqlConnection conn = new SqlConnection(sqlConnectionString))
             {
                 conn.Open();
-                AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
+                //AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
 
 
 
                 if (GetPwdFromDb() && pPwd == dbPwd)
                 {
-                    AccountLog.Debug(String.Format("[LogIn] DbPwd == Pwd ({0} == {1})", dbPwd, pPwd));
+                    //AccountLog.Debug(String.Format("[LogIn] DbPwd == Pwd ({0} == {1})", dbPwd, pPwd));
                     if (DbSelect())
                     {
                         
                         if (pRememberUsername)
                         {
-                            AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
+                            //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
                             System.Diagnostics.Debug.WriteLine("Username permanently remembered!");
                             Cookie.WritePerm("userName", pUsername);
                         }
 
                         if (pRememberPwd)
                         {
-                            AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
+                            //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
                             System.Diagnostics.Debug.WriteLine("Password permanently remembered!");
                             Cookie.WritePerm("userPwd", pPwd);
                             System.Diagnostics.Debug.WriteLine("PERMANENT Password cookie = " + GetCookies()[1]); 
                         }
                         else
                         {
-                            AccountLog.Debug(String.Format("[LogIn] RememberPassword = false. Writing session password cookie (userPwd = {0})", pPwd));
+                            //AccountLog.Debug(String.Format("[LogIn] RememberPassword = false. Writing session password cookie (userPwd = {0})", pPwd));
                             if(GetCookies()[1] == pPwd)
                             {
-                                AccountLog.Debug(String.Format("[LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.", pPwd));
+                                //AccountLog.Debug(String.Format("[LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.", pPwd));
                             }
                             else
                             {
-                                AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
+                                //AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
                                 Cookie.WriteSession("userPwd", pPwd);
-                                AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
+                                //AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
                                 System.Diagnostics.Debug.WriteLine("Password stored for SESSION ONLY.");
                             }
                             
@@ -571,7 +635,7 @@ namespace UacApi
 
                         if (SetLastLogIn())
                         {
-                            AccountLog.Info("[LogIn] Logged in successfully!");
+                            //AccountLog.Info("[LogIn] Logged in successfully!");
                             if (!silent)
                             {
                                 System.Diagnostics.Debug.WriteLine(String.Format("----------{0} logged in LOUDLY", fullName));
@@ -589,19 +653,19 @@ namespace UacApi
                 }
                 else
                 {
-                    AccountLog.Debug(String.Format("[LogIn] DbPwd != Pwd ({0} != {1}", dbPwd, pPwd));
+                    //AccountLog.Debug(String.Format("[LogIn] DbPwd != Pwd ({0} != {1}", dbPwd, pPwd));
                 }
-                AccountLog.Error("[LogIn] Failed to log in.");
+                //AccountLog.Error("[LogIn] Failed to log in.");
                 return false;
                 
                 bool SetLastLogIn()
                 {
                     int RecordsAffected;
 
-                    AccountLog.Debug("[LogIn] Attempting to set LastLogIn...");
+                    //AccountLog.Debug("[LogIn] Attempting to set LastLogIn...");
                     try
                     {
-                        AccountLog.Debug("username = " + username);
+                        //AccountLog.Debug("username = " + username);
                         SqlCommand Command = new SqlCommand("UPDATE t_Users SET LastLogIn = GETDATE() WHERE Username = @Username;", conn);
                         Command.Parameters.Add(new SqlParameter("Username", username));
                         RecordsAffected = Command.ExecuteNonQuery();
@@ -613,13 +677,13 @@ namespace UacApi
                         return false;
                     }
 
-                    AccountLog.Debug(String.Format("[LogIn] Set LastLogIn successfully! {0} records were affected.", RecordsAffected));
+                    //AccountLog.Debug(String.Format("[LogIn] Set LastLogIn successfully! {0} records were affected.", RecordsAffected));
                     return true;
                 }
 
                 bool GetPwdFromDb()
                 {
-                    AccountLog.Debug("[LogIn] Attempting to get password from database...");
+                    //AccountLog.Debug("[LogIn] Attempting to get password from database...");
                     try
                     {
                         SqlCommand GetLogInDetails = new SqlCommand("SELECT Pwd FROM t_Users WHERE Username = @Username", conn);
@@ -638,13 +702,13 @@ namespace UacApi
                         Debug.WriteLine("[LogIn] There was an exception whilst getting the password from the database: " + e);
                         return false;
                     }
-                    AccountLog.Debug("[LogIn] Got password from database successfully!");
+                    //AccountLog.Debug("[LogIn] Got password from database successfully!");
                     return true;
                 }
 
                 bool DbSelect()
                 {
-                    AccountLog.Debug("[LogIn] Attempting to get user details...");
+                    //AccountLog.Debug("[LogIn] Attempting to get user details...");
                     try
                     {
                         SqlCommand GetLogInDetails = new SqlCommand("SELECT * FROM t_Users WHERE Username = @Username", conn);
@@ -730,7 +794,7 @@ namespace UacApi
                         Debug.WriteLine("[LogIn] There was an exception whilst getting da user data: " + e);
                         return false;
                     }
-                    AccountLog.Debug("[LogIn] Got user's details successfully!");
+                    //AccountLog.Debug("[LogIn] Got user's details successfully!");
                     return true;
                 }
             }
@@ -751,7 +815,52 @@ namespace UacApi
             
         }
 
-        public bool DbUpdate()
+        public bool Update()
+        {
+            bool success;
+            SqlConnection UpdateConnection = new SqlConnection(ParsnipApi.Data.sqlConnectionString);
+            UpdateConnection.Open();
+            if (UserExistsOnDb(UpdateConnection)) success = DbUpdate(UpdateConnection); else success = DbInsert(pwd, UpdateConnection);
+            UpdateConnection.Close();
+            return success;
+        }
+
+        private bool UserExistsOnDb(SqlConnection pOpenConn)
+        {
+            Debug.WriteLine(string.Format("Checking {0} weather user exists on database", id));
+            try
+            {
+
+                Guid UnconsumableGuid = new Guid(id.ToString());
+
+                SqlCommand findMe = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE id = @id", pOpenConn);
+                findMe.Parameters.Add(new SqlParameter("id", id.ToString()));
+
+                int userExists;
+
+                using(SqlDataReader reader = findMe.ExecuteReader())
+                {
+                    reader.Read();
+                    userExists = Convert.ToInt16(reader[0]);
+                    Debug.WriteLine("userExists = " + userExists);
+                }
+
+                Debug.WriteLine(userExists + " user(s) were found with the id " + id);
+
+                if (userExists > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("There was an error whilst checking if user exists on the database: " + e);
+                return false;
+            }
+        }
+
+        private bool DbUpdate(SqlConnection pOpenConn)
         {
             bool HasBeenInserted = true;
 
@@ -760,322 +869,319 @@ namespace UacApi
                 try
                 {
 
-                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+
+                    User temp = new User(id);
+                    temp.Select();
+
+                    if (username != temp.username)
                     {
-                        conn.Open();
+                        Debug.WriteLine("Updating username...");
 
-                        User temp = new User(id);
-                        temp.Select();
-                        
-                        if(username != temp.username)
-                        {
-                            Debug.WriteLine("Updating username...");
+                        SqlCommand UpdateUsername = new SqlCommand("UPDATE t_Users SET Username = @username WHERE Username = @username", pOpenConn);
 
-                            SqlCommand UpdateUsername = new SqlCommand("UPDATE t_Users SET Username = @username WHERE Username = @username", conn);
+                        UpdateUsername.Parameters.Add(new SqlParameter("username", username));
 
-                            UpdateUsername.Parameters.Add(new SqlParameter("username", username));
+                        UpdateUsername.ExecuteNonQuery();
 
-                            UpdateUsername.ExecuteNonQuery();
-
-                            Debug.WriteLine("Username updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Username was not changed. Not updating username.");
-                        }
-                        
-                        if(email != temp.email)
-                        {
-                            Debug.WriteLine("Updating email...");
-
-                            SqlCommand UpdateEmail = new SqlCommand("UPDATE t_Users SET Email = @email WHERE Username = @username", conn);
-
-                            UpdateEmail.Parameters.Add(new SqlParameter("username", username));
-                            UpdateEmail.Parameters.Add(new SqlParameter("email", email));
-
-                            UpdateEmail.ExecuteNonQuery();
-
-                            Debug.WriteLine("Email updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Email was not changed. Not updating email.");
-                        }
-
-                        if (pwd.Length > 0 && pwd != temp.pwd)
-                        {
-                            Debug.WriteLine("Updating password...");
-
-                            SqlCommand UpdatePwd = new SqlCommand("UPDATE t_Users SET Pwd = @pwd WHERE Username = @username", conn);
-
-                            UpdatePwd.Parameters.Add(new SqlParameter("username", username));
-                            UpdatePwd.Parameters.Add(new SqlParameter("pwd", pwd));
-
-                            UpdatePwd.ExecuteNonQuery();
-
-                            Debug.WriteLine("Password updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Password was not changed. Not updating password.");
-                        }
-
-                        if (forename != temp.forename)
-                        {
-                            Debug.WriteLine("Updating forename...");
-
-                            SqlCommand UpdateForename = new SqlCommand("UPDATE t_Users SET Forename = @forename WHERE Username = @username", conn);
-
-                            UpdateForename.Parameters.Add(new SqlParameter("username", username));
-                            UpdateForename.Parameters.Add(new SqlParameter("forename", email));
-
-                            UpdateForename.ExecuteNonQuery();
-
-                            Debug.WriteLine("Forename updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Forename was not changed. Not updating forename.");
-                        }
-
-                        if (surname != temp.surname)
-                        {
-                            Debug.WriteLine("Updating surname...");
-
-                            SqlCommand UpdateSurname = new SqlCommand("UPDATE t_Users SET Surname = @surname WHERE Username = @username", conn);
-
-                            UpdateSurname.Parameters.Add(new SqlParameter("username", username));
-                            UpdateSurname.Parameters.Add(new SqlParameter("surname", surname));
-
-                            UpdateSurname.ExecuteNonQuery();
-
-                            Debug.WriteLine("Surname updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Surname was not changed. Not updating surname.");
-                        }
-
-                        if (_gender != temp.Gender)
-                        {
-                            Debug.WriteLine("Updating gender ({0} != {1}...", _gender, temp.Gender);
-
-                            SqlCommand UpdateSurname = new SqlCommand("UPDATE t_Users SET Gender = @gender WHERE Username = @username", conn);
-
-                            UpdateSurname.Parameters.Add(new SqlParameter("username", username));
-                            UpdateSurname.Parameters.Add(new SqlParameter("gender",  _gender));
-
-                            UpdateSurname.ExecuteNonQuery();
-
-                            Debug.WriteLine("Gender updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Gender was not changed. Not updating gender.");
-                        }
-
-                        if (dob != temp.dob && dob != DateTime.MinValue)
-                        {
-                            Debug.WriteLine("Updating dob...");
-
-                            SqlCommand UpdateDob = new SqlCommand("UPDATE t_Users SET Dob = @dob WHERE Username = @username", conn);
-
-                            UpdateDob.Parameters.Add(new SqlParameter("username", username));
-                            UpdateDob.Parameters.Add(new SqlParameter("dob", dob));
-
-                            UpdateDob.ExecuteNonQuery();
-
-                            Debug.WriteLine("Dob updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Dob was not changed. Not updatg dob.");
-                        }
-
-                        /*if (dbGender != null && gender != null && dbGender != gender && (gender.ToString().ToUpper() == "M" || gender.ToString().ToUpper() == "F" || gender.ToString().ToUpper() == "O"))
-                        {
-                            Debug.WriteLine("Updating gender...");
-
-                            SqlCommand UpdateGender = new SqlCommand("UPDATE t_Users SET gender = @dob WHERE Username = @username", conn);
-
-                            UpdateGender.Parameters.Add(new SqlParameter("username", Username));
-                            UpdateGender.Parameters.Add(new SqlParameter("gender", gender));
-
-                            UpdateGender.ExecuteNonQuery();
-
-                            Debug.WriteLine("Gender updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Gender was not changed. Not updating gender.");
-                        }*/
-
-                        if (address1 != temp.address1)
-                        {
-                            Debug.WriteLine("Updating address1...");
-
-                            SqlCommand UpdateAddress1 = new SqlCommand("UPDATE t_Users SET Address1 = @address1 WHERE Username = @username", conn);
-
-                            UpdateAddress1.Parameters.Add(new SqlParameter("username", username));
-                            UpdateAddress1.Parameters.Add(new SqlParameter("address1", address1));
-
-                            UpdateAddress1.ExecuteNonQuery();
-
-                            Debug.WriteLine("Address1 updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Address1 was not changed. Not updating address1.");
-                        }
-
-                        if (address2 != temp.address2)
-                        {
-                            Debug.WriteLine("Updating address2...");
-
-                            SqlCommand UpdateAddress2 = new SqlCommand("UPDATE t_Users SET Address2 = @address2 WHERE Username = @username", conn);
-
-                            UpdateAddress2.Parameters.Add(new SqlParameter("username", username));
-                            UpdateAddress2.Parameters.Add(new SqlParameter("address2", address2));
-
-                            UpdateAddress2.ExecuteNonQuery();
-
-                            Debug.WriteLine("Address2 updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Address2 was not changed. Not updating address2.");
-                        }
-
-                        if (address3 != temp.address3)
-                        {
-                            Debug.WriteLine("Updating address3...");
-
-                            SqlCommand UpdateAddress3 = new SqlCommand("UPDATE t_Users SET Address3 = @address3 WHERE Username = @username", conn);
-
-                            UpdateAddress3.Parameters.Add(new SqlParameter("username", username));
-                            UpdateAddress3.Parameters.Add(new SqlParameter("address3", address3));
-
-                            UpdateAddress3.ExecuteNonQuery();
-
-                            Debug.WriteLine("Address3 updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Address3 was not changed. Not updating address3.");
-                        }
-
-                        if (postCode != temp.postCode)
-                        {
-                            Debug.WriteLine("Updating postcode...");
-
-                            SqlCommand UpdatePostCode = new SqlCommand("UPDATE t_Users SET PostCode = @postCode WHERE Username = @username", conn);
-
-                            UpdatePostCode.Parameters.Add(new SqlParameter("username", username));
-                            UpdatePostCode.Parameters.Add(new SqlParameter("postCode", postCode));
-
-                            UpdatePostCode.ExecuteNonQuery();
-
-                            Debug.WriteLine("Postcode updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Postcode was not changed. Not updating postcode.");
-                        }
-
-                        if (mobilePhone != temp.mobilePhone)
-                        {
-                            Debug.WriteLine("Updating mobile phone...");
-
-                            SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE t_Users SET MobilePhone = @mobilePhone WHERE Username = @username", conn);
-
-                            UpdateMobilePhone.Parameters.Add(new SqlParameter("username", username));
-                            UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", mobilePhone));
-
-                            UpdateMobilePhone.ExecuteNonQuery();
-
-                            Debug.WriteLine("Mobile phone updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Mobile phone was not changed. Not updating mobile phone.");
-                        }
-
-                        if (homePhone != temp.homePhone)
-                        {
-                            Debug.WriteLine("Updating home phone...");
-
-                            SqlCommand UpdateHomePhone = new SqlCommand("UPDATE t_Users SET HomePhone = @homePhone WHERE Username = @username", conn);
-
-                            UpdateHomePhone.Parameters.Add(new SqlParameter("username", username));
-                            UpdateHomePhone.Parameters.Add(new SqlParameter("homePhone", homePhone));
-
-                            UpdateHomePhone.ExecuteNonQuery();
-
-                            Debug.WriteLine("Home phone updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Home phone was not changed. Not updating home phone.");
-                        }
-
-                        if (workPhone != temp.workPhone)
-                        {
-                            Debug.WriteLine("Updating work phone...");
-
-                            SqlCommand UpdateWorkPhone = new SqlCommand("UPDATE t_Users SET WorkPhone = @workPhone WHERE Username = @username", conn);
-
-                            UpdateWorkPhone.Parameters.Add(new SqlParameter("username", username));
-                            UpdateWorkPhone.Parameters.Add(new SqlParameter("workPhone", workPhone));
-
-                            UpdateWorkPhone.ExecuteNonQuery();
-
-                            Debug.WriteLine("Work phone updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Work phone was not changed. Not updating work phone.");
-                        }
-
-                        if (accountType != temp.accountType)
-                        {
-                            Debug.WriteLine("Updating account type...");
-
-                            SqlCommand UpdateAccountType = new SqlCommand("UPDATE t_Users SET AccountType = @accountType WHERE Username = @username", conn);
-
-                            UpdateAccountType.Parameters.Add(new SqlParameter("username", username));
-                            UpdateAccountType.Parameters.Add(new SqlParameter("accountType", accountType));
-
-                            UpdateAccountType.ExecuteNonQuery();
-
-                            Debug.WriteLine("Account type updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Account type was not changed. Not account type.");
-                        }
-
-                        if (accountStatus != temp.accountStatus)
-                        {
-                            Debug.WriteLine("Updating account status...");
-
-                            SqlCommand UpdateAccountStatus = new SqlCommand("UPDATE t_Users SET AccountStatus = @accountStatus WHERE Username = @username", conn);
-
-                            UpdateAccountStatus.Parameters.Add(new SqlParameter("username", username));
-                            UpdateAccountStatus.Parameters.Add(new SqlParameter("accountStatus", accountStatus));
-
-                            UpdateAccountStatus.ExecuteNonQuery();
-
-                            Debug.WriteLine("Account status updated successfully!");
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Account status was not changed. Not updating account status.");
-                        }
+                        Debug.WriteLine("Username updated successfully!");
                     }
+                    else
+                    {
+                        Debug.WriteLine("Username was not changed. Not updating username.");
+                    }
+
+                    if (email != temp.email)
+                    {
+                        Debug.WriteLine("Updating email...");
+
+                        SqlCommand UpdateEmail = new SqlCommand("UPDATE t_Users SET Email = @email WHERE Username = @username", pOpenConn);
+
+                        UpdateEmail.Parameters.Add(new SqlParameter("username", username));
+                        UpdateEmail.Parameters.Add(new SqlParameter("email", email));
+
+                        UpdateEmail.ExecuteNonQuery();
+
+                        Debug.WriteLine("Email updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Email was not changed. Not updating email.");
+                    }
+
+                    if (pwd.Length > 0 && pwd != temp.pwd)
+                    {
+                        Debug.WriteLine("Updating password...");
+
+                        SqlCommand UpdatePwd = new SqlCommand("UPDATE t_Users SET Pwd = @pwd WHERE Username = @username", pOpenConn);
+
+                        UpdatePwd.Parameters.Add(new SqlParameter("username", username));
+                        UpdatePwd.Parameters.Add(new SqlParameter("pwd", pwd));
+
+                        UpdatePwd.ExecuteNonQuery();
+
+                        Debug.WriteLine("Password updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Password was not changed. Not updating password.");
+                    }
+
+                    if (forename != temp.forename)
+                    {
+                        Debug.WriteLine("Updating forename...");
+
+                        SqlCommand UpdateForename = new SqlCommand("UPDATE t_Users SET Forename = @forename WHERE Username = @username", pOpenConn);
+
+                        UpdateForename.Parameters.Add(new SqlParameter("username", username));
+                        UpdateForename.Parameters.Add(new SqlParameter("forename", email));
+
+                        UpdateForename.ExecuteNonQuery();
+
+                        Debug.WriteLine("Forename updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Forename was not changed. Not updating forename.");
+                    }
+
+                    if (surname != temp.surname)
+                    {
+                        Debug.WriteLine("Updating surname...");
+
+                        SqlCommand UpdateSurname = new SqlCommand("UPDATE t_Users SET Surname = @surname WHERE Username = @username", pOpenConn);
+
+                        UpdateSurname.Parameters.Add(new SqlParameter("username", username));
+                        UpdateSurname.Parameters.Add(new SqlParameter("surname", surname));
+
+                        UpdateSurname.ExecuteNonQuery();
+
+                        Debug.WriteLine("Surname updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Surname was not changed. Not updating surname.");
+                    }
+
+                    if (_gender != temp.Gender)
+                    {
+                        Debug.WriteLine("Updating gender ({0} != {1}...", _gender, temp.Gender);
+
+                        SqlCommand UpdateSurname = new SqlCommand("UPDATE t_Users SET Gender = @gender WHERE Username = @username", pOpenConn);
+
+                        UpdateSurname.Parameters.Add(new SqlParameter("username", username));
+                        UpdateSurname.Parameters.Add(new SqlParameter("gender", _gender));
+
+                        UpdateSurname.ExecuteNonQuery();
+
+                        Debug.WriteLine("Gender updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Gender was not changed. Not updating gender.");
+                    }
+
+                    if (dob != temp.dob && dob != DateTime.MinValue)
+                    {
+                        Debug.WriteLine("Updating dob...");
+
+                        SqlCommand UpdateDob = new SqlCommand("UPDATE t_Users SET Dob = @dob WHERE Username = @username", pOpenConn);
+
+                        UpdateDob.Parameters.Add(new SqlParameter("username", username));
+                        UpdateDob.Parameters.Add(new SqlParameter("dob", dob));
+
+                        UpdateDob.ExecuteNonQuery();
+
+                        Debug.WriteLine("Dob updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Dob was not changed. Not updatg dob.");
+                    }
+
+                    /*if (dbGender != null && gender != null && dbGender != gender && (gender.ToString().ToUpper() == "M" || gender.ToString().ToUpper() == "F" || gender.ToString().ToUpper() == "O"))
+                    {
+                        Debug.WriteLine("Updating gender...");
+
+                        SqlCommand UpdateGender = new SqlCommand("UPDATE t_Users SET gender = @dob WHERE Username = @username", conn);
+
+                        UpdateGender.Parameters.Add(new SqlParameter("username", Username));
+                        UpdateGender.Parameters.Add(new SqlParameter("gender", gender));
+
+                        UpdateGender.ExecuteNonQuery();
+
+                        Debug.WriteLine("Gender updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Gender was not changed. Not updating gender.");
+                    }*/
+
+                    if (address1 != temp.address1)
+                    {
+                        Debug.WriteLine("Updating address1...");
+
+                        SqlCommand UpdateAddress1 = new SqlCommand("UPDATE t_Users SET Address1 = @address1 WHERE Username = @username", pOpenConn);
+
+                        UpdateAddress1.Parameters.Add(new SqlParameter("username", username));
+                        UpdateAddress1.Parameters.Add(new SqlParameter("address1", address1));
+
+                        UpdateAddress1.ExecuteNonQuery();
+
+                        Debug.WriteLine("Address1 updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Address1 was not changed. Not updating address1.");
+                    }
+
+                    if (address2 != temp.address2)
+                    {
+                        Debug.WriteLine("Updating address2...");
+
+                        SqlCommand UpdateAddress2 = new SqlCommand("UPDATE t_Users SET Address2 = @address2 WHERE Username = @username", pOpenConn);
+
+                        UpdateAddress2.Parameters.Add(new SqlParameter("username", username));
+                        UpdateAddress2.Parameters.Add(new SqlParameter("address2", address2));
+
+                        UpdateAddress2.ExecuteNonQuery();
+
+                        Debug.WriteLine("Address2 updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Address2 was not changed. Not updating address2.");
+                    }
+
+                    if (address3 != temp.address3)
+                    {
+                        Debug.WriteLine("Updating address3...");
+
+                        SqlCommand UpdateAddress3 = new SqlCommand("UPDATE t_Users SET Address3 = @address3 WHERE Username = @username", pOpenConn);
+
+                        UpdateAddress3.Parameters.Add(new SqlParameter("username", username));
+                        UpdateAddress3.Parameters.Add(new SqlParameter("address3", address3));
+
+                        UpdateAddress3.ExecuteNonQuery();
+
+                        Debug.WriteLine("Address3 updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Address3 was not changed. Not updating address3.");
+                    }
+
+                    if (postCode != temp.postCode)
+                    {
+                        Debug.WriteLine("Updating postcode...");
+
+                        SqlCommand UpdatePostCode = new SqlCommand("UPDATE t_Users SET PostCode = @postCode WHERE Username = @username", pOpenConn);
+
+                        UpdatePostCode.Parameters.Add(new SqlParameter("username", username));
+                        UpdatePostCode.Parameters.Add(new SqlParameter("postCode", postCode));
+
+                        UpdatePostCode.ExecuteNonQuery();
+
+                        Debug.WriteLine("Postcode updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Postcode was not changed. Not updating postcode.");
+                    }
+
+                    if (mobilePhone != temp.mobilePhone)
+                    {
+                        Debug.WriteLine("Updating mobile phone...");
+
+                        SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE t_Users SET MobilePhone = @mobilePhone WHERE Username = @username", pOpenConn);
+
+                        UpdateMobilePhone.Parameters.Add(new SqlParameter("username", username));
+                        UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", mobilePhone));
+
+                        UpdateMobilePhone.ExecuteNonQuery();
+
+                        Debug.WriteLine("Mobile phone updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Mobile phone was not changed. Not updating mobile phone.");
+                    }
+
+                    if (homePhone != temp.homePhone)
+                    {
+                        Debug.WriteLine("Updating home phone...");
+
+                        SqlCommand UpdateHomePhone = new SqlCommand("UPDATE t_Users SET HomePhone = @homePhone WHERE Username = @username", pOpenConn);
+
+                        UpdateHomePhone.Parameters.Add(new SqlParameter("username", username));
+                        UpdateHomePhone.Parameters.Add(new SqlParameter("homePhone", homePhone));
+
+                        UpdateHomePhone.ExecuteNonQuery();
+
+                        Debug.WriteLine("Home phone updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Home phone was not changed. Not updating home phone.");
+                    }
+
+                    if (workPhone != temp.workPhone)
+                    {
+                        Debug.WriteLine("Updating work phone...");
+
+                        SqlCommand UpdateWorkPhone = new SqlCommand("UPDATE t_Users SET WorkPhone = @workPhone WHERE Username = @username", pOpenConn);
+
+                        UpdateWorkPhone.Parameters.Add(new SqlParameter("username", username));
+                        UpdateWorkPhone.Parameters.Add(new SqlParameter("workPhone", workPhone));
+
+                        UpdateWorkPhone.ExecuteNonQuery();
+
+                        Debug.WriteLine("Work phone updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Work phone was not changed. Not updating work phone.");
+                    }
+
+                    if (accountType != temp.accountType)
+                    {
+                        Debug.WriteLine("Updating account type...");
+
+                        SqlCommand UpdateAccountType = new SqlCommand("UPDATE t_Users SET AccountType = @accountType WHERE Username = @username", pOpenConn);
+
+                        UpdateAccountType.Parameters.Add(new SqlParameter("username", username));
+                        UpdateAccountType.Parameters.Add(new SqlParameter("accountType", accountType));
+
+                        UpdateAccountType.ExecuteNonQuery();
+
+                        Debug.WriteLine("Account type updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Account type was not changed. Not account type.");
+                    }
+
+                    if (accountStatus != temp.accountStatus)
+                    {
+                        Debug.WriteLine("Updating account status...");
+
+                        SqlCommand UpdateAccountStatus = new SqlCommand("UPDATE t_Users SET AccountStatus = @accountStatus WHERE Username = @username", pOpenConn);
+
+                        UpdateAccountStatus.Parameters.Add(new SqlParameter("username", username));
+                        UpdateAccountStatus.Parameters.Add(new SqlParameter("accountStatus", accountStatus));
+
+                        UpdateAccountStatus.ExecuteNonQuery();
+
+                        Debug.WriteLine("Account status updated successfully!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Account status was not changed. Not updating account status.");
+                    }
+
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("Caught an error whilst updating account (\"{0}\": {1}",username, e);
+                    Debug.WriteLine("Caught an error whilst updating account (\"{0}\": {1}", username, e);
                     return false;
                 }
                 return true;
@@ -1086,68 +1192,35 @@ namespace UacApi
             }
         }
 
-        public bool DbInsert(string pPwd)
+        private bool DbInsert(string pPwd, SqlConnection pOpenConn)
         {
             if (username != null && forename != null && surname != null)
             {
                 try
                 {
-
-
-                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                    if (!UserExistsOnDb(pOpenConn))
                     {
-                        conn.Open();
+                        SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (id, Username, Forename, Surname, DateTimeCreated, AccountType, AccountStatus) VALUES(@id, @username, @fname, @sname, @dateTimeCreated, @accountType, @accountStatus)", pOpenConn);
+                        InsertIntoDb.Parameters.Add(new SqlParameter("id", id));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("username", username.Trim()));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("fname", forename.Trim()));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("sname", surname.Trim()));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("dateTimeCreated", ParsnipApi.Data.adjustedTime));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("accountType", accountType));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("accountStatus", accountStatus));
 
-                        bool UsernameExists()
-                        {
-                            Debug.WriteLine(String.Format("Checking that username \"{0}\" does not exist in database before attempting insert...", username.Trim()));
+                        InsertIntoDb.ExecuteNonQuery();
 
-                            SqlCommand FindUsername = new SqlCommand("SELECT count(1) FROM t_Users WHERE Username = @username", conn);
-                            FindUsername.Parameters.Add(new SqlParameter("username", username));
-
-
-
-                            using (SqlDataReader reader = FindUsername.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
-                                    if (reader[0].ToString() == "1")
-                                    {
-                                        Debug.WriteLine(String.Format("Username \"{0}\" already exists in the database! Returning true.", username.Trim()));
-                                        return true;
-                                    }
-                                    else
-                                    {
-                                        Debug.WriteLine(String.Format("Username \"{0}\" does not already exist in the database! Returning false.", username.Trim()));
-                                        return false;
-                                    }
-                                }
-                            }
-                            throw new Exception("Expression evaluated to neither true or false");
-                        }
-
-                        if (!UsernameExists())
-                        {
-                            SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (id, Username, Forename, Surname, DateTimeCreated) VALUES(NEWID(), @username, @fname, @sname, @dateTimeCreated)", conn);
-                            InsertIntoDb.Parameters.Add(new SqlParameter("username", username.Trim()));
-                            InsertIntoDb.Parameters.Add(new SqlParameter("fname", forename.Trim()));
-                            InsertIntoDb.Parameters.Add(new SqlParameter("sname", surname.Trim()));
-                            InsertIntoDb.Parameters.Add(new SqlParameter("dateTimeCreated", ParsnipApi.Data.adjustedTime));
-
-                            InsertIntoDb.ExecuteNonQuery();
-
-                            Debug.WriteLine(String.Format("Successfully inserted account \"{0}\" into database: ", username));
-                        }
-                        
+                        Debug.WriteLine(String.Format("Successfully inserted account \"{0}\" into database: ", username));
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Debug.WriteLine("Failed to insert account into database: " + e);
                     return false;
                 }
 
-                return DbUpdate();
+                return DbUpdate(pOpenConn);
             }
             else
             {

@@ -13,7 +13,7 @@ namespace TheParsnipWeb
         User MyAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            MyAccount = new User();
+            MyAccount = new User("access-denied");
 
             
             if (Request.QueryString["url"] != null)

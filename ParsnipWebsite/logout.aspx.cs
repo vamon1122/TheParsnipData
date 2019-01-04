@@ -15,7 +15,7 @@ namespace TheParsnipWeb
         {
             User myUser = Uac.SecurePage("logout", this, Data.deviceType);
             new LogEntry(myUser.id) { text = String.Format("{0} logged out from {1} '{2}' device", myUser.fullName, myUser.posessivePronoun, Data.deviceType) };
-            new User().LogOut();
+            new User("logout").LogOut();
             Response.Redirect("login");
         }
     }

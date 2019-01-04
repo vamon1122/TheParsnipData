@@ -15,7 +15,7 @@ namespace UacApi
     {
         public static User SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
         {
-            var myUser = new User();
+            var myUser = new User("Uac.SecurePage(4)");
             if (myUser.LogIn())
             {
                 bool CanAccess;

@@ -24,7 +24,7 @@
         <div class="center_div">
             <div class="alert alert-warning alert-dismissible" runat="server" style="display:none" id="Warning">
                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Nice Try :P</strong> You must log in before you can view the '<asp:Label runat="server" ID="WebpageLabel"></asp:Label>' page!
+                <strong>Confirm Identity</strong> You must log in first!
             </div>
 
             

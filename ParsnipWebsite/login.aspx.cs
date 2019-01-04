@@ -27,7 +27,7 @@ namespace TheParsnipWeb
             {
                 Redirect = Request.QueryString["url"];
                 Warning.Attributes.CssStyle.Add("display", "block");
-                WebpageLabel.Text = Redirect;
+                
             }
             else
             {
@@ -36,7 +36,7 @@ namespace TheParsnipWeb
                 
 
 
-            myUser = new User();
+            myUser = new User("login");
 
             if (String.IsNullOrEmpty(inputUsername.Text) && String.IsNullOrWhiteSpace(inputUsername.Text)){
                 if (myUser.LogIn(false))

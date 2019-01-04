@@ -16,7 +16,7 @@ namespace CookieApi
             if (HttpContext.Current.Request.Cookies[pName] != null)
             {
                 myCookie = HttpContext.Current.Request.Cookies[pName];
-                System.Diagnostics.Debug.WriteLine("Cookie \"{0}\" = \"{1}\"", pName, myCookie.Value);
+                //System.Diagnostics.Debug.WriteLine("Cookie \"{0}\" = \"{1}\"", pName, myCookie.Value);
                 return myCookie.Value;
             }
             else
