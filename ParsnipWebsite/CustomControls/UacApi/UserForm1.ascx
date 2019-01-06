@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserForm.ascx.cs" Inherits="TheParsnipWeb.UserForm1" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserForm1.ascx.cs" Inherits="TheParsnipWeb.UserForm1" %>
 
 <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
 <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
@@ -36,12 +36,12 @@
  
         <div class="form-group">
             <label>Password</label>
-            <asp:TextBox runat="server" TextMode="password" CssClass="form-control" ID="password1" MaxLength="50" />
+            <asp:TextBox runat="server" CssClass="form-control" ID="password1" MaxLength="50" />
         </div>
  
         <div class="form-group">
             <label>Confirm Password</label>
-            <asp:TextBox runat="server" TextMode="password" CssClass="form-control" ID="password2" MaxLength="50" />
+            <asp:TextBox runat="server" CssClass="form-control" ID="password2" MaxLength="50" />
         </div>
             
         <div class="form-group">
@@ -154,7 +154,7 @@
             
         <br />
             
-        <asp:Button runat="server" ID="btnCreate" OnClick="btnCreate_Click" CssClass="btn btn-primary" Text="Create"></asp:Button>
+        <asp:Button runat="server" ID="btnAction" OnClick="btnAction_Click" CssClass="btn btn-primary" Text="Action"></asp:Button>
     </div>
     <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
 <!-- Include jQuery -->

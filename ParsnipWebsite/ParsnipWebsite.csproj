@@ -180,7 +180,7 @@
     <Content Include="resources\media\photos\Photos\tom_glasses.JPG" />
     <Content Include="polls.aspx" />
     <Content Include="rounded.png" />
-    <Content Include="CustomControls\UacApi\UserForm.ascx">
+    <Content Include="CustomControls\UacApi\UserForm1.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="UacService.asmx" />
@@ -323,12 +323,12 @@
       <DependentUpon>polls.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CustomControls\UacApi\UserForm.ascx.cs">
-      <DependentUpon>UserForm.ascx</DependentUpon>
+    <Compile Include="CustomControls\UacApi\UserForm1.ascx.cs">
+      <DependentUpon>UserForm1.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CustomControls\UacApi\UserForm.ascx.designer.cs">
-      <DependentUpon>UserForm.ascx</DependentUpon>
+    <Compile Include="CustomControls\UacApi\UserForm1.ascx.designer.cs">
+      <DependentUpon>UserForm1.ascx</DependentUpon>
     </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>

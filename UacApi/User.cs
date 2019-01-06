@@ -126,20 +126,20 @@ namespace UacApi
         public User(string pWhereAmI)
         {
             _id = Guid.NewGuid();
-            Debug.WriteLine(string.Format("User was initialised without a guid. WhereAmI = {0} Their guid will be: {1}", pWhereAmI, id));
+            //Debug.WriteLine(string.Format("User was initialised without a guid. WhereAmI = {0} Their guid will be: {1}", pWhereAmI, id));
             dateTimeCreated = ParsnipApi.Data.adjustedTime;
             AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
         public User(Guid pGuid)
         {
-            Debug.WriteLine("User was initialised with the guid: " + pGuid);
+            //Debug.WriteLine("User was initialised with the guid: " + pGuid);
             _id = pGuid;
         }
 
         public User(SqlDataReader pReader)
         {
-            Debug.WriteLine("User was initialised with an SqlDataReader. Guid: " + pReader[0]);
+            //Debug.WriteLine("User was initialised with an SqlDataReader. Guid: " + pReader[0]);
             AddValues(pReader);
         }
 
@@ -428,12 +428,12 @@ namespace UacApi
 
         internal bool AddValues(SqlDataReader pReader)
         {
-            Debug.WriteLine("----------Adding values...");
+            //Debug.WriteLine("----------Adding values...");
             try
             {
-                Debug.WriteLine(string.Format("----------Reading id: {0}",pReader[0]));
+                //Debug.WriteLine(string.Format("----------Reading id: {0}",pReader[0]));
                 id = new Guid(pReader[0].ToString());
-                Debug.WriteLine(string.Format("----------Reading username: {0}", pReader[1]));
+                //Debug.WriteLine(string.Format("----------Reading username: {0}", pReader[1]));
                 username = pReader[1].ToString().Trim();
                 if (pReader[2] == DBNull.Value)
                 { }   //Debug.WriteLine("----------email is blank. Skipping email");
@@ -444,7 +444,7 @@ namespace UacApi
                 }
                 
                 //Debug.WriteLine("----------Reading pwd");
-                //pwd = pReader[3].ToString().Trim();
+                pwd = pReader[3].ToString().Trim();
                 //Debug.WriteLine("----------Reading forename");
                 forename = pReader[4].ToString().Trim();
                 //Debug.WriteLine("----------Reading surname");
@@ -820,12 +820,19 @@ namespace UacApi
             bool success;
             SqlConnection UpdateConnection = new SqlConnection(ParsnipApi.Data.sqlConnectionString);
             UpdateConnection.Open();
-            if (UserExistsOnDb(UpdateConnection)) success = DbUpdate(UpdateConnection); else success = DbInsert(pwd, UpdateConnection);
+            if (ExistsOnDb(UpdateConnection)) success = DbUpdate(UpdateConnection); else success = DbInsert(pwd, UpdateConnection);
             UpdateConnection.Close();
             return success;
         }
 
-        private bool UserExistsOnDb(SqlConnection pOpenConn)
+        public bool ExistsOnDb()
+        {
+            SqlConnection conn = new SqlConnection(ParsnipApi.Data.sqlConnectionString);
+            conn.Open();
+            return ExistsOnDb(conn);
+        }
+
+        private bool ExistsOnDb(SqlConnection pOpenConn)
         {
             Debug.WriteLine(string.Format("Checking {0} weather user exists on database", id));
             try
@@ -868,14 +875,19 @@ namespace UacApi
             {
                 try
                 {
-
-
                     User temp = new User(id);
                     temp.Select();
 
                     if (username != temp.username)
                     {
-                        Debug.WriteLine("Updating username...");
+                        Debug.WriteLine(string.Format("----------Attempting to update {0}'s username...", temp.fullName));
+                        if (string.IsNullOrEmpty(username))
+                        {
+                            string e = string.Format("The username which was supplied for {0} was null or empty", temp.fullName);
+                            Debug.WriteLine("----------{0}. An exception will be thrown since username is a mandatory field", e);
+                            throw new InvalidCastException(e);
+                        }
+                        
 
                         SqlCommand UpdateUsername = new SqlCommand("UPDATE t_Users SET Username = @username WHERE Username = @username", pOpenConn);
 
@@ -883,291 +895,335 @@ namespace UacApi
 
                         UpdateUsername.ExecuteNonQuery();
 
-                        Debug.WriteLine("Username updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s username was updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Username was not changed. Not updating username.");
+                        Debug.WriteLine(string.Format("----------{0}'s username was not changed. Not updating {0}'s username.", temp.fullName));
                     }
 
                     
                     if (email != temp.email || email == "")
                     {
-                        Debug.WriteLine("Updating email...");
-                        Debug.WriteLine(string.Format("\"{0}\" != \"{1}\"", email, temp.email));
+                        Debug.WriteLine(string.Format("----------Updating {0}'s email...", temp.fullName));
 
                         SqlCommand UpdateEmail = new SqlCommand("UPDATE t_Users SET Email = @email WHERE Username = @username", pOpenConn);
 
                         UpdateEmail.Parameters.Add(new SqlParameter("username", username));
-                        if(email == "")
+                        if (email == "")
+                        {
                             UpdateEmail.Parameters.Add(new SqlParameter("email", DBNull.Value));
+                            Debug.WriteLine(string.Format("----------{0}'s email will be set to NULL in the database", temp.fullName));
+                        }
                         else
                             UpdateEmail.Parameters.Add(new SqlParameter("email", email));
 
-
-
-
                         UpdateEmail.ExecuteNonQuery();
 
-                        Debug.WriteLine("Email updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s email was updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Email was not changed. Not updating email.");
+                        Debug.WriteLine(string.Format("----------{0}'s email was not changed. Not updating {0}'s email", temp.fullName));
                     }
 
                     if (pwd.Length > 0 && pwd != temp.pwd || pwd == "")
                     {
-                        Debug.WriteLine("Updating password...");
+                        Debug.WriteLine(string.Format("----------Updating {0}'s password...", temp.fullName));
 
                         SqlCommand UpdatePwd = new SqlCommand("UPDATE t_Users SET Pwd = @pwd WHERE Username = @username", pOpenConn);
 
                         UpdatePwd.Parameters.Add(new SqlParameter("username", username));
-                        if(pwd == "")
+                        if (pwd == "")
+                        {
                             UpdatePwd.Parameters.Add(new SqlParameter("pwd", DBNull.Value));
+                            Debug.WriteLine(string.Format("----------{0}'s password will be set to NULL in the database", temp.fullName));
+                        }
                         else
                             UpdatePwd.Parameters.Add(new SqlParameter("pwd", pwd));
 
                         UpdatePwd.ExecuteNonQuery();
 
-                        Debug.WriteLine("Password updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s password updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Password was not changed. Not updating password.");
+                        Debug.WriteLine(string.Format("----------{0}'s password was not changed. Not updating {0}'s password.", temp.fullName));
                     }
 
                     if (forename != temp.forename)
                     {
-                        Debug.WriteLine("Updating forename...");
+                        Debug.WriteLine(string.Format("----------Updating {0}'s forename. {1}'s forename will be changed to \"{2}\"...", temp.fullName, temp.forename, forename));
 
-                        SqlCommand UpdateForename = new SqlCommand("UPDATE t_Users SET Forename = @forename WHERE Username = @username", pOpenConn);
+                        if (string.IsNullOrEmpty(forename))
+                        {
+                            string e = "The forename which was supplied was null or empty";
+                            Debug.WriteLine(string.Format("----------{0}. An exception will be thrown since forename is a mandatory field", e));
+                            throw new InvalidCastException(e);
+                        }
 
-                        UpdateForename.Parameters.Add(new SqlParameter("username", username));
+                        SqlCommand UpdateForename = new SqlCommand("UPDATE t_Users SET Forename = @forename WHERE id = @id", pOpenConn);
+
+                        UpdateForename.Parameters.Add(new SqlParameter("id", id));
                         UpdateForename.Parameters.Add(new SqlParameter("forename", forename));
                             
                         
 
                         UpdateForename.ExecuteNonQuery();
 
-                        Debug.WriteLine("Forename updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s forename updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Forename was not changed. Not updating forename.");
+                        Debug.WriteLine(string.Format("----------{0}'s forename was not changed. Not updating {0}'s forename.", temp.fullName));
                     }
 
                     if (surname != temp.surname)
                     {
-                        Debug.WriteLine("Updating surname...");
+                        Debug.WriteLine(string.Format("----------Updating {0}'s surname. {1}'s surname will be changed to \"{2}\"...", temp.fullName, temp.surname, surname));
 
-                        SqlCommand updateSurname = new SqlCommand("UPDATE t_Users SET Surname = @surname WHERE Username = @username", pOpenConn);
+                        if (string.IsNullOrEmpty(surname))
+                        {
+                            string e = "The surname which was supplied was null or empty";
+                            Debug.WriteLine(string.Format("----------{0}. An exception will be thrown since surname is a mandatory field", e));
+                            throw new InvalidCastException(e);
+                        }
 
-                        updateSurname.Parameters.Add(new SqlParameter("username", username));
+                        SqlCommand updateSurname = new SqlCommand("UPDATE t_Users SET Surname = @surname WHERE id = @id", pOpenConn);
+
+                        updateSurname.Parameters.Add(new SqlParameter("id", id));
                         updateSurname.Parameters.Add(new SqlParameter("surname", surname));
 
                         updateSurname.ExecuteNonQuery();
 
-                        Debug.WriteLine("Surname updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s surname was updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Surname was not changed. Not updating surname.");
+                        Debug.WriteLine(string.Format("----------{0}'s surname was not changed. Not updating {0}'s surname.", temp.fullName));
                     }
 
                     if (_gender != temp.Gender || _gender == "")
                     {
-                        Debug.WriteLine("Updating gender ({0} != {1}...", _gender, temp.Gender.Substring(0, 1));
+                        Debug.WriteLine(string.Format("----------Updating {0}'s gender...", temp.fullName));
 
                         SqlCommand updateGender = new SqlCommand("UPDATE t_Users SET Gender = @gender WHERE Username = @username", pOpenConn);
 
                         updateGender.Parameters.Add(new SqlParameter("username", username));
-                        if(_gender == "")
+                        if (_gender == "")
+                        {
                             updateGender.Parameters.Add(new SqlParameter("gender", DBNull.Value));
+                            Debug.WriteLine(string.Format("----------gender will be set to NULL in the database"));
+                        }
                         else
                             updateGender.Parameters.Add(new SqlParameter("gender", _gender));
 
                         updateGender.ExecuteNonQuery();
 
-                        Debug.WriteLine("Gender updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s gender updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Gender was not changed. Not updating gender.");
+                        Debug.WriteLine(string.Format("----------{0}'s gender was not changed. Not updating {0}'s gender.", temp.fullName));
                     }
 
                     if (dob != temp.dob || dob.ToString() == "")
                     {
-                        Debug.WriteLine("Updating dob...");
+                        Debug.WriteLine(string.Format("----------Updating {0}'s dob...", temp.fullName));
 
                         SqlCommand UpdateDob = new SqlCommand("UPDATE t_Users SET Dob = @dob WHERE Username = @username", pOpenConn);
 
                         UpdateDob.Parameters.Add(new SqlParameter("username", username));
 
-                        if(dob == DateTime.MinValue)
+                        if (dob == DateTime.MinValue)
+                        {
+                            Debug.WriteLine(string.Format("----------{0}'s dob will be set to NULL in the database", temp.fullName));
                             UpdateDob.Parameters.Add(new SqlParameter("dob", DBNull.Value));
+                        }
                         else
                         UpdateDob.Parameters.Add(new SqlParameter("dob", dob));
 
                         UpdateDob.ExecuteNonQuery();
 
-                        Debug.WriteLine("Dob updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s dob was updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Dob was not changed. Not updatg dob.");
+                        Debug.WriteLine(string.Format("----------{0}'s dob was not changed. Not updatg dob.", temp.fullName));
                     }
 
                     if (address1 != temp.address1 || address1 == "")
                     {
-                        Debug.WriteLine("Updating address1...");
+                        Debug.WriteLine(string.Format("----------Updating {0}'s address1...", temp.fullName));
 
                         SqlCommand UpdateAddress1 = new SqlCommand("UPDATE t_Users SET Address1 = @address1 WHERE Username = @username", pOpenConn);
 
                         UpdateAddress1.Parameters.Add(new SqlParameter("username", username));
-                        if(address1 == "")
+                        if (address1 == "")
+                        {
                             UpdateAddress1.Parameters.Add(new SqlParameter("address1", DBNull.Value));
+                            Debug.WriteLine(string.Format("----------{0}'s address1 will be set to NULL in the database", temp.fullName));
+                        }
                         else
                             UpdateAddress1.Parameters.Add(new SqlParameter("address1", address1));
 
                         UpdateAddress1.ExecuteNonQuery();
 
-                        Debug.WriteLine("Address1 updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s address1 updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Address1 was not changed. Not updating address1.");
+                        Debug.WriteLine(string.Format("{0}'s address1 was not changed. Not updating address1.", temp.fullName));
                     }
 
                     if (address2 != temp.address2 || address2 == "")
                     {
-                        Debug.WriteLine("Updating address2...");
+                        Debug.WriteLine(string.Format("----------Updating {0}'s address2...", temp.fullName));
 
                         SqlCommand UpdateAddress2 = new SqlCommand("UPDATE t_Users SET Address2 = @address2 WHERE Username = @username", pOpenConn);
 
                         UpdateAddress2.Parameters.Add(new SqlParameter("username", username));
                         if(address2 == "")
+                        {
                             UpdateAddress2.Parameters.Add(new SqlParameter("address2", DBNull.Value));
+                            Debug.WriteLine(string.Format("----------{0}'s address2 will be set to NULL in the database", temp.fullName));
+                        }
+                            
                         else
                             UpdateAddress2.Parameters.Add(new SqlParameter("address2", address2));
 
                         UpdateAddress2.ExecuteNonQuery();
 
-                        Debug.WriteLine("Address2 updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s address2 was updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Address2 was not changed. Not updating address2.");
+                        Debug.WriteLine(string.Format("----------{0}'s address2 was not changed. Not updating address2.", temp.fullName));
                     }
 
                     if (address3 != temp.address3 || address3 == "")
                     {
-                        Debug.WriteLine("Updating address3...");
+                        Debug.WriteLine(string.Format("----------Updating {0}'s address3...", temp.fullName));
 
                         SqlCommand UpdateAddress3 = new SqlCommand("UPDATE t_Users SET Address3 = @address3 WHERE Username = @username", pOpenConn);
 
                         UpdateAddress3.Parameters.Add(new SqlParameter("username", username));
-                        if(address3 == "")
+                        if (address3 == "")
+                        {
                             UpdateAddress3.Parameters.Add(new SqlParameter("address3", DBNull.Value));
+                            Debug.WriteLine(string.Format("----------{0}'s address3 will be set to NULL in the database", temp.fullName));
+                        }
                         else
                             UpdateAddress3.Parameters.Add(new SqlParameter("address3", address3));
 
                         UpdateAddress3.ExecuteNonQuery();
 
-                        Debug.WriteLine("Address3 updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s address3 was updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Address3 was not changed. Not updating address3.");
+                        Debug.WriteLine(string.Format("----------{0}'s address3 was not changed. Not updating {0}'s address3.", temp.fullName));
                     }
 
                     if (postCode != temp.postCode || postCode == "")
                     {
-                        Debug.WriteLine("Updating postcode...");
+                        Debug.WriteLine(string.Format("----------Updating {0}'s postcode...", temp.fullName));
 
                         SqlCommand UpdatePostCode = new SqlCommand("UPDATE t_Users SET PostCode = @postCode WHERE Username = @username", pOpenConn);
 
                         UpdatePostCode.Parameters.Add(new SqlParameter("username", username));
                         if(postCode == "")
+                        {
                             UpdatePostCode.Parameters.Add(new SqlParameter("postCode", DBNull.Value));
+                            Debug.WriteLine(string.Format("----------{0}'s postCode will be set to NULL in the database", temp.fullName));
+                        }
                         else
                             UpdatePostCode.Parameters.Add(new SqlParameter("postCode", postCode));
 
                         UpdatePostCode.ExecuteNonQuery();
 
-                        Debug.WriteLine("Postcode updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s postCode was updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Postcode was not changed. Not updating postcode.");
+                        Debug.WriteLine(string.Format("----------{0}'s postCode was not changed. Not updating {0}'s postcode.", temp.fullName));
                     }
 
                     if (mobilePhone != temp.mobilePhone || mobilePhone == "")
                     {
-                        Debug.WriteLine("Updating mobile phone...");
+                        Debug.WriteLine(string.Format("----------Updating {0}'s mobilePhone...", temp.fullName));
 
                         SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE t_Users SET MobilePhone = @mobilePhone WHERE Username = @username", pOpenConn);
 
                         UpdateMobilePhone.Parameters.Add(new SqlParameter("username", username));
                         if(mobilePhone == "")
+                        {
                             UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", DBNull.Value));
+                            Debug.WriteLine(string.Format("----------{0}'s mobilePhone will be set to NULL in the database", temp.fullName));
+                        }
                         else
                             UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", mobilePhone));
 
                         UpdateMobilePhone.ExecuteNonQuery();
 
-                        Debug.WriteLine("Mobile phone updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s mobilePhone updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Mobile phone was not changed. Not updating mobile phone.");
+                        Debug.WriteLine(string.Format("{0}'s mobilePhone was not changed. Not updating {0}'s mobilePhone.", temp.fullName));
                     }
 
                     if (homePhone != temp.homePhone || homePhone == "")
                     {
-                        Debug.WriteLine("Updating home phone...");
+                        Debug.WriteLine(string.Format("----------Updating {0}'s homePhone...", temp.fullName));
 
                         SqlCommand UpdateHomePhone = new SqlCommand("UPDATE t_Users SET HomePhone = @homePhone WHERE Username = @username", pOpenConn);
 
                         UpdateHomePhone.Parameters.Add(new SqlParameter("username", username));
-                        if(homePhone != "")
+                        if (homePhone != "")
+                        {
                             UpdateHomePhone.Parameters.Add(new SqlParameter("homePhone", DBNull.Value));
+                            Debug.WriteLine(string.Format("----------{0}'s homePhone will be set to NULL in the database", temp.fullName));
+                        }
                         else
                             UpdateHomePhone.Parameters.Add(new SqlParameter("homePhone", homePhone));
 
                         UpdateHomePhone.ExecuteNonQuery();
 
-                        Debug.WriteLine("Home phone updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s homePhone was updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Home phone was not changed. Not updating home phone.");
+                        Debug.WriteLine(string.Format("----------{0}'s homePhone was not changed. Not updating {0}'s home phone.", temp.fullName));
                     }
 
                     if (workPhone != temp.workPhone || workPhone == "")
                     {
-                        Debug.WriteLine("Updating work phone...");
+                        Debug.WriteLine(string.Format("----------Updating {0}'s workPhone...", temp.fullName));
 
                         SqlCommand updateWorkPhone = new SqlCommand("UPDATE t_Users SET WorkPhone = @workPhone WHERE id = @id", pOpenConn);
 
                         updateWorkPhone.Parameters.Add(new SqlParameter("id", id));
-                        if(workPhone != "")
+                        if (workPhone != "")
+                        {
                             updateWorkPhone.Parameters.Add(new SqlParameter("workPhone", DBNull.Value));
+                            Debug.WriteLine(string.Format("----------{0}'s workPhone will be set to NULL in the database", temp.fullName));
+                        }
                         else
                             updateWorkPhone.Parameters.Add(new SqlParameter("workPhone", workPhone));
 
                         updateWorkPhone.ExecuteNonQuery();
 
-                        Debug.WriteLine("Work phone updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s workPhone was updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Work phone was not changed. Not updating work phone.");
+                        Debug.WriteLine(string.Format("----------{0}'s workPhone was not changed. Not updating {0}'s workPhone", temp.fullName));
                     }
 
                     if (accountType != temp.accountType)
                     {
-                        Debug.WriteLine("Updating account type...");
+                        Debug.WriteLine(string.Format("----------Updating {0}'s accountType...", temp.fullName));
 
                         SqlCommand updateAccountType = new SqlCommand("UPDATE t_Users SET AccountType = @accountType WHERE id = @id", pOpenConn);
 
@@ -1176,16 +1232,16 @@ namespace UacApi
 
                         updateAccountType.ExecuteNonQuery();
 
-                        Debug.WriteLine("Account type updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s accountType updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Account type was not changed. Not account type.");
+                        Debug.WriteLine(string.Format("----------{0}'s accountType was not changed. Not updating {0}'s accountType.", temp.fullName));
                     }
 
                     if (accountStatus != temp.accountStatus)
                     {
-                        Debug.WriteLine("Updating account status...");
+                        Debug.WriteLine(string.Format("----------Updating {0}'s accountStatus...", temp.fullName));
 
                         SqlCommand updateAccountStatus = new SqlCommand("UPDATE t_Users SET AccountStatus = @accountStatus WHERE Username = @username", pOpenConn);
 
@@ -1194,17 +1250,17 @@ namespace UacApi
 
                         updateAccountStatus.ExecuteNonQuery();
 
-                        Debug.WriteLine("Account status updated successfully!");
+                        Debug.WriteLine(string.Format("----------{0}'s accountStatus updated successfully!", temp.fullName));
                     }
                     else
                     {
-                        Debug.WriteLine("Account status was not changed. Not updating account status.");
+                        Debug.WriteLine(string.Format("----------{0}'s accountStatus was not changed. Not updating {0}'s accountStatus.", temp.fullName));
                     }
 
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("Caught an error whilst updating account (\"{0}\": {1}", username, e);
+                    Debug.WriteLine(string.Format("Caught an error whilst updating account (\"{0}\": {1}", username, e));
                     return false;
                 }
                 return true;
@@ -1221,7 +1277,7 @@ namespace UacApi
             {
                 try
                 {
-                    if (!UserExistsOnDb(pOpenConn))
+                    if (!ExistsOnDb(pOpenConn))
                     {
                         SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (id, Username, Forename, Surname, DateTimeCreated, AccountType, AccountStatus) VALUES(@id, @username, @fname, @sname, @dateTimeCreated, @accountType, @accountStatus)", pOpenConn);
                         InsertIntoDb.Parameters.Add(new SqlParameter("id", id));

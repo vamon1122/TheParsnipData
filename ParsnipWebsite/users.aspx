@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="users.aspx.cs" Inherits="TheParsnipWeb.create_user" %>
 <%@ Register Src="~/CustomControls/admin/adminMenu.ascx" TagPrefix="adminControls" TagName="adminMenu" %>
-<%@ Register Src="~/CustomControls/UacApi/UserForm.ascx" TagPrefix="uc1" TagName="UserForm" %>
+<%@ Register Src="~/CustomControls/UacApi/UserForm1.ascx" TagPrefix="uc1" TagName="UserForm1" %>
 
 <!DOCTYPE html>
 
@@ -31,12 +31,12 @@
            
         <div class="center_div">
              <label>Users</label>
-        <asp:DropDownList ID="ddlselect" runat="server" AutoPostBack="True" CssClass="form-control" 
-        onselectedindexchanged="ddlselect_Changed">
+        <asp:DropDownList ID="selectUser" runat="server" AutoPostBack="True" CssClass="form-control" 
+        onselectedindexchanged="SelectUser_Changed">
     </asp:DropDownList>
             </div>
             
-        <uc1:UserForm runat="server" ID="UserForm" />
+        <uc1:UserForm1 runat="server" ID="UserForm" />
     </div>
         </form>
     

@@ -40,34 +40,15 @@ namespace TheParsnipWeb
                 ListItems[i] = new ListItem(String.Format("{0} ({1})", temp.fullName, temp.username), temp.id.ToString());
                 i++;
             }
-            ddlselect.Items.Clear();
-            ddlselect.Items.AddRange(ListItems);
+            selectUser.Items.Clear();
+            selectUser.Items.AddRange(ListItems);
 
             if(UserForm.myUser != null)
             {
-                ddlselect.SelectedValue = UserForm.myUser.id.ToString();
+                selectUser.SelectedValue = CookieApi.Cookie.Read("formSelectedUser"); //UserForm.myUser.id.ToString();
             }
-            /*
-            User tempUser = users.SingleOrDefault(x => x.id.ToString() == ddlselect.SelectedValue);
-            if (tempUser != null)
-                ddlselect.SelectedValue = UserForm.myUser.id.ToString();
-            else
-                System.Diagnostics.Debug.WriteLine("tempUser = null! This is a new user");
-                
 
-            if(ddlselect.SelectedValue.ToString() == Guid.Empty.ToString())
-            {
-                System.Diagnostics.Debug.WriteLine(string.Format("Not attempting to find user in list as '{0}' appears to be a blank Guid!", ddlselect.SelectedValue.ToString()));
-                UserForm.myUser = new User("users - A blank Guid was selected!");
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine(string.Format("Attempting to find user {0} in users list", ddlselect.SelectedValue.ToString()));
-                UserForm.myUser = UserForm.myUser = users.Single(x => x.id.ToString() == ddlselect.SelectedValue.ToString());
-            }
-            
             UserForm.UpdateForm();
-            */
             System.Diagnostics.Debug.WriteLine("Page_LoadComplete complete!");
         }
 
@@ -80,6 +61,7 @@ namespace TheParsnipWeb
                 SqlCommand GetUsers = new SqlCommand("SELECT * FROM t_Users", conn);
                 using (SqlDataReader reader = GetUsers.ExecuteReader())
                 {
+                    users.Add(new User(Guid.Empty));
                     while (reader.Read())
                     {
                         users.Add(new UacApi.User(reader));
@@ -88,9 +70,9 @@ namespace TheParsnipWeb
             }
         }
 
-        protected void ddlselect_Changed(object sender, EventArgs e)
+        protected void SelectUser_Changed(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("ddlselect_Changed");
+            System.Diagnostics.Debug.WriteLine("SelectUser_Changed");
                /*System.Diagnostics.Debug.WriteLine("ddlselect_Changed GetUsers() START");
             GetUsers();
             System.Diagnostics.Debug.WriteLine("ddlselect_Changed GetUsers() END");*/
@@ -99,20 +81,19 @@ namespace TheParsnipWeb
             {
                 System.Diagnostics.Debug.WriteLine("----------temp.id = " + temp.id);
             }
-            System.Diagnostics.Debug.WriteLine("----------ddlSelect was changed. SelectedValue = " + ddlselect.SelectedValue);
-            if (ddlselect.SelectedValue == Guid.Empty.ToString())
+            System.Diagnostics.Debug.WriteLine("----------selectUser was changed. SelectedValue = " + selectUser.SelectedValue);
+            /*if (selectUser.SelectedValue == Guid.Empty.ToString())
             {
-                System.Diagnostics.Debug.WriteLine(string.Format("----------ddlSelect's value = Guid.Empty ({0} = {1})", ddlselect.SelectedValue, Guid.Empty));
-                UserForm.myUser = new User("ddselect_Changed");
+                System.Diagnostics.Debug.WriteLine(string.Format("----------selectUser's value = Guid.Empty ({0} = {1})", selectUser.SelectedValue, Guid.Empty));
+                UserForm.myUser = new User("selectUser_Changed");
             }
-
             else
-            {
-                System.Diagnostics.Debug.WriteLine(string.Format("----------ddlSelect's value = {0}. Finding this user in users", ddlselect.SelectedValue));
-                UserForm.myUser = users.Single(x => x.id.ToString() == ddlselect.SelectedValue.ToString());
+            {*/
+                System.Diagnostics.Debug.WriteLine(string.Format("----------selectUser's value = {0}. Finding this user in users", selectUser.SelectedValue));
+                UserForm.myUser = users.Single(x => x.id.ToString() == selectUser.SelectedValue.ToString());
                 System.Diagnostics.Debug.WriteLine(string.Format("----------Found a user! Fullname: {0} Id: {1}", UserForm.myUser.fullName, UserForm.myUser.id));
-                CookieApi.Cookie.WriteSession("formUser", UserForm.myUser.id.ToString());
-            }
+                CookieApi.Cookie.WriteSession("formSelectedUser", UserForm.myUser.id.ToString());
+            //}
                 
 
             UserForm.UpdateForm();
