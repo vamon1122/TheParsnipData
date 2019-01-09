@@ -27,6 +27,14 @@ namespace CookieApi
             
         }
 
+        public static bool Exists(string pName)
+        {
+            if (Read(pName) != null)
+                return true;
+            else
+                return false;
+        }
+
         public static bool WritePerm(string pName, string pVal)
         {
             try

@@ -19,9 +19,9 @@ namespace UacApi
         private static string sqlConnectionString = ParsnipApi.Data.sqlConnectionString;
 
         private Guid _id;
-        public Guid id { get { return _id; } private set { Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value)); _id = value; } }
+        public Guid id { get { return _id; } private set { /*Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value));*/ _id = value; } }
         private string _username;
-        public string username { get { return _username; } set { Debug.WriteLine(string.Format("----------username is being set to = {0}", value)); _username = value; } }
+        public string username { get { return _username; } set { /*Debug.WriteLine(string.Format("----------username is being set to = {0}", value));*/ _username = value; } }
         private string _email;
         public string email { get { return _email; } set { /*Debug.WriteLine(string.Format("----------email is being set to = {0}", value));*/ _email = value; } }
         private string _pwd;
@@ -72,7 +72,7 @@ namespace UacApi
             }
             set
             {
-                Debug.WriteLine(string.Format("----------gender is being set to = {0}", value));
+                //Debug.WriteLine(string.Format("----------gender is being set to = {0}", value));
                 if(value.Length > 0)
                 {
                     string tempGender = value.Substring(0, 1).ToUpper();
@@ -149,7 +149,7 @@ namespace UacApi
 
             validateSuccess = validateUsername() ? validateSuccess : false;
             validateSuccess = validateEmail() ? validateSuccess : false;
-            //ValidateSuccess = validatePwd() ? ValidateSuccess : false;
+            validateSuccess = validatePwd() ? validateSuccess : false;
             validateSuccess = validateForename() ? validateSuccess : false;
             validateSuccess = validateSurname() ? validateSuccess : false;
             validateSuccess = validateDob() ? validateSuccess : false;
@@ -243,15 +243,11 @@ namespace UacApi
                     return true;
                 }
             }
-
-            #region bool validatePwd()
-            /*
+            
             bool validatePwd()
             {
-                if (.Text.Trim().Length == 0)
+                if (pwd.Trim().Length == 0)
                 {
-                    password1.CssClass = "invalid";
-                    password2.CssClass = "invalid";
                     return false;
                 }
                 else
@@ -259,8 +255,6 @@ namespace UacApi
                     return true;
                 }
             }
-            */
-            #endregion
 
             bool validateForename()
             {
@@ -420,6 +414,25 @@ namespace UacApi
             }
         }
 
+        public static List<User> GetAllUsers()
+        {
+
+            var users = new List<User>();
+            using (SqlConnection conn = ParsnipApi.Data.GetOpenDbConnection())
+            {
+                SqlCommand GetUsers = new SqlCommand("SELECT * FROM t_Users", conn);
+                using (SqlDataReader reader = GetUsers.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        users.Add(new UacApi.User(reader));
+                    }
+                }
+            }
+
+            return users;
+        }
+
         internal bool LogIn(string pUsername)
         {
             username = pUsername;
@@ -538,12 +551,7 @@ namespace UacApi
 
         public bool Select()
         {
-            using (SqlConnection myOpenConnection = new SqlConnection(ParsnipApi.Data.sqlConnectionString))
-            {
-                myOpenConnection.Open();
-                return Select(myOpenConnection);
-            }
-                
+            return Select(ParsnipApi.Data.GetOpenDbConnection());
         }
 
         internal bool Select(SqlConnection pOpenConn)
@@ -588,9 +596,8 @@ namespace UacApi
             string dbPwd = null;
             username = pUsername;
 
-            using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+            using (SqlConnection conn = ParsnipApi.Data.GetOpenDbConnection()) 
             {
-                conn.Open();
                 //AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
 
 
@@ -666,8 +673,9 @@ namespace UacApi
                     try
                     {
                         //AccountLog.Debug("username = " + username);
-                        SqlCommand Command = new SqlCommand("UPDATE t_Users SET LastLogIn = GETDATE() WHERE Username = @Username;", conn);
+                        SqlCommand Command = new SqlCommand("UPDATE t_Users SET LastLogIn = @date WHERE Username = @Username;", conn);
                         Command.Parameters.Add(new SqlParameter("Username", username));
+                        Command.Parameters.Add(new SqlParameter("date", ParsnipApi.Data.adjustedTime));
                         RecordsAffected = Command.ExecuteNonQuery();
                         
                     }
@@ -818,7 +826,7 @@ namespace UacApi
         public bool Update()
         {
             bool success;
-            SqlConnection UpdateConnection = new SqlConnection(ParsnipApi.Data.sqlConnectionString);
+            SqlConnection UpdateConnection = ParsnipApi.Data.GetOpenDbConnection();
             UpdateConnection.Open();
             if (ExistsOnDb(UpdateConnection)) success = DbUpdate(UpdateConnection); else success = DbInsert(pwd, UpdateConnection);
             UpdateConnection.Close();
@@ -827,9 +835,7 @@ namespace UacApi
 
         public bool ExistsOnDb()
         {
-            SqlConnection conn = new SqlConnection(ParsnipApi.Data.sqlConnectionString);
-            conn.Open();
-            return ExistsOnDb(conn);
+            return ExistsOnDb(ParsnipApi.Data.GetOpenDbConnection());
         }
 
         private bool ExistsOnDb(SqlConnection pOpenConn)
