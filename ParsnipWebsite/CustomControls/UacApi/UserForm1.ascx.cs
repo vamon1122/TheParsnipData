@@ -39,37 +39,46 @@ namespace TheParsnipWeb
         public void UpdateForm()
         {
             Debug.WriteLine(string.Format("----------Userform is being updated. Name: {0} Id: {1}", dataSubject.fullName, dataSubject.id));
-            if (dataSubject.id.ToString() != Guid.Empty.ToString())
-            {
-                Debug.WriteLine(string.Format("----------{0} != {1}", dataSubject.id.ToString(), Guid.Empty.ToString()));
 
-                //Debug.WriteLine("----------UpdateForm()");
-                //Debug.WriteLine("----------username = " + username.Text);
-                //Debug.WriteLine("----------myUser.username = " + myUser.username);
-                //Debug.WriteLine("----------myUser.id = " + myUser.id);
-                username.Text = dataSubject.username;
-                email.Text = dataSubject.email;
-                password1.Text = dataSubject.pwd;
-                password2.Text = dataSubject.pwd;
-                forename.Text = dataSubject.forename;
-                surname.Text = dataSubject.surname;
-                gender.Value = dataSubject.Gender;
-                if (dataSubject.dob.ToString("dd/MM/yyyy") != "01/01/0001")
-                    dobInput.Value = dataSubject.dob.ToString("dd/MM/yyyy");
-                else
-                    dobInput.Value = "";
-                address1.Text = dataSubject.address1;
-                address2.Text = dataSubject.address2;
-                address3.Text = dataSubject.address3;
-                postCode.Text = dataSubject.postCode;
-                mobilePhone.Text = dataSubject.mobilePhone;
-                homePhone.Text = dataSubject.homePhone;
-                workPhone.Text = dataSubject.workPhone;
-                dateTimeCreated.Attributes.Remove("placeholder");
-                dateTimeCreated.Attributes.Add("placeholder", dataSubject.dateTimeCreated.Date.ToString("dd/MM/yyyy"));
-                accountType.Value = dataSubject.accountType;
-                accountStatus.Value = dataSubject.accountStatus;
+            Debug.WriteLine(string.Format("----------{0} != {1}", dataSubject.id.ToString(), Guid.Empty.ToString()));
+
+            //Debug.WriteLine("----------UpdateForm()");
+            //Debug.WriteLine("----------username = " + username.Text);
+            //Debug.WriteLine("----------myUser.username = " + myUser.username);
+            //Debug.WriteLine("----------myUser.id = " + myUser.id);
+            username.Text = dataSubject.username;
+            email.Text = dataSubject.email;
+            password1.Text = dataSubject.pwd;
+            password2.Text = dataSubject.pwd;
+            forename.Text = dataSubject.forename;
+            surname.Text = dataSubject.surname;
+            gender.Value = dataSubject.Gender;
+            if (dataSubject.dob.ToString("dd/MM/yyyy") != "01/01/0001")
+                dobInput.Value = dataSubject.dob.ToString("dd/MM/yyyy");
+            else
+                dobInput.Value = "";
+            address1.Text = dataSubject.address1;
+            address2.Text = dataSubject.address2;
+            address3.Text = dataSubject.address3;
+            postCode.Text = dataSubject.postCode;
+            mobilePhone.Text = dataSubject.mobilePhone;
+            homePhone.Text = dataSubject.homePhone;
+            workPhone.Text = dataSubject.workPhone;
+            dateTimeCreated.Attributes.Remove("placeholder");
+            dateTimeCreated.Attributes.Add("placeholder", dataSubject.dateTimeCreated.Date.ToString("dd/MM/yyyy"));
+            accountType.Value = dataSubject.accountType;
+            accountStatus.Value = dataSubject.accountStatus;
+            if (dataSubject.dateTimeCreated.ToString("dd/MM/yyyy") == "01/01/0001")
+            {
+                //Debug.WriteLine(string.Format("{0}'s datetimecreated {1} == 01/01/0001", dataSubject.fullName, dataSubject.dateTimeCreated.ToString("dd/MM/yyyy")));
+                dateTimeCreated.Value = ParsnipApi.Data.adjustedTime.ToString("dd/MM/yyyy");
             }
+            else
+            {
+                //Debug.WriteLine(string.Format("{0}'s dob {1} != 01/01/0001",dataSubject.fullName, dataSubject.dateTimeCreated.ToString("dd/MM/yyyy")));
+                dateTimeCreated.Value = dataSubject.dateTimeCreated.ToString("dd/MM/yyyy");
+            }
+                
         }
 
         void UpdateFormAccount()

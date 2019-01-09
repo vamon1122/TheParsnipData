@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Diagnostics;
 
 namespace CookieApi
 {
@@ -21,7 +22,7 @@ namespace CookieApi
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine(String.Format("Failed to read cookie \"{0}\"", pName));
+                Debug.WriteLine(String.Format("----------Failed to read cookie \"{0}\"", pName));
                 return null;
             }
             

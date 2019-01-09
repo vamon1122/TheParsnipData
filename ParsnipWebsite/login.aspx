@@ -12,15 +12,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous" />
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
     <!--<script src="bootstrap-4.1.2-dist/js/bootstrap.js"></script>-->
-    <script src="../javascript/globalBodyV1.3.js"></script>
-    <script>
-        createCookie("deviceType", deviceDetect());
-    </script>
+   
 
 </head>
 <body style="padding-top:5%; padding-bottom:5%;">
     
     <form runat="server">
+         <script src="../javascript/globalBodyV1.4.js"></script>
+    <script>
+        createCookie("deviceType", deviceDetect());
+    </script>
         <div class="center_div">
             <div class="alert alert-warning alert-dismissible" runat="server" style="display:none" id="Warning">
                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -48,9 +49,10 @@
             <br />
   <asp:Button runat="server" ID="ButLogIn" OnClick="ButLogIn_Click" CssClass="btn btn-primary" Text="Log In"></asp:Button>
 </div>
-</form>
-    <script>
+        <script>
         getLocation();
     </script>
+</form>
+    
 </body>
 </html>

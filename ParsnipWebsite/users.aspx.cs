@@ -66,17 +66,26 @@ namespace TheParsnipWeb
             //Response.Redirect("users?userId=" + selectUser.SelectedValue);
             Debug.WriteLine(string.Format("{0} selected {1} which has a value of {2}", myUser.fullName, selectUser.SelectedItem, selectUser.SelectedValue));
             mySelectedUser = new User(new Guid(selectUser.SelectedValue));
+
             string rememberSelectedValue = selectUser.SelectedValue;
-            if (mySelectedUser.Select())
+            if (selectUser.SelectedValue.ToString() == Guid.Empty.ToString())
             {
-                Debug.WriteLine(string.Format("----------{0} selected a different user! Replacing the UserForm with a new UserForm with the user {1} (Id = {2})", myUser.fullName, mySelectedUser.fullName, mySelectedUser.id));
-                UserForm.dataSubject = mySelectedUser;
-                selectUser.SelectedValue = rememberSelectedValue;
+                Debug.WriteLine("----------Guid is  null. Not selecting user");
             }
             else
-                Debug.WriteLine("----------SELECT FAILED");
-            
-            
+            {
+                if (mySelectedUser.Select())
+                {
+                    Debug.WriteLine(string.Format("----------{0} selected a different user! Replacing the UserForm with a new UserForm with the user {1} (Id = {2})", myUser.fullName, mySelectedUser.fullName, mySelectedUser.id));
+                    
+                }
+                else
+                    Debug.WriteLine("----------SELECT FAILED");
+
+            }
+
+            UserForm.dataSubject = mySelectedUser;
+            selectUser.SelectedValue = rememberSelectedValue;
         }
 
     }

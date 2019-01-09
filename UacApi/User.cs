@@ -497,28 +497,28 @@ namespace UacApi
                     //Debug.WriteLine("----------Reading address3");
                     address3 = pReader[10].ToString().Trim();
                 }
-                if (pReader[11] != DBNull.Value)
+                if (pReader[11] == DBNull.Value)
                 { }// Debug.WriteLine("----------postCode is blank. Skipping postCode");
                 else
                 {
                     //Debug.WriteLine("----------Reading postCode");
                     postCode = pReader[11].ToString().Trim();
                 }
-                if (pReader[12] != DBNull.Value)
+                if (pReader[12] == DBNull.Value)
                 { }   //Debug.WriteLine("----------mobilePhone is blank. Skipping mobilePhone");
                 else
                 {
                     { }// Debug.WriteLine("----------Reading mobilePhone");
                     mobilePhone = pReader[12].ToString().Trim();
                 }
-                if (pReader[13] != DBNull.Value)
+                if (pReader[13] == DBNull.Value)
                 { }// Debug.WriteLine("----------homePhone is blank. Skipping homePhone");
                 else
                 {
                     //Debug.WriteLine("----------Reading homePhone");
                     homePhone = pReader[13].ToString().Trim();
                 }
-                if (pReader[14] != DBNull.Value)
+                if (pReader[14] == DBNull.Value)
                 { }// Debug.WriteLine("----------workPhone is blank. Skipping workPhone");
                 else
                 {
@@ -527,6 +527,7 @@ namespace UacApi
                 }
                 //Debug.WriteLine("----------Reading dateTimeCreated");
                 dateTimeCreated = Convert.ToDateTime(pReader[15]);
+                //Debug.WriteLine("----------dateTimeCreated = " + dateTimeCreated);
                 if (pReader[16] == DBNull.Value)
                 { }// Debug.WriteLine("----------lastLogIn is blank. Skipping lastLogIn");
                 else
