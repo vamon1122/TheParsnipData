@@ -17,6 +17,7 @@ namespace TheParsnipWeb
         User mySelectedUser;
         List<User> users;
         string formType = "Insert";
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -69,6 +70,7 @@ namespace TheParsnipWeb
         protected void SelectUser_Changed(object sender, EventArgs e)
         {
             Debug.WriteLine("----------User selection was changed...");
+            
             Debug.WriteLine("----------User selection was changed - Creating new user with id = " + selectUser.SelectedValue);
             mySelectedUser = new User(new Guid(selectUser.SelectedValue));
             if (selectUser.SelectedValue.ToString() != Guid.Empty.ToString())
@@ -90,7 +92,9 @@ namespace TheParsnipWeb
 
         protected void btnAction_Click(object sender, EventArgs e)
         {
+            string rememberSelectedValue = selectUser.SelectedValue;
             Debug.WriteLine("Insert / Update button was clicked. dataSubject.id = " + UserForm.dataSubject.id);
+            
             UserForm.UpdateFormAccount();
             if (UserForm.dataSubject.Validate())
             {
@@ -106,6 +110,13 @@ namespace TheParsnipWeb
             {
                 Debug.WriteLine("User failed to validate!");
                 new LogEntry(UserForm.dataSubject.id) { text = String.Format("{0} attempted to create / edit an account for {1} via the UserForm, but the user failed fo validate!", UserForm.dataSubject.fullName, UserForm.dataSubject.fullName) };
+            }
+
+            selectUser.SelectedValue = rememberSelectedValue;
+            mySelectedUser = new User(new Guid(rememberSelectedValue));
+            if(mySelectedUser.id.ToString() != Guid.Empty.ToString())
+            {
+                mySelectedUser.Select();
             }
         }
 
