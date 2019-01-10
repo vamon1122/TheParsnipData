@@ -37,6 +37,7 @@
             </div>
             
         <uc1:UserForm1 runat="server" ID="UserForm" />
+        <asp:Button runat="server" ID="btnAction" OnClick="btnAction_Click" CssClass="btn btn-primary" Text="Action"></asp:Button>
     </div>
         </form>
     

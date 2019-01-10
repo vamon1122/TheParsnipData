@@ -8,6 +8,7 @@ using LogApi;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Diagnostics;
 
 namespace UacApi
 {
@@ -16,14 +17,15 @@ namespace UacApi
         public static User SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
         {
             var myUser = new User("Uac.SecurePage(4)");
+            Debug.WriteLine("----------Securing page");
             if (myUser.LogIn())
             {
+                Debug.WriteLine("----------Securing page, accountType = " + myUser.accountType);
                 bool CanAccess;
                 switch (pAccountType)
                 {
                     case "admin":
                         if (myUser.accountType == "admin") CanAccess = true; else CanAccess = false;
-                        CanAccess = true;
                         break;
                     case "member":
                         if (myUser.accountType == "admin" || myUser.accountType == "member") CanAccess = true; else CanAccess = false;

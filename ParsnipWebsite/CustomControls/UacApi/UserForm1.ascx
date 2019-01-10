@@ -154,7 +154,7 @@
             
         <br />
             
-        <asp:Button runat="server" ID="btnAction" OnClick="btnAction_Click" CssClass="btn btn-primary" Text="Action"></asp:Button>
+        
     </div>
     <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
 <!-- Include jQuery -->

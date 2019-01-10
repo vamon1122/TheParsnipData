@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using UacApi;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using LogApi;
 
 namespace TheParsnipWeb
 {
@@ -15,8 +16,12 @@ namespace TheParsnipWeb
         User myUser;
         User mySelectedUser;
         List<User> users;
+        string formType = "Insert";
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            btnAction.Text = formType;
+
             myUser = Uac.SecurePage("users", this, Data.deviceType, "admin");
 
             if (mySelectedUser == null)
@@ -63,6 +68,10 @@ namespace TheParsnipWeb
 
         protected void SelectUser_Changed(object sender, EventArgs e)
         {
+            if (UserForm.dataSubject.ExistsOnDb())
+                btnAction.Text = "Update";
+            else
+                btnAction.Text = "Insert";
             //Response.Redirect("users?userId=" + selectUser.SelectedValue);
             Debug.WriteLine(string.Format("{0} selected {1} which has a value of {2}", myUser.fullName, selectUser.SelectedItem, selectUser.SelectedValue));
             mySelectedUser = new User(new Guid(selectUser.SelectedValue));
@@ -86,6 +95,27 @@ namespace TheParsnipWeb
 
             UserForm.dataSubject = mySelectedUser;
             selectUser.SelectedValue = rememberSelectedValue;
+        }
+
+        protected void btnAction_Click(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Insert / Update button was clicked. dataSubject.id = " + UserForm.dataSubject.id);
+            UserForm.UpdateFormAccount();
+            if (UserForm.dataSubject.Validate())
+            {
+                if (UserForm.dataSubject.Update())
+                {
+                    new LogEntry(UserForm.dataSubject.id) { text = String.Format("{0} created / edited an account for {1} via the UserForm", UserForm.dataSubject.fullName, UserForm.dataSubject.fullName) };
+                }
+                else
+                    new LogEntry(UserForm.dataSubject.id) { text = String.Format("{0} tried to create / edit an account for {1} via the UserForm, but there was an error whilst updating the database", UserForm.dataSubject.fullName, UserForm.dataSubject.fullName) };
+
+            }
+            else
+            {
+                Debug.WriteLine("User failed to validate!");
+                new LogEntry(UserForm.dataSubject.id) { text = String.Format("{0} attempted to create / edit an account for {1} via the UserForm, but the user failed fo validate!", UserForm.dataSubject.fullName, UserForm.dataSubject.fullName) };
+            }
         }
 
     }

@@ -14,12 +14,12 @@ namespace TheParsnipWeb
     public partial class UserForm1 : System.Web.UI.UserControl
     {
         private User _dataSubject;
-        public User dataSubject { get { return _dataSubject; } set { /*Debug.WriteLine(string.Format("myUser (id = \"{0}\") was set in UserForm", value.id));*/ _dataSubject = value; UpdateForm(); } }
+        public User dataSubject { get { return _dataSubject; } set { Debug.WriteLine(string.Format("dataSubject (id = \"{0}\") was set in UserForm", value.id)); _dataSubject = value; UpdateForm(); } }
         string formType = "Insert";
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            btnAction.Text = formType;
+            
         }
 
         public UserForm1()
@@ -27,12 +27,12 @@ namespace TheParsnipWeb
             
             if (_dataSubject == null)
             {
-                Debug.WriteLine("----------UserForm1 was initialised without a user");
+                Debug.WriteLine("----------UserForm1 was initialised without a dataSubject");
                 _dataSubject = new User(Guid.Empty);
             }
             else
             {
-                Debug.WriteLine("----------_myUser was already initialised");
+                Debug.WriteLine("----------_dataSubject was already initialised");
             }
         }
 
@@ -42,10 +42,12 @@ namespace TheParsnipWeb
 
             Debug.WriteLine(string.Format("----------{0} != {1}", dataSubject.id.ToString(), Guid.Empty.ToString()));
 
+            
+
             //Debug.WriteLine("----------UpdateForm()");
             //Debug.WriteLine("----------username = " + username.Text);
-            //Debug.WriteLine("----------myUser.username = " + myUser.username);
-            //Debug.WriteLine("----------myUser.id = " + myUser.id);
+            //Debug.WriteLine("----------dataSubject.username = " + dataSubject.username);
+            //Debug.WriteLine("----------dataSubject.id = " + dataSubject.id);
             username.Text = dataSubject.username;
             email.Text = dataSubject.email;
             password1.Text = dataSubject.pwd;
@@ -81,25 +83,25 @@ namespace TheParsnipWeb
                 
         }
 
-        void UpdateFormAccount()
+        public void UpdateFormAccount()
         {
             /*if (CookieApi.Cookie.Exists("adminUserFormSubjectId"))
             {
                 if (CookieApi.Cookie.Read("adminUserFormSubjectId").Length > 0)
                 {
-                    myUser = new User(new Guid(CookieApi.Cookie.Read("adminUserFormSubjectId")));
-                    myUser.Select();
+                    dataSubject = new User(new Guid(CookieApi.Cookie.Read("adminUserFormSubjectId")));
+                    dataSubject.Select();
                 }
             }*/
             if (dataSubject == null)
             {
-                System.Diagnostics.Debug.WriteLine("My user is null. Adding new myUser");
+                System.Diagnostics.Debug.WriteLine("My dataSubject is null. Adding new dataSubject");
                 dataSubject = new User("UpdateFormAccount (UserForm1)");
             }
             Debug.WriteLine(string.Format("username.Text = {0}", username.Text));
             Debug.WriteLine(string.Format("forename.Text = {0}", forename.Text));
             dataSubject.username = username.Text;
-            Debug.WriteLine(string.Format("myUser.Username = username.Text ({0})", username.Text));
+            Debug.WriteLine(string.Format("dataSubject.Username = username.Text ({0})", username.Text));
 
             dataSubject.email = email.Text;
             dataSubject.pwd = password1.Text;
@@ -125,25 +127,6 @@ namespace TheParsnipWeb
 
         }
 
-        protected void btnAction_Click(object sender, EventArgs e)
-        {
-            Debug.WriteLine("Insert / Update button was clicked. myUser.id = " + dataSubject.id);
-            UpdateFormAccount();
-            if (dataSubject.Validate())
-            {
-                if (dataSubject.Update())
-                {
-                    new LogEntry(dataSubject.id) { text = String.Format("{0} created / edited an account for {1} via the UserForm", dataSubject.fullName, dataSubject.fullName) };
-                }
-                else
-                    new LogEntry(dataSubject.id) { text = String.Format("{0} tried to create / edit an account for {1} via the UserForm, but there was an error whilst updating the database", dataSubject.fullName, dataSubject.fullName) };
-
-            }
-            else
-            {
-                Debug.WriteLine("User failed to validate!");
-                new LogEntry(dataSubject.id) { text = String.Format("{0} attempted to create / edit an account for {1} via the UserForm, but the user failed fo validate!", dataSubject.fullName, dataSubject.fullName) };
-            }
-        }
+        
     }
 }
