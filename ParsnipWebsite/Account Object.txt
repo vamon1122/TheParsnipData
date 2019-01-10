@@ -42716,3 +42716,27 @@
 <debug> 10/01/2019 15:03:37 - Found a username cookie! Username = vamon1122
 <debug> 10/01/2019 15:03:37 - Found a password cookie! Password = BBTbbt1704
 <info> 10/01/2019 15:03:37 - Returning user details from cookies.
+<info> 10/01/2019 16:37:01 - Getting user details from cookies...
+<debug> 10/01/2019 16:37:01 - Found a username cookie! Username = vamon1122
+<debug> 10/01/2019 16:37:01 - Found a password cookie! Password = BBTbbt1704
+<info> 10/01/2019 16:37:01 - Returning user details from cookies.
+<info> 10/01/2019 16:37:02 - Getting user details from cookies...
+<debug> 10/01/2019 16:37:02 - Found a username cookie! Username = vamon1122
+<debug> 10/01/2019 16:37:02 - Found a password cookie! Password = BBTbbt1704
+<info> 10/01/2019 16:37:02 - Returning user details from cookies.
+<info> 10/01/2019 16:37:06 - Getting user details from cookies...
+<debug> 10/01/2019 16:37:06 - Found a username cookie! Username = vamon1122
+<debug> 10/01/2019 16:37:06 - Found a password cookie! Password = BBTbbt1704
+<info> 10/01/2019 16:37:06 - Returning user details from cookies.
+<info> 10/01/2019 16:37:07 - Getting user details from cookies...
+<debug> 10/01/2019 16:37:07 - Found a username cookie! Username = vamon1122
+<debug> 10/01/2019 16:37:07 - Found a password cookie! Password = BBTbbt1704
+<info> 10/01/2019 16:37:07 - Returning user details from cookies.
+<info> 10/01/2019 16:37:44 - Getting user details from cookies...
+<debug> 10/01/2019 16:37:44 - Found a username cookie! Username = vamon1122
+<debug> 10/01/2019 16:37:44 - Found a password cookie! Password = BBTbbt1704
+<info> 10/01/2019 16:37:44 - Returning user details from cookies.
+<info> 10/01/2019 16:37:45 - Getting user details from cookies...
+<debug> 10/01/2019 16:37:45 - Found a username cookie! Username = vamon1122
+<debug> 10/01/2019 16:37:45 - Found a password cookie! Password = BBTbbt1704
+<info> 10/01/2019 16:37:45 - Returning user details from cookies.

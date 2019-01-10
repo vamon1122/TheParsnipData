@@ -118,6 +118,11 @@ namespace TheParsnipWeb
             {
                 mySelectedUser.Select();
             }
+
+            if (mySelectedUser.ExistsOnDb())
+                btnAction.Text = "Update";
+            else
+                btnAction.Text = "Insert";
         }
 
     }
