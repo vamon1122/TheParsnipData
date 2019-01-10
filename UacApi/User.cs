@@ -845,17 +845,26 @@ namespace UacApi
                 {
 
                     Debug.WriteLine(string.Format("Could not find a user with the id {0}. Trying to find a user with the username {1} instead...", id, username));
-                    SqlCommand findMeByUsername = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE Username = @username", pOpenConn);
-                    findMeById.Parameters.Add(new SqlParameter("username", username));
 
-                    using (SqlDataReader reader = findMeById.ExecuteReader())
+                    if (username != "")
                     {
-                        reader.Read();
-                        userExists = Convert.ToInt16(reader[0]);
-                        //Debug.WriteLine("Found user by username. userExists = " + userExists);
+                        SqlCommand findMeByUsername = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE Username = @username", pOpenConn);
+                        findMeByUsername.Parameters.Add(new SqlParameter("username", username));
+
+                        using (SqlDataReader reader = findMeByUsername.ExecuteReader())
+                        {
+                            reader.Read();
+                            userExists = Convert.ToInt16(reader[0]);
+                            //Debug.WriteLine("Found user by username. userExists = " + userExists);
+                        }
+                        Debug.WriteLine(userExists + " user(s) were found with the username " + username);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("ERROR - There was no username!");
                     }
 
-                    Debug.WriteLine(userExists + " user(s) were found with the username " + username);
+                    
                 }
 
                 

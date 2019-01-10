@@ -68,33 +68,24 @@ namespace TheParsnipWeb
 
         protected void SelectUser_Changed(object sender, EventArgs e)
         {
-            if (UserForm.dataSubject.ExistsOnDb())
+            Debug.WriteLine("----------User selection was changed...");
+            Debug.WriteLine("----------User selection was changed - Creating new user with id = " + selectUser.SelectedValue);
+            mySelectedUser = new User(new Guid(selectUser.SelectedValue));
+            if (selectUser.SelectedValue.ToString() != Guid.Empty.ToString())
+            {
+                mySelectedUser.Select();
+            }
+                
+
+            if (mySelectedUser.ExistsOnDb())
                 btnAction.Text = "Update";
             else
                 btnAction.Text = "Insert";
+
             //Response.Redirect("users?userId=" + selectUser.SelectedValue);
             Debug.WriteLine(string.Format("{0} selected {1} which has a value of {2}", myUser.fullName, selectUser.SelectedItem, selectUser.SelectedValue));
-            mySelectedUser = new User(new Guid(selectUser.SelectedValue));
-
-            string rememberSelectedValue = selectUser.SelectedValue;
-            if (selectUser.SelectedValue.ToString() == Guid.Empty.ToString())
-            {
-                Debug.WriteLine("----------Guid is  null. Not selecting user");
-            }
-            else
-            {
-                if (mySelectedUser.Select())
-                {
-                    Debug.WriteLine(string.Format("----------{0} selected a different user! Replacing the UserForm with a new UserForm with the user {1} (Id = {2})", myUser.fullName, mySelectedUser.fullName, mySelectedUser.id));
-                    
-                }
-                else
-                    Debug.WriteLine("----------SELECT FAILED");
-
-            }
 
             UserForm.dataSubject = mySelectedUser;
-            selectUser.SelectedValue = rememberSelectedValue;
         }
 
         protected void btnAction_Click(object sender, EventArgs e)
