@@ -18,24 +18,36 @@ namespace UacApi
         {
             var myUser = new User("Uac.SecurePage(4)");
             Debug.WriteLine("----------Securing page");
+            bool CanAccess;
+
             if (myUser.LogIn())
             {
                 Debug.WriteLine("----------Securing page, accountType = " + myUser.accountType);
-                bool CanAccess;
-                switch (pAccountType)
+                
+                if (myUser.accountStatus == "active")
                 {
-                    case "admin":
-                        if (myUser.accountType == "admin") CanAccess = true; else CanAccess = false;
-                        break;
-                    case "member":
-                        if (myUser.accountType == "admin" || myUser.accountType == "member") CanAccess = true; else CanAccess = false;
-                        break;
-                    case "user":
-                        if (myUser.accountType == "admin" || myUser.accountType == "member" || myUser.accountType == "user") CanAccess = true; else CanAccess = false;
-                        break;
-                    default:
-                        CanAccess = false;
-                        break;
+
+
+                    switch (pAccountType)
+                    {
+                        case "admin":
+                            if (myUser.accountType == "admin") CanAccess = true; else CanAccess = false;
+                            break;
+                        case "member":
+                            if (myUser.accountType == "admin" || myUser.accountType == "member") CanAccess = true; else CanAccess = false;
+                            break;
+                        case "user":
+                            if (myUser.accountType == "admin" || myUser.accountType == "member" || myUser.accountType == "user") CanAccess = true; else CanAccess = false;
+                            break;
+                        default:
+                            CanAccess = false;
+                            break;
+                    }
+                }
+                else
+                {
+                    CanAccess = false;
+                    new LogEntry(Guid.Empty) { text = string.Format("{0} tried to access {0} but their account is not active!", myUser.fullName, pUrl) };
                 }
 
                 if (CanAccess)
