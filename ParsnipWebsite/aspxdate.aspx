@@ -104,12 +104,12 @@
             
         <div class="form-group">
             <label>Home Phone</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="homePhone"  />
+            <asp:TextBox runat="server" CssClass="form-control login" ID="homePhone"  MaxLength="32"/>
         </div>
            
         <div class="form-group">
             <label>Work Phone</label>
-            <asp:TextBox runat="server" CssClass="form-control login" ID="workPhone"  />
+            <asp:TextBox runat="server" CssClass="form-control login" ID="workPhone"  MaxLength="32"/>
         </div>
             
         <div class="form-group">

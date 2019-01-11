@@ -38,12 +38,12 @@ namespace ConsoleTest
 
         public static bool CreateNewAccount()
         {
-            User MyNewAccount = new User();
-            MyNewAccount.username = "jbloggs";
-            MyNewAccount.forename = "Joe";
-            MyNewAccount.surname = "Bloggs";
+            User MyNewAccount = new User("Console Test - CreateNewAccount");
+            MyNewAccount.Username = "jbloggs";
+            MyNewAccount.Forename = "Joe";
+            MyNewAccount.Surname = "Bloggs";
 
-            if (MyNewAccount.DbInsert())
+            if (MyNewAccount.Update())
             {
                 return true;
             }
@@ -60,21 +60,21 @@ namespace ConsoleTest
                 throw new InvalidOperationException("Account MyAccount has not been initialised!");
             }
             BenText.WriteYellow("username = ");
-            Console.WriteLine(MyAccount.username);
+            Console.WriteLine(MyAccount.Username);
             BenText.WriteYellow("email = ");
-            Console.WriteLine(MyAccount.email);
+            Console.WriteLine(MyAccount.Email);
             BenText.WriteYellow("fname = ");
-            Console.WriteLine(MyAccount.forename);
+            Console.WriteLine(MyAccount.Forename);
             BenText.WriteYellow("sname = ");
-            Console.WriteLine(MyAccount.surname);
+            Console.WriteLine(MyAccount.Surname);
         }
 
         public static bool DoLogIn()
         {
             try
             {
-                MyAccount = new User();
-                if (MyAccount.LogIn("vamon1122", "BBTbbt1704"))
+                MyAccount = new User("Console Test - DoLogIn");
+                if (MyAccount.LogIn("vamon1122", false, "BBTbbt1704", false))
                 {   
                     return true;
                 }

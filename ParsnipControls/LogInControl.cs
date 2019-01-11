@@ -114,8 +114,8 @@ namespace ParsnipControls
             title = new Label() { Text = "Log In" };
 
             inUsername = new TextBox();
-            if(MyAccount.username != null && !String.IsNullOrEmpty(MyAccount.username) && !String.IsNullOrWhiteSpace(MyAccount.username)){
-                inUsername.Text = MyAccount.username;
+            if(MyAccount.Username != null && !String.IsNullOrEmpty(MyAccount.Username) && !String.IsNullOrWhiteSpace(MyAccount.Username)){
+                inUsername.Text = MyAccount.Username;
             }
             StyleTextBox(inUsername);
 

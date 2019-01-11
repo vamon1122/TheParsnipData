@@ -22,22 +22,22 @@ namespace UacApi
 
             if (myUser.LogIn())
             {
-                Debug.WriteLine("----------Securing page, accountType = " + myUser.accountType);
+                Debug.WriteLine("----------Securing page, accountType = " + myUser.AccountType);
                 
-                if (myUser.accountStatus == "active")
+                if (myUser.AccountStatus == "active")
                 {
 
 
                     switch (pAccountType)
                     {
                         case "admin":
-                            if (myUser.accountType == "admin") CanAccess = true; else CanAccess = false;
+                            if (myUser.AccountType == "admin") CanAccess = true; else CanAccess = false;
                             break;
                         case "member":
-                            if (myUser.accountType == "admin" || myUser.accountType == "member") CanAccess = true; else CanAccess = false;
+                            if (myUser.AccountType == "admin" || myUser.AccountType == "member") CanAccess = true; else CanAccess = false;
                             break;
                         case "user":
-                            if (myUser.accountType == "admin" || myUser.accountType == "member" || myUser.accountType == "user") CanAccess = true; else CanAccess = false;
+                            if (myUser.AccountType == "admin" || myUser.AccountType == "member" || myUser.AccountType == "user") CanAccess = true; else CanAccess = false;
                             break;
                         default:
                             CanAccess = false;
@@ -47,18 +47,18 @@ namespace UacApi
                 else
                 {
                     CanAccess = false;
-                    new LogEntry(Guid.Empty) { text = string.Format("{0} tried to access {0} but their account is not active!", myUser.fullName, pUrl) };
+                    new LogEntry(Guid.Empty) { text = string.Format("{0} tried to access {0} but their account is not active!", myUser.FullName, pUrl) };
                 }
 
                 if (CanAccess)
                 {
-                    System.Diagnostics.Debug.WriteLine("{0} is allowed to access {1}", myUser.fullName, pUrl);
-                    new LogEntry(myUser.id) { text = String.Format("{0} accessed the {1} page from {2} '{3}' device", myUser.fullName, pUrl, myUser.posessivePronoun, pDeviceType) };
+                    System.Diagnostics.Debug.WriteLine("{0} is allowed to access {1}", myUser.FullName, pUrl);
+                    new LogEntry(myUser.Id) { text = String.Format("{0} accessed the {1} page from {2} '{3}' device", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("{0} is NOT allowed to access {1}", myUser.fullName, pUrl);
-                    new LogEntry(myUser.id) { text = String.Format("{0} attempted to access the {1} page from {2} '{3}' device but did not have sufficient permissions", myUser.fullName, pUrl, myUser.posessivePronoun, pDeviceType) };
+                    System.Diagnostics.Debug.WriteLine("{0} is NOT allowed to access {1}", myUser.FullName, pUrl);
+                    new LogEntry(myUser.Id) { text = String.Format("{0} attempted to access the {1} page from {2} '{3}' device but did not have sufficient permissions", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
                     pPage.Response.Redirect(String.Format("access-denied?url={0}", pUrl));
                 }
 
@@ -66,7 +66,7 @@ namespace UacApi
             }
             else
             {
-                new LogEntry(myUser.id) { text = String.Format("Someone tried to access the {0} page from {1} '{2}' device, without logging in!", pUrl, myUser.posessivePronoun, pDeviceType) };
+                new LogEntry(myUser.Id) { text = String.Format("Someone tried to access the {0} page from {1} '{2}' device, without logging in!", pUrl, myUser.PosessivePronoun, pDeviceType) };
                 pPage.Response.Redirect(String.Format("login?url={0}", pUrl));
             }
 

@@ -78,16 +78,6 @@
         </div>
 
         <div class="form-group">
-            <label>DOB Copy 1</label>
-            <input type="text" class="form-control login" id="dobCopy1" />
-        </div>
-
-        <div class="form-group">
-            <label>DOB Copy 2</label>
-            <asp:TextBox runat="server" CssClass="form-control" ID="dobCopy2" />
-        </div>
-
-        <div class="form-group">
             <label>Address Line 1</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="address1" MaxLength ="50" />
         </div>
@@ -114,12 +104,12 @@
             
         <div class="form-group">
             <label>Home Phone</label>
-            <asp:TextBox runat="server" CssClass="form-control" ID="homePhone"  />
+            <asp:TextBox runat="server" CssClass="form-control" ID="homePhone" MaxLength ="32" />
         </div>
            
         <div class="form-group">
             <label>Work Phone</label>
-            <asp:TextBox runat="server" CssClass="form-control" ID="workPhone"  />
+            <asp:TextBox runat="server" CssClass="form-control" ID="workPhone"  MaxLength="32"/>
         </div>
             
         <div class="form-group">

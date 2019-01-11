@@ -10,7 +10,8 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            UacTest.DoTest();
+            //UacTest.DoTest();
+            Console.WriteLine(Guid.NewGuid());
             Console.ReadLine();
         }
     }
