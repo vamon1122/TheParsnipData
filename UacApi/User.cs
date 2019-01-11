@@ -747,72 +747,80 @@ namespace UacApi
 
 
 
-                if (GetPwdFromDb() && pPwd == dbPwd)
+                if (GetPwdFromDb())
                 {
-                    Debug.WriteLine(string.Format("----------User.Login() - Got password from db for user {0}. Id = {1}. Pwd = {2}", Username, Id, Password));
-                    if (GetIdFromDb())
+                    if (pPwd == dbPwd)
                     {
-                        //AccountLog.Debug(String.Format("[LogIn] DbPwd == Pwd ({0} == {1})", dbPwd, pPwd));
-                        if (DbSelect(conn))
+                        Debug.WriteLine(string.Format("----------User.Login() - Got password from db for user {0}. Id = {1}. Pwd = {2}", Username, Id, Password));
+                        if (GetIdFromDb())
                         {
-                            Debug.WriteLine(string.Format("----------User.Login() - Selected user {0} whilst logging in", Username));
-                            if (pRememberUsername)
+                            //AccountLog.Debug(String.Format("[LogIn] DbPwd == Pwd ({0} == {1})", dbPwd, pPwd));
+                            if (DbSelect(conn))
                             {
-                                //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
-                                System.Diagnostics.Debug.WriteLine("----------User.Login() - Username permanently remembered!");
-                                Cookie.WritePerm("userName", pUsername);
-                            }
+                                Debug.WriteLine(string.Format("----------User.Login() - Selected user {0} whilst logging in", Username));
+                                if (pRememberUsername)
+                                {
+                                    //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
+                                    System.Diagnostics.Debug.WriteLine("----------User.Login() - Username permanently remembered!");
+                                    Cookie.WritePerm("userName", pUsername);
+                                }
 
-                            if (pRememberPwd)
-                            {
-                                //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
-                                Debug.WriteLine("----------User.Login() - Password permanently remembered!");
-                                Cookie.WritePerm("userPwd", pPwd);
-                                Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
+                                if (pRememberPwd)
+                                {
+                                    //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
+                                    Debug.WriteLine("----------User.Login() - Password permanently remembered!");
+                                    Cookie.WritePerm("userPwd", pPwd);
+                                    Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
+                                }
+                                else
+                                {
+                                    //AccountLog.Debug(String.Format("[LogIn] RememberPassword = false. Writing session password cookie (userPwd = {0})", pPwd));
+                                    if (GetCookies()[1] == pPwd)
+                                    {
+                                        //AccountLog.Debug(String.Format("[LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.", pPwd));
+                                    }
+                                    else
+                                    {
+                                        //AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
+                                        Cookie.WriteSession("userPwd", pPwd);
+                                        //AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
+                                        Debug.WriteLine("----------User.Login() - Password stored for SESSION ONLY.");
+                                    }
+
+
+                                }
+
+                                if (SetLastLogIn())
+                                {
+                                    //AccountLog.Info("[LogIn] Logged in successfully!");
+                                    if (!silent)
+                                    {
+                                        Debug.WriteLine(String.Format("----------User.Login() - {0} logged in LOUDLY", FullName));
+                                        new LogEntry(Id) { text = String.Format("{0} logged in", FullName) };
+                                    }
+                                    else
+                                    {
+                                        Debug.WriteLine(String.Format("----------User.Login() - {0} logged in SILENTLY", FullName));
+                                    }
+
+                                    return true;
+                                }
+
                             }
                             else
                             {
-                                //AccountLog.Debug(String.Format("[LogIn] RememberPassword = false. Writing session password cookie (userPwd = {0})", pPwd));
-                                if (GetCookies()[1] == pPwd)
-                                {
-                                    //AccountLog.Debug(String.Format("[LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.", pPwd));
-                                }
-                                else
-                                {
-                                    //AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
-                                    Cookie.WriteSession("userPwd", pPwd);
-                                    //AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
-                                    Debug.WriteLine("----------User.Login() - Password stored for SESSION ONLY.");
-                                }
-
-
+                                Debug.WriteLine(string.Format("DbSelect failed when logging user {0} in", Username));
                             }
-
-                            if (SetLastLogIn())
-                            {
-                                //AccountLog.Info("[LogIn] Logged in successfully!");
-                                if (!silent)
-                                {
-                                    Debug.WriteLine(String.Format("----------User.Login() - {0} logged in LOUDLY", FullName));
-                                    new LogEntry(Id) { text = String.Format("{0} logged in", FullName) };
-                                }
-                                else
-                                {
-                                    Debug.WriteLine(String.Format("----------User.Login() - {0} logged in SILENTLY", FullName));
-                                }
-
-                                return true;
-                            }
-
                         }
                         else
-                        {
-                            Debug.WriteLine(string.Format("DbSelect failed when logging user {0} in", Username));
-                        }
+                            Debug.WriteLine("----------User.LogIn() - Failed to get user id");
                     }
                     else
-                        Debug.WriteLine("----------User.LogIn() - Failed to get user id");
+                    {
+                        Debug.WriteLine(string.Format("Error whilst logging in {0}. {1} != {2}", Username, pPwd, dbPwd));
+                    }
                 }
+                
                 else
                 {
                     Debug.WriteLine(string.Format("GetPwdFromDb() failed when logging user {0} in", Username));
@@ -874,10 +882,10 @@ namespace UacApi
                     //AccountLog.Debug("[LogIn] Attempting to get password from database...");
                     try
                     {
-                        SqlCommand GetLogInDetails = new SqlCommand("SELECT Pwd FROM t_Users WHERE Username = @Username", conn);
-                        GetLogInDetails.Parameters.Add(new SqlParameter("Username", pUsername));
+                        SqlCommand getPassword = new SqlCommand("SELECT Pwd FROM t_Users WHERE Username = @Username", conn);
+                        getPassword.Parameters.Add(new SqlParameter("Username", pUsername));
 
-                        using (SqlDataReader reader = GetLogInDetails.ExecuteReader())
+                        using (SqlDataReader reader = getPassword.ExecuteReader())
                         {
                             while (reader.Read())
                             {
@@ -1039,8 +1047,8 @@ namespace UacApi
                         }
 
 
-                        SqlCommand UpdateUsername = new SqlCommand("UPDATE t_Users SET Username = @username WHERE Username = @username", pOpenConn);
-
+                        SqlCommand UpdateUsername = new SqlCommand("UPDATE t_Users SET Username = @username WHERE id = @id", pOpenConn);
+                        UpdateUsername.Parameters.Add(new SqlParameter("id", Id));
                         UpdateUsername.Parameters.Add(new SqlParameter("username", Username));
 
                         UpdateUsername.ExecuteNonQuery();
@@ -1057,9 +1065,9 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s email...", temp.FullName));
 
-                        SqlCommand UpdateEmail = new SqlCommand("UPDATE t_Users SET Email = @email WHERE Username = @username", pOpenConn);
+                        SqlCommand UpdateEmail = new SqlCommand("UPDATE t_Users SET Email = @email WHERE id = @id", pOpenConn);
 
-                        UpdateEmail.Parameters.Add(new SqlParameter("username", Username));
+                        UpdateEmail.Parameters.Add(new SqlParameter("id", Id));
                         if (Email == "")
                         {
                             UpdateEmail.Parameters.Add(new SqlParameter("email", DBNull.Value));
@@ -1081,9 +1089,9 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s password...", temp.FullName));
 
-                        SqlCommand UpdatePwd = new SqlCommand("UPDATE t_Users SET Pwd = @pwd WHERE Username = @username", pOpenConn);
+                        SqlCommand UpdatePwd = new SqlCommand("UPDATE t_Users SET Pwd = @pwd WHERE id = @id", pOpenConn);
 
-                        UpdatePwd.Parameters.Add(new SqlParameter("username", Username));
+                        UpdatePwd.Parameters.Add(new SqlParameter("id", Id));
                         if (Password == "")
                         {
                             UpdatePwd.Parameters.Add(new SqlParameter("pwd", DBNull.Value));
@@ -1157,9 +1165,9 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s gender...", temp.FullName));
 
-                        SqlCommand updateGender = new SqlCommand("UPDATE t_Users SET Gender = @gender WHERE Username = @username", pOpenConn);
+                        SqlCommand updateGender = new SqlCommand("UPDATE t_Users SET Gender = @gender WHERE id = @id", pOpenConn);
 
-                        updateGender.Parameters.Add(new SqlParameter("username", Username));
+                        updateGender.Parameters.Add(new SqlParameter("id", Id));
                         if (_gender == "")
                         {
                             updateGender.Parameters.Add(new SqlParameter("gender", DBNull.Value));
@@ -1181,9 +1189,9 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s dob...", temp.FullName));
 
-                        SqlCommand UpdateDob = new SqlCommand("UPDATE t_Users SET Dob = @dob WHERE Username = @username", pOpenConn);
+                        SqlCommand UpdateDob = new SqlCommand("UPDATE t_Users SET Dob = @dob WHERE id = @id", pOpenConn);
 
-                        UpdateDob.Parameters.Add(new SqlParameter("username", Username));
+                        UpdateDob.Parameters.Add(new SqlParameter("id", Id));
 
                         if (Dob == DateTime.MinValue)
                         {
@@ -1206,9 +1214,9 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s address1...", temp.FullName));
 
-                        SqlCommand UpdateAddress1 = new SqlCommand("UPDATE t_Users SET Address1 = @address1 WHERE Username = @username", pOpenConn);
+                        SqlCommand UpdateAddress1 = new SqlCommand("UPDATE t_Users SET Address1 = @address1 WHERE id = @id", pOpenConn);
 
-                        UpdateAddress1.Parameters.Add(new SqlParameter("username", Username));
+                        UpdateAddress1.Parameters.Add(new SqlParameter("id", Id));
                         if (Address1 == "")
                         {
                             UpdateAddress1.Parameters.Add(new SqlParameter("address1", DBNull.Value));
@@ -1230,9 +1238,9 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s address2...", temp.FullName));
 
-                        SqlCommand UpdateAddress2 = new SqlCommand("UPDATE t_Users SET Address2 = @address2 WHERE Username = @username", pOpenConn);
+                        SqlCommand UpdateAddress2 = new SqlCommand("UPDATE t_Users SET Address2 = @address2 WHERE id = @id", pOpenConn);
 
-                        UpdateAddress2.Parameters.Add(new SqlParameter("username", Username));
+                        UpdateAddress2.Parameters.Add(new SqlParameter("id", Id));
                         if (Address2 == "")
                         {
                             UpdateAddress2.Parameters.Add(new SqlParameter("address2", DBNull.Value));
@@ -1255,9 +1263,9 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s address3...", temp.FullName));
 
-                        SqlCommand UpdateAddress3 = new SqlCommand("UPDATE t_Users SET Address3 = @address3 WHERE Username = @username", pOpenConn);
+                        SqlCommand UpdateAddress3 = new SqlCommand("UPDATE t_Users SET Address3 = @address3 WHERE id = @id", pOpenConn);
 
-                        UpdateAddress3.Parameters.Add(new SqlParameter("username", Username));
+                        UpdateAddress3.Parameters.Add(new SqlParameter("id", Id));
                         if (Address3 == "")
                         {
                             UpdateAddress3.Parameters.Add(new SqlParameter("address3", DBNull.Value));
@@ -1279,9 +1287,9 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s postcode...", temp.FullName));
 
-                        SqlCommand UpdatePostCode = new SqlCommand("UPDATE t_Users SET PostCode = @postCode WHERE Username = @username", pOpenConn);
+                        SqlCommand UpdatePostCode = new SqlCommand("UPDATE t_Users SET PostCode = @postCode WHERE id = @id", pOpenConn);
 
-                        UpdatePostCode.Parameters.Add(new SqlParameter("username", Username));
+                        UpdatePostCode.Parameters.Add(new SqlParameter("id", Id));
                         if (PostCode == "")
                         {
                             UpdatePostCode.Parameters.Add(new SqlParameter("postCode", DBNull.Value));
@@ -1303,9 +1311,9 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s mobilePhone...", temp.FullName));
 
-                        SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE t_Users SET MobilePhone = @mobilePhone WHERE Username = @username", pOpenConn);
+                        SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE t_Users SET MobilePhone = @mobilePhone WHERE id = @id", pOpenConn);
 
-                        UpdateMobilePhone.Parameters.Add(new SqlParameter("username", Username));
+                        UpdateMobilePhone.Parameters.Add(new SqlParameter("id", Id));
                         if (MobilePhone == "")
                         {
                             UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", DBNull.Value));
@@ -1327,9 +1335,9 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s homePhone...", temp.FullName));
 
-                        SqlCommand UpdateHomePhone = new SqlCommand("UPDATE t_Users SET HomePhone = @homePhone WHERE Username = @username", pOpenConn);
+                        SqlCommand UpdateHomePhone = new SqlCommand("UPDATE t_Users SET HomePhone = @homePhone WHERE id = @id", pOpenConn);
 
-                        UpdateHomePhone.Parameters.Add(new SqlParameter("username", Username));
+                        UpdateHomePhone.Parameters.Add(new SqlParameter("id", Id));
                         if (HomePhone == "")
                         {
                             UpdateHomePhone.Parameters.Add(new SqlParameter("homePhone", DBNull.Value));
@@ -1351,9 +1359,9 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s workPhone...", temp.FullName));
 
-                        SqlCommand updateWorkPhone = new SqlCommand("UPDATE t_Users SET WorkPhone = @workPhone WHERE Username = @username", pOpenConn);
+                        SqlCommand updateWorkPhone = new SqlCommand("UPDATE t_Users SET WorkPhone = @workPhone WHERE id = @id", pOpenConn);
 
-                        updateWorkPhone.Parameters.Add(new SqlParameter("username", Username));
+                        updateWorkPhone.Parameters.Add(new SqlParameter("id", Id));
                         if (WorkPhone == "")
                         {
                             updateWorkPhone.Parameters.Add(new SqlParameter("workPhone", DBNull.Value));
@@ -1393,9 +1401,9 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s accountStatus...", temp.FullName));
 
-                        SqlCommand updateAccountStatus = new SqlCommand("UPDATE t_Users SET AccountStatus = @accountStatus WHERE Username = @username", pOpenConn);
+                        SqlCommand updateAccountStatus = new SqlCommand("UPDATE t_Users SET AccountStatus = @accountStatus WHERE id = @id", pOpenConn);
 
-                        updateAccountStatus.Parameters.Add(new SqlParameter("username", Username));
+                        updateAccountStatus.Parameters.Add(new SqlParameter("id", Id));
                         updateAccountStatus.Parameters.Add(new SqlParameter("accountStatus", AccountStatus));
 
                         updateAccountStatus.ExecuteNonQuery();

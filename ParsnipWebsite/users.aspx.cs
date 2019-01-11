@@ -40,18 +40,26 @@ namespace TheParsnipWeb
                 }
                 Debug.WriteLine("mySelectedUser ALREADY EXISTED!!!");
             }
-            users = new List<User>();
-            users.Add(new UacApi.User(Guid.Empty) { Forename = "New", Surname = "User", Username = "Create a new user" });
-            users.AddRange(UacApi.User.GetAllUsers());
+            
         }
 
         void Page_LoadComplete(object sender, EventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("----------Page load complete!");
 
+            UpdateUserList();
             
+            System.Diagnostics.Debug.WriteLine("Page_LoadComplete complete!");
+        }
+
+        void UpdateUserList()
+        {
+            users = new List<User>();
+            users.Add(new UacApi.User(Guid.Empty) { Forename = "New", Surname = "User", Username = "Create a new user" });
+            users.AddRange(UacApi.User.GetAllUsers());
+
             ListItem[] ListItems = new ListItem[users.Count];
-            
+
             int i = 0;
             foreach (User temp in users)
             {
@@ -62,7 +70,6 @@ namespace TheParsnipWeb
             selectUser.Items.AddRange(ListItems);
 
             selectUser.SelectedValue = mySelectedUser.Id.ToString();
-            System.Diagnostics.Debug.WriteLine("Page_LoadComplete complete!");
         }
 
         
@@ -87,7 +94,9 @@ namespace TheParsnipWeb
             //Response.Redirect("users?userId=" + selectUser.SelectedValue);
             Debug.WriteLine(string.Format("{0} selected {1} which has a value of {2}", myUser.FullName, selectUser.SelectedItem, selectUser.SelectedValue));
 
-            UserForm.dataSubject = mySelectedUser;
+            
+
+            UserForm.DataSubject = mySelectedUser;
         }
 
         protected void btnAction_Click(object sender, EventArgs e)
@@ -98,22 +107,23 @@ namespace TheParsnipWeb
             UserForm.UpdateDataSubject();
             
 
-            if (UserForm.dataSubject.Validate())
+            if (UserForm.DataSubject.Validate())
             {
-                if (UserForm.dataSubject.Update())
+                if (UserForm.DataSubject.Update())
                 {
-                    new LogEntry(UserForm.dataSubject.Id) { text = String.Format("{0} created / edited an account for {1} via the UserForm", UserForm.dataSubject.FullName, UserForm.dataSubject.FullName) };
+                    new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} created / edited an account for {1} via the UserForm", UserForm.DataSubject.FullName, UserForm.DataSubject.FullName) };
                 }
                 else
-                    new LogEntry(UserForm.dataSubject.Id) { text = String.Format("{0} tried to create / edit an account for {1} via the UserForm, but there was an error whilst updating the database", UserForm.dataSubject.FullName, UserForm.dataSubject.FullName) };
+                    new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} tried to create / edit an account for {1} via the UserForm, but there was an error whilst updating the database", UserForm.DataSubject.FullName, UserForm.DataSubject.FullName) };
 
             }
             else
             {
                 Debug.WriteLine("User failed to validate!");
-                new LogEntry(UserForm.dataSubject.Id) { text = String.Format("{0} attempted to create / edit an account for {1} via the UserForm, but the user failed fo validate!", UserForm.dataSubject.FullName, UserForm.dataSubject.FullName) };
+                new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} attempted to create / edit an account for {1} via the UserForm, but the user failed fo validate!", UserForm.DataSubject.FullName, UserForm.DataSubject.FullName) };
             }
 
+            UpdateUserList();
             selectUser.SelectedValue = rememberSelectedValue;
             mySelectedUser = new User(new Guid(rememberSelectedValue));
             if(mySelectedUser.Id.ToString() != Guid.Empty.ToString())
