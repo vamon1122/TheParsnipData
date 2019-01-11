@@ -179,12 +179,17 @@ namespace UacApi
 
         private bool ExistsOnDb(SqlConnection pOpenConn)
         {
-            Debug.WriteLine(string.Format("Checking {0} weather user exists on database", Id));
+            if (IdExistsOnDb(pOpenConn) || UsernameExistsOnDb(pOpenConn))
+                return true;
+            else
+                return false;
+        }
+
+        private bool IdExistsOnDb(SqlConnection pOpenConn)
+        {
+            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using their Id {1}", FullName, Id));
             try
             {
-
-                //Guid UnconsumableGuid = new Guid(id.ToString());
-
                 SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE id = @id", pOpenConn);
                 findMeById.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
@@ -199,31 +204,39 @@ namespace UacApi
 
                 Debug.WriteLine(userExists + " user(s) were found with the id " + Id);
 
-                if (userExists == 0)
+
+
+                if (userExists > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("There was an error whilst checking if user exists on the database by using thier Id: " + e);
+                return false;
+            }
+        }
+
+        private bool UsernameExistsOnDb(SqlConnection pOpenConn)
+        {
+            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using their username {1}", FullName, Username));
+            try
+            {
+                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE username = @username", pOpenConn);
+                findMeById.Parameters.Add(new SqlParameter("username", Username));
+
+                int userExists;
+
+                using (SqlDataReader reader = findMeById.ExecuteReader())
                 {
-
-                    Debug.WriteLine(string.Format("Could not find a user with the id {0}. Trying to find a user with the username {1} instead...", Id, Username));
-
-                    if (Username != "" && Username != null)
-                    {
-                        SqlCommand findMeByUsername = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE Username = @username", pOpenConn);
-                        findMeByUsername.Parameters.Add(new SqlParameter("username", Username));
-
-                        using (SqlDataReader reader = findMeByUsername.ExecuteReader())
-                        {
-                            reader.Read();
-                            userExists = Convert.ToInt16(reader[0]);
-                            //Debug.WriteLine("Found user by username. userExists = " + userExists);
-                        }
-                        Debug.WriteLine(userExists + " user(s) were found with the username " + Username);
-                    }
-                    else
-                    {
-                        Debug.WriteLine("ERROR - There was no username!");
-                    }
-
-
+                    reader.Read();
+                    userExists = Convert.ToInt16(reader[0]);
+                    //Debug.WriteLine("Found user by Id. userExists = " + userExists);
                 }
+
+                Debug.WriteLine(userExists + " user(s) were found with the username " + Username);
 
 
 
@@ -235,7 +248,7 @@ namespace UacApi
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("There was an error whilst checking if user exists on the database: " + e);
+                System.Diagnostics.Debug.WriteLine("There was an error whilst checking if user exists on the database by using their username: " + e);
                 return false;
             }
         }
@@ -404,17 +417,26 @@ namespace UacApi
 
             bool validateAddress1()
             {
-                return true;
+                if(Address1.Length > 50)
+                    return false;
+                else
+                    return true;
             }
 
             bool validateAddress2()
             {
-                return true;
+                if (Address2.Length > 50)
+                    return false;
+                else
+                    return true;
             }
 
             bool validateAddress3()
             {
-                return true;
+                if (Address3.Length > 50)
+                    return false;
+                else
+                    return true;
             }
 
             bool validatePostCode()
@@ -833,8 +855,8 @@ namespace UacApi
                 {
                     try
                     {
-                        SqlCommand getId = new SqlCommand("SELECT id FROM t_Users WHERE Username = @Username", conn);
-                        getId.Parameters.Add(new SqlParameter("Username", pUsername));
+                        SqlCommand getId = new SqlCommand("SELECT id FROM t_Users WHERE username = @username", conn);
+                        getId.Parameters.Add(new SqlParameter("username", pUsername));
 
                         using (SqlDataReader reader = getId.ExecuteReader())
                         {
@@ -861,8 +883,8 @@ namespace UacApi
                     try
                     {
                         //AccountLog.Debug("username = " + username);
-                        SqlCommand Command = new SqlCommand("UPDATE t_Users SET LastLogIn = @date WHERE Username = @Username;", conn);
-                        Command.Parameters.Add(new SqlParameter("Username", Username));
+                        SqlCommand Command = new SqlCommand("UPDATE t_Users SET lastLogIn = @date WHERE username = @username;", conn);
+                        Command.Parameters.Add(new SqlParameter("username", Username));
                         Command.Parameters.Add(new SqlParameter("date", ParsnipApi.Data.adjustedTime));
                         RecordsAffected = Command.ExecuteNonQuery();
 
@@ -882,7 +904,7 @@ namespace UacApi
                     //AccountLog.Debug("[LogIn] Attempting to get password from database...");
                     try
                     {
-                        SqlCommand getPassword = new SqlCommand("SELECT Pwd FROM t_Users WHERE Username = @Username", conn);
+                        SqlCommand getPassword = new SqlCommand("SELECT password FROM t_Users WHERE username = @username", conn);
                         getPassword.Parameters.Add(new SqlParameter("Username", pUsername));
 
                         using (SqlDataReader reader = getPassword.ExecuteReader())
@@ -933,12 +955,12 @@ namespace UacApi
                 {
                     if (!ExistsOnDb(pOpenConn))
                     {
-                        SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (id, Username, Forename, Surname, DateTimeCreated, AccountType, AccountStatus) VALUES(@id, @username, @fname, @sname, @dateTimeCreated, @accountType, @accountStatus)", pOpenConn);
+                        SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (id, username, forename, surname, created, type, status) VALUES(@id, @username, @forename, @surname, @dateTimeCreated, @accountType, @accountStatus)", pOpenConn);
                         
                         InsertIntoDb.Parameters.Add(new SqlParameter("id", Id));
                         InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("fname", Forename.Trim()));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("sname", Surname.Trim()));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("forename", Forename.Trim()));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("surname", Surname.Trim()));
                         InsertIntoDb.Parameters.Add(new SqlParameter("dateTimeCreated", ParsnipApi.Data.adjustedTime));
                         InsertIntoDb.Parameters.Add(new SqlParameter("accountType", AccountType));
                         InsertIntoDb.Parameters.Add(new SqlParameter("accountStatus", AccountStatus));
@@ -1047,7 +1069,7 @@ namespace UacApi
                         }
 
 
-                        SqlCommand UpdateUsername = new SqlCommand("UPDATE t_Users SET Username = @username WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateUsername = new SqlCommand("UPDATE t_Users SET username = @username WHERE id = @id", pOpenConn);
                         UpdateUsername.Parameters.Add(new SqlParameter("id", Id));
                         UpdateUsername.Parameters.Add(new SqlParameter("username", Username));
 
@@ -1065,7 +1087,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s email...", temp.FullName));
 
-                        SqlCommand UpdateEmail = new SqlCommand("UPDATE t_Users SET Email = @email WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateEmail = new SqlCommand("UPDATE t_Users SET email = @email WHERE id = @id", pOpenConn);
 
                         UpdateEmail.Parameters.Add(new SqlParameter("id", Id));
                         if (Email == "")
@@ -1089,12 +1111,12 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s password...", temp.FullName));
 
-                        SqlCommand UpdatePwd = new SqlCommand("UPDATE t_Users SET Pwd = @pwd WHERE id = @id", pOpenConn);
+                        SqlCommand UpdatePwd = new SqlCommand("UPDATE t_Users SET password = @password WHERE id = @id", pOpenConn);
 
                         UpdatePwd.Parameters.Add(new SqlParameter("id", Id));
                         if (Password == "")
                         {
-                            UpdatePwd.Parameters.Add(new SqlParameter("pwd", DBNull.Value));
+                            UpdatePwd.Parameters.Add(new SqlParameter("password", DBNull.Value));
                             Debug.WriteLine(string.Format("----------{0}'s password will be set to NULL in the database", temp.FullName));
                         }
                         else
@@ -1120,7 +1142,7 @@ namespace UacApi
                             throw new InvalidCastException(e);
                         }
 
-                        SqlCommand UpdateForename = new SqlCommand("UPDATE t_Users SET Forename = @forename WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateForename = new SqlCommand("UPDATE t_Users SET forename = @forename WHERE id = @id", pOpenConn);
 
                         UpdateForename.Parameters.Add(new SqlParameter("id", Id));
                         UpdateForename.Parameters.Add(new SqlParameter("forename", Forename));
@@ -1147,7 +1169,7 @@ namespace UacApi
                             throw new InvalidCastException(e);
                         }
 
-                        SqlCommand updateSurname = new SqlCommand("UPDATE t_Users SET Surname = @surname WHERE id = @id", pOpenConn);
+                        SqlCommand updateSurname = new SqlCommand("UPDATE t_Users SET surname = @surname WHERE id = @id", pOpenConn);
 
                         updateSurname.Parameters.Add(new SqlParameter("id", Id));
                         updateSurname.Parameters.Add(new SqlParameter("surname", Surname));
@@ -1165,7 +1187,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s gender...", temp.FullName));
 
-                        SqlCommand updateGender = new SqlCommand("UPDATE t_Users SET Gender = @gender WHERE id = @id", pOpenConn);
+                        SqlCommand updateGender = new SqlCommand("UPDATE t_Users SET gender = @gender WHERE id = @id", pOpenConn);
 
                         updateGender.Parameters.Add(new SqlParameter("id", Id));
                         if (_gender == "")
@@ -1189,7 +1211,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s dob...", temp.FullName));
 
-                        SqlCommand UpdateDob = new SqlCommand("UPDATE t_Users SET Dob = @dob WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateDob = new SqlCommand("UPDATE t_Users SET dob = @dob WHERE id = @id", pOpenConn);
 
                         UpdateDob.Parameters.Add(new SqlParameter("id", Id));
 
@@ -1214,7 +1236,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s address1...", temp.FullName));
 
-                        SqlCommand UpdateAddress1 = new SqlCommand("UPDATE t_Users SET Address1 = @address1 WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateAddress1 = new SqlCommand("UPDATE t_Users SET address1 = @address1 WHERE id = @id", pOpenConn);
 
                         UpdateAddress1.Parameters.Add(new SqlParameter("id", Id));
                         if (Address1 == "")
@@ -1238,7 +1260,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s address2...", temp.FullName));
 
-                        SqlCommand UpdateAddress2 = new SqlCommand("UPDATE t_Users SET Address2 = @address2 WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateAddress2 = new SqlCommand("UPDATE t_Users SET address2 = @address2 WHERE id = @id", pOpenConn);
 
                         UpdateAddress2.Parameters.Add(new SqlParameter("id", Id));
                         if (Address2 == "")
@@ -1263,7 +1285,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s address3...", temp.FullName));
 
-                        SqlCommand UpdateAddress3 = new SqlCommand("UPDATE t_Users SET Address3 = @address3 WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateAddress3 = new SqlCommand("UPDATE t_Users SET address3 = @address3 WHERE id = @id", pOpenConn);
 
                         UpdateAddress3.Parameters.Add(new SqlParameter("id", Id));
                         if (Address3 == "")
@@ -1287,7 +1309,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s postcode...", temp.FullName));
 
-                        SqlCommand UpdatePostCode = new SqlCommand("UPDATE t_Users SET PostCode = @postCode WHERE id = @id", pOpenConn);
+                        SqlCommand UpdatePostCode = new SqlCommand("UPDATE t_Users SET postCode = @postCode WHERE id = @id", pOpenConn);
 
                         UpdatePostCode.Parameters.Add(new SqlParameter("id", Id));
                         if (PostCode == "")
@@ -1311,7 +1333,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s mobilePhone...", temp.FullName));
 
-                        SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE t_Users SET MobilePhone = @mobilePhone WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE t_Users SET mobilePhone = @mobilePhone WHERE id = @id", pOpenConn);
 
                         UpdateMobilePhone.Parameters.Add(new SqlParameter("id", Id));
                         if (MobilePhone == "")
@@ -1335,7 +1357,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s homePhone...", temp.FullName));
 
-                        SqlCommand UpdateHomePhone = new SqlCommand("UPDATE t_Users SET HomePhone = @homePhone WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateHomePhone = new SqlCommand("UPDATE t_Users SET homePhone = @homePhone WHERE id = @id", pOpenConn);
 
                         UpdateHomePhone.Parameters.Add(new SqlParameter("id", Id));
                         if (HomePhone == "")
@@ -1359,7 +1381,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s workPhone...", temp.FullName));
 
-                        SqlCommand updateWorkPhone = new SqlCommand("UPDATE t_Users SET WorkPhone = @workPhone WHERE id = @id", pOpenConn);
+                        SqlCommand updateWorkPhone = new SqlCommand("UPDATE t_Users SET workPhone = @workPhone WHERE id = @id", pOpenConn);
 
                         updateWorkPhone.Parameters.Add(new SqlParameter("id", Id));
                         if (WorkPhone == "")
@@ -1383,7 +1405,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s accountType...", temp.FullName));
 
-                        SqlCommand updateAccountType = new SqlCommand("UPDATE t_Users SET AccountType = @accountType WHERE id = @id", pOpenConn);
+                        SqlCommand updateAccountType = new SqlCommand("UPDATE t_Users SET accountType = @accountType WHERE id = @id", pOpenConn);
 
                         updateAccountType.Parameters.Add(new SqlParameter("id", Id));
                         updateAccountType.Parameters.Add(new SqlParameter("accountType", AccountType));
@@ -1401,7 +1423,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s accountStatus...", temp.FullName));
 
-                        SqlCommand updateAccountStatus = new SqlCommand("UPDATE t_Users SET AccountStatus = @accountStatus WHERE id = @id", pOpenConn);
+                        SqlCommand updateAccountStatus = new SqlCommand("UPDATE t_Users SET accountStatus = @accountStatus WHERE id = @id", pOpenConn);
 
                         updateAccountStatus.Parameters.Add(new SqlParameter("id", Id));
                         updateAccountStatus.Parameters.Add(new SqlParameter("accountStatus", AccountStatus));
