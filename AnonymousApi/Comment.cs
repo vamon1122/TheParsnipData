@@ -43,10 +43,10 @@ namespace AnonymousApi
             {
                 using (pConn)
                 {
-                    SqlCommand insertComment = new SqlCommand("INSERT INTO t_Comments VALUES(@id, @userid, @postid, @date, @text)", pConn);
+                    SqlCommand insertComment = new SqlCommand("INSERT INTO t_Comments VALUES(@id, @userId, @postId, @date, @text)", pConn);
                     insertComment.Parameters.Add(new SqlParameter("id", id));
-                    insertComment.Parameters.Add(new SqlParameter("userid", userId));
-                    insertComment.Parameters.Add(new SqlParameter("postid", postId));
+                    insertComment.Parameters.Add(new SqlParameter("userId", userId));
+                    insertComment.Parameters.Add(new SqlParameter("postId", postId));
                     insertComment.Parameters.Add(new SqlParameter("date", date));
                     insertComment.Parameters.Add(new SqlParameter("text", text));
 

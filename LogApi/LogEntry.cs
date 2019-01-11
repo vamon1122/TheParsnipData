@@ -67,9 +67,9 @@ namespace LogApi
                 {
                     conn.Open();
 
-                    SqlCommand insertLogEntry = new SqlCommand("INSERT INTO t_LogEntries (id, datetime, value) VALUES(@id, @datetime, @value)", conn);
+                    SqlCommand insertLogEntry = new SqlCommand("INSERT INTO t_LogEntries (id, dateTime, value) VALUES(@id, @dateTime, @value)", conn);
                     insertLogEntry.Parameters.Add(new SqlParameter("id", id));
-                    insertLogEntry.Parameters.Add(new SqlParameter("datetime", date));
+                    insertLogEntry.Parameters.Add(new SqlParameter("dateTime", date));
                     insertLogEntry.Parameters.Add(new SqlParameter("value", text));
 
                     insertLogEntry.ExecuteNonQuery();

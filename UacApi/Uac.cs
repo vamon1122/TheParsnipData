@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogApi;
-
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -78,6 +77,4 @@ namespace UacApi
             return SecurePage(pUrl, pPage, pDeviceType, "user");
         }
     }
-
-    
 }
