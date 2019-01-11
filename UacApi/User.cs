@@ -121,6 +121,7 @@ namespace UacApi
         private Guid _createdByUserId;
         public Guid createdByUserId { get { return _createdByUserId; } set { /*Debug.WriteLine(string.Format("----------createdByUserId is being set to = {0}", value));*/ _createdByUserId = value; } }
         public string FullName { get { return string.Format("{0} {1}", Forename, Surname); } }
+        public List<string> ValidationErrors { get;  set; }
 
         public static List<User> GetAllUsers()
         {
@@ -255,6 +256,8 @@ namespace UacApi
 
         public bool Validate()
         {
+            ValidationErrors = new List<string>();
+
             bool validateSuccess = true;
 
             validateSuccess = validateUsername() ? validateSuccess : false;
@@ -286,6 +289,7 @@ namespace UacApi
                 if (Username.Length == 0)
                 {
                     new LogEntry(Id) { text = "Cannot create a user without a username! Username: " + Username };
+                    ValidationErrors.Add("username cannot be blank");
                     return false;
                 }
                 else if (Username.Length > 50)
@@ -331,6 +335,7 @@ namespace UacApi
                             {
                                 //MyLog.Warning("Email address domain does not contain a \".\". Email address will be blank!");
                                 new LogEntry(Id) { text = String.Format("Email address \"{0}\" does not contain a dot. Email addresses must contain a dot.", EmailAddress) };
+                                ValidationErrors.Add("email address must contain a dot");
                                 return false;
                             }
                         }
@@ -338,12 +343,14 @@ namespace UacApi
                         {
                             //MyLog.Warning("Email address contains too many @'s. Email address will be blank!");
                             new LogEntry(Id) { text = String.Format("Email address \"{0}\" contains too many '@' signs. Email addresses must contain only one '@' sign.", EmailAddress) };
+                            ValidationErrors.Add("email address cannot contain more than one @");
                             return false;
                         }
                     }
                     else
                     {
                         new LogEntry(Id) { text = String.Format("Email address \"{0}\" does not contain an '@' sign. Email addresses must contain an '@' sign.", EmailAddress) };
+                        ValidationErrors.Add("email address must contain at least one @");
                         //MyLog.Warning("Email address does not contain an \"@\" sign. Email address will be blank!");
                         return false;
                     }
@@ -365,6 +372,7 @@ namespace UacApi
                     else
                     {
                         new LogEntry(Id) { text = String.Format("----------Password \"{0}\" is too short. Passwords must be at least 5 characters long.", Password.Trim()) };
+                        ValidationErrors.Add("if you have a password, it must be at least 5 characters long");
                         return false;
                     }
                 }
@@ -381,6 +389,7 @@ namespace UacApi
                 else
                 {
                     new LogEntry(Id) { text = String.Format("----------Forename \"{0}\" cannot be left blank!", Forename.Trim()) };
+                    ValidationErrors.Add("forename cannot be blank");
                     return false;
                 }
             }
@@ -392,6 +401,7 @@ namespace UacApi
                 else
                 {
                     new LogEntry(Id) { text = String.Format("----------Surname \"{0}\" cannot be left blank!", Forename.Trim()) };
+                    ValidationErrors.Add("surname cannot be blank");
                     return false;
                 }
             }
@@ -407,7 +417,14 @@ namespace UacApi
                 if(_gender != null)
                 {
                     string tempGender = _gender.ToString().ToUpper();
-                    if (tempGender == "M" || tempGender == "F" || tempGender == "O") return true; else { new LogEntry(Id) { text = String.Format("Gender \"{0}\" is not M, F or O. Gender must be M, F or O.", tempGender) }; return false; };
+                    if (tempGender == "M" || tempGender == "F" || tempGender == "O")
+                        return true;
+                    else
+                    {
+                        new LogEntry(Id) { text = String.Format("Gender \"{0}\" is not M, F or O. Gender must be M, F or O.", tempGender) };
+                        ValidationErrors.Add("gender must be M, F or O");
+                        return false;
+                    };
                 }
                 else
                 {
@@ -419,8 +436,11 @@ namespace UacApi
 
             bool validateAddress1()
             {
-                if(Address1.Length > 50)
+                if (Address1.Length > 50)
+                {
+                    ValidationErrors.Add("address1 must be no more than 50 characters long");
                     return false;
+                }
                 else
                     return true;
             }
@@ -428,7 +448,10 @@ namespace UacApi
             bool validateAddress2()
             {
                 if (Address2.Length > 50)
+                {
+                    ValidationErrors.Add("address2 must be no more than 50 characters long");
                     return false;
+                }
                 else
                     return true;
             }
@@ -436,7 +459,10 @@ namespace UacApi
             bool validateAddress3()
             {
                 if (Address3.Length > 50)
+                {
+                    ValidationErrors.Add("address1 must be no more than 50 characters long");
                     return false;
+                }
                 else
                     return true;
             }

@@ -118,15 +118,37 @@ namespace TheParsnipWeb
                 
 
                 if (UserForm.DataSubject.Update())
+                {
                     new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} {1} an account for {2} via the UserForm", myUser.FullName, actionPast, UserForm.DataSubject.FullName) };
+                    Success.Attributes.CssStyle.Add("display", "block");
+                    SuccessText.Text = string.Format("<strong>Success</strong> {0} was updated on the database successfully!", UserForm.DataSubject.FullName);
+                }
+
                 else
+                {
                     new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} tried to {1} an account for {2} via the UserForm, but there was an error whilst updating the database", myUser.FullName, actionPresent, UserForm.DataSubject.FullName) };
+                    Error.Attributes.CssStyle.Add("display", "block");
+                    ErrorText.Text = string.Format("<strong>Database Error</strong> There was an error whilst updating {0} on the database", UserForm.DataSubject.FullName);
+                }
+                    
 
             }
             else
             {
                 Debug.WriteLine("User failed to validate!");
-                new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} attempted to {1} an account for {2} via the UserForm, but the user failed fo validate!", myUser.FullName, actionPresent, UserForm.DataSubject.FullName) };
+                new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} attempted to {1} an account for {2} via the UserForm, but {3} was not validated successfully.", 
+                    myUser.FullName, actionPresent, UserForm.DataSubject.FullName, UserForm.DataSubject.PosessivePronoun) };
+                Error.Attributes.CssStyle.Add("display", "block");
+
+                string ValidationInfo = string.Format("<strong>Validation Error</strong> {0} could not be updated because {1} failed to validate: ", UserForm.DataSubject.FullName, UserForm.DataSubject.PosessivePronoun);
+                foreach (string error in UserForm.DataSubject.ValidationErrors)
+                {
+                    ValidationInfo += error + ", ";
+                }
+                ValidationInfo = ValidationInfo.Substring(0, ValidationInfo.Length - 2);
+                ValidationInfo += ".";
+
+                ErrorText.Text = ValidationInfo;
             }
 
             UpdateUserList();

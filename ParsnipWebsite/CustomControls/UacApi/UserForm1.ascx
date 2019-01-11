@@ -11,18 +11,7 @@
 
 
     <div class="center_div">
-        <div class="alert alert-danger alert-dismissible" runat="server" style="display:none" id="Error">
-             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-             <strong>Error</strong> <asp:Label runat="server" ID="ErrorText"></asp:Label>
-        </div>
-        <div class="alert alert-warning alert-dismissible" runat="server" style="display:none" id="Warning">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Warning</strong> <asp:Label runat="server" ID="WarningText"></asp:Label>
-        </div>
-        <div class="alert alert-success alert-dismissible" runat="server" style="display:none" id="Success">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Success!</strong> <asp:Label runat="server" ID="SuccessText"></asp:Label>
-        </div>
+        
 
         <div class="form-group">
             <label>Username</label>

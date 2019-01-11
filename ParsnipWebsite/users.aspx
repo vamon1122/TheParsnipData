@@ -22,6 +22,20 @@
 <body style="padding-bottom:2.5%; padding-top:4%">
     <form runat="server">
     <div class="container">
+
+        <div class="alert alert-danger alert-dismissible" runat="server" style="display:none" id="Error">
+             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+             <asp:Label runat="server" ID="ErrorText"></asp:Label>
+        </div>
+        <div class="alert alert-warning alert-dismissible" runat="server" style="display:none" id="Warning">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <asp:Label runat="server" ID="WarningText"></asp:Label>
+        </div>
+        <div class="alert alert-success alert-dismissible" runat="server" style="display:none" id="Success">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <asp:Label runat="server" ID="SuccessText"></asp:Label>
+        </div>
+
         <div class="jumbotron">
             <h1 class="display-4">Users</h1>
             <p class="lead">Create & edit theparsnip.co.uk users</p>
