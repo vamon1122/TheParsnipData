@@ -275,7 +275,9 @@ namespace UacApi
             validateSuccess = validateAccountType() ? validateSuccess : false;
             validateSuccess = validateAccountStatus() ? validateSuccess : false;
 
-            new LogEntry(Id) { text = "Validate success: " + validateSuccess };
+            string validateSuccessString = validateSuccess ? "was validated successfully!" : "failed to be validated. See details below:";
+
+            new LogEntry(Id) { text = string.Format("{0} ", FullName, validateSuccess) };
 
             return validateSuccess;
 
@@ -981,7 +983,7 @@ namespace UacApi
                     new LogEntry(Guid.Empty) { text = error };
                     return false;
                 }
-
+                new LogEntry(Guid.Empty) { text = string.Format("{0} was successfully inserted into the database!", FullName) };
                 return DbUpdate(pOpenConn);
             }
             else
@@ -1447,6 +1449,7 @@ namespace UacApi
                     new LogEntry(Guid.Empty) { text = error };
                     return false;
                 }
+                new LogEntry(Guid.Empty) { text = string.Format("{0}'s details were successfully updated on the database!", FullName) };
                 return true;
             }
             else
