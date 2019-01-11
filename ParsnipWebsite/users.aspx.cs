@@ -111,16 +111,16 @@ namespace TheParsnipWeb
             {
                 if (UserForm.DataSubject.Update())
                 {
-                    new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} created / edited an account for {1} via the UserForm", UserForm.DataSubject.FullName, UserForm.DataSubject.FullName) };
+                    new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} created / edited an account for {1} via the UserForm", myUser.FullName, UserForm.DataSubject.FullName) };
                 }
                 else
-                    new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} tried to create / edit an account for {1} via the UserForm, but there was an error whilst updating the database", UserForm.DataSubject.FullName, UserForm.DataSubject.FullName) };
+                    new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} tried to create / edit an account for {1} via the UserForm, but there was an error whilst updating the database", myUser.FullName, UserForm.DataSubject.FullName) };
 
             }
             else
             {
                 Debug.WriteLine("User failed to validate!");
-                new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} attempted to create / edit an account for {1} via the UserForm, but the user failed fo validate!", UserForm.DataSubject.FullName, UserForm.DataSubject.FullName) };
+                new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} attempted to create / edit an account for {1} via the UserForm, but the user failed fo validate!", myUser.FullName, UserForm.DataSubject.FullName) };
             }
 
             UpdateUserList();
