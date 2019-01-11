@@ -1350,9 +1350,9 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s workPhone...", temp.FullName));
 
-                        SqlCommand updateWorkPhone = new SqlCommand("UPDATE t_Users SET WorkPhone = @workPhone WHERE id = @id", pOpenConn);
+                        SqlCommand updateWorkPhone = new SqlCommand("UPDATE t_Users SET WorkPhone = @workPhone WHERE Username = @username", pOpenConn);
 
-                        updateWorkPhone.Parameters.Add(new SqlParameter("id", Id));
+                        updateWorkPhone.Parameters.Add(new SqlParameter("username", Username));
                         if (WorkPhone == "")
                         {
                             updateWorkPhone.Parameters.Add(new SqlParameter("workPhone", DBNull.Value));
