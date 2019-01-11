@@ -1018,6 +1018,7 @@ namespace UacApi
 
         private bool DbUpdate(SqlConnection pOpenConn)
         {
+            Debug.WriteLine("Attempting to update user with Id = " + Id);
             bool HasBeenInserted = true;
 
             if (HasBeenInserted)
