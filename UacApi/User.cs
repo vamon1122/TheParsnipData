@@ -976,7 +976,9 @@ namespace UacApi
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("Failed to insert account into database: " + e);
+                    string error = string.Format("[UacApi.User.DbInsert)] Failed to insert {0}'s account into the database: {1}", FullName, e);
+                    Debug.WriteLine(error);
+                    new LogEntry(Guid.Empty) { text = error };
                     return false;
                 }
 
@@ -1120,7 +1122,7 @@ namespace UacApi
                             Debug.WriteLine(string.Format("----------{0}'s password will be set to NULL in the database", temp.FullName));
                         }
                         else
-                            UpdatePwd.Parameters.Add(new SqlParameter("pwd", Password));
+                            UpdatePwd.Parameters.Add(new SqlParameter("password", Password));
 
                         UpdatePwd.ExecuteNonQuery();
 
@@ -1405,7 +1407,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s accountType...", temp.FullName));
 
-                        SqlCommand updateAccountType = new SqlCommand("UPDATE t_Users SET accountType = @accountType WHERE id = @id", pOpenConn);
+                        SqlCommand updateAccountType = new SqlCommand("UPDATE t_Users SET type = @accountType WHERE id = @id", pOpenConn);
 
                         updateAccountType.Parameters.Add(new SqlParameter("id", Id));
                         updateAccountType.Parameters.Add(new SqlParameter("accountType", AccountType));
@@ -1423,7 +1425,7 @@ namespace UacApi
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s accountStatus...", temp.FullName));
 
-                        SqlCommand updateAccountStatus = new SqlCommand("UPDATE t_Users SET accountStatus = @accountStatus WHERE id = @id", pOpenConn);
+                        SqlCommand updateAccountStatus = new SqlCommand("UPDATE t_Users SET status = @accountStatus WHERE id = @id", pOpenConn);
 
                         updateAccountStatus.Parameters.Add(new SqlParameter("id", Id));
                         updateAccountStatus.Parameters.Add(new SqlParameter("accountStatus", AccountStatus));
@@ -1440,7 +1442,9 @@ namespace UacApi
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine(string.Format("Caught an error whilst updating account (\"{0}\": {1}", Username, e));
+                    string error = string.Format("[UacApi.User.DbUpdate] There was an error whilst updating {0}'s account ({1}): {2}", FullName, Username, e);
+                    Debug.WriteLine(error);
+                    new LogEntry(Guid.Empty) { text = error };
                     return false;
                 }
                 return true;
