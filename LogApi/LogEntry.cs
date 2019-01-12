@@ -26,7 +26,7 @@ namespace LogApi
                 if (value.Length < 8001)
                 {
                     _text = value;
-                    System.Diagnostics.Debug.WriteLine(text);
+                    System.Diagnostics.Debug.WriteLine("----------[LOG ENTRY] - " + text);
                     if(isNew) Insert();
                 }
                 else

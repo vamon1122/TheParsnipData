@@ -15,7 +15,7 @@ namespace TheParsnipWeb
     {
         internal static UserForm1 myUserForm1;
         internal static User _dataSubject;
-        internal static User DataSubject { get { return _dataSubject; } set { Debug.WriteLine(string.Format("dataSubject (id = \"{0}\") was set in UserForm", value.Id)); _dataSubject = value; myUserForm1.UpdateFields(); } }
+        internal static User DataSubject { get { return _dataSubject; } set { /*Debug.WriteLine(string.Format("dataSubject (id = \"{0}\") was set in UserForm", value.Id));*/ _dataSubject = value; myUserForm1.UpdateFields(); } }
     }
 
     public partial class UserForm1 : System.Web.UI.UserControl
@@ -38,7 +38,7 @@ namespace TheParsnipWeb
             }
             else
             {
-                Debug.WriteLine("----------_dataSubject was already initialised");
+                //Debug.WriteLine("----------_dataSubject was already initialised");
             }
         }
 
@@ -96,20 +96,22 @@ namespace TheParsnipWeb
                 Debug.WriteLine("My dataSubject is null. Adding new dataSubject");
                 PersistentData.DataSubject = new User("UpdateDataSubject (UserForm1)");
             }
+            /*
             Debug.WriteLine(string.Format("username.Text = {0}", username.Text));
             Debug.WriteLine(string.Format("forename.Text = {0}", forename.Text));
             Debug.WriteLine(string.Format("mobilePhone.Text = {0}", mobilePhone.Text));
             Debug.WriteLine(string.Format("homePhone.Text = {0}", homePhone.Text));
             Debug.WriteLine(string.Format("workPhone.Text = {0}", workPhone.Text));
+            */
             PersistentData.DataSubject.Username = username.Text;
-            Debug.WriteLine(string.Format("dataSubject.Username = username.Text ({0})", username.Text));
+            //Debug.WriteLine(string.Format("dataSubject.Username = username.Text ({0})", username.Text));
 
             PersistentData.DataSubject.Email = email.Text;
             PersistentData.DataSubject.Password = password1.Text;
             PersistentData.DataSubject.Forename = forename.Text;
             PersistentData.DataSubject.Surname = surname.Text;
             PersistentData.DataSubject.GenderUpper = gender.Value.Substring(0, 1);
-            Debug.WriteLine("DOB = " + dobInput.Value);
+            //Debug.WriteLine("DOB = " + dobInput.Value);
 
             
             if (DateTime.TryParse(dobInput.Value, out DateTime result))

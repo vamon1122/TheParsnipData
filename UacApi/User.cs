@@ -16,10 +16,9 @@ namespace UacApi
     public class User
     {
         private LogWriter AccountLog;
-        private static string sqlConnectionString = ParsnipApi.Data.sqlConnectionString;
 
         private Guid _id;
-        public Guid Id { get { return _id; } private set { Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value)); _id = value; } }
+        public Guid Id { get { return _id; } private set { /*Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value));*/ _id = value; } }
         private string _username;
         public string Username { get { return _username; } set { /*Debug.WriteLine(string.Format("----------username is being set to = {0}", value));*/ _username = value; } }
         private string _email;
@@ -96,6 +95,32 @@ namespace UacApi
                     return "their";
             }
         }
+        public string SubjectiveGenderPronoun
+        {
+            get
+            {
+                if (_gender == "M")
+                    return "he";
+
+                else if (_gender == "F")
+                    return "she";
+                else
+                    return "they";
+            }
+        }
+        public string ObjectiveGenderPronoun
+        {
+            get
+            {
+                if (_gender == "M")
+                    return "him";
+
+                else if (_gender == "F")
+                    return "her";
+                else
+                    return "them";
+            }
+        }
         private string _address1;
         public string Address1 { get { return _address1; } set { /*Debug.WriteLine(string.Format("----------address1 is being set to = {0}", value));*/ _address1 = value; } }
         private string _address2;
@@ -154,7 +179,7 @@ namespace UacApi
 
         public User(string pWhereAmI)
         {
-            Debug.WriteLine(string.Format("User was initialised without a guid. WhereAmI = {0} Their guid will be: {1}", pWhereAmI, Guid.Empty));
+            //Debug.WriteLine(string.Format("User was initialised without a guid. WhereAmI = {0} Their guid will be: {1}", pWhereAmI, Guid.Empty));
             Id = Guid.Empty;
             
             DateTimeCreated = ParsnipApi.Data.adjustedTime;
@@ -163,7 +188,7 @@ namespace UacApi
 
         public User(Guid pGuid)
         {
-            Debug.WriteLine("User was initialised with the guid: " + pGuid);
+            //Debug.WriteLine("User was initialised with the guid: " + pGuid);
             Id = pGuid;
         }
 
@@ -188,7 +213,7 @@ namespace UacApi
 
         private bool IdExistsOnDb(SqlConnection pOpenConn)
         {
-            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using their Id {1}", FullName, Id));
+            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using {1} Id {1}", FullName, PosessivePronoun, Id));
             try
             {
                 SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE id = @id", pOpenConn);
@@ -203,9 +228,7 @@ namespace UacApi
                     //Debug.WriteLine("Found user by Id. userExists = " + userExists);
                 }
 
-                Debug.WriteLine(userExists + " user(s) were found with the id " + Id);
-
-
+                //Debug.WriteLine(userExists + " user(s) were found with the id " + Id);
 
                 if (userExists > 0)
                     return true;
@@ -280,7 +303,7 @@ namespace UacApi
 
             string validateSuccessString = validateSuccess ? "was validated successfully!" : "failed to be validated. See details below:";
 
-            new LogEntry(Id) { text = string.Format("{0} ", FullName, validateSuccess) };
+            new LogEntry(Id) { text = string.Format("{0} {1}", FullName, validateSuccessString) };
 
             return validateSuccess;
 
@@ -774,7 +797,7 @@ namespace UacApi
         internal bool LogIn(string pUsername)
         {
             Username = pUsername;
-            return DbSelect(new SqlConnection(sqlConnectionString));
+            return DbSelect(ParsnipApi.Data.GetOpenDbConnection());
         }
 
         public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
@@ -785,7 +808,7 @@ namespace UacApi
         public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd, bool silent)
         {
             //AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
-            Debug.WriteLine(string.Format("----------User.Login() for {0}", Username));
+            //Debug.WriteLine(string.Format("----------User.Login() for {0}", Username));
 
 
             string dbPwd = null;
@@ -801,26 +824,26 @@ namespace UacApi
                 {
                     if (pPwd == dbPwd)
                     {
-                        Debug.WriteLine(string.Format("----------User.Login() - Got password from db for user {0}. Id = {1}. Pwd = {2}", Username, Id, Password));
+                        //Debug.WriteLine(string.Format("----------User.Login() - Got password from db for user {0}. Id = {1}. Pwd = {2}", Username, Id, Password));
                         if (GetIdFromDb())
                         {
                             //AccountLog.Debug(String.Format("[LogIn] DbPwd == Pwd ({0} == {1})", dbPwd, pPwd));
                             if (DbSelect(conn))
                             {
-                                Debug.WriteLine(string.Format("----------User.Login() - Selected user {0} whilst logging in", Username));
+                                //Debug.WriteLine(string.Format("----------User.Login() - Selected user {0} whilst logging in", Username));
                                 if (pRememberUsername)
                                 {
                                     //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
-                                    System.Diagnostics.Debug.WriteLine("----------User.Login() - Username permanently remembered!");
+                                    //Debug.WriteLine("----------User.Login() - Username permanently remembered!");
                                     Cookie.WritePerm("userName", pUsername);
                                 }
 
                                 if (pRememberPwd)
                                 {
                                     //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
-                                    Debug.WriteLine("----------User.Login() - Password permanently remembered!");
+                                    //Debug.WriteLine("----------User.Login() - Password permanently remembered!");
                                     Cookie.WritePerm("userPwd", pPwd);
-                                    Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
+                                    //Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
                                 }
                                 else
                                 {
@@ -834,7 +857,7 @@ namespace UacApi
                                         //AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
                                         Cookie.WriteSession("userPwd", pPwd);
                                         //AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
-                                        Debug.WriteLine("----------User.Login() - Password stored for SESSION ONLY.");
+                                        //Debug.WriteLine("----------User.Login() - Password stored for SESSION ONLY.");
                                     }
 
 
@@ -850,7 +873,7 @@ namespace UacApi
                                     }
                                     else
                                     {
-                                        Debug.WriteLine(String.Format("----------User.Login() - {0} logged in SILENTLY", FullName));
+                                        //Debug.WriteLine(String.Format("----------User.Login() - {0} logged in SILENTLY", FullName));
                                     }
 
                                     return true;
@@ -1026,7 +1049,7 @@ namespace UacApi
         internal bool DbSelect(SqlConnection pOpenConn)
         {
             //AccountLog.Debug("Attempting to get user details...");
-            Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get user details with id {0}...", Id));
+            //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get user details with id {0}...", Id));
             
             try
             {
@@ -1044,11 +1067,11 @@ namespace UacApi
                         recordsFound++;
                     }
                 }
-                Debug.WriteLine("----------DbSelect() - Adding values " + recordsFound);
+                //Debug.WriteLine(string.Format("----------DbSelect() - Found {0} record(s) ", recordsFound));
 
                 if (recordsFound > 0)
                 {
-                    Debug.WriteLine("----------DbSelect() - Got user's details successfully!");
+                    //Debug.WriteLine("----------DbSelect() - Got user's details successfully!");
                     //AccountLog.Debug("Got user's details successfully!");
                     return true;
                 }

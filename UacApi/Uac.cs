@@ -16,48 +16,76 @@ namespace UacApi
         public static User SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
         {
             var myUser = new User("Uac.SecurePage(4)");
-            Debug.WriteLine("----------Securing page");
-            bool CanAccess;
+            //Debug.WriteLine("----------Securing page");
+            bool canAccess;
+            string justification = "";
 
             if (myUser.LogIn())
             {
-                Debug.WriteLine("----------Securing page, accountType = " + myUser.AccountType);
+                //Debug.WriteLine("----------Securing page, accountType = " + myUser.AccountType);
                 
                 if (myUser.AccountStatus == "active")
                 {
+                    string accTypeDescriptor = "";
+                    string x = myUser.AccountType.Substring(0, 1).ToLower();
+                    if (x == "a" || x == "e" || x == "i" || x == "o" || x == "u")
+                        accTypeDescriptor += "an";
+                    else
+                        accTypeDescriptor += "a";
 
+                    justification += string.Format("{0} account is active and ", myUser.PosessivePronoun);
 
                     switch (pAccountType)
                     {
                         case "admin":
-                            if (myUser.AccountType == "admin") CanAccess = true; else CanAccess = false;
+                            if (myUser.AccountType == "admin")
+                            {
+                                justification += string.Format("{0} is {1} {2} wheras this page only requires {3} to be an admin.", myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType, myUser.ObjectiveGenderPronoun);
+                                canAccess = true;
+                            }
+                            else
+                                canAccess = false;
                             break;
                         case "member":
-                            if (myUser.AccountType == "admin" || myUser.AccountType == "member") CanAccess = true; else CanAccess = false;
+                            if (myUser.AccountType == "admin" || myUser.AccountType == "member")
+                            {
+                                justification += string.Format("{0} is {1} {2} wheras this page only requires {3} to be a member.", myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType, myUser.ObjectiveGenderPronoun);
+                                canAccess = true;
+                            }
+                            else
+                                canAccess = false;
                             break;
                         case "user":
-                            if (myUser.AccountType == "admin" || myUser.AccountType == "member" || myUser.AccountType == "user") CanAccess = true; else CanAccess = false;
+                            if (myUser.AccountType == "admin" || myUser.AccountType == "member" || myUser.AccountType == "user")
+                            {
+                                justification += string.Format("{0} is {1} {2} wheras this page only requires {3} to be an user.", myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType, myUser.ObjectiveGenderPronoun);
+                                canAccess = true;
+                            }
+                            else
+                                canAccess = false;
                             break;
                         default:
-                            CanAccess = false;
+                            canAccess = false;
                             break;
                     }
                 }
                 else
                 {
-                    CanAccess = false;
-                    new LogEntry(Guid.Empty) { text = string.Format("{0} tried to access {0} but their account is not active!", myUser.FullName, pUrl) };
+                    canAccess = false;
+                    new LogEntry(Guid.Empty) { text = string.Format("{0} was denied access to {1} because {2} account is not active!", myUser.FullName, pUrl, myUser.PosessivePronoun) };
                 }
 
-                if (CanAccess)
+                if (canAccess)
                 {
-                    System.Diagnostics.Debug.WriteLine("{0} is allowed to access {1}", myUser.FullName, pUrl);
-                    new LogEntry(myUser.Id) { text = String.Format("{0} accessed the {1} page from {2} '{3}' device", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
+                    //Debug.WriteLine("----------{0} is allowed to access {1}", myUser.FullName, pUrl);
+                    
+
+                    new LogEntry(myUser.Id) { text = String.Format("{0} accessed the {1} page from {2} '{3}' device. {4} was allowed to access this page because {5}", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType, myUser.Forename, myUser.SubjectiveGenderPronoun) };
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("{0} is NOT allowed to access {1}", myUser.FullName, pUrl);
-                    new LogEntry(myUser.Id) { text = String.Format("{0} attempted to access the {1} page from {2} '{3}' device but did not have sufficient permissions", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
+                    Debug.WriteLine("----------{0} is NOT allowed to access {1}", myUser.FullName, pUrl);
+                    new LogEntry(myUser.Id) { text = String.Format("{0} was denied access to the {1} page because {3} did not have sufficient permissions.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
                     pPage.Response.Redirect(String.Format("access-denied?url={0}", pUrl));
                 }
 
