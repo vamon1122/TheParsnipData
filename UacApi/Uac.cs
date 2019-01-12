@@ -28,19 +28,19 @@ namespace UacApi
                 {
                     string accTypeDescriptor = "";
                     string x = myUser.AccountType.Substring(0, 1).ToLower();
-                    if (x == "a" || x == "e" || x == "i" || x == "o" || x == "u")
+                    if (x == "a" || x == "e" || x == "i" || x == "o" || x == "u" && myUser.AccountType != "user")
                         accTypeDescriptor += "an";
                     else
                         accTypeDescriptor += "a";
 
-                    justification += string.Format("{0} account is active and ", myUser.PosessivePronoun);
+                    justification += string.Format("a) {0} account is active and b) ", myUser.PosessivePronoun);
 
                     switch (pAccountType)
                     {
                         case "admin":
                             if (myUser.AccountType == "admin")
                             {
-                                justification += string.Format("{0} is {1} {2} wheras this page only requires {3} to be an admin.", myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType, myUser.ObjectiveGenderPronoun);
+                                justification += string.Format("this page requires {0} to have admin access and {1} is {2} {3} which means that {1} has the required permission level.", myUser.ObjectiveGenderPronoun, myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType);
                                 canAccess = true;
                             }
                             else
@@ -49,7 +49,7 @@ namespace UacApi
                         case "member":
                             if (myUser.AccountType == "admin" || myUser.AccountType == "member")
                             {
-                                justification += string.Format("{0} is {1} {2} wheras this page only requires {3} to be a member.", myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType, myUser.ObjectiveGenderPronoun);
+                                justification += string.Format("this page requires {0} to have member access and {1} is {2} {3} which means that {1} has the required permission level.", myUser.ObjectiveGenderPronoun, myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType);
                                 canAccess = true;
                             }
                             else
@@ -58,7 +58,7 @@ namespace UacApi
                         case "user":
                             if (myUser.AccountType == "admin" || myUser.AccountType == "member" || myUser.AccountType == "user")
                             {
-                                justification += string.Format("{0} is {1} {2} wheras this page only requires {3} to be an user.", myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType, myUser.ObjectiveGenderPronoun);
+                                justification += string.Format("this page requires {0} to have user access and {1} is {2} {3} which means that {1} has the required permission level.", myUser.ObjectiveGenderPronoun, myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType);
                                 canAccess = true;
                             }
                             else
@@ -80,7 +80,7 @@ namespace UacApi
                     //Debug.WriteLine("----------{0} is allowed to access {1}", myUser.FullName, pUrl);
                     
 
-                    new LogEntry(myUser.Id) { text = String.Format("{0} accessed the {1} page from {2} '{3}' device. {4} was allowed to access this page because {5}", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType, myUser.Forename, myUser.SubjectiveGenderPronoun) };
+                    new LogEntry(myUser.Id) { text = String.Format("{0} accessed the {1} page from {2} '{3}' device. {4} was allowed to access this page because {5}", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType, myUser.Forename, justification) };
                 }
                 else
                 {
