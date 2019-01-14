@@ -19,7 +19,7 @@
     <script>
         var errorLabel = document.getElementById("errorLabel");
         errorLabel.innerHTML = "Creating deviceType cookie..." + deviceDetect();
-        createCookiePerm("deviceType", deviceDetect());
+        createCookie("deviceType", deviceDetect());
         errorLabel.innerHTML = "deviceType cooke created successfully! Doing redirect...";
 
         
