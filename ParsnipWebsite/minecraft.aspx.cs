@@ -16,7 +16,12 @@ namespace TheParsnipWeb
         {
             if(Data.deviceType == "")
             {
+                new LogEntry(Guid.Empty) { text = "Device type was null. Redirecting to getDeviceInfo" };
                 Response.Redirect("getDeviceInfo");
+            }
+            else
+            {
+                new LogEntry(Guid.Empty) { text = "Device type was not null. Not redirecting to getDeviceInfo" };
             }
             
             myUser = Uac.SecurePage("minecraft", this, Data.deviceType);
