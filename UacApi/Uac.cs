@@ -15,11 +15,23 @@ namespace UacApi
     {
         public static User SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
         {
+            if(string.IsNullOrEmpty(pDeviceType) || string.IsNullOrWhiteSpace(pDeviceType))
+            {
+                new LogEntry(Guid.Empty) { text = "Attempted to secure the page but deviceInfo was incomplete. Getting device info..." };
+                pPage.Response.Redirect("getDeviceInfo?url=" + pUrl);
+            }
+            else
+            {
+                new LogEntry(Guid.Empty) { text = "Secure page - Device info is already complete!" };
+            }
+
 
             var myUser = new User("Uac.SecurePage(4)");
             //Debug.WriteLine("----------Securing page");
             bool canAccess;
             string justification = "";
+            
+
 
             if (myUser.LogIn())
             {
