@@ -238,7 +238,7 @@ namespace UacApi
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("There was an error whilst checking if user exists on the database by using thier Id: " + e);
+                Debug.WriteLine("There was an error whilst checking if user exists on the database by using thier Id: " + e);
                 return false;
             }
         }
