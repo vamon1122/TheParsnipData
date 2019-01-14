@@ -20,7 +20,7 @@
     <form runat="server">
          <script src="../javascript/globalBodyV1.4.js"></script>
     <script>
-        createCookie("deviceType", deviceDetect());
+        createCookiePerm("deviceType", deviceDetect());
     </script>
         <div class="center_div">
             <div class="alert alert-warning alert-dismissible" runat="server" style="display:none" id="Warning">

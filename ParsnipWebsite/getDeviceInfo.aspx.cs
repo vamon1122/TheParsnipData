@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using CookieApi;
 using LogApi;
 
-namespace ParsnipWebsite
+namespace TheParsnipWeb
 {
     public partial class getDeviceInfo : System.Web.UI.Page
     {
@@ -23,18 +23,20 @@ namespace ParsnipWebsite
                 Redirect = "home";
             }*/
 
-            new LogEntry(Guid.Empty) { text = "Detecting device and setting deviceType cookie..." };
+            /*new LogEntry(Guid.Empty) { text = "Device type had not been set yet... Detecting device and setting deviceType cookie..." };
             ScriptManager.RegisterStartupScript(Page, typeof(Page), "GetDeviceType", "createCookie(\"deviceType\", deviceDetect())", true);
+            new LogEntry(Guid.Empty) { text = "Cookie deviceType now = " + Data.deviceType };
+
             if (Cookie.Exists("deviceType"))
             {
-                new LogEntry(Guid.Empty) { text = string.Format("----------Cookie exists! deviceType = {0}", Cookie.Read("deviceType")) };
+                new LogEntry(Guid.Empty) { text = string.Format("Cookie already exists! deviceType = {0}", Cookie.Read("deviceType")) };
             }
             else
             {
-                new LogEntry(Guid.Empty) { text = "----------Device type cookie did not exist" };
+                new LogEntry(Guid.Empty) { text = "Device type cookie does not exist." };
             }
 
-            Response.Redirect("home");
+            Response.Redirect("home");*/
         }
     }
 }
