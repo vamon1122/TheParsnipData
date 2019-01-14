@@ -22,7 +22,7 @@ namespace UacApi
             }
             else
             {
-                new LogEntry(Guid.Empty) { text = "Secure page - Device info is already complete!" };
+                //new LogEntry(Guid.Empty) { text = "Secure page - Device info is already complete!" };
             }
 
 
