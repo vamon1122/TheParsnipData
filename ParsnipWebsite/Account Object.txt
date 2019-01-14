@@ -44884,3 +44884,48 @@
 <debug> 12/01/2019 12:47:59 - Found a username cookie! Username = vamon1122
 <debug> 12/01/2019 12:47:59 - Found a password cookie! Password = BBTbbt1704
 <info> 12/01/2019 12:47:59 - Returning user details from cookies.
+<warning> 14/01/2019 11:35:36 - PAGE IS BEING LOADED
+<warning> 14/01/2019 11:36:07 - PAGE IS BEING LOADED
+<info> 14/01/2019 11:36:08 - Getting user details from cookies...
+<debug> 14/01/2019 11:36:08 - Found a username cookie! Username = pewdiepie
+<debug> 14/01/2019 11:36:08 - No password cookie was found.
+<info> 14/01/2019 11:36:08 - Returning user details from cookies.
+<warning> 14/01/2019 11:36:08 - Input username was reset
+<warning> 14/01/2019 11:36:20 - PAGE IS BEING LOADED
+<warning> 14/01/2019 11:36:20 - Button Was clicked!
+<info> 14/01/2019 11:36:21 - Getting user details from cookies...
+<debug> 14/01/2019 11:36:21 - Found a username cookie! Username = pewdiepie
+<debug> 14/01/2019 11:36:21 - No password cookie was found.
+<info> 14/01/2019 11:36:21 - Returning user details from cookies.
+<info> 14/01/2019 11:36:21 - Getting user details from cookies...
+<debug> 14/01/2019 11:36:21 - Found a username cookie! Username = vamon1122
+<debug> 14/01/2019 11:36:21 - Found a password cookie! Password = BBTbbt1704
+<info> 14/01/2019 11:36:21 - Returning user details from cookies.
+<info> 14/01/2019 11:36:22 - Getting user details from cookies...
+<debug> 14/01/2019 11:36:22 - Found a username cookie! Username = vamon1122
+<debug> 14/01/2019 11:36:22 - Found a password cookie! Password = BBTbbt1704
+<info> 14/01/2019 11:36:22 - Returning user details from cookies.
+<info> 14/01/2019 11:36:22 - Getting user details from cookies...
+<debug> 14/01/2019 11:36:22 - Found a username cookie! Username = vamon1122
+<debug> 14/01/2019 11:36:22 - Found a password cookie! Password = BBTbbt1704
+<info> 14/01/2019 11:36:22 - Returning user details from cookies.
+<info> 14/01/2019 11:36:22 - Getting user details from cookies...
+<debug> 14/01/2019 11:36:22 - Found a username cookie! Username = vamon1122
+<debug> 14/01/2019 11:36:22 - Found a password cookie! Password = BBTbbt1704
+<info> 14/01/2019 11:36:22 - Returning user details from cookies.
+<info> 14/01/2019 11:36:26 - Getting user details from cookies...
+<debug> 14/01/2019 11:36:26 - Found a username cookie! Username = vamon1122
+<debug> 14/01/2019 11:36:26 - Found a password cookie! Password = BBTbbt1704
+<info> 14/01/2019 11:36:26 - Returning user details from cookies.
+<info> 14/01/2019 11:36:26 - Getting user details from cookies...
+<debug> 14/01/2019 11:36:26 - Found a username cookie! Username = vamon1122
+<debug> 14/01/2019 11:36:26 - Found a password cookie! Password = BBTbbt1704
+<info> 14/01/2019 11:36:26 - Returning user details from cookies.
+<info> 14/01/2019 11:36:28 - Getting user details from cookies...
+<debug> 14/01/2019 11:36:28 - Found a username cookie! Username = vamon1122
+<debug> 14/01/2019 11:36:28 - Found a password cookie! Password = BBTbbt1704
+<info> 14/01/2019 11:36:28 - Returning user details from cookies.
+<info> 14/01/2019 11:36:28 - Getting user details from cookies...
+<debug> 14/01/2019 11:36:28 - Found a username cookie! Username = vamon1122
+<debug> 14/01/2019 11:36:28 - Found a password cookie! Password = BBTbbt1704
+<info> 14/01/2019 11:36:28 - Returning user details from cookies.

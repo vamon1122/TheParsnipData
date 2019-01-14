@@ -8,6 +8,7 @@ using UacApi;
 using BenLog;
 using CookieApi;
 using System.Diagnostics;
+using LogApi;
 
 namespace TheParsnipWeb
 {
@@ -25,17 +26,18 @@ namespace TheParsnipWeb
 
             AccountLog.Warning("PAGE IS BEING LOADED");
 
-            Debug.WriteLine("----------Detecting device...");
+            /*
+            new LogEntry(Guid.Empty) { text = "Detecting device and setting deviceType cookie..." };
             ScriptManager.RegisterStartupScript(Page, typeof(Page), "GetDeviceType", "createCookie(\"deviceType\", deviceDetect())", true);
             if (Cookie.Exists("deviceType"))
             {
-                Debug.WriteLine(string.Format("----------Cookie exists! deviceType = {0}", Cookie.Read("deviceType")));
+                new LogEntry(Guid.Empty) { text = string.Format("----------Cookie exists! deviceType = {0}", Cookie.Read("deviceType")) };
             }
             else
             {
-                Debug.WriteLine("----------Device type cookie did not exist");
+                new LogEntry(Guid.Empty) { text = "----------Device type cookie did not exist" };
             }
-            
+            */
 
             if (Request.QueryString["url"] != null)
             {

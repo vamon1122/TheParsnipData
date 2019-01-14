@@ -15,6 +15,7 @@ namespace UacApi
     {
         public static User SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
         {
+
             var myUser = new User("Uac.SecurePage(4)");
             //Debug.WriteLine("----------Securing page");
             bool canAccess;
@@ -35,12 +36,17 @@ namespace UacApi
 
                     justification += string.Format("a) {0} account is active and b) ", myUser.PosessivePronoun);
 
+                    string accessGrantedJustification(string pRequiredAccess)
+                    {
+                        return string.Format("this page requires {0} to have {1} access and {2} is {3} {4} which means that {2} has the required permission level.", myUser.ObjectiveGenderPronoun, pRequiredAccess, myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType);
+                    }
+
                     switch (pAccountType)
                     {
                         case "admin":
                             if (myUser.AccountType == "admin")
                             {
-                                justification += string.Format("this page requires {0} to have admin access and {1} is {2} {3} which means that {1} has the required permission level.", myUser.ObjectiveGenderPronoun, myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType);
+                                justification += accessGrantedJustification("admin");
                                 canAccess = true;
                             }
                             else
@@ -49,7 +55,7 @@ namespace UacApi
                         case "member":
                             if (myUser.AccountType == "admin" || myUser.AccountType == "member")
                             {
-                                justification += string.Format("this page requires {0} to have member access and {1} is {2} {3} which means that {1} has the required permission level.", myUser.ObjectiveGenderPronoun, myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType);
+                                justification += accessGrantedJustification("member");
                                 canAccess = true;
                             }
                             else
@@ -58,7 +64,7 @@ namespace UacApi
                         case "user":
                             if (myUser.AccountType == "admin" || myUser.AccountType == "member" || myUser.AccountType == "user")
                             {
-                                justification += string.Format("this page requires {0} to have user access and {1} is {2} {3} which means that {1} has the required permission level.", myUser.ObjectiveGenderPronoun, myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType);
+                                justification += accessGrantedJustification("user");
                                 canAccess = true;
                             }
                             else

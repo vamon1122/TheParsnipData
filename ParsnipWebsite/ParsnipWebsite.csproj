@@ -80,6 +80,7 @@
     <None Include="Properties\PublishProfiles\Publish To Live.pubxml" />
     <Content Include="anonymous.aspx" />
     <Content Include="aspxdate.aspx" />
+    <Content Include="getDeviceInfo.aspx" />
     <Content Include="htmldate.html" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
@@ -233,6 +234,13 @@
     </Compile>
     <Compile Include="bios.aspx.designer.cs">
       <DependentUpon>bios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="getDeviceInfo.aspx.cs">
+      <DependentUpon>getDeviceInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="getDeviceInfo.aspx.designer.cs">
+      <DependentUpon>getDeviceInfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="users.aspx.cs">
       <DependentUpon>users.aspx</DependentUpon>
