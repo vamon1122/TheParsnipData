@@ -18,7 +18,7 @@
 <body style="padding-top:5%; padding-bottom:5%;">
     
     <form runat="server">
-         <script src="../javascript/globalBodyV1.4.js"></script>
+         <script src="../javascript/globalBodyV1.5.js"></script>
     <script>
         createCookiePerm("deviceType", deviceDetect());
     </script>

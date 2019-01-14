@@ -534,10 +534,7 @@ function createCookie(cname, cvalue) {
 
 
 function createCookiePerm(cname, cvalue) {
-    var d = new Date();
-    var n = dateAdd(d.getUTCDate(), 1, year);
-    alert("Expires = " + n);
-    document.cookie = cname + "=" + cvalue + "; expires=" + n;
+    document.cookie = cname + "=" + cvalue + "; expires=Thu, 2 Aug 2020 20:47:11 UTC;";
 }
 
 
