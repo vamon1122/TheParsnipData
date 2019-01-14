@@ -16,7 +16,10 @@
     </form>
     <script src="../javascript/globalBodyV1.4.js"></script>
     <script>
+        errorLabel.innerHTML = "Creating deviceType cookie...";
         createCookiePerm("deviceType", deviceDetect());
+        errorLabel.innerHTML = "deviceType cooke created successfully! Doing redirect...";
+
         var errorLabel = document.getElementById("errorLabel");
         function getParameterByName(name, url) {
             if (!url) url = window.location.href;
