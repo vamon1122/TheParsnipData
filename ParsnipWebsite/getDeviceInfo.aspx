@@ -5,8 +5,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    
+    
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <label id="errorLabel">default</label>
+        </div>
+    </form>
     <script src="../javascript/globalBodyV1.4.js"></script>
     <script>
+        createCookiePerm("deviceType", deviceDetect());
+        var errorLabel = document.getElementById("errorLabel");
         function getParameterByName(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, '\\$&');
@@ -17,14 +28,18 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
         var redirect = getParameterByName('url');
-        createCookiePerm("deviceType", deviceDetect());
+
+        if (redirect === "" || redirect === null)
+        {
+            errorLabel.innerHTML = "Redirect is null!!";
+        }
+        else
+        {
+            errorLabel.innerHTML = "all fine. deviceType = " + deviceDetect() + "Redirect = " + redirect;
+        }
+
+        
         window.location.replace(redirect);
     </script>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div>
-        </div>
-    </form>
 </body>
 </html>
