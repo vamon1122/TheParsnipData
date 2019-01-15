@@ -25,7 +25,7 @@ namespace TheParsnipWeb
             }
             else
             {
-                Info.Text = string.Format("You don't have permission to access the {0} page", attemptedAccess);
+                Info.Text = string.Format("You don't have permission to access the {0} page.", attemptedAccess);
             }
             
         }

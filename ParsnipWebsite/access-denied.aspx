@@ -21,7 +21,7 @@
                     <asp:Label runat="server" ID="Info"></asp:Label>
                 </div>
                 <br />
-                <img src="resources/media/images/webMedia/you_shall_not_pass.jpg" class="rounded mx-auto d-block" />
+                <img src="resources/media/images/webMedia/you_shall_not_pass.jpg" class="rounded mx-auto d-block" style="max-width:100%" />
             </div>
         </div>
     </form>
