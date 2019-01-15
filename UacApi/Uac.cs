@@ -17,8 +17,8 @@ namespace UacApi
         {
             if(string.IsNullOrEmpty(pDeviceType) || string.IsNullOrWhiteSpace(pDeviceType))
             {
-                new LogEntry(Guid.Empty) { text = "Attempted to secure the page but deviceInfo was incomplete. Getting device info..." };
-                pPage.Response.Redirect("getDeviceInfo?url=" + pUrl);
+                //new LogEntry(Guid.Empty) { text = "Attempted to secure the page but deviceInfo was incomplete. Getting device info..." };
+                pPage.Response.Redirect("getdeviceinfo?url=" + pUrl);
             }
             else
             {

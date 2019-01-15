@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="getDeviceInfo.aspx.cs" Inherits="TheParsnipWeb.getDeviceInfo" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="getdeviceinfo.aspx.cs" Inherits="TheParsnipWeb.getdeviceinfo" %>
 
 <!DOCTYPE html>
 
@@ -11,8 +11,8 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <label id="errorLabel">default</label>
-            <label id="redirectLabel">default redirect</label>
+            <label id="errorLabel" style="visibility:hidden">default</label>
+            <label id="redirectLabel" style="visibility:hidden">default redirect</label>
         </div>
     </form>
     <script src="../javascript/globalBodyV1.5.js"></script>
@@ -22,23 +22,16 @@
         createCookiePerm("deviceType", deviceDetect());
         errorLabel.innerHTML = "deviceType cooke created successfully! Doing redirect...";
 
-        
-
-        
-
-        //redirect = getParameterByName('home');
-
         var url_string = window.location.href
         var url = new URL(url_string);
         var redirect = url.searchParams.get("url");
         var redirectLabel = document.getElementById("redirectLabel");
         redirectLabel.innerHTML = redirect;
 
-        
-
         if (redirect === "" || redirect === null)
         {
             errorLabel.innerHTML = "Redirect is null!!";
+            window.location.replace("home");
         }
         else
         {
