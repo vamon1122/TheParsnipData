@@ -20,7 +20,7 @@ namespace TheParsnipWeb
 
         protected void LogOut_Click(object sender, EventArgs e)
         {
-            MyAccount.LogOut();
+            User.LogOut();
             Response.Redirect("login");
         }
     }
