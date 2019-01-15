@@ -177,6 +177,20 @@ namespace UacApi
             return users;
         }
 
+        public static bool LogOut()
+        {
+            try
+            {
+                Cookie.WriteSession("userName", "");
+                Cookie.WriteSession("userPwd", "");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public User(string pWhereAmI)
         {
             //Debug.WriteLine(string.Format("User was initialised without a guid. WhereAmI = {0} Their guid will be: {1}", pWhereAmI, Guid.Empty));
@@ -869,7 +883,6 @@ namespace UacApi
                                     if (!silent)
                                     {
                                         Debug.WriteLine(String.Format("----------User.Login() - {0} logged in LOUDLY", FullName));
-                                        new LogEntry(Id) { text = String.Format("{0} logged in", FullName) };
                                     }
                                     else
                                     {
@@ -977,20 +990,7 @@ namespace UacApi
             }
         }
 
-        public bool LogOut()
-        {
-            try
-            {
-                Cookie.WriteSession("userName", "");
-                Cookie.WriteSession("userPwd", "");
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-
-        }
+        
 
         private bool DbInsert(string pPwd, SqlConnection pOpenConn)
         {

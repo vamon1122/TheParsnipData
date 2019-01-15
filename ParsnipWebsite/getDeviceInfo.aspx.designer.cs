@@ -10,7 +10,7 @@
 namespace TheParsnipWeb {
     
     
-    public partial class getDeviceInfo {
+    public partial class getdeviceinfo {
         
         /// <summary>
         /// form1 control.
