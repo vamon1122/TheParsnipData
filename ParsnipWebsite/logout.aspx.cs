@@ -18,7 +18,7 @@ namespace TheParsnipWeb
 
             User myUser = new User("logout get name");
             myUser.LogIn();
-            new LogEntry(myUser.Id) { text = String.Format("{0} logged out from {1} '{2}' device", myUser.FullName, myUser.PosessivePronoun, Data.deviceType) };
+            new LogEntry(myUser.Id) { text = String.Format("{0} logged out from {1} '{2}' device.", myUser.FullName, myUser.PosessivePronoun, Data.deviceType) };
             UacApi.User.LogOut();
             Response.Redirect("login");
         }

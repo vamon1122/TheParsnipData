@@ -85,7 +85,7 @@ namespace TheParsnipWeb
 
             if (myUser.LogIn(inputUsername.Text, true, inputPwd.Text, RememberPwd.Checked, false))
             {
-                new LogEntry(Guid.Empty) { text = String.Format("{0} logged in from {1} '{2}' device", myUser.FullName, myUser.PosessivePronoun, Data.deviceType) };
+                new LogEntry(Guid.Empty) { text = String.Format("{0} logged in from {1} '{2}' device.", myUser.FullName, myUser.PosessivePronoun, Data.deviceType) };
                 WriteCookie();
                 Response.Redirect(Redirect);
             }
