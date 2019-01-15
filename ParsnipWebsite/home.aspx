@@ -76,5 +76,12 @@
     <!--SCRIPTS-->
     <script src="../javascript/globalBodyV1.5.js"></script>
     <script src="../javascript/menuV1.11.js"></script>
+    <script>
+        if(isMobile())
+        {
+            var body = document.getElementById("body")
+            body.style = "margin-top:10%"
+        }
+    </script>
 </body>
 </html>

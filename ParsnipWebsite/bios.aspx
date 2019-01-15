@@ -43,7 +43,7 @@
         Source below \/<br />
     </div>
     <br />
-    <img src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477059052/resources/media/photos/Bios/Kieron_chat.PNG" id="Kieron_chat"><img />
+    <img src="resources/media/images/photos/Photos/kieron_chat.png" id="Kieron_chat" />
     <br />
     <br />
     <script src="../javascript/globalBodyV1.5.js"></script>
@@ -53,10 +53,13 @@
         var kieron = document.getElementById("kieron")
         if(isMobile())
         {
+            var body = document.getElementById("body")
+            body.style = "margin-top:10%"
             chat.style.width = "90%"
             kieron.style.width = "25%"
         }
-        else {
+        else
+        {
             chat.style.width = "20%"
             kieron.style.width = "5%"
         }

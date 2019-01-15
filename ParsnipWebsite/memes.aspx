@@ -6,6 +6,7 @@
 <head runat="server">
     <link rel="stylesheet" type="text/css" href="../css/old/style.css" />
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
+
     <title>Memes</title>
 </head>
 <body class="fade0p5" id="body">
@@ -121,7 +122,13 @@
 
     <script src="../javascript/globalBodyV1.5.js"></script>
     <script src="../javascript/menuV1.11.js"></script>
-    
+    <script>
+        if(isMobile())
+        {
+            var body = document.getElementById("body")
+            body.style = "margin-top:10%"
+        }
+    </script>
 </body>
 
 </html>
