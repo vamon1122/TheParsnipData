@@ -883,7 +883,6 @@ namespace UacApi
                                     if (!silent)
                                     {
                                         Debug.WriteLine(String.Format("----------User.Login() - {0} logged in LOUDLY", FullName));
-                                        new LogEntry(Id) { text = String.Format("{0} logged in", FullName) };
                                     }
                                     else
                                     {
