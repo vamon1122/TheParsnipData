@@ -49,9 +49,6 @@
             <br />
   <asp:Button runat="server" ID="ButLogIn" OnClick="ButLogIn_Click" CssClass="btn btn-primary" Text="Log In"></asp:Button>
 </div>
-        <script>
-        getLocation();
-    </script>
 </form>
     
 </body>
