@@ -10,30 +10,23 @@ namespace TheParsnipWeb
 {
     public partial class AccessDenied : System.Web.UI.Page
     {
-        User MyAccount;
+        User myUser;
+        string attemptedAccess;
         protected void Page_Load(object sender, EventArgs e)
         {
-            MyAccount = new User("access-denied");
-
-            
             if (Request.QueryString["url"] != null)
-            {
-                if (MyAccount.LogIn())
-                {
-                    Info.Text = String.Format("You aren't allowed to visit \"{0}\". Nice try {1}...", Request.QueryString["url"], MyAccount.Forename);
-                }
-                else
-                {
-                    Response.Redirect("LogInBarrier?" + Request.QueryString["url"]);
-                }
+                attemptedAccess = Request.QueryString["url"];
+            
+            myUser = Uac.SecurePage("access-denied", this, Data.deviceType);
 
-                
+            if(attemptedAccess == null)
+            {
+                Info.Text = "Why are you trying to access this page directly? :P";
             }
             else
             {
-                Info.Text = "Why are you trying to get back here? :P";
+                Info.Text = string.Format("You don't have permission to access the {0} page", attemptedAccess);
             }
-
             
         }
     }

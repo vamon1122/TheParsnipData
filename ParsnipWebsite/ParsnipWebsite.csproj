@@ -81,6 +81,7 @@
     <Content Include="anonymous.aspx" />
     <Content Include="aspxdate.aspx" />
     <Content Include="getdeviceinfo.aspx" />
+    <Content Include="resources\media\images\webMedia\you_shall_not_pass.jpg" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

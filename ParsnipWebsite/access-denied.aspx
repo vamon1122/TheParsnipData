@@ -13,9 +13,16 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-            <h1>Pfft... Bitch please...</h1>
-            <asp:Label runat="server" ID="Info"></asp:Label>
+        <div class="container">
+            <div class="center_div">
+                
+                <h1 class="h1" style="margin-left: auto; margin-right: auto; text-align: center;">Access Denied</h1>
+                <div style="margin-left: auto; margin-right: auto; text-align: center;">
+                    <asp:Label runat="server" ID="Info"></asp:Label>
+                </div>
+                <br />
+                <img src="resources/media/images/webMedia/you_shall_not_pass.jpg" class="rounded mx-auto d-block" />
+            </div>
         </div>
     </form>
 </body>
