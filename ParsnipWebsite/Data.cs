@@ -16,25 +16,25 @@ namespace TheParsnipWeb
                 switch (deviceType)
                 {
                     case "Android":
-                        deviceType += "device";
+                        deviceType += " device";
                         break;
                     case "webOS":
-                        deviceType += "device";
+                        deviceType += " device";
                         break;
                     case "BlackBerry":
-                        deviceType += "device";
+                        deviceType += " device";
                         break;
                     case "Windows":
-                        deviceType += "device";
+                        deviceType += " device";
                         break;
                     case "MacOS":
-                        deviceType += "device";
+                        deviceType += " device";
                         break;
                     case "UNIX":
-                        deviceType += "device";
+                        deviceType += " device";
                         break;
                     case "Linux":
-                        deviceType += "device";
+                        deviceType += " device";
                         break;
                     default:
                         break;

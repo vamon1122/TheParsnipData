@@ -45241,3 +45241,13 @@
 <debug> 14/01/2019 21:01:47 - Found a username cookie! Username = vamon1122
 <debug> 14/01/2019 21:01:47 - Found a password cookie! Password = BBTbbt1704
 <info> 14/01/2019 21:01:47 - Returning user details from cookies.
+<info> 15/01/2019 15:50:27 - Getting user details from cookies...
+<debug> 15/01/2019 15:50:27 - No username cookie was found.
+<debug> 15/01/2019 15:50:27 - No password cookie was found.
+<info> 15/01/2019 15:50:27 - Returning user details from cookies.
+<warning> 15/01/2019 15:50:28 - PAGE IS BEING LOADED
+<info> 15/01/2019 15:50:28 - Getting user details from cookies...
+<debug> 15/01/2019 15:50:28 - No username cookie was found.
+<debug> 15/01/2019 15:50:28 - No password cookie was found.
+<info> 15/01/2019 15:50:28 - Returning user details from cookies.
+<warning> 15/01/2019 15:50:28 - Input username was reset

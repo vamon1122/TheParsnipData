@@ -111,7 +111,7 @@ namespace UacApi
             }
             else
             {
-                new LogEntry(myUser.Id) { text = String.Format("Someone tried to access the {0} page from {1} '{2}' device, without logging in!", pUrl, myUser.PosessivePronoun, pDeviceType) };
+                new LogEntry(myUser.Id) { text = String.Format("Someone tried to access the {0} page from {1} {2} device, without logging in!", pUrl, myUser.PosessivePronoun, pDeviceType) };
                 pPage.Response.Redirect(String.Format("login?url={0}", pUrl));
             }
 
