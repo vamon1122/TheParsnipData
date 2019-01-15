@@ -81,7 +81,6 @@
     <Content Include="anonymous.aspx" />
     <Content Include="aspxdate.aspx" />
     <Content Include="getdeviceinfo.aspx" />
-    <Content Include="htmldate.html" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
