@@ -16,7 +16,7 @@ namespace ParsnipWebsite
         User myUser;
         List<User> users;
         string formType;
-        static string rememberSelectedValue;
+        static Guid selectedUserId;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -27,8 +27,8 @@ namespace ParsnipWebsite
 
             if (Request.QueryString["userId"] != null)
             {
-                rememberSelectedValue = Request.QueryString["userId"];
-                if(rememberSelectedValue == Guid.Empty.ToString())
+                selectedUserId = new Guid(Request.QueryString["userId"]);
+                if(selectedUserId.ToString() == Guid.Empty.ToString())
                     formType = "Insert";
                 else
                     formType = "Update";
@@ -38,6 +38,9 @@ namespace ParsnipWebsite
             {
                 Response.Redirect("users?userId=" + Guid.Empty.ToString());
             }
+
+            
+            
 
             btnAction.Text = formType;
 
@@ -51,15 +54,29 @@ namespace ParsnipWebsite
         {
             System.Diagnostics.Debug.WriteLine("----------Page load complete!");
 
+            if (Request.QueryString["action"] != null)
+            {
+                string action = Request.QueryString["action"];
+                if (Request.QueryString["success"] != null)
+                {
+                    string success = Request.QueryString["success"];
+
+                    if (success == "true")
+                    {
+                        SuccessText.Text = string.Format("<strong>Success</strong> User was successfully {0}d on the database!", action);
+                        Success.Attributes.CssStyle.Add("display", "block");
+                    }
+
+                }
+
+            }
+
             UserForm.UpdateDateCreated();
             UpdateUserList();
-            if (rememberSelectedValue != Guid.Empty.ToString())
-                selectUser.SelectedValue = rememberSelectedValue;
+            if (selectedUserId.ToString() != Guid.Empty.ToString())
+                selectUser.SelectedValue = selectedUserId.ToString();
 
-            User myUser = new User(new Guid(rememberSelectedValue));
-            myUser.Select();
-
-            UserForm.DataSubject = myUser;
+            UserForm.UpdateDataSubject(selectedUserId);
 
             System.Diagnostics.Debug.WriteLine("Page_LoadComplete complete!");
         }
@@ -81,7 +98,7 @@ namespace ParsnipWebsite
             selectUser.Items.Clear();
             selectUser.Items.AddRange(ListItems);
 
-            selectUser.SelectedValue = rememberSelectedValue;
+            selectUser.SelectedValue = selectedUserId.ToString();
         }
 
         
@@ -106,20 +123,16 @@ namespace ParsnipWebsite
 
             if (UserForm.DataSubject.Validate())
             {
-                
-
                 if (UserForm.DataSubject.Update())
                 {
                     new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} {1} an account for {2} via the UserForm", myUser.FullName, actionPast, UserForm.DataSubject.FullName) };
-                    Success.Attributes.CssStyle.Add("display", "block");
-                    SuccessText.Text = string.Format("<strong>Success</strong> {0} was updated on the database successfully!", UserForm.DataSubject.FullName);
+                    Response.Redirect(string.Format("users?userId={0}&action=update&success=true", UserForm.DataSubject.Id.ToString()));
                 }
 
                 else
                 {
                     new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} tried to {1} an account for {2} via the UserForm, but there was an error whilst updating the database", myUser.FullName, actionPresent, UserForm.DataSubject.FullName) };
-                    Error.Attributes.CssStyle.Add("display", "block");
-                    ErrorText.Text = string.Format("<strong>Database Error</strong> There was an error whilst updating {0} on the database", UserForm.DataSubject.FullName);
+                    ErrorText.Text = string.Format("<strong>Database Error</strong> There was an error whilst updating {0} on the database.", UserForm.DataSubject.FullName);
                 }
                     
 
@@ -142,34 +155,35 @@ namespace ParsnipWebsite
                 ErrorText.Text = ValidationInfo;
             }
 
-            //Debug.WriteLine("BEN!!!2 " + UserForm.DataSubject.Id.ToString());
-            UpdateUserList();
-
-            if(new User(UserForm.DataSubject.Id).ExistsOnDb())
-            {
-                selectUser.SelectedValue = UserForm.DataSubject.Id.ToString();
-            }
-            else
-            {
-                selectUser.SelectedValue = Guid.Empty.ToString();
-            }
-
-
+            
         }
 
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected void btnDeleteConfirm_Click(object sender, EventArgs e)
         {
+            Debug.WriteLine("Delete was confirmed");
             string temp = string.Format("Delete button was clicked. Selected user id = {0}", selectUser.SelectedValue);
             //Debug.WriteLine(temp);
             new LogEntry(myUser.Id) { text = temp };
 
-            string actionPast = UserForm.DataSubject.ExistsOnDb() ? "edited" : "created";
-            string actionPresent = UserForm.DataSubject.ExistsOnDb() ? "edit" : "create";
+            
+
+            bool success;
+            string feedback;
 
             if (UserForm.DataSubject.ExistsOnDb())
-                UserForm.DataSubject.Delete();
+            {
+                success = UserForm.DataSubject.Delete();
+            }
+            else
+                success = false;
 
-            Response.Redirect("users?userId=" + Guid.Empty.ToString());
+
+            Response.Redirect(string.Format("users?userId={0}&action=delete&success=true", Guid.Empty.ToString()));
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Delete was clicked");   
         }
     }
 }

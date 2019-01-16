@@ -20,7 +20,16 @@ namespace ParsnipWebsite
 
     public partial class UserForm1 : System.Web.UI.UserControl
     {
-        public User DataSubject { get { return PersistentData.DataSubject; } set { PersistentData.DataSubject = value; } }
+        public User DataSubject { get { return PersistentData.DataSubject; } }
+
+        public void UpdateDataSubject(Guid pId)
+        {
+            Debug.WriteLine("Searching for Id " + pId);
+            User mySubject = new User(pId);
+            mySubject.Select();
+            Debug.WriteLine("Success? " + mySubject.FullName);
+            PersistentData.DataSubject = mySubject;
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {

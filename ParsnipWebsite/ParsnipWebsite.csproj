@@ -228,7 +228,7 @@
     <Compile Include="admin.aspx.designer.cs">
       <DependentUpon>admin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CustomControls\App_Start\RouteConfig.cs" />
     <Compile Include="bios.aspx.cs">
       <DependentUpon>bios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
