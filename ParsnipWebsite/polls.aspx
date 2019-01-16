@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="polls.aspx.cs" Inherits="TheParsnipWeb.polls" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="polls.aspx.cs" Inherits="ParsnipWebsite.polls" %>
 
 <!DOCTYPE html>
 

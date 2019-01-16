@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using UacApi;
 
-namespace TheParsnipWeb
+namespace ParsnipWebsite
 {
     public partial class polls : System.Web.UI.Page
     {

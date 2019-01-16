@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="TheParsnipWeb.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="ParsnipWebsite.Default" %>
 
 <%@ Register Assembly="ParsnipControls" Namespace="ParsnipControls" TagPrefix="cc1" %>
 

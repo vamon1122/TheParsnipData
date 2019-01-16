@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace TheParsnipWeb.CustomControls.PollApi
+namespace ParsnipWebsite.CustomControls.PollApi
 {
     public partial class PollControl : System.Web.UI.UserControl
     {

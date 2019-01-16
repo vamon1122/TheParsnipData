@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using LogApi;
 
-namespace TheParsnipWeb
+namespace ParsnipWebsite
 {
     public partial class create_user : System.Web.UI.Page
     {

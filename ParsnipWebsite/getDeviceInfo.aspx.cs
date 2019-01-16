@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using CookieApi;
 using LogApi;
 
-namespace TheParsnipWeb
+namespace ParsnipWebsite
 {
     public partial class getdeviceinfo : System.Web.UI.Page
     {

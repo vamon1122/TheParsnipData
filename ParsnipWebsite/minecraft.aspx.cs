@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using LogApi;
 
-namespace TheParsnipWeb
+namespace ParsnipWebsite
 {
     public partial class minecraft : System.Web.UI.Page
     {

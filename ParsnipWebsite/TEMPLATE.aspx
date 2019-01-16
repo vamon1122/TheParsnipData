@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="_NEW TEMPLATE.aspx.cs" Inherits="TheParsnipWeb._NEW_TEMPLATE" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TEMPLATE.aspx.cs" Inherits="_TEMPLATE" %>
 
 <!DOCTYPE html>
 
@@ -14,7 +14,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <div class="container">
+            <div class="center_div">
+            
+            </div>
         </div>
     </form>
 </body>

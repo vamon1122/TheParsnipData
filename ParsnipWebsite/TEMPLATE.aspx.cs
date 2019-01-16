@@ -8,11 +8,11 @@ using UacApi;
 using LogApi;
 using CookieApi;
 
-namespace TheParsnipWeb
+namespace ParsnipWebsite
 {
     public partial class _TEMPLATE : System.Web.UI.Page
     {
-        private User myUser;
+        User myUser;
         protected void Page_Load(object sender, EventArgs e)
         {
             //We secure the page using the UacApi. 

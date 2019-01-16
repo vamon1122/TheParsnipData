@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TheParsnipWeb {
+namespace ParsnipWebsite {
     
     
     public partial class AccessDenied {

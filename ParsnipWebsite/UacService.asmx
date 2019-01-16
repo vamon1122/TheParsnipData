@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="UacService.asmx.cs" Class="TheParsnipWeb.UacService" %>
+﻿<%@ WebService Language="C#" CodeBehind="UacService.asmx.cs" Class="ParsnipWebsite.UacService" %>

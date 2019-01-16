@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TheParsnipWeb
+namespace ParsnipWebsite
 {
 
 
-    public partial class _NEW_TEMPLATE
+    public partial class _TEMPLATE
     {
 
         /// <summary>

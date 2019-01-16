@@ -10,7 +10,7 @@ using CookieApi;
 using System.Diagnostics;
 using LogApi;
 
-namespace TheParsnipWeb
+namespace ParsnipWebsite
 {
     public partial class LogInBarrier : System.Web.UI.Page
     {

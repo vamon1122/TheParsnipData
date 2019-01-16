@@ -189,8 +189,8 @@
     <Content Include="CustomControls\ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="videos.aspx" />
-    <Content Include="_NEW TEMPLATE.aspx" />
-    <Content Include="_TEMPLATE.aspx" />
+    <Content Include="TEMPLATE.aspx" />
+    <Content Include="_OLD_STYLE_TEMPLATE.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="access-denied.aspx.cs">
@@ -364,19 +364,19 @@
     <Compile Include="videos.aspx.designer.cs">
       <DependentUpon>videos.aspx</DependentUpon>
     </Compile>
-    <Compile Include="_NEW TEMPLATE.aspx.cs">
-      <DependentUpon>_NEW TEMPLATE.aspx</DependentUpon>
+    <Compile Include="TEMPLATE.aspx.cs">
+      <DependentUpon>TEMPLATE.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="_NEW TEMPLATE.aspx.designer.cs">
-      <DependentUpon>_NEW TEMPLATE.aspx</DependentUpon>
+    <Compile Include="TEMPLATE.aspx.designer.cs">
+      <DependentUpon>TEMPLATE.aspx</DependentUpon>
     </Compile>
-    <Compile Include="_TEMPLATE.aspx.cs">
-      <DependentUpon>_TEMPLATE.aspx</DependentUpon>
+    <Compile Include="_OLD_STYLE_TEMPLATE.aspx.cs">
+      <DependentUpon>_OLD_STYLE_TEMPLATE.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="_TEMPLATE.aspx.designer.cs">
-      <DependentUpon>_TEMPLATE.aspx</DependentUpon>
+    <Compile Include="_OLD_STYLE_TEMPLATE.aspx.designer.cs">
+      <DependentUpon>_OLD_STYLE_TEMPLATE.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

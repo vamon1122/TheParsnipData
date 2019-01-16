@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="bios.aspx.cs" Inherits="TheParsnipWeb.bios" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="bios.aspx.cs" Inherits="ParsnipWebsite.bios" %>
 
 <!DOCTYPE html>
 

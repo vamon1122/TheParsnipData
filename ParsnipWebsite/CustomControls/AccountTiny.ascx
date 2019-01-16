@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AccountTiny.ascx.cs" Inherits="TheParsnipWeb.AccountTiny" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AccountTiny.ascx.cs" Inherits="ParsnipWebsite.AccountTiny" %>
 
 <form runat="server">
 <asp:Label ID="Name" runat="server"></asp:Label>

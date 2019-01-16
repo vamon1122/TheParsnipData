@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using UacApi;
 using LogApi;
 
-namespace TheParsnipWeb
+namespace ParsnipWebsite
 {
     public partial class Admin : System.Web.UI.Page
     {

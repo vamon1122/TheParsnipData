@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="memes.aspx.cs" Inherits="TheParsnipWeb.memes" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="memes.aspx.cs" Inherits="ParsnipWebsite.memes" %>
 
 <!DOCTYPE html>
 

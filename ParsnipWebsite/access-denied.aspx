@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="access-denied.aspx.cs" Inherits="TheParsnipWeb.AccessDenied" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="access-denied.aspx.cs" Inherits="ParsnipWebsite.AccessDenied" %>
 
 <!DOCTYPE html>
 

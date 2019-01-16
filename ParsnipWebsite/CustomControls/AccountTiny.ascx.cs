@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace TheParsnipWeb
+namespace ParsnipWebsite
 {
     public partial class AccountTiny : System.Web.UI.UserControl
     {

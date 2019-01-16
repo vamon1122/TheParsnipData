@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TheParsnipWeb {
+namespace ParsnipWebsite {
     
     
     public partial class Home {
@@ -28,6 +28,6 @@ namespace TheParsnipWeb {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::TheParsnipWeb.AccountTiny AccountTiny;
+        protected global::ParsnipWebsite.AccountTiny AccountTiny;
     }
 }

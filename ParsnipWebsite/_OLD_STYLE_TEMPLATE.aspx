@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="_TEMPLATE.aspx.cs" Inherits="TheParsnipWeb._TEMPLATE" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="_OLD_STYLE_TEMPLATE.aspx.cs" Inherits="ParsnipWebsite._OLD_STYLE_TEMPLATE" %>
 
 <!DOCTYPE html>
 

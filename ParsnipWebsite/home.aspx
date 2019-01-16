@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="home.aspx.cs" Inherits="TheParsnipWeb.Home" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="home.aspx.cs" Inherits="ParsnipWebsite.Home" %>
 <%@ Register Src="~/CustomControls/AccountTiny.ascx" TagPrefix="uc1" TagName="AccountTiny" %>
 
 

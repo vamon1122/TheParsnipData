@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using CookieApi;
 
-namespace TheParsnipWeb
+namespace ParsnipWebsite
 {
     public static class Data
     {

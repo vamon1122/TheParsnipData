@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 
-namespace TheParsnipWeb
+namespace ParsnipWebsite
 {
     /// <summary>
     /// Summary description for UacService

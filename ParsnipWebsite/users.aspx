@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="users.aspx.cs" Inherits="TheParsnipWeb.create_user" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="users.aspx.cs" Inherits="ParsnipWebsite.create_user" %>
 <%@ Register Src="~/CustomControls/admin/adminMenu.ascx" TagPrefix="adminControls" TagName="adminMenu" %>
 <%@ Register Src="~/CustomControls/UacApi/UserForm1.ascx" TagPrefix="uc1" TagName="UserForm1" %>
 

@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Diagnostics;
 
-namespace TheParsnipWeb
+namespace ParsnipWebsite
 {
     internal static class PersistentData
     {

@@ -8,7 +8,7 @@ using UacApi;
 using LogApi;
 using CookieApi;
 
-namespace TheParsnipWeb
+namespace ParsnipWebsite
 {
     public partial class Home : System.Web.UI.Page
     {
