@@ -14,37 +14,37 @@ namespace ParsnipWebsite
     public partial class create_user : System.Web.UI.Page
     {
         User myUser;
-        User mySelectedUser;
         List<User> users;
-        string formType = "Insert";
-        
+        string formType;
+        static string rememberSelectedValue;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            btnAction.Text = formType;
+            
 
             myUser = Uac.SecurePage("users", this, Data.deviceType, "admin");
 
-            if (mySelectedUser == null)
+            if (Request.QueryString["userId"] != null)
             {
-
-
-                if (Request.QueryString["userId"] != null)
-                {
-                    mySelectedUser = new User(Request.QueryString["userId"]);
-                    mySelectedUser.Select();
-                }
+                rememberSelectedValue = Request.QueryString["userId"];
+                if(rememberSelectedValue == Guid.Empty.ToString())
+                    formType = "Insert";
                 else
-                {
-                    mySelectedUser = new User(Guid.Empty);
-                }
+                    formType = "Update";
 
             }
             else
             {
-                //Debug.WriteLine("----------mySelectedUser already existed");
+                Response.Redirect("users?userId=" + Guid.Empty.ToString());
             }
-            
+
+            btnAction.Text = formType;
+
+            if (formType == "Insert")
+                btnDelete.Visible = false;
+            else
+                btnDelete.Visible = true;
         }
 
         void Page_LoadComplete(object sender, EventArgs e)
@@ -53,7 +53,14 @@ namespace ParsnipWebsite
 
             UserForm.UpdateDateCreated();
             UpdateUserList();
-            
+            if (rememberSelectedValue != Guid.Empty.ToString())
+                selectUser.SelectedValue = rememberSelectedValue;
+
+            User myUser = new User(new Guid(rememberSelectedValue));
+            myUser.Select();
+
+            UserForm.DataSubject = myUser;
+
             System.Diagnostics.Debug.WriteLine("Page_LoadComplete complete!");
         }
 
@@ -74,44 +81,20 @@ namespace ParsnipWebsite
             selectUser.Items.Clear();
             selectUser.Items.AddRange(ListItems);
 
-            selectUser.SelectedValue = mySelectedUser.Id.ToString();
+            selectUser.SelectedValue = rememberSelectedValue;
         }
 
         
 
         protected void SelectUser_Changed(object sender, EventArgs e)
         {
-            //Debug.WriteLine("----------User selection was changed...");
-            
-            
-
-            //Debug.WriteLine("----------User selection was changed - Creating new user with id = " + selectUser.SelectedValue);
-            mySelectedUser = new User(new Guid(selectUser.SelectedValue));
-            if (selectUser.SelectedValue.ToString() != Guid.Empty.ToString())
-            {
-                mySelectedUser.Select();
-            }
-                
-
-            if (mySelectedUser.ExistsOnDb())
-            {
-                btnAction.Text = "Update";
-                btnDelete.Visible = true;
-            }
-            else
-                btnAction.Text = "Insert";
-
-            //Response.Redirect("users?userId=" + selectUser.SelectedValue);
-            Debug.WriteLine(string.Format("{0} selected {1} which has a value of {2}", myUser.FullName, selectUser.SelectedItem, selectUser.SelectedValue));
-
-            new LogEntry(myUser.Id) { text = string.Format("{0} selected {1} on the admin user form (users.aspx)", myUser.FullName, mySelectedUser.FullName) };
-
-            UserForm.DataSubject = mySelectedUser;
+            Response.Redirect("users?userId=" + selectUser.SelectedValue);
         }
 
         protected void btnAction_Click(object sender, EventArgs e)
         {
             string rememberSelectedValue = selectUser.SelectedValue;
+            Debug.WriteLine("BEN!!!1 " + UserForm.DataSubject.Id.ToString());
             string temp = string.Format("{0} button was clicked. Selected user id = {1}", btnAction.Text, rememberSelectedValue);
             //Debug.WriteLine(temp);
             new LogEntry(myUser.Id) { text = temp };
@@ -159,18 +142,19 @@ namespace ParsnipWebsite
                 ErrorText.Text = ValidationInfo;
             }
 
+            //Debug.WriteLine("BEN!!!2 " + UserForm.DataSubject.Id.ToString());
             UpdateUserList();
-            selectUser.SelectedValue = rememberSelectedValue;
-            mySelectedUser = new User(new Guid(rememberSelectedValue));
-            if(mySelectedUser.Id.ToString() != Guid.Empty.ToString())
+
+            if(new User(UserForm.DataSubject.Id).ExistsOnDb())
             {
-                mySelectedUser.Select();
+                selectUser.SelectedValue = UserForm.DataSubject.Id.ToString();
+            }
+            else
+            {
+                selectUser.SelectedValue = Guid.Empty.ToString();
             }
 
-            if (mySelectedUser.ExistsOnDb())
-                btnAction.Text = "Update";
-            else
-                btnAction.Text = "Insert";
+
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -185,10 +169,7 @@ namespace ParsnipWebsite
             if (UserForm.DataSubject.ExistsOnDb())
                 UserForm.DataSubject.Delete();
 
-            UpdateUserList();
-            btnDelete.Visible = false;
-            UserForm.DataSubject = new User("btnDelete");
-            UserForm.UpdateFields();
+            Response.Redirect("users?userId=" + Guid.Empty.ToString());
         }
     }
 }

@@ -25,12 +25,7 @@
  
         <div class="form-group">
             <label>Password</label>
-            <asp:TextBox runat="server" CssClass="form-control" ID="password1" MaxLength="50" />
-        </div>
- 
-        <div class="form-group">
-            <label>Confirm Password</label>
-            <asp:TextBox runat="server" CssClass="form-control" ID="password2" MaxLength="50" />
+            <asp:TextBox runat="server" CssClass="form-control" ID="password" MaxLength="50" />
         </div>
             
         <div class="form-group">

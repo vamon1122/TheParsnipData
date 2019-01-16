@@ -63,8 +63,7 @@ namespace ParsnipWebsite
 
                 email.Text = PersistentData.DataSubject.Email;
 
-                password1.Text = PersistentData.DataSubject.Password;
-                password2.Text = PersistentData.DataSubject.Password;
+                password.Text = PersistentData.DataSubject.Password;
             
                 forename.Text = PersistentData.DataSubject.Forename;
 
@@ -141,7 +140,7 @@ namespace ParsnipWebsite
             //Debug.WriteLine(string.Format("dataSubject.Username = username.Text ({0})", username.Text));
 
             PersistentData.DataSubject.Email = email.Text;
-            PersistentData.DataSubject.Password = password1.Text;
+            PersistentData.DataSubject.Password = password.Text;
             PersistentData.DataSubject.Forename = forename.Text;
             PersistentData.DataSubject.Surname = surname.Text;
             PersistentData.DataSubject.GenderUpper = gender.Value.Substring(0, 1);
