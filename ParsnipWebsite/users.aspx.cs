@@ -51,6 +51,7 @@ namespace ParsnipWebsite
         {
             System.Diagnostics.Debug.WriteLine("----------Page load complete!");
 
+            UserForm.UpdateDateCreated();
             UpdateUserList();
             
             System.Diagnostics.Debug.WriteLine("Page_LoadComplete complete!");
@@ -93,7 +94,10 @@ namespace ParsnipWebsite
                 
 
             if (mySelectedUser.ExistsOnDb())
+            {
                 btnAction.Text = "Update";
+                btnDelete.Visible = true;
+            }
             else
                 btnAction.Text = "Insert";
 
@@ -169,5 +173,22 @@ namespace ParsnipWebsite
                 btnAction.Text = "Insert";
         }
 
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            string temp = string.Format("Delete button was clicked. Selected user id = {0}", selectUser.SelectedValue);
+            //Debug.WriteLine(temp);
+            new LogEntry(myUser.Id) { text = temp };
+
+            string actionPast = UserForm.DataSubject.ExistsOnDb() ? "edited" : "created";
+            string actionPresent = UserForm.DataSubject.ExistsOnDb() ? "edit" : "create";
+
+            if (UserForm.DataSubject.ExistsOnDb())
+                UserForm.DataSubject.Delete();
+
+            UpdateUserList();
+            btnDelete.Visible = false;
+            UserForm.DataSubject = new User("btnDelete");
+            UserForm.UpdateFields();
+        }
     }
 }

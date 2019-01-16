@@ -36,6 +36,9 @@ namespace UacApi
         {
             get
             {
+                if (_gender == null)
+                    return null;
+
                 switch (_gender)
                 {
                     case "M":
@@ -990,8 +993,6 @@ namespace UacApi
             }
         }
 
-        
-
         private bool DbInsert(string pPwd, SqlConnection pOpenConn)
         {
             if (Id.ToString() == Guid.Empty.ToString())
@@ -1504,6 +1505,45 @@ namespace UacApi
             else
             {
                 throw new System.InvalidOperationException("Account cannot be updated. Account must be inserted into the database before it can be updated!");
+            }
+        }
+
+        public bool Delete()
+        {
+            return DbDelete(ParsnipApi.Data.GetOpenDbConnection());
+        }
+
+        internal bool DbDelete(SqlConnection pOpenConn)
+        {
+            //AccountLog.Debug("Attempting to get user details...");
+            //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get user details with id {0}...", Id));
+
+            try
+            {
+                SqlCommand deleteAccount = new SqlCommand("DELETE FROM t_Users WHERE id = @id", pOpenConn);
+                deleteAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
+
+                int recordsFound = deleteAccount.ExecuteNonQuery();
+                //Debug.WriteLine(string.Format("----------DbDelete() - Found {0} record(s) ", recordsFound));
+
+                if (recordsFound > 0)
+                {
+                    //Debug.WriteLine("----------DbDelete() - Got user's details successfully!");
+                    //AccountLog.Debug("Got user's details successfully!");
+                    return true;
+                }
+                else
+                {
+                    Debug.WriteLine("----------DbDelete() - No user data was deleted");
+                    //AccountLog.Debug("Got user's details successfully!");
+                    return false;
+                }
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("There was an exception whilst deleting user data: " + e);
+                return false;
             }
         }
     }

@@ -6,7 +6,22 @@ using System.Threading.Tasks;
 
 namespace MediaApi
 {
-    public class Class1
+    public class MediaGroup
     {
+
+    }
+
+    public class Media
+    {
+    }
+
+    public class Photo : Media
+    {
+
+    }
+
+    public class Video : Media
+    {
+
     }
 }

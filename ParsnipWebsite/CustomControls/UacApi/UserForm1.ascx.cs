@@ -42,6 +42,11 @@ namespace ParsnipWebsite
             }
         }
 
+        public void UpdateDateCreated()
+        {
+            dateTimeCreated.Attributes.Add("placeholder", ParsnipApi.Data.adjustedTime.ToString("dd/MM/yyyy"));
+        }
+
         public void UpdateFields()
         {
             Debug.WriteLine(string.Format("----------Userform fields are being updated. Name: {0} Id: {1}", PersistentData.DataSubject.FullName, PersistentData.DataSubject.Id));
@@ -54,28 +59,57 @@ namespace ParsnipWebsite
             //Debug.WriteLine("----------username = " + username.Text);
             //Debug.WriteLine("----------dataSubject.username = " + dataSubject.username);
             //Debug.WriteLine("----------dataSubject.id = " + dataSubject.id);
-            username.Text = PersistentData.DataSubject.Username;
-            email.Text = PersistentData.DataSubject.Email;
-            password1.Text = PersistentData.DataSubject.Password;
-            password2.Text = PersistentData.DataSubject.Password;
-            forename.Text = PersistentData.DataSubject.Forename;
-            surname.Text = PersistentData.DataSubject.Surname;
-            gender.Value = PersistentData.DataSubject.GenderUpper;
+                username.Text = PersistentData.DataSubject.Username;
+
+                email.Text = PersistentData.DataSubject.Email;
+
+                password1.Text = PersistentData.DataSubject.Password;
+                password2.Text = PersistentData.DataSubject.Password;
+            
+                forename.Text = PersistentData.DataSubject.Forename;
+
+                surname.Text = PersistentData.DataSubject.Surname;
+
+            if (string.IsNullOrEmpty(PersistentData.DataSubject.GenderUpper))
+                gender.Value = "Male";
+            else
+                gender.Value = PersistentData.DataSubject.GenderUpper;
+
             if (PersistentData.DataSubject.Dob.ToString("dd/MM/yyyy") != "01/01/0001")
                 dobInput.Value = PersistentData.DataSubject.Dob.ToString("dd/MM/yyyy");
             else
                 dobInput.Value = "";
-            address1.Text = PersistentData.DataSubject.Address1;
-            address2.Text = PersistentData.DataSubject.Address2;
-            address3.Text = PersistentData.DataSubject.Address3;
-            postCode.Text = PersistentData.DataSubject.PostCode;
-            mobilePhone.Text = PersistentData.DataSubject.MobilePhone;
-            homePhone.Text = PersistentData.DataSubject.HomePhone;
-            workPhone.Text = PersistentData.DataSubject.WorkPhone;
-            dateTimeCreated.Attributes.Remove("placeholder");
-            dateTimeCreated.Attributes.Add("placeholder", PersistentData.DataSubject.DateTimeCreated.Date.ToString("dd/MM/yyyy"));
-            accountType.Value = PersistentData.DataSubject.AccountType;
-            accountStatus.Value = PersistentData.DataSubject.AccountStatus;
+
+                address1.Text = PersistentData.DataSubject.Address1;
+
+                address2.Text = PersistentData.DataSubject.Address2;
+
+                address3.Text = PersistentData.DataSubject.Address3;
+
+                postCode.Text = PersistentData.DataSubject.PostCode;
+
+                mobilePhone.Text = PersistentData.DataSubject.MobilePhone;
+
+                homePhone.Text = PersistentData.DataSubject.HomePhone;
+
+                workPhone.Text = PersistentData.DataSubject.WorkPhone;
+
+            if (PersistentData.DataSubject.DateTimeCreated != null)
+            {
+                dateTimeCreated.Attributes.Remove("placeholder");
+                dateTimeCreated.Attributes.Add("placeholder", PersistentData.DataSubject.DateTimeCreated.Date.ToString("dd/MM/yyyy"));
+            }
+
+            if (string.IsNullOrEmpty(PersistentData.DataSubject.AccountType))
+                accountType.Value = "user";
+            else
+                accountType.Value = PersistentData.DataSubject.AccountType;
+
+            if (string.IsNullOrEmpty(PersistentData.DataSubject.AccountType))
+                accountStatus.Value = "active";
+            else
+                accountStatus.Value = PersistentData.DataSubject.AccountStatus;
+
             if (PersistentData.DataSubject.DateTimeCreated.ToString("dd/MM/yyyy") == "01/01/0001")
             {
                 //Debug.WriteLine(string.Format("{0}'s datetimecreated {1} == 01/01/0001", dataSubject.fullName, dataSubject.dateTimeCreated.ToString("dd/MM/yyyy")));
