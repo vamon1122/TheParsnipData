@@ -26,7 +26,7 @@ namespace LogApi
                 }
                 System.Diagnostics.Debug.WriteLine("Logs were cleared");
                 logEntries.Clear();
-                new LogEntry(Guid.Empty) { text = "Logs were cleared!" };
+                new LogEntry(Log.Default) { text = "Logs were cleared!" };
                 return true;
             }
             catch(Exception e)
@@ -36,7 +36,7 @@ namespace LogApi
             }
         }
 
-        public static bool LoadLogEntries()
+        public static List<LogEntry> GetAllLogEntries()
         {
             try
             {
@@ -55,12 +55,12 @@ namespace LogApi
                         }
                     }
                 }
-                return true;
+                return logEntries;
             }
             catch(Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("There was an exception whilst loading log entries: {0}", e);
-                return false;
+                throw new Exception(string.Format("Error whilst getting all log entries: {0}", e));
             }
         }
     }

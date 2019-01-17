@@ -33,6 +33,7 @@ namespace LogApi
         {
             using (SqlConnection openConn = ParsnipApi.Data.GetOpenDbConnection())
             {
+                Debug.WriteLine("Creating new Log object with name = " + pName);
                 Name = pName;
 
                 if (NameExists(openConn))
@@ -48,14 +49,75 @@ namespace LogApi
             }
         }
 
+        public static Log Default { get { return new Log("general"); } }
+
+        public List<LogEntry> GetLogEntries()
+        {
+            try
+            {
+                var logEntries = new List<LogEntry>();
+
+                using (SqlConnection conn = new SqlConnection(ParsnipApi.Data.sqlConnectionString))
+                {
+                    conn.Open();
+                    SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM t_LogEntries WHERE logId = @logId", conn);
+                    selectLogEntries.Parameters.Add(new SqlParameter("logId", Id));
+
+                    using (SqlDataReader reader = selectLogEntries.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            logEntries.Add(new LogEntry(reader));
+                        }
+                    }
+                }
+                return logEntries;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("There was an exception whilst loading log entries: {0}", e);
+                throw new Exception(string.Format("Error whilst getting log entries for log {0}: {1}",Name, e));
+            }
+        }
+
+        public static List<Log> GetAllLogs()
+        {
+            bool logMe = false;
+
+            if (logMe)
+                Debug.WriteLine("----------Getting all logs...");
+
+            var logs = new List<Log>();
+            using (SqlConnection conn = ParsnipApi.Data.GetOpenDbConnection())
+            {
+                SqlCommand GetLogs = new SqlCommand("SELECT * FROM t_Logs", conn);
+                using (SqlDataReader reader = GetLogs.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        logs.Add(new Log(reader));
+                    }
+                }
+            }
+
+            foreach (Log temp in logs)
+            {
+                if (logMe)
+                    Debug.WriteLine(string.Format("Found log {0} with id {1}", temp.Name, temp.Id));
+            }
+
+            return logs;
+        }
+
         internal bool AddValues(SqlDataReader pReader)
         {
             try
             {
-                isNew = false;
-                Id = new Guid(pReader[0].ToString());
-                DateTimeCreated = Convert.ToDateTime(pReader[1].ToString());
-                Name = pReader[2].ToString();
+                    isNew = false;
+                    Id = new Guid(pReader[0].ToString());
+                    DateTimeCreated = Convert.ToDateTime(pReader[1].ToString());
+                    Name = pReader[2].ToString();
+                
             }
             catch(Exception e)
             {
@@ -99,7 +161,13 @@ namespace LogApi
                 SqlCommand selectLog = new SqlCommand("SELECT * FROM t_Logs WHERE id = @id", pOpenConn);
                 selectLog.Parameters.Add(new SqlParameter("id", Id));
 
-                AddValues(selectLog.ExecuteReader());
+                using (SqlDataReader reader = selectLog.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AddValues(reader);
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -115,8 +183,15 @@ namespace LogApi
             {
                 SqlCommand selectLog = new SqlCommand("SELECT * FROM t_Logs WHERE name = @name", pOpenConn);
                 selectLog.Parameters.Add(new SqlParameter("name", Name));
-
-                AddValues(selectLog.ExecuteReader());
+                
+                using(SqlDataReader reader = selectLog.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AddValues(reader);
+                    }
+                }
+                
             }
             catch (Exception e)
             {

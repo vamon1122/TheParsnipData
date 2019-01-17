@@ -13,16 +13,17 @@ namespace UacApi
 {
     public static class Uac
     {
+        private static Log PageAccessLog = new Log("access");
         public static User SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
         {
             if(string.IsNullOrEmpty(pDeviceType) || string.IsNullOrWhiteSpace(pDeviceType))
             {
-                //new LogEntry(Guid.Empty) { text = "Attempted to secure the page but deviceInfo was incomplete. Getting device info..." };
+                //new LogEntry(Log.Default) { text = "Attempted to secure the page but deviceInfo was incomplete. Getting device info..." };
                 pPage.Response.Redirect("getdeviceinfo?url=" + pUrl);
             }
             else
             {
-                //new LogEntry(Guid.Empty) { text = "Secure page - Device info is already complete!" };
+                //new LogEntry(Log.Default) { text = "Secure page - Device info is already complete!" };
             }
 
 
@@ -90,7 +91,7 @@ namespace UacApi
                 else
                 {
                     canAccess = false;
-                    new LogEntry(Guid.Empty) { text = string.Format("{0} was denied access to {1} because {2} account is not active!", myUser.FullName, pUrl, myUser.PosessivePronoun) };
+                    new LogEntry(PageAccessLog) { text = string.Format("{0} was denied access to {1} because {2} account is not active!", myUser.FullName, pUrl, myUser.PosessivePronoun) };
                 }
 
                 if (canAccess)
@@ -98,12 +99,12 @@ namespace UacApi
                     //Debug.WriteLine("----------{0} is allowed to access {1}", myUser.FullName, pUrl);
                     
 
-                    new LogEntry(myUser.Id) { text = String.Format("{0} accessed the {1} page from {2} {3}. {4} was allowed to access this page because {5}", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType, myUser.Forename, justification) };
+                    new LogEntry(PageAccessLog) { text = String.Format("{0} accessed the {1} page from {2} {3}. {4} was allowed to access this page because {5}", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType, myUser.Forename, justification) };
                 }
                 else
                 {
                     Debug.WriteLine("----------{0} is NOT allowed to access {1}", myUser.FullName, pUrl);
-                    new LogEntry(myUser.Id) { text = String.Format("{0} was denied access to the {1} page because {3} did not have sufficient permissions.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
+                    new LogEntry(PageAccessLog) { text = String.Format("{0} was denied access to the {1} page because {3} did not have sufficient permissions.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
                     pPage.Response.Redirect(String.Format("access-denied?url={0}", pUrl));
                 }
 
@@ -111,7 +112,7 @@ namespace UacApi
             }
             else
             {
-                new LogEntry(myUser.Id) { text = String.Format("Someone tried to access the {0} page from {1} {2} device, without logging in!", pUrl, myUser.PosessivePronoun, pDeviceType) };
+                new LogEntry(PageAccessLog) { text = String.Format("Someone tried to access the {0} page from {1} {2}, without logging in!", pUrl, myUser.PosessivePronoun, pDeviceType) };
                 pPage.Response.Redirect(String.Format("login?url={0}", pUrl));
             }
 

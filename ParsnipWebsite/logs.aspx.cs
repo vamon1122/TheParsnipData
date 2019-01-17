@@ -1,30 +1,40 @@
-﻿using System;
+﻿using LogApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using UacApi;
-using LogApi;
 
 namespace ParsnipWebsite
 {
     public partial class logs : System.Web.UI.Page
     {
         User myUser;
+        Guid selectedLogId;
         protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = Uac.SecurePage("logs", this, Data.deviceType, "admin");
-
-            if (myUser.AccountType != "admin")
+            if (Request.QueryString["logId"] != null)
             {
-                new LogEntry(myUser.Id) { text = String.Format("{0} attempted (and failed) to access the logs page via {1}", myUser.FullName, Data.deviceType) };
-                Response.Redirect("access-denied?url=logs");
+                selectedLogId = new Guid(Request.QueryString["logId"]);
+            }
+            else
+            {
+                Response.Redirect("logs?logId=" + Guid.Empty);
             }
 
-            LogApi.Data.LoadLogEntries();
+            myUser = Uac.SecurePage("logs", this, Data.deviceType, "admin");
 
-            List<LogEntry> LogEntries = LogApi.Data.logEntries.OrderByDescending(x => x.date ).ToList();
+            List<LogEntry> LogEntries;
+
+            if(selectedLogId.ToString() == Guid.Empty.ToString())
+                LogEntries = LogApi.Data.GetAllLogEntries().OrderByDescending(x => x.date ).ToList();
+            else
+            {
+                Log temp = new Log(selectedLogId);
+                LogEntries = temp.GetLogEntries().OrderByDescending(x => x.date).ToList();
+            }
+                
+            
 
             foreach (LogEntry myEntry in LogEntries)
             {
@@ -40,10 +50,47 @@ namespace ParsnipWebsite
             }
         }
 
+        void Page_LoadComplete(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("----------Page load complete!");
+            
+            UpdateLogList();
+            SelectLog.SelectedValue = selectedLogId.ToString();
+
+            System.Diagnostics.Debug.WriteLine("Page_LoadComplete complete!");
+        }
+
         protected void b_ClearLogs_Click(object sender, EventArgs e)
         {
             LogApi.Data.ClearLogs();
             Response.Redirect("logs");
+        }
+
+        protected void SelectLog_Changed(object sender, EventArgs e)
+        {
+            Response.Redirect("logs?logId=" + SelectLog.SelectedValue);
+        }
+
+        void UpdateLogList()
+        {
+            List<Log> logs;
+            logs = new List<Log>();
+            logs.AddRange(Log.GetAllLogs());
+
+            ListItem[] ListItems = new ListItem[logs.Count + 1];
+
+            ListItems[0] = new ListItem("all", Guid.Empty.ToString());
+
+            int i = 1;
+            foreach (Log temp in logs)
+            {
+                ListItems[i] = new ListItem(temp.Name, temp.Id.ToString());
+                i++;
+            }
+            SelectLog.Items.Clear();
+            SelectLog.Items.AddRange(ListItems);
+
+            SelectLog.SelectedValue = selectedLogId.ToString();
         }
     }
 }

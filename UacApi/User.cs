@@ -320,7 +320,7 @@ namespace UacApi
 
             string validateSuccessString = validateSuccess ? "was validated successfully!" : "failed to be validated. See details below:";
 
-            new LogEntry(Id) { text = string.Format("{0} {1}", FullName, validateSuccessString) };
+            new LogEntry(Log.Default) { text = string.Format("{0} {1}", FullName, validateSuccessString) };
 
             return validateSuccess;
 
@@ -328,13 +328,13 @@ namespace UacApi
             {
                 if (Username.Length == 0)
                 {
-                    new LogEntry(Id) { text = "Cannot create a user without a username! Username: " + Username };
+                    new LogEntry(Log.Default) { text = "Cannot create a user without a username! Username: " + Username };
                     ValidationErrors.Add("username cannot be blank");
                     return false;
                 }
                 else if (Username.Length > 50)
                 {
-                    new LogEntry(Id) { text = String.Format("Username is {0} characters long. Username must be no longer than 50 characters!", Username.Length) };
+                    new LogEntry(Log.Default) { text = String.Format("Username is {0} characters long. Username must be no longer than 50 characters!", Username.Length) };
                     return false;
                 }
                 else
@@ -374,7 +374,7 @@ namespace UacApi
                             else
                             {
                                 //MyLog.Warning("Email address domain does not contain a \".\". Email address will be blank!");
-                                new LogEntry(Id) { text = String.Format("Email address \"{0}\" does not contain a dot. Email addresses must contain a dot.", EmailAddress) };
+                                new LogEntry(Log.Default) { text = String.Format("Email address \"{0}\" does not contain a dot. Email addresses must contain a dot.", EmailAddress) };
                                 ValidationErrors.Add("email address must contain a dot");
                                 return false;
                             }
@@ -382,14 +382,14 @@ namespace UacApi
                         else
                         {
                             //MyLog.Warning("Email address contains too many @'s. Email address will be blank!");
-                            new LogEntry(Id) { text = String.Format("Email address \"{0}\" contains too many '@' signs. Email addresses must contain only one '@' sign.", EmailAddress) };
+                            new LogEntry(Log.Default) { text = String.Format("Email address \"{0}\" contains too many '@' signs. Email addresses must contain only one '@' sign.", EmailAddress) };
                             ValidationErrors.Add("email address cannot contain more than one @");
                             return false;
                         }
                     }
                     else
                     {
-                        new LogEntry(Id) { text = String.Format("Email address \"{0}\" does not contain an '@' sign. Email addresses must contain an '@' sign.", EmailAddress) };
+                        new LogEntry(Log.Default) { text = String.Format("Email address \"{0}\" does not contain an '@' sign. Email addresses must contain an '@' sign.", EmailAddress) };
                         ValidationErrors.Add("email address must contain at least one @");
                         //MyLog.Warning("Email address does not contain an \"@\" sign. Email address will be blank!");
                         return false;
@@ -411,7 +411,7 @@ namespace UacApi
                         return true;
                     else
                     {
-                        new LogEntry(Id) { text = String.Format("----------Password \"{0}\" is too short. Passwords must be at least 5 characters long.", Password.Trim()) };
+                        new LogEntry(Log.Default) { text = String.Format("----------Password \"{0}\" is too short. Passwords must be at least 5 characters long.", Password.Trim()) };
                         ValidationErrors.Add("if you have a password, it must be at least 5 characters long");
                         return false;
                     }
@@ -428,7 +428,7 @@ namespace UacApi
                     return true;
                 else
                 {
-                    new LogEntry(Id) { text = String.Format("----------Forename \"{0}\" cannot be left blank!", Forename.Trim()) };
+                    new LogEntry(Log.Default) { text = String.Format("----------Forename \"{0}\" cannot be left blank!", Forename.Trim()) };
                     ValidationErrors.Add("forename cannot be blank");
                     return false;
                 }
@@ -440,7 +440,7 @@ namespace UacApi
                     return true;
                 else
                 {
-                    new LogEntry(Id) { text = String.Format("----------Surname \"{0}\" cannot be left blank!", Forename.Trim()) };
+                    new LogEntry(Log.Default) { text = String.Format("----------Surname \"{0}\" cannot be left blank!", Forename.Trim()) };
                     ValidationErrors.Add("surname cannot be blank");
                     return false;
                 }
@@ -461,7 +461,7 @@ namespace UacApi
                         return true;
                     else
                     {
-                        new LogEntry(Id) { text = String.Format("Gender \"{0}\" is not M, F or O. Gender must be M, F or O.", tempGender) };
+                        new LogEntry(Log.Default) { text = String.Format("Gender \"{0}\" is not M, F or O. Gender must be M, F or O.", tempGender) };
                         ValidationErrors.Add("gender must be M, F or O");
                         return false;
                     };
@@ -1030,10 +1030,10 @@ namespace UacApi
                 {
                     string error = string.Format("[UacApi.User.DbInsert)] Failed to insert {0}'s account into the database: {1}", FullName, e);
                     Debug.WriteLine(error);
-                    new LogEntry(Guid.Empty) { text = error };
+                    new LogEntry(Log.Default) { text = error };
                     return false;
                 }
-                new LogEntry(Guid.Empty) { text = string.Format("{0} was successfully inserted into the database!", FullName) };
+                new LogEntry(Log.Default) { text = string.Format("{0} was successfully inserted into the database!", FullName) };
                 return DbUpdate(pOpenConn);
             }
             else
@@ -1496,10 +1496,10 @@ namespace UacApi
                 {
                     string error = string.Format("[UacApi.User.DbUpdate] There was an error whilst updating {0}'s account ({1}): {2}", FullName, Username, e);
                     Debug.WriteLine(error);
-                    new LogEntry(Guid.Empty) { text = error };
+                    new LogEntry(Log.Default) { text = error };
                     return false;
                 }
-                new LogEntry(Guid.Empty) { text = string.Format("{0}'s details were successfully updated on the database!", FullName) };
+                new LogEntry(Log.Default) { text = string.Format("{0}'s details were successfully updated on the database!", FullName) };
                 return true;
             }
             else

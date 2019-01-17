@@ -20,22 +20,18 @@ namespace ParsnipWebsite
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            
-            
-
             AccountLog.Warning("PAGE IS BEING LOADED");
 
             /*
-            new LogEntry(Guid.Empty) { text = "Detecting device and setting deviceType cookie..." };
+            new LogEntry(Log.Default) { text = "Detecting device and setting deviceType cookie..." };
             ScriptManager.RegisterStartupScript(Page, typeof(Page), "GetDeviceType", "createCookie(\"deviceType\", deviceDetect())", true);
             if (Cookie.Exists("deviceType"))
             {
-                new LogEntry(Guid.Empty) { text = string.Format("----------Cookie exists! deviceType = {0}", Cookie.Read("deviceType")) };
+                new LogEntry(Log.Default) { text = string.Format("----------Cookie exists! deviceType = {0}", Cookie.Read("deviceType")) };
             }
             else
             {
-                new LogEntry(Guid.Empty) { text = "----------Device type cookie did not exist" };
+                new LogEntry(Log.Default) { text = "----------Device type cookie did not exist" };
             }
             */
 
@@ -85,7 +81,7 @@ namespace ParsnipWebsite
 
             if (myUser.LogIn(inputUsername.Text, true, inputPwd.Text, RememberPwd.Checked, false))
             {
-                new LogEntry(Guid.Empty) { text = String.Format("{0} logged in from {1} {2}.", myUser.FullName, myUser.PosessivePronoun, Data.deviceType) };
+                new LogEntry(new Log("login/out")) { text = String.Format("{0} logged in from {1} {2}.", myUser.FullName, myUser.PosessivePronoun, Data.deviceType) };
                 WriteCookie();
                 Response.Redirect(Redirect);
             }

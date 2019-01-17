@@ -20,7 +20,12 @@
             <hr class="my-4" />
             <p><adminControls:adminMenu runat="server" id="adminMenu1" />
         </div>
+            <label>Sort logs:</label>
+                <asp:DropDownList ID="SelectLog" runat="server" AutoPostBack="True" CssClass="form-control" 
+                    onselectedindexchanged="SelectLog_Changed">
+                </asp:DropDownList>
         <div style="padding-bottom : 3%">
+            <br />
             <asp:Button runat="server" ID="b_ClearLogs" Text="Clear" OnClick="b_ClearLogs_Click" CssClass="btn btn-primary" />
         </div>
         <div class="table-wrapper-scroll-y">

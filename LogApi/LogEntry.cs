@@ -60,12 +60,15 @@ namespace LogApi
             return true;
         }
 
-        public LogEntry(Guid pUserId)
+        public LogEntry(Log pLog)
         {
             isNew = true;
             id = Guid.NewGuid();
-            logId = defaultLog;
-            userId = pUserId;
+            if (pLog.Id == Guid.Empty)
+                throw new Exception("LogId was empty!");
+            Debug.WriteLine("----------Creating new log entry. Logid = " + logId);
+            logId = pLog.Id;
+            //userId = pUserId;
             date = ParsnipApi.Data.adjustedTime;
 
         }

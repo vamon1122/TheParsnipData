@@ -58,7 +58,7 @@
             </div>   
            
             <div class="center_div">
-                <label>Users</label>
+                <label>Select a user:</label>
                 <asp:DropDownList ID="selectUser" runat="server" AutoPostBack="True" CssClass="form-control" 
                     onselectedindexchanged="SelectUser_Changed">
                 </asp:DropDownList>

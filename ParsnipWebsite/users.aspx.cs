@@ -21,14 +21,10 @@ namespace ParsnipWebsite
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-
-            myUser = Uac.SecurePage("users", this, Data.deviceType, "admin");
-
             if (Request.QueryString["userId"] != null)
             {
                 selectedUserId = new Guid(Request.QueryString["userId"]);
-                if(selectedUserId.ToString() == Guid.Empty.ToString())
+                if (selectedUserId.ToString() == Guid.Empty.ToString())
                     formType = "Insert";
                 else
                     formType = "Update";
@@ -39,8 +35,7 @@ namespace ParsnipWebsite
                 Response.Redirect("users?userId=" + Guid.Empty.ToString());
             }
 
-            
-            
+            myUser = Uac.SecurePage("users", this, Data.deviceType, "admin");
 
             btnAction.Text = formType;
 
@@ -114,7 +109,7 @@ namespace ParsnipWebsite
             Debug.WriteLine("BEN!!!1 " + UserForm.DataSubject.Id.ToString());
             string temp = string.Format("{0} button was clicked. Selected user id = {1}", btnAction.Text, rememberSelectedValue);
             //Debug.WriteLine(temp);
-            new LogEntry(myUser.Id) { text = temp };
+            new LogEntry(Log.Default) { text = temp };
             
             UserForm.UpdateDataSubject();
 
@@ -125,13 +120,13 @@ namespace ParsnipWebsite
             {
                 if (UserForm.DataSubject.Update())
                 {
-                    new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} {1} an account for {2} via the UserForm", myUser.FullName, actionPast, UserForm.DataSubject.FullName) };
+                    new LogEntry(Log.Default) { text = String.Format("{0} {1} an account for {2} via the UserForm", myUser.FullName, actionPast, UserForm.DataSubject.FullName) };
                     Response.Redirect(string.Format("users?userId={0}&action=update&success=true", UserForm.DataSubject.Id.ToString()));
                 }
 
                 else
                 {
-                    new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} tried to {1} an account for {2} via the UserForm, but there was an error whilst updating the database", myUser.FullName, actionPresent, UserForm.DataSubject.FullName) };
+                    new LogEntry(Log.Default) { text = String.Format("{0} tried to {1} an account for {2} via the UserForm, but there was an error whilst updating the database", myUser.FullName, actionPresent, UserForm.DataSubject.FullName) };
                     ErrorText.Text = string.Format("<strong>Database Error</strong> There was an error whilst updating {0} on the database.", UserForm.DataSubject.FullName);
                 }
                     
@@ -140,7 +135,7 @@ namespace ParsnipWebsite
             else
             {
                 Debug.WriteLine("User failed to validate!");
-                new LogEntry(UserForm.DataSubject.Id) { text = String.Format("{0} attempted to {1} an account for {2} via the UserForm, but {3} was not validated successfully.", 
+                new LogEntry(Log.Default) { text = String.Format("{0} attempted to {1} an account for {2} via the UserForm, but {3} was not validated successfully.", 
                     myUser.FullName, actionPresent, UserForm.DataSubject.FullName, UserForm.DataSubject.SubjectiveGenderPronoun) };
                 Error.Attributes.CssStyle.Add("display", "block");
 
@@ -163,7 +158,7 @@ namespace ParsnipWebsite
             Debug.WriteLine("Delete was confirmed");
             string temp = string.Format("Delete button was clicked. Selected user id = {0}", selectUser.SelectedValue);
             //Debug.WriteLine(temp);
-            new LogEntry(myUser.Id) { text = temp };
+            new LogEntry(Log.Default) { text = temp };
 
             
 
