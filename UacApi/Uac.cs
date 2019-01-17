@@ -14,6 +14,7 @@ namespace UacApi
     public static class Uac
     {
         private static Log PageAccessLog = new Log("access");
+        private static Log PageAccessJustificationLog = new Log("justification");
         public static User SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
         {
             if(string.IsNullOrEmpty(pDeviceType) || string.IsNullOrWhiteSpace(pDeviceType))
@@ -87,26 +88,29 @@ namespace UacApi
                             canAccess = false;
                             break;
                     }
+                    if (canAccess)
+                    {
+                        //Debug.WriteLine("----------{0} is allowed to access {1}", myUser.FullName, pUrl);
+
+                        new LogEntry(PageAccessLog) { text = String.Format("{0} accessed the {1} page from {2} {3}.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType, myUser.Forename, justification) };
+                        new LogEntry(PageAccessJustificationLog) { text = String.Format("{0} was allowed to access the {1} page because {2}", myUser.FullName, pUrl, justification) };
+                    }
+                    else
+                    {
+                        Debug.WriteLine("----------{0} is NOT allowed to access {1}", myUser.FullName, pUrl);
+                        new LogEntry(PageAccessLog) { text = String.Format("{0} tried to access the {1} page but access was denied.", myUser.FullName, pUrl) };
+                        new LogEntry(PageAccessJustificationLog) { text = String.Format("{0} was denied access to the {1} page because {2} did not have sufficient permissions.", myUser.FullName, pUrl, myUser.PosessivePronoun) };
+                        pPage.Response.Redirect(String.Format("access-denied?url={0}", pUrl));
+                    }
                 }
                 else
                 {
                     canAccess = false;
-                    new LogEntry(PageAccessLog) { text = string.Format("{0} was denied access to {1} because {2} account is not active!", myUser.FullName, pUrl, myUser.PosessivePronoun) };
+                    new LogEntry(PageAccessLog) { text = string.Format("{0} tried to access the {1} page from {2} {3} because {2} account is not active!", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
+                    new LogEntry(PageAccessJustificationLog) { text = string.Format("{0} was denied access to the {1} page because {2} account is not active!", myUser.FullName, pUrl, myUser.PosessivePronoun) };
                 }
 
-                if (canAccess)
-                {
-                    //Debug.WriteLine("----------{0} is allowed to access {1}", myUser.FullName, pUrl);
-                    
-
-                    new LogEntry(PageAccessLog) { text = String.Format("{0} accessed the {1} page from {2} {3}. {4} was allowed to access this page because {5}", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType, myUser.Forename, justification) };
-                }
-                else
-                {
-                    Debug.WriteLine("----------{0} is NOT allowed to access {1}", myUser.FullName, pUrl);
-                    new LogEntry(PageAccessLog) { text = String.Format("{0} was denied access to the {1} page because {3} did not have sufficient permissions.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
-                    pPage.Response.Redirect(String.Format("access-denied?url={0}", pUrl));
-                }
+                
 
                 
             }

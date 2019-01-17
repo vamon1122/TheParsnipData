@@ -16,8 +16,6 @@ namespace ParsnipWebsite
         {
             if (Request.QueryString["url"] != null)
                 attemptedAccess = Request.QueryString["url"];
-            
-            myUser = Uac.SecurePage("access-denied", this, Data.deviceType);
 
             if(attemptedAccess == null)
             {
