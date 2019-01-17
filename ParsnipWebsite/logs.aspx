@@ -14,7 +14,7 @@
 <body style="padding-bottom:2.5%; padding-top:4%">
     <form id="form1" runat="server">
         <div class="container">
-
+            <!-- Alerts -->
             <div class="alert alert-danger alert-dismissible" runat="server" style="display:none" id="Error">
                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                  <asp:Label runat="server" ID="ErrorText"></asp:Label>
@@ -29,43 +29,46 @@
             </div>
 
             <div class="jumbotron">
-            <h1 class="display-4">Logs</h1>
-            <p class="lead">View theparsnip.co.uk logs</p>
-            <hr class="my-4" />
-            <p><adminControls:adminMenu runat="server" id="adminMenu1" />
-        </div>
+                <h1 class="display-4">Logs</h1>
+                <p class="lead">View theparsnip.co.uk logs</p>
+                <hr class="my-4" />
+                <adminControls:adminMenu runat="server" id="adminMenu1" />
+            </div>
+            
             <label>Sort logs:</label>
-                <asp:DropDownList ID="SelectLog" runat="server" AutoPostBack="True" CssClass="form-control" 
-                    onselectedindexchanged="SelectLog_Changed">
-                </asp:DropDownList>
-        <div style="padding-bottom : 3%">
+            <asp:DropDownList ID="SelectLog" runat="server" AutoPostBack="True" CssClass="form-control" 
+                onselectedindexchanged="SelectLog_Changed">
+            </asp:DropDownList>
+
             <br />
-            <asp:Button runat="server" ID="b_ClearLogs" Text="Clear" data-toggle="modal" data-target="#confirmClearLogs" OnClientClick="return false;" CssClass="btn btn-primary" />
-        </div>
-        <div class="table-wrapper-scroll-y">
-            <asp:Table class="table table-bordered table-striped" runat="server" id="LogTable" />
-        </div>
+
+            <div style="padding-bottom : 3%">
+                <button data-toggle="modal" data-target="#confirmClearLogs" class="btn btn-primary" onclick="return false" >Clear</button>
+            </div>
+            <div class="table-wrapper-scroll-y">
+                <asp:Table class="table table-bordered table-striped" runat="server" id="LogTable" />
+            </div>
         </div>
 
         <div class="modal fade" id="confirmClearLogs" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    Are you sure that you want to clear ALL logs?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <asp:Button runat="server" class="btn btn-primary" ID="btnClearLogsConfirm" OnClick="btnClearLogsConfirm_Click" Text="Confirm"></asp:Button>
-                  </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure that you want to clear ALL logs?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <asp:Button runat="server" class="btn btn-primary" ID="btnClearLogsConfirm" OnClick="btnClearLogsConfirm_Click" Text="Confirm"></asp:Button>
+                    </div>
                 </div>
-              </div>
             </div>
+        </div>
     </form>
 </body>
 </html>

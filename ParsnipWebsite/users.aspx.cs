@@ -14,40 +14,32 @@ namespace ParsnipWebsite
     public partial class create_user : System.Web.UI.Page
     {
         User myUser;
-        List<User> users;
-        string formType;
         static Guid selectedUserId;
-
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["userId"] != null)
-            {
-                selectedUserId = new Guid(Request.QueryString["userId"]);
-                if (selectedUserId.ToString() == Guid.Empty.ToString())
-                    formType = "Insert";
-                else
-                    formType = "Update";
-
-            }
-            else
-            {
+            if (Request.QueryString["userId"] == null)
                 Response.Redirect("users?userId=" + Guid.Empty.ToString());
-            }
 
             myUser = Uac.SecurePage("users", this, Data.deviceType, "admin");
 
-            btnAction.Text = formType;
+            selectedUserId = new Guid(Request.QueryString["userId"]);
 
-            if (formType == "Insert")
+            if (selectedUserId.ToString() == Guid.Empty.ToString())
+            {
+                btnAction.Text = "Insert";
                 btnDelete.Visible = false;
+            }
             else
+            {
+                btnAction.Text = "Update";
                 btnDelete.Visible = true;
+            }
         }
 
         void Page_LoadComplete(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("----------Page load complete!");
+            Debug.WriteLine("----------Page load complete!");
 
             if (Request.QueryString["action"] != null)
             {
@@ -61,9 +53,7 @@ namespace ParsnipWebsite
                         SuccessText.Text = string.Format("<strong>Success</strong> User was successfully {0}d on the database!", action);
                         Success.Attributes.CssStyle.Add("display", "block");
                     }
-
                 }
-
             }
 
             UserForm.UpdateDateCreated();
@@ -78,14 +68,14 @@ namespace ParsnipWebsite
 
         void UpdateUserList()
         {
-            users = new List<User>();
-            users.Add(new UacApi.User(Guid.Empty) { Forename = "New", Surname = "User", Username = "Create a new user" });
-            users.AddRange(UacApi.User.GetAllUsers());
+            var tempUsers = new List<User>();
+            tempUsers.Add(new UacApi.User(Guid.Empty) { Forename = "New", Surname = "User", Username = "Create a new user" });
+            tempUsers.AddRange(UacApi.User.GetAllUsers());
 
-            ListItem[] ListItems = new ListItem[users.Count];
+            ListItem[] ListItems = new ListItem[tempUsers.Count];
 
             int i = 0;
-            foreach (User temp in users)
+            foreach (User temp in tempUsers)
             {
                 ListItems[i] = new ListItem(String.Format("{0} ({1})", temp.FullName, temp.Username), temp.Id.ToString());
                 i++;
@@ -95,8 +85,6 @@ namespace ParsnipWebsite
 
             selectUser.SelectedValue = selectedUserId.ToString();
         }
-
-        
 
         protected void SelectUser_Changed(object sender, EventArgs e)
         {
