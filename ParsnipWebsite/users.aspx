@@ -38,12 +38,10 @@
                 <p><adminControls:adminMenu runat="server" id="adminMenu1" /></p>
             </div>   
            
-            <div class="center_div">
-                <label>Select a user:</label>
-                <asp:DropDownList ID="selectUser" runat="server" AutoPostBack="True" CssClass="form-control" 
-                    onselectedindexchanged="SelectUser_Changed">
-                </asp:DropDownList>
-            </div>
+            <label>Select a user:</label>
+            <asp:DropDownList ID="selectUser" runat="server" AutoPostBack="True" CssClass="form-control" 
+                onselectedindexchanged="SelectUser_Changed">
+            </asp:DropDownList>
             
             <uc1:UserForm1 runat="server" ID="UserForm" />
             <asp:Button runat="server" ID="btnAction" OnClick="btnAction_Click" CssClass="btn btn-primary" Text="Action"></asp:Button>
