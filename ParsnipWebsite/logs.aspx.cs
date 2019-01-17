@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 using UacApi;
+using System.Diagnostics;
 
 namespace ParsnipWebsite
 {
@@ -53,7 +54,24 @@ namespace ParsnipWebsite
         void Page_LoadComplete(object sender, EventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("----------Page load complete!");
-            
+
+            if (Request.QueryString["action"] != null)
+            {
+                string action = Request.QueryString["action"];
+                if (Request.QueryString["success"] != null)
+                {
+                    string success = Request.QueryString["success"];
+
+                    if (success == "true")
+                    {
+                        SuccessText.Text = string.Format("<strong>Success</strong> All logs were successfully {0}d on the database!", action);
+                        Success.Attributes.CssStyle.Add("display", "block");
+                    }
+
+                }
+
+            }
+
             UpdateLogList();
             SelectLog.SelectedValue = selectedLogId.ToString();
 
@@ -62,8 +80,7 @@ namespace ParsnipWebsite
 
         protected void b_ClearLogs_Click(object sender, EventArgs e)
         {
-            LogApi.Data.ClearLogs();
-            Response.Redirect("logs");
+            
         }
 
         protected void SelectLog_Changed(object sender, EventArgs e)
@@ -71,10 +88,18 @@ namespace ParsnipWebsite
             Response.Redirect("logs?logId=" + SelectLog.SelectedValue);
         }
 
+        protected void btnClearLogsConfirm_Click(object sender, EventArgs e)
+        {
+            LogApi.Data.ClearLogs();
+
+            new LogEntry(Log.Default) { text = string.Format("Logs were cleared by {0}!", myUser.FullName) };
+
+            Response.Redirect(string.Format("logs?logId={0}&action=delete&success=true", Guid.Empty.ToString()));
+        }
+
         void UpdateLogList()
         {
-            List<Log> logs;
-            logs = new List<Log>();
+            var logs = new List<Log>();
             logs.AddRange(Log.GetAllLogs());
 
             ListItem[] ListItems = new ListItem[logs.Count + 1];

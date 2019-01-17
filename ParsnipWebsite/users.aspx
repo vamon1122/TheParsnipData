@@ -29,26 +29,7 @@
                 <asp:Label runat="server" ID="SuccessText"></asp:Label>
             </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    Are you sure that you want to DELETE this user?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <asp:Button runat="server" class="btn btn-primary" ID="btnDeleteConfirm" OnClick="btnDeleteConfirm_Click" Text="Confirm"></asp:Button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
 
             <div class="jumbotron">
                 <h1 class="display-4">Users</h1>
@@ -68,6 +49,27 @@
             <asp:Button runat="server" ID="btnAction" OnClick="btnAction_Click" CssClass="btn btn-primary" Text="Action"></asp:Button>
             <asp:Button runat="server" ID="btnDelete"  CssClass="btn btn-primary" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;"></asp:Button>
         </div>
+
+        <!-- Modal -->
+            <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure that you want to DELETE this user?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <asp:Button runat="server" class="btn btn-primary" ID="btnDeleteConfirm" OnClick="btnDeleteConfirm_Click" Text="Confirm"></asp:Button>
+                  </div>
+                </div>
+              </div>
+            </div>
     </form>
 </body>
 </html>

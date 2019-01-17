@@ -60,7 +60,7 @@ namespace LogApi
                 using (SqlConnection conn = new SqlConnection(ParsnipApi.Data.sqlConnectionString))
                 {
                     conn.Open();
-                    SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM t_LogEntries WHERE logId = @logId", conn);
+                    SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM t_LogEntries WHERE logId = @logId  ORDER BY dateTime DESC", conn);
                     selectLogEntries.Parameters.Add(new SqlParameter("logId", Id));
 
                     using (SqlDataReader reader = selectLogEntries.ExecuteReader())
@@ -270,12 +270,6 @@ namespace LogApi
                 return false;
             }
         }
-
-
-
-
-
-
 
         private bool Insert()
         {

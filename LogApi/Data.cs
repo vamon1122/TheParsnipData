@@ -26,7 +26,7 @@ namespace LogApi
                 }
                 System.Diagnostics.Debug.WriteLine("Logs were cleared");
                 logEntries.Clear();
-                new LogEntry(Log.Default) { text = "Logs were cleared!" };
+                
                 return true;
             }
             catch(Exception e)
@@ -45,7 +45,7 @@ namespace LogApi
                 using(SqlConnection conn = new SqlConnection(ParsnipApi.Data.sqlConnectionString))
                 {
                     conn.Open();
-                    SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM t_LogEntries", conn);
+                    SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM t_LogEntries ORDER BY dateTime DESC", conn);
 
                     using(SqlDataReader reader = selectLogEntries.ExecuteReader())
                     {

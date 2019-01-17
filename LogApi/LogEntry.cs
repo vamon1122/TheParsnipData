@@ -22,8 +22,6 @@ namespace LogApi
 
         private string _text;
 
-        public static Guid defaultLog = new Guid("462773d7-ee01-420b-9794-c719931a0b19");
-
         public string text { get { return _text; } set {
                 if (value.Length < 4001)
                 {
