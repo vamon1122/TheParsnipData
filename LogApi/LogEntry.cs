@@ -80,22 +80,6 @@ namespace LogApi
                 {
                     SqlCommand checkLastEntryTime = new SqlCommand("SELECT MAX(dateTime) FROM t_LogEntries", openConn);
 
-                    
-
-                    using (SqlDataReader reader = checkLastEntryTime.ExecuteReader())
-                    {
-                        reader.Read();
-                        if(reader[0] != DBNull.Value)
-                        {
-                            DateTime lastEntryTime = Convert.ToDateTime(reader[0]);
-
-                            if (date.ToString() == lastEntryTime.ToString())
-                                date.AddMilliseconds(1);
-                        }
-                    }
-
-                    
-
                     stage = "inserting LogEntry...";
 
                     Debug.WriteLine("text = " + text);
