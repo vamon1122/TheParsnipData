@@ -22,6 +22,8 @@ namespace ParsnipWebsite
         {
             AccountLog.Warning("PAGE IS BEING LOADED");
 
+            
+
             /*
             new LogEntry(Log.Default) { text = "Detecting device and setting deviceType cookie..." };
             ScriptManager.RegisterStartupScript(Page, typeof(Page), "GetDeviceType", "createCookie(\"deviceType\", deviceDetect())", true);

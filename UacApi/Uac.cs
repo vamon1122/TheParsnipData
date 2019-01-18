@@ -14,7 +14,7 @@ namespace UacApi
     public static class Uac
     {
         private static Log PageAccessLog = new Log("access");
-        private static Log PageAccessJustificationLog = new Log("justification");
+        private static Log PageAccessJustificationLog = new Log("access justification");
         public static User SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
         {
             if(string.IsNullOrEmpty(pDeviceType) || string.IsNullOrWhiteSpace(pDeviceType))
@@ -38,7 +38,7 @@ namespace UacApi
             if (myUser.LogIn())
             {
                 //Debug.WriteLine("----------Securing page, accountType = " + myUser.AccountType);
-                
+
                 if (myUser.AccountStatus == "active")
                 {
                     string accTypeDescriptor = "";
@@ -88,32 +88,54 @@ namespace UacApi
                             canAccess = false;
                             break;
                     }
+
                     if (canAccess)
                     {
                         //Debug.WriteLine("----------{0} is allowed to access {1}", myUser.FullName, pUrl);
-
-                        new LogEntry(PageAccessLog) { text = String.Format("{0} accessed the {1} page from {2} {3}.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType, myUser.Forename, justification) };
-                        DateTime start = DateTime.Now;
-                        while (DateTime.Now < start.AddMilliseconds(1)) { }
-                        new LogEntry(PageAccessJustificationLog) { text = String.Format("{0} was allowed to access the {1} page because {2}", myUser.FullName, pUrl, justification) };
+                        if (!pPage.IsPostBack)
+                        {
+                            new LogEntry(PageAccessLog) { text = String.Format("{0} accessed the {1} page from {2} {3}.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType, myUser.Forename, justification) };
+                            DateTime start = DateTime.Now;
+                            while (DateTime.Now < start.AddMilliseconds(1)) { }
+                            new LogEntry(PageAccessJustificationLog) { text = String.Format("{0} was allowed to access the {1} page because {2}", myUser.FullName, pUrl, justification) };
+                        }
+                        else
+                        {
+                            new LogEntry(PageAccessLog) { text = String.Format("{0} reloaded the {1} page from {2} {3}.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType, myUser.Forename, justification) };
+                        }
                     }
                     else
                     {
-                        Debug.WriteLine("----------{0} is NOT allowed to access {1}", myUser.FullName, pUrl);
-                        new LogEntry(PageAccessLog) { text = String.Format("{0} tried to access the {1} page but access was denied.", myUser.FullName, pUrl) };
-                        DateTime start = DateTime.Now;
-                        while (DateTime.Now < start.AddMilliseconds(1)) { }
-                        new LogEntry(PageAccessJustificationLog) { text = String.Format("{0} was denied access to the {1} page because {2} did not have sufficient permissions.", myUser.FullName, pUrl, myUser.PosessivePronoun) };
-                        pPage.Response.Redirect(String.Format("access-denied?url={0}", pUrl));
+                        if (!pPage.IsPostBack)
+                        {
+                            Debug.WriteLine("----------{0} is NOT allowed to access {1}", myUser.FullName, pUrl);
+                            new LogEntry(PageAccessLog) { text = String.Format("{0} tried to access the {1} page but access was denied.", myUser.FullName, pUrl) };
+                            DateTime start = DateTime.Now;
+                            while (DateTime.Now < start.AddMilliseconds(1)) { }
+                            new LogEntry(PageAccessJustificationLog) { text = String.Format("{0} was denied access to the {1} page because {2} did not have sufficient permissions.", myUser.FullName, pUrl, myUser.PosessivePronoun) };
+                            pPage.Response.Redirect(String.Format("access-denied?url={0}", pUrl));
+                        }
+                        else
+                        {
+                            new LogEntry(PageAccessLog) { text = String.Format("{0} tried to reload the page to access the {1} page but access was denied.", myUser.FullName, pUrl) };
+                        }
                     }
+
                 }
                 else
                 {
                     canAccess = false;
-                    new LogEntry(PageAccessLog) { text = string.Format("{0} tried to access the {1} page from {2} {3} because {2} account is not active!", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
-                    DateTime start = DateTime.Now;
-                    while (DateTime.Now < start.AddMilliseconds(1)) { }
-                    new LogEntry(PageAccessJustificationLog) { text = string.Format("{0} was denied access to the {1} page because {2} account is not active!", myUser.FullName, pUrl, myUser.PosessivePronoun) };
+                    if (!pPage.IsPostBack)
+                    {
+                        new LogEntry(PageAccessLog) { text = string.Format("{0} tried to access the {1} page from {2} {3} but access was denied.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
+                        DateTime start = DateTime.Now;
+                        while (DateTime.Now < start.AddMilliseconds(1)) { }
+                        new LogEntry(PageAccessJustificationLog) { text = string.Format("{0} was denied access to the {1} page because {2} account is not active!", myUser.FullName, pUrl, myUser.PosessivePronoun) };
+                    }
+                    else
+                    {
+                        new LogEntry(PageAccessLog) { text = string.Format("{0} tried to reload the page to access the {1} page from {2} {3} but access was denied.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
+                    }
                 }
 
                 
