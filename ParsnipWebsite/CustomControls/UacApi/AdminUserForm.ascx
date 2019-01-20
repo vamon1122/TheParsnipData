@@ -1,5 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserForm1.ascx.cs" Inherits="ParsnipWebsite.UserForm1" %>
-
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdminUserForm.ascx.cs" Inherits="ParsnipWebsite.CustomControls.UacApi.AdminUserForm" %>
 <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
 <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
 

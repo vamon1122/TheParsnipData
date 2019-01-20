@@ -1,24 +1,23 @@
 ﻿using System;
-using UacApi;
-using LogApi;
-using ParsnipApi;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ParsnipApi;
 using System.Diagnostics;
+using UacApi;
 
-namespace ParsnipWebsite
+namespace ParsnipWebsite.CustomControls.UacApi
 {
     internal static class PersistentData
     {
-        internal static UserForm1 myUserForm1;
+        internal static AdminUserForm myUserForm1;
         internal static User _dataSubject;
         internal static User DataSubject { get { return _dataSubject; } set { /*Debug.WriteLine(string.Format("dataSubject (id = \"{0}\") was set in UserForm", value.Id));*/ _dataSubject = value; myUserForm1.UpdateFields(); } }
     }
 
-    public partial class UserForm1 : System.Web.UI.UserControl
+    public partial class AdminUserForm : System.Web.UI.UserControl
     {
         public User DataSubject { get { return PersistentData.DataSubject; } }
 
@@ -33,10 +32,10 @@ namespace ParsnipWebsite
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
 
-        public UserForm1()
+        public AdminUserForm()
         {
             PersistentData.myUserForm1 = this;
             if (PersistentData._dataSubject == null)
@@ -62,21 +61,21 @@ namespace ParsnipWebsite
 
             Debug.WriteLine(string.Format("----------{0} != {1}", PersistentData.DataSubject.Id.ToString(), Guid.Empty.ToString()));
 
-            
+
 
             //Debug.WriteLine("----------UpdateForm()");
             //Debug.WriteLine("----------username = " + username.Text);
             //Debug.WriteLine("----------dataSubject.username = " + dataSubject.username);
             //Debug.WriteLine("----------dataSubject.id = " + dataSubject.id);
-                username.Text = PersistentData.DataSubject.Username;
+            username.Text = PersistentData.DataSubject.Username;
 
-                email.Text = PersistentData.DataSubject.Email;
+            email.Text = PersistentData.DataSubject.Email;
 
-                password.Text = PersistentData.DataSubject.Password;
-            
-                forename.Text = PersistentData.DataSubject.Forename;
+            password.Text = PersistentData.DataSubject.Password;
 
-                surname.Text = PersistentData.DataSubject.Surname;
+            forename.Text = PersistentData.DataSubject.Forename;
+
+            surname.Text = PersistentData.DataSubject.Surname;
 
             if (string.IsNullOrEmpty(PersistentData.DataSubject.GenderUpper))
                 gender.Value = "Male";
@@ -88,19 +87,19 @@ namespace ParsnipWebsite
             else
                 dobInput.Value = "";
 
-                address1.Text = PersistentData.DataSubject.Address1;
+            address1.Text = PersistentData.DataSubject.Address1;
 
-                address2.Text = PersistentData.DataSubject.Address2;
+            address2.Text = PersistentData.DataSubject.Address2;
 
-                address3.Text = PersistentData.DataSubject.Address3;
+            address3.Text = PersistentData.DataSubject.Address3;
 
-                postCode.Text = PersistentData.DataSubject.PostCode;
+            postCode.Text = PersistentData.DataSubject.PostCode;
 
-                mobilePhone.Text = PersistentData.DataSubject.MobilePhone;
+            mobilePhone.Text = PersistentData.DataSubject.MobilePhone;
 
-                homePhone.Text = PersistentData.DataSubject.HomePhone;
+            homePhone.Text = PersistentData.DataSubject.HomePhone;
 
-                workPhone.Text = PersistentData.DataSubject.WorkPhone;
+            workPhone.Text = PersistentData.DataSubject.WorkPhone;
 
             if (PersistentData.DataSubject.DateTimeCreated != null)
             {
@@ -128,7 +127,7 @@ namespace ParsnipWebsite
                 //Debug.WriteLine(string.Format("{0}'s dob {1} != 01/01/0001",dataSubject.fullName, dataSubject.dateTimeCreated.ToString("dd/MM/yyyy")));
                 dateTimeCreated.Value = PersistentData.DataSubject.DateTimeCreated.ToString("dd/MM/yyyy");
             }
-                
+
         }
 
         public void UpdateDataSubject()
@@ -155,7 +154,7 @@ namespace ParsnipWebsite
             PersistentData.DataSubject.GenderUpper = gender.Value.Substring(0, 1);
             //Debug.WriteLine("DOB = " + dobInput.Value);
 
-            
+
             if (DateTime.TryParse(dobInput.Value, out DateTime result))
                 PersistentData.DataSubject.Dob = Convert.ToDateTime(dobInput.Value);
 
@@ -173,6 +172,6 @@ namespace ParsnipWebsite
 
         }
 
-        
+
     }
 }

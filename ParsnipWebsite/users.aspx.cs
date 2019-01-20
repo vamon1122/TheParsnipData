@@ -11,7 +11,7 @@ using LogApi;
 
 namespace ParsnipWebsite
 {
-    public partial class create_user : System.Web.UI.Page
+    public partial class Users : System.Web.UI.Page
     {
         User myUser;
         static Guid selectedUserId;
@@ -98,7 +98,7 @@ namespace ParsnipWebsite
             string temp = string.Format("{0} button was clicked. Selected user id = {1}", btnAction.Text, rememberSelectedValue);
             //Debug.WriteLine(temp);
             new LogEntry(Log.Default) { text = temp };
-            
+
             UserForm.UpdateDataSubject();
 
             string actionPast = UserForm.DataSubject.ExistsOnDb() ? "edited" : "created";
@@ -117,14 +117,17 @@ namespace ParsnipWebsite
                     new LogEntry(Log.Default) { text = String.Format("{0} tried to {1} an account for {2} via the UserForm, but there was an error whilst updating the database", myUser.FullName, actionPresent, UserForm.DataSubject.FullName) };
                     ErrorText.Text = string.Format("<strong>Database Error</strong> There was an error whilst updating {0} on the database.", UserForm.DataSubject.FullName);
                 }
-                    
+
 
             }
             else
             {
                 Debug.WriteLine("User failed to validate!");
-                new LogEntry(Log.Default) { text = String.Format("{0} attempted to {1} an account for {2} via the UserForm, but {3} was not validated successfully.", 
-                    myUser.FullName, actionPresent, UserForm.DataSubject.FullName, UserForm.DataSubject.SubjectiveGenderPronoun) };
+                new LogEntry(Log.Default)
+                {
+                    text = String.Format("{0} attempted to {1} an account for {2} via the UserForm, but {3} was not validated successfully.",
+                    myUser.FullName, actionPresent, UserForm.DataSubject.FullName, UserForm.DataSubject.SubjectiveGenderPronoun)
+                };
                 Error.Attributes.CssStyle.Add("display", "block");
 
                 string ValidationInfo = string.Format("<strong>Validation Error</strong> {0} could not be updated because {1} failed to validate: ", UserForm.DataSubject.FullName, UserForm.DataSubject.SubjectiveGenderPronoun);
@@ -138,7 +141,7 @@ namespace ParsnipWebsite
                 ErrorText.Text = ValidationInfo;
             }
 
-            
+
         }
 
         protected void btnDeleteConfirm_Click(object sender, EventArgs e)
@@ -148,7 +151,7 @@ namespace ParsnipWebsite
             //Debug.WriteLine(temp);
             new LogEntry(Log.Default) { text = temp };
 
-            
+
 
             bool success;
             string feedback;
@@ -166,7 +169,7 @@ namespace ParsnipWebsite
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("Delete was clicked");   
+            Debug.WriteLine("Delete was clicked");
         }
     }
 }

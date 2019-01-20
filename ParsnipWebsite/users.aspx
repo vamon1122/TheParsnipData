@@ -1,6 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="users.aspx.cs" Inherits="ParsnipWebsite.create_user" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Users.aspx.cs" Inherits="ParsnipWebsite.Users" %>
+
 <%@ Register Src="~/CustomControls/admin/adminMenu.ascx" TagPrefix="adminControls" TagName="adminMenu" %>
-<%@ Register Src="~/CustomControls/UacApi/UserForm1.ascx" TagPrefix="uc1" TagName="UserForm1" %>
+<%@ Register Src="~/CustomControls/UacApi/AdminUserForm.ascx" TagPrefix="admin" TagName="AdminUserForm" %>
 
 <!DOCTYPE html>
 
@@ -41,7 +42,7 @@
             <asp:DropDownList ID="selectUser" runat="server" AutoPostBack="True" CssClass="form-control" 
                 onselectedindexchanged="SelectUser_Changed">
             </asp:DropDownList>
-            <uc1:UserForm1 runat="server" ID="UserForm" />
+            <admin:AdminUserForm runat="server" ID="UserForm" />
             <asp:Button runat="server" ID="btnAction" OnClick="btnAction_Click" CssClass="btn btn-primary" Text="Action"></asp:Button>
             <asp:Button runat="server" ID="btnDelete"  CssClass="btn btn-primary" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;"></asp:Button>
         </div>
@@ -69,3 +70,4 @@
     </form>
 </body>
 </html>
+

@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ParsnipWebsite {
+namespace ParsnipWebsite.CustomControls.UacApi {
     
     
-    public partial class UserForm1 {
+    public partial class AdminUserForm {
         
         /// <summary>
         /// username control.

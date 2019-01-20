@@ -10,7 +10,7 @@
 namespace ParsnipWebsite {
     
     
-    public partial class create_user {
+    public partial class Users {
         
         /// <summary>
         /// Error control.
@@ -91,7 +91,7 @@ namespace ParsnipWebsite {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ParsnipWebsite.UserForm1 UserForm;
+        protected global::ParsnipWebsite.CustomControls.UacApi.AdminUserForm UserForm;
         
         /// <summary>
         /// btnAction control.

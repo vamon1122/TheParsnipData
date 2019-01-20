@@ -80,6 +80,7 @@
     <None Include="Properties\PublishProfiles\Publish To Live.pubxml" />
     <Content Include="anonymous.aspx" />
     <Content Include="aspxdate.aspx" />
+    <Content Include="CustomControls\UacApi\AdminUserForm.ascx" />
     <Content Include="getdeviceinfo.aspx" />
     <Content Include="resources\media\images\photos\Photos\kieron_chat.png" />
     <Content Include="resources\media\images\webMedia\you_shall_not_pass.jpg" />
@@ -98,7 +99,6 @@
     <Content Include="bios.aspx" />
     <Content Include="carls-bullshit.html" />
     <Content Include="content removal.html" />
-    <Content Include="users.aspx" />
     <Content Include="css\old\m_style.css" />
     <Content Include="css\old\style.css" />
     <Content Include="css\style.css" />
@@ -182,11 +182,9 @@
     <Content Include="resources\media\images\photos\Photos\tom_glasses.JPG" />
     <Content Include="polls.aspx" />
     <Content Include="rounded.png" />
-    <Content Include="CustomControls\UacApi\UserForm1.ascx">
-      <SubType>ASPXCodeBehind</SubType>
-    </Content>
     <Content Include="UacService.asmx" />
     <Content Include="CustomControls\ViewSwitcher.ascx" />
+    <Content Include="Users.aspx" />
     <Content Include="Web.config" />
     <Content Include="videos.aspx" />
     <Content Include="_TEMPLATE.aspx" />
@@ -236,19 +234,18 @@
     <Compile Include="bios.aspx.designer.cs">
       <DependentUpon>bios.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\UacApi\AdminUserForm.ascx.cs">
+      <DependentUpon>AdminUserForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\UacApi\AdminUserForm.ascx.designer.cs">
+      <DependentUpon>AdminUserForm.ascx</DependentUpon>
+    </Compile>
     <Compile Include="getdeviceinfo.aspx.cs">
       <DependentUpon>getdeviceinfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="getdeviceinfo.aspx.designer.cs">
       <DependentUpon>getdeviceinfo.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="users.aspx.cs">
-      <DependentUpon>users.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="users.aspx.designer.cs">
-      <DependentUpon>users.aspx</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\admin\adminMenu.ascx.cs">
       <DependentUpon>adminMenu.ascx</DependentUpon>
@@ -332,13 +329,6 @@
       <DependentUpon>polls.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CustomControls\UacApi\UserForm1.ascx.cs">
-      <DependentUpon>UserForm1.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CustomControls\UacApi\UserForm1.ascx.designer.cs">
-      <DependentUpon>UserForm1.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -356,6 +346,13 @@
     </Compile>
     <Compile Include="CustomControls\ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Users.aspx.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Users.aspx.designer.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
     </Compile>
     <Compile Include="videos.aspx.cs">
       <DependentUpon>videos.aspx</DependentUpon>
