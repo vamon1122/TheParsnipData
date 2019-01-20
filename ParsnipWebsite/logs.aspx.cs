@@ -1,14 +1,15 @@
-﻿using LogApi;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using UacApi;
-using System.Diagnostics;
+using LogApi;
 
 namespace ParsnipWebsite
 {
-    public partial class logs : System.Web.UI.Page
+    public partial class Logs : System.Web.UI.Page
     {
         User myUser;
         Guid selectedLogId;

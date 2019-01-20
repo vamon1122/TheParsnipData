@@ -78,10 +78,12 @@
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Publish To Folder.pubxml" />
     <None Include="Properties\PublishProfiles\Publish To Live.pubxml" />
+    <Content Include="Admin.aspx" />
     <Content Include="anonymous.aspx" />
     <Content Include="aspxdate.aspx" />
     <Content Include="CustomControls\UacApi\AdminUserForm.ascx" />
     <Content Include="getdeviceinfo.aspx" />
+    <Content Include="Logs.aspx" />
     <Content Include="resources\media\images\photos\Photos\kieron_chat.png" />
     <Content Include="resources\media\images\webMedia\you_shall_not_pass.jpg" />
     <Content Include="Site.Mobile.Master" />
@@ -95,7 +97,6 @@
   <ItemGroup>
     <Content Include="access-denied.aspx" />
     <Content Include="CustomControls\AccountTiny.ascx" />
-    <Content Include="admin.aspx" />
     <Content Include="bios.aspx" />
     <Content Include="carls-bullshit.html" />
     <Content Include="content removal.html" />
@@ -114,7 +115,6 @@
     <Content Include="javascript\globalBodyV1.5.js" />
     <Content Include="login.aspx" />
     <Content Include="logout.aspx" />
-    <Content Include="logs.aspx" />
     <Content Include="memes.aspx" />
     <Content Include="minecraft.aspx" />
     <Content Include="css\parsnipStyle.css" />
@@ -198,6 +198,13 @@
     <Compile Include="access-denied.aspx.designer.cs">
       <DependentUpon>access-denied.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin.aspx.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin.aspx.designer.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="anonymous.aspx.cs">
       <DependentUpon>anonymous.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -218,13 +225,6 @@
     </Compile>
     <Compile Include="CustomControls\AccountTiny.ascx.designer.cs">
       <DependentUpon>AccountTiny.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="admin.aspx.cs">
-      <DependentUpon>admin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="admin.aspx.designer.cs">
-      <DependentUpon>admin.aspx</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\App_Start\RouteConfig.cs" />
     <Compile Include="bios.aspx.cs">
@@ -293,12 +293,12 @@
     <Compile Include="logout.aspx.designer.cs">
       <DependentUpon>logout.aspx</DependentUpon>
     </Compile>
-    <Compile Include="logs.aspx.cs">
-      <DependentUpon>logs.aspx</DependentUpon>
+    <Compile Include="Logs.aspx.cs">
+      <DependentUpon>Logs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="logs.aspx.designer.cs">
-      <DependentUpon>logs.aspx</DependentUpon>
+    <Compile Include="Logs.aspx.designer.cs">
+      <DependentUpon>Logs.aspx</DependentUpon>
     </Compile>
     <Compile Include="memes.aspx.cs">
       <DependentUpon>memes.aspx</DependentUpon>

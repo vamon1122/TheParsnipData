@@ -10,7 +10,7 @@
 namespace ParsnipWebsite {
     
     
-    public partial class logs {
+    public partial class Logs {
         
         /// <summary>
         /// form1 control.
