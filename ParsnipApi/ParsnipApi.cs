@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace ParsnipApi
 {
-    public static class Data
+    public static class Parsnip
     {
         public static string sqlConnectionString = "Server=198.38.83.33;Database=vamon112_parsnipdb;Uid=vamon112_ben;Password=ccjO07JT";
         public static SqlConnection GetOpenDbConnection()

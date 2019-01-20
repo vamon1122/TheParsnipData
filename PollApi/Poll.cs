@@ -23,7 +23,7 @@ namespace PollApi
         public Poll()
         {
             id = Guid.NewGuid();
-            dateCreated = ParsnipApi.Data.adjustedTime;
+            dateCreated = Parsnip.adjustedTime;
         }
 
         public bool Insert()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ParsnipApi;
 
 namespace AnonymousApi
 {
@@ -17,7 +18,7 @@ namespace AnonymousApi
         public Reaction()
         {
             id = Guid.NewGuid();
-            date = ParsnipApi.Data.adjustedTime;
+            date = Parsnip.adjustedTime;
         }
 
         public Reaction(Guid pGuid)

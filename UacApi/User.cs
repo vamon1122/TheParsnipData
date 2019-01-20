@@ -159,7 +159,7 @@ namespace UacApi
                 Debug.WriteLine("----------Getting all users...");
 
             var users = new List<User>();
-            using (SqlConnection conn = ParsnipApi.Data.GetOpenDbConnection())
+            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
                 SqlCommand GetUsers = new SqlCommand("SELECT * FROM t_Users", conn);
                 using (SqlDataReader reader = GetUsers.ExecuteReader())
@@ -199,7 +199,7 @@ namespace UacApi
             //Debug.WriteLine(string.Format("User was initialised without a guid. WhereAmI = {0} Their guid will be: {1}", pWhereAmI, Guid.Empty));
             Id = Guid.Empty;
             
-            DateTimeCreated = ParsnipApi.Data.adjustedTime;
+            DateTimeCreated = Parsnip.adjustedTime;
             AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
@@ -217,7 +217,7 @@ namespace UacApi
 
         public bool ExistsOnDb()
         {
-            return ExistsOnDb(ParsnipApi.Data.GetOpenDbConnection());
+            return ExistsOnDb(Parsnip.GetOpenDbConnection());
         }
 
         private bool ExistsOnDb(SqlConnection pOpenConn)
@@ -814,7 +814,7 @@ namespace UacApi
         internal bool LogIn(string pUsername)
         {
             Username = pUsername;
-            return DbSelect(ParsnipApi.Data.GetOpenDbConnection());
+            return DbSelect(Parsnip.GetOpenDbConnection());
         }
 
         public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
@@ -831,7 +831,7 @@ namespace UacApi
             string dbPwd = null;
             Username = pUsername;
 
-            using (SqlConnection conn = ParsnipApi.Data.GetOpenDbConnection())
+            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
                 //AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
 
@@ -952,7 +952,7 @@ namespace UacApi
                         //AccountLog.Debug("username = " + username);
                         SqlCommand Command = new SqlCommand("UPDATE t_Users SET lastLogIn = @date WHERE username = @username;", conn);
                         Command.Parameters.Add(new SqlParameter("username", Username));
-                        Command.Parameters.Add(new SqlParameter("date", ParsnipApi.Data.adjustedTime));
+                        Command.Parameters.Add(new SqlParameter("date", Parsnip.adjustedTime));
                         RecordsAffected = Command.ExecuteNonQuery();
 
                     }
@@ -1013,7 +1013,7 @@ namespace UacApi
                         InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
                         InsertIntoDb.Parameters.Add(new SqlParameter("forename", Forename.Trim()));
                         InsertIntoDb.Parameters.Add(new SqlParameter("surname", Surname.Trim()));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("dateTimeCreated", ParsnipApi.Data.adjustedTime));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("dateTimeCreated", Parsnip.adjustedTime));
                         InsertIntoDb.Parameters.Add(new SqlParameter("accountType", AccountType));
                         InsertIntoDb.Parameters.Add(new SqlParameter("accountStatus", AccountStatus));
 
@@ -1044,7 +1044,7 @@ namespace UacApi
 
         public bool Select()
         {
-            return DbSelect(ParsnipApi.Data.GetOpenDbConnection());
+            return DbSelect(Parsnip.GetOpenDbConnection());
         }
 
         internal bool DbSelect(SqlConnection pOpenConn)
@@ -1094,7 +1094,7 @@ namespace UacApi
         public bool Update()
         {
             bool success;
-            SqlConnection UpdateConnection = ParsnipApi.Data.GetOpenDbConnection();
+            SqlConnection UpdateConnection = Parsnip.GetOpenDbConnection();
             if (ExistsOnDb(UpdateConnection)) success = DbUpdate(UpdateConnection); else success = DbInsert(Password, UpdateConnection);
             UpdateConnection.Close();
             return success;
@@ -1510,7 +1510,7 @@ namespace UacApi
 
         public bool Delete()
         {
-            return DbDelete(ParsnipApi.Data.GetOpenDbConnection());
+            return DbDelete(Parsnip.GetOpenDbConnection());
         }
 
         internal bool DbDelete(SqlConnection pOpenConn)

@@ -17,7 +17,7 @@ namespace LogApi
             
             try
             {
-                using(SqlConnection conn = new SqlConnection(ParsnipApi.Data.sqlConnectionString))
+                using(SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
                 {
                     conn.Open();
 
@@ -42,7 +42,7 @@ namespace LogApi
             {
                 logEntries = new List<LogEntry>();
                 
-                using(SqlConnection conn = new SqlConnection(ParsnipApi.Data.sqlConnectionString))
+                using(SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
                 {
                     conn.Open();
                     SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM t_LogEntries ORDER BY dateTime DESC", conn);

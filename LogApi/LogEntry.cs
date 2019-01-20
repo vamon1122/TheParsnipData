@@ -38,6 +38,7 @@ namespace LogApi
             }
         }
 
+        private static DateTime lastEntry;
 
         public LogEntry(SqlDataReader pReader)
         {
@@ -67,7 +68,7 @@ namespace LogApi
             Debug.WriteLine("----------Creating new log entry. Logid = " + logId);
             logId = pLog.Id;
             //userId = pUserId;
-            date = ParsnipApi.Data.adjustedTime;
+            date = Parsnip.adjustedTime;
 
         }
 
@@ -76,20 +77,24 @@ namespace LogApi
             string stage = "";
             try
             {
-                using (SqlConnection openConn = ParsnipApi.Data.GetOpenDbConnection())
+                using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
                 {
-                    SqlCommand checkLastEntryTime = new SqlCommand("SELECT MAX(dateTime) FROM t_LogEntries", openConn);
-
                     stage = "inserting LogEntry...";
-
-                    Debug.WriteLine("text = " + text);
-                    Debug.WriteLine("_text = " + _text);
 
                     SqlCommand insertLogEntry = new SqlCommand("INSERT INTO t_LogEntries (id, logId, dateTime, text) VALUES(@id, @logId, @dateTime, @text)", openConn);
                     insertLogEntry.Parameters.Add(new SqlParameter("id", id));
                     insertLogEntry.Parameters.Add(new SqlParameter("logId", logId));
-                    insertLogEntry.Parameters.Add(new SqlParameter("dateTime", date));
                     insertLogEntry.Parameters.Add(new SqlParameter("text", text));
+                    insertLogEntry.Parameters.Add(new SqlParameter("dateTime", date));
+
+
+                    
+
+                    Debug.WriteLine("text = " + text);
+                    Debug.WriteLine("_text = " + _text);
+
+                    
+                    
 
                     insertLogEntry.ExecuteNonQuery();
 

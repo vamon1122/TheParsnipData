@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using ParsnipApi;
 
 namespace AnonymousApi
 {
@@ -17,7 +18,7 @@ namespace AnonymousApi
         public Post()
         {
             id = Guid.NewGuid();
-            date = ParsnipApi.Data.adjustedTime;
+            date = Parsnip.adjustedTime;
         }
 
         public Post(SqlDataReader pReader)
@@ -30,7 +31,7 @@ namespace AnonymousApi
 
         public bool Insert()
         {
-            SqlConnection temp = new SqlConnection(ParsnipApi.Data.sqlConnectionString);
+            SqlConnection temp = new SqlConnection(Parsnip.sqlConnectionString);
             temp.Open();
             return Insert(temp);
         }
