@@ -49,7 +49,7 @@ namespace UacApi
                     new LogEntry(SessionLog) { text = string.Format("{0} started a new session. Session ID = {1}",myUser.FullName, pPage.Session.SessionID.ToString()) };
                 }
                 else
-                    new LogEntry(SessionLog) { text = string.Format("{0} continued {1} session. Session ID = {1}", myUser.FullName, myUser.PosessivePronoun, pPage.Session.SessionID.ToString()) };
+                    new LogEntry(SessionLog) { text = string.Format("{0} continued {1} session. Session ID = {2}", myUser.FullName, myUser.PosessivePronoun, pPage.Session.SessionID.ToString()) };
 
 
 
