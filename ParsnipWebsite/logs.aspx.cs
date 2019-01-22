@@ -39,6 +39,8 @@ namespace ParsnipWebsite
                 MyRow.Cells.Add(new TableCell() { Text = myEntry.text });
                 LogTable.Rows.Add(MyRow);
             }
+
+            EntryCount.Text = string.Format("{0} entries found", LogEntries.Count());
         }
 
         void Page_LoadComplete(object sender, EventArgs e)

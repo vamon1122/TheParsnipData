@@ -39,9 +39,8 @@
             <asp:DropDownList ID="SelectLog" runat="server" AutoPostBack="True" CssClass="form-control" 
                 onselectedindexchanged="SelectLog_Changed">
             </asp:DropDownList>
-
+            <asp:Label runat="server" ID="EntryCount"></asp:Label>
             <br />
-
             <div style="padding-bottom : 3%">
                 <button data-toggle="modal" data-target="#confirmClearLogs" class="btn btn-primary" onclick="return false" >Clear</button>
             </div>
