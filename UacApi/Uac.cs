@@ -46,10 +46,10 @@ namespace UacApi
                 if (pPage.Session["userName"] == null)
                 {
                     pPage.Session["userName"] = myUser.Username;
-                    new LogEntry(SessionLog) { text = string.Format("{0} started a new session. Session ID = {1}",myUser.FullName, pPage.Session.SessionID.ToString()) };
+                    new LogEntry(SessionLog) { text = string.Format("{0} started a new session from {1} {2}. Session ID = {3}.",myUser.FullName, myUser.PosessivePronoun, pDeviceType, pPage.Session.SessionID.ToString()) };
                 }
                 else
-                    new LogEntry(SessionLog) { text = string.Format("{0} continued {1} session. Session ID = {2}", myUser.FullName, myUser.PosessivePronoun, pPage.Session.SessionID.ToString()) };
+                    new LogEntry(SessionLog) { text = string.Format("{0} continued {1} session on {1} {2}. Session ID = {3}.", myUser.FullName, myUser.PosessivePronoun, pDeviceType, pPage.Session.SessionID.ToString()) };
 
 
 
