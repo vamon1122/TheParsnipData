@@ -15,8 +15,12 @@ namespace UacApi
     {
         private static Log PageAccessLog = new Log("access");
         private static Log PageAccessJustificationLog = new Log("access justification");
+        private static Log DebugLog = new Log("debug");
+        private static Log SessionLog = new Log("session");
         public static User SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
         {
+            
+
             if(string.IsNullOrEmpty(pDeviceType) || string.IsNullOrWhiteSpace(pDeviceType))
             {
                 //new LogEntry(Log.Default) { text = "Attempted to secure the page but deviceInfo was incomplete. Getting device info..." };
@@ -38,6 +42,17 @@ namespace UacApi
             if (myUser.LogIn())
             {
                 //Debug.WriteLine("----------Securing page, accountType = " + myUser.AccountType);
+                
+                if (pPage.Session["userName"] == null)
+                {
+                    pPage.Session["userName"] = myUser.Username;
+                    new LogEntry(SessionLog) { text = string.Format("{0} started a new session. Session ID = {1}",myUser.FullName, pPage.Session.SessionID.ToString()) };
+                }
+                else
+                    new LogEntry(SessionLog) { text = string.Format("{0} continued {1} session. Session ID = {1}", myUser.FullName, myUser.PosessivePronoun, pPage.Session.SessionID.ToString()) };
+
+
+
 
                 if (myUser.AccountStatus == "active")
                 {
