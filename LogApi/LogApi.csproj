@@ -53,6 +53,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CookieApi\CookieApi.csproj">
+      <Project>{01a82bc2-2491-4381-981a-6540c8a93b45}</Project>
+      <Name>CookieApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ParsnipApi\ParsnipApi.csproj">
       <Project>{f0504054-eed6-4f6f-b35c-c684381181d3}</Project>
       <Name>ParsnipApi</Name>

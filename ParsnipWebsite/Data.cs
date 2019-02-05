@@ -45,5 +45,6 @@ namespace ParsnipWebsite
         }
         public static string deviceLatitude { get { return Cookie.Read("deviceLatitude"); } }
         public static string deviceLongitude { get { return Cookie.Read("deviceLongitude"); } }
+        public static string SessionId { get { return Cookie.Read("sessionId"); } }
     }
 }

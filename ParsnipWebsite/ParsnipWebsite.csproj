@@ -68,6 +68,9 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System-Web-Helpers.dll.1.0.0\lib\Net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -82,10 +85,13 @@
     <Content Include="anonymous.aspx" />
     <Content Include="aspxdate.aspx" />
     <Content Include="CustomControls\UacApi\AdminUserForm.ascx" />
+    <Content Include="dev\Photos.aspx" />
     <Content Include="getdeviceinfo.aspx" />
     <Content Include="Logs.aspx" />
+    <Content Include="Reset-Password.aspx" />
     <Content Include="resources\media\images\photos\Photos\kieron_chat.png" />
     <Content Include="resources\media\images\webMedia\you_shall_not_pass.jpg" />
+    <Content Include="Set-Password.aspx" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -240,6 +246,13 @@
     <Compile Include="CustomControls\UacApi\AdminUserForm.ascx.designer.cs">
       <DependentUpon>AdminUserForm.ascx</DependentUpon>
     </Compile>
+    <Compile Include="dev\Photos.aspx.cs">
+      <DependentUpon>Photos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="dev\Photos.aspx.designer.cs">
+      <DependentUpon>Photos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="getdeviceinfo.aspx.cs">
       <DependentUpon>getdeviceinfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -329,6 +342,20 @@
       <DependentUpon>polls.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reset-Password.aspx.cs">
+      <DependentUpon>Reset-Password.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reset-Password.aspx.designer.cs">
+      <DependentUpon>Reset-Password.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Set-Password.aspx.cs">
+      <DependentUpon>Set-Password.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Set-Password.aspx.designer.cs">
+      <DependentUpon>Set-Password.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -397,6 +424,9 @@
       <Project>{cb9e3c22-c371-4e16-81d9-3b83a0efb355}</Project>
       <Name>UacApi</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="resources\media\images\uploads\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

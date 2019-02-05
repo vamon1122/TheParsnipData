@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using ParsnipApi;
+using CookieApi;
 
 namespace LogApi
 {
@@ -15,14 +16,15 @@ namespace LogApi
         public Guid Id { get; private set; }
         public DateTime DateTimeCreated { get; private set; }
         public string Name { get; set;  }
+        public string SessionId { get; private set; }
 
 
-        public Log(SqlDataReader pReader)
+        public Log(SqlDataReader pReader) : this()
         {
             AddValues(pReader);
         }
 
-        public Log(Guid pLogId)
+        public Log(Guid pLogId) : this()
         {
             isNew = true;
             Id = pLogId;
@@ -30,7 +32,12 @@ namespace LogApi
 
         }
 
-        public Log(string pName)
+        Log()
+        {
+            SessionId = Cookie.Read("sessionId");
+        }
+
+        public Log(string pName) : this()
         {
             using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
             {

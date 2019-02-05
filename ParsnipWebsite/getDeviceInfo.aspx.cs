@@ -13,6 +13,8 @@ namespace ParsnipWebsite
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("Writing sessionId cookie = " + Session.SessionID.ToString());
+            Cookie.WriteSession("sessionId", Session.SessionID.ToString());
 
         }
     }

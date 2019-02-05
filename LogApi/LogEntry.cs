@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ParsnipApi;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using CookieApi;
 
 namespace LogApi
 {
@@ -16,6 +17,7 @@ namespace LogApi
         public Guid logId { get; set; }
         public Guid userId { get; private set;  } 
         public DateTime date { get; private set; }
+        private string SessionId;
 
         private string _type;
         public string type { get { return _type; } set{ if (value.Length < 11)  _type = value;  else  throw new FormatException(String.Format("The value for type \"{0}\" is too long!", value)); } }
@@ -42,6 +44,7 @@ namespace LogApi
 
         public LogEntry(SqlDataReader pReader)
         {
+            isNew = false;
             AddValues(pReader);
         }
 
@@ -62,6 +65,7 @@ namespace LogApi
         public LogEntry(Log pLog)
         {
             isNew = true;
+            SessionId = SessionId = CookieApi.Cookie.Read("ASP.NET_sessionId");
             id = Guid.NewGuid();
             if (pLog.Id == Guid.Empty)
                 throw new Exception("LogId was empty!");
@@ -80,10 +84,14 @@ namespace LogApi
                 using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
                 {
                     stage = "inserting LogEntry...";
+                    
+                    Debug.WriteLine("---------- BEN! - sessionId = " + SessionId);
+                    
 
-                    SqlCommand insertLogEntry = new SqlCommand("INSERT INTO t_LogEntries (id, logId, dateTime, text) VALUES(@id, @logId, @dateTime, @text)", openConn);
+                    SqlCommand insertLogEntry = new SqlCommand("INSERT INTO t_LogEntries (id, logId, sessionId, dateTime, text) VALUES(@id, @logId, @sessionId, @dateTime, @text)", openConn);
                     insertLogEntry.Parameters.Add(new SqlParameter("id", id));
                     insertLogEntry.Parameters.Add(new SqlParameter("logId", logId));
+                    insertLogEntry.Parameters.Add(new SqlParameter("sessionId", SessionId));
                     insertLogEntry.Parameters.Add(new SqlParameter("text", text));
                     insertLogEntry.Parameters.Add(new SqlParameter("dateTime", date));
 
