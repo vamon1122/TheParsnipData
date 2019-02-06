@@ -39,7 +39,15 @@
     <div class="cens_req"><label>Certain elements of this page were removed by request. </label><a href="content removal.html">Click here</a><label> to learn more.</label></div>
     
     <h2>Photos</h2>
+        <hr class="break" />
+        <a href ="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7">
+
+        <img src="resources/media/images/webMedia/google-photos.svg" width="100" />
+            </a>
+        <br />
+        <label>Click <a href="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7">here</a> to view 'The Parsnip Collection' on google photos</label>
     <hr class="break" />
+
         <!-- This needs to be here because it needs to be after 'link_style' but before the slideshow is made -->
         <script src="../javascript/globalBodyV1.6.js"></script>
         <!--
