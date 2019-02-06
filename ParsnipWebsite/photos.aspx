@@ -42,6 +42,7 @@
     <hr class="break" />
         <!-- This needs to be here because it needs to be after 'link_style' but before the slideshow is made -->
         <script src="../javascript/globalBodyV1.6.js"></script>
+        <!--
     <script src="https://cdn.jsdelivr.net/npm/publicalbum@latest/dist/pa-embed-player.min.js" async></script>
     <div class="pa-embed-player" style="width:100%; height:480px; display:none; margin-bottom:1%;"
       data-link="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7"
@@ -409,9 +410,10 @@
           <img src="https://res.cloudinary.com/drp9iwjqz/image/upload/e_blur:2000,f_auto,q_auto:eco/v1508291830/jeremywagner.me/using-webp-images/tacos-1x.jpg" data-src="https://lh3.googleusercontent.com/Hb5je-j8xDSG3pARdkIJ4rpn2sJBLOsQbVT_hK_8ofRp_RD2d2z_jC1v9tL4JTsMte6tmApSpr2KRNONJLQrjdDURVZrq3jzj2LGV5zFLahEc78dS6DIo43PIedbKvrPgH98DYG4kQ=w1920-h1080"  alt="" />
       <img src="https://res.cloudinary.com/drp9iwjqz/image/upload/e_blur:2000,f_auto,q_auto:eco/v1508291830/jeremywagner.me/using-webp-images/tacos-1x.jpg"data-src="https://lh3.googleusercontent.com/yuGSF-89Wz7m85Qc8EOSx5bqK8PCvjzCa10c1NgaL8OmRfXSBg3mVMaI4sxic24eq_ZZq_K1unEX4Ms7aiR13DEXzbI9o7YNDwyBTX6AxvNT_Ur7MpTR-vNyvdnNDwBRDXPGL9yZ7w=w1920-h1080"  alt="" />
       <img src="https://res.cloudinary.com/drp9iwjqz/image/upload/e_blur:2000,f_auto,q_auto:eco/v1508291830/jeremywagner.me/using-webp-images/tacos-1x.jpg"data-src="https://lh3.googleusercontent.com/J6sxYl93_ALZlB0mUHdugboZTVejJxsa7u_ACog5hMdILyFEMJ5egIir3FHcOyg-_hIuWluW320Sezl1uQoGeA-zmvrnVoMBGZX7wiwrGTLTfTxchCG0JkMZr5b3VYXn3_dEFZ7AQg=w1920-h1080"  alt="" />
-        -->
+        
     </div>
-    <hr class="break" />
+
+    <hr class="break" />-->
 
     <div id="main">
     <div><img	src="https://res.cloudinary.com/drp9iwjqz/image/upload/e_blur:2000,f_auto,q_auto:eco/v1508291830/jeremywagner.me/using-webp-images/tacos-1x.jpg"	data-src="https://lh3.googleusercontent.com/4jCXzK4Yn5FMLVHnHAh3SZ1CG2HvfKrMHc7bqTv22xS8OXu3m4lR2xgnQG8uA_-maD7MrJek1HWYVR8QdjR3sGaih7BW7cOP-iGSXYfupYFnEQDQ_BnDtc_GMO5V3HfmMgPJ69H08g=w1920-h1080"	data-srcset="https://lh3.googleusercontent.com/4jCXzK4Yn5FMLVHnHAh3SZ1CG2HvfKrMHc7bqTv22xS8OXu3m4lR2xgnQG8uA_-maD7MrJek1HWYVR8QdjR3sGaih7BW7cOP-iGSXYfupYFnEQDQ_BnDtc_GMO5V3HfmMgPJ69H08g=w1920-h1080"	class="meme	lazy" 	alt=""	/><hr	class="break"	/></div>
