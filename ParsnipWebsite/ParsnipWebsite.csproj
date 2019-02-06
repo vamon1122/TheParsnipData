@@ -78,6 +78,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="package.json" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Publish To Folder.pubxml" />
     <None Include="Properties\PublishProfiles\Publish To Live.pubxml" />
@@ -92,6 +93,7 @@
     <Content Include="Reset-Password.aspx" />
     <Content Include="resources\media\images\photos\Photos\kieron_chat.png" />
     <Content Include="resources\media\images\webMedia\google-photos.svg" />
+    <Content Include="resources\media\images\webMedia\pix-vertical-placeholder.jpg" />
     <Content Include="resources\media\images\webMedia\you_shall_not_pass.jpg" />
     <Content Include="Set-Password.aspx" />
     <Content Include="Site.Mobile.Master" />
