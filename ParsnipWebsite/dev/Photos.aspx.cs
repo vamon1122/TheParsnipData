@@ -11,8 +11,9 @@ namespace ParsnipWebsite.dev
     public partial class Photos : System.Web.UI.Page
     {
         //https://docs.microsoft.com/en-us/aspnet/web-pages/overview/ui-layouts-and-themes/9-working-with-images
-        /*protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
+            /*
             WebImage photo = null;
             var newFileName = "";
             var imagePath = "";
@@ -29,6 +30,7 @@ namespace ParsnipWebsite.dev
                     photo.Save(@"~\" + imagePath);
                 }
             }
-        }*/
+            */
+        }
     }
 }

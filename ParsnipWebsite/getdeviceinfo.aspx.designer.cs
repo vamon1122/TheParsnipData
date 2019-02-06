@@ -10,15 +10,15 @@
 namespace ParsnipWebsite {
     
     
-    public partial class photos {
+    public partial class getdeviceinfo {
         
         /// <summary>
-        /// link_style control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlLink link_style;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
     }
 }

@@ -15,7 +15,7 @@
             <label id="redirectLabel" style="visibility:hidden">default redirect</label>
         </div>
     </form>
-    <script src="../javascript/globalBodyV1.5.js"></script>
+    <script src="../javascript/globalBodyV1.6.js"></script>
     <script>
         var errorLabel = document.getElementById("errorLabel");
         errorLabel.innerHTML = "Creating deviceType cookie..." + deviceDetect();

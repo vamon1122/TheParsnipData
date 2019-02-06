@@ -18,7 +18,7 @@
 <body style="padding-top:5%; padding-bottom:5%;">
     
     <form runat="server">
-        <script src="../javascript/globalBodyV1.5.js"></script>
+        <script src="../javascript/globalBodyV1.6.js"></script>
         <div class="center_div">
             <div class="alert alert-warning alert-dismissible" runat="server" style="display:none" id="Warning">
                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

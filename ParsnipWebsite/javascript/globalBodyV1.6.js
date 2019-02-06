@@ -1169,11 +1169,11 @@ function second() {
         || navigator.userAgent.match(/Windows Phone/i)
         ) {
             link_style = document.getElementById("link_style");
-            link_style.setAttribute("href", "../CSS/old/m_style.css");
+            link_style.setAttribute("href", "../css/old/m_style.css");
         }
         else {
             link_style = document.getElementById("link_style");
-            link_style.setAttribute("href", "../CSS/old/style.css");
+            link_style.setAttribute("href", "../css/old/style.css");
         }
     }
 }

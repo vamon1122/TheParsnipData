@@ -1,249 +1,182 @@
-﻿body
-{
-    -webkit-text-size-adjust: none;
-    font-size: 40px;
-    color: grey;
-    font-family: "Verdana";
-    height: 100%;
-    width: 100%;
-    align-content: center;
-    text-align: center;
-    margin-top:160px;
-    background-image: url(../resources/media/patterns/pattern_white1.png);
+﻿html {
+    overflow-y: scroll;
+    min-width: 0px;
 }
 
-.cens_req
-{
-    font-size:20px;
+.cens_req {
+    font-size: 10px;
 }
 
-.censored
-{
-    display:none;
-}
-
-.meme
-{
-    width: 90%;
-}
-
-.nomobile
-{
+.censored {
     display: none;
 }
 
-.spin
-{
-    animation: spin 0.5s;
-    rotation: 180deg;
-    
+.meme {
+    width: 90%;
 }
 
-@keyframes spin
-{
+.spin {
+    animation: spin 1s;
+}
+
+@keyframes spin {
     0% {
         transform: rotate(0deg);
     }
-    100%
-    {
+
+    100% {
         transform: rotate(180deg);
     }
 }
 
-.style2
-{
-    display:none;
+body {
+    font-family: "Verdana";
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    /*background-color:#e2fffe;*/
+    -webkit-text-size-ajust: none;
 }
 
-.padding
-{
-    padding: 80px;
-    padding-top: 0px;
-}
 
-
-
-h1
-{
-    padding-top:100px;
-    font-size: 100px;
+/*For main title in old style, not really used in new style*/
+h1 {
+    font-size: 40px;
     text-align: center;
 }
 
-h2
-{
-    font-size: 70px;
-    text-align: center;    
-}
 
-h3
-{
-    font-size: 50px;
+/*Subtitles in old and new, main title in new*/
+h2 {
+    font-size: 30px;
     text-align: center;
 }
 
-hr
-{
-    height:3px; 
+
+/*Sub-subtitles and youtube videos*/
+h3 {
+    text-align: center;
+    font-size: 20px;
+}
+
+
+/*Separates different articles with a small line underneath*/
+hr.break {
+    height: 3px;
+    width: 20px;
+    border-radius: 10px;
     background-color: grey;
-}
-
-hr.break /*For hr*/
-{
-    height:10px; 
-    width: 50px; 
-    border-radius: 10px; 
-    background-color: grey; 
     border-style: none;
 }
 
-input[type="button"].menu
-{
+
+/*Old style menu buttons*/
+input[type="button"].menu {
     color: #CCCCCC;
     background-image: url(../resources/media/patterns/pattern_black1.png);
-    width: 300px; 
-    height: 60px;
-    border-radius:20px 20px;
-    font-size:35px;
-    white-space: nowrap;
-    margin-bottom: 10px;
+    width: 200px;
+    height: 30px;
+    border-radius: 10px 10px;
+    font-size: 18px;
+    margin-bottom: 5px;
+    outline: none;
     cursor: pointer;
 }
 
-input[type="submit"]
-{
-    color: dimgray ;
-    background-image: url(../resources/media/patterns/pattern_white1.png);
-    width: 300px; 
-    height: 60px;
-    border-radius:20px 20px;
-    font-size:35px;
-    white-space: nowrap;
-    margin-bottom: 10px;
+
+input[type="submit"] {
+    background-color: lightgrey;
+    border-radius: 5px;
+    background-image: none;
+    color: black;
+    font-size: 20px;
+    height: 30px;
+    width: 150px;
+    border-style: outset;
+    border-width: 2px;
     cursor: pointer;
 }
 
-button
-{
-    background-color: lightgrey; 
-    border-radius: 5px; 
-    background-image: none; 
-    color: black; 
-    font-size: 30px; 
-    height:50px; 
-    width: 250px;
-    border-style:outset;
-    border-width:2px;
+
+/*Plain square grey button*/
+button {
+    background-color: lightgrey;
+    border-radius: 5px;
+    background-image: none;
+    color: black;
+    font-size: 20px;
+    height: 30px;
+    width: 150px;
+    border-style: outset;
+    border-width: 2px;
     cursor: pointer;
 }
 
-input[type="text"]
-{
-    background-color:lightyellow;
-    height:50px;
-    width:300px;
-    font-size: 40px;
+
+/*Text box, yellow background*/
+input[type="text"] {
+    background-color: lightyellow;
+    height: 25px;
+    width: 200px;
+    font-size: 30px;
     border-radius: 5px;
 }
 
-        ul {
-            background-color: #555;
-            list-style-type: none;
-            padding-left: 0;
-            margin: 0px;
-        }
 
-        li {
-            margin: 0px;
-            text-decoration: none;
-        }
+/*ul used in new menu*/
 
-            li a {
-                text-align: center;
-                font-size: 20px;
-                display: block;
-                /*width: 100%;*/
-                color: white;
-                text-decoration: none;
-            }
+.hov:hover {
+    animation: hovfadein 0.5s;
+    background-color: dimgrey;
+    color: white;
+    cursor: pointer;
+}
 
-                li a:hover {
-                    background-color: dimgrey;
-                    color:black;
-                    cursor: pointer;
-                }
 
-                li a.active {
-                    background-color: green;
-                    color: white;
-                }
+/*Hovering over menu button*/
+@keyframes hovfadein {
+    from {
+        background-color: #555;
+    }
 
-        .parsnip {
-            position: absolute;
-            left: 10px;
-            top: 10px;
-            animation: 1s parsnip;
-        }
+    to {
+        background-color: dimgrey;
+    }
+}
 
-        @keyframes parsnip {
-            from {
-                left: -150px;
-            }
+li a.active {
+    background-color: green;
+    color: white;
+}
 
-            to {
-                left: 10px;
-            }
-        }
 
-        .menuDown
-        {
-            animation: 0.5s menuDown
-        }
-
-        @keyframes menuDown
-        {
-            0% {
-                top: -500px
-            }
-
-            100% {
-                top:140px
-            }
-        }
-
-        .menuUp         
-        {
-            animation: 0.5s menuUp
-        }
-
-                @keyframes menuUp
-                {
-                    0%{top:140px}
-                    100%{top: -500px}
-                }
-
-iframe
-{
+/*Redundant*/
+iframe {
     padding: 0;
     margin: 0;
 }
 
-table
-{
+
+/*Redundant*/
+table {
     height: 100%;
     width: 100%;
 }
 
-td
-{
-    vertical-align:top;
+
+/*Redundant*/
+td {
+    vertical-align: top;
 }
 
-a
-{
+
+/*No underline in hyperlinks*/
+a {
     text-decoration: none;
 }
 
+
+/*Fade in for 0.5 seconds*/
 .fade0p5 {
     -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
     -moz-animation: fadein 0.5s; /* Firefox < 16 */
@@ -252,53 +185,157 @@ a
     animation: fadein 0.5s;
 }
 
-.fade1{
-    -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 1s; /* Firefox < 16 */
-        -ms-animation: fadein 1s; /* Internet Explorer */
-         -o-animation: fadein 1s; /* Opera < 12.1 */
-            animation: fadein 1s;
+
+/*Fade in for 1 second*/
+.fade1 {
+    animation: fadein 1s;
 }
 
-.fade2{
-    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 2s; /* Firefox < 16 */
-        -ms-animation: fadein 2s; /* Internet Explorer */
-         -o-animation: fadein 2s; /* Opera < 12.1 */
-            animation: fadein 2s;
+
+/*Fade in for 2 seconds*/
+.fade2 {
+    animation: fadein 2s;
 }
 
+
+/*Key frames for fade in classes*/
 @keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
-/* Firefox < 16 */
-@-moz-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+/*Clock background swithcher*/
+.pulse {
+    animation-name: pulse;
+    animation-duration: 16s;
+    animation-iteration-count: infinite;
 }
 
-/* Safari, Chrome and Opera > 12.1 */
-@-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+
+/*Keyframes for clock background swithcher*/
+@keyframes pulse {
+    0% {
+        background-color: grey;
+        color: white;
+    }
+
+    10% {
+        background-color: grey;
+        color: white;
+    }
+
+    20% {
+        background-color: grey;
+        color: white;
+    }
+
+    30% {
+        background-color: grey;
+        color: white;
+    }
+
+    40% {
+        background-color: grey;
+        color: white;
+    }
+
+    50% {
+        background-color: white;
+        color: grey;
+    }
+
+    60% {
+        background-color: white;
+        color: grey;
+    }
+
+    70% {
+        background-color: white;
+        color: grey;
+    }
+
+    80% {
+        background-color: white;
+        color: grey;
+    }
+
+    90% {
+        background-color: white;
+        color: grey;
+    }
+
+    100% {
+        background-color: grey;
+        color: white;
+    }
 }
 
-/* Internet Explorer */
-@-ms-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+
+/*Youtube CSS*/
+.youtube-container {
+    display: block;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 600px;
 }
 
-/* Opera < 12.1 */
-@-o-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+.youtube-player {
+    display: block;
+    width: 100%; /* assuming that the video has a 16:9 ratio */
+    padding-bottom: 56.25%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: hand;
+    cursor: pointer;
+    display: block;
 }
 
-.youtube-container { display: block; margin: 20px auto; width: 95%; }
-.youtube-player { display: block; width: 100%; padding-bottom: 56.25%; overflow: hidden; position: relative; width: 100%; height: 100%; cursor: pointer; display: block; }
-img.youtube-thumb { bottom: 0; display: block; left: 0; margin: auto; max-width: 100%; width: 100%; position: absolute; right: 0; top: 0; height: auto }
-div.play-button { height: 400px; width: 400px; left: 50%; top: 50%; margin-left: -36px; margin-top: -36px; position: absolute; background: url("http://i.imgur.com/TxzC70f.png") no-repeat; }
-#youtube-iframe { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+img.youtube-thumb {
+    bottom: 0;
+    display: block;
+    left: 0;
+    margin: auto;
+    max-width: 100%;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: auto
+}
+
+div.play-button {
+    height: 72px;
+    width: 72px;
+    left: 50%;
+    top: 50%;
+    margin-left: -36px;
+    margin-top: -36px;
+    position: absolute;
+    background: url("http://i.imgur.com/TxzC70f.png") no-repeat;
+}
+
+#youtube-iframe {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+
+/*Good Backgrounds For Buttons
+- http://www.designbolts.com/wp-content/uploads/2013/02/Knot-Grey-Seamless-Pattern-For-Website-Background.jpg (#444444)
+- http://www.thepulsefitness.com/wp-content/uploads/2012/03/grey-pattern.jpg1.png (grey)
+- http://thumbs.dreamstime.com/x/seamless-grey-tile-pattern-8931535.jpg (black)
+- http://thumbs.dreamstime.com/x/grey-gingham-pattern-9768044.jpg (not sure)
+
+Good Backgrounds
+-http://data.whicdn.com/images/49133760/original.jpg */

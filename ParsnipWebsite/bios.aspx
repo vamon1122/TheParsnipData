@@ -46,8 +46,8 @@
     <img src="resources/media/images/photos/Photos/kieron_chat.png" id="Kieron_chat" />
     <br />
     <br />
-    <script src="../javascript/globalBodyV1.5.js"></script>
-    <script src="../javascript/menuV1.11.js"></script>
+    <script src="../javascript/globalBodyV1.6.js"></script>
+    <script src="../javascript/menuV1.13.js"></script>
     <script>
         var chat = document.getElementById("Kieron_chat")
         var kieron = document.getElementById("kieron")

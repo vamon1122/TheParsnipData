@@ -87,6 +87,7 @@
     <Content Include="CustomControls\UacApi\AdminUserForm.ascx" />
     <Content Include="dev\Photos.aspx" />
     <Content Include="getdeviceinfo.aspx" />
+    <Content Include="javascript\intersection-observer.js" />
     <Content Include="Logs.aspx" />
     <Content Include="Reset-Password.aspx" />
     <Content Include="resources\media\images\photos\Photos\kieron_chat.png" />
@@ -117,8 +118,8 @@
     <Content Include="home.aspx" />
     <Content Include="resources\media\images\fat_kieron_cutout.JPG" />
     <Content Include="resources\media\images\parsnip_silhouette.jpg" />
-    <Content Include="javascript\menuV1.11.js" />
-    <Content Include="javascript\globalBodyV1.5.js" />
+    <Content Include="javascript\menuV1.13.js" />
+    <Content Include="javascript\globalBodyV1.6.js" />
     <Content Include="login.aspx" />
     <Content Include="logout.aspx" />
     <Content Include="memes.aspx" />
