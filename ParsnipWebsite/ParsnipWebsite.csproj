@@ -195,7 +195,9 @@
     <Content Include="UacService.asmx" />
     <Content Include="CustomControls\ViewSwitcher.ascx" />
     <Content Include="Users.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="videos.aspx" />
     <Content Include="_TEMPLATE.aspx" />
     <Content Include="_OLD_STYLE_TEMPLATE.aspx" />
@@ -415,6 +417,10 @@
     <ProjectReference Include="..\LogApi\LogApi.csproj">
       <Project>{a463135f-93cf-4c00-8f13-b324a5d291e3}</Project>
       <Name>LogApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MediaApi\MediaApi.csproj">
+      <Project>{4351ca47-1474-47bb-b472-610848b47858}</Project>
+      <Name>MediaApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\ParsnipApi\ParsnipApi.csproj">
       <Project>{f0504054-eed6-4f6f-b35c-c684381181d3}</Project>
