@@ -3,6 +3,13 @@ html {
     min-width: 0px;
 }
 
+.cincopa-container {
+    display: block;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 600px;
+}
+
 .cens_req
 {
     font-size:10px;
