@@ -207,12 +207,19 @@ namespace UacApi
         {
             //Debug.WriteLine("User was initialised with the guid: " + pGuid);
             Id = pGuid;
+            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
         public User(SqlDataReader pReader)
         {
             //Debug.WriteLine("User was initialised with an SqlDataReader. Guid: " + pReader[0]);
             AddValues(pReader);
+            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
+        }
+
+        private User()
+        {
+            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
         public bool ExistsOnDb()
@@ -777,6 +784,13 @@ namespace UacApi
             return UserDetails;
         }
 
+        public static User LogIn(string pUsername, string pPwd)
+        {
+            User tempUser = new User();
+            tempUser.LogIn(pUsername, false, pPwd, false, true);
+            return tempUser;
+        }
+
         public bool LogIn()
         {
             return LogIn(true);
@@ -865,17 +879,17 @@ namespace UacApi
                                 else
                                 {
                                     //AccountLog.Debug(String.Format("[LogIn] RememberPassword = false. Writing session password cookie (userPwd = {0})", pPwd));
-                                    if (GetCookies()[1] == pPwd)
-                                    {
+//if (GetCookies()[1] == pPwd)
+                                    //{
                                         //AccountLog.Debug(String.Format("[LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.", pPwd));
-                                    }
-                                    else
-                                    {
+                                    //}
+                                    //else
+                                    //{
                                         //AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
                                         Cookie.WriteSession("userPwd", pPwd);
                                         //AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
                                         //Debug.WriteLine("----------User.Login() - Password stored for SESSION ONLY.");
-                                    }
+                                    //}
 
 
                                 }

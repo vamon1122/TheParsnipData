@@ -49,6 +49,13 @@
             <hr class="break" />
         
             <form runat="server">
+
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Profile Picture</label>
+                    <asp:FileUpload ID="PhotoUpload" runat="server" class="form-control-file" />
+                    <asp:Button runat="server" ID="BtnUpload" OnClick="BtnUpload_Click" CssClass="btn btn-primary" Text="Upload"></asp:Button>
+                </div>
+
                 <div runat="server" id="DynamicPhotosDiv">
 
                 </div>

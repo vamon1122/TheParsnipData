@@ -32,6 +32,10 @@ namespace MediaApi
         public string PhotoSrc { get; set; }
         public string Classes { get; set; }
         public string Alt { get; set; }
+        public DateTime DateCreated { get; set; }
+        public Guid CreatedById { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
 
         public static List<Photo> GetAllPhotos()
         {
@@ -43,7 +47,7 @@ namespace MediaApi
             var photos = new List<Photo>();
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand GetPhotos = new SqlCommand("SELECT * FROM t_Photos", conn);
+                SqlCommand GetPhotos = new SqlCommand("SELECT * FROM t_Photos ORDER BY datecreated DESC", conn);
                 using (SqlDataReader reader = GetPhotos.ExecuteReader())
                 {
                     while (reader.Read())
@@ -62,10 +66,12 @@ namespace MediaApi
             return photos;
         }
 
-        public Photo (string pSrc)
+        public Photo (string pSrc, User pCreatedBy)
         {
             Id = Guid.NewGuid();
             PhotoSrc = pSrc;
+            DateCreated = Parsnip.adjustedTime;
+            CreatedById = pCreatedBy.Id;
         }
 
         public Photo(Guid pGuid)
@@ -173,6 +179,40 @@ namespace MediaApi
                 }
 
                 if (logMe)
+                    Debug.WriteLine("----------Reading datecreated");
+                DateCreated = Convert.ToDateTime(pReader[4]);
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading createdbyid");
+                CreatedById = new Guid(pReader[5].ToString());
+
+                if (pReader[6] != DBNull.Value && !string.IsNullOrEmpty(pReader[6].ToString()) && !string.IsNullOrWhiteSpace(pReader[6].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading title");
+
+                    Alt = pReader[6].ToString().Trim();
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Title is blank. Skipping title");
+                }
+
+                if (pReader[7] != DBNull.Value && !string.IsNullOrEmpty(pReader[7].ToString()) && !string.IsNullOrWhiteSpace(pReader[7].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading description");
+
+                    Alt = pReader[7].ToString().Trim();
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Description is blank. Skipping description");
+                }
+
+                if (logMe)
                     Debug.WriteLine("added values successfully!");
 
                 return true;
@@ -198,10 +238,12 @@ namespace MediaApi
                 {
                     if (!ExistsOnDb(pOpenConn))
                     {
-                        SqlCommand InsertPhotoIntoDb = new SqlCommand("INSERT INTO t_Photos (id, photosrc) VALUES(@id, @photosrc)", pOpenConn);
+                        SqlCommand InsertPhotoIntoDb = new SqlCommand("INSERT INTO t_Photos (id, photosrc, datecreated, createdbyid) VALUES(@id, @photosrc, @datecreated, @createdbyid)", pOpenConn);
 
                         InsertPhotoIntoDb.Parameters.Add(new SqlParameter("id", Id));
                         InsertPhotoIntoDb.Parameters.Add(new SqlParameter("photosrc", PhotoSrc.Trim()));
+                        InsertPhotoIntoDb.Parameters.Add(new SqlParameter("datecreated", Parsnip.adjustedTime));
+                        InsertPhotoIntoDb.Parameters.Add(new SqlParameter("createdbyid", CreatedById));
 
                         InsertPhotoIntoDb.ExecuteNonQuery();
 
@@ -321,17 +363,53 @@ namespace MediaApi
                         Debug.WriteLine(string.Format("----------Attempting to update alt..."));
 
 
-                        SqlCommand UpdatePlaceholder = new SqlCommand("UPDATE t_Photos SET alt = @alt WHERE id = @id", pOpenConn);
-                        UpdatePlaceholder.Parameters.Add(new SqlParameter("id", Id));
-                        UpdatePlaceholder.Parameters.Add(new SqlParameter("alt", Alt.Trim()));
+                        SqlCommand UpdateAlt = new SqlCommand("UPDATE t_Photos SET alt = @alt WHERE id = @id", pOpenConn);
+                        UpdateAlt.Parameters.Add(new SqlParameter("id", Id));
+                        UpdateAlt.Parameters.Add(new SqlParameter("alt", Alt.Trim()));
 
-                        UpdatePlaceholder.ExecuteNonQuery();
+                        UpdateAlt.ExecuteNonQuery();
 
                         Debug.WriteLine(string.Format("----------alt was updated successfully!"));
                     }
                     else
                     {
-                        Debug.WriteLine(string.Format("----------alt was not changed. Not updating placeholder."));
+                        Debug.WriteLine(string.Format("----------alt was not changed. Not updating alt."));
+                    }
+
+                    if (Title != temp.Title)
+                    {
+                        Debug.WriteLine(string.Format("----------Attempting to update title..."));
+
+
+                        SqlCommand UpdateTitle = new SqlCommand("UPDATE t_Photos SET title = @title WHERE id = @id", pOpenConn);
+                        UpdateTitle.Parameters.Add(new SqlParameter("id", Id));
+                        UpdateTitle.Parameters.Add(new SqlParameter("title", Title.Trim()));
+
+                        UpdateTitle.ExecuteNonQuery();
+
+                        Debug.WriteLine(string.Format("----------Title was updated successfully!"));
+                    }
+                    else
+                    {
+                        Debug.WriteLine(string.Format("----------Title was not changed. Not updating title."));
+                    }
+
+                    if (Description != temp.Description)
+                    {
+                        Debug.WriteLine(string.Format("----------Attempting to update description..."));
+
+
+                        SqlCommand UpdateDescription = new SqlCommand("UPDATE t_Photos SET description = @description WHERE id = @id", pOpenConn);
+                        UpdateDescription.Parameters.Add(new SqlParameter("id", Id));
+                        UpdateDescription.Parameters.Add(new SqlParameter("description", Description.Trim()));
+
+                        UpdateDescription.ExecuteNonQuery();
+
+                        Debug.WriteLine(string.Format("----------Description was updated successfully!"));
+                    }
+                    else
+                    {
+                        Debug.WriteLine(string.Format("----------Description was not changed. Not updating description."));
                     }
 
                 }

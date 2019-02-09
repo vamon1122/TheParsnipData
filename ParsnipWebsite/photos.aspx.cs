@@ -42,6 +42,26 @@ namespace ParsnipWebsite
 
         }
 
-        
+        protected void BtnUpload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                new LogEntry(Debug) { text = "Attempting to upload the photo" };
+
+                string newDir = string.Format("resources/media/images/uploads/{0}{1}_{2}", myUser.Forename, myUser.Surname, PhotoUpload.FileName);
+                if (PhotoUpload.HasFile)
+                {
+                    PhotoUpload.SaveAs(Server.MapPath("~/" + newDir));
+                    Photo temp = new Photo(newDir, myUser);
+                    temp.Update();
+                }
+            }
+            catch (Exception err)
+            {
+
+                new LogEntry(Debug) { text = "There was an exception whilst uploading the photo: " + err };
+            }
+                
+        }
     }
 }

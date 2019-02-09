@@ -92,6 +92,7 @@
     <Content Include="Logs.aspx" />
     <Content Include="Reset-Password.aspx" />
     <Content Include="resources\media\images\photos\Photos\kieron_chat.png" />
+    <Content Include="resources\media\images\uploads\fat_kieron_cutout.JPG" />
     <Content Include="resources\media\images\webMedia\google-photos.svg" />
     <Content Include="resources\media\images\webMedia\pix-vertical-placeholder.jpg" />
     <Content Include="resources\media\images\webMedia\you_shall_not_pass.jpg" />
@@ -156,37 +157,37 @@
     <Content Include="resources\media\images\photos\memes\marshy_rat.JPG" />
     <Content Include="resources\media\images\photos\memes\mason_pimp.JPG" />
     <Content Include="resources\media\images\photos\memes\tom_done.JPG" />
-    <Content Include="resources\media\images\photos\Photos\Aaron%27s FOD.jpg" />
-    <Content Include="resources\media\images\photos\Photos\aaron_yes ladies.JPG" />
-    <Content Include="resources\media\images\photos\Photos\baby kiwi.JPG" />
-    <Content Include="resources\media\images\photos\Photos\ben &amp; loldred.JPG" />
+    <Content Include="resources\media\images\photos\Photos\Aaron_s_FOD.jpg" />
+    <Content Include="resources\media\images\photos\Photos\aaron_yes_ladies.JPG" />
+    <Content Include="resources\media\images\photos\Photos\baby_kiwi.JPG" />
+    <Content Include="resources\media\images\photos\Photos\ben_loldred.JPG" />
     <Content Include="resources\media\images\photos\Photos\ben_facetime.JPG" />
-    <Content Include="resources\media\images\photos\Photos\ben_licking the pussy.JPG" />
+    <Content Include="resources\media\images\photos\Photos\ben_licking_the_pussy.JPG" />
     <Content Include="resources\media\images\photos\Photos\ben_nye.JPG" />
-    <Content Include="resources\media\images\photos\Photos\dan_damn daniel.JPG" />
-    <Content Include="resources\media\images\photos\Photos\dan_future dan.JPG" />
+    <Content Include="resources\media\images\photos\Photos\dan_damn_daniel.JPG" />
+    <Content Include="resources\media\images\photos\Photos\dan_future_dan.JPG" />
     <Content Include="resources\media\images\photos\Photos\kieron_1.JPG" />
     <Content Include="resources\media\images\photos\Photos\kieron_2.JPG" />
     <Content Include="resources\media\images\photos\Photos\kieron_fat.JPG" />
-    <Content Include="resources\media\images\photos\Photos\kieron_fingering machine.PNG" />
+    <Content Include="resources\media\images\photos\Photos\kieron_fingering_machine.PNG" />
     <Content Include="resources\media\images\photos\Photos\kieron_fuckboy.JPG" />
-    <Content Include="resources\media\images\photos\Photos\kieron_peter andre.JPG" />
+    <Content Include="resources\media\images\photos\Photos\kieron_peter_andre.JPG" />
     <Content Include="resources\media\images\photos\Photos\kieron_smile.JPG" />
     <Content Include="resources\media\images\photos\Photos\kieron_tongue.JPG" />
     <Content Include="resources\media\images\photos\Photos\loldred_bender.JPG" />
-    <Content Include="resources\media\images\photos\Photos\loldred_dan cross.JPG" />
+    <Content Include="resources\media\images\photos\Photos\loldred_dan_cross.JPG" />
     <Content Include="resources\media\images\photos\Photos\loldred_moustache.JPG" />
     <Content Include="resources\media\images\photos\Photos\loldred_santa.JPG" />
     <Content Include="resources\media\images\photos\Photos\loldred_teacher.JPG" />
-    <Content Include="resources\media\images\photos\Photos\loldred_yes we can.JPG" />
+    <Content Include="resources\media\images\photos\Photos\loldred_yes_we_can.JPG" />
     <Content Include="resources\media\images\photos\Photos\mason_1.JPG" />
     <Content Include="resources\media\images\photos\Photos\mason_2.JPG" />
-    <Content Include="resources\media\images\photos\Photos\philips go-karting 2.jpg" />
-    <Content Include="resources\media\images\photos\Photos\philips go-karting.jpg" />
+    <Content Include="resources\media\images\photos\Photos\philips_go-karting_2.jpg" />
+    <Content Include="resources\media\images\photos\Photos\philips_go-karting.jpg" />
     <Content Include="resources\media\images\photos\Photos\squad.JPG" />
-    <Content Include="resources\media\images\photos\Photos\Tom Loves Balloon.jpg" />
-    <Content Include="resources\media\images\photos\Photos\Tom Selfie.jpg" />
-    <Content Include="resources\media\images\photos\Photos\Tom Smellz.JPG" />
+    <Content Include="resources\media\images\photos\Photos\Tom_Loves_Balloon.jpg" />
+    <Content Include="resources\media\images\photos\Photos\Tom_Selfie.jpg" />
+    <Content Include="resources\media\images\photos\Photos\Tom_Smellz.JPG" />
     <Content Include="resources\media\images\photos\Photos\tom_1.JPG" />
     <Content Include="resources\media\images\photos\Photos\tom_2.JPG" />
     <Content Include="resources\media\images\photos\Photos\tom_glasses.JPG" />
@@ -435,9 +436,7 @@
       <Name>UacApi</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="resources\media\images\uploads\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
