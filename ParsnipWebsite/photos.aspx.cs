@@ -8,6 +8,8 @@ using System.Web.UI.WebControls;
 using LogApi;
 using MediaApi;
 using System.Web.UI.HtmlControls;
+using ParsnipApi;
+using System.Data.SqlClient;
 
 namespace ParsnipWebsite
 {
@@ -24,7 +26,10 @@ namespace ParsnipWebsite
         }
         protected void Page_LoadComplete(object sender, EventArgs e)
         {
-            
+            if(myUser.AccountType == "admin")
+            {
+                UploadDiv.Style.Clear();
+            }
             List<Photo> AllPhotos = Photo.GetAllPhotos();
             //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
             foreach (Photo temp in AllPhotos)
@@ -62,6 +67,26 @@ namespace ParsnipWebsite
                 new LogEntry(Debug) { text = "There was an exception whilst uploading the photo: " + err };
             }
                 
+        }
+
+        protected void BtnDeleteUploads_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                new LogEntry(Debug) { text = "Attempting to delete uploaded photos" };
+
+                using(SqlConnection conn = Parsnip.GetOpenDbConnection())
+                {
+                    SqlCommand DeleteUploads = new SqlCommand("DELETE FROM t_Photos WHERE photosrc LIKE '%uploads%'", conn);
+                    DeleteUploads.ExecuteNonQuery();
+                }
+            }
+            catch (Exception err)
+            {
+
+                new LogEntry(Debug) { text = "There was an exception whilst uploading the photo: " + err };
+            }
+
         }
     }
 }

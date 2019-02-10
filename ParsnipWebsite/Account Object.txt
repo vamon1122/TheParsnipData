@@ -50979,3 +50979,87 @@
 <debug> 09/02/2019 15:52:00 - Found a username cookie! Username = vamon1122
 <debug> 09/02/2019 15:52:00 - Found a password cookie! Password = BBTbbt1704
 <info> 09/02/2019 15:52:00 - Returning user details from cookies.
+<info> 10/02/2019 21:09:52 - Getting user details from cookies...
+<debug> 10/02/2019 21:09:52 - Found a username cookie! Username = vamon1122
+<debug> 10/02/2019 21:09:52 - Found a password cookie! Password = BBTbbt1704
+<info> 10/02/2019 21:09:52 - Returning user details from cookies.
+<info> 10/02/2019 21:10:07 - Getting user details from cookies...
+<debug> 10/02/2019 21:10:07 - Found a username cookie! Username = vamon1122
+<debug> 10/02/2019 21:10:07 - Found a password cookie! Password = BBTbbt1704
+<info> 10/02/2019 21:10:07 - Returning user details from cookies.
+<info> 10/02/2019 21:10:29 - Getting user details from cookies...
+<debug> 10/02/2019 21:10:29 - Found a username cookie! Username = vamon1122
+<debug> 10/02/2019 21:10:29 - Found a password cookie! Password = BBTbbt1704
+<info> 10/02/2019 21:10:29 - Returning user details from cookies.
+<info> 10/02/2019 21:12:21 - Getting user details from cookies...
+<debug> 10/02/2019 21:12:21 - Found a username cookie! Username = vamon1122
+<debug> 10/02/2019 21:12:21 - Found a password cookie! Password = BBTbbt1704
+<info> 10/02/2019 21:12:21 - Returning user details from cookies.
+<info> 10/02/2019 21:14:56 - Getting user details from cookies...
+<debug> 10/02/2019 21:14:56 - Found a username cookie! Username = vamon1122
+<debug> 10/02/2019 21:14:56 - Found a password cookie! Password = BBTbbt1704
+<info> 10/02/2019 21:14:56 - Returning user details from cookies.
+<info> 10/02/2019 21:15:06 - Getting user details from cookies...
+<debug> 10/02/2019 21:15:06 - Found a username cookie! Username = vamon1122
+<debug> 10/02/2019 21:15:06 - Found a password cookie! Password = BBTbbt1704
+<info> 10/02/2019 21:15:06 - Returning user details from cookies.
+<warning> 10/02/2019 21:15:06 - PAGE IS BEING LOADED
+<info> 10/02/2019 21:15:06 - Getting user details from cookies...
+<debug> 10/02/2019 21:15:06 - Found a username cookie! Username = 
+<debug> 10/02/2019 21:15:06 - Found a password cookie! Password = 
+<info> 10/02/2019 21:15:06 - Returning user details from cookies.
+<warning> 10/02/2019 21:15:06 - Input username was reset
+<warning> 10/02/2019 21:15:14 - PAGE IS BEING LOADED
+<warning> 10/02/2019 21:15:14 - Button Was clicked!
+<info> 10/02/2019 21:15:15 - Getting user details from cookies...
+<debug> 10/02/2019 21:15:15 - Found a username cookie! Username = member
+<debug> 10/02/2019 21:15:15 - Found a password cookie! Password = password
+<info> 10/02/2019 21:15:15 - Returning user details from cookies.
+<info> 10/02/2019 21:15:16 - Getting user details from cookies...
+<debug> 10/02/2019 21:15:16 - Found a username cookie! Username = member
+<debug> 10/02/2019 21:15:16 - Found a password cookie! Password = password
+<info> 10/02/2019 21:15:16 - Returning user details from cookies.
+<info> 10/02/2019 21:15:19 - Getting user details from cookies...
+<debug> 10/02/2019 21:15:19 - Found a username cookie! Username = member
+<debug> 10/02/2019 21:15:19 - Found a password cookie! Password = password
+<info> 10/02/2019 21:15:19 - Returning user details from cookies.
+<info> 10/02/2019 21:19:02 - Getting user details from cookies...
+<debug> 10/02/2019 21:19:02 - Found a username cookie! Username = member
+<debug> 10/02/2019 21:19:02 - Found a password cookie! Password = password
+<info> 10/02/2019 21:19:02 - Returning user details from cookies.
+<info> 10/02/2019 21:19:07 - Getting user details from cookies...
+<debug> 10/02/2019 21:19:07 - Found a username cookie! Username = member
+<debug> 10/02/2019 21:19:07 - Found a password cookie! Password = password
+<info> 10/02/2019 21:19:07 - Returning user details from cookies.
+<warning> 10/02/2019 21:19:08 - PAGE IS BEING LOADED
+<info> 10/02/2019 21:19:08 - Getting user details from cookies...
+<debug> 10/02/2019 21:19:08 - Found a username cookie! Username = 
+<debug> 10/02/2019 21:19:08 - Found a password cookie! Password = 
+<info> 10/02/2019 21:19:08 - Returning user details from cookies.
+<warning> 10/02/2019 21:19:08 - Input username was reset
+<warning> 10/02/2019 21:19:11 - PAGE IS BEING LOADED
+<warning> 10/02/2019 21:19:11 - Button Was clicked!
+<info> 10/02/2019 21:19:12 - Getting user details from cookies...
+<debug> 10/02/2019 21:19:12 - Found a username cookie! Username = vamon1122
+<debug> 10/02/2019 21:19:12 - Found a password cookie! Password = BBTbbt1704
+<info> 10/02/2019 21:19:12 - Returning user details from cookies.
+<info> 10/02/2019 21:19:12 - Getting user details from cookies...
+<debug> 10/02/2019 21:19:12 - Found a username cookie! Username = vamon1122
+<debug> 10/02/2019 21:19:12 - Found a password cookie! Password = BBTbbt1704
+<info> 10/02/2019 21:19:12 - Returning user details from cookies.
+<info> 10/02/2019 21:19:15 - Getting user details from cookies...
+<debug> 10/02/2019 21:19:15 - Found a username cookie! Username = vamon1122
+<debug> 10/02/2019 21:19:15 - Found a password cookie! Password = BBTbbt1704
+<info> 10/02/2019 21:19:15 - Returning user details from cookies.
+<info> 10/02/2019 21:19:33 - Getting user details from cookies...
+<debug> 10/02/2019 21:19:33 - Found a username cookie! Username = vamon1122
+<debug> 10/02/2019 21:19:33 - Found a password cookie! Password = BBTbbt1704
+<info> 10/02/2019 21:19:33 - Returning user details from cookies.
+<info> 10/02/2019 21:19:41 - Getting user details from cookies...
+<debug> 10/02/2019 21:19:41 - Found a username cookie! Username = vamon1122
+<debug> 10/02/2019 21:19:41 - Found a password cookie! Password = BBTbbt1704
+<info> 10/02/2019 21:19:41 - Returning user details from cookies.
+<info> 10/02/2019 21:19:48 - Getting user details from cookies...
+<debug> 10/02/2019 21:19:48 - Found a username cookie! Username = vamon1122
+<debug> 10/02/2019 21:19:48 - Found a password cookie! Password = BBTbbt1704
+<info> 10/02/2019 21:19:48 - Returning user details from cookies.

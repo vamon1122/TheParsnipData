@@ -50,10 +50,12 @@
         
             <form runat="server">
 
-                <div class="form-group">
-                    <label for="exampleFormControlFile1">Profile Picture</label>
+                <div runat="server" id="UploadDiv" class="form-group" style="display:none">
+                    <label for="exampleFormControlFile1">Upload A Photo</label>
                     <asp:FileUpload ID="PhotoUpload" runat="server" class="form-control-file" />
                     <asp:Button runat="server" ID="BtnUpload" OnClick="BtnUpload_Click" CssClass="btn btn-primary" Text="Upload"></asp:Button>
+                    <asp:Button runat="server" ID="BtnDeleteUploads" OnClick="BtnDeleteUploads_Click" CssClass="btn btn-primary" Text="Delete"></asp:Button>
+
                 </div>
 
                 <div runat="server" id="DynamicPhotosDiv">

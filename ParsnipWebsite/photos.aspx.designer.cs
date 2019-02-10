@@ -22,6 +22,15 @@ namespace ParsnipWebsite {
         protected global::System.Web.UI.HtmlControls.HtmlLink link_style;
         
         /// <summary>
+        /// UploadDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl UploadDiv;
+        
+        /// <summary>
         /// PhotoUpload control.
         /// </summary>
         /// <remarks>
@@ -38,6 +47,15 @@ namespace ParsnipWebsite {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnUpload;
+        
+        /// <summary>
+        /// BtnDeleteUploads control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnDeleteUploads;
         
         /// <summary>
         /// DynamicPhotosDiv control.
