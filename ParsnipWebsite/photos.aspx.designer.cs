@@ -40,15 +40,6 @@ namespace ParsnipWebsite {
         protected global::System.Web.UI.WebControls.FileUpload PhotoUpload;
         
         /// <summary>
-        /// BtnUpload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnUpload;
-        
-        /// <summary>
         /// DynamicPhotosDiv control.
         /// </summary>
         /// <remarks>

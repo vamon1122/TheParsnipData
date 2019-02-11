@@ -52,9 +52,8 @@
                 <div runat="server" id="UploadDiv" class="form-group" style="display:none">
                     <label class="file-upload">
                         
-                    <span><strong>Upload Image</strong></span>
-                    <asp:FileUpload ID="PhotoUpload" runat="server" class="form-control-file" />
-                    <asp:Button runat="server" ID="BtnUpload" OnClick="BtnUpload_Click" CssClass="btn btn-primary" Text="Upload"></asp:Button>
+                        <span><strong>Upload Image</strong></span>
+                        <asp:FileUpload ID="PhotoUpload" runat="server" class="form-control-file" onchange="this.form.submit()" />
                     </label>
 
                 </div>

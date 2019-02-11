@@ -10,19 +10,47 @@ using MediaApi;
 using System.Web.UI.HtmlControls;
 using ParsnipApi;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace ParsnipWebsite
 {
     public partial class photos : System.Web.UI.Page
     {
         private User myUser;
-        Log Debug = new Log("debug");
+        Log DebugLog = new Log("debug");
         protected void Page_Load(object sender, EventArgs e)
         {
             //new LogEntry(Debug) { text = "Loading photos page..." };
             myUser = Uac.SecurePage("photos", this, Data.deviceType, "member");
 
-            
+            if (IsPostBack && PhotoUpload.PostedFile != null)
+            {
+                new LogEntry(DebugLog) { text = "POSTBACK with photo" };
+                if (PhotoUpload.PostedFile.FileName.Length > 0)
+                {
+                    try
+                    {
+                        new LogEntry(DebugLog) { text = "Attempting to upload the photo" };
+
+                        string[] fileDir = PhotoUpload.PostedFile.FileName.Split('\\');
+                        string myFileName = fileDir.Last();
+
+                        string newDir = string.Format("resources/media/images/uploads/_{2}", myUser.Forename, myUser.Surname, myFileName);
+                        Debug.WriteLine("Newdir = " + newDir);
+                        /*if (PhotoUpload.PostedFile.HasFile)
+                        {*/
+                            PhotoUpload.PostedFile.SaveAs(Server.MapPath("~/" + newDir));
+                            Photo temp = new Photo(newDir, myUser);
+                            temp.Update();
+                        //}
+                    }
+                    catch (Exception err)
+                    {
+
+                        new LogEntry(DebugLog) { text = "There was an exception whilst uploading the photo: " + err };
+                    }
+                }
+            }
         }
         protected void Page_LoadComplete(object sender, EventArgs e)
         {
@@ -51,7 +79,7 @@ namespace ParsnipWebsite
         {
             try
             {
-                new LogEntry(Debug) { text = "Attempting to upload the photo" };
+                new LogEntry(DebugLog) { text = "Attempting to upload the photo" };
 
                 string newDir = string.Format("resources/media/images/uploads/{0}{1}_{2}", myUser.Forename, myUser.Surname, PhotoUpload.FileName);
                 if (PhotoUpload.HasFile)
@@ -64,7 +92,7 @@ namespace ParsnipWebsite
             catch (Exception err)
             {
 
-                new LogEntry(Debug) { text = "There was an exception whilst uploading the photo: " + err };
+                new LogEntry(DebugLog) { text = "There was an exception whilst uploading the photo: " + err };
             }
                 
         }
