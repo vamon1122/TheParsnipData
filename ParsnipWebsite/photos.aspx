@@ -10,8 +10,7 @@
     <!--
     <link rel="stylesheet" type="text/css" href="../css/old/style.css" />-->
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
-        
-        
+    <link href="css/fileupload.css" rel="stylesheet" type ="text/css" />
     <title>Photos</title>
     <style>
         image
@@ -51,13 +50,15 @@
             <form runat="server">
 
                 <div runat="server" id="UploadDiv" class="form-group" style="display:none">
-                    <label for="exampleFormControlFile1">Upload A Photo</label>
+                    <label class="file-upload">
+                        
+                    <span><strong>Upload Image</strong></span>
                     <asp:FileUpload ID="PhotoUpload" runat="server" class="form-control-file" />
                     <asp:Button runat="server" ID="BtnUpload" OnClick="BtnUpload_Click" CssClass="btn btn-primary" Text="Upload"></asp:Button>
-                    <asp:Button runat="server" ID="BtnDeleteUploads" OnClick="BtnDeleteUploads_Click" CssClass="btn btn-primary" Text="Delete"></asp:Button>
+                    </label>
 
                 </div>
-
+                <br />
                 <div runat="server" id="DynamicPhotosDiv">
 
                 </div>

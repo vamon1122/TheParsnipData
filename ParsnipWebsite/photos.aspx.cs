@@ -69,24 +69,6 @@ namespace ParsnipWebsite
                 
         }
 
-        protected void BtnDeleteUploads_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                new LogEntry(Debug) { text = "Attempting to delete uploaded photos" };
-
-                using(SqlConnection conn = Parsnip.GetOpenDbConnection())
-                {
-                    SqlCommand DeleteUploads = new SqlCommand("DELETE FROM t_Photos WHERE photosrc LIKE '%uploads%'", conn);
-                    DeleteUploads.ExecuteNonQuery();
-                }
-            }
-            catch (Exception err)
-            {
-
-                new LogEntry(Debug) { text = "There was an exception whilst uploading the photo: " + err };
-            }
-
-        }
+        
     }
 }

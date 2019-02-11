@@ -22,7 +22,7 @@
             <hr class="my-4" />
             <p><adminControls:adminMenu runat="server" id="adminMenu" /></p>
         </div>
-            
+            <asp:Button runat="server" ID="BtnDeleteUploads" OnClick="BtnDeleteUploads_Click" CssClass="btn btn-primary" Text="Delete"></asp:Button>
         </div>
     </form>
 </body>
