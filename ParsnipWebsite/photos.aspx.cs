@@ -54,7 +54,7 @@ namespace ParsnipWebsite
         }
         protected void Page_LoadComplete(object sender, EventArgs e)
         {
-            if(myUser.AccountType == "admin")
+            if(myUser.AccountType == "admin" || myUser.AccountType == "member")
             {
                 UploadDiv.Style.Clear();
             }

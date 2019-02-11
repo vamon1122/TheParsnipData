@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\fileupload.css" />
+    <Content Include="Manage-Photos.aspx" />
     <Content Include="package.json" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Publish To Folder.pubxml" />
@@ -123,7 +124,7 @@
     <Content Include="home.aspx" />
     <Content Include="resources\media\images\fat_kieron_cutout.JPG" />
     <Content Include="resources\media\images\parsnip_silhouette.jpg" />
-    <Content Include="javascript\menuV1.13.js" />
+    <Content Include="javascript\menuV1.14.js" />
     <Content Include="javascript\globalBodyV1.6.js" />
     <Content Include="login.aspx" />
     <Content Include="logout.aspx" />
@@ -320,6 +321,13 @@
     </Compile>
     <Compile Include="Logs.aspx.designer.cs">
       <DependentUpon>Logs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manage-Photos.aspx.cs">
+      <DependentUpon>Manage-Photos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manage-Photos.aspx.designer.cs">
+      <DependentUpon>Manage-Photos.aspx</DependentUpon>
     </Compile>
     <Compile Include="memes.aspx.cs">
       <DependentUpon>memes.aspx</DependentUpon>

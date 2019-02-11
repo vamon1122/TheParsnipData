@@ -47,7 +47,7 @@ else{
 /////Buttons/////
 createButton("Home", "home");
 if (getCookie("accountType") === "admin") {
-    createButton("NEW! Polls", "polls");
+    //createButton("NEW! Polls", "polls");
 }
 
 if (getCookie("accountType") === "admin" || getCookie("accountType") === "member") {

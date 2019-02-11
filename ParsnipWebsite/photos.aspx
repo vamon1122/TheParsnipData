@@ -33,7 +33,7 @@
     <br /><br />
     <br class="nomobile" />
 
-    <div  class="container" style="width=100%">
+    <div  class="container" style="width:100%">
         <div class="center_div">
             <div class="cens_req"><label>Certain elements of this page were removed by request. </label><a href="content removal.html">Click here</a><label> to learn more.</label></div>
     
@@ -67,7 +67,7 @@
     
     
             <script src="../javascript/globalBodyV1.6.js"></script>
-            <script src="../javascript/menuV1.13.js"></script>
+            <script src="../javascript/menuV1.14.js"></script>
             <script>
                 if (isMobile()) {
                     var body = document.getElementById("body")

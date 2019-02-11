@@ -3,11 +3,7 @@
     min-width: 0px;
 }
 
-.cincopa-container {
-    display: block;
-    margin: 20px auto;
-    width: 95%;
-}
+
 
 .cens_req {
     font-size: 10px;
@@ -18,7 +14,7 @@
 }
 
 .meme {
-    width: 90%;
+    width: 97.5%;
 }
 
 .spin {
@@ -37,6 +33,7 @@
 
 body {
     font-family: "Verdana";
+    font-size: 30px;
     height: 100%;
     width: 100%;
     text-align: center;
@@ -47,14 +44,14 @@ body {
 
 /*For main title in old style, not really used in new style*/
 h1 {
-    font-size: 40px;
+    font-size: 80px;
     text-align: center;
 }
 
 
 /*Subtitles in old and new, main title in new*/
 h2 {
-    font-size: 30px;
+    font-size: 60px;
     text-align: center;
 }
 
@@ -62,14 +59,14 @@ h2 {
 /*Sub-subtitles and youtube videos*/
 h3 {
     text-align: center;
-    font-size: 20px;
+    font-size: 40px;
 }
 
 
 /*Separates different articles with a small line underneath*/
 hr.break {
-    height: 3px;
-    width: 20px;
+    height: 6px;
+    width: 40px;
     border-radius: 10px;
     background-color: grey;
     border-style: none;
@@ -80,11 +77,11 @@ hr.break {
 input[type="button"].menu {
     color: #CCCCCC;
     background-image: url(../resources/media/patterns/pattern_black1.png);
-    width: 200px;
-    height: 30px;
+    width: 400px;
+    height: 60px;
     border-radius: 10px 10px;
-    font-size: 18px;
-    margin-bottom: 5px;
+    font-size: 36px;
+    margin-bottom: 10px;
     outline: none;
     cursor: pointer;
 }
@@ -95,11 +92,11 @@ input[type="submit"] {
     border-radius: 5px;
     background-image: none;
     color: black;
-    font-size: 20px;
-    height: 30px;
-    width: 150px;
+    font-size: 40px;
+    height: 60px;
+    width: 300px;
     border-style: outset;
-    border-width: 2px;
+    border-width: 4px;
     cursor: pointer;
 }
 
@@ -107,14 +104,14 @@ input[type="submit"] {
 /*Plain square grey button*/
 button {
     background-color: lightgrey;
-    border-radius: 5px;
+    border-radius: 10px;
     background-image: none;
     color: black;
-    font-size: 20px;
-    height: 30px;
-    width: 150px;
+    font-size: 40px;
+    height: 60px;
+    width: 300px;
     border-style: outset;
-    border-width: 2px;
+    border-width: 4px;
     cursor: pointer;
 }
 
@@ -122,9 +119,9 @@ button {
 /*Text box, yellow background*/
 input[type="text"] {
     background-color: lightyellow;
-    height: 25px;
-    width: 200px;
-    font-size: 30px;
+    height: 50px;
+    width: 400px;
+    font-size: 60px;
     border-radius: 5px;
 }
 
@@ -282,7 +279,7 @@ a {
 }
 
 
-/*Youtube CSS*/
+/*Youtube START*/
 .youtube-container {
     display: block;
     margin: 20px auto;
@@ -333,6 +330,16 @@ div.play-button {
     top: 0;
     left: 0;
 }
+/*Youtube END*/
+
+
+/*CINCOPA START*/
+.cincopa-container {
+    display: block;
+    margin: 20px auto;
+    width: 95%;
+}
+/*CINCOPA END*/
 
 /* FILE UPLOAD START */
 .file-upload {
@@ -361,7 +368,9 @@ div.play-button {
 
     .file-upload, .file-upload span {
         width: 3.5em;
-        width: 150px;
+        width: 600px;
+        height: 85px;
+        border-radius:10px;
     }
 
         .file-upload input {
@@ -376,10 +385,10 @@ div.play-button {
         }
 
         .file-upload strong {
-            font: normal 16px Tahoma,sans-serif;
+            font-size:64px;
             text-align: center;
             vertical-align: middle;
-            margin-left: 28px;
+            /*margin-left: 28px;*/
         }
 
         .file-upload span {

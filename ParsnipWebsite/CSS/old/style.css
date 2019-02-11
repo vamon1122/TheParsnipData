@@ -288,7 +288,7 @@ div.play-button { height: 72px; width: 72px; left: 50%; top: 50%; margin-left: -
     .file-upload, .file-upload span {
         width: 3.5em;
         width: 150px;
-        height : 200px;
+        height : 85px;
     }
 
         .file-upload input {

@@ -66,6 +66,38 @@ namespace MediaApi
             return photos;
         }
 
+        public static List<Photo> GetPhotosByUser(Guid pUserId)
+        {
+            bool logMe = true;
+
+            if (logMe)
+                Debug.WriteLine("----------Getting all photos by user...");
+
+            var photos = new List<Photo>();
+            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            {
+                Debug.WriteLine("---------- Selecting photos by user with id = " + pUserId);
+                SqlCommand GetPhotos = new SqlCommand("SELECT * FROM t_Photos WHERE createdbyid = @createdbyid ORDER BY datecreated DESC", conn);
+                GetPhotos.Parameters.Add(new SqlParameter("createdbyid", pUserId));
+
+                using (SqlDataReader reader = GetPhotos.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        photos.Add(new Photo(reader));
+                    }
+                }
+            }
+
+            foreach (Photo temp in photos)
+            {
+                if (logMe)
+                    Debug.WriteLine(string.Format("Found photo with id {0}", temp.Id));
+            }
+
+            return photos;
+        }
+
         public Photo (string pSrc, User pCreatedBy)
         {
             Id = Guid.NewGuid();
