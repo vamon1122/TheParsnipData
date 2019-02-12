@@ -11,8 +11,8 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <label id="errorLabel">default</label>
-            <label id="redirectLabel">default redirect</label>
+            <label id="errorLabel" style ="visibility:hidden">default</label>
+            <label id="redirectLabel" style ="visibility:hidden">default redirect</label>
         </div>
     </form>
     <script src="../javascript/globalBodyV1.6.js"></script>
@@ -31,20 +31,23 @@
         var redirect
 
         try {
+            //More efficient but does not work on older browsers
+            redirectLabel.innerHTML = "Try block entered";
             url = new URL(url_string);
             redirect = url.searchParams.get("url");
         }
         catch (e) {
-            url = window.location.href
+            //More compatible method
+            redirectLabel.innerHTML = "Catch block entered";
+            url = window.location.href;
+            redirectLabel.innerHTML = "Got href";
+            redirect = url.split('=')[url.split('=').length - 1];
+
             redirectLabel.innerHTML = "Caught error. URL now = " + url;
         }
-
         
-        redirectLabel.innerHTML = "4";
         var redirectLabel = document.getElementById("redirectLabel");
-        redirectLabel.innerHTML = "5";
         redirectLabel.innerHTML = redirect;
-        redirectLabel.innerHTML = "6";
 
         if (redirect === "" || redirect === null) {
             redirect = "home";
@@ -59,7 +62,6 @@
         //Use window.location.replace if possible because 
         //you don't want the current url to appear in the 
         //history, or to show - up when using the back button.
-
         try { window.location.replace(redirect); }
         catch(e) { window.location = redirect;}
         
