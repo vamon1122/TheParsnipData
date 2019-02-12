@@ -35,7 +35,7 @@ namespace ParsnipWebsite
                         string[] fileDir = PhotoUpload.PostedFile.FileName.Split('\\');
                         string myFileName = fileDir.Last();
 
-                        string newDir = string.Format("resources/media/images/uploads/_{2}", myUser.Forename, myUser.Surname, myFileName);
+                        string newDir = string.Format("resources/media/images/uploads/{0}{1}_{2}_{3}", myUser.Forename, myUser.Surname, myFileName, Parsnip.adjustedTime);
                         Debug.WriteLine("Newdir = " + newDir);
                         /*if (PhotoUpload.PostedFile.HasFile)
                         {*/
