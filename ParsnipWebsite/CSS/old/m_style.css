@@ -6,7 +6,6 @@
 
 
 .cens_req {
-    font-size: 10px;
 }
 
 .censored {
@@ -33,7 +32,6 @@
 
 body {
     font-family: "Verdana";
-    font-size: 30px;
     height: 100%;
     width: 100%;
     text-align: center;

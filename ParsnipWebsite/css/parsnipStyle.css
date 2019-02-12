@@ -1,5 +1,6 @@
 ﻿body {
     font-family: Verdana;
+    -webkit-text-size-adjust: 100%;
 }
 
 input[type=email].form-control {

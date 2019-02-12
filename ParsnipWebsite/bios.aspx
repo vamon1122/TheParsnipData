@@ -4,7 +4,10 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link rel="stylesheet" type="text/css" href="../css/old/style.css" />
+    <link id="link_style" rel="stylesheet" type="text/css" />
+
+    <!--
+    <link rel="stylesheet" type="text/css" href="../css/old/style.css" />-->
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <title>Bios</title>
 </head>

@@ -8,7 +8,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     
-    <link rel="stylesheet" type="text/css" href="../css/old/style.css" />
+    <link id="link_style" rel="stylesheet" type="text/css" />
+
+    <!--
+    <link rel="stylesheet" type="text/css" href="../css/old/style.css" />-->
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
         
     <link rel="stylesheet" type="text/css" href="css/parsnipStyle.css" />
@@ -62,7 +65,7 @@
     -->
     <!--LATEST VIDEO START-->
     <hr class="break" />
-    <div id="latestVideo" style="width:100%"></div>
+    <div id="latestVideo" style="width:97.5%"></div>
 
     <!--LATEST VIDEO END-->
     <!--DEVICE DETECT START-->
