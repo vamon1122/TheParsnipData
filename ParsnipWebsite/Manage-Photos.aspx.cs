@@ -23,7 +23,7 @@ namespace ParsnipWebsite
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = Uac.SecurePage("manage-photos", this, Data.deviceType, "admin");
+            myUser = Uac.SecurePage("manage-photos", this, Data.DeviceType, "admin");
         }
 
         protected void Page_LoadComplete(object sender, EventArgs e)
@@ -45,9 +45,18 @@ namespace ParsnipWebsite
                 {
                     Image tempControl = new Image();
 
-                    tempControl.ImageUrl = temp.PhotoSrc;
+                    
+                    tempControl.ImageUrl = "resources/media/images/webMedia/pix-vertical-placeholder.jpg";
+                    tempControl.Attributes.Add("data-src", temp.PhotoSrc);
+                    tempControl.Attributes.Add("data-srcset", temp.PhotoSrc);
+                    
+                    
+
+                    tempControl.CssClass = "mobile-image lazy";
                     DisplayPhotosDiv.Controls.Add(tempControl);
                     this.Page.Form.FindControl("DisplayPhotosDiv").Controls.Add(new LiteralControl("<br />"));
+                    this.Page.Form.FindControl("DisplayPhotosDiv").Controls.Add(new LiteralControl("<br />"));
+
                     //new LogEntry(Debug) { text = "Added new image to the page. Url = " + temp.PhotoSrc };
                 }
 
@@ -89,7 +98,6 @@ namespace ParsnipWebsite
         void UpdateUserList()
         {
             var tempUsers = new List<User>();
-            tempUsers.Add(new UacApi.User(Guid.Empty) { Forename = "New", Surname = "User", Username = "Create a new user" });
             tempUsers.AddRange(UacApi.User.GetAllUsers());
 
             ListItem[] ListItems = new ListItem[tempUsers.Count];

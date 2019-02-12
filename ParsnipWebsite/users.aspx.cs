@@ -21,7 +21,7 @@ namespace ParsnipWebsite
             if (Request.QueryString["userId"] == null)
                 Response.Redirect("users?userId=" + Guid.Empty.ToString());
 
-            myUser = Uac.SecurePage("users", this, Data.deviceType, "admin");
+            myUser = Uac.SecurePage("users", this, Data.DeviceType, "admin");
 
             selectedUserId = new Guid(Request.QueryString["userId"]);
 

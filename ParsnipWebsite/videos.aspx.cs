@@ -15,7 +15,7 @@ namespace ParsnipWebsite
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = Uac.SecurePage("videos", this, Data.deviceType, "member");
+            myUser = Uac.SecurePage("videos", this, Data.DeviceType, "member");
         }
     }
 }

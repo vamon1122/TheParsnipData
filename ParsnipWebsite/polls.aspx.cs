@@ -13,7 +13,7 @@ namespace ParsnipWebsite
         User myUser;
         protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = Uac.SecurePage("polls", this, Data.deviceType);
+            myUser = Uac.SecurePage("polls", this, Data.DeviceType);
         }
     }
 }

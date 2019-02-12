@@ -15,9 +15,6 @@
 <body>
     <form id="form1" runat="server">
         <div class="container">
-            <div class="center_div">
-            
-            </div>
         </div>
     </form>
 </body>

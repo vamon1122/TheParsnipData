@@ -40,13 +40,13 @@ namespace ParsnipWebsite {
         protected global::System.Web.UI.WebControls.DropDownList SelectUser;
         
         /// <summary>
-        /// BtnDeleteUploads control.
+        /// btnDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnDeleteUploads;
+        protected global::System.Web.UI.WebControls.Button btnDelete;
         
         /// <summary>
         /// DisplayPhotosDiv control.
@@ -56,5 +56,14 @@ namespace ParsnipWebsite {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DisplayPhotosDiv;
+        
+        /// <summary>
+        /// BtnDeleteUploads control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnDeleteUploads;
     }
 }

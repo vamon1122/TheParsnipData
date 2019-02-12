@@ -17,7 +17,7 @@ namespace ParsnipWebsite
         Log Debug = new Log("Debug");
         protected void Page_Load(object sender, EventArgs e)
         {
-            myAccount = Uac.SecurePage("admin", this, Data.deviceType, "admin");
+            myAccount = Uac.SecurePage("admin", this, Data.DeviceType, "admin");
         }
 
         protected void OpenLogsButton_Click(object sender, EventArgs e)

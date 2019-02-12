@@ -14,7 +14,7 @@ namespace ParsnipWebsite
         private User myUser;
         protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = Uac.SecurePage("memes", this, Data.deviceType, "member");
+            myUser = Uac.SecurePage("memes", this, Data.DeviceType, "member");
         }
     }
 }

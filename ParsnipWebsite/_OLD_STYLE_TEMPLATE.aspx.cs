@@ -19,7 +19,7 @@ namespace ParsnipWebsite
             //This ensures that the user is logged in etc
             //You only need to change where it says '_NEW TEMPLATE'.
             //Change this to match your page name without the '.aspx' extension.
-            myUser = Uac.SecurePage("_OLD_STYLE_TEMPLATE", this, Data.deviceType);
+            myUser = Uac.SecurePage("_OLD_STYLE_TEMPLATE", this, Data.DeviceType);
         }
     }
 }

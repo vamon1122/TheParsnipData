@@ -21,7 +21,7 @@ namespace ParsnipWebsite
         protected void Page_Load(object sender, EventArgs e)
         {
             //new LogEntry(Debug) { text = "Loading photos page..." };
-            myUser = Uac.SecurePage("photos", this, Data.deviceType, "member");
+            myUser = Uac.SecurePage("photos", this, Data.DeviceType, "member");
 
             if (IsPostBack && PhotoUpload.PostedFile != null)
             {

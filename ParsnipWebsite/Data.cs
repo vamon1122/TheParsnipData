@@ -8,7 +8,9 @@ namespace ParsnipWebsite
 {
     public static class Data
     {
-        public static string deviceType
+        public static bool IsMobile { get { return Convert.ToBoolean(Cookie.Read("isMobile")); } }
+
+        public static string DeviceType
         {
             get
             {
@@ -43,8 +45,8 @@ namespace ParsnipWebsite
                 return deviceType;
             }
         }
-        public static string deviceLatitude { get { return Cookie.Read("deviceLatitude"); } }
-        public static string deviceLongitude { get { return Cookie.Read("deviceLongitude"); } }
+        public static string DeviceLatitude { get { return Cookie.Read("deviceLatitude"); } }
+        public static string DeviceLongitude { get { return Cookie.Read("deviceLongitude"); } }
         public static string SessionId { get { return Cookie.Read("sessionId"); } }
     }
 }

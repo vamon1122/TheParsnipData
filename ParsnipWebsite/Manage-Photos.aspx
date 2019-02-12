@@ -12,32 +12,92 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-    <title></title>
+    <title>Manage Photos</title>
+    <style>
+        .mobile-image{
+            width:100%
+        }
+    </style>
+    <script src="javascript/intersection-observer.js"></script>
 </head>
-<body>
+<body style="padding-bottom:2.5%; padding-top:4%">
     <form id="form1" runat="server">
-            <div class="container">
-            <div class="center_div">
+        <div class="container">
                 <div class="jumbotron">
-                <h1 class="display-4">Users</h1>
-                <p class="lead">Create & edit theparsnip.co.uk users</p>
+                <h1 class="display-4">Photos</h1>
+                <p class="lead">Manage photos which have been uploaded to the site</p>
                 <hr class="my-4" />
                 <p><adminControls:adminMenu runat="server" id="adminMenu1" /></p>
             </div>  
             
             
-            <label>Select a user:</label>
+            <label>Select whose photos to manage:</label>
             <asp:DropDownList ID="SelectUser" runat="server" AutoPostBack="True" CssClass="form-control" 
                 onselectedindexchanged="SelectUser_Changed">
             </asp:DropDownList>
-                <asp:Button runat="server" ID="BtnDeleteUploads" OnClick="BtnDeleteUploads_Click" CssClass="btn btn-primary" Text="Delete"></asp:Button>
+            <br />
+            <asp:Button runat="server" ID="btnDelete"  CssClass="btn btn-primary" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;"></asp:Button>
+                    <button data-toggle="modal" data-target="#confirmDelete" class="btn btn-primary" onclick="return false" >Delete</button>
+            <br />
+            <br />
                 <div runat="server" id="DisplayPhotosDiv">
 
                 </div>
 
-            
+
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure that you want to DELETE ALL of this user's photos?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <asp:Button ID="BtnDeleteUploads" runat="server" class="btn btn-primary" OnClick="BtnDeleteUploads_Click" Text="Confirm"></asp:Button>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", function ()
+                {
+                    var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+                    if ("IntersectionObserver" in window)
+                    {
+                        let lazyImageObserver = new IntersectionObserver(function (entries, observer)
+                        {
+                            entries.forEach(function (entry)
+                            {
+                                if (entry.isIntersecting)
+                                {
+                                    let lazyImage = entry.target;
+                                    lazyImage.src = lazyImage.dataset.src;
+                                    lazyImage.srcset = lazyImage.dataset.srcset;
+                                    lazyImage.classList.remove("lazy");
+                                    lazyImageObserver.unobserve(lazyImage);
+                                }
+                            });
+                        });
+
+                        lazyImages.forEach(function (lazyImage) {
+                            lazyImageObserver.observe(lazyImage);
+                        });
+                    }
+                    else
+                    {
+                        //I used javascript/intersection-observer as a fallback
+                    }
+                });
+    </script>
 </body>
 </html>

@@ -21,6 +21,7 @@
         var redirectLabel = document.getElementById("redirectLabel");
         errorLabel.innerHTML = "Creating deviceType cookie..." + deviceDetect();
         createCookie("deviceType", deviceDetect());
+        createCookie("isMobile", isMobile())
         errorLabel.innerHTML = "deviceType cooke created successfully! Doing redirect...";
 
         redirectLabel.innerHTML = "1";
