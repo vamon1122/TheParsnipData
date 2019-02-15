@@ -18,6 +18,13 @@ namespace ParsnipWebsite
     {
         private User myUser;
         Log DebugLog = new Log("debug");
+        Album PhotosAlbum = new Album(new Guid("4b4e450a-2311-4400-ab66-9f7546f44f4e"));
+
+        public photos()
+        {
+            PhotosAlbum.Select();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //new LogEntry(Debug) { text = "Loading photos page..." };
@@ -40,7 +47,7 @@ namespace ParsnipWebsite
                         /*if (PhotoUpload.PostedFile.HasFile)
                         {*/
                             PhotoUpload.PostedFile.SaveAs(Server.MapPath("~/" + newDir));
-                        MediaApi.Image temp = new MediaApi.Image(newDir, myUser);
+                        MediaApi.Image temp = new MediaApi.Image(newDir, myUser, PhotosAlbum);
                             temp.Update();
                         //}
                     }
@@ -58,15 +65,15 @@ namespace ParsnipWebsite
             {
                 UploadDiv.Style.Clear();
             }
-            List<MediaApi.Image> AllPhotos = MediaApi.Image.GetAllPhotos();
+            List<MediaApi.Image> AllPhotos = PhotosAlbum.GetAllImages();
             //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
             foreach (MediaApi.Image temp in AllPhotos)
             {
                 System.Web.UI.WebControls.Image tempControl = new System.Web.UI.WebControls.Image();
                 
                 tempControl.ImageUrl = "resources/media/images/webMedia/placeholder.gif";
-                tempControl.Attributes.Add("data-src", temp.PhotoSrc);
-                tempControl.Attributes.Add("data-srcset", temp.PhotoSrc);
+                tempControl.Attributes.Add("data-src", temp.ImageSrc);
+                tempControl.Attributes.Add("data-srcset", temp.ImageSrc);
                 tempControl.CssClass = "meme lazy";
                 DynamicPhotosDiv.Controls.Add(tempControl);
                 this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl("<br />"));
@@ -79,20 +86,20 @@ namespace ParsnipWebsite
         {
             try
             {
-                new LogEntry(DebugLog) { text = "Attempting to upload the photo" };
+                new LogEntry(DebugLog) { text = "Attempting to upload the image" };
 
                 string newDir = string.Format("resources/media/images/uploads/{0}{1}_{2}", myUser.Forename, myUser.Surname, PhotoUpload.FileName);
                 if (PhotoUpload.HasFile)
                 {
                     PhotoUpload.SaveAs(Server.MapPath("~/" + newDir));
-                    MediaApi.Image temp = new MediaApi.Image(newDir, myUser);
+                    MediaApi.Image temp = new MediaApi.Image(newDir, myUser, PhotosAlbum);
                     temp.Update();
                 }
             }
             catch (Exception err)
             {
 
-                new LogEntry(DebugLog) { text = "There was an exception whilst uploading the photo: " + err };
+                new LogEntry(DebugLog) { text = "There was an exception whilst uploading the image: " + err };
             }
                 
         }

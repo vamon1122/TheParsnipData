@@ -784,7 +784,7 @@ namespace UacApi
             return UserDetails;
         }
 
-        public static User LogIn(string pUsername, string pPwd)
+        public static User GetLoggedInUser(string pUsername, string pPwd)
         {
             User tempUser = new User();
             tempUser.LogIn(pUsername, false, pPwd, false, true);
@@ -879,14 +879,18 @@ namespace UacApi
                                 else
                                 {
                                     //AccountLog.Debug(String.Format("[LogIn] RememberPassword = false. Writing session password cookie (userPwd = {0})", pPwd));
-//if (GetCookies()[1] == pPwd)
+                                    //if (GetCookies()[1] == pPwd)
                                     //{
-                                        //AccountLog.Debug(String.Format("[LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.", pPwd));
+                                    //AccountLog.Debug(String.Format("[LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.", pPwd));
                                     //}
                                     //else
                                     //{
-                                        //AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
+                                    //AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
+                                    
+                                    
                                         Cookie.WriteSession("userPwd", pPwd);
+                                    
+                                        
                                         //AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
                                         //Debug.WriteLine("----------User.Login() - Password stored for SESSION ONLY.");
                                     //}
@@ -899,7 +903,7 @@ namespace UacApi
                                     //AccountLog.Info("[LogIn] Logged in successfully!");
                                     if (!silent)
                                     {
-                                        Debug.WriteLine(String.Format("----------User.Login() - {0} logged in LOUDLY", FullName));
+                                        Debug.WriteLine(string.Format("----------User.Login() - {0} logged in LOUDLY", FullName));
                                     }
                                     else
                                     {

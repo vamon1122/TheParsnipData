@@ -12,17 +12,13 @@ using LogApi;
 
 namespace MediaApi
 {
-    class Album
+    public class Album
     { 
-    public Guid Id { get; set; }
-    public string Placeholder { get; set; }
-    public string AlbumSrc { get; set; }
-    public string Classes { get; set; }
-    public string Alt { get; set; }
-    public DateTime DateCreated { get; set; }
-    public Guid CreatedById { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
+        public Guid Id { get; set; }
+        public Guid CreatedById { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
 
     public static List<Image> GetAllAlbums()
     {
@@ -85,10 +81,43 @@ namespace MediaApi
         return albums;
     }
 
-    public Album(string pSrc, User pCreatedBy)
+        public List<Image> GetAllImages()
+        {
+            List<Guid> ImageGuids = new List<Guid>();
+            List<Image> Images = new List<Image>();
+
+            using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
+            {
+                SqlCommand GetImageIds = new SqlCommand("SELECT imageid FROM t_ImageAlbumPairs WHERE albumid = @id", openConn);
+                GetImageIds.Parameters.Add(new SqlParameter("id", Id));
+
+                using(SqlDataReader reader = GetImageIds.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ImageGuids.Add(new Guid(reader[0].ToString()));
+                    }
+                }
+
+                SqlCommand GetImages = new SqlCommand("SELECT * FROM t_Images WHERE id = @id", openConn);
+                GetImages.Parameters.Add(new SqlParameter("id", Id));
+
+                using (SqlDataReader reader = GetImages.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Images.Add(new Image(reader));
+                    }
+                }
+
+            }
+
+            return Images;
+        }
+
+    public Album(User pCreatedBy)
     {
         Id = Guid.NewGuid();
-        AlbumSrc = pSrc;
         DateCreated = Parsnip.adjustedTime;
         CreatedById = pCreatedBy.Id;
     }
@@ -164,66 +193,31 @@ namespace MediaApi
 
             Id = new Guid(pReader[0].ToString());
 
-            if (pReader[1] != DBNull.Value && !string.IsNullOrEmpty(pReader[1].ToString()) && !string.IsNullOrWhiteSpace(pReader[1].ToString()))
-            {
-                if (logMe)
-                    Debug.WriteLine("----------Reading placeholder");
+            CreatedById = new Guid(pReader[1].ToString());
 
-                Placeholder = pReader[1].ToString().Trim();
-            }
-            else
-            {
-                if (logMe)
-                    Debug.WriteLine("----------Placeholder is blank. Skipping placeholder");
-            }
-
-
-            if (logMe)
-                Debug.WriteLine("----------Reading AlbumSrc");
-            AlbumSrc = pReader[2].ToString().Trim();
-
-
+            DateCreated = Convert.ToDateTime(pReader[2]);
 
             if (pReader[3] != DBNull.Value && !string.IsNullOrEmpty(pReader[3].ToString()) && !string.IsNullOrWhiteSpace(pReader[3].ToString()))
             {
                 if (logMe)
-                    Debug.WriteLine("----------Reading alt");
+                    Debug.WriteLine("----------Reading name");
 
-                Alt = pReader[3].ToString().Trim();
+                Name = pReader[3].ToString().Trim();
             }
             else
             {
                 if (logMe)
-                    Debug.WriteLine("----------Alt is blank. Skipping alt");
+                    Debug.WriteLine("----------Name is blank. Skipping name");
             }
 
-            if (logMe)
-                Debug.WriteLine("----------Reading datecreated");
-            DateCreated = Convert.ToDateTime(pReader[4]);
 
-            if (logMe)
-                Debug.WriteLine("----------Reading createdbyid");
-            CreatedById = new Guid(pReader[5].ToString());
 
-            if (pReader[6] != DBNull.Value && !string.IsNullOrEmpty(pReader[6].ToString()) && !string.IsNullOrWhiteSpace(pReader[6].ToString()))
-            {
-                if (logMe)
-                    Debug.WriteLine("----------Reading title");
-
-                Alt = pReader[6].ToString().Trim();
-            }
-            else
-            {
-                if (logMe)
-                    Debug.WriteLine("----------Title is blank. Skipping title");
-            }
-
-            if (pReader[7] != DBNull.Value && !string.IsNullOrEmpty(pReader[7].ToString()) && !string.IsNullOrWhiteSpace(pReader[7].ToString()))
+            if (pReader[4] != DBNull.Value && !string.IsNullOrEmpty(pReader[4].ToString()) && !string.IsNullOrWhiteSpace(pReader[4].ToString()))
             {
                 if (logMe)
                     Debug.WriteLine("----------Reading description");
 
-                Alt = pReader[7].ToString().Trim();
+                Description = pReader[4].ToString().Trim();
             }
             else
             {
@@ -250,19 +244,16 @@ namespace MediaApi
             Id = Guid.NewGuid();
             Debug.WriteLine("Id was empty when trying to insert album into the database. A new guid was generated: {0}", Id);
         }
-
-        if (AlbumSrc != null)
-        {
             try
             {
                 if (!ExistsOnDb(pOpenConn))
                 {
-                    SqlCommand InsertAlbumIntoDb = new SqlCommand("INSERT INTO t_Albums (id, albumsrc, datecreated, createdbyid) VALUES(@id, @albumsrc, @datecreated, @createdbyid)", pOpenConn);
+                    SqlCommand InsertAlbumIntoDb = new SqlCommand("INSERT INTO t_Albums (id, createdbyid, datecreated) VALUES(@id, @createdbyid, @datecreated)", pOpenConn);
 
                     InsertAlbumIntoDb.Parameters.Add(new SqlParameter("id", Id));
-                    InsertAlbumIntoDb.Parameters.Add(new SqlParameter("albumsrc", AlbumSrc.Trim()));
-                    InsertAlbumIntoDb.Parameters.Add(new SqlParameter("datecreated", Parsnip.adjustedTime));
                     InsertAlbumIntoDb.Parameters.Add(new SqlParameter("createdbyid", CreatedById));
+                    InsertAlbumIntoDb.Parameters.Add(new SqlParameter("datecreated", Parsnip.adjustedTime));
+                    
 
                     InsertAlbumIntoDb.ExecuteNonQuery();
 
@@ -283,11 +274,7 @@ namespace MediaApi
             new LogEntry(Log.Default) { text = string.Format("Album was successfully inserted into the database!") };
             return DbUpdate(pOpenConn);
         }
-        else
-        {
-            throw new InvalidOperationException("Album cannot be inserted. The album's property: albumsrc must be initialised before it can be inserted!");
-        }
-    }
+    
 
     public bool Select()
     {
@@ -356,61 +343,25 @@ namespace MediaApi
         {
             try
             {
-                Image temp = new Image(Id);
+                Album temp = new Album(Id);
                 temp.Select();
 
-                if (Placeholder != temp.Placeholder)
+                if (Name != temp.Name)
                 {
-                    Debug.WriteLine(string.Format("----------Attempting to update placeholder..."));
+                    Debug.WriteLine(string.Format("----------Attempting to update name..."));
 
 
-                    SqlCommand UpdatePlaceholder = new SqlCommand("UPDATE t_Albums SET placeholder = @placeholder WHERE id = @id", pOpenConn);
-                    UpdatePlaceholder.Parameters.Add(new SqlParameter("id", Id));
-                    UpdatePlaceholder.Parameters.Add(new SqlParameter("placeholder", Placeholder.Trim()));
+                    SqlCommand UpdateAlbumName = new SqlCommand("UPDATE t_Albums SET name = @name WHERE id = @id", pOpenConn);
+                    UpdateAlbumName.Parameters.Add(new SqlParameter("id", Id));
+                    UpdateAlbumName.Parameters.Add(new SqlParameter("name", Name.Trim()));
 
-                    UpdatePlaceholder.ExecuteNonQuery();
+                    UpdateAlbumName.ExecuteNonQuery();
 
-                    Debug.WriteLine(string.Format("----------placeholder was updated successfully!"));
+                    Debug.WriteLine(string.Format("----------Name was updated successfully!"));
                 }
                 else
                 {
-                    Debug.WriteLine(string.Format("----------placeholder was not changed. Not updating placeholder."));
-                }
-
-                if (Alt != temp.Alt)
-                {
-                    Debug.WriteLine(string.Format("----------Attempting to update alt..."));
-
-
-                    SqlCommand UpdateAlt = new SqlCommand("UPDATE t_Albums SET alt = @alt WHERE id = @id", pOpenConn);
-                    UpdateAlt.Parameters.Add(new SqlParameter("id", Id));
-                    UpdateAlt.Parameters.Add(new SqlParameter("alt", Alt.Trim()));
-
-                    UpdateAlt.ExecuteNonQuery();
-
-                    Debug.WriteLine(string.Format("----------alt was updated successfully!"));
-                }
-                else
-                {
-                    Debug.WriteLine(string.Format("----------alt was not changed. Not updating alt."));
-                }
-
-                if (Title != temp.Title)
-                {
-                    Debug.WriteLine(string.Format("----------Attempting to update title..."));
-
-
-                    SqlCommand UpdateTitle = new SqlCommand("UPDATE t_Albums SET title = @title WHERE id = @id", pOpenConn);
-                    UpdateTitle.Parameters.Add(new SqlParameter("id", Id));
-                    UpdateTitle.Parameters.Add(new SqlParameter("title", Title.Trim()));
-
-                    UpdateTitle.ExecuteNonQuery();
-
-                    Debug.WriteLine(string.Format("----------Title was updated successfully!"));
-                }
-                else
-                {
-                    Debug.WriteLine(string.Format("----------Title was not changed. Not updating title."));
+                    Debug.WriteLine(string.Format("----------Name was not changed. Not updating name."));
                 }
 
                 if (Description != temp.Description)
@@ -418,11 +369,11 @@ namespace MediaApi
                     Debug.WriteLine(string.Format("----------Attempting to update description..."));
 
 
-                    SqlCommand UpdateDescription = new SqlCommand("UPDATE t_Albums SET description = @description WHERE id = @id", pOpenConn);
-                    UpdateDescription.Parameters.Add(new SqlParameter("id", Id));
-                    UpdateDescription.Parameters.Add(new SqlParameter("description", Description.Trim()));
+                    SqlCommand UpdateAlt = new SqlCommand("UPDATE t_Albums SET description = @description WHERE id = @id", pOpenConn);
+                    UpdateAlt.Parameters.Add(new SqlParameter("id", Id));
+                    UpdateAlt.Parameters.Add(new SqlParameter("description", Description.Trim()));
 
-                    UpdateDescription.ExecuteNonQuery();
+                    UpdateAlt.ExecuteNonQuery();
 
                     Debug.WriteLine(string.Format("----------Description was updated successfully!"));
                 }

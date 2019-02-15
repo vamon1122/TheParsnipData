@@ -15,6 +15,56 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Creating photo pairs");
+            List<Guid> ImageIds = new List<Guid>();
+            List<Image> Images = new List<Image>();
+
+            using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
+            {
+                SqlCommand GetPhotoIds = new SqlCommand("SELECT id FROM t_Images", openConn);
+                using (SqlDataReader reader = GetPhotoIds.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ImageIds.Add(new Guid(reader[0].ToString()));
+                    }
+                }
+
+                Console.WriteLine(string.Format("{0} photo id's found", ImageIds.Count));
+
+                int inserts = 0;
+
+                foreach (Guid tempid in ImageIds)
+                {
+
+
+                    SqlCommand AddToAlbum = new SqlCommand("INSERT INTO t_ImageAlbumPairs VALUES (@imageid, @albumid)", openConn);
+                    AddToAlbum.Parameters.Add(new SqlParameter("imageid", tempid));
+                    AddToAlbum.Parameters.Add(new SqlParameter("albumid", new Guid("4b4e450a-2311-4400-ab66-9f7546f44f4e")));
+
+                    AddToAlbum.ExecuteNonQuery();
+                    inserts++;
+                    Console.Write(string.Format("\r {0}/{1}", inserts, ImageIds.Count));
+                }
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("Finished creating photo pairs");
+            Console.ReadLine();
+
+            /*
+            Console.WriteLine("Creating album...");
+
+            User tempUser = User.GetLoggedInUser("ADMIN", "BBTbbt1704");
+            Album MyAlbum = new Album(tempUser);
+            MyAlbum.Name = "Photos";
+
+            MyAlbum.Update();
+
+            Console.WriteLine("Album created successfully!");
+            Console.ReadLine();
+            */
+
             /*
             Console.WriteLine("Beginning fix photo dates");
             using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
@@ -26,6 +76,7 @@ namespace ConsoleTest
             Console.ReadLine();
             */
 
+            /*
             User tempUser = User.LogIn("ADMIN", "BBTbbt1704");
             //UacTest.DoTest();
             Console.WriteLine("Beginning batch photo upload");

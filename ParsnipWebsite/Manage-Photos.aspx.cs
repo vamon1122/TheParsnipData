@@ -39,7 +39,7 @@ namespace ParsnipWebsite
 
                 Debug.WriteLine("---------- posted back with id = " + selectedUserId);
 
-                List<MediaApi.Image> MyPhotos = MediaApi.Image.GetPhotosByUser(selectedUserId);
+                List<MediaApi.Image> MyPhotos = MediaApi.Image.GetImagesByUser(selectedUserId);
                 //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
                 foreach (MediaApi.Image temp in MyPhotos)
                 {
@@ -47,8 +47,8 @@ namespace ParsnipWebsite
 
                     
                     tempControl.ImageUrl = "resources/media/images/webMedia/pix-vertical-placeholder.jpg";
-                    tempControl.Attributes.Add("data-src", temp.PhotoSrc);
-                    tempControl.Attributes.Add("data-srcset", temp.PhotoSrc);
+                    tempControl.Attributes.Add("data-src", temp.ImageSrc);
+                    tempControl.Attributes.Add("data-srcset", temp.ImageSrc);
                     
                     
 

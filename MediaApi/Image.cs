@@ -22,6 +22,7 @@ namespace MediaApi
         public Guid CreatedById { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public Guid AlbumId { get; set; }
 
         public static List<Image> GetAllImages()
         {
@@ -84,7 +85,13 @@ namespace MediaApi
             return images;
         }
 
-        public Image(string pSrc, User pCreatedBy)
+
+        public static List<Image> GetImagesNotInAnAlbum()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Image(string pSrc, User pCreatedBy, Album pAlbum)
         {
             Id = Guid.NewGuid();
             ImageSrc = pSrc;
@@ -151,7 +158,7 @@ namespace MediaApi
 
         internal bool AddValues(SqlDataReader pReader)
         {
-            bool logMe = false;
+            bool logMe = true;
 
             if (logMe)
                 Debug.WriteLine("----------Adding values...");
@@ -357,6 +364,14 @@ namespace MediaApi
                 {
                     Image temp = new Image(Id);
                     temp.Select();
+
+                    if(AlbumId != null)
+                    {
+                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO t_ImageAlbumPairs SET imageid = @imageid, albumid = @albumid");
+                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("imageid", Id));
+                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("albumid", AlbumId));
+                    }
+                    
 
                     if (Placeholder != temp.Placeholder)
                     {
