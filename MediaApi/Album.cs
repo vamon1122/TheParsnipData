@@ -83,32 +83,26 @@ namespace MediaApi
 
         public List<Image> GetAllImages()
         {
+            Debug.WriteLine("Getting all images for album");
             List<Guid> ImageGuids = new List<Guid>();
             List<Image> Images = new List<Image>();
 
             using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand GetImageIds = new SqlCommand("SELECT imageid FROM t_ImageAlbumPairs WHERE albumid = @id", openConn);
-                GetImageIds.Parameters.Add(new SqlParameter("id", Id));
-
-                using(SqlDataReader reader = GetImageIds.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        ImageGuids.Add(new Guid(reader[0].ToString()));
-                    }
-                }
-
-                SqlCommand GetImages = new SqlCommand("SELECT * FROM t_Images WHERE id = @id", openConn);
+                SqlCommand GetImages = new SqlCommand("SELECT * FROM t_Images FULL OUTER JOIN t_ImageAlbumPairs ON t_Images.id = t_ImageAlbumPairs.imageid ORDER BY t_Images.datecreated DESC; ", openConn);
                 GetImages.Parameters.Add(new SqlParameter("id", Id));
 
-                using (SqlDataReader reader = GetImages.ExecuteReader())
+                using(SqlDataReader reader = GetImages.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         Images.Add(new Image(reader));
                     }
                 }
+
+                Debug.WriteLine("" + ImageGuids.Count() + "Photos were found");
+
+                int i = 0;
 
             }
 

@@ -27,8 +27,10 @@ namespace ParsnipWebsite
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //new LogEntry(Debug) { text = "Loading photos page..." };
+            new LogEntry(DebugLog) { text = "Loading photos page..." };
             myUser = Uac.SecurePage("photos", this, Data.DeviceType, "member");
+
+            new LogEntry(DebugLog) { text = "Logged in..." };
 
             if (IsPostBack && PhotoUpload.PostedFile != null)
             {
@@ -58,14 +60,18 @@ namespace ParsnipWebsite
                     }
                 }
             }
+            new LogEntry(DebugLog) { text = "PageLoad done" };
         }
         protected void Page_LoadComplete(object sender, EventArgs e)
         {
-            if(myUser.AccountType == "admin" || myUser.AccountType == "member")
+            Debug.WriteLine("Starting pageloadcomplete");
+            if (myUser.AccountType == "admin" || myUser.AccountType == "member")
             {
                 UploadDiv.Style.Clear();
             }
+            Debug.WriteLine("Getting all photos");
             List<MediaApi.Image> AllPhotos = PhotosAlbum.GetAllImages();
+            Debug.WriteLine("Got all photos");
             //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
             foreach (MediaApi.Image temp in AllPhotos)
             {

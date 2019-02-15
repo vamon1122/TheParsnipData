@@ -158,7 +158,7 @@ namespace MediaApi
 
         internal bool AddValues(SqlDataReader pReader)
         {
-            bool logMe = true;
+            bool logMe = false;
 
             if (logMe)
                 Debug.WriteLine("----------Adding values...");
