@@ -27,10 +27,7 @@ namespace ParsnipWebsite
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            new LogEntry(DebugLog) { text = "Loading photos page..." };
             myUser = Uac.SecurePage("photos", this, Data.DeviceType, "member");
-
-            new LogEntry(DebugLog) { text = "Logged in..." };
 
             if (IsPostBack && PhotoUpload.PostedFile != null)
             {
@@ -60,7 +57,6 @@ namespace ParsnipWebsite
                     }
                 }
             }
-            new LogEntry(DebugLog) { text = "PageLoad done" };
         }
         protected void Page_LoadComplete(object sender, EventArgs e)
         {

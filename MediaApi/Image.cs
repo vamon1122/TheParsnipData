@@ -95,6 +95,9 @@ namespace MediaApi
         {
             Id = Guid.NewGuid();
             ImageSrc = pSrc;
+            Log DebugLog = new Log("Debug");
+            new LogEntry(DebugLog) { text = "Image created with albumid = " + pAlbum.Id };
+            AlbumId = pAlbum.Id;
             DateCreated = Parsnip.adjustedTime;
             CreatedById = pCreatedBy.Id;
         }
@@ -367,9 +370,19 @@ namespace MediaApi
 
                     if(AlbumId != null)
                     {
-                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO t_ImageAlbumPairs SET imageid = @imageid, albumid = @albumid");
+                        Log DebugLog = new Log("Debug");
+                        new LogEntry(DebugLog) { text = "AlbumId != null = " + AlbumId };
+                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO t_ImageAlbumPairs VALUES (@imageid, @albumid)", pOpenConn);
                         CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("imageid", Id));
                         CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("albumid", AlbumId));
+
+                        CreatePhotoAlbumPair.ExecuteNonQuery();
+                        new LogEntry(DebugLog) { text = string.Format("INSERTED ALBUM PAIR {0}, {1} ",Id, AlbumId) };
+                    }
+                    else
+                    {
+                        Log DebugLog = new Log("Debug");
+                        new LogEntry(DebugLog) { text = "Image created with albumid = null :( " };
                     }
                     
 

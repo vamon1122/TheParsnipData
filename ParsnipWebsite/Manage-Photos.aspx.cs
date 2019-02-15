@@ -82,7 +82,7 @@ namespace ParsnipWebsite
 
                 using (SqlConnection conn = Parsnip.GetOpenDbConnection())
                 {
-                    SqlCommand DeleteUploads = new SqlCommand("DELETE FROM t_Photos WHERE createdbyid = @createdbyid", conn);
+                    SqlCommand DeleteUploads = new SqlCommand("DELETE FROM t_Images WHERE createdbyid = @createdbyid", conn);
                     DeleteUploads.Parameters.Add(new SqlParameter("createdbyid", selectedUserId));
                     DeleteUploads.ExecuteNonQuery();
                 }

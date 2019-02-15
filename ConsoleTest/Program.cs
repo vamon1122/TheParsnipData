@@ -69,7 +69,7 @@ namespace ConsoleTest
             Console.WriteLine("Beginning fix photo dates");
             using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand fixPhotos = new SqlCommand("SELECT DATEADD(HOUR,-8,datecreated)FROM t_Photos", openConn);
+                SqlCommand fixPhotos = new SqlCommand("SELECT DATEADD(HOUR,-8,datecreated)FROM t_Images", openConn);
                 fixPhotos.ExecuteNonQuery();
             }
             Console.WriteLine("Fixed photo dates!");
@@ -456,7 +456,7 @@ namespace ConsoleTest
                     DateTime TimerEnd = DateTime.Now.AddMilliseconds(100);
                     while (DateTime.Now < TimerEnd) { }
 
-                    SqlCommand InsertPhotoIntoDb = new SqlCommand("INSERT INTO t_Photos (photosrc, datecreated, createdbyid) VALUES(@photosrc, @datecreated, @createdbyid)", openConn);
+                    SqlCommand InsertPhotoIntoDb = new SqlCommand("INSERT INTO t_Images (photosrc, datecreated, createdbyid) VALUES(@photosrc, @datecreated, @createdbyid)", openConn);
 
                     //InsertPhotoIntoDb.Parameters.Add(new SqlParameter("id", Id));
                     InsertPhotoIntoDb.Parameters.Add(new SqlParameter("photosrc", temp));
