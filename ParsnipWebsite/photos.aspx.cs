@@ -40,7 +40,7 @@ namespace ParsnipWebsite
                         /*if (PhotoUpload.PostedFile.HasFile)
                         {*/
                             PhotoUpload.PostedFile.SaveAs(Server.MapPath("~/" + newDir));
-                            Photo temp = new Photo(newDir, myUser);
+                        MediaApi.Image temp = new MediaApi.Image(newDir, myUser);
                             temp.Update();
                         //}
                     }
@@ -58,13 +58,13 @@ namespace ParsnipWebsite
             {
                 UploadDiv.Style.Clear();
             }
-            List<Photo> AllPhotos = Photo.GetAllPhotos();
+            List<MediaApi.Image> AllPhotos = MediaApi.Image.GetAllPhotos();
             //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
-            foreach (Photo temp in AllPhotos)
-            {   
-                Image tempControl = new Image();
+            foreach (MediaApi.Image temp in AllPhotos)
+            {
+                System.Web.UI.WebControls.Image tempControl = new System.Web.UI.WebControls.Image();
                 
-                tempControl.ImageUrl = "resources/media/images/webMedia/pix-vertical-placeholder.jpg";
+                tempControl.ImageUrl = "resources/media/images/webMedia/placeholder.gif";
                 tempControl.Attributes.Add("data-src", temp.PhotoSrc);
                 tempControl.Attributes.Add("data-srcset", temp.PhotoSrc);
                 tempControl.CssClass = "meme lazy";
@@ -85,7 +85,7 @@ namespace ParsnipWebsite
                 if (PhotoUpload.HasFile)
                 {
                     PhotoUpload.SaveAs(Server.MapPath("~/" + newDir));
-                    Photo temp = new Photo(newDir, myUser);
+                    MediaApi.Image temp = new MediaApi.Image(newDir, myUser);
                     temp.Update();
                 }
             }

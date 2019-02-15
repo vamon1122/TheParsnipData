@@ -15,9 +15,20 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
+            /*
+            Console.WriteLine("Beginning fix photo dates");
+            using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
+            {
+                SqlCommand fixPhotos = new SqlCommand("SELECT DATEADD(HOUR,-8,datecreated)FROM t_Photos", openConn);
+                fixPhotos.ExecuteNonQuery();
+            }
+            Console.WriteLine("Fixed photo dates!");
+            Console.ReadLine();
+            */
+
             User tempUser = User.LogIn("ADMIN", "BBTbbt1704");
             //UacTest.DoTest();
-            Console.WriteLine("Beginning batch photo uplaod");
+            Console.WriteLine("Beginning batch photo upload");
             string[] newphotos = new string[]
             {
                 @"https://lh3.googleusercontent.com/4jCXzK4Yn5FMLVHnHAh3SZ1CG2HvfKrMHc7bqTv22xS8OXu3m4lR2xgnQG8uA_-maD7MrJek1HWYVR8QdjR3sGaih7BW7cOP-iGSXYfupYFnEQDQ_BnDtc_GMO5V3HfmMgPJ69H08g=w1920-h1080",

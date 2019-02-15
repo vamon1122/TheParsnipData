@@ -97,6 +97,7 @@
     <Content Include="resources\media\images\uploads\fat_kieron_cutout.JPG" />
     <Content Include="resources\media\images\webMedia\google-photos.svg" />
     <Content Include="resources\media\images\webMedia\pix-vertical-placeholder.jpg" />
+    <Content Include="resources\media\images\webMedia\placeholder.gif" />
     <Content Include="resources\media\images\webMedia\you_shall_not_pass.jpg" />
     <Content Include="Set-Password.aspx" />
     <Content Include="Site.Mobile.Master" />
