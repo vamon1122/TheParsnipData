@@ -45,7 +45,7 @@
                 <div runat="server" id="UploadDiv" class="form-group" style="display:none">
                     <label class="file-upload">
                         
-                        <span><strong>Upload Image</strong></span>
+                        <span><strong>Upload Meme</strong></span>
                         <asp:FileUpload ID="PhotoUpload" runat="server" class="form-control-file" onchange="this.form.submit()" />
                     </label>
 
@@ -154,7 +154,7 @@
     <script>
                 if (isMobile()) {
                     var body = document.getElementById("body")
-                    body.style = "margin-top:10%"
+                    body.style = "margin-top:5%"
 
 
                 }

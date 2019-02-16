@@ -541,7 +541,7 @@
         if(isMobile())
         {
             var body = document.getElementById("body")
-            body.style = "margin-top:10%"
+            body.style = "margin-top:5%"
         }
     </script>
 </body>

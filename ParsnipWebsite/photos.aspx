@@ -52,7 +52,7 @@
                 <div runat="server" id="UploadDiv" class="form-group" style="display:none">
                     <label class="file-upload">
                         
-                        <span><strong>Upload Image</strong></span>
+                        <span><strong>Upload Photo</strong></span>
                         <asp:FileUpload ID="PhotoUpload" runat="server" class="form-control-file" onchange="this.form.submit()" />
                     </label>
 

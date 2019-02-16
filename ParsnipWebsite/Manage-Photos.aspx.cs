@@ -46,7 +46,7 @@ namespace ParsnipWebsite
                     System.Web.UI.WebControls.Image tempControl = new System.Web.UI.WebControls.Image();
 
                     
-                    tempControl.ImageUrl = "resources/media/images/webMedia/pix-vertical-placeholder.jpg";
+                    tempControl.ImageUrl = "resources/media/images/webMedia/placeholder.gif";
                     tempControl.Attributes.Add("data-src", temp.ImageSrc);
                     tempControl.Attributes.Add("data-srcset", temp.ImageSrc);
                     

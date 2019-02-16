@@ -57,7 +57,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Are you sure that you want to DELETE ALL of this user's photos?
+                        Are you sure that you want to remove all of this user's photos from all albums?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
