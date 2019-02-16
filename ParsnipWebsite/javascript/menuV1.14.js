@@ -30,19 +30,22 @@ var fontCol = "white";
 
 /////Mobile / Desktop Variables/////
 if (isMobile() === true){
-    height = "112.5px";
+    /*height = "112.5px";
     buttFontSize = "50px";
-    buttonPadding = "30px";
-    titleFontSize = "87.5px";
+    
+    titleFontSize = "87.5px";*/
     dropDownWidth = "50%";
+    buttonPadding = "10px";
 }
 else{
-    height = "45px";
-    buttFontSize = "17px";
     buttonPadding = "20px";
-    titleFontSize = "35px";
     dropDownWidth = "300px";
 }
+
+height = "45px";
+buttFontSize = "17px";
+
+titleFontSize = "35px";
 
 /////Buttons/////
 createButton("Home", "home");
@@ -56,7 +59,8 @@ if (getCookie("accountType") === "admin" || getCookie("accountType") === "member
     createButton("Photos", "photos");
 }
 
-createButton("Minecraft", "minecraft");
+//createButton("Minecraft", "minecraft");
+
 createButton("Bios", "bios");
 
 if (getCookie("accountType") === "admin") {
@@ -86,6 +90,7 @@ pageTitle.innerHTML = title;
 pageTitle.style.fontSize = titleFontSize;
 pageTitle.style.fontWeight = "bold";
 pageTitle.style.color = titleColor;
+pageTitle.style.top = "-100px";
 
 if (isMobile()) {
     //pageTitle.style.position = "absolute";
@@ -102,23 +107,23 @@ menuLabel.style.position = "fixed";
 menuLabel.style.padding = "0px";
 menuLabel.style.margin = "0px";
 
-if (isMobile()) {
+/*if (isMobile()) {
     menuLabel.style.top = "-27.5px";
     menuLabel.style.left = "17.5px";
     menuLabel.style.fontSize = "125px";
 }
-else {
-menuLabel.style.top = "-11px";
+else {*/
+menuLabel.style.top = "-18px";
 menuLabel.style.left = "7px";
 menuLabel.style.fontSize = "50px";
-}
+//}
 
 
 
 
 menuLabel.addEventListener("click", function (e) {
 menuLabel.className = "rotate";
-if (isMobile()) {
+/*if (isMobile()) {
     if (list.className === "mMenHide" || list.className === "menHidden") {
         list.className = "mMenVis";
     }
@@ -127,7 +132,7 @@ if (isMobile()) {
         list.className = "mMenHide";
     }
 }
-else {
+else {*/
     if (list.className === "menHide" || list.className === "menHidden") {
         list.className = "menVis";
     }
@@ -137,7 +142,7 @@ else {
     }
 
 
-}
+//}
     setTimeout(function (e) { menuLabel.className = ""; }
 
         , 500);

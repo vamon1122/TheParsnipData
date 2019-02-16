@@ -3,17 +3,19 @@
     min-width: 0px;
 }
 
-
+.cincopa-container {
+    display: block;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 600px;
+}
 
 .cens_req {
+    font-size: 10px;
 }
 
 .censored {
     display: none;
-}
-
-.meme {
-    width: 97.5%;
 }
 
 .spin {
@@ -31,98 +33,81 @@
 }
 
 body {
-    font-family: "Verdana";
+
     height: 100%;
     width: 100%;
     text-align: center;
     /*background-color:#e2fffe;*/
-    -webkit-text-size-ajust: none;
 }
 
-
-/*For main title in old style, not really used in new style*/
-h1 {
-    font-size: 80px;
-    text-align: center;
+.meme{
+    width:100%;
 }
-
-
-/*Subtitles in old and new, main title in new*/
-h2 {
-    font-size: 60px;
-    text-align: center;
-}
-
-
-/*Sub-subtitles and youtube videos*/
-h3 {
-    text-align: center;
-    font-size: 40px;
-}
-
 
 /*Separates different articles with a small line underneath*/
 hr.break {
-    height: 6px;
-    width: 40px;
+    height: 3px;
+    width: 20px;
     border-radius: 10px;
     background-color: grey;
     border-style: none;
 }
 
 
-/*Old style menu buttons*/
+/*Old style menu buttons
 input[type="button"].menu {
     color: #CCCCCC;
     background-image: url(../resources/media/patterns/pattern_black1.png);
-    width: 400px;
-    height: 60px;
+    width: 200px;
+    height: 30px;
     border-radius: 10px 10px;
-    font-size: 36px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    margin-bottom: 5px;
     outline: none;
     cursor: pointer;
 }
-
-
+    */
+/*
 input[type="submit"] {
     background-color: lightgrey;
     border-radius: 5px;
     background-image: none;
     color: black;
-    font-size: 40px;
-    height: 60px;
-    width: 300px;
+    font-size: 20px;
+    height: 30px;
+    width: 150px;
     border-style: outset;
-    border-width: 4px;
+    border-width: 2px;
     cursor: pointer;
 }
-
+*/
 
 /*Plain square grey button*/
+/**/
 button {
     background-color: lightgrey;
-    border-radius: 10px;
+    border-radius: 5px;
     background-image: none;
     color: black;
-    font-size: 40px;
-    height: 60px;
-    width: 300px;
+    font-size: 20px;
+    height: 30px;
+    width: 150px;
     border-style: outset;
-    border-width: 4px;
+    border-width: 2px;
     cursor: pointer;
 }
-
+*/
 
 /*Text box, yellow background*/
+/*
 input[type="text"] {
     background-color: lightyellow;
-    height: 50px;
-    width: 400px;
-    font-size: 60px;
+    height: 25px;
+    width: 200px;
+    font-size: 30px;
     border-radius: 5px;
 }
-
+*/
 
 /*ul used in new menu*/
 
@@ -148,26 +133,6 @@ input[type="text"] {
 li a.active {
     background-color: green;
     color: white;
-}
-
-
-/*Redundant*/
-iframe {
-    padding: 0;
-    margin: 0;
-}
-
-
-/*Redundant*/
-table {
-    height: 100%;
-    width: 100%;
-}
-
-
-/*Redundant*/
-td {
-    vertical-align: top;
 }
 
 
@@ -277,11 +242,12 @@ a {
 }
 
 
-/*Youtube START*/
+/*Youtube CSS*/
 .youtube-container {
     display: block;
     margin: 20px auto;
-    width: 95%;
+    width: 100%;
+    max-width: 600px;
 }
 
 .youtube-player {
@@ -328,18 +294,8 @@ div.play-button {
     top: 0;
     left: 0;
 }
-/*Youtube END*/
-
-
-/*CINCOPA START*/
-.cincopa-container {
-    display: block;
-    margin: 20px auto;
-    width: 95%;
-}
-/*CINCOPA END*/
-
 /* FILE UPLOAD START */
+
 .file-upload {
     display: inline-block;
     overflow: hidden;
@@ -360,15 +316,15 @@ div.play-button {
 
 /* The button size */
 .file-upload {
-    height: 1.3em;
-    
+    /*height: 1.3em;*/
+    height: 35px;
+    cursor: pointer;
 }
 
     .file-upload, .file-upload span {
         width: 3.5em;
-        width: 600px;
-        height: 85px;
-        border-radius:10px;
+        width: 150px;
+        height: 35px;
     }
 
         .file-upload input {
@@ -383,10 +339,9 @@ div.play-button {
         }
 
         .file-upload strong {
-            font-size:64px;
+            font: normal 16px Tahoma,sans-serif;
             text-align: center;
             vertical-align: middle;
-            /*margin-left: 28px;*/
         }
 
         .file-upload span {
@@ -396,9 +351,9 @@ div.play-button {
             display: inline-block;
             /* Adjust button text vertical alignment */
             padding-top: .15em;
-        } 
+            /*padding-left: 2px;*/
+        }
 /* FILE UPLOAD END */
-
 
 
 /*Good Backgrounds For Buttons
