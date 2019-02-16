@@ -10,7 +10,17 @@
     <link rel="stylesheet" type="text/css" href="../css/old/style.css" />-->
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
 
+    
+    <link href="css/fileupload.css" rel="stylesheet" type ="text/css" />
     <title>Memes</title>
+    <style>
+        image
+        {
+            max-width:500px;
+        }
+    </style>
+
+    <script src="javascript/intersection-observer.js"></script>
 </head>
 <body class="fade0p5" id="body">
     <label class="censored" id="pageId">memes.html</label>
@@ -29,6 +39,22 @@
     
     <div>Loldred you definitely have the most (and the dankest) memes :P</div>
     <hr class="break" />
+
+    <form runat="server">
+
+                <div runat="server" id="UploadDiv" class="form-group" style="display:none">
+                    <label class="file-upload">
+                        
+                        <span><strong>Upload Image</strong></span>
+                        <asp:FileUpload ID="PhotoUpload" runat="server" class="form-control-file" onchange="this.form.submit()" />
+                    </label>
+
+                </div>
+                <br />
+                <div runat="server" id="DynamicPhotosDiv">
+
+                </div>
+            </form>
 
     <div>
         <h3>Loldred back in the good old days (of abuse)</h3>
@@ -126,12 +152,52 @@
     <script src="../javascript/globalBodyV1.6.js"></script>
     <script src="../javascript/menuV1.14.js"></script>
     <script>
-        if(isMobile())
-        {
-            var body = document.getElementById("body")
-            body.style = "margin-top:10%"
-        }
-    </script>
+                if (isMobile()) {
+                    var body = document.getElementById("body")
+                    body.style = "margin-top:10%"
+
+
+                }
+                else
+                {
+                    var main = document.getElementById("main")
+           
+                    //main.style = "width:20%; left:60%; background-color:red"
+                }
+
+                document.addEventListener("DOMContentLoaded", function ()
+                {
+                    var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+                    if ("IntersectionObserver" in window)
+                    {
+                        let lazyImageObserver = new IntersectionObserver(function (entries, observer)
+                        {
+                            entries.forEach(function (entry)
+                            {
+                                if (entry.isIntersecting)
+                                {
+                                    let lazyImage = entry.target;
+                                    lazyImage.src = lazyImage.dataset.src;
+                                    lazyImage.srcset = lazyImage.dataset.srcset;
+                                    lazyImage.classList.remove("lazy");
+                                    lazyImageObserver.unobserve(lazyImage);
+                                }
+                            });
+                        });
+
+                        lazyImages.forEach(function (lazyImage) {
+                            lazyImageObserver.observe(lazyImage);
+                        });
+                    }
+                    else
+                    {
+                        //I used javascript/intersection-observer as a fallback
+                    }
+                });
+
+       
+            </script>
 </body>
 
 </html>

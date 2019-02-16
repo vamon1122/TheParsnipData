@@ -15,6 +15,7 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
+            /*
             Console.WriteLine("Creating photo pairs");
             List<Guid> ImageIds = new List<Guid>();
             List<Image> Images = new List<Image>();
@@ -51,19 +52,24 @@ namespace ConsoleTest
 
             Console.WriteLine("Finished creating photo pairs");
             Console.ReadLine();
+            */
 
-            /*
+
+
+            
             Console.WriteLine("Creating album...");
 
             User tempUser = User.GetLoggedInUser("ADMIN", "BBTbbt1704");
             Album MyAlbum = new Album(tempUser);
-            MyAlbum.Name = "Photos";
+            MyAlbum.Name = "Memes";
 
             MyAlbum.Update();
 
             Console.WriteLine("Album created successfully!");
             Console.ReadLine();
-            */
+            
+
+
 
             /*
             Console.WriteLine("Beginning fix photo dates");

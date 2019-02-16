@@ -88,7 +88,7 @@ namespace ParsnipWebsite
         {
             try
             {
-                new LogEntry(DebugLog) { text = "Attempting to upload the image" };
+                new LogEntry(DebugLog) { text = "Attempting to upload the photo image" };
 
                 string newDir = string.Format("resources/media/images/uploads/{0}{1}_{2}", myUser.Forename, myUser.Surname, PhotoUpload.FileName);
                 if (PhotoUpload.HasFile)
@@ -101,7 +101,7 @@ namespace ParsnipWebsite
             catch (Exception err)
             {
 
-                new LogEntry(DebugLog) { text = "There was an exception whilst uploading the image: " + err };
+                new LogEntry(DebugLog) { text = "There was an exception whilst uploading the photo image: " + err };
             }
                 
         }

@@ -89,7 +89,7 @@ namespace MediaApi
 
             using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand GetImages = new SqlCommand("SELECT * FROM t_Images FULL OUTER JOIN t_ImageAlbumPairs ON t_Images.id = t_ImageAlbumPairs.imageid ORDER BY t_Images.datecreated DESC; ", openConn);
+                SqlCommand GetImages = new SqlCommand("SELECT * FROM t_Images FULL OUTER JOIN t_ImageAlbumPairs ON t_Images.id = t_ImageAlbumPairs.imageid WHERE t_ImageAlbumPairs.albumid = @id ORDER BY t_Images.datecreated DESC", openConn);
                 GetImages.Parameters.Add(new SqlParameter("id", Id));
 
                 using(SqlDataReader reader = GetImages.ExecuteReader())
