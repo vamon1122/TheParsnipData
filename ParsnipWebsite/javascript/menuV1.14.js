@@ -45,7 +45,7 @@ else{
 height = "45px";
 buttFontSize = "17px";
 
-titleFontSize = "35px";
+titleFontSize = "30px";
 
 /////Buttons/////
 createButton("Home", "home");

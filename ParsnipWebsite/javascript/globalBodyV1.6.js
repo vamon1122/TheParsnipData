@@ -507,7 +507,7 @@ function time() {
 
 function dateAdd(date, interval, units) {
     var ret = new Date(date); //don't change original date
-    var checkRollover = function () { if (ret.getDate() != date.getDate()) ret.setDate(0); };
+    var checkRollover = function () { if (ret.getDate() !== date.getDate()) ret.setDate(0); };
     switch (interval.toLowerCase()) {
         case 'year': ret.setFullYear(ret.getFullYear() + units); checkRollover(); break;
         case 'quarter': ret.setMonth(ret.getMonth() + 3 * units); checkRollover(); break;
@@ -1169,11 +1169,11 @@ function second() {
         || navigator.userAgent.match(/Windows Phone/i)
         ) {
             link_style = document.getElementById("link_style");
-            link_style.setAttribute("href", "../css/old/m_style.css");
+            link_style.setAttribute("href", "../css/mobile-style.css");
         }
         else {
             link_style = document.getElementById("link_style");
-            link_style.setAttribute("href", "../css/old/style.css");
+            link_style.setAttribute("href", "../css/desktop-style.css");
         }
     }
 }
