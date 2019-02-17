@@ -57,12 +57,13 @@
     <script src="../javascript/globalBodyV1.6.js"></script>
     <script src="../javascript/menuV1.14.js"></script>
     <script>
+
         var chat = document.getElementById("Kieron_chat")
         var kieron = document.getElementById("kieron")
         if(isMobile())
         {
             var body = document.getElementById("body")
-            body.style = "margin-top:10%"
+            body.style = "margin-top:2%"
             chat.style.width = "90%"
             kieron.style.width = "25%"
         }

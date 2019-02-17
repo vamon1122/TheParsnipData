@@ -35,7 +35,7 @@ if (isMobile() === true){
     
     titleFontSize = "87.5px";*/
     dropDownWidth = "50%";
-    buttonPadding = "10px";
+    buttonPadding = "15px";
 }
 else{
     buttonPadding = "20px";
