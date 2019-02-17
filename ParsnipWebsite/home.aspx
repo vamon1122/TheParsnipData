@@ -64,7 +64,7 @@
     -->
     <!--LATEST VIDEO START-->
     <hr class="break" />
-    <div id="latestVideo" style="width:97.5%"></div>
+    <div id="latestVideo" style="width:100%"></div>
 
     <!--LATEST VIDEO END-->
     <!--DEVICE DETECT START-->

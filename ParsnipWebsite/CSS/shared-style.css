@@ -259,11 +259,6 @@ div.play-button {
     }
 }
 
-li a.active {
-    background-color: green;
-    color: white;
-}
-
 /*Separates different articles with a small line underneath*/
 hr.break {
     height: 3px;
