@@ -12,10 +12,11 @@ namespace ParsnipWebsite
 {
     public partial class Home : System.Web.UI.Page
     {
-        private User myAccount;
+        private User myUser;
         protected void Page_Load(object sender, EventArgs e)
         {
-            myAccount = Uac.SecurePage("home", this, Data.DeviceType);
+            myUser = Uac.SecurePage("home", this, Data.DeviceType);
+            WelcomeLabel.Text = string.Format("Welcome back to the parsnip website, {0}!", myUser.Forename);
         }
     }
 }

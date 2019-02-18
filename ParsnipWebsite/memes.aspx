@@ -31,7 +31,7 @@
     <!--<br class="nomobile" />-->
     <br /><br />
     
-    <h2>DANK Memes</h2>
+    <h2>Memes</h2>
     <hr class="break" />
 
     <form runat="server">
@@ -51,93 +51,123 @@
             </form>
 
     <div>
+        <div class="padded-text">
         <h3>Loldred back in the good old days (of abuse)</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/Loldred_Abuse.JPG" />
         <hr class="break" />
     </div>
 
     <div>
+        <div class="padded-text">
         <h3>How to spot a Fuckboy *cough* Kieron *cough*</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/kieron_how_to_spot_a_fuckboy.JPG" />
         <hr class="break" />
     </div>
 
     <div>
+        <div class="padded-text">
     <h3>Ben get's so much pussy!</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/ben_pussy.JPG" />
         <hr class="break" />
     </div>
     
     
     <div>
+        <div class="padded-text">
         <h3>Loldred's Drinking Problems Carlsberg</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_carlsberg.JPG" />
         <hr class="break" />
     </div>
 
     <div>
+        <div class="padded-text">
         <h3>It can't have been easy...</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_control_yourself.JPG" />
         <hr class="break" />
     </div>
 
     <div>
+        <div class="padded-text">
         <h3>When you get a free house...</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_free_house.JPG" />
         <hr class="break" />
     </div>
 
     <div>
+        <div class="padded-text">
         <h3>Loldred's grooming techniques are on point guys</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_lawnmowers.JPG" />
         <hr class="break" />
     </div>
 
     <div>
+        <div class="padded-text">
         <h3>Loldred Shag Me</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_shag_me.JPG" />
         <hr class="break" />
     </div>
 
     <div>
+        <div class="padded-text">
         <h3>The similarities are uncanny...</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/marshy_rat.JPG" />
         <hr class="break" />
     </div>
 
     <div>
+        <div class="padded-text">
         <h3>Mason The Pimp</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/mason_pimp.JPG" />
         <hr class="break" />
     </div>
 
     <div>
+        <div class="padded-text">
         <h3>Tom is (ligitimately) done</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/tom_done.JPG" />
         <hr class="break" />
     </div>
    
 
-    <!--<div>
+    <div>
+        <div class="padded-text">
         <h3>Kieron with BAE</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/kieron_with_BAE.JPG" />
         <hr class="break" />
-    </div>-->
+    </div>
 
     <div>
+        <div class="padded-text">
         <h3>Age is just a number eh kids?</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_age_is_just_a_number.JPG" />
         <hr class="break" />
     </div>
 
     <div>
+        <div class="padded-text">
         <h3>Loldred Approves</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_approves.JPG" />
         <hr class="break" />
     </div>  
 
     <div>
+        <div class="padded-text">
         <h3>At Least I can Pull</h3>
+            </div>
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_at_least_I_can_pull.JPG" />
         <hr class="break" />
     </div>

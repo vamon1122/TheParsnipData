@@ -19,7 +19,7 @@
     
     <form runat="server">
         <script src="../javascript/globalBodyV1.6.js"></script>
-        <div class="center_div">
+        <div class="center_div" style="padding:5%; max-width:600px">
             <div class="alert alert-warning alert-dismissible" runat="server" style="display:none" id="Warning">
                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <strong>Confirm Identity</strong> You must log in first!
@@ -37,7 +37,7 @@
   </div>
   <div class="form-group">
     <label>Password</label>
-    <asp:TextBox runat="server" TextMode="password" CssClass="form-control login" ID="inputPwd"  />
+    <asp:TextBox runat="server" TextMode="password" CssClass="form-control login" ID="inputPwd" />
   </div>
   <div class="form-check">
     <asp:CheckBox runat="server" CssClass="form-check-input login" ID="RememberPwd" />

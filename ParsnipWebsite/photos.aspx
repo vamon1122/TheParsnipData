@@ -32,7 +32,7 @@
     <br class="nomobile" />
 
     
-            <div class="cens_req"><label>Certain elements of this page were removed by request. </label><a href="content removal.html">Click here</a><label> to learn more.</label></div>
+            <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. </label><a href="content removal.html">Click here</a><label> to learn more.</label></div>
     
             <h2>Photos</h2>
             <hr class="break" />
@@ -41,7 +41,9 @@
             <img src="resources/media/images/webMedia/google-photos.svg" width="100" />
             </a>
             <br />
+    <div class="padded-text">
             <label>Click <a href="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7">here</a> to view 'The Parsnip Collection' on google photos</label>
+        </div>
             <hr class="break" />
         
             <form runat="server">

@@ -687,17 +687,24 @@ function latestVideo() {
     var videoID = lvpVideoID;
     var description = lvpDescription;
 
-    
+
+    var titleDescriptionContainer = document.createElement("div");
+    titleDescriptionContainer.className = "padded-text";
+
     //Title
     var titleCreate = document.createElement("h3");
     titleCreate.innerHTML = title;
-    latestVideoAppend(titleCreate);
+    titleDescriptionContainer.appendChild(titleCreate);
 
 
     //Description
     var descriptionCreate = document.createElement("label");
     descriptionCreate.innerHTML = description;
-    latestVideoAppend(descriptionCreate);
+    titleDescriptionContainer.appendChild(descriptionCreate);
+
+    latestVideoAppend(titleDescriptionContainer);
+
+    
 
 
     //div

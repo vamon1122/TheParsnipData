@@ -27,17 +27,18 @@
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
     <br /><br />
     <br class="nomobile" />
-    <div class="cens_req"><label>Certain elements of this page were removed by request. </label><a href="content removal.html">Click here</a><label> to learn more.</label></div>
-    
 
+    <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. </label><a href="content removal.html">Click here</a><label> to learn more.</label></div>
+    
+    <div class="padded-text">
     <h2>Bios!!!</h2>
     <h3>All credit goes to Kieron 'Gaz Beadle' Howarth</h3>
-    
+    </div>
     <img class="censored" id="kieron" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477059052/Photos/Bios/Fat Kieron.JPG" style="width:300px" />
     <hr class="break" />
     <br />
 
-    <div>
+    <div class="padded-text">
         Kieron - Angel <br />
         Ben - Angel (I assume you didn't aim this at me Kieron, I appreciate it :P)<br />
         Loldred - Cunt<br />

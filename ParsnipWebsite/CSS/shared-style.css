@@ -12,6 +12,15 @@ html, body {
 
 }
 
+body {
+    font-family: Verdana;
+    -webkit-text-size-adjust: 100%;
+}
+
+.padded-text {
+    padding: 2.5%;
+}
+
 h1{
     font-size:40px;
 }
@@ -164,6 +173,27 @@ img.youtube-thumb {
     height: auto
 }
 
+button {
+   
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    text-align: center !important;
+    vertical-align: middle;
+    /* Cosmetics */
+    border: 1px solid #fff;
+    background: #D5D5D5;
+    color: #000;
+    padding: 4px;
+    /* browser can do it */
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    /*text-shadow: #000 1px 1px 2px;*/
+    -webkit-border-radius: 6px;
+    width:150px;
+}
+
 .file-upload {
     display: inline-block;
     overflow: hidden;
@@ -176,10 +206,10 @@ img.youtube-thumb {
     color: #000;
     padding: 4px;
     /* browser can do it */
-    /*border-radius: 6px;
- -moz-border-radius: 6px;
-  text-shadow: #000 1px 1px 2px;
- -webkit-border-radius: 6px;*/
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    /*text-shadow: #000 1px 1px 2px;*/
+    -webkit-border-radius: 6px;
 }
 
 /* The button size */
@@ -187,6 +217,7 @@ img.youtube-thumb {
     /*height: 1.3em;*/
     height: 35px;
     cursor: pointer;
+    width: 150px;
 }
 
     .file-upload, .file-upload span {
@@ -408,10 +439,7 @@ li {
     visibility: hidden;
 }
 
-body {
-    font-family: Verdana;
-    -webkit-text-size-adjust: 100%;
-}
+
 
 input[type=email].form-control {
     aria-describedby: "emailHelp";
@@ -430,5 +458,5 @@ input[type=password].form-control.login {
 
 .center_div {
     margin: 0 auto;
-    width: 80% /* value of your choice which suits your alignment */
+    width: 100% /* value of your choice which suits your alignment */
 }

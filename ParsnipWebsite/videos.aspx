@@ -28,7 +28,7 @@
     <br /><br />
 
 
-    <div class="padding">
+    <div class="padded-text">
         <h2>Videos</h2>
         <hr class="break"/>        
         <br />

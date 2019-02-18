@@ -55,7 +55,9 @@
     <hr class="break" />-->
 
     <h2>Home</h2>
+    <div class="center_div">
     <asp:Label runat="server" ID="WelcomeLabel"></asp:Label>
+        </div>
     
     <!--
     <div style="position:fixed; top:5px; right:2px; z-index:99999">
@@ -68,9 +70,10 @@
 
     <!--LATEST VIDEO END-->
     <!--DEVICE DETECT START-->
-
+    <div class="center_div">
     <h3>Should show what device you're using lol</h3>
-    <button class="menu" onclick="{alert('You are using ' + deviceDetect()) }">Device</button>
+        </div>
+    <button onclick="{alert('You are using ' + deviceDetect()) }">Device</button>
 
     <hr class="break" />
 
