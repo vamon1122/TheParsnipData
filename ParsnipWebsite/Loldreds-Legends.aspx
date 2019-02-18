@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="_TEMPLATE.aspx.cs" Inherits="_TEMPLATE" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Loldreds-Legends.aspx.cs" Inherits="ParsnipWebsite.Loldreds_Legends" %>
 
 <!DOCTYPE html>
 
@@ -20,7 +20,7 @@
     <title>New Title</title>
 </head>
 <body class="fade0p5" id="body">
-    <label class="censored" id="pageId">_TEMPLATE.html</label>
+    <label class="censored" id="pageId">youtube.html</label>
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE START-->
 
@@ -29,12 +29,31 @@
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
 
-    <form id="form1" runat="server">
-        <div class="container">
+
+    <div class="padded-text" style="padding-bottom:5px">
+        <h2>Loldred's Legends</h2>
+        <hr class="break"/>        
+        <br />
+        LOLDRED: This page is password protected, you cannot share links to these videos. You are SAFE :P<br />
+        <br />
+        I'm experementing with a new way of presenting videos here. Bare with me.
         </div>
+    
+
+<div id="cp_widget_386d6b78-805e-4df3-b2ed-e62901753cb6">...</div><script type="text/javascript">
+var cpo = []; cpo["_object"] ="cp_widget_386d6b78-805e-4df3-b2ed-e62901753cb6"; cpo["_fid"] = "AIGAnfuASQEU";
+var _cpmp = _cpmp || []; _cpmp.push(cpo);
+(function() { var cp = document.createElement("script"); cp.type = "text/javascript";
+cp.async = true; cp.src = "//www.cincopa.com/media-platform/runtime/libasync.js";
+var c = document.getElementsByTagName("script")[0];
+c.parentNode.insertBefore(cp, c); })(); </script>
+
+    <form id="form1" runat="server">
+        
     </form>
 
     <script src="../javascript/globalBodyV1.6.js"></script>
     <script src="../javascript/menuV1.14.js"></script>
 </body>
 </html>
+

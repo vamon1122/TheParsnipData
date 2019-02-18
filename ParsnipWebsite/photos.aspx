@@ -28,8 +28,6 @@
     <div id="menuDiv"></div>
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
-    <br /><br />
-    <br class="nomobile" />
 
     
             <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. </label><a href="content removal.html">Click here</a><label> to learn more.</label></div>
@@ -40,6 +38,7 @@
 
             <img src="resources/media/images/webMedia/google-photos.svg" width="100" />
             </a>
+
             <br />
     <div class="padded-text">
             <label>Click <a href="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7">here</a> to view 'The Parsnip Collection' on google photos</label>

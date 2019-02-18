@@ -54,9 +54,13 @@ if (getCookie("accountType") === "admin") {
 }
 
 if (getCookie("accountType") === "admin" || getCookie("accountType") === "member") {
-    createButton("Videos", "videos");
+    
     createButton("Memes", "memes");
     createButton("Photos", "photos");
+    createButton("AfternoonT", "https://www.mixcloud.com/afternoontlive/");
+    createButton("Loldred's Legends", "loldreds-legends");
+    createButton("Videos", "videos");
+    
 }
 
 //createButton("Minecraft", "minecraft");
@@ -176,6 +180,7 @@ function createList() {
     list.className = "menHidden";
     list.style.zIndex = "0";
     list.id = "list";
+    list.zIndex = "999999999";
     document.getElementById("body").appendChild(list);
     
 }
@@ -194,6 +199,7 @@ function funcCreateButton(title, href) {
     }
 
     butt.style.width = "100%";
+    butt.zIndex = "999999999";
     
     
     butt.style.backgroundColor = colDark;

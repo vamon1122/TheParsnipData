@@ -29,7 +29,6 @@
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
     <!--<br class="nomobile" />-->
-    <br /><br />
     
     <h2>Memes</h2>
     <hr class="break" />
@@ -176,19 +175,6 @@
     <script src="../javascript/globalBodyV1.6.js"></script>
     <script src="../javascript/menuV1.14.js"></script>
     <script>
-                if (isMobile()) {
-                    var body = document.getElementById("body")
-                    body.style = "margin-top:5%"
-
-
-                }
-                else
-                {
-                    var main = document.getElementById("main")
-           
-                    //main.style = "width:20%; left:60%; background-color:red"
-                }
-
                 document.addEventListener("DOMContentLoaded", function ()
                 {
                     var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));

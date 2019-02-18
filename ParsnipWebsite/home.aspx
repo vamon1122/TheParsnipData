@@ -1,8 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="home.aspx.cs" Inherits="ParsnipWebsite.Home" %>
 <%@ Register Src="~/CustomControls/AccountTiny.ascx" TagPrefix="uc1" TagName="AccountTiny" %>
-
-
-
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -28,52 +25,51 @@
     <div id="menuDiv"></div>
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
-    <!--<img src="../rounded.png" />-->
-    <br /><br />
-    <div class="padding" />
-    <!--<h2>Try the new look!</h2>
-    Warning, you will be logged into a test account, however yout account details will be remembered and will revert when you click on the try button again. The new look may change regularly and may often be broken.
-    <br />
-    <br />
-    <button onclick='{
-    if (!testCookie())
-    {
-        alert("Cookies do not appear to be wotking on your device. You cannot access this part of the website.")
-    }
-    else if (getCookie("username") !== "test") {
-        document.cookie = "oldUN =" + getCookie("username")
-        document.cookie = "username = test";
-    }
-    else
-    {
-        signOutFunc()
-        externalSignInFunc(getCookie("oldUN"))
-    }
-
-
-        document.location.reload()}'>Try</button>
-    <hr class="break" />-->
+    
 
     <h2>Home</h2>
-    <div class="center_div">
-    <asp:Label runat="server" ID="WelcomeLabel"></asp:Label>
-        </div>
-    
-    <!--
-    <div style="position:fixed; top:5px; right:2px; z-index:99999">
-    <uc1:AccountTiny runat="server" id="AccountTiny" />
-        </div>
-    -->
-    <!--LATEST VIDEO START-->
-    <hr class="break" />
-    <div id="latestVideo" style="width:100%"></div>
+    <div class="padded-text center_div">
+        <asp:Label runat="server" ID="WelcomeLabel"></asp:Label>
+            <br />
+        <br />
+        *NEW*<br />
+        - The return of <a href="loldreds-legends">Loldred's Legends</a>!<br />
+        - You can now access <a href="https://www.mixcloud.com/afternoontlive/">AfternoonT</a> via the website <br />
+        - You can now upload parsnip-related memes to the <a href="memes">Memes</a> page!<br />
+         - You can now upload parsnip-related photos to the <a href="photos">Photos</a> page!<br />
 
-    <!--LATEST VIDEO END-->
-    <!--DEVICE DETECT START-->
-    <div class="center_div">
-    <h3>Should show what device you're using lol</h3>
-        </div>
-    <button onclick="{alert('You are using ' + deviceDetect()) }">Device</button>
+        
+    </div>
+    <hr class="break" />
+    <h3>LATEST VIDEO: Aaron Gets Wavy</h3>
+    <div class="cincopa-container">
+        <div id="cp_widget_ec1e351e-1fd5-4c76-94f4-8abb144b50c7">Loading...</div>
+        <script type="text/javascript">
+            var cpo = []; cpo["_object"] ="cp_widget_ec1e351e-1fd5-4c76-94f4-8abb144b50c7"; cpo["_fid"] = "AAHA-Y-m0XgX";
+            var _cpmp = _cpmp || []; _cpmp.push(cpo);
+            (function() { var cp = document.createElement("script"); cp.type = "text/javascript";
+            cp.async = true; cp.src = "//www.cincopa.com/media-platform/runtime/libasync.js";
+            var c = document.getElementsByTagName("script")[0];
+                c.parentNode.insertBefore(cp, c);
+            })(); 
+        </script>
+        <noscript>
+            <span>New Gallery 2019/2/8</span>
+            <span>Aaron Gets Wavy</span>
+            <span>bitrate</span>
+            <span> 4364 kb/s</span>
+            <span>height</span>
+            <span> 720</span>
+            <span>duration</span>
+            <span> 00:05:22.28</span>
+            <span>fps</span>
+            <span> 23.98</span>
+            <span>width</span>
+            <span> 1280</span>
+            <span>originaldate</span>
+            <span> 2019-02-08T12:32:36.000000Z</span>
+        </noscript>
+    </div>
 
     <hr class="break" />
 
@@ -81,12 +77,5 @@
     <!--SCRIPTS-->
     <script src="../javascript/globalBodyV1.6.js"></script>
     <script src="../javascript/menuV1.14.js"></script>
-    <script>
-        if(isMobile())
-        {
-            var body = document.getElementById("body")
-            body.style = "margin-top:5%"
-        }
-    </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 ﻿html {
+    
     overflow-y: scroll;
     min-width: 0px;
 }
@@ -13,12 +14,14 @@ html, body {
 }
 
 body {
+    padding-top: 55px;
     font-family: Verdana;
     -webkit-text-size-adjust: 100%;
 }
 
 .padded-text {
-    padding: 2.5%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
 }
 
 h1{
@@ -322,11 +325,11 @@ li {
 }
 
 .rotate {
-    animation: rotate 0.5s;
+    /*animation: rotate 0.5s;*/
 }
 
 .spin {
-    animation: spin 1s;
+    /*animation: spin 1s;*/
 }
 
 @keyframes spin {
@@ -376,31 +379,9 @@ li {
     animation-fill-mode: forwards;
 }
 
-@keyframes mMenVis {
-    from {
-        top: -100%;
-    }
-
-    to {
-        top: 112.5px;
-        visibility: visible;
-    }
-}
-
 .mMenHide {
     animation: mMenHide 0.5s;
     animation-fill-mode: forwards;
-}
-
-@keyframes mMenHide {
-    from {
-        top: 90px;
-    }
-
-    to {
-        top: -100%;
-        visibility: hidden;
-    }
 }
 
 .menVis {
@@ -408,32 +389,14 @@ li {
     animation-fill-mode: forwards;
 }
 
-@keyframes menVis {
-    from {
-        top: -50%;
-    }
 
-    to {
-        top: 45px;
-        visibility: visible;
-    }
-}
 
 .menHide {
     animation: menHide 0.5s;
     animation-fill-mode: forwards;
 }
 
-@keyframes menHide {
-    from {
-        top: 45px;
-    }
 
-    to {
-        top: -50%;
-        visibility: hidden;
-    }
-}
 
 .menHidden {
     visibility: hidden;

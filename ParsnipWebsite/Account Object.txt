@@ -52999,3 +52999,329 @@
 <debug> 17/02/2019 22:51:57 - Found a username cookie! Username = vamon1122
 <debug> 17/02/2019 22:51:57 - Found a password cookie! Password = BBTbbt1704
 <info> 17/02/2019 22:51:57 - Returning user details from cookies.
+<info> 18/02/2019 11:32:04 - Getting user details from cookies...
+<debug> 18/02/2019 11:32:04 - No username cookie was found.
+<debug> 18/02/2019 11:32:04 - No password cookie was found.
+<info> 18/02/2019 11:32:04 - Returning user details from cookies.
+<warning> 18/02/2019 11:32:04 - PAGE IS BEING LOADED
+<info> 18/02/2019 11:32:04 - Getting user details from cookies...
+<debug> 18/02/2019 11:32:04 - No username cookie was found.
+<debug> 18/02/2019 11:32:04 - No password cookie was found.
+<info> 18/02/2019 11:32:04 - Returning user details from cookies.
+<warning> 18/02/2019 11:32:04 - Input username was reset
+<warning> 18/02/2019 11:32:29 - PAGE IS BEING LOADED
+<warning> 18/02/2019 11:32:29 - Button Was clicked!
+<info> 18/02/2019 11:32:29 - Getting user details from cookies...
+<debug> 18/02/2019 11:32:29 - Found a username cookie! Username = vamon1122
+<debug> 18/02/2019 11:32:29 - Found a password cookie! Password = BBTbbt1704
+<info> 18/02/2019 11:32:29 - Returning user details from cookies.
+<info> 18/02/2019 11:33:34 - Getting user details from cookies...
+<debug> 18/02/2019 11:33:34 - No username cookie was found.
+<debug> 18/02/2019 11:33:34 - No password cookie was found.
+<info> 18/02/2019 11:33:34 - Returning user details from cookies.
+<warning> 18/02/2019 11:33:34 - PAGE IS BEING LOADED
+<info> 18/02/2019 11:33:34 - Getting user details from cookies...
+<debug> 18/02/2019 11:33:34 - No username cookie was found.
+<debug> 18/02/2019 11:33:34 - No password cookie was found.
+<info> 18/02/2019 11:33:34 - Returning user details from cookies.
+<warning> 18/02/2019 11:33:34 - Input username was reset
+<warning> 18/02/2019 11:33:42 - PAGE IS BEING LOADED
+<warning> 18/02/2019 11:33:42 - Button Was clicked!
+<info> 18/02/2019 11:33:43 - Getting user details from cookies...
+<debug> 18/02/2019 11:33:43 - Found a username cookie! Username = vamon1122
+<debug> 18/02/2019 11:33:43 - Found a password cookie! Password = BBTbbt1704
+<info> 18/02/2019 11:33:43 - Returning user details from cookies.
+<info> 18/02/2019 11:42:42 - Getting user details from cookies...
+<debug> 18/02/2019 11:42:42 - No username cookie was found.
+<debug> 18/02/2019 11:42:42 - No password cookie was found.
+<info> 18/02/2019 11:42:42 - Returning user details from cookies.
+<warning> 18/02/2019 11:42:42 - PAGE IS BEING LOADED
+<info> 18/02/2019 11:42:42 - Getting user details from cookies...
+<debug> 18/02/2019 11:42:42 - No username cookie was found.
+<debug> 18/02/2019 11:42:42 - No password cookie was found.
+<info> 18/02/2019 11:42:42 - Returning user details from cookies.
+<warning> 18/02/2019 11:42:42 - Input username was reset
+<warning> 18/02/2019 11:42:48 - PAGE IS BEING LOADED
+<warning> 18/02/2019 11:42:48 - Button Was clicked!
+<info> 18/02/2019 11:42:49 - Getting user details from cookies...
+<debug> 18/02/2019 11:42:49 - Found a username cookie! Username = vamon1122
+<debug> 18/02/2019 11:42:49 - Found a password cookie! Password = BBTbbt1704
+<info> 18/02/2019 11:42:49 - Returning user details from cookies.
+<info> 18/02/2019 11:43:01 - Getting user details from cookies...
+<debug> 18/02/2019 11:43:01 - Found a username cookie! Username = vamon1122
+<debug> 18/02/2019 11:43:01 - Found a password cookie! Password = BBTbbt1704
+<info> 18/02/2019 11:43:01 - Returning user details from cookies.
+<info> 18/02/2019 11:43:29 - Getting user details from cookies...
+<debug> 18/02/2019 11:43:29 - Found a username cookie! Username = vamon1122
+<debug> 18/02/2019 11:43:29 - Found a password cookie! Password = BBTbbt1704
+<info> 18/02/2019 11:43:29 - Returning user details from cookies.
+<info> 18/02/2019 12:03:20 - Getting user details from cookies...
+<debug> 18/02/2019 12:03:20 - No username cookie was found.
+<debug> 18/02/2019 12:03:20 - No password cookie was found.
+<info> 18/02/2019 12:03:20 - Returning user details from cookies.
+<warning> 18/02/2019 12:03:20 - PAGE IS BEING LOADED
+<info> 18/02/2019 12:03:20 - Getting user details from cookies...
+<debug> 18/02/2019 12:03:20 - No username cookie was found.
+<debug> 18/02/2019 12:03:20 - No password cookie was found.
+<info> 18/02/2019 12:03:20 - Returning user details from cookies.
+<warning> 18/02/2019 12:03:20 - Input username was reset
+<warning> 18/02/2019 12:03:29 - PAGE IS BEING LOADED
+<warning> 18/02/2019 12:03:29 - Button Was clicked!
+<info> 18/02/2019 12:03:30 - Getting user details from cookies...
+<debug> 18/02/2019 12:03:30 - Found a username cookie! Username = vamon1122
+<debug> 18/02/2019 12:03:30 - Found a password cookie! Password = BBTbbt1704
+<info> 18/02/2019 12:03:30 - Returning user details from cookies.
+<info> 18/02/2019 12:03:35 - Getting user details from cookies...
+<debug> 18/02/2019 12:03:35 - Found a username cookie! Username = vamon1122
+<debug> 18/02/2019 12:03:35 - Found a password cookie! Password = BBTbbt1704
+<info> 18/02/2019 12:03:35 - Returning user details from cookies.
+<info> 18/02/2019 12:06:10 - Getting user details from cookies...
+<debug> 18/02/2019 12:06:10 - No username cookie was found.
+<debug> 18/02/2019 12:06:10 - No password cookie was found.
+<info> 18/02/2019 12:06:10 - Returning user details from cookies.
+<warning> 18/02/2019 12:06:11 - PAGE IS BEING LOADED
+<info> 18/02/2019 12:06:11 - Getting user details from cookies...
+<debug> 18/02/2019 12:06:11 - No username cookie was found.
+<debug> 18/02/2019 12:06:11 - No password cookie was found.
+<info> 18/02/2019 12:06:11 - Returning user details from cookies.
+<warning> 18/02/2019 12:06:11 - Input username was reset
+<warning> 18/02/2019 12:06:16 - PAGE IS BEING LOADED
+<warning> 18/02/2019 12:06:16 - Button Was clicked!
+<info> 18/02/2019 12:06:17 - Getting user details from cookies...
+<debug> 18/02/2019 12:06:17 - Found a username cookie! Username = vamon1122
+<debug> 18/02/2019 12:06:17 - Found a password cookie! Password = BBTbbt1704
+<info> 18/02/2019 12:06:17 - Returning user details from cookies.
+<info> 18/02/2019 15:05:19 - Getting user details from cookies...
+<debug> 18/02/2019 15:05:19 - No username cookie was found.
+<debug> 18/02/2019 15:05:19 - No password cookie was found.
+<info> 18/02/2019 15:05:19 - Returning user details from cookies.
+<warning> 18/02/2019 15:05:19 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:05:19 - Getting user details from cookies...
+<debug> 18/02/2019 15:05:19 - No username cookie was found.
+<debug> 18/02/2019 15:05:19 - No password cookie was found.
+<info> 18/02/2019 15:05:19 - Returning user details from cookies.
+<warning> 18/02/2019 15:05:19 - Input username was reset
+<warning> 18/02/2019 15:05:24 - PAGE IS BEING LOADED
+<warning> 18/02/2019 15:05:24 - Button Was clicked!
+<info> 18/02/2019 15:05:25 - Getting user details from cookies...
+<debug> 18/02/2019 15:05:25 - Found a username cookie! Username = vamon1122
+<debug> 18/02/2019 15:05:25 - Found a password cookie! Password = BBTbbt1704
+<info> 18/02/2019 15:05:25 - Returning user details from cookies.
+<info> 18/02/2019 15:05:29 - Getting user details from cookies...
+<debug> 18/02/2019 15:05:29 - Found a username cookie! Username = vamon1122
+<debug> 18/02/2019 15:05:29 - Found a password cookie! Password = BBTbbt1704
+<info> 18/02/2019 15:05:29 - Returning user details from cookies.
+<info> 18/02/2019 15:12:25 - Getting user details from cookies...
+<debug> 18/02/2019 15:12:25 - No username cookie was found.
+<debug> 18/02/2019 15:12:25 - No password cookie was found.
+<info> 18/02/2019 15:12:25 - Returning user details from cookies.
+<warning> 18/02/2019 15:12:25 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:12:25 - Getting user details from cookies...
+<debug> 18/02/2019 15:12:25 - No username cookie was found.
+<debug> 18/02/2019 15:12:25 - No password cookie was found.
+<info> 18/02/2019 15:12:25 - Returning user details from cookies.
+<warning> 18/02/2019 15:12:25 - Input username was reset
+<warning> 18/02/2019 15:14:16 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:14:16 - Getting user details from cookies...
+<debug> 18/02/2019 15:14:16 - No username cookie was found.
+<debug> 18/02/2019 15:14:16 - No password cookie was found.
+<info> 18/02/2019 15:14:16 - Returning user details from cookies.
+<warning> 18/02/2019 15:14:16 - Input username was reset
+<warning> 18/02/2019 15:15:33 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:15:33 - Getting user details from cookies...
+<debug> 18/02/2019 15:15:33 - No username cookie was found.
+<debug> 18/02/2019 15:15:33 - No password cookie was found.
+<info> 18/02/2019 15:15:33 - Returning user details from cookies.
+<warning> 18/02/2019 15:15:33 - Input username was reset
+<warning> 18/02/2019 15:16:15 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:16:15 - Getting user details from cookies...
+<debug> 18/02/2019 15:16:15 - No username cookie was found.
+<debug> 18/02/2019 15:16:15 - No password cookie was found.
+<info> 18/02/2019 15:16:15 - Returning user details from cookies.
+<warning> 18/02/2019 15:16:15 - Input username was reset
+<warning> 18/02/2019 15:16:56 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:16:56 - Getting user details from cookies...
+<debug> 18/02/2019 15:16:56 - No username cookie was found.
+<debug> 18/02/2019 15:16:56 - No password cookie was found.
+<info> 18/02/2019 15:16:56 - Returning user details from cookies.
+<warning> 18/02/2019 15:16:56 - Input username was reset
+<warning> 18/02/2019 15:17:10 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:17:10 - Getting user details from cookies...
+<debug> 18/02/2019 15:17:10 - No username cookie was found.
+<debug> 18/02/2019 15:17:10 - No password cookie was found.
+<info> 18/02/2019 15:17:10 - Returning user details from cookies.
+<warning> 18/02/2019 15:17:10 - Input username was reset
+<warning> 18/02/2019 15:19:05 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:19:05 - Getting user details from cookies...
+<debug> 18/02/2019 15:19:05 - No username cookie was found.
+<debug> 18/02/2019 15:19:05 - No password cookie was found.
+<info> 18/02/2019 15:19:05 - Returning user details from cookies.
+<warning> 18/02/2019 15:19:05 - Input username was reset
+<warning> 18/02/2019 15:20:01 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:20:01 - Getting user details from cookies...
+<debug> 18/02/2019 15:20:01 - No username cookie was found.
+<debug> 18/02/2019 15:20:01 - No password cookie was found.
+<info> 18/02/2019 15:20:01 - Returning user details from cookies.
+<warning> 18/02/2019 15:20:01 - Input username was reset
+<warning> 18/02/2019 15:20:45 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:20:45 - Getting user details from cookies...
+<debug> 18/02/2019 15:20:45 - Found a username cookie! Username = vamon1122
+<debug> 18/02/2019 15:20:45 - No password cookie was found.
+<info> 18/02/2019 15:20:45 - Returning user details from cookies.
+<warning> 18/02/2019 15:20:45 - Input username was reset
+<warning> 18/02/2019 15:21:05 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:21:05 - Getting user details from cookies...
+<debug> 18/02/2019 15:21:05 - Found a username cookie! Username = vamon1122
+<debug> 18/02/2019 15:21:05 - No password cookie was found.
+<info> 18/02/2019 15:21:05 - Returning user details from cookies.
+<warning> 18/02/2019 15:21:05 - Input username was reset
+<warning> 18/02/2019 15:22:10 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:22:10 - Getting user details from cookies...
+<debug> 18/02/2019 15:22:10 - Found a username cookie! Username = vamon1122
+<debug> 18/02/2019 15:22:10 - No password cookie was found.
+<info> 18/02/2019 15:22:10 - Returning user details from cookies.
+<warning> 18/02/2019 15:22:10 - Input username was reset
+<warning> 18/02/2019 15:22:21 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:22:21 - Getting user details from cookies...
+<debug> 18/02/2019 15:22:21 - No username cookie was found.
+<debug> 18/02/2019 15:22:21 - No password cookie was found.
+<info> 18/02/2019 15:22:21 - Returning user details from cookies.
+<warning> 18/02/2019 15:22:21 - Input username was reset
+<warning> 18/02/2019 15:24:54 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:24:54 - Getting user details from cookies...
+<debug> 18/02/2019 15:24:54 - No username cookie was found.
+<debug> 18/02/2019 15:24:54 - No password cookie was found.
+<info> 18/02/2019 15:24:54 - Returning user details from cookies.
+<warning> 18/02/2019 15:24:54 - Input username was reset
+<warning> 18/02/2019 15:25:39 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:25:39 - Getting user details from cookies...
+<debug> 18/02/2019 15:25:39 - No username cookie was found.
+<debug> 18/02/2019 15:25:39 - No password cookie was found.
+<info> 18/02/2019 15:25:39 - Returning user details from cookies.
+<warning> 18/02/2019 15:25:39 - Input username was reset
+<warning> 18/02/2019 15:26:58 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:26:58 - Getting user details from cookies...
+<debug> 18/02/2019 15:26:58 - No username cookie was found.
+<debug> 18/02/2019 15:26:58 - No password cookie was found.
+<info> 18/02/2019 15:26:58 - Returning user details from cookies.
+<warning> 18/02/2019 15:26:58 - Input username was reset
+<warning> 18/02/2019 15:27:21 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:27:21 - Getting user details from cookies...
+<debug> 18/02/2019 15:27:21 - No username cookie was found.
+<debug> 18/02/2019 15:27:21 - No password cookie was found.
+<info> 18/02/2019 15:27:21 - Returning user details from cookies.
+<warning> 18/02/2019 15:27:21 - Input username was reset
+<warning> 18/02/2019 15:28:12 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:28:12 - Getting user details from cookies...
+<debug> 18/02/2019 15:28:12 - No username cookie was found.
+<debug> 18/02/2019 15:28:12 - No password cookie was found.
+<info> 18/02/2019 15:28:12 - Returning user details from cookies.
+<warning> 18/02/2019 15:28:12 - Input username was reset
+<warning> 18/02/2019 15:29:09 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:29:09 - Getting user details from cookies...
+<debug> 18/02/2019 15:29:09 - No username cookie was found.
+<debug> 18/02/2019 15:29:09 - No password cookie was found.
+<info> 18/02/2019 15:29:09 - Returning user details from cookies.
+<warning> 18/02/2019 15:29:09 - Input username was reset
+<warning> 18/02/2019 15:30:11 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:30:12 - Getting user details from cookies...
+<debug> 18/02/2019 15:30:12 - No username cookie was found.
+<debug> 18/02/2019 15:30:12 - No password cookie was found.
+<info> 18/02/2019 15:30:12 - Returning user details from cookies.
+<warning> 18/02/2019 15:30:12 - Input username was reset
+<warning> 18/02/2019 15:30:24 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:30:25 - Getting user details from cookies...
+<debug> 18/02/2019 15:30:25 - No username cookie was found.
+<debug> 18/02/2019 15:30:25 - No password cookie was found.
+<info> 18/02/2019 15:30:25 - Returning user details from cookies.
+<warning> 18/02/2019 15:30:25 - Input username was reset
+<warning> 18/02/2019 15:31:26 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:31:26 - Getting user details from cookies...
+<debug> 18/02/2019 15:31:26 - No username cookie was found.
+<debug> 18/02/2019 15:31:26 - No password cookie was found.
+<info> 18/02/2019 15:31:26 - Returning user details from cookies.
+<warning> 18/02/2019 15:31:26 - Input username was reset
+<warning> 18/02/2019 15:31:47 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:31:47 - Getting user details from cookies...
+<debug> 18/02/2019 15:31:47 - No username cookie was found.
+<debug> 18/02/2019 15:31:47 - No password cookie was found.
+<info> 18/02/2019 15:31:47 - Returning user details from cookies.
+<warning> 18/02/2019 15:31:47 - Input username was reset
+<warning> 18/02/2019 15:32:04 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:32:04 - Getting user details from cookies...
+<debug> 18/02/2019 15:32:04 - No username cookie was found.
+<debug> 18/02/2019 15:32:04 - No password cookie was found.
+<info> 18/02/2019 15:32:04 - Returning user details from cookies.
+<warning> 18/02/2019 15:32:04 - Input username was reset
+<warning> 18/02/2019 15:32:26 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:32:26 - Getting user details from cookies...
+<debug> 18/02/2019 15:32:26 - No username cookie was found.
+<debug> 18/02/2019 15:32:26 - No password cookie was found.
+<info> 18/02/2019 15:32:26 - Returning user details from cookies.
+<warning> 18/02/2019 15:32:26 - Input username was reset
+<warning> 18/02/2019 15:33:09 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:33:09 - Getting user details from cookies...
+<debug> 18/02/2019 15:33:09 - No username cookie was found.
+<debug> 18/02/2019 15:33:09 - No password cookie was found.
+<info> 18/02/2019 15:33:09 - Returning user details from cookies.
+<warning> 18/02/2019 15:33:09 - Input username was reset
+<warning> 18/02/2019 15:33:21 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:33:21 - Getting user details from cookies...
+<debug> 18/02/2019 15:33:21 - No username cookie was found.
+<debug> 18/02/2019 15:33:21 - No password cookie was found.
+<info> 18/02/2019 15:33:21 - Returning user details from cookies.
+<warning> 18/02/2019 15:33:21 - Input username was reset
+<warning> 18/02/2019 15:33:30 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:33:31 - Getting user details from cookies...
+<debug> 18/02/2019 15:33:31 - No username cookie was found.
+<debug> 18/02/2019 15:33:31 - No password cookie was found.
+<info> 18/02/2019 15:33:31 - Returning user details from cookies.
+<warning> 18/02/2019 15:33:31 - Input username was reset
+<warning> 18/02/2019 15:34:31 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:34:31 - Getting user details from cookies...
+<debug> 18/02/2019 15:34:31 - No username cookie was found.
+<debug> 18/02/2019 15:34:31 - No password cookie was found.
+<info> 18/02/2019 15:34:31 - Returning user details from cookies.
+<warning> 18/02/2019 15:34:31 - Input username was reset
+<warning> 18/02/2019 15:34:47 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:34:47 - Getting user details from cookies...
+<debug> 18/02/2019 15:34:47 - No username cookie was found.
+<debug> 18/02/2019 15:34:47 - No password cookie was found.
+<info> 18/02/2019 15:34:47 - Returning user details from cookies.
+<warning> 18/02/2019 15:34:47 - Input username was reset
+<warning> 18/02/2019 15:36:03 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:36:03 - Getting user details from cookies...
+<debug> 18/02/2019 15:36:03 - No username cookie was found.
+<debug> 18/02/2019 15:36:03 - No password cookie was found.
+<info> 18/02/2019 15:36:03 - Returning user details from cookies.
+<warning> 18/02/2019 15:36:03 - Input username was reset
+<warning> 18/02/2019 15:36:11 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:36:11 - Getting user details from cookies...
+<debug> 18/02/2019 15:36:11 - No username cookie was found.
+<debug> 18/02/2019 15:36:11 - No password cookie was found.
+<info> 18/02/2019 15:36:11 - Returning user details from cookies.
+<warning> 18/02/2019 15:36:11 - Input username was reset
+<warning> 18/02/2019 15:37:28 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:37:28 - Getting user details from cookies...
+<debug> 18/02/2019 15:37:28 - No username cookie was found.
+<debug> 18/02/2019 15:37:28 - No password cookie was found.
+<info> 18/02/2019 15:37:28 - Returning user details from cookies.
+<warning> 18/02/2019 15:37:28 - Input username was reset
+<warning> 18/02/2019 15:37:41 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:37:41 - Getting user details from cookies...
+<debug> 18/02/2019 15:37:41 - No username cookie was found.
+<debug> 18/02/2019 15:37:41 - No password cookie was found.
+<info> 18/02/2019 15:37:41 - Returning user details from cookies.
+<warning> 18/02/2019 15:37:41 - Input username was reset
+<warning> 18/02/2019 15:38:12 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:38:12 - Getting user details from cookies...
+<debug> 18/02/2019 15:38:12 - No username cookie was found.
+<debug> 18/02/2019 15:38:12 - No password cookie was found.
+<info> 18/02/2019 15:38:12 - Returning user details from cookies.
+<warning> 18/02/2019 15:38:12 - Input username was reset
+<warning> 18/02/2019 15:38:18 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:38:18 - Getting user details from cookies...
+<debug> 18/02/2019 15:38:18 - No username cookie was found.
+<debug> 18/02/2019 15:38:18 - No password cookie was found.
+<info> 18/02/2019 15:38:18 - Returning user details from cookies.
+<warning> 18/02/2019 15:38:18 - Input username was reset

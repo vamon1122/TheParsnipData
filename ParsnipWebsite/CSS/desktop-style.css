@@ -1,8 +1,30 @@
+
 .meme
 {
     width: 30%;
 }
 
+@keyframes menVis {
+    from {
+        left: -300px;
+    }
+
+    to {
+        left: 0px;
+        visibility: visible;
+    }
+}
+
+@keyframes menHide {
+    from {
+        left: 0px;
+    }
+
+    to {
+        left: -300px;
+        visibility: hidden;
+    }
+}
 
 
 

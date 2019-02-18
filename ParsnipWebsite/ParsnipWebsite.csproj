@@ -79,14 +79,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\file-upload.css" />
+    <Content Include="Loldreds-Legends.aspx" />
     <Content Include="Manage-Photos.aspx" />
     <Content Include="package.json" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Publish To Folder.pubxml" />
     <None Include="Properties\PublishProfiles\Publish To Live.pubxml" />
     <Content Include="Admin.aspx" />
-    <Content Include="anonymous.aspx" />
-    <Content Include="aspxdate.aspx" />
     <Content Include="CustomControls\UacApi\AdminUserForm.ascx" />
     <Content Include="dev\Photos.aspx" />
     <Content Include="getdeviceinfo.aspx" />
@@ -223,7 +222,6 @@
     <Content Include="resources\media\images\photos\Photos\tom_1.JPG" />
     <Content Include="resources\media\images\photos\Photos\tom_2.JPG" />
     <Content Include="resources\media\images\photos\Photos\tom_glasses.JPG" />
-    <Content Include="polls.aspx" />
     <Content Include="rounded.png" />
     <Content Include="UacService.asmx" />
     <Content Include="CustomControls\ViewSwitcher.ascx" />
@@ -233,7 +231,6 @@
     </Content>
     <Content Include="videos.aspx" />
     <Content Include="_TEMPLATE.aspx" />
-    <Content Include="_OLD_STYLE_TEMPLATE.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="access-denied.aspx.cs">
@@ -249,20 +246,6 @@
     </Compile>
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="anonymous.aspx.cs">
-      <DependentUpon>anonymous.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="anonymous.aspx.designer.cs">
-      <DependentUpon>anonymous.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="aspxdate.aspx.cs">
-      <DependentUpon>aspxdate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="aspxdate.aspx.designer.cs">
-      <DependentUpon>aspxdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\AccountTiny.ascx.cs">
       <DependentUpon>AccountTiny.ascx</DependentUpon>
@@ -352,6 +335,13 @@
     <Compile Include="Logs.aspx.designer.cs">
       <DependentUpon>Logs.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Loldreds-Legends.aspx.cs">
+      <DependentUpon>Loldreds-Legends.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Loldreds-Legends.aspx.designer.cs">
+      <DependentUpon>Loldreds-Legends.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Manage-Photos.aspx.cs">
       <DependentUpon>Manage-Photos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -379,13 +369,6 @@
     </Compile>
     <Compile Include="photos.aspx.designer.cs">
       <DependentUpon>photos.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="polls.aspx.cs">
-      <DependentUpon>polls.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="polls.aspx.designer.cs">
-      <DependentUpon>polls.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reset-Password.aspx.cs">
@@ -440,13 +423,6 @@
     </Compile>
     <Compile Include="_TEMPLATE.aspx.designer.cs">
       <DependentUpon>_TEMPLATE.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="_OLD_STYLE_TEMPLATE.aspx.cs">
-      <DependentUpon>_OLD_STYLE_TEMPLATE.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="_OLD_STYLE_TEMPLATE.aspx.designer.cs">
-      <DependentUpon>_OLD_STYLE_TEMPLATE.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

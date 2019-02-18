@@ -7,28 +7,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="css/shared-style.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous" />
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
     <!--<script src="bootstrap-4.1.2-dist/js/bootstrap.js"></script>-->
-   
 
 </head>
-<body style="padding-top:5%; padding-bottom:5%;">
+<body>
     
     <form runat="server">
-        <script src="../javascript/globalBodyV1.6.js"></script>
-        <div class="center_div" style="padding:5%; max-width:600px">
-            <div class="alert alert-warning alert-dismissible" runat="server" style="display:none" id="Warning">
+        <div style="padding-top: 1.5%; padding-left:1.5%; padding-right:1.5%;">
+        <div class="alert alert-warning alert-dismissible" runat="server" style="display:none;" id="Warning">
+
                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <strong>Confirm Identity</strong> You must log in first!
             </div>
-
+            </div>
+        <script src="../javascript/globalBodyV1.6.js"></script>
+        
+            <div style="max-width:400px; ">
             
+
+            <div style="position:absolute; left: 50%; margin-left:-200px;">
             <img src="resources/media/images/fat_kieron_cutout.JPG" style="max-width:100px; display:block; margin-left: auto; margin-right:auto;" />
                 
-  <div class="form-group">
+  <div class="form-group" style="max-width:400px"  >
     
           
       <br />    
@@ -46,6 +48,7 @@
             <br />
   <asp:Button runat="server" ID="ButLogIn" OnClick="ButLogIn_Click" CssClass="btn btn-primary" Text="Log In"></asp:Button>
 </div>
+                </div>
 </form>
     
 </body>

@@ -25,7 +25,6 @@
     <div id="menuDiv"></div>
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
-    <br /><br />
     <br class="nomobile" />
 
     <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. </label><a href="content removal.html">Click here</a><label> to learn more.</label></div>
@@ -57,22 +56,5 @@
     <br />
     <script src="../javascript/globalBodyV1.6.js"></script>
     <script src="../javascript/menuV1.14.js"></script>
-    <script>
-
-        var chat = document.getElementById("Kieron_chat")
-        var kieron = document.getElementById("kieron")
-        if(isMobile())
-        {
-            var body = document.getElementById("body")
-            body.style = "margin-top:2%"
-            chat.style.width = "90%"
-            kieron.style.width = "25%"
-        }
-        else
-        {
-            chat.style.width = "20%"
-            kieron.style.width = "5%"
-        }
-    </script>
 </body>
 </html>

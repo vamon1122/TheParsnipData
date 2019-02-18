@@ -25,14 +25,13 @@
     <div id="menuDiv"></div>
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
-    <br /><br />
 
 
     <div class="padded-text">
         <h2>Videos</h2>
         <hr class="break"/>        
         <br />
-        All our videos... appart from some videos "made by my friend" Loldred... some nob head who thinks hes gonna get fired if the kiddies see them :P jks
+        <a href="loldreds-legends">Click here</a> to see the Loldred's Legends collection!<br />
         </div>
         <!-- VIDEO TEMPLATE
         DATE

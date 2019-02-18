@@ -16,7 +16,7 @@ namespace ParsnipWebsite
         protected void Page_Load(object sender, EventArgs e)
         {
             myUser = Uac.SecurePage("home", this, Data.DeviceType);
-            WelcomeLabel.Text = string.Format("Welcome back to the parsnip website, {0}!", myUser.Forename);
+            WelcomeLabel.Text = string.Format("Hiya {0}, welcome back to the parsnip website!", myUser.Forename);
         }
     }
 }
