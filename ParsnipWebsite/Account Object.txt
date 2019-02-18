@@ -53325,3 +53325,25 @@
 <debug> 18/02/2019 15:38:18 - No password cookie was found.
 <info> 18/02/2019 15:38:18 - Returning user details from cookies.
 <warning> 18/02/2019 15:38:18 - Input username was reset
+<warning> 18/02/2019 15:46:12 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:46:12 - Getting user details from cookies...
+<debug> 18/02/2019 15:46:12 - No username cookie was found.
+<debug> 18/02/2019 15:46:12 - No password cookie was found.
+<info> 18/02/2019 15:46:12 - Returning user details from cookies.
+<warning> 18/02/2019 15:46:12 - Input username was reset
+<warning> 18/02/2019 15:46:51 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:46:51 - Getting user details from cookies...
+<debug> 18/02/2019 15:46:51 - No username cookie was found.
+<debug> 18/02/2019 15:46:51 - No password cookie was found.
+<info> 18/02/2019 15:46:51 - Returning user details from cookies.
+<warning> 18/02/2019 15:46:51 - Input username was reset
+<info> 18/02/2019 15:47:51 - Getting user details from cookies...
+<debug> 18/02/2019 15:47:51 - No username cookie was found.
+<debug> 18/02/2019 15:47:51 - No password cookie was found.
+<info> 18/02/2019 15:47:51 - Returning user details from cookies.
+<warning> 18/02/2019 15:47:53 - PAGE IS BEING LOADED
+<info> 18/02/2019 15:47:53 - Getting user details from cookies...
+<debug> 18/02/2019 15:47:53 - No username cookie was found.
+<debug> 18/02/2019 15:47:53 - No password cookie was found.
+<info> 18/02/2019 15:47:53 - Returning user details from cookies.
+<warning> 18/02/2019 15:47:53 - Input username was reset

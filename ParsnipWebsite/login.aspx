@@ -24,13 +24,13 @@
             </div>
         <script src="../javascript/globalBodyV1.6.js"></script>
         
-            <div style="max-width:400px; ">
+            <div style="width:300px; ">
             
 
-            <div style="position:absolute; left: 50%; margin-left:-200px;">
+            <div style="position:absolute; left: 50%; margin-left:-150px;">
             <img src="resources/media/images/fat_kieron_cutout.JPG" style="max-width:100px; display:block; margin-left: auto; margin-right:auto;" />
                 
-  <div class="form-group" style="max-width:400px"  >
+  <div class="form-group" style="width:300px"  >
     
           
       <br />    
