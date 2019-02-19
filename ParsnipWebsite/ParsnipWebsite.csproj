@@ -88,49 +88,16 @@
     <Content Include="Logout.aspx" />
     <Content Include="Manage-Photos.aspx" />
     <Content Include="Memes.aspx" />
-    <Content Include="Minecraft.aspx" />
     <Content Include="package.json" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Publish To Folder.pubxml" />
     <None Include="Properties\PublishProfiles\Publish To Live.pubxml" />
     <Content Include="Admin.aspx" />
     <Content Include="CustomControls\UacApi\AdminUserForm.ascx" />
-    <Content Include="dev\Photos.aspx" />
     <Content Include="javascript\intersection-observer.js" />
     <Content Include="Logs.aspx" />
     <Content Include="Photos.aspx" />
     <Content Include="resources\media\images\photos\Photos\kieron_chat.png" />
-    <Content Include="resources\media\images\uploads\AaronTaylor_1fea775c-321b-44a0-92bf-99b92186911f_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_0f3499a5-7f6f-4a06-a4ec-694f5abd9441_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_16a90cea-b62c-4040-8285-afb92585de34_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_22bf5171-d72c-4ce0-8166-33c1d601a1b3_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_2943e3e4-191b-4e64-8d5b-1c026d815615_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_2f410cba-b92a-4d98-86c3-13ad426fadf9_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_508b7e4e-4bd9-461e-b427-59d842d719e6_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_51f10d7e-1849-493d-8f5e-36c7af6155ea_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_54b18b5b-3162-452f-898a-777864a37293_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_62f0b134-2c1d-47b5-a54c-f984e6f96fcd_15-02-2019_E9561BCC-05FE-4C0B-BC31-277BCC8C8741.jpeg" />
-    <Content Include="resources\media\images\uploads\BenBarton_6499d828-e03c-48cf-9830-1e147642f82b_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_70221d74-42ff-4518-ac75-b48606be19b0_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_9234b9c6-d265-44d4-9ade-4ac5bc2bba32_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_95c47268-481f-4285-b2f2-1419b73efe0d_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_98bfb723-70a1-4a92-bd16-44119094f990_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_a82716c1-0f18-4c8e-92f8-9851f63973d2_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_ac641cf6-ae28-44ac-88a7-af6995d12539_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_acea3dcf-a26c-4148-9e6f-41c4baa433df_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_ba580c6d-2ea3-4428-9782-f70b9b4f2509_16-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_c39b3093-76cf-47b1-92aa-6443fc1a3d18_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_c625b77d-a46b-48eb-ac73-6f160367db34_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_ce31b61e-b691-47c9-bad5-4f507bd3c55f_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_d3a8133b-c17b-4d88-8f08-c1406be1d2aa_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_d3ef9676-ebe0-4ef4-a220-d329005002d9_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_dc0ae92b-87ff-4e1d-a5b4-0354485b4d0e_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_dfefc0b2-8989-47d1-8792-ed72593c8313_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_e2c03f25-9ad8-498a-bca1-54c4de995ac9_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\BenBarton_f867a49f-7624-4a8d-b7cc-ad6f0e01b4bf_15-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\LiamAldred_aaa2578d-12ff-4a52-9ed2-776ca693991c_15-02-2019_IMG_7664.JPG" />
-    <Content Include="resources\media\images\uploads\ParsnipMember_9933924e-b4c3-412d-aff6-2ce4497c1000_16-02-2019_image.jpg" />
-    <Content Include="resources\media\images\uploads\ParsnipMember_a0b623f4-bc91-4c5d-848b-b8c7cfb8948b_16-02-2019_image.jpg" />
     <Content Include="resources\media\images\webMedia\google-photos.svg" />
     <Content Include="resources\media\images\webMedia\pix-vertical-placeholder.jpg" />
     <Content Include="resources\media\images\webMedia\placeholder.gif" />
@@ -150,25 +117,13 @@
     <Content Include="CustomControls\admin\adminMenu.ascx" />
     <Content Include="CustomControls\PollApi\PollControl.ascx" />
     <Content Include="default.aspx" />
-    <Content Include="resources\downloads\#TheParsnipRemix2016.mp3" />
+    <Content Include="resources\media\audio\#TheParsnipRemix2016.mp3" />
     <Content Include="Global.asax" />
     <Content Include="resources\media\images\fat_kieron_cutout.JPG" />
-    <Content Include="resources\media\images\parsnip_silhouette.jpg" />
     <Content Include="javascript\menuV1.14.js" />
     <Content Include="javascript\globalBodyV1.6.js" />
     <Content Include="css\shared-style.css" />
-    <Content Include="resources\media\images\patterns\parsnip.png" />
-    <Content Include="resources\media\images\patterns\pattern_black.rose.png" />
-    <Content Include="resources\media\images\patterns\pattern_black1.png" />
-    <Content Include="resources\media\images\patterns\pattern_black2.png" />
-    <Content Include="resources\media\images\patterns\pattern_black3.jpeg" />
-    <Content Include="resources\media\images\patterns\pattern_black3.png" />
-    <Content Include="resources\media\images\patterns\pattern_black4.jpeg" />
-    <Content Include="resources\media\images\patterns\pattern_grey1.jpeg" />
-    <Content Include="resources\media\images\patterns\pattern_white1.png" />
-    <Content Include="resources\media\images\photos\Bios\Fat Kieron.JPG" />
     <Content Include="resources\media\images\photos\Bios\Kieron_chat.PNG" />
-    <Content Include="resources\media\images\photos\Bullshit\_Carl Bullshit.jpg" />
     <Content Include="resources\media\images\photos\memes\ben_pussy.JPG" />
     <Content Include="resources\media\images\photos\memes\kieron_how_to_spot_a_fuckboy.JPG" />
     <Content Include="resources\media\images\photos\memes\kieron_with_BAE.JPG" />
@@ -218,8 +173,6 @@
     <Content Include="resources\media\images\photos\Photos\tom_1.JPG" />
     <Content Include="resources\media\images\photos\Photos\tom_2.JPG" />
     <Content Include="resources\media\images\photos\Photos\tom_glasses.JPG" />
-    <Content Include="rounded.png" />
-    <Content Include="UacService.asmx" />
     <Content Include="CustomControls\ViewSwitcher.ascx" />
     <Content Include="Users.aspx" />
     <Content Include="Videos.aspx" />
@@ -257,13 +210,6 @@
     </Compile>
     <Compile Include="CustomControls\UacApi\AdminUserForm.ascx.designer.cs">
       <DependentUpon>AdminUserForm.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="dev\Photos.aspx.cs">
-      <DependentUpon>Photos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="dev\Photos.aspx.designer.cs">
-      <DependentUpon>Photos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit-Image.aspx.cs">
       <DependentUpon>Edit-Image.aspx</DependentUpon>
@@ -346,13 +292,6 @@
     <Compile Include="Memes.aspx.designer.cs">
       <DependentUpon>Memes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Minecraft.aspx.cs">
-      <DependentUpon>Minecraft.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Minecraft.aspx.designer.cs">
-      <DependentUpon>Minecraft.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Photos.aspx.cs">
       <DependentUpon>Photos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -367,10 +306,6 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
-    </Compile>
-    <Compile Include="UacService.asmx.cs">
-      <DependentUpon>UacService.asmx</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomControls\ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
@@ -434,7 +369,9 @@
       <Name>UacApi</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="resources\media\images\uploads\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
