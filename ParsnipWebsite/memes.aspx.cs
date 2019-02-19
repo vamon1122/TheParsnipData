@@ -24,6 +24,13 @@ namespace ParsnipWebsite
         {
             myUser = Uac.SecurePage("memes", this, Data.DeviceType, "member");
 
+            if (Request.QueryString["error"] != null)
+            {
+
+                Warning.Attributes.CssStyle.Add("display", "block");
+
+            }
+
             if (IsPostBack && PhotoUpload.PostedFile != null)
             {
                 new LogEntry(DebugLog) { text = "POSTBACK with meme image" };
@@ -43,6 +50,7 @@ namespace ParsnipWebsite
                         PhotoUpload.PostedFile.SaveAs(Server.MapPath("~/" + newDir));
                         MediaApi.Image temp = new MediaApi.Image(newDir, myUser, MemesAlbum);
                         temp.Update();
+                        Response.Redirect("edit-image?redirect=memes&imageid=" + temp.Id);
                         //}
                     }
                     catch (Exception err)
@@ -67,6 +75,16 @@ namespace ParsnipWebsite
             //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
             foreach (MediaApi.Image temp in AllPhotos)
             {
+                if (temp.Title != null && !string.IsNullOrEmpty(temp.Title) && !string.IsNullOrWhiteSpace(temp.Title))
+                {
+                    Debug.WriteLine("Title NOT blank = " + temp.Title);
+                    this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(string.Format("<h2>{0}</h2>", temp.Title)));
+                }
+                else
+                {
+                    Debug.WriteLine("Title BLANK = " + temp.Title);
+                }
+
                 System.Web.UI.WebControls.Image tempControl = new System.Web.UI.WebControls.Image();
 
                 tempControl.ImageUrl = "resources/media/images/webMedia/placeholder.gif";
@@ -75,7 +93,8 @@ namespace ParsnipWebsite
                 tempControl.CssClass = "meme lazy";
                 DynamicPhotosDiv.Controls.Add(tempControl);
                 this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl("<br />"));
-                //new LogEntry(Debug) { text = "Added new image to the page. Url = " + temp.PhotoSrc };
+                this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(string.Format("<a href=\"edit-image?redirect=memes&imageid={0}\">Edit</a>", temp.Id)));
+                this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl("<br />"));
             }
 
         }

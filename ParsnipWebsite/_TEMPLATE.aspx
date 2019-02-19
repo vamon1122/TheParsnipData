@@ -14,7 +14,6 @@
     <link id="link_style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/shared-style.css" />
 
-    <link href="css/file-upload.css" rel="stylesheet" type ="text/css" />
     <script src="javascript/intersection-observer.js"></script>
 
     <title>New Title</title>

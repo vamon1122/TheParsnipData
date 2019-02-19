@@ -34,7 +34,11 @@
     <hr class="break" />
 
     <form runat="server">
+        <div class="alert alert-warning alert-dismissible" runat="server" style="display:none; position:fixed; top:55px; width:98%; margin-left:1%;" id="Warning">
 
+                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Access Denied</strong> You cannot edit photos which other people have uploaded!
+            </div>
                 <div runat="server" id="UploadDiv" class="form-group" style="display:none">
                     <label class="file-upload">
                         

@@ -10,7 +10,7 @@
 namespace ParsnipWebsite {
     
     
-    public partial class photos {
+    public partial class Edit_Image {
         
         /// <summary>
         /// link_style control.
@@ -22,39 +22,39 @@ namespace ParsnipWebsite {
         protected global::System.Web.UI.HtmlControls.HtmlLink link_style;
         
         /// <summary>
-        /// Warning control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Warning;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// UploadDiv control.
+        /// ImagePreview control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl UploadDiv;
+        protected global::System.Web.UI.WebControls.Image ImagePreview;
         
         /// <summary>
-        /// PhotoUpload control.
+        /// btn_AdminDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload PhotoUpload;
+        protected global::System.Web.UI.WebControls.Button btn_AdminDelete;
         
         /// <summary>
-        /// DynamicPhotosDiv control.
+        /// BtnDeleteImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DynamicPhotosDiv;
+        protected global::System.Web.UI.WebControls.Button BtnDeleteImage;
     }
 }

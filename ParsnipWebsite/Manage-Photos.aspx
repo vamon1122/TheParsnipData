@@ -36,7 +36,7 @@
                 onselectedindexchanged="SelectUser_Changed">
             </asp:DropDownList>
             <br />
-            <asp:Button runat="server" ID="btnDelete"  CssClass="btn btn-primary" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;"></asp:Button>
+            <!--<asp:Button runat="server" ID="btnDelete"  CssClass="btn btn-primary" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;"></asp:Button>-->
                     <button data-toggle="modal" data-target="#confirmDelete" class="btn btn-primary" onclick="return false" >Delete</button>
             <br />
             <br />

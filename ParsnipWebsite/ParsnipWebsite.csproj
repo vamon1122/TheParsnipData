@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\file-upload.css" />
+    <Content Include="Edit-Image.aspx" />
     <Content Include="Loldreds-Legends.aspx" />
     <Content Include="Manage-Photos.aspx" />
     <Content Include="package.json" />
@@ -274,6 +275,13 @@
     </Compile>
     <Compile Include="dev\Photos.aspx.designer.cs">
       <DependentUpon>Photos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit-Image.aspx.cs">
+      <DependentUpon>Edit-Image.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit-Image.aspx.designer.cs">
+      <DependentUpon>Edit-Image.aspx</DependentUpon>
     </Compile>
     <Compile Include="getdeviceinfo.aspx.cs">
       <DependentUpon>getdeviceinfo.aspx</DependentUpon>

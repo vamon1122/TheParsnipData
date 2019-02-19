@@ -219,7 +219,7 @@ namespace MediaApi
                     if (logMe)
                         Debug.WriteLine("----------Reading title");
 
-                    Alt = pReader[6].ToString().Trim();
+                    Title = pReader[6].ToString().Trim();
                 }
                 else
                 {
@@ -232,7 +232,7 @@ namespace MediaApi
                     if (logMe)
                         Debug.WriteLine("----------Reading description");
 
-                    Alt = pReader[7].ToString().Trim();
+                    Description = pReader[7].ToString().Trim();
                 }
                 else
                 {
