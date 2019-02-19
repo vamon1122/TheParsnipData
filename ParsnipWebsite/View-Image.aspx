@@ -44,16 +44,20 @@
   </div>
         -->
     <div class="center_form">
+        <div class="input-group mb-3" style="padding-left:2.5%; padding-right:2.5%">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Link</span>
+  </div>
+  <input type="text" id="ShareLink" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" />
+</div>
     <h2 id="ImageTitle"></h2>
 
     <form id="form1" runat="server">
         <asp:Image runat="server" ID="ImagePreview" CssClass="width100" />
     </form>
 
-
-    <input type="text" id="ShareLink" class="form-control" />
-    <!--this.textContent-->
-    <button onclick="writeText(document.getElementById('ShareLink').value)">Copy Link</button>
+        
+    
         </div>
         <script>
 
@@ -64,7 +68,6 @@
             document.getElementById("ShareLink").value = "https://www.theparsnip.co.uk/view-image?imageid=" + url.searchParams.get("imageid");
     </script>
         
-    <script src="javascript/clipboard.js"></script>
     <script src="../javascript/globalBodyV1.6.js"></script>
     <script src="../javascript/menuV1.14.js"></script>
 

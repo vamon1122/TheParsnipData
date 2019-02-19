@@ -14,15 +14,15 @@
     <link rel="stylesheet" type="text/css" href="css/shared-style.css" />
 </head>
 <body style="padding-top: 0px">
-    
-    <form runat="server" class="center_form">
-        <div style="padding-top: 1.5%; padding-left:1.5%; padding-right:1.5%;">
+    <div style="padding-top: 1.5%; padding-left:1.5%; padding-right:1.5%;">
         <div class="alert alert-warning alert-dismissible" runat="server" style="display:none;" id="Warning">
 
                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <strong>Confirm Identity</strong> You must log in first!
             </div>
             </div>
+    <form runat="server" class="center_form">
+        
         <script src="../javascript/globalBodyV1.6.js"></script>
         
             <!--<div style="width:300px; ">-->
@@ -47,7 +47,9 @@
     <label class="form-check-label" >Remember Password</label>
   </div>
             <br />
+      <div style="float:left;">
   <asp:Button runat="server" ID="ButLogIn" OnClick="ButLogIn_Click" CssClass="btn btn-primary" Text="Log In"></asp:Button>
+          </div>
         </div>
             </div>
 <!--</div>-->

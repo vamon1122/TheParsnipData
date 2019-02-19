@@ -35,8 +35,8 @@
     <input type="text" class="form-control login" id="InputDescription" />
   </div>
         -->
-  
-    <form id="form1" runat="server" class="center_form">
+  <div class="center_form">
+    <form id="form1" runat="server">
         <div class="form-group" style="padding-left:2.5%; padding-right: 2.5%;" >
       <label style="text-align:left; width:100%">Title</label>
     <input type="text" class="form-control login" id="InputTitle"  />
@@ -45,8 +45,9 @@
         <asp:Image runat="server" ID="ImagePreview" CssClass="image-preview" Width="100%" />
         <br />
         <br />
-        <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary btn-left" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;"></asp:Button>
-        
+        <div style="width:100%; padding-left:2.5%">
+        <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary float-left" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;"></asp:Button>
+        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -69,7 +70,10 @@
             </div>
         </div>
     </form>
-        <button id="ButtonSave" class="btn btn-primary btn-right" onclick="SavePhoto()" style="width:100px">Save</button>
+      <div style="width:100%; padding-right:2.5%">
+        <button id="ButtonSave" class="btn btn-primary float-right" onclick="SavePhoto()" style="width:100px; top:-16px;" >Save</button>
+          </div>
+      </div>
         <script>
 
             var url_string = window.location.href

@@ -33,17 +33,19 @@ body {
 }
 */
 
-.btn-left {
+/*.btn-left {
     position: fixed;
     right: 72%;
     bottom: 2.5%;
     
+}*/
+
+.float-left {
+    float: left;
 }
 
-.btn-right {
-    position: fixed;
-    left: 72%;
-    bottom: 2.5%;
+.float-right {
+    float: right;
 }
 
 .padded-text {
