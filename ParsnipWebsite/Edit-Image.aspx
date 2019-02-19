@@ -37,7 +37,7 @@
         -->
   <div class="center_form">
     <form id="form1" runat="server">
-        <div class="form-group" style="padding-left:2.5%; padding-right: 2.5%;" >
+        <div class="form-group" style="padding-left:5%; padding-right: 5%;" >
       <label style="text-align:left; width:100%">Title</label>
     <input type="text" class="form-control login" id="InputTitle"  />
   </div>
@@ -45,7 +45,7 @@
         <asp:Image runat="server" ID="ImagePreview" CssClass="image-preview" Width="100%" />
         <br />
         <br />
-        <div style="width:100%; padding-left:2.5%">
+        <div style="width:100%; padding-left:5%">
         <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary float-left" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;"></asp:Button>
         </div>
 
@@ -70,7 +70,7 @@
             </div>
         </div>
     </form>
-      <div style="width:100%; padding-right:2.5%">
+      <div style="width:100%; padding-right:5%">
         <button id="ButtonSave" class="btn btn-primary float-right" onclick="SavePhoto()" style="width:100px; top:-16px;" >Save</button>
           </div>
       </div>

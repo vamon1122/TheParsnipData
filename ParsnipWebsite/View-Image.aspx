@@ -44,7 +44,7 @@
   </div>
         -->
     <div class="center_form">
-        <div class="input-group mb-3" style="padding-left:2.5%; padding-right:2.5%">
+        <div class="input-group mb-3" style="padding-left:5%; padding-right:5%">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">Link</span>
   </div>

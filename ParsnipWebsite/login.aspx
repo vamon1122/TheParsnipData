@@ -16,45 +16,32 @@
 <body style="padding-top: 0px">
     <div style="padding-top: 1.5%; padding-left:1.5%; padding-right:1.5%;">
         <div class="alert alert-warning alert-dismissible" runat="server" style="display:none;" id="Warning">
-
-                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Confirm Identity</strong> You must log in first!
-            </div>
-            </div>
-    <form runat="server" class="center_form">
-        
-        <script src="../javascript/globalBodyV1.6.js"></script>
-        
-            <!--<div style="width:300px; ">-->
-            
-
-            <!--<div style="position:absolute; left: 50%; margin-left:-150px;">-->
-            <img src="resources/media/images/fat_kieron_cutout.JPG" style="max-width:100px; display:block; margin-left: auto; margin-right:auto;" />
-       
-        <div style="padding-right:2.5%;padding-left:2.5%;">
-  <div class="form-group"  >
-    
-          
-      <br />    
-      <label style="text-align:left; width:100%">Username</label>
-    <asp:TextBox runat="server" CssClass="form-control login" ID="inputUsername"  />
-  <div class="form-group">
-    <label style="text-align:left; width:100%">Password</label>
-    <asp:TextBox runat="server" TextMode="password" CssClass="form-control login" ID="inputPwd" />
-  </div>
-  <div class="form-check" style="text-align:left; width:100%">
-    <asp:CheckBox runat="server" CssClass="form-check-input login" ID="RememberPwd" />
-    <label class="form-check-label" >Remember Password</label>
-  </div>
-            <br />
-      <div style="float:left;">
-  <asp:Button runat="server" ID="ButLogIn" OnClick="ButLogIn_Click" CssClass="btn btn-primary" Text="Log In"></asp:Button>
-          </div>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Confirm Identity</strong> You must log in first!
         </div>
+    </div>
+    <form runat="server" class="center_form">        
+        <img src="resources/media/images/fat_kieron_cutout.JPG" style="max-width:100px; display:block; margin-left: auto; margin-right:auto;" />
+        <div style="padding-right:5%;padding-left:5%;">
+            <div class="form-group"  >
+                <br />    
+                <label style="text-align:left; width:100%">Username</label>
+                <asp:TextBox runat="server" CssClass="form-control login" ID="inputUsername"  />
+                <div class="form-group">
+                    <label style="text-align:left; width:100%">Password</label>
+                    <asp:TextBox runat="server" TextMode="password" CssClass="form-control login" ID="inputPwd" />
+                </div>
+                <div class="form-check" style="text-align:left; width:100%">
+                    <asp:CheckBox runat="server" CssClass="form-check-input login" ID="RememberPwd" />
+                    <label class="form-check-label" >Remember Password</label>
+                </div>
+                <br />
+                <div style="float:left;">
+                    <asp:Button runat="server" ID="ButLogIn" OnClick="ButLogIn_Click" CssClass="btn btn-primary" Text="Log In"></asp:Button>
+                </div>
             </div>
-<!--</div>-->
-                <!--</div>-->
-</form>
+        </div>
+    </form>
     <script src="../javascript/globalBodyV1.6.js"></script>
 </body>
 </html>
