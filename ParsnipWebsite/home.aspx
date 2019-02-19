@@ -33,12 +33,8 @@
             <br />
         <br />
         *NEW*<br />
-        - The return of <a href="loldreds-legends">Loldred's Legends</a>!<br />
-        - You can now access <a href="https://www.mixcloud.com/afternoontlive/">AfternoonT</a> via the website <br />
-        - You can now upload parsnip-related memes to the <a href="memes">Memes</a> page!<br />
-         - You can now upload parsnip-related photos to the <a href="photos">Photos</a> page!<br />
-
-        
+        - You can now caption <a href="photos">photoss</a> & <a href="memes">memes</a> which you've uploaded!<br />
+        - Shortcut to the <a href="https://www.mixcloud.com/afternoontlive/">AfternoonT</a> podcast added to website menu. <br />
     </div>
     <hr class="break" />
     <h3>LATEST VIDEO: Aaron Gets Wavy</h3>

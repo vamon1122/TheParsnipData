@@ -49,22 +49,15 @@ titleFontSize = "30px";
 
 /////Buttons/////
 createButton("Home", "home");
-if (getCookie("accountType") === "admin") {
-    //createButton("NEW! Polls", "polls");
-}
 
-if (getCookie("accountType") === "admin" || getCookie("accountType") === "member") {
-    
+if (getCookie("accountType") === "admin" || getCookie("accountType") === "member")
+{
     createButton("Memes", "memes");
     createButton("Photos", "photos");
     createButton("AfternoonT", "https://www.mixcloud.com/afternoontlive/");
     createButton("Videos", "videos");
-    
+    createButton("Bios", "bios");    
 }
-
-//createButton("Minecraft", "minecraft");
-
-createButton("Bios", "bios");
 
 if (getCookie("accountType") === "admin") {
     createButton("Admin", "admin");
