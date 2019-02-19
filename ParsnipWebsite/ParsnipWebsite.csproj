@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Edit-Image.aspx" />
+    <Content Include="javascript\clipboard.js" />
     <Content Include="Loldreds-Legends.aspx" />
     <Content Include="Manage-Photos.aspx" />
     <Content Include="package.json" />
@@ -226,6 +227,7 @@
     <Content Include="UacService.asmx" />
     <Content Include="CustomControls\ViewSwitcher.ascx" />
     <Content Include="Users.aspx" />
+    <Content Include="View-Image.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -423,6 +425,13 @@
     </Compile>
     <Compile Include="videos.aspx.designer.cs">
       <DependentUpon>videos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View-Image.aspx.cs">
+      <DependentUpon>View-Image.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View-Image.aspx.designer.cs">
+      <DependentUpon>View-Image.aspx</DependentUpon>
     </Compile>
     <Compile Include="_TEMPLATE.aspx.cs">
       <DependentUpon>_TEMPLATE.aspx</DependentUpon>

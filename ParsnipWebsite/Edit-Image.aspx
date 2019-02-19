@@ -14,7 +14,7 @@
 
     <script src="javascript/intersection-observer.js"></script>
 
-    <title>New Title</title>
+    <title>Edit Image</title>
 </head>
 <body class="fade0p5" id="body">
     <label class="censored" id="pageId">Edit-Photo.html</label>
