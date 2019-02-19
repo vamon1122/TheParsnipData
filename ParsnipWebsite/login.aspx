@@ -13,7 +13,7 @@
     <link id="link_style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/shared-style.css" />
 </head>
-<body>
+<body style="padding-top: 0px">
     
     <form runat="server" class="center_form">
         <div style="padding-top: 1.5%; padding-left:1.5%; padding-right:1.5%;">
