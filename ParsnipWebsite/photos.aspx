@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="photos.aspx.cs" Inherits="ParsnipWebsite.photos" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Photos.aspx.cs" Inherits="ParsnipWebsite.Photos" %>
 
 <!DOCTYPE html>
 
@@ -30,7 +30,7 @@
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
 
     
-            <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. </label><a href="content removal.html">Click here</a><label> to learn more.</label></div>
+            <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. </label><a href="Content-Removal">Click here</a><label> to learn more.</label></div>
     
             <h2>Photos</h2>
             <hr class="break" />

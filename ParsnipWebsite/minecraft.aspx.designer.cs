@@ -10,6 +10,6 @@
 namespace ParsnipWebsite {
     
     
-    public partial class minecraft {
+    public partial class Minecraft {
     }
 }

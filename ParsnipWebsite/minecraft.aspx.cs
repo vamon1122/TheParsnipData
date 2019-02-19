@@ -9,7 +9,7 @@ using LogApi;
 
 namespace ParsnipWebsite
 {
-    public partial class minecraft : System.Web.UI.Page
+    public partial class Minecraft : System.Web.UI.Page
     {
         private User myUser;
         protected void Page_Load(object sender, EventArgs e)

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="getdeviceinfo.aspx.cs" Inherits="ParsnipWebsite.getdeviceinfo" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Get-Device-Info.aspx.cs" Inherits="ParsnipWebsite.Get_Device_Info" %>
 
 <!DOCTYPE html>
 

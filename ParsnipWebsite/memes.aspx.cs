@@ -14,7 +14,7 @@ using System.Diagnostics;
 
 namespace ParsnipWebsite
 {
-    public partial class memes : System.Web.UI.Page
+    public partial class Memes : System.Web.UI.Page
     {
         private User myUser;
         Log DebugLog = new Log("debug");
@@ -101,7 +101,7 @@ namespace ParsnipWebsite
 
         }
 
-        public memes()
+        public Memes()
         {
             MemesAlbum.Select();
         }

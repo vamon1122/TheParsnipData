@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="videos.aspx.cs" Inherits="ParsnipWebsite.youtube" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Videos.aspx.cs" Inherits="ParsnipWebsite.Videos" %>
 
 <!DOCTYPE html>
 
@@ -552,3 +552,4 @@
     </script>
 </body>
 </html>
+

@@ -14,13 +14,13 @@ using System.Diagnostics;
 
 namespace ParsnipWebsite
 {
-    public partial class photos : System.Web.UI.Page
+    public partial class Photos : System.Web.UI.Page
     {
         private User myUser;
         Log DebugLog = new Log("debug");
         Album PhotosAlbum = new Album(new Guid("4b4e450a-2311-4400-ab66-9f7546f44f4e"));
 
-        public photos()
+        public Photos()
         {
             PhotosAlbum.Select();
         }
@@ -31,7 +31,7 @@ namespace ParsnipWebsite
 
             if (Request.QueryString["error"] != null)
             {
-                
+
                 Warning.Attributes.CssStyle.Add("display", "block");
 
             }
@@ -48,13 +48,13 @@ namespace ParsnipWebsite
                         string[] fileDir = PhotoUpload.PostedFile.FileName.Split('\\');
                         string myFileName = fileDir.Last();
 
-                        string newDir = string.Format("resources/media/images/uploads/{0}{1}_{2}_{3}_{4}", myUser.Forename, myUser.Surname,Guid.NewGuid(), Parsnip.adjustedTime.ToString("dd-MM-yyyy"), myFileName);
+                        string newDir = string.Format("resources/media/images/uploads/{0}{1}_{2}_{3}_{4}", myUser.Forename, myUser.Surname, Guid.NewGuid(), Parsnip.adjustedTime.ToString("dd-MM-yyyy"), myFileName);
                         Debug.WriteLine("Newdir = " + newDir);
                         /*if (PhotoUpload.PostedFile.HasFile)
                         {*/
-                            PhotoUpload.PostedFile.SaveAs(Server.MapPath("~/" + newDir));
+                        PhotoUpload.PostedFile.SaveAs(Server.MapPath("~/" + newDir));
                         MediaApi.Image temp = new MediaApi.Image(newDir, myUser, PhotosAlbum);
-                            temp.Update();
+                        temp.Update();
                         Response.Redirect("edit-image?redirect=photos&imageid=" + temp.Id);
                         //}
                     }
@@ -79,7 +79,7 @@ namespace ParsnipWebsite
             //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
             foreach (MediaApi.Image temp in AllPhotos)
             {
-                if(temp.Title != null && !string.IsNullOrEmpty(temp.Title) && !string.IsNullOrWhiteSpace(temp.Title))
+                if (temp.Title != null && !string.IsNullOrEmpty(temp.Title) && !string.IsNullOrWhiteSpace(temp.Title))
                 {
                     Debug.WriteLine("Title NOT blank = " + temp.Title);
                     this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(string.Format("<h2>{0}</h2>", temp.Title)));
@@ -90,7 +90,7 @@ namespace ParsnipWebsite
                 }
 
                 System.Web.UI.WebControls.Image tempControl = new System.Web.UI.WebControls.Image();
-                
+
                 tempControl.ImageUrl = "resources/media/images/webMedia/placeholder.gif";
                 tempControl.Attributes.Add("data-src", temp.ImageSrc);
                 tempControl.Attributes.Add("data-srcset", temp.ImageSrc);
@@ -125,9 +125,9 @@ namespace ParsnipWebsite
 
                 new LogEntry(DebugLog) { text = "There was an exception whilst uploading the photo image: " + err };
             }
-                
+
         }
 
-        
+
     }
 }

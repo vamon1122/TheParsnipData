@@ -11,7 +11,7 @@ namespace ParsnipWebsite
 {
 
 
-    public partial class Reset_Password
+    public partial class Get_Device_Info
     {
 
         /// <summary>

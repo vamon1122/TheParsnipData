@@ -58,7 +58,6 @@ if (getCookie("accountType") === "admin" || getCookie("accountType") === "member
     createButton("Memes", "memes");
     createButton("Photos", "photos");
     createButton("AfternoonT", "https://www.mixcloud.com/afternoontlive/");
-    createButton("Loldred's Legends", "loldreds-legends");
     createButton("Videos", "videos");
     
 }

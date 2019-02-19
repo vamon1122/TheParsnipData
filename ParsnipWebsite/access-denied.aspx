@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="access-denied.aspx.cs" Inherits="ParsnipWebsite.AccessDenied" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Access-Denied.aspx.cs" Inherits="ParsnipWebsite.Access_Denied" %>
 
 <!DOCTYPE html>
 
@@ -27,3 +27,4 @@
     </form>
 </body>
 </html>
+

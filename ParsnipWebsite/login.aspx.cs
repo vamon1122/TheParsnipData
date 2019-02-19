@@ -4,15 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using CookieApi;
+using LogApi;
 using UacApi;
 using BenLog;
-using CookieApi;
-using System.Diagnostics;
-using LogApi;
 
 namespace ParsnipWebsite
 {
-    public partial class LogInBarrier : System.Web.UI.Page
+    public partial class Login : System.Web.UI.Page
     {
         private User myUser;
         private string Redirect;
@@ -22,7 +21,7 @@ namespace ParsnipWebsite
         {
             AccountLog.Warning("PAGE IS BEING LOADED");
 
-            
+
 
             /*
             new LogEntry(Log.Default) { text = "Detecting device and setting deviceType cookie..." };
@@ -41,18 +40,19 @@ namespace ParsnipWebsite
             {
                 Redirect = Request.QueryString["url"];
                 Warning.Attributes.CssStyle.Add("display", "block");
-                
+
             }
             else
             {
                 Redirect = "home";
             }
-                
+
 
 
             myUser = new User("login");
 
-            if (String.IsNullOrEmpty(inputUsername.Text) && String.IsNullOrWhiteSpace(inputUsername.Text)){
+            if (String.IsNullOrEmpty(inputUsername.Text) && String.IsNullOrWhiteSpace(inputUsername.Text))
+            {
                 if (myUser.LogIn(false))
                 {
                     WriteCookie();

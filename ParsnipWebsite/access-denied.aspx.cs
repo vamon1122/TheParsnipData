@@ -8,7 +8,7 @@ using UacApi;
 
 namespace ParsnipWebsite
 {
-    public partial class AccessDenied : System.Web.UI.Page
+    public partial class Access_Denied : System.Web.UI.Page
     {
         User myUser;
         string attemptedAccess;
@@ -17,7 +17,7 @@ namespace ParsnipWebsite
             if (Request.QueryString["url"] != null)
                 attemptedAccess = Request.QueryString["url"];
 
-            if(attemptedAccess == null)
+            if (attemptedAccess == null)
             {
                 Info.Text = "Why are you trying to access this page directly? :P";
             }
@@ -25,7 +25,7 @@ namespace ParsnipWebsite
             {
                 Info.Text = string.Format("You don't have permission to access the {0} page.", attemptedAccess);
             }
-            
+
         }
     }
 }

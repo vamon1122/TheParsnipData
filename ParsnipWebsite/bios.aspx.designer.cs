@@ -10,7 +10,7 @@
 namespace ParsnipWebsite {
     
     
-    public partial class bios {
+    public partial class Bios {
         
         /// <summary>
         /// link_style control.

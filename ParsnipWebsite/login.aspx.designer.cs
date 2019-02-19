@@ -10,7 +10,7 @@
 namespace ParsnipWebsite {
     
     
-    public partial class LogInBarrier {
+    public partial class Login {
         
         /// <summary>
         /// link_style control.

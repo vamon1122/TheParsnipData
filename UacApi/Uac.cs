@@ -19,15 +19,17 @@ namespace UacApi
         private static Log SessionLog = new Log("session");
         public static User SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
         {
-            
+            Debug.WriteLine("Securing page...");
 
             if(string.IsNullOrEmpty(pDeviceType) || string.IsNullOrWhiteSpace(pDeviceType))
             {
+                Debug.WriteLine("Devicetype is empty, getting device info...");
                 //new LogEntry(Log.Default) { text = "Attempted to secure the page but deviceInfo was incomplete. Getting device info..." };
-                pPage.Response.Redirect("getdeviceinfo?url=" + pUrl);
+                pPage.Response.Redirect("get-device-info?url=" + pUrl);
             }
             else
             {
+                Debug.WriteLine("Devicetype is NOT empty...");
                 //new LogEntry(Log.Default) { text = "Secure page - Device info is already complete!" };
             }
 
@@ -36,13 +38,14 @@ namespace UacApi
             //Debug.WriteLine("----------Securing page");
             bool canAccess;
             string justification = "";
-            
 
 
+            Debug.WriteLine("Attempting to log user in...");
             if (myUser.LogIn())
             {
+                Debug.WriteLine("User logged in");
                 //Debug.WriteLine("----------Securing page, accountType = " + myUser.AccountType);
-                
+
                 if (pPage.Session["userName"] == null)
                 {
                     pPage.Session["userName"] = myUser.Username;
@@ -168,6 +171,7 @@ namespace UacApi
 
         public static User SecurePage(string pUrl, Page pPage, string pDeviceType)
         {
+            Debug.WriteLine("Attempting to secure page in...");
             return SecurePage(pUrl, pPage, pDeviceType, "user");
         }
     }

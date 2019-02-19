@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="minecraft.aspx.cs" Inherits="ParsnipWebsite.minecraft" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Minecraft.aspx.cs" Inherits="ParsnipWebsite.Minecraft" %>
 
 <!DOCTYPE html>
 

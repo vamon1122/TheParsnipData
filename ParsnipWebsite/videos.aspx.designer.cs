@@ -10,7 +10,7 @@
 namespace ParsnipWebsite {
     
     
-    public partial class youtube {
+    public partial class Videos {
         
         /// <summary>
         /// link_style control.

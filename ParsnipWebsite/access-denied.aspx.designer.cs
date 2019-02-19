@@ -10,7 +10,7 @@
 namespace ParsnipWebsite {
     
     
-    public partial class AccessDenied {
+    public partial class Access_Denied {
         
         /// <summary>
         /// form1 control.

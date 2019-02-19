@@ -10,7 +10,7 @@
 namespace ParsnipWebsite {
     
     
-    public partial class photos {
+    public partial class Photos {
         
         /// <summary>
         /// link_style control.

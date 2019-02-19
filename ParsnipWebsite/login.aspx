@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="ParsnipWebsite.LogInBarrier" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ParsnipWebsite.Login" %>
 
 <!DOCTYPE html>
 
@@ -58,3 +58,4 @@
     <script src="../javascript/globalBodyV1.6.js"></script>
 </body>
 </html>
+

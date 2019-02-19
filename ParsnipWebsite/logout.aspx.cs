@@ -9,12 +9,12 @@ using LogApi;
 
 namespace ParsnipWebsite
 {
-    public partial class logout : System.Web.UI.Page
+    public partial class Logout : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(Data.DeviceType) || string.IsNullOrWhiteSpace(Data.DeviceType))
-                Response.Redirect("getdeviceinfo?url=logout");
+                Response.Redirect("get-device-info?url=logout");
 
             User myUser = new User("logout get name");
             myUser.LogIn();

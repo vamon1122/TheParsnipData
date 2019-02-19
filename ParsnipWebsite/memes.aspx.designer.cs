@@ -10,7 +10,7 @@
 namespace ParsnipWebsite {
     
     
-    public partial class memes {
+    public partial class Memes {
         
         /// <summary>
         /// link_style control.

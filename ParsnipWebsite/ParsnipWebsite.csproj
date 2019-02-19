@@ -78,10 +78,17 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Access-Denied.aspx" />
+    <Content Include="Bios.aspx" />
     <Content Include="Edit-Image.aspx" />
+    <Content Include="Get-Device-Info.aspx" />
+    <Content Include="Home.aspx" />
     <Content Include="javascript\clipboard.js" />
-    <Content Include="Loldreds-Legends.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="Logout.aspx" />
     <Content Include="Manage-Photos.aspx" />
+    <Content Include="Memes.aspx" />
+    <Content Include="Minecraft.aspx" />
     <Content Include="package.json" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Publish To Folder.pubxml" />
@@ -89,10 +96,9 @@
     <Content Include="Admin.aspx" />
     <Content Include="CustomControls\UacApi\AdminUserForm.ascx" />
     <Content Include="dev\Photos.aspx" />
-    <Content Include="getdeviceinfo.aspx" />
     <Content Include="javascript\intersection-observer.js" />
     <Content Include="Logs.aspx" />
-    <Content Include="Reset-Password.aspx" />
+    <Content Include="Photos.aspx" />
     <Content Include="resources\media\images\photos\Photos\kieron_chat.png" />
     <Content Include="resources\media\images\uploads\AaronTaylor_1fea775c-321b-44a0-92bf-99b92186911f_15-02-2019_image.jpg" />
     <Content Include="resources\media\images\uploads\BenBarton_0f3499a5-7f6f-4a06-a4ec-694f5abd9441_15-02-2019_image.jpg" />
@@ -129,7 +135,6 @@
     <Content Include="resources\media\images\webMedia\pix-vertical-placeholder.jpg" />
     <Content Include="resources\media\images\webMedia\placeholder.gif" />
     <Content Include="resources\media\images\webMedia\you_shall_not_pass.jpg" />
-    <Content Include="Set-Password.aspx" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -139,11 +144,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="access-denied.aspx" />
-    <Content Include="CustomControls\AccountTiny.ascx" />
-    <Content Include="bios.aspx" />
-    <Content Include="carls-bullshit.html" />
-    <Content Include="content removal.html" />
+    <Content Include="Content-Removal.html" />
     <Content Include="css\mobile-style.css" />
     <Content Include="css\desktop-style.css" />
     <Content Include="CustomControls\admin\adminMenu.ascx" />
@@ -151,15 +152,10 @@
     <Content Include="default.aspx" />
     <Content Include="resources\downloads\#TheParsnipRemix2016.mp3" />
     <Content Include="Global.asax" />
-    <Content Include="home.aspx" />
     <Content Include="resources\media\images\fat_kieron_cutout.JPG" />
     <Content Include="resources\media\images\parsnip_silhouette.jpg" />
     <Content Include="javascript\menuV1.14.js" />
     <Content Include="javascript\globalBodyV1.6.js" />
-    <Content Include="login.aspx" />
-    <Content Include="logout.aspx" />
-    <Content Include="memes.aspx" />
-    <Content Include="minecraft.aspx" />
     <Content Include="css\shared-style.css" />
     <Content Include="resources\media\images\patterns\parsnip.png" />
     <Content Include="resources\media\images\patterns\pattern_black.rose.png" />
@@ -170,7 +166,6 @@
     <Content Include="resources\media\images\patterns\pattern_black4.jpeg" />
     <Content Include="resources\media\images\patterns\pattern_grey1.jpeg" />
     <Content Include="resources\media\images\patterns\pattern_white1.png" />
-    <Content Include="photos.aspx" />
     <Content Include="resources\media\images\photos\Bios\Fat Kieron.JPG" />
     <Content Include="resources\media\images\photos\Bios\Kieron_chat.PNG" />
     <Content Include="resources\media\images\photos\Bullshit\_Carl Bullshit.jpg" />
@@ -227,20 +222,20 @@
     <Content Include="UacService.asmx" />
     <Content Include="CustomControls\ViewSwitcher.ascx" />
     <Content Include="Users.aspx" />
+    <Content Include="Videos.aspx" />
     <Content Include="View-Image.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="videos.aspx" />
     <Content Include="_TEMPLATE.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="access-denied.aspx.cs">
-      <DependentUpon>access-denied.aspx</DependentUpon>
+    <Compile Include="Access-Denied.aspx.cs">
+      <DependentUpon>Access-Denied.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="access-denied.aspx.designer.cs">
-      <DependentUpon>access-denied.aspx</DependentUpon>
+    <Compile Include="Access-Denied.aspx.designer.cs">
+      <DependentUpon>Access-Denied.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin.aspx.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
@@ -249,21 +244,14 @@
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\AccountTiny.ascx.cs">
-      <DependentUpon>AccountTiny.ascx</DependentUpon>
+    <Compile Include="Bios.aspx.cs">
+      <DependentUpon>Bios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CustomControls\AccountTiny.ascx.designer.cs">
-      <DependentUpon>AccountTiny.ascx</DependentUpon>
+    <Compile Include="Bios.aspx.designer.cs">
+      <DependentUpon>Bios.aspx</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\App_Start\RouteConfig.cs" />
-    <Compile Include="bios.aspx.cs">
-      <DependentUpon>bios.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="bios.aspx.designer.cs">
-      <DependentUpon>bios.aspx</DependentUpon>
-    </Compile>
     <Compile Include="CustomControls\UacApi\AdminUserForm.ascx.cs">
       <DependentUpon>AdminUserForm.ascx</DependentUpon>
     </Compile>
@@ -284,12 +272,12 @@
     <Compile Include="Edit-Image.aspx.designer.cs">
       <DependentUpon>Edit-Image.aspx</DependentUpon>
     </Compile>
-    <Compile Include="getdeviceinfo.aspx.cs">
-      <DependentUpon>getdeviceinfo.aspx</DependentUpon>
+    <Compile Include="Get-Device-Info.aspx.cs">
+      <DependentUpon>Get-Device-Info.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="getdeviceinfo.aspx.designer.cs">
-      <DependentUpon>getdeviceinfo.aspx</DependentUpon>
+    <Compile Include="Get-Device-Info.aspx.designer.cs">
+      <DependentUpon>Get-Device-Info.aspx</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\admin\adminMenu.ascx.cs">
       <DependentUpon>adminMenu.ascx</DependentUpon>
@@ -316,26 +304,26 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="home.aspx.cs">
-      <DependentUpon>home.aspx</DependentUpon>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="home.aspx.designer.cs">
-      <DependentUpon>home.aspx</DependentUpon>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
-    <Compile Include="login.aspx.cs">
-      <DependentUpon>login.aspx</DependentUpon>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="login.aspx.designer.cs">
-      <DependentUpon>login.aspx</DependentUpon>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="logout.aspx.cs">
-      <DependentUpon>logout.aspx</DependentUpon>
+    <Compile Include="Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="logout.aspx.designer.cs">
-      <DependentUpon>logout.aspx</DependentUpon>
+    <Compile Include="Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
     <Compile Include="Logs.aspx.cs">
       <DependentUpon>Logs.aspx</DependentUpon>
@@ -344,13 +332,6 @@
     <Compile Include="Logs.aspx.designer.cs">
       <DependentUpon>Logs.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Loldreds-Legends.aspx.cs">
-      <DependentUpon>Loldreds-Legends.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Loldreds-Legends.aspx.designer.cs">
-      <DependentUpon>Loldreds-Legends.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Manage-Photos.aspx.cs">
       <DependentUpon>Manage-Photos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -358,42 +339,28 @@
     <Compile Include="Manage-Photos.aspx.designer.cs">
       <DependentUpon>Manage-Photos.aspx</DependentUpon>
     </Compile>
-    <Compile Include="memes.aspx.cs">
-      <DependentUpon>memes.aspx</DependentUpon>
+    <Compile Include="Memes.aspx.cs">
+      <DependentUpon>Memes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="memes.aspx.designer.cs">
-      <DependentUpon>memes.aspx</DependentUpon>
+    <Compile Include="Memes.aspx.designer.cs">
+      <DependentUpon>Memes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="minecraft.aspx.cs">
-      <DependentUpon>minecraft.aspx</DependentUpon>
+    <Compile Include="Minecraft.aspx.cs">
+      <DependentUpon>Minecraft.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="minecraft.aspx.designer.cs">
-      <DependentUpon>minecraft.aspx</DependentUpon>
+    <Compile Include="Minecraft.aspx.designer.cs">
+      <DependentUpon>Minecraft.aspx</DependentUpon>
     </Compile>
-    <Compile Include="photos.aspx.cs">
-      <DependentUpon>photos.aspx</DependentUpon>
+    <Compile Include="Photos.aspx.cs">
+      <DependentUpon>Photos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="photos.aspx.designer.cs">
-      <DependentUpon>photos.aspx</DependentUpon>
+    <Compile Include="Photos.aspx.designer.cs">
+      <DependentUpon>Photos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reset-Password.aspx.cs">
-      <DependentUpon>Reset-Password.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reset-Password.aspx.designer.cs">
-      <DependentUpon>Reset-Password.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Set-Password.aspx.cs">
-      <DependentUpon>Set-Password.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Set-Password.aspx.designer.cs">
-      <DependentUpon>Set-Password.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -419,12 +386,12 @@
     <Compile Include="Users.aspx.designer.cs">
       <DependentUpon>Users.aspx</DependentUpon>
     </Compile>
-    <Compile Include="videos.aspx.cs">
-      <DependentUpon>videos.aspx</DependentUpon>
+    <Compile Include="Videos.aspx.cs">
+      <DependentUpon>Videos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="videos.aspx.designer.cs">
-      <DependentUpon>videos.aspx</DependentUpon>
+    <Compile Include="Videos.aspx.designer.cs">
+      <DependentUpon>Videos.aspx</DependentUpon>
     </Compile>
     <Compile Include="View-Image.aspx.cs">
       <DependentUpon>View-Image.aspx</DependentUpon>

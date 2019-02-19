@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="memes.aspx.cs" Inherits="ParsnipWebsite.memes" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Memes.aspx.cs" Inherits="ParsnipWebsite.Memes" %>
 
 <!DOCTYPE html>
 
@@ -215,3 +215,4 @@
 </body>
 
 </html>
+

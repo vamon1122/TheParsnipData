@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="bios.aspx.cs" Inherits="ParsnipWebsite.bios" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Bios.aspx.cs" Inherits="ParsnipWebsite.Bios" %>
 
 <!DOCTYPE html>
 
@@ -25,9 +25,8 @@
     <div id="menuDiv"></div>
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
-    <br class="nomobile" />
 
-    <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. </label><a href="content removal.html">Click here</a><label> to learn more.</label></div>
+    <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. </label><a href="Content-Removal">Click here</a><label> to learn more.</label></div>
     
     <div class="padded-text">
     <h2>Bios!!!</h2>
@@ -51,7 +50,7 @@
         Source below \/<br />
     </div>
     <br />
-    <img src="resources/media/images/photos/Photos/kieron_chat.png" id="Kieron_chat" />
+    <img src="resources/media/images/photos/Photos/kieron_chat.png" id="Kieron_chat" class="image-preview" />
     <br />
     <br />
     <script src="../javascript/globalBodyV1.6.js"></script>
