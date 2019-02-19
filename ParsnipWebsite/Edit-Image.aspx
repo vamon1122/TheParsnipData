@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Edit-Image.aspx.cs" Inherits="ParsnipWebsite.Edit_Image" %>
 
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <!-- BOOTSTRAP START -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,10 +25,7 @@
     <div id="menuDiv"></div>
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
-
-    <div style="position:absolute; left: 50%; margin-left:-150px;">
-                
-  <div class="form-group" style="width:300px"  >
+  <div class="form-group" >
     
           
       <br />    
@@ -45,9 +43,9 @@
 
 
     <form id="form1" runat="server">
-        <asp:Image runat="server" ID="ImagePreview" />
+        <asp:Image runat="server" ID="ImagePreview" CssClass="meme" />
         <br />
-        <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;"></asp:Button>
+        <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;"></asp:Button>
         
 
         <!-- Modal -->
@@ -71,12 +69,9 @@
             </div>
         </div>
     </form>
-        <button id="ButtonSave" class="btn btn-primary" onclick="SavePhoto()">Save</button>
-
-    
+        <button id="ButtonSave" class="btn btn-primary" onclick="SavePhoto()" style="width:100px">Save</button>
         
         
-    </div>
     <script src="../javascript/globalBodyV1.6.js"></script>
     <script src="../javascript/menuV1.14.js"></script>
     <script>

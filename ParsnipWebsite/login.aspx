@@ -30,7 +30,7 @@
             <div style="position:absolute; left: 50%; margin-left:-150px;">
             <img src="resources/media/images/fat_kieron_cutout.JPG" style="max-width:100px; display:block; margin-left: auto; margin-right:auto;" />
                 
-  <div class="form-group" style="width:300px"  >
+  <div class="form-group"  >
     
           
       <br />    
