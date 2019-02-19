@@ -19,6 +19,33 @@ body {
     -webkit-text-size-adjust: 100%;
 }
 
+/*
+.btn-left {
+    position: absolute;
+    left: 2.5%;
+    bottom: 2.5%;
+}
+
+.btn-right {
+    position:absolute;
+    right: 2.5%;
+    bottom: 2.5%;
+}
+*/
+
+.btn-left {
+    position: fixed;
+    right: 72%;
+    bottom: 2.5%;
+    
+}
+
+.btn-right {
+    position: fixed;
+    left: 72%;
+    bottom: 2.5%;
+}
+
 .padded-text {
     padding-left: 2.5%;
     padding-right: 2.5%;

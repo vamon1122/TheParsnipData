@@ -93,7 +93,7 @@ namespace ParsnipWebsite
                 tempControl.CssClass = "meme lazy";
                 DynamicPhotosDiv.Controls.Add(tempControl);
                 this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl("<br />"));
-                this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(string.Format("<a href=\"edit-image?redirect=memes&imageid={0}\">Edit</a>", temp.Id)));
+                this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(string.Format("<a href=\"edit-image?redirect=memes&imageid={0}&title={1}\">Edit</a>", temp.Id, temp.Title)));
                 this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl("<br />"));
             }
 

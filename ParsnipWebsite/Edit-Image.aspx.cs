@@ -29,18 +29,18 @@ namespace ParsnipWebsite
                 MediaApi.Image temp = new MediaApi.Image(new Guid(Request.QueryString["imageid"]));
                 temp.Select();
 
-                if(myUser.AccountType == "admin")
+                if (myUser.AccountType == "admin")
                 {
                     btn_AdminDelete.Visible = true;
                 }
 
-                if(temp.CreatedById.ToString() != myUser.Id.ToString())
+                if (temp.CreatedById.ToString() != myUser.Id.ToString())
                 {
 
                     new LogEntry(DebugLog) { text = string.Format("{0} attempted to edit an image which {1} did not own.", myUser.FullName, myUser.SubjectiveGenderPronoun) };
-                    if(myUser.AccountType == "admin")
+                    if (myUser.AccountType == "admin")
                     {
-                        
+
                         new LogEntry(DebugLog) { text = string.Format("{0} was allowed to edit the image anyway because {1} is an admin.", myUser.FullName, myUser.SubjectiveGenderPronoun) };
                     }
                     else
@@ -49,15 +49,15 @@ namespace ParsnipWebsite
                     }
                 }
 
-                if (Request.QueryString["title"] != null)
+                if (Request.QueryString["save"] != null)
                 {
-                    string tempTitle = Request.QueryString["title"];
-
-                    temp.Title = tempTitle;
-
+                    if (Request.QueryString["title"] != null)
+                    {
+                        temp.Title = Request.QueryString["title"];   
+                    }
                     temp.Update();
 
-                    if(Request.QueryString["redirect"] != null)
+                    if (Request.QueryString["redirect"] != null)
                     {
                         Response.Redirect(Request.QueryString["redirect"]);
                     }

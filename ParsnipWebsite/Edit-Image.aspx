@@ -25,27 +25,27 @@
     <div id="menuDiv"></div>
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
-  <div class="form-group" >
+  
     
-          
-      <br />    
-      <label>Title</label>
-    <input type="text" class="form-control login" id="InputTitle"  />
-  </div>
+
+    
         <!--
   <div class="form-group">
     <label>Description</label>
     <input type="text" class="form-control login" id="InputDescription" />
   </div>
         -->
-            <br />
   
+    <form id="form1" runat="server" class="center_form">
+        <div class="form-group" style="padding-left:2.5%; padding-right: 2.5%;" >
+      <label style="text-align:left; width:100%">Title</label>
+    <input type="text" class="form-control login" id="InputTitle"  />
+  </div>
 
-
-    <form id="form1" runat="server">
-        <asp:Image runat="server" ID="ImagePreview" CssClass="meme" />
+        <asp:Image runat="server" ID="ImagePreview" CssClass="image-preview" Width="100%" />
         <br />
-        <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;"></asp:Button>
+        <br />
+        <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary btn-left" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;"></asp:Button>
         
 
         <!-- Modal -->
@@ -69,12 +69,13 @@
             </div>
         </div>
     </form>
-        <button id="ButtonSave" class="btn btn-primary" onclick="SavePhoto()" style="width:100px">Save</button>
-        
-        
-    <script src="../javascript/globalBodyV1.6.js"></script>
-    <script src="../javascript/menuV1.14.js"></script>
-    <script>
+        <button id="ButtonSave" class="btn btn-primary btn-right" onclick="SavePhoto()" style="width:100px">Save</button>
+        <script>
+
+            var url_string = window.location.href
+            url = new URL(url_string);
+            document.getElementById("InputTitle").value = url.searchParams.get("title");
+
         function SavePhoto() {
             var url_string = window.location.href
             var url;
@@ -84,7 +85,7 @@
             try {
                 //More efficient but does not work on older browsers
                 url = new URL(url_string);
-                redirect += "redirect=" + url.searchParams.get("redirect") + "&imageid=" + url.searchParams.get("imageid")+ "&title=" + InputTitle;
+                redirect += "redirect=" + url.searchParams.get("redirect") + "&imageid=" + url.searchParams.get("imageid")+ "&title=" + InputTitle + "&save=true";
             }
             catch (e) {
                 //More compatible method
@@ -103,6 +104,11 @@
             catch (e) { window.location = redirect; }
         }
     </script>
+        
+        
+    <script src="../javascript/globalBodyV1.6.js"></script>
+    <script src="../javascript/menuV1.14.js"></script>
+    
 </body>
 </html>
 

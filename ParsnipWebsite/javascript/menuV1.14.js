@@ -76,7 +76,7 @@ createButton("Log Out", "logout");
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //document.getElementById("body").style.backgroundColor = "white";
 //document.getElementById("body").style.backgroundImage = "url('../Patterns 2/Black & White/brickwall.png')"; 29/12/2018 this no longer exists
-document.getElementById("body").style.color = colDarkest;
+//document.getElementById("body").style.color = colDarkest;
 
 menuDiv.style.zIndex = "999999999";
 menuDiv.style.backgroundColor = colDarkest;

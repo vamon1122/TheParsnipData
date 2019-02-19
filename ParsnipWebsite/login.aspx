@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous" />
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
     <!--<script src="bootstrap-4.1.2-dist/js/bootstrap.js"></script>-->
-
+    <link id="link_style" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/shared-style.css" />
 </head>
 <body>
     
-    <form runat="server">
+    <form runat="server" class="center_form">
         <div style="padding-top: 1.5%; padding-left:1.5%; padding-right:1.5%;">
         <div class="alert alert-warning alert-dismissible" runat="server" style="display:none;" id="Warning">
 
@@ -24,32 +25,34 @@
             </div>
         <script src="../javascript/globalBodyV1.6.js"></script>
         
-            <div style="width:300px; ">
+            <!--<div style="width:300px; ">-->
             
 
-            <div style="position:absolute; left: 50%; margin-left:-150px;">
+            <!--<div style="position:absolute; left: 50%; margin-left:-150px;">-->
             <img src="resources/media/images/fat_kieron_cutout.JPG" style="max-width:100px; display:block; margin-left: auto; margin-right:auto;" />
-                
+       
+        <div style="padding-right:2.5%;padding-left:2.5%;">
   <div class="form-group"  >
     
           
       <br />    
-      <label>Username</label>
+      <label style="text-align:left; width:100%">Username</label>
     <asp:TextBox runat="server" CssClass="form-control login" ID="inputUsername"  />
-  </div>
   <div class="form-group">
-    <label>Password</label>
+    <label style="text-align:left; width:100%">Password</label>
     <asp:TextBox runat="server" TextMode="password" CssClass="form-control login" ID="inputPwd" />
   </div>
-  <div class="form-check">
+  <div class="form-check" style="text-align:left; width:100%">
     <asp:CheckBox runat="server" CssClass="form-check-input login" ID="RememberPwd" />
-    <label class="form-check-label">Remember Password</label>
+    <label class="form-check-label" >Remember Password</label>
   </div>
             <br />
   <asp:Button runat="server" ID="ButLogIn" OnClick="ButLogIn_Click" CssClass="btn btn-primary" Text="Log In"></asp:Button>
-</div>
-                </div>
+        </div>
+            </div>
+<!--</div>-->
+                <!--</div>-->
 </form>
-    
+    <script src="../javascript/globalBodyV1.6.js"></script>
 </body>
 </html>

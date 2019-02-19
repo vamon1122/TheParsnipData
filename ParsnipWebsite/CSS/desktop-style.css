@@ -1,7 +1,15 @@
 
-.meme
-{
+.center_form {
+    width: 500px;
+    display: inline-block;
+}
+
+.meme {
     width: 30%;
+}
+
+.image-preview {
+    width: 50%;
 }
 
 @keyframes menVis {
@@ -24,49 +32,4 @@
         left: -300px;
         visibility: hidden;
     }
-}
-
-
-
-
-/*Old style menu buttons*/
-input[type="button"].menu
-{
-    color: #CCCCCC;
-    background-image: url(../resources/media/patterns/pattern_black1.png);
-    width: 200px; 
-    height: 30px;
-    border-radius:10px 10px;
-    font-size:18px;
-    margin-bottom:5px;
-    outline: none;
-    cursor: pointer;
-}
-
-
-
-
-
-
-
-/*Redundant*/
-iframe
-{
-    padding: 0;
-    margin: 0;
-}
-
-
-/*Redundant*/
-table
-{
-    height: 100%;
-    width: 100%;
-}
-
-
-/*Redundant*/
-td
-{
-    vertical-align:top;
 }
