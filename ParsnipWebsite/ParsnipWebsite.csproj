@@ -78,30 +78,30 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Access-Denied.aspx" />
+    <Content Include="Access_Denied.aspx" />
     <Content Include="Bios.aspx" />
-    <Content Include="Edit-Image.aspx" />
-    <Content Include="Get-Device-Info.aspx" />
+    <Content Include="Edit_Image.aspx" />
+    <Content Include="Get_Device_Info.aspx" />
     <Content Include="Home.aspx" />
-    <Content Include="javascript\clipboard.js" />
+    <Content Include="Javascript\Clipboard.js" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
-    <Content Include="Manage-Photos.aspx" />
+    <Content Include="Manage_Photos.aspx" />
     <Content Include="Memes.aspx" />
     <Content Include="package.json" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Publish To Folder.pubxml" />
     <None Include="Properties\PublishProfiles\Publish To Live.pubxml" />
     <Content Include="Admin.aspx" />
-    <Content Include="CustomControls\UacApi\AdminUserForm.ascx" />
-    <Content Include="javascript\intersection-observer.js" />
+    <Content Include="Custom_Controls\Uac_Api\AdminUserForm.ascx" />
+    <Content Include="Javascript\Intersection_Observer.js" />
     <Content Include="Logs.aspx" />
     <Content Include="Photos.aspx" />
-    <Content Include="resources\media\images\photos\Photos\kieron_chat.png" />
-    <Content Include="resources\media\images\webMedia\google-photos.svg" />
-    <Content Include="resources\media\images\webMedia\pix-vertical-placeholder.jpg" />
-    <Content Include="resources\media\images\webMedia\placeholder.gif" />
-    <Content Include="resources\media\images\webMedia\you_shall_not_pass.jpg" />
+    <Content Include="Resources\Media\Images\Local\Photos\kieron_chat.png" />
+    <Content Include="Resources\Media\Images\Web_Media\google-photos.svg" />
+    <Content Include="Resources\Media\Images\Web_Media\pix-vertical-placeholder.jpg" />
+    <Content Include="Resources\Media\Images\Web_Media\placeholder.gif" />
+    <Content Include="Resources\Media\Images\Web_Media\you_shall_not_pass.jpg" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -111,84 +111,84 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content-Removal.html" />
-    <Content Include="css\mobile-style.css" />
-    <Content Include="css\desktop-style.css" />
-    <Content Include="CustomControls\admin\adminMenu.ascx" />
-    <Content Include="CustomControls\PollApi\PollControl.ascx" />
+    <Content Include="Content_Removal.html" />
+    <Content Include="Css\Mobile_Style.css" />
+    <Content Include="Css\Desktop_Style.css" />
+    <Content Include="Custom_Controls\Admin\adminMenu.ascx" />
+    <Content Include="Custom_Controls\Poll_Api\PollControl.ascx" />
     <Content Include="default.aspx" />
-    <Content Include="resources\media\audio\#TheParsnipRemix2016.mp3" />
+    <Content Include="Resources\Media\Audio\#TheParsnipRemix2016.mp3" />
     <Content Include="Global.asax" />
-    <Content Include="resources\media\images\fat_kieron_cutout.JPG" />
-    <Content Include="javascript\menuV1.14.js" />
-    <Content Include="javascript\globalBodyV1.6.js" />
-    <Content Include="css\shared-style.css" />
-    <Content Include="resources\media\images\photos\Bios\Kieron_chat.PNG" />
-    <Content Include="resources\media\images\photos\memes\ben_pussy.JPG" />
-    <Content Include="resources\media\images\photos\memes\kieron_how_to_spot_a_fuckboy.JPG" />
-    <Content Include="resources\media\images\photos\memes\kieron_with_BAE.JPG" />
-    <Content Include="resources\media\images\photos\memes\Loldred_Abuse.jpg" />
-    <Content Include="resources\media\images\photos\memes\loldred_age is just a number.JPG" />
-    <Content Include="resources\media\images\photos\memes\loldred_approves.JPG" />
-    <Content Include="resources\media\images\photos\memes\loldred_at_least_I_can_pull.JPG" />
-    <Content Include="resources\media\images\photos\memes\loldred_carlsberg.JPG" />
-    <Content Include="resources\media\images\photos\memes\loldred_control_yourself.JPG" />
-    <Content Include="resources\media\images\photos\memes\loldred_free_house.JPG" />
-    <Content Include="resources\media\images\photos\memes\loldred_lawnmowers.JPG" />
-    <Content Include="resources\media\images\photos\memes\loldred_shag me.JPG" />
-    <Content Include="resources\media\images\photos\memes\marshy_rat.JPG" />
-    <Content Include="resources\media\images\photos\memes\mason_pimp.JPG" />
-    <Content Include="resources\media\images\photos\memes\tom_done.JPG" />
-    <Content Include="resources\media\images\photos\Photos\Aaron_s_FOD.jpg" />
-    <Content Include="resources\media\images\photos\Photos\aaron_yes_ladies.JPG" />
-    <Content Include="resources\media\images\photos\Photos\baby_kiwi.JPG" />
-    <Content Include="resources\media\images\photos\Photos\ben_loldred.JPG" />
-    <Content Include="resources\media\images\photos\Photos\ben_facetime.JPG" />
-    <Content Include="resources\media\images\photos\Photos\ben_licking_the_pussy.JPG" />
-    <Content Include="resources\media\images\photos\Photos\ben_nye.JPG" />
-    <Content Include="resources\media\images\photos\Photos\dan_damn_daniel.JPG" />
-    <Content Include="resources\media\images\photos\Photos\dan_future_dan.JPG" />
-    <Content Include="resources\media\images\photos\Photos\kieron_1.JPG" />
-    <Content Include="resources\media\images\photos\Photos\kieron_2.JPG" />
-    <Content Include="resources\media\images\photos\Photos\kieron_fat.JPG" />
-    <Content Include="resources\media\images\photos\Photos\kieron_fingering_machine.PNG" />
-    <Content Include="resources\media\images\photos\Photos\kieron_fuckboy.JPG" />
-    <Content Include="resources\media\images\photos\Photos\kieron_peter_andre.JPG" />
-    <Content Include="resources\media\images\photos\Photos\kieron_smile.JPG" />
-    <Content Include="resources\media\images\photos\Photos\kieron_tongue.JPG" />
-    <Content Include="resources\media\images\photos\Photos\loldred_bender.JPG" />
-    <Content Include="resources\media\images\photos\Photos\loldred_dan_cross.JPG" />
-    <Content Include="resources\media\images\photos\Photos\loldred_moustache.JPG" />
-    <Content Include="resources\media\images\photos\Photos\loldred_santa.JPG" />
-    <Content Include="resources\media\images\photos\Photos\loldred_teacher.JPG" />
-    <Content Include="resources\media\images\photos\Photos\loldred_yes_we_can.JPG" />
-    <Content Include="resources\media\images\photos\Photos\mason_1.JPG" />
-    <Content Include="resources\media\images\photos\Photos\mason_2.JPG" />
-    <Content Include="resources\media\images\photos\Photos\philips_go-karting_2.jpg" />
-    <Content Include="resources\media\images\photos\Photos\philips_go-karting.jpg" />
-    <Content Include="resources\media\images\photos\Photos\squad.JPG" />
-    <Content Include="resources\media\images\photos\Photos\Tom_Loves_Balloon.jpg" />
-    <Content Include="resources\media\images\photos\Photos\Tom_Selfie.jpg" />
-    <Content Include="resources\media\images\photos\Photos\Tom_Smellz.JPG" />
-    <Content Include="resources\media\images\photos\Photos\tom_1.JPG" />
-    <Content Include="resources\media\images\photos\Photos\tom_2.JPG" />
-    <Content Include="resources\media\images\photos\Photos\tom_glasses.JPG" />
-    <Content Include="CustomControls\ViewSwitcher.ascx" />
+    <Content Include="Resources\Media\Images\Local\Fat_Kieron_Cutout.JPG" />
+    <Content Include="Javascript\Menu.js" />
+    <Content Include="Javascript\Useful_Functions.js" />
+    <Content Include="Css\Shared_Style.css" />
+    <Content Include="Resources\Media\Images\Local\Bios\Kieron_Chat.PNG" />
+    <Content Include="Resources\Media\Images\Local\Memes\ben_pussy.JPG" />
+    <Content Include="Resources\Media\Images\Local\Memes\kieron_how_to_spot_a_fuckboy.JPG" />
+    <Content Include="Resources\Media\Images\Local\Memes\kieron_with_BAE.JPG" />
+    <Content Include="Resources\Media\Images\Local\Memes\Loldred_Abuse.jpg" />
+    <Content Include="Resources\Media\Images\Local\Memes\loldred_age is just a number.JPG" />
+    <Content Include="Resources\Media\Images\Local\Memes\loldred_approves.JPG" />
+    <Content Include="Resources\Media\Images\Local\Memes\loldred_at_least_I_can_pull.JPG" />
+    <Content Include="Resources\Media\Images\Local\Memes\loldred_carlsberg.JPG" />
+    <Content Include="Resources\Media\Images\Local\Memes\loldred_control_yourself.JPG" />
+    <Content Include="Resources\Media\Images\Local\Memes\loldred_free_house.JPG" />
+    <Content Include="Resources\Media\Images\Local\Memes\loldred_lawnmowers.JPG" />
+    <Content Include="Resources\Media\Images\Local\Memes\loldred_shag me.JPG" />
+    <Content Include="Resources\Media\Images\Local\Memes\marshy_rat.JPG" />
+    <Content Include="Resources\Media\Images\Local\Memes\mason_pimp.JPG" />
+    <Content Include="Resources\Media\Images\Local\Memes\tom_done.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\Aaron_s_FOD.jpg" />
+    <Content Include="Resources\Media\Images\Local\Photos\aaron_yes_ladies.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\baby_kiwi.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\ben_loldred.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\ben_facetime.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\ben_licking_the_pussy.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\ben_nye.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\dan_damn_daniel.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\dan_future_dan.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\kieron_1.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\kieron_2.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\kieron_fat.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\kieron_fingering_machine.PNG" />
+    <Content Include="Resources\Media\Images\Local\Photos\kieron_fuckboy.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\kieron_peter_andre.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\kieron_smile.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\kieron_tongue.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\loldred_bender.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\loldred_dan_cross.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\loldred_moustache.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\loldred_santa.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\loldred_teacher.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\loldred_yes_we_can.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\mason_1.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\mason_2.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\philips_go-karting_2.jpg" />
+    <Content Include="Resources\Media\Images\Local\Photos\philips_go-karting.jpg" />
+    <Content Include="Resources\Media\Images\Local\Photos\squad.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\Tom_Loves_Balloon.jpg" />
+    <Content Include="Resources\Media\Images\Local\Photos\Tom_Selfie.jpg" />
+    <Content Include="Resources\Media\Images\Local\Photos\Tom_Smellz.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\tom_1.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\tom_2.JPG" />
+    <Content Include="Resources\Media\Images\Local\Photos\tom_glasses.JPG" />
+    <Content Include="Custom_Controls\ViewSwitcher.ascx" />
     <Content Include="Users.aspx" />
     <Content Include="Videos.aspx" />
-    <Content Include="View-Image.aspx" />
+    <Content Include="View_Image.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="_TEMPLATE.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Access-Denied.aspx.cs">
-      <DependentUpon>Access-Denied.aspx</DependentUpon>
+    <Compile Include="Access_Denied.aspx.cs">
+      <DependentUpon>Access_Denied.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Access-Denied.aspx.designer.cs">
-      <DependentUpon>Access-Denied.aspx</DependentUpon>
+    <Compile Include="Access_Denied.aspx.designer.cs">
+      <DependentUpon>Access_Denied.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin.aspx.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
@@ -204,39 +204,39 @@
     <Compile Include="Bios.aspx.designer.cs">
       <DependentUpon>Bios.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\App_Start\RouteConfig.cs" />
-    <Compile Include="CustomControls\UacApi\AdminUserForm.ascx.cs">
+    <Compile Include="Custom_Controls\App_Start\RouteConfig.cs" />
+    <Compile Include="Custom_Controls\Uac_Api\AdminUserForm.ascx.cs">
       <DependentUpon>AdminUserForm.ascx</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\UacApi\AdminUserForm.ascx.designer.cs">
+    <Compile Include="Custom_Controls\Uac_Api\AdminUserForm.ascx.designer.cs">
       <DependentUpon>AdminUserForm.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Edit-Image.aspx.cs">
-      <DependentUpon>Edit-Image.aspx</DependentUpon>
+    <Compile Include="Edit_Image.aspx.cs">
+      <DependentUpon>Edit_Image.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Edit-Image.aspx.designer.cs">
-      <DependentUpon>Edit-Image.aspx</DependentUpon>
+    <Compile Include="Edit_Image.aspx.designer.cs">
+      <DependentUpon>Edit_Image.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Get-Device-Info.aspx.cs">
-      <DependentUpon>Get-Device-Info.aspx</DependentUpon>
+    <Compile Include="Get_Device_Info.aspx.cs">
+      <DependentUpon>Get_Device_Info.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Get-Device-Info.aspx.designer.cs">
-      <DependentUpon>Get-Device-Info.aspx</DependentUpon>
+    <Compile Include="Get_Device_Info.aspx.designer.cs">
+      <DependentUpon>Get_Device_Info.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\admin\adminMenu.ascx.cs">
+    <Compile Include="Custom_Controls\Admin\adminMenu.ascx.cs">
       <DependentUpon>adminMenu.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CustomControls\admin\adminMenu.ascx.designer.cs">
+    <Compile Include="Custom_Controls\Admin\adminMenu.ascx.designer.cs">
       <DependentUpon>adminMenu.ascx</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\PollApi\PollControl.ascx.cs">
+    <Compile Include="Custom_Controls\Poll_Api\PollControl.ascx.cs">
       <DependentUpon>PollControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CustomControls\PollApi\PollControl.ascx.designer.cs">
+    <Compile Include="Custom_Controls\Poll_Api\PollControl.ascx.designer.cs">
       <DependentUpon>PollControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Data.cs" />
@@ -278,12 +278,12 @@
     <Compile Include="Logs.aspx.designer.cs">
       <DependentUpon>Logs.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Manage-Photos.aspx.cs">
-      <DependentUpon>Manage-Photos.aspx</DependentUpon>
+    <Compile Include="Manage_Photos.aspx.cs">
+      <DependentUpon>Manage_Photos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Manage-Photos.aspx.designer.cs">
-      <DependentUpon>Manage-Photos.aspx</DependentUpon>
+    <Compile Include="Manage_Photos.aspx.designer.cs">
+      <DependentUpon>Manage_Photos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Memes.aspx.cs">
       <DependentUpon>Memes.aspx</DependentUpon>
@@ -307,11 +307,11 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\ViewSwitcher.ascx.cs">
+    <Compile Include="Custom_Controls\ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CustomControls\ViewSwitcher.ascx.designer.cs">
+    <Compile Include="Custom_Controls\ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
     <Compile Include="Users.aspx.cs">
@@ -328,12 +328,12 @@
     <Compile Include="Videos.aspx.designer.cs">
       <DependentUpon>Videos.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View-Image.aspx.cs">
-      <DependentUpon>View-Image.aspx</DependentUpon>
+    <Compile Include="View_Image.aspx.cs">
+      <DependentUpon>View_Image.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View-Image.aspx.designer.cs">
-      <DependentUpon>View-Image.aspx</DependentUpon>
+    <Compile Include="View_Image.aspx.designer.cs">
+      <DependentUpon>View_Image.aspx</DependentUpon>
     </Compile>
     <Compile Include="_TEMPLATE.aspx.cs">
       <DependentUpon>_TEMPLATE.aspx</DependentUpon>
@@ -370,7 +370,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="resources\media\images\uploads\" />
+    <Folder Include="Resources\Media\Images\Uploads\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

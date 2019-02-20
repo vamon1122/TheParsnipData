@@ -12,7 +12,7 @@
     <!-- BOOTSTRAP END -->
 
     <link id="link_style" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/shared-style.css" />
+    <link rel="stylesheet" type="text/css" href="Css/Shared_Style.css" />
         
     <title>Home</title>
 </head>
@@ -33,7 +33,7 @@
             <br />
         <br />
         *NEW*<br />
-        - You can now caption <a href="photos">photoss</a> & <a href="memes">memes</a> which you've uploaded!<br />
+        - You can now caption <a href="photos">photos</a> & <a href="memes">memes</a> which you've uploaded!<br />
         - Shortcut to the <a href="https://www.mixcloud.com/afternoontlive/">AfternoonT</a> podcast added to website menu. <br />
     </div>
     <hr class="break" />
@@ -71,7 +71,7 @@
 
     <!--DEVICE DETECT END-->
     <!--SCRIPTS-->
-    <script src="../javascript/globalBodyV1.6.js"></script>
-    <script src="../javascript/menuV1.14.js"></script>
+    <script src="../Javascript/Useful_Functions.js"></script>
+    <script src="../Javascript/Menu.js"></script>
 </body>
 </html>

@@ -12,9 +12,9 @@
     <!-- BOOTSTRAP END -->
 
     <link id="link_style" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/shared-style.css" />
+    <link rel="stylesheet" type="text/css" href="Css/Shared_Style.css" />
 
-    <script src="javascript/intersection-observer.js"></script>
+    <script src="Javascript/Intersection_Observer.js"></script>
 
     <title>New Title</title>
 </head>
@@ -33,7 +33,7 @@
         </div>
     </form>
 
-    <script src="../javascript/globalBodyV1.6.js"></script>
-    <script src="../javascript/menuV1.14.js"></script>
+    <script src="../Javascript/Useful_Functions.js"></script>
+    <script src="../Javascript/Menu.js"></script>
 </body>
 </html>

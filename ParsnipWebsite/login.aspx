@@ -11,7 +11,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
     <!--<script src="bootstrap-4.1.2-dist/js/bootstrap.js"></script>-->
     <link id="link_style" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/shared-style.css" />
+    <link rel="stylesheet" type="text/css" href="Css/Shared_Style.css" />
 </head>
 <body style="padding-top: 0px">
     <div style="padding-top: 1.5%; padding-left:1.5%; padding-right:1.5%;">
@@ -20,10 +20,10 @@
             <strong>Confirm Identity</strong> You must log in first!
         </div>
     </div>
-    <form runat="server" class="center_form">        
-        <img src="resources/media/images/fat_kieron_cutout.JPG" style="max-width:100px; display:block; margin-left: auto; margin-right:auto;" />
+    <div class="center_form">
+    <form runat="server" >        
+        <img src="Resources/Media/Images/Local/Fat_Kieron_Cutout.JPG" style="max-width:100px; display:block; margin-left: auto; margin-right:auto;" />
         <div style="padding-right:5%;padding-left:5%;">
-            <div class="form-group"  >
                 <br />    
                 <label style="text-align:left; width:100%">Username</label>
                 <asp:TextBox runat="server" CssClass="form-control login" ID="inputUsername"  />
@@ -40,9 +40,9 @@
                     <asp:Button runat="server" ID="ButLogIn" OnClick="ButLogIn_Click" CssClass="btn btn-primary" Text="Log In"></asp:Button>
                 </div>
             </div>
-        </div>
     </form>
-    <script src="../javascript/globalBodyV1.6.js"></script>
+        </div>
+    <script src="../Javascript/Useful_Functions.js"></script>
 </body>
 </html>
 

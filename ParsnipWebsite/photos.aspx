@@ -12,10 +12,10 @@
     <!-- BOOTSTRAP END -->
 
     <link id="link_style" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/shared-style.css" />
+    <link rel="stylesheet" type="text/css" href="Css/Shared_Style.css" />
 
-    <link href="css/file-upload.css" rel="stylesheet" type ="text/css" />
-    <script src="javascript/intersection-observer.js"></script>
+    <link href="Css/File_Upload.css" rel="stylesheet" type ="text/css" />
+    <script src="Javascript/Intersection_Observer.js"></script>
 
     <title>Photos</title>
 </head>
@@ -36,7 +36,7 @@
             <hr class="break" />
             <a href ="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7">
 
-            <img src="resources/media/images/webMedia/google-photos.svg" width="100" />
+            <img src="Resources/Media/Images/Web_Media/google-photos.svg" width="100" />
             </a>
 
             <br />
@@ -66,8 +66,8 @@
             </form>
     
     
-            <script src="../javascript/globalBodyV1.6.js"></script>
-            <script src="../javascript/menuV1.14.js"></script>
+            <script src="../Javascript/Useful_Functions.js"></script>
+            <script src="../Javascript/Menu.js"></script>
             <script>
 
                 document.addEventListener("DOMContentLoaded", function ()
@@ -97,7 +97,7 @@
                     }
                     else
                     {
-                        //I used javascript/intersection-observer as a fallback
+                        //I used Javascript/intersection-observer as a fallback
                     }
                 });
 

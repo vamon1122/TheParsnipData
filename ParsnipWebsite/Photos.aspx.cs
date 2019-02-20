@@ -48,14 +48,14 @@ namespace ParsnipWebsite
                         string[] fileDir = PhotoUpload.PostedFile.FileName.Split('\\');
                         string myFileName = fileDir.Last();
 
-                        string newDir = string.Format("resources/media/images/uploads/{0}{1}_{2}_{3}_{4}", myUser.Forename, myUser.Surname, Guid.NewGuid(), Parsnip.adjustedTime.ToString("dd-MM-yyyy"), myFileName);
+                        string newDir = string.Format("Resources/Media/Images/Uploads/{0}{1}_{2}_{3}_{4}", myUser.Forename, myUser.Surname, Guid.NewGuid(), Parsnip.adjustedTime.ToString("dd-MM-yyyy"), myFileName);
                         Debug.WriteLine("Newdir = " + newDir);
                         /*if (PhotoUpload.PostedFile.HasFile)
                         {*/
                         PhotoUpload.PostedFile.SaveAs(Server.MapPath("~/" + newDir));
                         MediaApi.Image temp = new MediaApi.Image(newDir, myUser, PhotosAlbum);
                         temp.Update();
-                        Response.Redirect("edit-image?redirect=photos&imageid=" + temp.Id);
+                        Response.Redirect("edit_image?redirect=photos&imageid=" + temp.Id);
                         //}
                     }
                     catch (Exception err)
@@ -91,15 +91,15 @@ namespace ParsnipWebsite
 
                 System.Web.UI.WebControls.Image tempControl = new System.Web.UI.WebControls.Image();
 
-                tempControl.ImageUrl = "resources/media/images/webMedia/placeholder.gif";
+                tempControl.ImageUrl = "Resources/Media/Images/Web_Media/placeholder.gif";
                 tempControl.Attributes.Add("data-src", temp.ImageSrc);
                 tempControl.Attributes.Add("data-srcset", temp.ImageSrc);
                 tempControl.CssClass = "meme lazy";
                 DynamicPhotosDiv.Controls.Add(tempControl);
                 this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl("<br />"));
-                this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(string.Format("<a href=\"edit-image?redirect=photos&imageid={0}&title={1}\">Edit</a>", temp.Id, temp.Title)));
+                this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(string.Format("<a href=\"edit_image?redirect=photos&imageid={0}&title={1}\">Edit</a>", temp.Id, temp.Title)));
                 this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(" "));
-                this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(string.Format("<a href=\"view-image?imageid={0}\">Share</a>", temp.Id)));
+                this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(string.Format("<a href=\"view_image?imageid={0}\">Share</a>", temp.Id)));
                 this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl("<br />"));
                 //new LogEntry(Debug) { text = "Added new image to the page. Url = " + temp.PhotoSrc };
             }
@@ -112,7 +112,7 @@ namespace ParsnipWebsite
             {
                 new LogEntry(DebugLog) { text = "Attempting to upload the photo image" };
 
-                string newDir = string.Format("resources/media/images/uploads/{0}{1}_{2}", myUser.Forename, myUser.Surname, PhotoUpload.FileName);
+                string newDir = string.Format("Resources/Media/Images/Uploads/{0}{1}_{2}", myUser.Forename, myUser.Surname, PhotoUpload.FileName);
                 if (PhotoUpload.HasFile)
                 {
                     PhotoUpload.SaveAs(Server.MapPath("~/" + newDir));

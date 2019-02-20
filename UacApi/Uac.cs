@@ -25,7 +25,7 @@ namespace UacApi
             {
                 Debug.WriteLine("Devicetype is empty, getting device info...");
                 //new LogEntry(Log.Default) { text = "Attempted to secure the page but deviceInfo was incomplete. Getting device info..." };
-                pPage.Response.Redirect("get-device-info?url=" + pUrl);
+                pPage.Response.Redirect("get_device_info?url=" + pUrl);
             }
             else
             {

@@ -12,10 +12,9 @@
     <!-- BOOTSTRAP END -->
 
     <link id="link_style" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/shared-style.css" />
+    <link rel="stylesheet" type="text/css" href="Css/Shared_Style.css" />
     
-    <link href="css/file-upload.css" rel="stylesheet" type ="text/css" />
-    <script src="javascript/intersection-observer.js"></script>
+    <script src="Javascript/Intersection_Observer.js"></script>
     
     <title>Memes</title>
 </head>
@@ -176,8 +175,8 @@
     </div>
        
 
-    <script src="../javascript/globalBodyV1.6.js"></script>
-    <script src="../javascript/menuV1.14.js"></script>
+    <script src="../Javascript/Useful_Functions.js"></script>
+    <script src="../Javascript/Menu.js"></script>
     <script>
                 document.addEventListener("DOMContentLoaded", function ()
                 {
@@ -206,7 +205,7 @@
                     }
                     else
                     {
-                        //I used javascript/intersection-observer as a fallback
+                        //I used Javascript/intersection-observer as a fallback
                     }
                 });
 

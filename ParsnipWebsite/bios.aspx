@@ -12,7 +12,7 @@
     <!-- BOOTSTRAP END -->
 
     <link id="link_style" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/shared-style.css" />
+    <link rel="stylesheet" type="text/css" href="Css/Shared_Style.css" />
 
     <title>Bios</title>
 </head>
@@ -50,10 +50,10 @@
         Source below \/<br />
     </div>
     <br />
-    <img src="resources/media/images/photos/Photos/kieron_chat.png" id="Kieron_chat" class="image-preview" />
+    <img src="Resources/Media/Images/Local/Bios/Kieron_Chat.PNG" id="Kieron_chat" class="image-preview" />
     <br />
     <br />
-    <script src="../javascript/globalBodyV1.6.js"></script>
-    <script src="../javascript/menuV1.14.js"></script>
+    <script src="../Javascript/Useful_Functions.js"></script>
+    <script src="../Javascript/Menu.js"></script>
 </body>
 </html>

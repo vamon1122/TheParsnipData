@@ -14,7 +14,7 @@ namespace ParsnipWebsite
         protected void Page_Load(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(Data.DeviceType) || string.IsNullOrWhiteSpace(Data.DeviceType))
-                Response.Redirect("get-device-info?url=logout");
+                Response.Redirect("get_device_info?url=logout");
 
             User myUser = new User("logout get name");
             myUser.LogIn();
