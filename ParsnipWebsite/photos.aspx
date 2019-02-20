@@ -30,7 +30,7 @@
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
 
     
-            <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. </label><a href="Content-Removal.html">Click here</a><label> to learn more.</label></div>
+            <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. <a href="Content-Removal.html">Click here</a> to learn more.</label></div>
     
             <h2>Photos</h2>
             <hr class="break" />
@@ -41,7 +41,7 @@
 
             <br />
     <div class="padded-text">
-            <label>Click <a href="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7">here</a> to view 'The Parsnip Collection' on google photos</label>
+            <label>Click <a href="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7">here</a> to view 'The Parsnip Collection' on google photos. This includes most of the photos on this page and was curated by Tom.</label>
         </div>
             <hr class="break" />
         

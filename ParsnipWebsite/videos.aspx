@@ -14,7 +14,7 @@
     <link id="link_style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="Css/Shared_Style.css" />
 
-    <title>Youtube</title>
+    <title>Videos</title>
 </head>
 <body class="fade0p5" id="body">
     <label class="censored" id="pageId">youtube.html</label>
@@ -26,12 +26,10 @@
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
 
+    <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. <a href="Content-Removal.html">Click here</a> to learn more.</label></div>
 
     <div class="padded-text">
-        <h2>Videos</h2>
-        <hr class="break"/>        
-        <br />
-        <a href="loldreds-legends">Click here</a> to see the Loldred's Legends collection!<br />
+        <h2>Videos</h2>       
         </div>
         <!-- VIDEO TEMPLATE
         DATE
