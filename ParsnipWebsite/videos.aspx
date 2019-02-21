@@ -26,7 +26,7 @@
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
 
-    <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. <a href="Content-Removal.html">Click here</a> to learn more.</label></div>
+    <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. <a href="Content_Removal.html">Click here</a> to learn more.</label></div>
 
     <div class="padded-text">
         <h2>Videos</h2>       
