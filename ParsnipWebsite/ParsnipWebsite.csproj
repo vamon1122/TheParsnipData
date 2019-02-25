@@ -80,6 +80,7 @@
   <ItemGroup>
     <Content Include="Access_Denied.aspx" />
     <Content Include="Bios.aspx" />
+    <Content Include="Custom_Controls\Media_Api\ImageControl.ascx" />
     <Content Include="Edit_Image.aspx" />
     <Content Include="Get_Device_Info.aspx" />
     <Content Include="Home.aspx" />
@@ -174,6 +175,7 @@
     <Content Include="Resources\Media\Images\Local\Photos\tom_2.JPG" />
     <Content Include="Resources\Media\Images\Local\Photos\tom_glasses.JPG" />
     <Content Include="Custom_Controls\ViewSwitcher.ascx" />
+    <Content Include="Test_Photos.aspx" />
     <Content Include="Users.aspx" />
     <Content Include="Videos.aspx" />
     <Content Include="View_Image.aspx" />
@@ -205,6 +207,13 @@
       <DependentUpon>Bios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Custom_Controls\App_Start\RouteConfig.cs" />
+    <Compile Include="Custom_Controls\Media_Api\ImageControl.ascx.cs">
+      <DependentUpon>ImageControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Custom_Controls\Media_Api\ImageControl.ascx.designer.cs">
+      <DependentUpon>ImageControl.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Custom_Controls\Uac_Api\AdminUserForm.ascx.cs">
       <DependentUpon>AdminUserForm.ascx</DependentUpon>
     </Compile>
@@ -313,6 +322,13 @@
     </Compile>
     <Compile Include="Custom_Controls\ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Test_Photos.aspx.cs">
+      <DependentUpon>Test_Photos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test_Photos.aspx.designer.cs">
+      <DependentUpon>Test_Photos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Users.aspx.cs">
       <DependentUpon>Users.aspx</DependentUpon>
