@@ -80,6 +80,7 @@
   <ItemGroup>
     <Content Include="Access_Denied.aspx" />
     <Content Include="Bios.aspx" />
+    <Content Include="Css\Mobile_Landscape_Style.css" />
     <Content Include="Custom_Controls\Media_Api\ImageControl.ascx" />
     <Content Include="Edit_Image.aspx" />
     <Content Include="Get_Device_Info.aspx" />
@@ -113,7 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content_Removal.html" />
-    <Content Include="Css\Mobile_Style.css" />
+    <Content Include="Css\Mobile_Portrait_Style.css" />
     <Content Include="Css\Desktop_Style.css" />
     <Content Include="Custom_Controls\Admin\adminMenu.ascx" />
     <Content Include="Custom_Controls\Poll_Api\PollControl.ascx" />
