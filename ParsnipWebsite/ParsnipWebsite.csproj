@@ -175,7 +175,6 @@
     <Content Include="Resources\Media\Images\Local\Photos\tom_2.JPG" />
     <Content Include="Resources\Media\Images\Local\Photos\tom_glasses.JPG" />
     <Content Include="Custom_Controls\ViewSwitcher.ascx" />
-    <Content Include="Test_Photos.aspx" />
     <Content Include="Users.aspx" />
     <Content Include="Videos.aspx" />
     <Content Include="View_Image.aspx" />
@@ -322,13 +321,6 @@
     </Compile>
     <Compile Include="Custom_Controls\ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Test_Photos.aspx.cs">
-      <DependentUpon>Test_Photos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Test_Photos.aspx.designer.cs">
-      <DependentUpon>Test_Photos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Users.aspx.cs">
       <DependentUpon>Users.aspx</DependentUpon>

@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 using ParsnipApi;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using ParsnipWebsite.Custom_Controls.Media_Api;
 
 namespace ParsnipWebsite
 {
@@ -65,10 +66,7 @@ namespace ParsnipWebsite
                     }
                 }
             }
-        }
-        protected void Page_LoadComplete(object sender, EventArgs e)
-        {
-            Debug.WriteLine("Starting pageloadcomplete");
+
             if (myUser.AccountType == "admin" || myUser.AccountType == "member")
             {
                 UploadDiv.Style.Clear();
@@ -79,31 +77,10 @@ namespace ParsnipWebsite
             //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
             foreach (MediaApi.Image temp in AllPhotos)
             {
-                if (temp.Title != null && !string.IsNullOrEmpty(temp.Title) && !string.IsNullOrWhiteSpace(temp.Title))
-                {
-                    Debug.WriteLine("Title NOT blank = " + temp.Title);
-                    this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(string.Format("<h2>{0}</h2>", temp.Title)));
-                }
-                else
-                {
-                    Debug.WriteLine("Title BLANK = " + temp.Title);
-                }
-
-                System.Web.UI.WebControls.Image tempControl = new System.Web.UI.WebControls.Image();
-
-                tempControl.ImageUrl = "Resources/Media/Images/Web_Media/placeholder.gif";
-                tempControl.Attributes.Add("data-src", temp.ImageSrc);
-                tempControl.Attributes.Add("data-srcset", temp.ImageSrc);
-                tempControl.CssClass = "meme lazy";
-                DynamicPhotosDiv.Controls.Add(tempControl);
-                this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl("<br />"));
-                this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(string.Format("<a href=\"edit_image?redirect=photos&imageid={0}&title={1}\">Edit</a>", temp.Id, temp.Title)));
-                this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(" "));
-                this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl(string.Format("<a href=\"view_image?imageid={0}\">Share</a>", temp.Id)));
-                this.Page.Form.FindControl("DynamicPhotosDiv").Controls.Add(new LiteralControl("<br />"));
-                //new LogEntry(Debug) { text = "Added new image to the page. Url = " + temp.PhotoSrc };
+                var MyImageControl = (ImageControl)LoadControl("~/Custom_Controls/Media_Api/ImageControl.ascx");
+                MyImageControl.MyImage = temp;
+                DynamicPhotosDiv.Controls.Add(MyImageControl);
             }
-
         }
 
         protected void BtnUpload_Click(object sender, EventArgs e)

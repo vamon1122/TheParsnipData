@@ -60,7 +60,6 @@ if (getCookie("accountType") === "admin" || getCookie("accountType") === "member
 }
 
 if (getCookie("accountType") === "admin") {
-    createButton("Test Photos", "test_photos");
     createButton("Admin", "admin");
 }
 

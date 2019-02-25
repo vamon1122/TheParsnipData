@@ -29,11 +29,6 @@ namespace ParsnipWebsite.Custom_Controls.Media_Api
                 MyShare.HRef = string.Format("../../view_image?imageid={0}", MyImage.Id);
             }
         }
-
-        public ImageControl()
-        {
-            new LogEntry(new Log("Debug")) { text = "An image control was created without an image!" };
-        }
     }
 
     

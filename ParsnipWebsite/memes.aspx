@@ -47,7 +47,7 @@
 
                 </div>
                 <br />
-                <div runat="server" id="DynamicPhotosDiv">
+                <div runat="server" id="DynamicMemesDiv">
 
                 </div>
             </form>

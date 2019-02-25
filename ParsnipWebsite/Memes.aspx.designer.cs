@@ -49,12 +49,12 @@ namespace ParsnipWebsite {
         protected global::System.Web.UI.WebControls.FileUpload PhotoUpload;
         
         /// <summary>
-        /// DynamicPhotosDiv control.
+        /// DynamicMemesDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DynamicPhotosDiv;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DynamicMemesDiv;
     }
 }
