@@ -59,7 +59,7 @@
         <br />
         <div style="width:100%; padding-left:5%; padding-right:5%">
             <asp:Button runat="server" ID="ButtonSave" class="btn btn-primary float-right" Text="Save" Width="100px" OnClick="ButtonSave_Click"></asp:Button>
-        <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary float-left" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;"></asp:Button>
+        <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary float-left" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;" UseSubmitBehavior="false"></asp:Button>
         </div>
 
         <!-- Modal -->
@@ -77,14 +77,15 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <asp:Button ID="BtnDeleteImage" runat="server" class="btn btn-primary" OnClick="BtnDeleteImage_Click" Text="Confirm"></asp:Button>
+                        <button id="BtnDeleteImage" class="btn btn-primary" onclick="DeletePhoto(); return false;" >Confirm</button>
+
                     </div>
                 </div>
             </div>
         </div>
     </form>
       </div>
-    <!--    
+      
     <script>
             
             var url_string = window.location.href
@@ -92,16 +93,15 @@
             document.getElementById("InputTitle").value = url.searchParams.get("title");
 
 
-        function SavePhoto() {
+        function DeletePhoto() {
             var url_string = window.location.href
             var url;
             var redirect = "edit_image?"
-            var InputTitle = document.getElementById("InputTitle").value;
 
             try {
                 //More efficient but does not work on older browsers
                 url = new URL(url_string);
-                redirect += "redirect=" + url.searchParams.get("redirect") + "&imageid=" + url.searchParams.get("imageid")+ "&title=" + InputTitle + "&save=true";
+                redirect += "imageid=" + url.searchParams.get("imageid") + "&delete=true";
             }
             catch (e) {
                 //More compatible method
@@ -120,7 +120,7 @@
             catch (e) { window.location = redirect; }
         }
     </script>
-        -->
+        
         
     
     <script src="../Javascript/Menu.js"></script>

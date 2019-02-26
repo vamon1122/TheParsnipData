@@ -529,6 +529,29 @@ namespace MediaApi
 
             try
             {
+                new LogEntry(DebugLog) { text = "Attempting to delete uploaded photo id = " + Id };
+
+                using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+                {
+                    SqlCommand DeleteImage = new SqlCommand("DELETE iap FROM t_ImageAlbumPairs iap FULL OUTER JOIN t_Images ON imageid = t_Images.id  WHERE t_Images.id = @imageid", conn);
+                    DeleteImage.Parameters.Add(new SqlParameter("imageid", Id));
+                    int recordsAffected = DeleteImage.ExecuteNonQuery();
+
+                    new LogEntry(DebugLog) { text = string.Format("{0} record(s) were affected", recordsAffected) };
+                }
+            }
+            catch (Exception err)
+            {
+
+                new LogEntry(DebugLog) { text = "There was an exception whilst DELETING the photo: " + err };
+                return false;
+            }
+            new LogEntry(DebugLog) { text = "Successfully deleted photo with id = " + Id };
+            return true;
+
+            /*
+            try
+            {
                 SqlCommand deleteAccount = new SqlCommand("DELETE FROM t_Images WHERE id = @id", pOpenConn);
                 deleteAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
@@ -554,6 +577,7 @@ namespace MediaApi
                 Debug.WriteLine("There was an exception whilst deleting image data: " + e);
                 return false;
             }
+            */
         }
 
     }

@@ -39,20 +39,25 @@ namespace ParsnipWebsite
                 MyImage = new MediaApi.Image(new Guid(Request.QueryString["imageid"]));
                 MyImage.Select();
 
-                if (IsPostBack)
+                NewAlbumsDropDown.Items.Clear();
+
+                foreach (Album tempAlbum in Album.GetAllAlbums())
                 {
-                    /*
-                    new LogEntry(DebugLog) { text = "Posted back title3 = " + Request["InputTitleTwo"].ToString() };
-                    new LogEntry(DebugLog) { text = "Posted back albumid3 = " + Request["NewAlbumsDropDown"].ToString() };
-                    */
-                    
-                    MyImage.Title = Request["InputTitleTwo"].ToString();
-                    MyImage.AlbumId = new Guid(Request["NewAlbumsDropDown"].ToString());
-                    MyImage.Update();
+                    NewAlbumsDropDown.Items.Add(new ListItem() { Value = Convert.ToString(tempAlbum.Id), Text = tempAlbum.Name });
+                }
+
+                new LogEntry(DebugLog) { text = "First album guid = " + MyImage.AlbumIds().First().ToString() };
+
+                NewAlbumsDropDown.SelectedValue = MyImage.AlbumIds().First().ToString();
+
+                if (Request.QueryString["delete"] != null)
+                {
+                    new LogEntry(DebugLog) { text = "Delete image clicked" };
+                    MyImage.Delete();
 
                     string Redirect;
 
-                    switch (Request["NewAlbumsDropDown"].ToString().ToUpper())
+                    switch (NewAlbumsDropDown.SelectedValue.ToString().ToUpper())
                     {
                         case "4B4E450A-2311-4400-AB66-9F7546F44F4E":
                             Redirect = "photos";
@@ -66,6 +71,37 @@ namespace ParsnipWebsite
                     }
 
                     Response.Redirect(Redirect);
+                }
+
+                if (IsPostBack)
+                {
+                        new LogEntry(DebugLog) { text = "Delete image NOT clicked" };
+                        /*
+                        new LogEntry(DebugLog) { text = "Posted back title3 = " + Request["InputTitleTwo"].ToString() };
+                        new LogEntry(DebugLog) { text = "Posted back albumid3 = " + Request["NewAlbumsDropDown"].ToString() };
+                        */
+
+                        MyImage.Title = Request["InputTitleTwo"].ToString();
+                        MyImage.AlbumId = new Guid(Request["NewAlbumsDropDown"].ToString());
+                        MyImage.Update();
+
+                        string Redirect;
+
+                        switch (Request["NewAlbumsDropDown"].ToString().ToUpper())
+                        {
+                            case "4B4E450A-2311-4400-AB66-9F7546F44F4E":
+                                Redirect = "photos";
+                                break;
+                            case "5F15861A-689C-482A-8E31-2F13429C36E5":
+                                Redirect = "memes";
+                                break;
+                            default:
+                                Redirect = "home?error=noimagealbum2";
+                                break;
+                        }
+
+                        Response.Redirect(Redirect);
+                    
                 }
 
                 if (MyImage.Title != null && !string.IsNullOrEmpty(MyImage.Title) && !string.IsNullOrWhiteSpace(MyImage.Title))
@@ -95,16 +131,7 @@ namespace ParsnipWebsite
                 }
                     ImagePreview.ImageUrl = MyImage.ImageSrc;
 
-                    NewAlbumsDropDown.Items.Clear();
-
-                    foreach (Album tempAlbum in Album.GetAllAlbums())
-                    {
-                        NewAlbumsDropDown.Items.Add(new ListItem() { Value = Convert.ToString(tempAlbum.Id), Text = tempAlbum.Name });
-                    }
-
-                    new LogEntry(DebugLog) { text = "First album guid = " + MyImage.AlbumIds().First().ToString() };
-
-                    NewAlbumsDropDown.SelectedValue = MyImage.AlbumIds().First().ToString();
+                    
                 
 
             }
@@ -120,33 +147,19 @@ namespace ParsnipWebsite
         {
             //Response.Redirect("users?userId=" + NewAlbumsDropDown.SelectedValue);
         }
+        
+        protected void BtnDeleteImageTwo_Click(object sender, EventArgs e)
+        {
+            new LogEntry(DebugLog) { text = "DELETE TWO button clicked." };
+        }
 
         protected void BtnDeleteImage_Click(object sender, EventArgs e)
         {
             new LogEntry(DebugLog) { text = "Delete button clicked. Deleting changes..." };
-            Response.Redirect(string.Format("home?imageid={0}&delete=true", MyImage.Id));
-            /*
-            try
-            {
-                new LogEntry(DebugLog) { text = "Attempting to delete uploaded photo id = " + Request.QueryString["imageid"] };
-
-                using (SqlConnection conn = Parsnip.GetOpenDbConnection())
-                {
-                    SqlCommand DeleteUploads = new SqlCommand("DELETE iap FROM t_ImageAlbumPairs iap FULL OUTER JOIN t_Images ON imageid = t_Images.id  WHERE t_Images.id = @imageid", conn);
-                    DeleteUploads.Parameters.Add(new SqlParameter("imageid", Request.QueryString["imageid"]));
-                    int recordsAffected = DeleteUploads.ExecuteNonQuery();
-
-                    new LogEntry(DebugLog) { text = string.Format("{0} record(s) were affected", recordsAffected) };
-                }
-            }
-            catch (Exception err)
-            {
-
-                new LogEntry(DebugLog) { text = "There was an exception whilst DELETING the photo: " + err };
-            }
-            new LogEntry(DebugLog) { text = "Successfully deleted photo with id = " + Request.QueryString["imageid"] };
-            Response.Redirect(Request.QueryString["redirect"]);
-            */
+            
+           
+            Response.Redirect("home?success=true");
+            
         }
 
         protected void ButtonSave_Click(object sender, EventArgs e)
