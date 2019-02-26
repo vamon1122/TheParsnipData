@@ -42,6 +42,13 @@
     <input type="text" class="form-control login" id="InputTitle"  />
   </div>
 
+        
+
+        <label>Select an album:</label>
+            <asp:DropDownList ID="NewAlbumsDropDown" runat="server" AutoPostBack="True" CssClass="form-control" 
+                onselectedindexchanged="SelectAlbum_Changed" Visible ="false">
+            </asp:DropDownList>
+
         <asp:Image runat="server" ID="ImagePreview" CssClass="image-preview" Width="100%" />
         <br />
         <br />

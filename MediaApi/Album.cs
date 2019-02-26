@@ -20,14 +20,14 @@ namespace MediaApi
         public string Name { get; set; }
         public string Description { get; set; }
 
-    public static List<Image> GetAllAlbums()
+    public static List<Album> GetAllAlbums()
     {
         bool logMe = false;
 
         if (logMe)
             Debug.WriteLine("----------Getting all albums...");
 
-        var albums = new List<Image>();
+        var albums = new List<Album>();
         using (SqlConnection conn = Parsnip.GetOpenDbConnection())
         {
             SqlCommand GetAlbums = new SqlCommand("SELECT * FROM t_Albums ORDER BY datecreated DESC", conn);
@@ -35,12 +35,12 @@ namespace MediaApi
             {
                 while (reader.Read())
                 {
-                    albums.Add(new Image(reader));
+                    albums.Add(new Album(reader));
                 }
             }
         }
 
-        foreach (Image temp in albums)
+        foreach (Album temp in albums)
         {
             if (logMe)
                 Debug.WriteLine(string.Format("Found album with id {0}", temp.Id));

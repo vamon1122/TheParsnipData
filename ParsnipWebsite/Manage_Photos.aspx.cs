@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using ParsnipApi;
 using MediaApi;
 using System.Diagnostics;
+using ParsnipWebsite.Custom_Controls.Media_Api;
 
 namespace ParsnipWebsite
 {
@@ -43,19 +44,9 @@ namespace ParsnipWebsite
                 //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
                 foreach (MediaApi.Image temp in MyPhotos)
                 {
-                    System.Web.UI.WebControls.Image tempControl = new System.Web.UI.WebControls.Image();
-
-                    
-                    tempControl.ImageUrl = "Resources/Media/Images/Web_Media/placeholder.gif";
-                    tempControl.Attributes.Add("data-src", temp.ImageSrc);
-                    tempControl.Attributes.Add("data-srcset", temp.ImageSrc);
-                    
-                    
-
-                    tempControl.CssClass = "mobile-image lazy";
-                    DisplayPhotosDiv.Controls.Add(tempControl);
-                    this.Page.Form.FindControl("DisplayPhotosDiv").Controls.Add(new LiteralControl("<br />"));
-                    this.Page.Form.FindControl("DisplayPhotosDiv").Controls.Add(new LiteralControl("<br />"));
+                    var MyImageControl = (ImageControl)LoadControl("~/Custom_Controls/Media_Api/ImageControl.ascx");
+                    MyImageControl.MyImage = temp;
+                    DisplayPhotosDiv.Controls.Add(MyImageControl);
 
                     //new LogEntry(Debug) { text = "Added new image to the page. Url = " + temp.PhotoSrc };
                 }

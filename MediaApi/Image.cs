@@ -24,6 +24,31 @@ namespace MediaApi
         public string Description { get; set; }
         public Guid AlbumId { get; set; }
 
+        public List<Guid> AlbumIds()
+        {
+            bool logMe = false;
+
+            if (logMe)
+                Debug.WriteLine("----------Getting all image's album Ids...");
+
+            var albumIds = new List<Guid>();
+            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            {
+                SqlCommand GetImages = new SqlCommand("SELECT albumid FROM t_ImageAlbumPairs WHERE imageid = @imageid", conn);
+                GetImages.Parameters.Add(new SqlParameter("imageid", Id));
+
+                using (SqlDataReader reader = GetImages.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        albumIds.Add(new Guid(reader[0].ToString()));
+                    }
+                }
+            }
+
+            return albumIds;
+        }
+
         public static List<Image> GetAllImages()
         {
             bool logMe = false;

@@ -16,6 +16,7 @@ namespace ParsnipWebsite
     {
         User myUser;
         Log DebugLog = new Log("Debug");
+        MediaApi.Image MyImage;
         protected void Page_Load(object sender, EventArgs e)
         {
             //We secure the page using the UacApi. 
@@ -28,19 +29,22 @@ namespace ParsnipWebsite
             else
                 myUser = Uac.SecurePage("edit_image?imageid=" + Request.QueryString["imageid"], this, Data.DeviceType);
 
-            myUser = Uac.SecurePage("edit_image", this, Data.DeviceType);
+            //myUser = Uac.SecurePage("edit_image", this, Data.DeviceType);
 
             if (Request.QueryString["imageid"] != null)
             {
-                MediaApi.Image temp = new MediaApi.Image(new Guid(Request.QueryString["imageid"]));
-                temp.Select();
+                MyImage = new MediaApi.Image(new Guid(Request.QueryString["imageid"]));
+                MyImage.Select();
+
+
 
                 if (myUser.AccountType == "admin")
                 {
                     btn_AdminDelete.Visible = true;
+                    NewAlbumsDropDown.Visible = true;
                 }
 
-                if (temp.CreatedById.ToString() != myUser.Id.ToString())
+                if (MyImage.CreatedById.ToString() != myUser.Id.ToString())
                 {
 
                     new LogEntry(DebugLog) { text = string.Format("{0} attempted to edit an image which {1} did not own.", myUser.FullName, myUser.SubjectiveGenderPronoun) };
@@ -59,9 +63,9 @@ namespace ParsnipWebsite
                 {
                     if (Request.QueryString["title"] != null)
                     {
-                        temp.Title = Request.QueryString["title"];   
+                        MyImage.Title = Request.QueryString["title"];   
                     }
-                    temp.Update();
+                    MyImage.Update();
 
                     if (Request.QueryString["redirect"] != null)
                     {
@@ -70,7 +74,16 @@ namespace ParsnipWebsite
                 }
                 else
                 {
-                    ImagePreview.ImageUrl = temp.ImageSrc;
+                    ImagePreview.ImageUrl = MyImage.ImageSrc;
+
+                    NewAlbumsDropDown.Items.Clear();
+
+                    foreach (Album tempAlbum in Album.GetAllAlbums())
+                    {
+                        NewAlbumsDropDown.Items.Add(new ListItem() { Value = Convert.ToString(tempAlbum.Id), Text = tempAlbum.Name });
+                    }
+
+                    NewAlbumsDropDown.SelectedValue = MyImage.AlbumIds().First().ToString();
                 }
 
             }
@@ -78,6 +91,13 @@ namespace ParsnipWebsite
             {
                 Response.Redirect("home");
             }
+
+            
+        }
+
+        protected void SelectAlbum_Changed(object sender, EventArgs e)
+        {
+            //Response.Redirect("users?userId=" + NewAlbumsDropDown.SelectedValue);
         }
 
         protected void BtnDeleteImage_Click(object sender, EventArgs e)
