@@ -54,7 +54,7 @@ namespace ParsnipWebsite
 
                     switch (Request["NewAlbumsDropDown"].ToString().ToUpper())
                     {
-                        case "4b4e450a-2311-4400-ab66-9f7546f44f4e":
+                        case "4B4E450A-2311-4400-AB66-9F7546F44F4E":
                             Redirect = "photos";
                             break;
                         case "5F15861A-689C-482A-8E31-2F13429C36E5":
@@ -123,6 +123,9 @@ namespace ParsnipWebsite
 
         protected void BtnDeleteImage_Click(object sender, EventArgs e)
         {
+            new LogEntry(DebugLog) { text = "Delete button clicked. Deleting changes..." };
+            Response.Redirect(string.Format("home?imageid={0}&delete=true", MyImage.Id));
+            /*
             try
             {
                 new LogEntry(DebugLog) { text = "Attempting to delete uploaded photo id = " + Request.QueryString["imageid"] };
@@ -143,6 +146,7 @@ namespace ParsnipWebsite
             }
             new LogEntry(DebugLog) { text = "Successfully deleted photo with id = " + Request.QueryString["imageid"] };
             Response.Redirect(Request.QueryString["redirect"]);
+            */
         }
 
         protected void ButtonSave_Click(object sender, EventArgs e)
