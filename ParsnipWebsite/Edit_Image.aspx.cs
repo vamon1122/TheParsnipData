@@ -19,6 +19,9 @@ namespace ParsnipWebsite
         MediaApi.Image MyImage;
         protected void Page_Load(object sender, EventArgs e)
         {
+            //REQUIRED TO VIEW POSTBACK
+            form1.Action = Request.RawUrl;
+
             //We secure the page using the UacApi. 
             //This ensures that the user is logged in etc
             //You only need to change where it says '_NEW TEMPLATE'.
@@ -36,7 +39,39 @@ namespace ParsnipWebsite
                 MyImage = new MediaApi.Image(new Guid(Request.QueryString["imageid"]));
                 MyImage.Select();
 
+                if (IsPostBack)
+                {
+                    /*
+                    new LogEntry(DebugLog) { text = "Posted back title3 = " + Request["InputTitleTwo"].ToString() };
+                    new LogEntry(DebugLog) { text = "Posted back albumid3 = " + Request["NewAlbumsDropDown"].ToString() };
+                    */
+                    
+                    MyImage.Title = Request["InputTitleTwo"].ToString();
+                    MyImage.AlbumId = new Guid(Request["NewAlbumsDropDown"].ToString());
+                    MyImage.Update();
 
+                    string Redirect;
+
+                    switch (Request["NewAlbumsDropDown"].ToString().ToUpper())
+                    {
+                        case "4b4e450a-2311-4400-ab66-9f7546f44f4e":
+                            Redirect = "photos";
+                            break;
+                        case "5F15861A-689C-482A-8E31-2F13429C36E5":
+                            Redirect = "memes";
+                            break;
+                        default:
+                            Redirect = "home?error=noimagealbum2";
+                            break;
+                    }
+
+                    Response.Redirect(Redirect);
+                }
+
+                if (MyImage.Title != null && !string.IsNullOrEmpty(MyImage.Title) && !string.IsNullOrWhiteSpace(MyImage.Title))
+                {
+                    InputTitleTwo.Text = MyImage.Title;
+                }
 
                 if (myUser.AccountType == "admin")
                 {
@@ -58,22 +93,6 @@ namespace ParsnipWebsite
                         Response.Redirect("photos?error=0");
                     }
                 }
-
-                if (Request.QueryString["save"] != null)
-                {
-                    if (Request.QueryString["title"] != null)
-                    {
-                        MyImage.Title = Request.QueryString["title"];   
-                    }
-                    MyImage.Update();
-
-                    if (Request.QueryString["redirect"] != null)
-                    {
-                        Response.Redirect(Request.QueryString["redirect"]);
-                    }
-                }
-                else
-                {
                     ImagePreview.ImageUrl = MyImage.ImageSrc;
 
                     NewAlbumsDropDown.Items.Clear();
@@ -83,8 +102,10 @@ namespace ParsnipWebsite
                         NewAlbumsDropDown.Items.Add(new ListItem() { Value = Convert.ToString(tempAlbum.Id), Text = tempAlbum.Name });
                     }
 
+                    new LogEntry(DebugLog) { text = "First album guid = " + MyImage.AlbumIds().First().ToString() };
+
                     NewAlbumsDropDown.SelectedValue = MyImage.AlbumIds().First().ToString();
-                }
+                
 
             }
             else
@@ -122,6 +143,11 @@ namespace ParsnipWebsite
             }
             new LogEntry(DebugLog) { text = "Successfully deleted photo with id = " + Request.QueryString["imageid"] };
             Response.Redirect(Request.QueryString["redirect"]);
+        }
+
+        protected void ButtonSave_Click(object sender, EventArgs e)
+        {
+            new LogEntry(DebugLog) { text = "Save button clicked. Saving changes..." };
         }
     }
 }

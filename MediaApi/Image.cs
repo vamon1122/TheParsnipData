@@ -24,6 +24,9 @@ namespace MediaApi
         public string Description { get; set; }
         public Guid AlbumId { get; set; }
 
+
+        Log DebugLog = new Log("Debug");
+
         public List<Guid> AlbumIds()
         {
             bool logMe = false;
@@ -41,7 +44,16 @@ namespace MediaApi
                 {
                     while (reader.Read())
                     {
-                        albumIds.Add(new Guid(reader[0].ToString()));
+                        if(reader[0].ToString() != Guid.Empty.ToString())
+                        {
+                            new LogEntry(DebugLog) { text = "An album guid was found! = " + reader[0].ToString() };
+                            albumIds.Add(new Guid(reader[0].ToString()));
+                        }
+                        else
+                        {
+                            new LogEntry(DebugLog) { text = "A BLANK album guid was found! Not adding Guid = " + reader[0].ToString() };
+                        }
+                        
                     }
                 }
             }
@@ -397,6 +409,11 @@ namespace MediaApi
                     {
                         Log DebugLog = new Log("Debug");
                         new LogEntry(DebugLog) { text = "AlbumId != null = " + AlbumId };
+
+                        SqlCommand DeleteOldPairs = new SqlCommand("DELETE FROM t_ImageAlbumPairs WHERE imageid = @imageid", pOpenConn);
+                        DeleteOldPairs.Parameters.Add(new SqlParameter("imageid", Id));
+                        DeleteOldPairs.ExecuteNonQuery();
+
                         SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO t_ImageAlbumPairs VALUES (@imageid, @albumid)", pOpenConn);
                         CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("imageid", Id));
                         CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("albumid", AlbumId));

@@ -25,7 +25,10 @@ namespace ParsnipWebsite.Custom_Controls.Media_Api
                 MyImageHolder.Attributes.Add("data-src", MyImage.ImageSrc);
                 MyImageHolder.Attributes.Add("data-srcset", MyImage.ImageSrc);
                 MyImageHolder.CssClass = "meme lazy";
-                MyEdit.HRef = string.Format("../../edit_image?redirect=photos&imageid={0}", MyImage.Id);
+
+                
+
+                MyEdit.HRef = string.Format("../../edit_image?imageid={0}", MyImage.Id);
                 MyShare.HRef = string.Format("../../view_image?imageid={0}", MyImage.Id);
             }
         }
