@@ -143,25 +143,6 @@ namespace ParsnipWebsite
             
         }
 
-        protected void SelectAlbum_Changed(object sender, EventArgs e)
-        {
-            //Response.Redirect("users?userId=" + NewAlbumsDropDown.SelectedValue);
-        }
-        
-        protected void BtnDeleteImageTwo_Click(object sender, EventArgs e)
-        {
-            new LogEntry(DebugLog) { text = "DELETE TWO button clicked." };
-        }
-
-        protected void BtnDeleteImage_Click(object sender, EventArgs e)
-        {
-            new LogEntry(DebugLog) { text = "Delete button clicked. Deleting changes..." };
-            
-           
-            Response.Redirect("home?success=true");
-            
-        }
-
         protected void ButtonSave_Click(object sender, EventArgs e)
         {
             new LogEntry(DebugLog) { text = "Save button clicked. Saving changes..." };

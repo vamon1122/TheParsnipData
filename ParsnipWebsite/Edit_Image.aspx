@@ -18,7 +18,7 @@
 
     <title>Edit Image</title>
 </head>
-<body class="fade0p5" id="body" style="text-align:center" >
+<body class="fade0p5" id="body" style="text-align:center;"  >
     <label class="censored" id="pageId">Edit-Photo.html</label>
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE START-->
@@ -38,17 +38,16 @@
   </div>
         -->
   <div class="center_form">
-    <form id="form1" runat="server" defaultbutton="ButtonSave">
+    <form id="form1" runat="server" defaultbutton="ButtonSave" >
         <div class="form-group" style="padding-left:5%; padding-right: 5%;" >
       <label style="text-align:left; width:100%">Title</label>
             <asp:TextBox CssClass="form-control" runat="server" ID="InputTitleTwo" />
   </div>
 
         
-        <div runat="server" id="DropDownDiv" visible="false">
+        <div runat="server" id="DropDownDiv" visible="false" style="padding-left:5%; padding-right: 5%;">
         <label>Select an album:</label>
-            <asp:DropDownList ID="NewAlbumsDropDown" runat="server" AutoPostBack="True" CssClass="form-control" 
-                onselectedindexchanged="SelectAlbum_Changed">
+            <asp:DropDownList ID="NewAlbumsDropDown" runat="server" AutoPostBack="False" CssClass="form-control" >
             </asp:DropDownList>
             <br />
         </div>
@@ -57,13 +56,13 @@
         <asp:Image runat="server" ID="ImagePreview" CssClass="image-preview" Width="100%" />
         <br />
         <br />
-        <div style="width:100%; padding-left:5%; padding-right:5%">
+        <div style="width:100%; padding-left:5%; padding-right:5%;">
             <asp:Button runat="server" ID="ButtonSave" class="btn btn-primary float-right" Text="Save" Width="100px" OnClick="ButtonSave_Click"></asp:Button>
         <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary float-left" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;" UseSubmitBehavior="false"></asp:Button>
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="text-align:left">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
