@@ -1,20 +1,20 @@
 
 .center_form {
-    width: 30%;
+    width: 50%;
     display: inline-block;
 }
 
 .meme {
-    width: 30%;
+    width: 50%;
 }
 
 .image-preview {
-    width: 30%;
+    width: 50%;
 }
 
 @keyframes menVis {
     from {
-        left: -15%;
+        left: -30%;
     }
 
     to {
@@ -29,7 +29,7 @@
     }
 
     to {
-        left: -15%;
+        left: -30%;
         visibility: hidden;
     }
 }

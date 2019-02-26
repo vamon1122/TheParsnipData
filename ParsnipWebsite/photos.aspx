@@ -14,7 +14,6 @@
     <link id="link_style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="Css/Shared_Style.css" />
 
-    <link href="Css/File_Upload.css" rel="stylesheet" type ="text/css" />
     <script src="Javascript/Intersection_Observer.js"></script>
 
     <title>Photos</title>

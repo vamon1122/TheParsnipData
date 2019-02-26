@@ -34,12 +34,24 @@ if (isMobile() === true){
     buttFontSize = "50px";
     
     titleFontSize = "87.5px";*/
-    dropDownWidth = "50%";
+    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
     buttonPadding = "15px";
+
+    if (h > w) {
+        dropDownWidth = "50%";
+        
+    }
+    else {
+        dropDownWidth = "30%";
+    }
+
+    
 }
 else{
     buttonPadding = "20px";
-    dropDownWidth = "300px";
+    dropDownWidth = "15%";
 }
 
 height = "45px";
