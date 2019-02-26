@@ -18,7 +18,7 @@
 
     <title>Log In</title>
 </head>
-<body style="padding-top: 0px">
+<body style="padding-top: 0px; text-align:center">
     <div style="padding-top: 1.5%; padding-left:1.5%; padding-right:1.5%;">
         <div class="alert alert-warning alert-dismissible" runat="server" style="display:none;" id="Warning">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

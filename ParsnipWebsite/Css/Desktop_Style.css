@@ -14,7 +14,7 @@
 
 @keyframes menVis {
     from {
-        left: -15%;
+        left: -300px;
     }
 
     to {
@@ -29,7 +29,7 @@
     }
 
     to {
-        left: -15%;
+        left: -300px;
         visibility: hidden;
     }
 }

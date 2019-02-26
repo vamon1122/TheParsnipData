@@ -51,7 +51,7 @@ if (isMobile() === true){
 }
 else{
     buttonPadding = "20px";
-    dropDownWidth = "15%";
+    dropDownWidth = "300px";
 }
 
 height = "45px";
@@ -92,7 +92,7 @@ menuDiv.style.top = "0px";
 menuDiv.style.left = "0px";
 menuDiv.style.padding = "0px";
 menuDiv.style.width = "100%";
-menuDiv.style.textAlign = "center"
+menuDiv.style.textAlign = "center";
 
 var pageTitle = document.createElement("label");
 pageTitle.innerHTML = title;
