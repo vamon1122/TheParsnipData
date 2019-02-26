@@ -20,7 +20,7 @@
 
     <title>Photos</title>
 </head>
-<body class="fade0p5" id="body">
+<body class="fade0p5" id="body" style="text-align:center">
     <label class="censored" id="pageId">photos.html</label>
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE START-->

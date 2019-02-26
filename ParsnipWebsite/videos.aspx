@@ -18,7 +18,7 @@
 
     <title>Videos</title>
 </head>
-<body class="fade0p5" id="body">
+<body class="fade0p5" id="body" style="text-align:center">
     <label class="censored" id="pageId">youtube.html</label>
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE START-->

@@ -92,6 +92,7 @@ menuDiv.style.top = "0px";
 menuDiv.style.left = "0px";
 menuDiv.style.padding = "0px";
 menuDiv.style.width = "100%";
+menuDiv.style.textAlign = "center"
 
 var pageTitle = document.createElement("label");
 pageTitle.innerHTML = title;
