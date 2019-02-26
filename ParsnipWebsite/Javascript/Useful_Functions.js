@@ -72,18 +72,7 @@ second() returns time (SS)
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-***YOUTUBE EFFICIENT EMBEDDING***
-
-Use this snippet of code instead of the default youtube code
-
-<div class="youtube-container">
-   <div class="youtube-player" data-id="VIDEOID"></div>
-</div>
 */
-
-
-
 
 function dateAdd(date, interval, units) {
     var ret = new Date(date); //don't change original date
@@ -183,31 +172,16 @@ function checkCookie(p) {
     }
 }
 
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Functions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-
 //Checks if element exists
 function elementExists(element) {
     if (document.getElementById(element) !== null) return true; else return false;
 }
-
 
 //Creates random hexadecimal color code (e.g. #123abc)
 var colCode = "#"; //The color being made
 var colCodeTemp = "#"; //Complete Color
 var stringCharacter = 1; //This goes up every time a new character is added to the string (color value e.g. #123abc)
 resetAuto(); //Auto set values to default
-
 
 function randomColor() {
     resetAuto();
@@ -548,7 +522,6 @@ function minute() {
     }
 }
 
-
 //Time (SS)
 function second() {
     var second = new Date().getSeconds();
@@ -558,42 +531,6 @@ function second() {
         return second;
     }
 }
-
-
-//Mobile / Desktop CSS ----- KEYWORDS: Style, sheet,  stylesheet
-
-
-ApplyStyle();
-
-function ApplyStyle() {
-
-    var link_style = document.getElementById("link_style");
-
-    if (isMobile())
-    {    
-        var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-        var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
-        if (h > w)
-        {
-            link_style.setAttribute("href", "../Css/Mobile_Portrait_Style.css");
-        }
-        else
-        {
-            link_style.setAttribute("href", "../Css/Mobile_Landscape_Style.css");
-        }
-    }
-    else
-    {   
-        link_style.setAttribute("href", "../Css/Desktop_Style.css");
-    }
-}
-
-window.addEventListener("orientationchange", function () {
-    ApplyStyle();
-});
-
-
 
 //Mobile / Desktop Check ----- KEYWORDS: Device, phone, pc
 function isMobile() {
@@ -611,7 +548,6 @@ function isMobile() {
         return false;
     }
 }
-
 
 //Device Check ----- KEYWORDS: Device, phone, pc, user, agent, useragent
 function deviceDetect() {
@@ -642,44 +578,3 @@ function userAgent() {
     else if (navigator.appVersion.indexOf("X11") !== -1) { return UNIX; }
     else if (navigator.appVersion.indexOf("Linux") !== -1) { return Linux; }
 }
-
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-External Functions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-
-//Youtube Functions
-(function () {
-    var v = document.getElementsByClassName("youtube-player");
-    for (var n = 0; n < v.length; n++) {
-        var p = document.createElement("div");
-        p.innerHTML = labnolThumb(v[n].dataset.id);
-        p.onclick = labnolIframe;
-        v[n].appendChild(p);
-    }
-})();
-
-function labnolThumb(id) {
-    return '<img class="youtube-thumb" src="//i.ytimg.com/vi/' + id + '/hqdefault.jpg"><div class="play-button"></div>';
-}
-
-function labnolIframe() {
-    var iframe = document.createElement("iframe");
-    iframe.setAttribute("src", "//www.youtube.com/embed/" + this.parentNode.dataset.id + "?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&controls=0&showinfo=0");
-    iframe.setAttribute("frameborder", "0");
-    iframe.setAttribute("id", "youtube-iframe");
-    this.parentNode.replaceChild(iframe, this);
-}
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/

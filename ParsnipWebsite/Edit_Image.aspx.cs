@@ -41,7 +41,7 @@ namespace ParsnipWebsite
                 if (myUser.AccountType == "admin")
                 {
                     btn_AdminDelete.Visible = true;
-                    NewAlbumsDropDown.Visible = true;
+                    DropDownDiv.Visible = true;
                 }
 
                 if (MyImage.CreatedById.ToString() != myUser.Id.ToString())

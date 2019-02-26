@@ -9,8 +9,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
     <!-- BOOTSTRAP END -->
 
+    <script src="../Javascript/Useful_Functions.js"></script>
     <link id="link_style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="Css/Shared_Style.css" />
+    <script src="../Javascript/Apply_Style.js"></script>
 
     <script src="Javascript/Intersection_Observer.js"></script>
 
@@ -43,11 +45,13 @@
   </div>
 
         
-
+        <div runat="server" id="DropDownDiv" visible="false">
         <label>Select an album:</label>
             <asp:DropDownList ID="NewAlbumsDropDown" runat="server" AutoPostBack="True" CssClass="form-control" 
-                onselectedindexchanged="SelectAlbum_Changed" Visible ="false">
+                onselectedindexchanged="SelectAlbum_Changed">
             </asp:DropDownList>
+        </div>
+
 
         <asp:Image runat="server" ID="ImagePreview" CssClass="image-preview" Width="100%" />
         <br />
@@ -117,7 +121,7 @@
     </script>
         
         
-    <script src="../Javascript/Useful_Functions.js"></script>
+    
     <script src="../Javascript/Menu.js"></script>
     
 </body>

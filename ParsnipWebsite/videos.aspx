@@ -11,8 +11,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
     <!-- BOOTSTRAP END -->
 
+    <script src="../Javascript/Useful_Functions.js"></script>
     <link id="link_style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="Css/Shared_Style.css" />
+    <script src="../Javascript/Apply_Style.js"></script>
 
     <title>Videos</title>
 </head>
@@ -539,15 +541,9 @@
         <!--2010-->
 
     <!--SCRIPTS-->
-    <script src="../Javascript/Useful_Functions.js"></script>
+    
+    <script src="../Javascript/Youtube.js"></script>
     <script src="../Javascript/Menu.js"></script>
-    <script>
-        if(isMobile())
-        {
-            var body = document.getElementById("body")
-            body.style = "margin-top:5%"
-        }
-    </script>
 </body>
 </html>
 

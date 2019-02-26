@@ -85,8 +85,10 @@
     <Content Include="Edit_Image.aspx" />
     <Content Include="Get_Device_Info.aspx" />
     <Content Include="Home.aspx" />
+    <Content Include="Javascript\Apply_Style.js" />
     <Content Include="Javascript\Clipboard.js" />
     <Content Include="Javascript\Useful_Functions.js" />
+    <Content Include="Javascript\Youtube.js" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
     <Content Include="Manage_Photos.aspx" />
