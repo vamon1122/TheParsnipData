@@ -562,26 +562,6 @@ function second() {
 
 //Mobile / Desktop CSS ----- KEYWORDS: Style, sheet,  stylesheet
 
-{
-    if (elementExists("link_style")) {
-        if (navigator.userAgent.match(/Android/i)
-        || navigator.userAgent.match(/webOS/i)
-        || navigator.userAgent.match(/iPhone/i)
-        || navigator.userAgent.match(/iPad/i)
-        || navigator.userAgent.match(/iPod/i)
-        || navigator.userAgent.match(/BlackBerry/i)
-        || navigator.userAgent.match(/Windows Phone/i)
-        ) {
-            link_style = document.getElementById("link_style");
-            link_style.setAttribute("href", "../Css/Mobile_Style.css");
-        }
-        else {
-            link_style = document.getElementById("link_style");
-            link_style.setAttribute("href", "../Css/Desktop_Style.css");
-        }
-    }
-}
-
 
 ApplyStyle();
 
