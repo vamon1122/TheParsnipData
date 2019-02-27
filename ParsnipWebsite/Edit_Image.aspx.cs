@@ -46,9 +46,18 @@ namespace ParsnipWebsite
                     NewAlbumsDropDown.Items.Add(new ListItem() { Value = Convert.ToString(tempAlbum.Id), Text = tempAlbum.Name });
                 }
 
-                new LogEntry(DebugLog) { text = "First album guid = " + MyImage.AlbumIds().First().ToString() };
+                var AlbumIds = MyImage.AlbumIds();
+                int NumberOfAlbums = AlbumIds.Count();
 
-                NewAlbumsDropDown.SelectedValue = MyImage.AlbumIds().First().ToString();
+                if (NumberOfAlbums > 0)
+                {
+                    new LogEntry(DebugLog) { text = "First album guid = " + AlbumIds.First().ToString() };
+                    NewAlbumsDropDown.SelectedValue = AlbumIds.First().ToString();
+                }
+                else
+                {
+                    NewAlbumsDropDown.Items.Insert(0, new ListItem("(Deleted)", Guid.Empty.ToString()));
+                }
 
                 if (Request.QueryString["delete"] != null)
                 {
@@ -64,6 +73,9 @@ namespace ParsnipWebsite
                             break;
                         case "5F15861A-689C-482A-8E31-2F13429C36E5":
                             Redirect = "memes";
+                            break;
+                        case "00000000-0000-0000-0000-000000000000":
+                            Redirect = "manage_photos";
                             break;
                         default:
                             Redirect = "home?error=noimagealbum2";
@@ -82,7 +94,12 @@ namespace ParsnipWebsite
                         */
 
                         MyImage.Title = Request["InputTitleTwo"].ToString();
-                        MyImage.AlbumId = new Guid(Request["NewAlbumsDropDown"].ToString());
+                        var tempAlbumId = Request["NewAlbumsDropDown"].ToString();
+                        if(tempAlbumId != Guid.Empty.ToString())
+                        {
+                            MyImage.AlbumId = new Guid(tempAlbumId);
+                        }
+                    
                         MyImage.Update();
 
                         string Redirect;
@@ -95,7 +112,10 @@ namespace ParsnipWebsite
                             case "5F15861A-689C-482A-8E31-2F13429C36E5":
                                 Redirect = "memes";
                                 break;
-                            default:
+                        case "00000000-0000-0000-0000-000000000000":
+                            Redirect = "manage_photos";
+                            break;
+                        default:
                                 Redirect = "home?error=noimagealbum2";
                                 break;
                         }
@@ -111,7 +131,9 @@ namespace ParsnipWebsite
 
                 if (myUser.AccountType == "admin")
                 {
-                    btn_AdminDelete.Visible = true;
+                    if (AlbumIds.Count() > 0)
+                        btn_AdminDelete.Visible = true;
+
                     DropDownDiv.Visible = true;
                 }
 

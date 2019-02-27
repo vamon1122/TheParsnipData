@@ -38,7 +38,7 @@
   </div>
         -->
   <div class="center_form">
-    <form id="form1" runat="server" defaultbutton="ButtonSave" >
+    <form id="form1" runat="server" >
         <div class="form-group" style="padding-left:5%; padding-right: 5%;" >
       <label style="text-align:left; width:100%">Title</label>
             <asp:TextBox CssClass="form-control" runat="server" ID="InputTitleTwo" />
@@ -57,8 +57,9 @@
         <br />
         <br />
         <div style="width:100%; padding-left:5%; padding-right:5%;">
-            <asp:Button runat="server" ID="ButtonSave" class="btn btn-primary float-right" Text="Save" Width="100px" OnClick="ButtonSave_Click"></asp:Button>
+            
         <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary float-left" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;" UseSubmitBehavior="false"></asp:Button>
+            <asp:Button runat="server" ID="ButtonSave" class="btn btn-primary float-right" Text="Save" Width="100px" OnClick="ButtonSave_Click"></asp:Button>
         </div>
 
         <!-- Modal -->

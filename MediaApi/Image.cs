@@ -405,7 +405,7 @@ namespace MediaApi
                     Image temp = new Image(Id);
                     temp.Select();
 
-                    if(AlbumId != null)
+                    if(AlbumId != null && AlbumId.ToString() != Guid.Empty.ToString())
                     {
                         Log DebugLog = new Log("Debug");
                         new LogEntry(DebugLog) { text = "AlbumId != null = " + AlbumId };
