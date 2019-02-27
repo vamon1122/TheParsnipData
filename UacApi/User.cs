@@ -15,8 +15,8 @@ namespace UacApi
 {
     public class User
     {
+        #region Properties
         private LogWriter AccountLog;
-
         private Guid _id;
         public Guid Id { get { return _id; } private set { /*Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value));*/ _id = value; } }
         private string _username;
@@ -150,50 +150,9 @@ namespace UacApi
         public Guid createdByUserId { get { return _createdByUserId; } set { /*Debug.WriteLine(string.Format("----------createdByUserId is being set to = {0}", value));*/ _createdByUserId = value; } }
         public string FullName { get { return string.Format("{0} {1}", Forename, Surname); } }
         public List<string> ValidationErrors { get;  set; }
+        #endregion
 
-        public static List<User> GetAllUsers()
-        {
-            bool logMe = false;
-
-            if(logMe)
-                Debug.WriteLine("----------Getting all users...");
-
-            var users = new List<User>();
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
-            {
-                SqlCommand GetUsers = new SqlCommand("SELECT * FROM t_Users", conn);
-                using (SqlDataReader reader = GetUsers.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        users.Add(new UacApi.User(reader));
-                    }
-                }
-            }
-
-            foreach (User temp in users)
-            {
-                if(logMe)
-                    Debug.WriteLine(string.Format("Found user {0} with id {1}", temp.FullName, temp.Id));
-            }
-
-            return users;
-        }
-
-        public static bool LogOut()
-        {
-            try
-            {
-                Cookie.WriteSession("userName", "");
-                Cookie.WriteSession("userPwd", "");
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
+        #region Constructors
         public User(string pWhereAmI)
         {
             //Debug.WriteLine(string.Format("User was initialised without a guid. WhereAmI = {0} Their guid will be: {1}", pWhereAmI, Guid.Empty));
@@ -221,84 +180,69 @@ namespace UacApi
         {
             AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
+        #endregion
+
+        #region Static Methods
+        public static List<User> GetAllUsers()
+        {
+            bool logMe = false;
+
+            if (logMe)
+                Debug.WriteLine("----------Getting all users...");
+
+            var users = new List<User>();
+            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            {
+                SqlCommand GetUsers = new SqlCommand("SELECT * FROM t_Users", conn);
+                using (SqlDataReader reader = GetUsers.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        users.Add(new UacApi.User(reader));
+                    }
+                }
+            }
+
+            foreach (User temp in users)
+            {
+                if (logMe)
+                    Debug.WriteLine(string.Format("Found user {0} with id {1}", temp.FullName, temp.Id));
+            }
+
+            return users;
+        }
+
+        public static User GetLoggedInUser(string pUsername, string pPwd)
+        {
+            User tempUser = new User();
+            tempUser.LogIn(pUsername, false, pPwd, false, true);
+            return tempUser;
+        }
+        #endregion
+
+        #region Public Methods
+        public bool Select()
+        {
+            return DbSelect(Parsnip.GetOpenDbConnection());
+        }
+
+        public bool Update()
+        {
+            bool success;
+            SqlConnection UpdateConnection = Parsnip.GetOpenDbConnection();
+            if (ExistsOnDb(UpdateConnection)) success = DbUpdate(UpdateConnection); else success = DbInsert(Password, UpdateConnection);
+            UpdateConnection.Close();
+            return success;
+        }
+
+        public bool Delete()
+        {
+            return DbDelete(Parsnip.GetOpenDbConnection());
+        }
 
         public bool ExistsOnDb()
         {
             return ExistsOnDb(Parsnip.GetOpenDbConnection());
-        }
-
-        private bool ExistsOnDb(SqlConnection pOpenConn)
-        {
-            if (IdExistsOnDb(pOpenConn) || UsernameExistsOnDb(pOpenConn))
-                return true;
-            else
-                return false;
-        }
-
-        private bool IdExistsOnDb(SqlConnection pOpenConn)
-        {
-            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using {1} Id {1}", FullName, PosessivePronoun, Id));
-            try
-            {
-                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE id = @id", pOpenConn);
-                findMeById.Parameters.Add(new SqlParameter("id", Id.ToString()));
-
-                int userExists;
-
-                using (SqlDataReader reader = findMeById.ExecuteReader())
-                {
-                    reader.Read();
-                    userExists = Convert.ToInt16(reader[0]);
-                    //Debug.WriteLine("Found user by Id. userExists = " + userExists);
-                }
-
-                //Debug.WriteLine(userExists + " user(s) were found with the id " + Id);
-
-                if (userExists > 0)
-                    return true;
-                else
-                    return false;
-
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("There was an error whilst checking if user exists on the database by using thier Id: " + e);
-                return false;
-            }
-        }
-
-        private bool UsernameExistsOnDb(SqlConnection pOpenConn)
-        {
-            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using their username {1}", FullName, Username));
-            try
-            {
-                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE username = @username", pOpenConn);
-                findMeById.Parameters.Add(new SqlParameter("username", Username));
-
-                int userExists;
-
-                using (SqlDataReader reader = findMeById.ExecuteReader())
-                {
-                    reader.Read();
-                    userExists = Convert.ToInt16(reader[0]);
-                    //Debug.WriteLine("Found user by Id. userExists = " + userExists);
-                }
-
-                Debug.WriteLine(userExists + " user(s) were found with the username " + Username);
-
-
-
-                if (userExists > 0)
-                    return true;
-                else
-                    return false;
-
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("There was an error whilst checking if user exists on the database by using their username: " + e);
-                return false;
-            }
         }
 
         public bool Validate()
@@ -409,7 +353,7 @@ namespace UacApi
                     return true;
                 }
             }
-            
+
             bool validatePwd()
             {
                 if (Password.Trim().Length > 0)
@@ -453,7 +397,7 @@ namespace UacApi
                 }
             }
 
-            
+
             bool validateDob()
             {
                 return true;
@@ -461,7 +405,7 @@ namespace UacApi
 
             bool validateGender()
             {
-                if(_gender != null)
+                if (_gender != null)
                 {
                     string tempGender = _gender.ToString().ToUpper();
                     if (tempGender == "M" || tempGender == "F" || tempGender == "O")
@@ -477,9 +421,9 @@ namespace UacApi
                 {
                     return true;
                 }
-                
+
             }
-            
+
 
             bool validateAddress1()
             {
@@ -534,7 +478,7 @@ namespace UacApi
                 return true;
             }
 
-            
+
             bool validateDateTimeCreated()
             {
                 return true;
@@ -550,6 +494,317 @@ namespace UacApi
                 return true;
             }
         }
+
+        private bool ExistsOnDb(SqlConnection pOpenConn)
+        {
+            if (IdExistsOnDb(pOpenConn) || UsernameExistsOnDb(pOpenConn))
+                return true;
+            else
+                return false;
+        }
+
+        private bool IdExistsOnDb(SqlConnection pOpenConn)
+        {
+            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using {1} Id {1}", FullName, PosessivePronoun, Id));
+            try
+            {
+                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE id = @id", pOpenConn);
+                findMeById.Parameters.Add(new SqlParameter("id", Id.ToString()));
+
+                int userExists;
+
+                using (SqlDataReader reader = findMeById.ExecuteReader())
+                {
+                    reader.Read();
+                    userExists = Convert.ToInt16(reader[0]);
+                    //Debug.WriteLine("Found user by Id. userExists = " + userExists);
+                }
+
+                //Debug.WriteLine(userExists + " user(s) were found with the id " + Id);
+
+                if (userExists > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("There was an error whilst checking if user exists on the database by using thier Id: " + e);
+                return false;
+            }
+        }
+
+        private bool UsernameExistsOnDb(SqlConnection pOpenConn)
+        {
+            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using their username {1}", FullName, Username));
+            try
+            {
+                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE username = @username", pOpenConn);
+                findMeById.Parameters.Add(new SqlParameter("username", Username));
+
+                int userExists;
+
+                using (SqlDataReader reader = findMeById.ExecuteReader())
+                {
+                    reader.Read();
+                    userExists = Convert.ToInt16(reader[0]);
+                    //Debug.WriteLine("Found user by Id. userExists = " + userExists);
+                }
+
+                Debug.WriteLine(userExists + " user(s) were found with the username " + Username);
+
+
+
+                if (userExists > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("There was an error whilst checking if user exists on the database by using their username: " + e);
+                return false;
+            }
+        }
+        #endregion
+
+        #region LogIn / LogOut
+        public bool LogIn()
+        {
+            return LogIn(true);
+        }
+
+        public bool LogIn(bool silent)
+        {
+            string[] Cookies = GetCookies();
+            string CookieUsername = Cookies[0];
+            Username = Cookies[0];
+            string CookiePwd = Cookies[1];
+
+
+            //Debug.WriteLine("CookieUsername = " + CookieUsername);
+            //Debug.WriteLine("CookiePwd = " + CookiePwd);
+
+            if (String.IsNullOrEmpty(CookieUsername) || String.IsNullOrWhiteSpace(CookieUsername) || String.IsNullOrEmpty(CookiePwd) || String.IsNullOrWhiteSpace(CookiePwd))
+            {
+                return false;
+            }
+            else
+            {
+                if (LogIn(CookieUsername, false, CookiePwd, false, silent))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
+
+        internal bool LogIn(string pUsername)
+        {
+            Username = pUsername;
+            return DbSelect(Parsnip.GetOpenDbConnection());
+        }
+
+        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
+        {
+            return LogIn(pUsername, pRememberUsername, pPwd, pRememberPwd, true);
+        }
+
+        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd, bool silent)
+        {
+            //AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
+            //Debug.WriteLine(string.Format("----------User.Login() for {0}", Username));
+
+
+            string dbPwd = null;
+            Username = pUsername;
+
+            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            {
+                //AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
+
+
+
+                if (GetPwdFromDb())
+                {
+                    if (pPwd == dbPwd)
+                    {
+                        //Debug.WriteLine(string.Format("----------User.Login() - Got password from db for user {0}. Id = {1}. Pwd = {2}", Username, Id, Password));
+                        if (GetIdFromDb())
+                        {
+                            //AccountLog.Debug(String.Format("[LogIn] DbPwd == Pwd ({0} == {1})", dbPwd, pPwd));
+                            if (DbSelect(conn))
+                            {
+                                //Debug.WriteLine(string.Format("----------User.Login() - Selected user {0} whilst logging in", Username));
+                                if (pRememberUsername)
+                                {
+                                    //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
+                                    //Debug.WriteLine("----------User.Login() - Username permanently remembered!");
+                                    Cookie.WritePerm("userName", pUsername);
+                                }
+
+                                if (pRememberPwd)
+                                {
+                                    //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
+                                    //Debug.WriteLine("----------User.Login() - Password permanently remembered!");
+                                    Cookie.WritePerm("userPwd", pPwd);
+                                    //Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
+                                }
+                                else
+                                {
+                                    //AccountLog.Debug(String.Format("[LogIn] RememberPassword = false. Writing session password cookie (userPwd = {0})", pPwd));
+                                    //if (GetCookies()[1] == pPwd)
+                                    //{
+                                    //AccountLog.Debug(String.Format("[LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.", pPwd));
+                                    //}
+                                    //else
+                                    //{
+                                    //AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
+
+
+                                    Cookie.WriteSession("userPwd", pPwd);
+
+
+                                    //AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
+                                    //Debug.WriteLine("----------User.Login() - Password stored for SESSION ONLY.");
+                                    //}
+
+
+                                }
+
+                                if (SetLastLogIn())
+                                {
+                                    //AccountLog.Info("[LogIn] Logged in successfully!");
+                                    if (!silent)
+                                    {
+                                        Debug.WriteLine(string.Format("----------User.Login() - {0} logged in LOUDLY", FullName));
+                                    }
+                                    else
+                                    {
+                                        //Debug.WriteLine(String.Format("----------User.Login() - {0} logged in SILENTLY", FullName));
+                                    }
+
+                                    return true;
+                                }
+
+                            }
+                            else
+                            {
+                                Debug.WriteLine(string.Format("DbSelect failed when logging user {0} in", Username));
+                            }
+                        }
+                        else
+                            Debug.WriteLine("----------User.LogIn() - Failed to get user id");
+                    }
+                    else
+                    {
+                        Debug.WriteLine(string.Format("Error whilst logging in {0}. {1} != {2}", Username, pPwd, dbPwd));
+                    }
+                }
+
+                else
+                {
+                    Debug.WriteLine(string.Format("GetPwdFromDb() failed when logging user {0} in", Username));
+                    //AccountLog.Debug(String.Format("[LogIn] DbPwd != Pwd ({0} != {1}", dbPwd, pPwd));
+                }
+                //AccountLog.Error("[LogIn] Failed to log in.");
+                return false;
+
+                bool GetIdFromDb()
+                {
+                    try
+                    {
+                        SqlCommand getId = new SqlCommand("SELECT id FROM t_Users WHERE username = @username", conn);
+                        getId.Parameters.Add(new SqlParameter("username", pUsername));
+
+                        using (SqlDataReader reader = getId.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Id = new Guid(reader[0].ToString());
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("[LogIn] There was an exception whilst getting the id from the database: " + e);
+                        return false;
+                    }
+                    //AccountLog.Debug("[LogIn] Got password from database successfully!");
+                    return true;
+                }
+
+                bool SetLastLogIn()
+                {
+                    int RecordsAffected;
+
+                    //AccountLog.Debug("[LogIn] Attempting to set LastLogIn...");
+                    try
+                    {
+                        //AccountLog.Debug("username = " + username);
+                        SqlCommand Command = new SqlCommand("UPDATE t_Users SET lastLogIn = @date WHERE username = @username;", conn);
+                        Command.Parameters.Add(new SqlParameter("username", Username));
+                        Command.Parameters.Add(new SqlParameter("date", Parsnip.adjustedTime));
+                        RecordsAffected = Command.ExecuteNonQuery();
+
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("[LogIn] There was an exception whilst setting the LastLogIn: " + e);
+                        return false;
+                    }
+
+                    //AccountLog.Debug(String.Format("[LogIn] Set LastLogIn successfully! {0} records were affected.", RecordsAffected));
+                    return true;
+                }
+
+                bool GetPwdFromDb()
+                {
+                    //AccountLog.Debug("[LogIn] Attempting to get password from database...");
+                    try
+                    {
+                        SqlCommand getPassword = new SqlCommand("SELECT password FROM t_Users WHERE username = @username", conn);
+                        getPassword.Parameters.Add(new SqlParameter("Username", pUsername));
+
+                        using (SqlDataReader reader = getPassword.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                dbPwd = reader[0].ToString().Trim();
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("[LogIn] There was an exception whilst getting the password from the database: " + e);
+                        return false;
+                    }
+                    //AccountLog.Debug("[LogIn] Got password from database successfully!");
+                    return true;
+                }
+            }
+        }
+
+        public static bool LogOut()
+        {
+            try
+            {
+                Cookie.WriteSession("userName", "");
+                Cookie.WriteSession("userPwd", "");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        #endregion
 
         internal bool AddValues(SqlDataReader pReader)
         {
@@ -784,233 +1039,6 @@ namespace UacApi
             return UserDetails;
         }
 
-        public static User GetLoggedInUser(string pUsername, string pPwd)
-        {
-            User tempUser = new User();
-            tempUser.LogIn(pUsername, false, pPwd, false, true);
-            return tempUser;
-        }
-
-        public bool LogIn()
-        {
-            return LogIn(true);
-        }
-
-        public bool LogIn(bool silent)
-        {   
-            string[] Cookies = GetCookies();
-            string CookieUsername = Cookies[0];
-            Username = Cookies[0];
-            string CookiePwd = Cookies[1];
-            
-
-            //Debug.WriteLine("CookieUsername = " + CookieUsername);
-            //Debug.WriteLine("CookiePwd = " + CookiePwd);
-
-            if (String.IsNullOrEmpty(CookieUsername) || String.IsNullOrWhiteSpace(CookieUsername) || String.IsNullOrEmpty(CookiePwd) || String.IsNullOrWhiteSpace(CookiePwd))
-            {
-                return false;
-            }
-            else
-            {   
-                if (LogIn(CookieUsername, false, CookiePwd, false, silent))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            }
-        }
-
-        internal bool LogIn(string pUsername)
-        {
-            Username = pUsername;
-            return DbSelect(Parsnip.GetOpenDbConnection());
-        }
-
-        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
-        {
-            return LogIn(pUsername, pRememberUsername, pPwd, pRememberPwd, true);
-        }
-
-        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd, bool silent)
-        {
-            //AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
-            //Debug.WriteLine(string.Format("----------User.Login() for {0}", Username));
-
-
-            string dbPwd = null;
-            Username = pUsername;
-
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
-            {
-                //AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
-
-
-
-                if (GetPwdFromDb())
-                {
-                    if (pPwd == dbPwd)
-                    {
-                        //Debug.WriteLine(string.Format("----------User.Login() - Got password from db for user {0}. Id = {1}. Pwd = {2}", Username, Id, Password));
-                        if (GetIdFromDb())
-                        {
-                            //AccountLog.Debug(String.Format("[LogIn] DbPwd == Pwd ({0} == {1})", dbPwd, pPwd));
-                            if (DbSelect(conn))
-                            {
-                                //Debug.WriteLine(string.Format("----------User.Login() - Selected user {0} whilst logging in", Username));
-                                if (pRememberUsername)
-                                {
-                                    //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
-                                    //Debug.WriteLine("----------User.Login() - Username permanently remembered!");
-                                    Cookie.WritePerm("userName", pUsername);
-                                }
-
-                                if (pRememberPwd)
-                                {
-                                    //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
-                                    //Debug.WriteLine("----------User.Login() - Password permanently remembered!");
-                                    Cookie.WritePerm("userPwd", pPwd);
-                                    //Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
-                                }
-                                else
-                                {
-                                    //AccountLog.Debug(String.Format("[LogIn] RememberPassword = false. Writing session password cookie (userPwd = {0})", pPwd));
-                                    //if (GetCookies()[1] == pPwd)
-                                    //{
-                                    //AccountLog.Debug(String.Format("[LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.", pPwd));
-                                    //}
-                                    //else
-                                    //{
-                                    //AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
-                                    
-                                    
-                                        Cookie.WriteSession("userPwd", pPwd);
-                                    
-                                        
-                                        //AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
-                                        //Debug.WriteLine("----------User.Login() - Password stored for SESSION ONLY.");
-                                    //}
-
-
-                                }
-
-                                if (SetLastLogIn())
-                                {
-                                    //AccountLog.Info("[LogIn] Logged in successfully!");
-                                    if (!silent)
-                                    {
-                                        Debug.WriteLine(string.Format("----------User.Login() - {0} logged in LOUDLY", FullName));
-                                    }
-                                    else
-                                    {
-                                        //Debug.WriteLine(String.Format("----------User.Login() - {0} logged in SILENTLY", FullName));
-                                    }
-
-                                    return true;
-                                }
-
-                            }
-                            else
-                            {
-                                Debug.WriteLine(string.Format("DbSelect failed when logging user {0} in", Username));
-                            }
-                        }
-                        else
-                            Debug.WriteLine("----------User.LogIn() - Failed to get user id");
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("Error whilst logging in {0}. {1} != {2}", Username, pPwd, dbPwd));
-                    }
-                }
-                
-                else
-                {
-                    Debug.WriteLine(string.Format("GetPwdFromDb() failed when logging user {0} in", Username));
-                    //AccountLog.Debug(String.Format("[LogIn] DbPwd != Pwd ({0} != {1}", dbPwd, pPwd));
-                }
-                //AccountLog.Error("[LogIn] Failed to log in.");
-                return false;
-
-                bool GetIdFromDb()
-                {
-                    try
-                    {
-                        SqlCommand getId = new SqlCommand("SELECT id FROM t_Users WHERE username = @username", conn);
-                        getId.Parameters.Add(new SqlParameter("username", pUsername));
-
-                        using (SqlDataReader reader = getId.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                Id = new Guid(reader[0].ToString());
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("[LogIn] There was an exception whilst getting the id from the database: " + e);
-                        return false;
-                    }
-                    //AccountLog.Debug("[LogIn] Got password from database successfully!");
-                    return true;
-                }
-
-                bool SetLastLogIn()
-                {
-                    int RecordsAffected;
-
-                    //AccountLog.Debug("[LogIn] Attempting to set LastLogIn...");
-                    try
-                    {
-                        //AccountLog.Debug("username = " + username);
-                        SqlCommand Command = new SqlCommand("UPDATE t_Users SET lastLogIn = @date WHERE username = @username;", conn);
-                        Command.Parameters.Add(new SqlParameter("username", Username));
-                        Command.Parameters.Add(new SqlParameter("date", Parsnip.adjustedTime));
-                        RecordsAffected = Command.ExecuteNonQuery();
-
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("[LogIn] There was an exception whilst setting the LastLogIn: " + e);
-                        return false;
-                    }
-
-                    //AccountLog.Debug(String.Format("[LogIn] Set LastLogIn successfully! {0} records were affected.", RecordsAffected));
-                    return true;
-                }
-
-                bool GetPwdFromDb()
-                {
-                    //AccountLog.Debug("[LogIn] Attempting to get password from database...");
-                    try
-                    {
-                        SqlCommand getPassword = new SqlCommand("SELECT password FROM t_Users WHERE username = @username", conn);
-                        getPassword.Parameters.Add(new SqlParameter("Username", pUsername));
-
-                        using (SqlDataReader reader = getPassword.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                dbPwd = reader[0].ToString().Trim();
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("[LogIn] There was an exception whilst getting the password from the database: " + e);
-                        return false;
-                    }
-                    //AccountLog.Debug("[LogIn] Got password from database successfully!");
-                    return true;
-                }
-            }
-        }
-
         private bool DbInsert(string pPwd, SqlConnection pOpenConn)
         {
             if (Id.ToString() == Guid.Empty.ToString())
@@ -1060,11 +1088,6 @@ namespace UacApi
             }
         }
 
-        public bool Select()
-        {
-            return DbSelect(Parsnip.GetOpenDbConnection());
-        }
-
         internal bool DbSelect(SqlConnection pOpenConn)
         {
             //AccountLog.Debug("Attempting to get user details...");
@@ -1107,15 +1130,6 @@ namespace UacApi
                 Debug.WriteLine("There was an exception whilst getting user data: " + e);
                 return false;
             }
-        }
-
-        public bool Update()
-        {
-            bool success;
-            SqlConnection UpdateConnection = Parsnip.GetOpenDbConnection();
-            if (ExistsOnDb(UpdateConnection)) success = DbUpdate(UpdateConnection); else success = DbInsert(Password, UpdateConnection);
-            UpdateConnection.Close();
-            return success;
         }
 
         private bool DbUpdate(SqlConnection pOpenConn)
@@ -1524,11 +1538,6 @@ namespace UacApi
             {
                 throw new System.InvalidOperationException("Account cannot be updated. Account must be inserted into the database before it can be updated!");
             }
-        }
-
-        public bool Delete()
-        {
-            return DbDelete(Parsnip.GetOpenDbConnection());
         }
 
         internal bool DbDelete(SqlConnection pOpenConn)

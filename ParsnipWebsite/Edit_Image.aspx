@@ -27,90 +27,78 @@
     <div id="menuDiv"></div>
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
-  
-    
 
-    
-        <!--
-  <div class="form-group">
-    <label>Description</label>
-    <input type="text" class="form-control login" id="InputDescription" />
-  </div>
-        -->
-  <div class="center_form">
-    <form id="form1" runat="server" >
-        <div class="form-group" style="padding-left:5%; padding-right: 5%;" >
-      <label style="text-align:left; width:100%">Title</label>
-            <asp:TextBox CssClass="form-control" runat="server" ID="InputTitleTwo" />
-  </div>
+    <div class="center_form">
+        <form id="form1" runat="server" >
+            <!-- Title -->
+            <div class="form-group" style="padding-left:5%; padding-right: 5%;" >
+                <label style="text-align:left; width:100%">Title</label>
+                <asp:TextBox CssClass="form-control" runat="server" ID="InputTitleTwo" />
+            </div>
 
-        
-        <div runat="server" id="DropDownDiv" visible="false" style="padding-left:5%; padding-right: 5%;">
-        <label>Select an album:</label>
-            <asp:DropDownList ID="NewAlbumsDropDown" runat="server" AutoPostBack="False" CssClass="form-control" >
-            </asp:DropDownList>
+            <!-- Album select -->
+            <div runat="server" id="DropDownDiv" visible="false" style="padding-left:5%; padding-right: 5%;">
+                <label>Select an album:</label>
+                <asp:DropDownList ID="NewAlbumsDropDown" runat="server" AutoPostBack="False" CssClass="form-control" >
+                </asp:DropDownList>
+                <br />
+            </div>
+
+            <!-- Image preview -->
+            <asp:Image runat="server" ID="ImagePreview" CssClass="image-preview" Width="100%" />
             <br />
-        </div>
+            <br />
 
+            <!-- Delete / save buttons -->
+            <div style="width:100%; padding-left:5%; padding-right:5%;">
+                <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary float-left" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;" UseSubmitBehavior="false"></asp:Button>
+                <asp:Button runat="server" ID="ButtonSave" class="btn btn-primary float-right" Text="Save" Width="100px" OnClick="ButtonSave_Click"></asp:Button>
+            </div>
 
-        <asp:Image runat="server" ID="ImagePreview" CssClass="image-preview" Width="100%" />
-        <br />
-        <br />
-        <div style="width:100%; padding-left:5%; padding-right:5%;">
-            
-        <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary float-left" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;" UseSubmitBehavior="false"></asp:Button>
-            <asp:Button runat="server" ID="ButtonSave" class="btn btn-primary float-right" Text="Save" Width="100px" OnClick="ButtonSave_Click"></asp:Button>
-        </div>
+            <!-- Delete modal -->
+            <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="text-align:left">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure that you want to this photo from all albums?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button id="BtnDeleteImage" class="btn btn-primary" onclick="DeletePhoto(); return false;" >Confirm</button>
 
-        <!-- Modal -->
-        <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="text-align:left">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure that you want to this photo from all albums?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button id="BtnDeleteImage" class="btn btn-primary" onclick="DeletePhoto(); return false;" >Confirm</button>
-
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-      </div>
+        </form>
+    </div>
       
     <script>
-            
-            var url_string = window.location.href
-            url = new URL(url_string);
-            document.getElementById("InputTitle").value = url.searchParams.get("title");
-
-
-        function DeletePhoto() {
+        //Uses url parameter "imageid" to delete the image whose Id is 
+        //sepcified in the url parameter "imageid". Fired by delete modal.
+        function DeletePhoto()
+        {
             var url_string = window.location.href
             var url;
             var redirect = "edit_image?"
 
-            try {
+            try
+            {
                 //More efficient but does not work on older browsers
                 url = new URL(url_string);
                 redirect += "imageid=" + url.searchParams.get("imageid") + "&delete=true";
             }
-            catch (e) {
+            catch (e)
+            {
                 //More compatible method
                 url = window.location.href;
-                redirect += "imageid=" + url.split('=')[url.split('=').length - 1];
-            }
-
-            if (redirect === "" || redirect === null) {
-                redirect = "home?error=true";
+                redirect += "imageid=" + url.split('=')[url.split('=').length - 1] + "&delete=true";
             }
 
             //Use window.location.replace if possible because 
