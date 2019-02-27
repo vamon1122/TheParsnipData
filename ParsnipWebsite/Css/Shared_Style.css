@@ -20,6 +20,11 @@ body {
     -webkit-text-size-adjust: 100%;
 }
 
+.parsnip_table{
+    width:98%;
+    max-width:98%;
+}
+
 .float-left {
     float: left;
 }
