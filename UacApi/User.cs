@@ -220,9 +220,64 @@ namespace UacApi
             tempUser.LogIn(pUsername, false, pPwd, false, true);
             return tempUser;
         }
+
+        public static User LogIn(string pUsername, string pPassword)
+        {
+            using (var openConn = Parsnip.GetOpenDbConnection())
+            {
+                try
+                {
+                    SqlCommand getId = new SqlCommand("SELECT * FROM t_Users WHERE username = @username AND password = @password", openConn);
+                    getId.Parameters.Add(new SqlParameter("username", pUsername));
+
+                    using (SqlDataReader reader = getId.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return new User(reader);
+                        }
+                    }
+                    throw new InvalidOperationException("There is no user with this username / password combination");
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("[LogIn] There was an exception whilst getting the id from the database: " + e);
+                    throw new InvalidOperationException("There was an error whilst finding a user with username / password combination");
+                }
+            }
+        }
+
+        public static bool LogOut()
+        {
+            try
+            {
+                Cookie.WriteSession("userName", "");
+                Cookie.WriteSession("userPwd", "");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         #endregion
 
         #region LogIn / LogOut
+
+
+        internal bool LogIn(string pUsername)
+        {
+            Username = pUsername;
+            return DbSelect(Parsnip.GetOpenDbConnection());
+        }
+
+        
+
+        
+        #endregion
+
+        #region Public Methods
+
         public bool LogIn()
         {
             return LogIn(true);
@@ -255,12 +310,6 @@ namespace UacApi
                 }
 
             }
-        }
-
-        internal bool LogIn(string pUsername)
-        {
-            Username = pUsername;
-            return DbSelect(Parsnip.GetOpenDbConnection());
         }
 
         public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
@@ -433,22 +482,6 @@ namespace UacApi
             }
         }
 
-        public static bool LogOut()
-        {
-            try
-            {
-                Cookie.WriteSession("userName", "");
-                Cookie.WriteSession("userPwd", "");
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        #endregion
-
-        #region Other Public Methods
         public bool Select()
         {
             return DbSelect(Parsnip.GetOpenDbConnection());
@@ -467,8 +500,6 @@ namespace UacApi
         {
             return DbDelete(Parsnip.GetOpenDbConnection());
         }
-
-        
 
         public bool Validate()
         {

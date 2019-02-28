@@ -33,7 +33,7 @@
         <asp:Label runat="server" ID="WelcomeLabel"></asp:Label>
             <br />
         <br />
-        <h3>*NEW*</h3><br />
+        <h3>*NEW*</h3>
         - 'Remember password' now <b><i>actually</i></b> works! You don't have to enter your password every bloody time anymore :P<br />
         - You can now upload & caption your very own <a href="photos">photos</a> & <a href="memes">memes</a>!<br />
         - Shortcut to the <a href="https://www.mixcloud.com/afternoontlive/">AfternoonT</a> podcast added to website menu. <br />

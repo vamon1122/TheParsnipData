@@ -48,7 +48,7 @@ namespace ConsoleTest
 
 
 
-
+        /*
         Console.WriteLine("Creating album...");
 
             User tempUser = User.GetLoggedInUser("ADMIN", "BBTbbt1704");
@@ -60,7 +60,7 @@ namespace ConsoleTest
             Console.WriteLine("Album created successfully!");
             Console.ReadLine();
             
-
+        */
 
 
             /*
