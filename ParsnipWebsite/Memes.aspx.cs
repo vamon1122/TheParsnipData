@@ -24,13 +24,7 @@ namespace ParsnipWebsite
         protected void Page_Load(object sender, EventArgs e)
         {
             myUser = Uac.SecurePage("memes", this, Data.DeviceType, "member");
-
-            if (Request.QueryString["error"] != null)
-            {
-
-                Warning.Attributes.CssStyle.Add("display", "block");
-
-            }
+            
 
             if (IsPostBack && PhotoUpload.PostedFile != null)
             {
@@ -43,20 +37,29 @@ namespace ParsnipWebsite
 
                         string[] fileDir = PhotoUpload.PostedFile.FileName.Split('\\');
                         string myFileName = fileDir.Last();
+                        string myFileExtension = myFileName.Split('.').Last().ToLower();
 
-                        string newDir = string.Format("Resources/Media/Images/Uploads/{0}{1}_{2}_{3}_{4}", myUser.Forename, myUser.Surname, Guid.NewGuid(), Parsnip.adjustedTime.ToString("dd-MM-yyyy"), myFileName);
-                        Debug.WriteLine("Newdir = " + newDir);
-                        /*if (PhotoUpload.PostedFile.HasFile)
-                        {*/
-                        PhotoUpload.PostedFile.SaveAs(Server.MapPath("~/" + newDir));
-                        MediaApi.Image temp = new MediaApi.Image(newDir, myUser, MemesAlbum);
-                        temp.Update();
-                        Response.Redirect("edit_image?redirect=memes&imageid=" + temp.Id);
-                        //}
+                        if (MediaApi.Image.IsValidFileExtension(myFileExtension))
+                        {
+
+                            string newDir = string.Format("Resources/Media/Images/Uploads/{0}{1}_{2}_{3}_{4}", myUser.Forename, myUser.Surname, Guid.NewGuid(), Parsnip.adjustedTime.ToString("dd-MM-yyyy"), myFileName);
+                            Debug.WriteLine("Newdir = " + newDir);
+                            /*if (PhotoUpload.PostedFile.HasFile)
+                            {*/
+                            PhotoUpload.PostedFile.SaveAs(Server.MapPath("~/" + newDir));
+                            MediaApi.Image temp = new MediaApi.Image(newDir, myUser, MemesAlbum);
+                            temp.Update();
+                            Response.Redirect("edit_image?redirect=memes&imageid=" + temp.Id);
+                            //}
+                        }
+
+                        else
+                        {
+                            Response.Redirect("memes?error=video");
+                        }
                     }
                     catch (Exception err)
                     {
-
                         new LogEntry(DebugLog) { text = "There was an exception whilst uploading the photo: " + err };
                     }
                 }

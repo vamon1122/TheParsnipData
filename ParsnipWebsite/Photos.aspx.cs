@@ -30,13 +30,6 @@ namespace ParsnipWebsite
         {
             myUser = Uac.SecurePage("photos", this, Data.DeviceType, "member");
 
-            if (Request.QueryString["error"] != null)
-            {
-
-                Warning.Attributes.CssStyle.Add("display", "block");
-
-            }
-
             if (IsPostBack && PhotoUpload.PostedFile != null)
             {
                 new LogEntry(DebugLog) { text = "POSTBACK with photo" };
@@ -48,16 +41,25 @@ namespace ParsnipWebsite
 
                         string[] fileDir = PhotoUpload.PostedFile.FileName.Split('\\');
                         string myFileName = fileDir.Last();
+                        string myFileExtension = myFileName.Split('.').Last().ToLower();
 
-                        string newDir = string.Format("Resources/Media/Images/Uploads/{0}{1}_{2}_{3}_{4}", myUser.Forename, myUser.Surname, Guid.NewGuid(), Parsnip.adjustedTime.ToString("dd-MM-yyyy"), myFileName);
-                        Debug.WriteLine("Newdir = " + newDir);
-                        /*if (PhotoUpload.PostedFile.HasFile)
-                        {*/
-                        PhotoUpload.PostedFile.SaveAs(Server.MapPath("~/" + newDir));
-                        MediaApi.Image temp = new MediaApi.Image(newDir, myUser, PhotosAlbum);
-                        temp.Update();
-                        Response.Redirect("edit_image?redirect=photos&imageid=" + temp.Id);
-                        //}
+                        if (MediaApi.Image.IsValidFileExtension(myFileExtension))
+                        {
+
+                            string newDir = string.Format("Resources/Media/Images/Uploads/{0}{1}_{2}_{3}_{4}", myUser.Forename, myUser.Surname, Guid.NewGuid(), Parsnip.adjustedTime.ToString("dd-MM-yyyy"), myFileName);
+                            Debug.WriteLine("Newdir = " + newDir);
+                            /*if (PhotoUpload.PostedFile.HasFile)
+                            {*/
+                            PhotoUpload.PostedFile.SaveAs(Server.MapPath("~/" + newDir));
+                            MediaApi.Image temp = new MediaApi.Image(newDir, myUser, PhotosAlbum);
+                            temp.Update();
+                            Response.Redirect("edit_image?redirect=photos&imageid=" + temp.Id);
+                            //}
+                        }
+                        else
+                        {
+                            Response.Redirect("photos?error=video");
+                        }
                     }
                     catch (Exception err)
                     {

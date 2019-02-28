@@ -312,6 +312,8 @@ namespace UacApi
                                 }
                                 else
                                 {
+                                    //This check ensures that permanent cookies 
+                                    //are not replaced with temporary ones
                                     if (!Cookie.Exists("userPwd"))
                                     {
                                         Cookie.WriteSession("userPwd", pPwd);

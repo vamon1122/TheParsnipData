@@ -20,6 +20,14 @@ body {
     -webkit-text-size-adjust: 100%;
 }
 
+.parsnip-alert {
+    position: fixed;
+    top: 55px;
+    width: 98%;
+    margin-left: 1%;
+    text-align: left;
+}
+
 .parsnip_table{
     width:98%;
     max-width:98%;

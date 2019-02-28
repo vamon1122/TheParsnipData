@@ -23,7 +23,12 @@ namespace MediaApi
         public string Title { get; set; }
         public string Description { get; set; }
         public Guid AlbumId { get; set; }
+        public static string[] AllowedFileExtensions = new string[] { "png", "gif", "jpg", "jpeg", "tiff" };
 
+        public static bool IsValidFileExtension(string pExtension)
+        {
+            return AllowedFileExtensions.Contains(pExtension);
+        }
 
         Log DebugLog = new Log("Debug");
 

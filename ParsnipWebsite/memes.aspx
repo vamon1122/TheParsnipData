@@ -31,15 +31,19 @@
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
     <!--<br class="nomobile" />-->
     
+    <div class="alert alert-warning alert-dismissible parsnip-alert" style="display: none;" id="AccessWarning">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Access Denied</strong> You cannot edit memes which other people have uploaded!
+    </div>
+    <div class="alert alert-danger alert-dismissible parsnip-alert" style="display: none;" id="VideoError">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Upload Error</strong> You cannot upload videos to the memes page!
+    </div>
+
     <h2>Memes</h2>
     <hr class="break" />
 
     <form runat="server">
-        <div class="alert alert-warning alert-dismissible" runat="server" style="display:none; position:fixed; top:55px; width:98%; margin-left:1%;" id="Warning">
-
-                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Access Denied</strong> You cannot edit photos which other people have uploaded!
-            </div>
                 <div runat="server" id="UploadDiv" class="form-group" style="display:none">
                     <label class="file-upload">
                         
@@ -213,6 +217,21 @@
 
        
             </script>
+
+    <script>
+        var url_string = window.location.href
+        var url = new URL(url_string);
+        var error = url.searchParams.get("error");
+        if (error !== "" && error !== null)
+        {
+            if (error === "video") {
+                document.getElementById("VideoError").style = "display:block";
+            }
+            else {
+                document.getElementById("AccessWarning").style = "display:block";
+            }
+        }
+    </script>
 </body>
 
 </html>
