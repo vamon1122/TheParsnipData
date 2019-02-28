@@ -15,6 +15,8 @@ namespace UacApi
 {
     public class User
     {
+        Log DebugLog = new Log("Debug");
+
         #region Properties
         private LogWriter AccountLog;
         private Guid _id;
@@ -271,6 +273,7 @@ namespace UacApi
             //AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
             //Debug.WriteLine(string.Format("----------User.Login() for {0}", Username));
 
+            new LogEntry(DebugLog) { text = "Logging in. pRememberPwd = " + pRememberPwd };
 
             string dbPwd = null;
             Username = pUsername;
@@ -304,28 +307,15 @@ namespace UacApi
                                     //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
                                     //Debug.WriteLine("----------User.Login() - Password permanently remembered!");
                                     Cookie.WritePerm("userPwd", pPwd);
+                                    Cookie.WritePerm("userPwdPerm", pPwd);
                                     //Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
                                 }
                                 else
                                 {
-                                    //AccountLog.Debug(String.Format("[LogIn] RememberPassword = false. Writing session password cookie (userPwd = {0})", pPwd));
-                                    //if (GetCookies()[1] == pPwd)
-                                    //{
-                                    //AccountLog.Debug(String.Format("[LogIn] Cookie already exists with the same value! It may have been permanently remembered! Not overwriting cookie.", pPwd));
-                                    //}
-                                    //else
-                                    //{
-                                    //AccountLog.Debug(String.Format("[LogIn] Cookie does not exist. Writing temporary password cookie.", pPwd));
-
-
-                                    Cookie.WriteSession("userPwd", pPwd);
-
-
-                                    //AccountLog.Debug(String.Format("[LogIn] Password stored for SESSION ONLY.", pPwd));
-                                    //Debug.WriteLine("----------User.Login() - Password stored for SESSION ONLY.");
-                                    //}
-
-
+                                    if (!Cookie.Exists("userPwd"))
+                                    {
+                                        Cookie.WriteSession("userPwd", pPwd);
+                                    }
                                 }
 
                                 if (SetLastLogIn())

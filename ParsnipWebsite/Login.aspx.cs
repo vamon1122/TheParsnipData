@@ -15,14 +15,10 @@ namespace ParsnipWebsite
     {
         private User myUser;
         private string Redirect;
-        LogWriter AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
+        Log DebugLog = new Log("Debug");
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            AccountLog.Warning("PAGE IS BEING LOADED");
-
-
-
             /*
             new LogEntry(Log.Default) { text = "Detecting device and setting deviceType cookie..." };
             ScriptManager.RegisterStartupScript(Page, typeof(Page), "GetDeviceType", "createCookie(\"deviceType\", deviceDetect())", true);
@@ -60,10 +56,7 @@ namespace ParsnipWebsite
                 }
                 else
                 {
-
-                    AccountLog.Warning("Input username was reset");
                     inputUsername.Text = myUser.Username;
-
                 }
             }
         }
@@ -77,9 +70,7 @@ namespace ParsnipWebsite
 
         protected void ButLogIn_Click(object sender, EventArgs e)
         {
-            AccountLog.Warning("Button Was clicked!");
-
-            System.Diagnostics.Debug.WriteLine("CheckBox = " + RememberPwd.Checked);
+            new LogEntry(DebugLog) { text = "Login Clicked! Remember password = " + RememberPwd.Checked };
 
             if (myUser.LogIn(inputUsername.Text, true, inputPwd.Text, RememberPwd.Checked, false))
             {

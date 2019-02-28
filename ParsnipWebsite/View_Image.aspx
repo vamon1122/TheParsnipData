@@ -67,7 +67,7 @@
             url = new URL(url_string);
             document.getElementById("ImageTitle").innerHTML = url.searchParams.get("title");
 
-            document.getElementById("ShareLink").value = "https://www.theparsnip.co.uk/view_image?imageid=" + url.searchParams.get("imageid");
+            document.getElementById("ShareLink").value = "https://www.theparsnip.co.uk/photos?imageid=" + url.searchParams.get("imageid");
     </script>
         
     <script src="../Javascript/Menu.js"></script>
