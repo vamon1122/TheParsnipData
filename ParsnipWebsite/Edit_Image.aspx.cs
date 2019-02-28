@@ -107,13 +107,13 @@ namespace ParsnipWebsite
                         switch (Request["NewAlbumsDropDown"].ToString().ToUpper())
                         {
                             case "4B4E450A-2311-4400-AB66-9F7546F44F4E":
-                                Redirect = "photos";
+                                Redirect = "photos?imageid=" + MyImage.Id.ToString();
                                 break;
                             case "5F15861A-689C-482A-8E31-2F13429C36E5":
-                                Redirect = "memes";
+                                Redirect = "memes?imageid=" + MyImage.Id.ToString();
                                 break;
                         case "00000000-0000-0000-0000-000000000000":
-                            Redirect = "manage_photos";
+                            Redirect = "manage_photos?imageid=" + MyImage.Id.ToString();
                             break;
                         default:
                                 Redirect = "home?error=noimagealbum2";

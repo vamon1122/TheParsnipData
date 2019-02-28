@@ -13,6 +13,15 @@ namespace ParsnipWebsite.Custom_Controls.Media_Api {
     public partial class ImageControl {
         
         /// <summary>
+        /// MyImageContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MyImageContainer;
+        
+        /// <summary>
         /// MyTitle control.
         /// </summary>
         /// <remarks>

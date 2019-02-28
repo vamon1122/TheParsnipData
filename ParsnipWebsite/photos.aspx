@@ -31,78 +31,74 @@
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
 
     
-            <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. <a href="Content_Removal.html">Click here</a> to learn more.</label></div>
+    <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. <a href="Content_Removal.html">Click here</a> to learn more.</label></div>
     
-            <h2>Photos</h2>
-            <hr class="break" />
-            <a href ="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7">
+    <h2>Photos</h2>
+    <hr class="break" />
+    
+    <a href ="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7">
+        <img src="Resources/Media/Images/Web_Media/google-photos.svg" width="100" />
+    </a>
 
-            <img src="Resources/Media/Images/Web_Media/google-photos.svg" width="100" />
-            </a>
-
-            <br />
+    <br />
     <div class="padded-text">
-            <label>Click <a href="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7">here</a> to view 'The Parsnip Collection' on google photos. This includes most of the photos on this page and was curated by Tom.</label>
-        </div>
-            <hr class="break" />
+        <label>Click <a href="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7">here</a> to view 'The Parsnip Collection' on google photos. This includes most of the photos on this page and was curated by Tom.</label>
+    </div>
+    <hr class="break" />
         
-            <form runat="server">
+    <form runat="server">
         <div class="alert alert-warning alert-dismissible" runat="server" style="display:none; position:fixed; top:55px; width:98%; margin-left:1%;" id="Warning">
-
-                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Access Denied</strong> You cannot edit photos which other people have uploaded!
-            </div>
-                <div runat="server" id="UploadDiv" class="form-group" style="display:none; ">
-                    <label class="file-upload btn">
-                        
-                        <span><strong>Upload Photo</strong></span>
-                        <asp:FileUpload ID="PhotoUpload" runat="server" class="form-control-file" onchange="this.form.submit()" />
-                    </label>
-
-                </div>
-                <br />
-                <div runat="server" id="DynamicPhotosDiv">
-
-                </div>
-            </form>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Access Denied</strong> You cannot edit photos which other people have uploaded!
+        </div>
+        <div runat="server" id="UploadDiv" class="form-group" style="display:none; ">
+            <label class="file-upload btn">                
+                <span><strong>Upload Photo</strong></span>
+                <asp:FileUpload ID="PhotoUpload" runat="server" class="form-control-file" onchange="this.form.submit()" />
+            </label>
+        </div>
+        <br />
+        <div runat="server" id="DynamicPhotosDiv">
+        </div>
+    </form>    
     
-    
-            <script src="../Javascript/Useful_Functions.js"></script>
-            <script src="../Javascript/Menu.js"></script>
-            <script>
+    <script src="../Javascript/Useful_Functions.js"></script>
+    <script src="../Javascript/Menu.js"></script>
+    <script src="../Javascript/Focus_Image.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function ()
+        {
+            var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
 
-                document.addEventListener("DOMContentLoaded", function ()
+            if ("IntersectionObserver" in window)
+            {
+                let lazyImageObserver = new IntersectionObserver(function (entries, observer)
                 {
-                    var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
-
-                    if ("IntersectionObserver" in window)
+                    entries.forEach(function (entry)
                     {
-                        let lazyImageObserver = new IntersectionObserver(function (entries, observer)
+                        if (entry.isIntersecting)
                         {
-                            entries.forEach(function (entry)
-                            {
-                                if (entry.isIntersecting)
-                                {
-                                    let lazyImage = entry.target;
-                                    lazyImage.src = lazyImage.dataset.src;
-                                    lazyImage.srcset = lazyImage.dataset.srcset;
-                                    lazyImage.classList.remove("lazy");
-                                    lazyImageObserver.unobserve(lazyImage);
-                                }
-                            });
-                        });
-
-                        lazyImages.forEach(function (lazyImage) {
-                            lazyImageObserver.observe(lazyImage);
-                        });
-                    }
-                    else
-                    {
-                        //I used Javascript/intersection-observer as a fallback
-                    }
+                            let lazyImage = entry.target;
+                            lazyImage.src = lazyImage.dataset.src;
+                            lazyImage.srcset = lazyImage.dataset.srcset;
+                            lazyImage.classList.remove("lazy");
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
                 });
-
-       
-            </script>
+                lazyImages.forEach(function (lazyImage)
+                {
+                    lazyImageObserver.observe(lazyImage);
+                });
+            }
+            else
+            {
+                //I used Javascript/intersection-observer as a fallback
+            }
+        });
+    </script>
+    <script>
+        
+    </script>
 </body>
 </html>

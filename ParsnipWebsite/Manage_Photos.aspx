@@ -69,6 +69,7 @@
             </div>
         </div>
     </form>
+    <script src="../Javascript/Focus_Image.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function ()
                 {

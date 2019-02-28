@@ -178,6 +178,7 @@
        
 
     <script src="../Javascript/Menu.js"></script>
+    <script src="../Javascript/Focus_Image.js"></script>
     <script>
                 document.addEventListener("DOMContentLoaded", function ()
                 {

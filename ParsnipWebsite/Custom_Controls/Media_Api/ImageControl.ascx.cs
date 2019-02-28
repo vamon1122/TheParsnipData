@@ -25,6 +25,7 @@ namespace ParsnipWebsite.Custom_Controls.Media_Api
                 MyImageHolder.Attributes.Add("data-src", MyImage.ImageSrc);
                 MyImageHolder.Attributes.Add("data-srcset", MyImage.ImageSrc);
                 MyImageHolder.CssClass = "meme lazy";
+                MyImageContainer.ID = myImage.Id.ToString();
 
                 
 

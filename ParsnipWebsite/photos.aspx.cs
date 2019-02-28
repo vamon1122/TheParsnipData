@@ -81,6 +81,16 @@ namespace ParsnipWebsite
                 MyImageControl.MyImage = temp;
                 DynamicPhotosDiv.Controls.Add(MyImageControl);
             }
+
+            /*
+            if (Request.QueryString["imageid"] != null)
+            {
+                var pImage = new MediaApi.Image(new Guid(Request.QueryString["imageid"]));
+                pImage.Select();
+
+                
+            }
+            */
         }
 
         protected void BtnUpload_Click(object sender, EventArgs e)

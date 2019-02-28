@@ -38,5 +38,6 @@
     
     <script src="../Javascript/Youtube.js"></script>
     <script src="../Javascript/Menu.js"></script>
+    <script src="../Javascript/Focus_Image.js"></script>
 </body>
 </html>
