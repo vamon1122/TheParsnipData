@@ -392,12 +392,12 @@ li {
 }
 
 .mMenVis {
-    animation: mMenVis 0.5s;
+    animation: mMenVis 0.075s;
     animation-fill-mode: forwards;
 }
 
 .mMenHide {
-    animation: mMenHide 0.5s;
+    animation: mMenHide 0.075s;
     animation-fill-mode: forwards;
 }
 
