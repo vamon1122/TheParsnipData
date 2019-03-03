@@ -391,25 +391,15 @@ li {
     }
 }
 
-.mMenVis {
-    animation: mMenVis 0.075s;
-    animation-fill-mode: forwards;
-}
-
-.mMenHide {
-    animation: mMenHide 0.075s;
-    animation-fill-mode: forwards;
-}
-
 .menVis {
-    animation: menVis 0.5s;
+    animation: menVis 0.2s;
     animation-fill-mode: forwards;
 }
 
 
 
 .menHide {
-    animation: menHide 0.5s;
+    animation: menHide 0.2s;
     animation-fill-mode: forwards;
 }
 
