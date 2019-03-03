@@ -10,16 +10,7 @@
 namespace ParsnipWebsite {
     
     
-    public partial class Videos {
-        
-        /// <summary>
-        /// link_style control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlLink link_style;
+    public partial class Content_Removal {
         
         /// <summary>
         /// Menu control.

@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Bios.aspx.cs" Inherits="ParsnipWebsite.Bios" %>
+<%@ Register Src="~/Custom_Controls/Menu/Menu.ascx" TagPrefix="menuControls" TagName="Menu" %>
 
 <!DOCTYPE html>
 
@@ -19,14 +20,7 @@
     <title>Bios</title>
 </head>
 <body class="fade0p5" id="body" style="text-align:center">
-    <label class="censored" id="pageId">bios.html</label>
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE START-->
-
-    <div id="titleAndMenu"></div>
-    <div id="menuDiv"></div>
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
+    <menuControls:Menu runat="server" ID="Menu" />
 
     
     
@@ -55,6 +49,5 @@
     <img src="Resources/Media/Images/Local/Bios/Kieron_Chat.PNG" id="Kieron_chat" class="image-preview" />
     <br />
     <br />
-    <script src="../Javascript/Menu.js"></script>
 </body>
 </html>

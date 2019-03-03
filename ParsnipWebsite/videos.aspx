@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Videos.aspx.cs" Inherits="ParsnipWebsite.Videos" %>
+<%@ Register Src="~/Custom_Controls/Menu/Menu.ascx" TagPrefix="menuControls" TagName="Menu" %>
 
 <!DOCTYPE html>
 
@@ -19,14 +20,7 @@
     <title>Videos</title>
 </head>
 <body class="fade0p5" id="body" style="text-align:center">
-    <label class="censored" id="pageId">youtube.html</label>
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE START-->
-
-    <div id="titleAndMenu"></div>
-    <div id="menuDiv"></div>
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
+    <menuControls:Menu runat="server" ID="Menu" />
 
     <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. <a href="Content_Removal.html">Click here</a> to learn more.</label></div>
 
@@ -543,7 +537,6 @@
     <!--SCRIPTS-->
     
     <script src="../Javascript/Youtube.js"></script>
-    <script src="../Javascript/Menu.js"></script>
 </body>
 </html>
 

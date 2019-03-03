@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Edit_Image.aspx.cs" Inherits="ParsnipWebsite.Edit_Image" %>
+<%@ Register Src="~/Custom_Controls/Menu/Menu.ascx" TagPrefix="menuControls" TagName="Menu" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -19,14 +20,7 @@
     <title>Edit Image</title>
 </head>
 <body class="fade0p5" id="body" style="text-align:center;"  >
-    <label class="censored" id="pageId">Edit-Photo.html</label>
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE START-->
-
-    <div id="titleAndMenu"></div>
-    <div id="menuDiv"></div>
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
+    <menuControls:Menu runat="server" ID="Menu" />
 
     <div class="center_form">
         <form id="form1" runat="server" >
@@ -108,10 +102,6 @@
             catch (e) { window.location = redirect; }
         }
     </script>
-        
-        
-    
-    <script src="../Javascript/Menu.js"></script>
     
 </body>
 </html>

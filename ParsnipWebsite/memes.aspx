@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Memes.aspx.cs" Inherits="ParsnipWebsite.Memes" %>
+<%@ Register Src="~/Custom_Controls/Menu/Menu.ascx" TagPrefix="menuControls" TagName="Menu" %>
 
 <!DOCTYPE html>
 
@@ -21,15 +22,7 @@
     <title>Memes</title>
 </head>
 <body class="fade0p5" id="body" style="text-align:center">
-    <label class="censored" id="pageId">memes.html</label>
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE START-->
-
-    <div id="titleAndMenu"></div>
-    <div id="menuDiv"></div>
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
-    <!--<br class="nomobile" />-->
+    <menuControls:Menu runat="server" ID="Menu" />
     
     <div class="alert alert-warning alert-dismissible parsnip-alert" style="display: none;" id="AccessWarning">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -179,9 +172,6 @@
         <img class="meme" src="http://res.cloudinary.com/lqrrvz3pc/image/upload/v1477058839/Photos/memes/loldred_at_least_I_can_pull.JPG" />
         <hr class="break" />
     </div>
-       
-
-    <script src="../Javascript/Menu.js"></script>
     <script src="../Javascript/Focus_Image.js"></script>
     <script>
                 document.addEventListener("DOMContentLoaded", function ()

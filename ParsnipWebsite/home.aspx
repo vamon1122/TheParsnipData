@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="ParsnipWebsite.Home" %>
+<%@ Register Src="~/Custom_Controls/Menu/Menu.ascx" TagPrefix="menuControls" TagName="Menu" %>
+
 
 <!DOCTYPE html>
 
@@ -22,11 +24,12 @@
     
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE START-->
 
-    <div id="titleAndMenu"></div>
-    <div id="menuDiv"></div>
+    
 
     <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
     
+    
+        <menuControls:Menu runat="server" ID="Menu" />
 
     <h2>Home</h2>
     <div class="padded-text center_div">
@@ -73,7 +76,5 @@
 
     <!--DEVICE DETECT END-->
     <!--SCRIPTS-->
-    
-    <script src="../Javascript/Menu.js"></script>
 </body>
 </html>

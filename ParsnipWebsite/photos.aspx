@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Photos.aspx.cs" Inherits="ParsnipWebsite.Photos" %>
+<%@ Register Src="~/Custom_Controls/Menu/Menu.ascx" TagPrefix="menuControls" TagName="Menu" %>
 
 <!DOCTYPE html>
 
@@ -21,14 +22,7 @@
     <title>Photos</title>
 </head>
 <body class="fade0p5" id="body" style="text-align:center">
-    <label class="censored" id="pageId">photos.html</label>
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE START-->
-
-    <div id="titleAndMenu"></div>
-    <div id="menuDiv"></div>
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
+    <menuControls:Menu runat="server" ID="Menu" />
 
     
     <div class="alert alert-warning alert-dismissible parsnip-alert" style="display: none;" id="AccessWarning">
@@ -71,7 +65,6 @@
     </form>    
     
     <script src="../Javascript/Useful_Functions.js"></script>
-    <script src="../Javascript/Menu.js"></script>
     <script src="../Javascript/Focus_Image.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function ()

@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="View_Image.aspx.cs" Inherits="ParsnipWebsite.View_Image" %>
+<%@ Register Src="~/Custom_Controls/Menu/Menu.ascx" TagPrefix="menuControls" TagName="Menu" %>
 
 <!DOCTYPE html>
 
@@ -27,24 +28,8 @@
     <title>New Title</title>
 </head>
 <body class="fade0p5" id="body" style="text-align:center">
-    <label class="censored" id="pageId">Edit-Photo.html</label>
+    <menuControls:Menu runat="server" ID="Menu" />
 
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE START-->
-
-    <div id="titleAndMenu"></div>
-    <div id="menuDiv"></div>
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
-  
-    
-
-    
-        <!--
-  <div class="form-group">
-    <label>Description</label>
-    <input type="text" class="form-control login" id="InputDescription" />
-  </div>
-        -->
     <div class="center_form">
         <div class="input-group mb-3" style="padding-left:5%; padding-right:5%">
   <div class="input-group-prepend">
@@ -69,8 +54,6 @@
 
             document.getElementById("ShareLink").value = "https://www.theparsnip.co.uk/photos?imageid=" + url.searchParams.get("imageid");
     </script>
-        
-    <script src="../Javascript/Menu.js"></script>
 
     
     

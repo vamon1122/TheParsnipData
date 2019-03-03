@@ -1,5 +1,9 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%; width: 99%;">
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_Removal.aspx.cs" Inherits="ParsnipWebsite.Content_Removal" %>
+<%@ Register Src="~/Custom_Controls/Menu/Menu.ascx" TagPrefix="menuControls" TagName="Menu" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <!-- BOOTSTRAP START -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,14 +22,7 @@
     <title>New Title</title>
 </head>
 <body class="fade0p5" id="body" style="text-align:center">
-
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE START-->
-
-    <div id="titleAndMenu"></div>
-    <div id="menuDiv"></div>
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
+    <menuControls:Menu runat="server" ID="Menu" />
 
     <div class="padded-text">
         In order to make the website enjoyable for everyone, I've decided to take content down on request. As much as the website is just
@@ -35,7 +32,6 @@
         and understand if I can't act immediately.
     </div>
     <script src="../Javascript/Useful_Functions.js"></script>
-    <script src="../Javascript/Menu.js"></script>
     <script>
         if (isMobile()) {
             /*var body = document.getElementById("body")
@@ -51,4 +47,4 @@
     </script>
 
 </body >
-</html >
+</html>

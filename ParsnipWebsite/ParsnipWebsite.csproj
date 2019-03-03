@@ -80,8 +80,12 @@
   <ItemGroup>
     <Content Include="Access_Denied.aspx" />
     <Content Include="Bios.aspx" />
+    <Content Include="Content_Removal.aspx" />
+    <Content Include="Css\Jonsuh_Hamburgers\Hamburgers.css" />
+    <Content Include="Css\Jonsuh_Hamburgers\Hamburgers.min.css" />
     <Content Include="Css\Mobile_Landscape_Style.css" />
     <Content Include="Custom_Controls\Media_Api\ImageControl.ascx" />
+    <Content Include="Custom_Controls\Menu\Menu.ascx" />
     <Content Include="Edit_Image.aspx" />
     <Content Include="Get_Device_Info.aspx" />
     <Content Include="Home.aspx" />
@@ -117,7 +121,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content_Removal.html" />
     <Content Include="Css\Mobile_Portrait_Style.css" />
     <Content Include="Css\Desktop_Style.css" />
     <Content Include="Custom_Controls\Admin\adminMenu.ascx" />
@@ -126,7 +129,6 @@
     <Content Include="Resources\Media\Audio\#TheParsnipRemix2016.mp3" />
     <Content Include="Global.asax" />
     <Content Include="Resources\Media\Images\Local\Fat_Kieron_Cutout.JPG" />
-    <Content Include="Javascript\Menu.js" />
     <Content Include="Css\Shared_Style.css" />
     <Content Include="Resources\Media\Images\Local\Bios\Kieron_Chat.PNG" />
     <Content Include="Resources\Media\Images\Local\Memes\ben_pussy.JPG" />
@@ -209,6 +211,13 @@
     <Compile Include="Bios.aspx.designer.cs">
       <DependentUpon>Bios.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Content_Removal.aspx.cs">
+      <DependentUpon>Content_Removal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content_Removal.aspx.designer.cs">
+      <DependentUpon>Content_Removal.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Custom_Controls\App_Start\RouteConfig.cs" />
     <Compile Include="Custom_Controls\Media_Api\ImageControl.ascx.cs">
       <DependentUpon>ImageControl.ascx</DependentUpon>
@@ -216,6 +225,13 @@
     </Compile>
     <Compile Include="Custom_Controls\Media_Api\ImageControl.ascx.designer.cs">
       <DependentUpon>ImageControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Custom_Controls\Menu\Menu.ascx.cs">
+      <DependentUpon>Menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Custom_Controls\Menu\Menu.ascx.designer.cs">
+      <DependentUpon>Menu.ascx</DependentUpon>
     </Compile>
     <Compile Include="Custom_Controls\Uac_Api\AdminUserForm.ascx.cs">
       <DependentUpon>AdminUserForm.ascx</DependentUpon>
