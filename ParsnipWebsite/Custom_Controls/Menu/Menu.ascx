@@ -190,6 +190,7 @@
         buttAnk.style.fontSize = buttFontSize;
         buttAnk.style.paddingTop = buttonPadding;
         buttAnk.style.paddingBottom = buttonPadding;
+        buttonAnk.style.zIndex = "2147483646";
     
         butt.appendChild(buttAnk);
         list.appendChild(butt);
