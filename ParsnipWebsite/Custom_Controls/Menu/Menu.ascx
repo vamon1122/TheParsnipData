@@ -4,7 +4,7 @@
 <div id="titleAndMenu"></div>
 <div id="menuDiv"></div>
 
-<div style="position:fixed; top:-5px; z-index:999999999">
+<div style="position:fixed; top:-5px; z-index:2147483647">
     <button class="hamburger hamburger--squeeze" type="button" style="outline:none;">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
@@ -116,7 +116,7 @@
     //document.getElementById("body").style.backgroundImage = "url('../Patterns 2/Black & White/brickwall.png')"; 29/12/2018 this no longer exists
     //document.getElementById("body").style.color = colDarkest;
 
-    menuDiv.style.zIndex = "99999999";
+    menuDiv.style.zIndex = "2147483646";
     menuDiv.style.backgroundColor = colDarkest;
     menuDiv.style.display = "inline-block";
     menuDiv.style.height = height;
@@ -162,7 +162,7 @@
         list.className = "menHidden";
         list.style.zIndex = "0";
         list.id = "list";
-        list.zIndex = "999999999";
+        list.zIndex = "2147483646";
         document.getElementById("body").appendChild(list);
     
     }
@@ -175,7 +175,7 @@
         }
 
         butt.style.width = "100%";
-        butt.zIndex = "999999999";
+        butt.zIndex = "2147483646";
         butt.style.backgroundColor = colDark;
 
         var buttAnk = document.createElement("a");

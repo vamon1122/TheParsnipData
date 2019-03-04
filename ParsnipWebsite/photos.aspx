@@ -34,7 +34,7 @@
         <strong>Upload Error</strong> You cannot upload videos to the photos page!
     </div>
 
-    <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. <a href="Content_Removal.html">Click here</a> to learn more.</label></div>
+    <div class="cens_req padded-text"><label>Certain elements of this page were removed by request. <a href="content_removal">Click here</a> to learn more.</label></div>
     
 
 
