@@ -4,7 +4,7 @@
 <div id="titleAndMenu"></div>
 <div id="menuDiv"></div>
 
-<div style="position:fixed; top:-5px; z-index:2147483647">
+<div style="position:fixed; top:-5px; left: -5px; z-index:2147483647">
     <button class="hamburger hamburger--squeeze" type="button" style="outline:none;">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
@@ -160,9 +160,8 @@
         list.style.padding = "0px";
         list.style.margin = "0px";
         list.className = "menHidden";
-        list.style.zIndex = "0";
         list.id = "list";
-        list.zIndex = "2147483646";
+        list.style.zIndex = "2147483646";
         document.getElementById("body").appendChild(list);
     
     }
@@ -190,7 +189,6 @@
         buttAnk.style.fontSize = buttFontSize;
         buttAnk.style.paddingTop = buttonPadding;
         buttAnk.style.paddingBottom = buttonPadding;
-        buttonAnk.style.zIndex = "2147483646";
     
         butt.appendChild(buttAnk);
         list.appendChild(butt);
