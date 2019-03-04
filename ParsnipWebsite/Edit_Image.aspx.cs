@@ -87,41 +87,42 @@ namespace ParsnipWebsite
 
                 if (IsPostBack)
                 {
-                        new LogEntry(DebugLog) { text = "Delete image NOT clicked" };
-                        /*
-                        new LogEntry(DebugLog) { text = "Posted back title3 = " + Request["InputTitleTwo"].ToString() };
-                        new LogEntry(DebugLog) { text = "Posted back albumid3 = " + Request["NewAlbumsDropDown"].ToString() };
-                        */
+                    new LogEntry(DebugLog) { text = "Delete image NOT clicked" };
+                    /*
+                    new LogEntry(DebugLog) { text = "Posted back title3 = " + Request["InputTitleTwo"].ToString() };
+                    new LogEntry(DebugLog) { text = "Posted back albumid3 = " + Request["NewAlbumsDropDown"].ToString() };
+                    */
 
-                        MyImage.Title = Request["InputTitleTwo"].ToString();
-                        var tempAlbumId = Request["NewAlbumsDropDown"].ToString();
-                        if(tempAlbumId != Guid.Empty.ToString())
-                        {
-                            MyImage.AlbumId = new Guid(tempAlbumId);
-                        }
+                    MyImage.Title = Request["InputTitleTwo"].ToString();
+                        
+                    //This breaks on some older browsers. Seems android specific?
+                    var tempAlbumId = Request["NewAlbumsDropDown"].ToString(); 
+
+                    if(tempAlbumId != Guid.Empty.ToString())
+                    {
+                        MyImage.AlbumId = new Guid(tempAlbumId);
+                    }
                     
-                        MyImage.Update();
+                    MyImage.Update();
 
-                        string Redirect;
+                    string Redirect;
 
-                        switch (Request["NewAlbumsDropDown"].ToString().ToUpper())
-                        {
-                            case "4B4E450A-2311-4400-AB66-9F7546F44F4E":
-                                Redirect = "photos?imageid=" + MyImage.Id.ToString();
-                                break;
-                            case "5F15861A-689C-482A-8E31-2F13429C36E5":
-                                Redirect = "memes?imageid=" + MyImage.Id.ToString();
-                                break;
+                    switch (Request["NewAlbumsDropDown"].ToString().ToUpper())
+                    {
+                        case "4B4E450A-2311-4400-AB66-9F7546F44F4E":
+                            Redirect = "photos?imageid=" + MyImage.Id.ToString();
+                            break;
+                        case "5F15861A-689C-482A-8E31-2F13429C36E5":
+                            Redirect = "memes?imageid=" + MyImage.Id.ToString();
+                            break;
                         case "00000000-0000-0000-0000-000000000000":
                             Redirect = "manage_photos?imageid=" + MyImage.Id.ToString();
                             break;
                         default:
-                                Redirect = "home?error=noimagealbum2";
-                                break;
-                        }
-
-                        Response.Redirect(Redirect);
-                    
+                            Redirect = "home?error=noimagealbum2";
+                            break;
+                    }
+                    Response.Redirect(Redirect);
                 }
 
                 if (MyImage.Title != null && !string.IsNullOrEmpty(MyImage.Title) && !string.IsNullOrWhiteSpace(MyImage.Title))
