@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParsnipWebsite", "ParsnipWe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnonymousApi", "AnonymousApi\AnonymousApi.csproj", "{6A8635DE-6692-4FA4-BADC-BE8346934EE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommentApi", "CommentApi\CommentApi.csproj", "{1FB4FFB8-7499-4D2B-8996-9C4FFC112522}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{6A8635DE-6692-4FA4-BADC-BE8346934EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A8635DE-6692-4FA4-BADC-BE8346934EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A8635DE-6692-4FA4-BADC-BE8346934EE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FB4FFB8-7499-4D2B-8996-9C4FFC112522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FB4FFB8-7499-4D2B-8996-9C4FFC112522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FB4FFB8-7499-4D2B-8996-9C4FFC112522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FB4FFB8-7499-4D2B-8996-9C4FFC112522}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

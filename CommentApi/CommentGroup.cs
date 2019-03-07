@@ -9,10 +9,9 @@ using ParsnipApi;
 using UacApi;
 using LogApi;
 
-
-namespace MediaApi
+namespace CommentApi
 {
-    public class Album
+    public class CommentGroup
     {
         public Guid Id { get; set; }
         public Guid CreatedById { get; set; }
@@ -20,111 +19,111 @@ namespace MediaApi
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public static List<Album> GetAllAlbums()
+        public static List<CommentGroup> GetAllCommentGroups()
         {
             bool logMe = false;
 
             if (logMe)
-                Debug.WriteLine("----------Getting all albums...");
+                Debug.WriteLine("----------Getting all commentGroups...");
 
-            var albums = new List<Album>();
+            var commentGroups = new List<CommentGroup>();
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand GetAlbums = new SqlCommand("SELECT * FROM t_Albums ORDER BY datecreated DESC", conn);
-                using (SqlDataReader reader = GetAlbums.ExecuteReader())
+                SqlCommand GetCommentGroups = new SqlCommand("SELECT * FROM t_CommentGroups ORDER BY datecreated DESC", conn);
+                using (SqlDataReader reader = GetCommentGroups.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        albums.Add(new Album(reader));
+                        commentGroups.Add(new CommentGroup(reader));
                     }
                 }
             }
 
-            foreach (Album temp in albums)
+            foreach (CommentGroup temp in commentGroups)
             {
                 if (logMe)
-                    Debug.WriteLine(string.Format("Found album with id {0}", temp.Id));
+                    Debug.WriteLine(string.Format("Found commentGroup with id {0}", temp.Id));
             }
 
-            return albums;
+            return commentGroups;
         }
 
-        public static List<Image> GetAlbumsByUser(Guid pUserId)
+        public static List<Comment> GetCommentGroupsByUser(Guid pUserId)
         {
             bool logMe = true;
 
             if (logMe)
-                Debug.WriteLine("----------Getting all albums by user...");
+                Debug.WriteLine("----------Getting all commentGroups by user...");
 
-            var albums = new List<Image>();
+            var commentGroups = new List<Comment>();
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
-                Debug.WriteLine("---------- Selecting albums by user with id = " + pUserId);
-                SqlCommand GetAlbums = new SqlCommand("SELECT * FROM t_Albums WHERE createdbyid = @createdbyid ORDER BY datecreated DESC", conn);
-                GetAlbums.Parameters.Add(new SqlParameter("createdbyid", pUserId));
+                Debug.WriteLine("---------- Selecting commentGroups by user with id = " + pUserId);
+                SqlCommand GetCommentGroups = new SqlCommand("SELECT * FROM t_CommentGroups WHERE createdbyid = @createdbyid ORDER BY datecreated DESC", conn);
+                GetCommentGroups.Parameters.Add(new SqlParameter("createdbyid", pUserId));
 
-                using (SqlDataReader reader = GetAlbums.ExecuteReader())
+                using (SqlDataReader reader = GetCommentGroups.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        albums.Add(new Image(reader));
+                        commentGroups.Add(new Comment(reader));
                     }
                 }
             }
 
-            foreach (Image temp in albums)
+            foreach (Comment temp in commentGroups)
             {
                 if (logMe)
-                    Debug.WriteLine(string.Format("Found album with id {0}", temp.Id));
+                    Debug.WriteLine(string.Format("Found commentGroup with id {0}", temp.Id));
             }
 
-            return albums;
+            return commentGroups;
         }
 
-        public List<Image> GetAllImages()
+        public List<Comment> GetAllComments()
         {
-            Debug.WriteLine("Getting all images for album");
-            List<Guid> ImageGuids = new List<Guid>();
-            List<Image> Images = new List<Image>();
+            Debug.WriteLine("Getting all comments for commentGroup");
+            List<Guid> CommentGuids = new List<Guid>();
+            List<Comment> Comments = new List<Comment>();
 
             using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand GetImages = new SqlCommand("SELECT * FROM t_Images FULL OUTER JOIN t_ImageAlbumPairs ON t_Images.id = t_ImageAlbumPairs.imageid WHERE t_ImageAlbumPairs.albumid = @id ORDER BY t_Images.datecreated DESC", openConn);
-                GetImages.Parameters.Add(new SqlParameter("id", Id));
+                SqlCommand GetComments = new SqlCommand("SELECT * FROM t_Comments FULL OUTER JOIN t_CommentCommentGroupPairs ON t_Comments.id = t_CommentCommentGroupPairs.commentid WHERE t_CommentCommentGroupPairs.commentGroupid = @id ORDER BY t_Comments.datecreated DESC", openConn);
+                GetComments.Parameters.Add(new SqlParameter("id", Id));
 
-                using (SqlDataReader reader = GetImages.ExecuteReader())
+                using (SqlDataReader reader = GetComments.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        Images.Add(new Image(reader));
+                        Comments.Add(new Comment(reader));
                     }
                 }
 
-                Debug.WriteLine("" + ImageGuids.Count() + "Photos were found");
+                Debug.WriteLine("" + CommentGuids.Count() + "Photos were found");
 
                 int i = 0;
 
             }
 
-            return Images;
+            return Comments;
         }
 
-        public Album(User pCreatedBy)
+        public CommentGroup(User pCreatedBy)
         {
             Id = Guid.NewGuid();
             DateCreated = Parsnip.adjustedTime;
             CreatedById = pCreatedBy.Id;
         }
 
-        public Album(Guid pGuid)
+        public CommentGroup(Guid pGuid)
         {
-            //Debug.WriteLine("Album was initialised with the guid: " + pGuid);
+            //Debug.WriteLine("CommentGroup was initialised with the guid: " + pGuid);
             Id = pGuid;
         }
 
-        public Album(SqlDataReader pReader)
+        public CommentGroup(SqlDataReader pReader)
         {
-            //Debug.WriteLine("Album was initialised with an SqlDataReader. Guid: " + pReader[0]);
+            //Debug.WriteLine("CommentGroup was initialised with an SqlDataReader. Guid: " + pReader[0]);
             AddValues(pReader);
         }
 
@@ -143,24 +142,24 @@ namespace MediaApi
 
         private bool IdExistsOnDb(SqlConnection pOpenConn)
         {
-            Debug.WriteLine(string.Format("Checking weather album exists on database by using Id {0}", Id));
+            Debug.WriteLine(string.Format("Checking weather commentGroup exists on database by using Id {0}", Id));
             try
             {
-                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Albums WHERE id = @id", pOpenConn);
+                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_CommentGroups WHERE id = @id", pOpenConn);
                 findMeById.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
-                int albumExists;
+                int commentGroupExists;
 
                 using (SqlDataReader reader = findMeById.ExecuteReader())
                 {
                     reader.Read();
-                    albumExists = Convert.ToInt16(reader[0]);
-                    //Debug.WriteLine("Found album by Id. albumExists = " + albumExists);
+                    commentGroupExists = Convert.ToInt16(reader[0]);
+                    //Debug.WriteLine("Found commentGroup by Id. commentGroupExists = " + commentGroupExists);
                 }
 
-                //Debug.WriteLine(albumExists + " album(s) were found with the id " + Id);
+                //Debug.WriteLine(commentGroupExists + " commentGroup(s) were found with the id " + Id);
 
-                if (albumExists > 0)
+                if (commentGroupExists > 0)
                     return true;
                 else
                     return false;
@@ -168,7 +167,7 @@ namespace MediaApi
             }
             catch (Exception e)
             {
-                Debug.WriteLine("There was an error whilst checking if album exists on the database by using thier Id: " + e);
+                Debug.WriteLine("There was an error whilst checking if commentGroup exists on the database by using thier Id: " + e);
                 return false;
             }
         }
@@ -226,7 +225,7 @@ namespace MediaApi
             }
             catch (Exception e)
             {
-                Debug.WriteLine("There was an error whilst reading the Album's values: ", e);
+                Debug.WriteLine("There was an error whilst reading the CommentGroup's values: ", e);
                 return false;
             }
         }
@@ -236,36 +235,36 @@ namespace MediaApi
             if (Id.ToString() == Guid.Empty.ToString())
             {
                 Id = Guid.NewGuid();
-                Debug.WriteLine("Id was empty when trying to insert album into the database. A new guid was generated: {0}", Id);
+                Debug.WriteLine("Id was empty when trying to insert commentGroup into the database. A new guid was generated: {0}", Id);
             }
             try
             {
                 if (!ExistsOnDb(pOpenConn))
                 {
-                    SqlCommand InsertAlbumIntoDb = new SqlCommand("INSERT INTO t_Albums (id, createdbyid, datecreated) VALUES(@id, @createdbyid, @datecreated)", pOpenConn);
+                    SqlCommand InsertCommentGroupIntoDb = new SqlCommand("INSERT INTO t_CommentGroups (id, createdbyid, datecreated) VALUES(@id, @createdbyid, @datecreated)", pOpenConn);
 
-                    InsertAlbumIntoDb.Parameters.Add(new SqlParameter("id", Id));
-                    InsertAlbumIntoDb.Parameters.Add(new SqlParameter("createdbyid", CreatedById));
-                    InsertAlbumIntoDb.Parameters.Add(new SqlParameter("datecreated", Parsnip.adjustedTime));
+                    InsertCommentGroupIntoDb.Parameters.Add(new SqlParameter("id", Id));
+                    InsertCommentGroupIntoDb.Parameters.Add(new SqlParameter("createdbyid", CreatedById));
+                    InsertCommentGroupIntoDb.Parameters.Add(new SqlParameter("datecreated", Parsnip.adjustedTime));
 
 
-                    InsertAlbumIntoDb.ExecuteNonQuery();
+                    InsertCommentGroupIntoDb.ExecuteNonQuery();
 
-                    Debug.WriteLine(String.Format("Successfully inserted album into database ({0}) ", Id));
+                    Debug.WriteLine(String.Format("Successfully inserted commentGroup into database ({0}) ", Id));
                 }
                 else
                 {
-                    Debug.WriteLine(string.Format("----------Tried to insert album into the database but it alread existed! Id = {0}", Id));
+                    Debug.WriteLine(string.Format("----------Tried to insert commentGroup into the database but it alread existed! Id = {0}", Id));
                 }
             }
             catch (Exception e)
             {
-                string error = string.Format("[UacApi.Album.DbInsert)] Failed to insert album into the database: {0}", e);
+                string error = string.Format("[UacApi.CommentGroup.DbInsert)] Failed to insert commentGroup into the database: {0}", e);
                 Debug.WriteLine(error);
                 new LogEntry(Log.Default) { text = error };
                 return false;
             }
-            new LogEntry(Log.Default) { text = string.Format("Album was successfully inserted into the database!") };
+            new LogEntry(Log.Default) { text = string.Format("CommentGroup was successfully inserted into the database!") };
             return DbUpdate(pOpenConn);
         }
 
@@ -277,12 +276,12 @@ namespace MediaApi
 
         internal bool DbSelect(SqlConnection pOpenConn)
         {
-            //AccountLog.Debug("Attempting to get album details...");
-            //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get album details with id {0}...", Id));
+            //AccountLog.Debug("Attempting to get commentGroup details...");
+            //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get commentGroup details with id {0}...", Id));
 
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Albums WHERE id = @id", pOpenConn);
+                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_CommentGroups WHERE id = @id", pOpenConn);
                 SelectAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
                 int recordsFound = 0;
@@ -300,21 +299,21 @@ namespace MediaApi
 
                 if (recordsFound > 0)
                 {
-                    //Debug.WriteLine("----------DbSelect() - Got album's details successfully!");
-                    //AccountLog.Debug("Got album's details successfully!");
+                    //Debug.WriteLine("----------DbSelect() - Got commentGroup's details successfully!");
+                    //AccountLog.Debug("Got commentGroup's details successfully!");
                     return true;
                 }
                 else
                 {
-                    Debug.WriteLine("----------DbSelect() - No album data was returned");
-                    //AccountLog.Debug("Got album's details successfully!");
+                    Debug.WriteLine("----------DbSelect() - No commentGroup data was returned");
+                    //AccountLog.Debug("Got commentGroup's details successfully!");
                     return false;
                 }
 
             }
             catch (Exception e)
             {
-                Debug.WriteLine("There was an exception whilst getting album data: " + e);
+                Debug.WriteLine("There was an exception whilst getting commentGroup data: " + e);
                 return false;
             }
         }
@@ -330,14 +329,14 @@ namespace MediaApi
 
         private bool DbUpdate(SqlConnection pOpenConn)
         {
-            Debug.WriteLine("Attempting to update album with Id = " + Id);
+            Debug.WriteLine("Attempting to update commentGroup with Id = " + Id);
             bool HasBeenInserted = true;
 
             if (HasBeenInserted)
             {
                 try
                 {
-                    Album temp = new Album(Id);
+                    CommentGroup temp = new CommentGroup(Id);
                     temp.Select();
 
                     if (Name != temp.Name)
@@ -345,11 +344,11 @@ namespace MediaApi
                         Debug.WriteLine(string.Format("----------Attempting to update name..."));
 
 
-                        SqlCommand UpdateAlbumName = new SqlCommand("UPDATE t_Albums SET name = @name WHERE id = @id", pOpenConn);
-                        UpdateAlbumName.Parameters.Add(new SqlParameter("id", Id));
-                        UpdateAlbumName.Parameters.Add(new SqlParameter("name", Name.Trim()));
+                        SqlCommand UpdateCommentGroupName = new SqlCommand("UPDATE t_CommentGroups SET name = @name WHERE id = @id", pOpenConn);
+                        UpdateCommentGroupName.Parameters.Add(new SqlParameter("id", Id));
+                        UpdateCommentGroupName.Parameters.Add(new SqlParameter("name", Name.Trim()));
 
-                        UpdateAlbumName.ExecuteNonQuery();
+                        UpdateCommentGroupName.ExecuteNonQuery();
 
                         Debug.WriteLine(string.Format("----------Name was updated successfully!"));
                     }
@@ -363,7 +362,7 @@ namespace MediaApi
                         Debug.WriteLine(string.Format("----------Attempting to update description..."));
 
 
-                        SqlCommand UpdateAlt = new SqlCommand("UPDATE t_Albums SET description = @description WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateAlt = new SqlCommand("UPDATE t_CommentGroups SET description = @description WHERE id = @id", pOpenConn);
                         UpdateAlt.Parameters.Add(new SqlParameter("id", Id));
                         UpdateAlt.Parameters.Add(new SqlParameter("description", Description.Trim()));
 
@@ -379,12 +378,12 @@ namespace MediaApi
                 }
                 catch (Exception e)
                 {
-                    string error = string.Format("[UacApi.Album.DbUpdate] There was an error whilst updating album: {0}", e);
+                    string error = string.Format("[UacApi.CommentGroup.DbUpdate] There was an error whilst updating commentGroup: {0}", e);
                     Debug.WriteLine(error);
                     new LogEntry(Log.Default) { text = error };
                     return false;
                 }
-                new LogEntry(Log.Default) { text = string.Format("Album was successfully updated on the database!") };
+                new LogEntry(Log.Default) { text = string.Format("CommentGroup was successfully updated on the database!") };
                 return true;
             }
             else
@@ -400,12 +399,12 @@ namespace MediaApi
 
         internal bool DbDelete(SqlConnection pOpenConn)
         {
-            //AccountLog.Debug("Attempting to get album details...");
-            //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get album details with id {0}...", Id));
+            //AccountLog.Debug("Attempting to get commentGroup details...");
+            //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get commentGroup details with id {0}...", Id));
 
             try
             {
-                SqlCommand deleteAccount = new SqlCommand("DELETE FROM t_Albums WHERE id = @id", pOpenConn);
+                SqlCommand deleteAccount = new SqlCommand("DELETE FROM t_CommentGroups WHERE id = @id", pOpenConn);
                 deleteAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
                 int recordsFound = deleteAccount.ExecuteNonQuery();
@@ -413,25 +412,24 @@ namespace MediaApi
 
                 if (recordsFound > 0)
                 {
-                    //Debug.WriteLine("----------DbDelete() - Got album's details successfully!");
-                    //AccountLog.Debug("Got album's details successfully!");
+                    //Debug.WriteLine("----------DbDelete() - Got commentGroup's details successfully!");
+                    //AccountLog.Debug("Got commentGroup's details successfully!");
                     return true;
                 }
                 else
                 {
-                    Debug.WriteLine("----------DbDelete() - No album data was deleted");
-                    //AccountLog.Debug("Got album's details successfully!");
+                    Debug.WriteLine("----------DbDelete() - No commentGroup data was deleted");
+                    //AccountLog.Debug("Got commentGroup's details successfully!");
                     return false;
                 }
 
             }
             catch (Exception e)
             {
-                Debug.WriteLine("There was an exception whilst deleting album data: " + e);
+                Debug.WriteLine("There was an exception whilst deleting commentGroup data: " + e);
                 return false;
             }
         }
 
     }
-
 }

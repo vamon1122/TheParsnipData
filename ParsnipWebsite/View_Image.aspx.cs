@@ -32,6 +32,12 @@ namespace ParsnipWebsite
                 MediaApi.Image temp = new MediaApi.Image(new Guid(Request.QueryString["imageid"]));
                 temp.Select();
 
+                Album tempAlbum = new Album(temp.AlbumIds().First());
+                tempAlbum.Select();
+
+                Album.Text = tempAlbum.Name;
+                AlbumId.Text = tempAlbum.Id.ToString();
+
                 if (Request.QueryString["title"] == null)
                 {
                     Response.Redirect(string.Format("view_image?imageid={0}&title={1}", temp.Id, temp.Title));
