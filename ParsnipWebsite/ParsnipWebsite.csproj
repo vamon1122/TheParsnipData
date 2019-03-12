@@ -84,6 +84,7 @@
     <Content Include="Css\Jonsuh_Hamburgers\Hamburgers.css" />
     <Content Include="Css\Jonsuh_Hamburgers\Hamburgers.min.css" />
     <Content Include="Css\Mobile_Landscape_Style.css" />
+    <Content Include="Custom_Controls\Comment_Api\CommentGroup.ascx" />
     <Content Include="Custom_Controls\Media_Api\ImageControl.ascx" />
     <Content Include="Custom_Controls\Menu\Menu.ascx" />
     <Content Include="Edit_Image.aspx" />
@@ -219,6 +220,13 @@
       <DependentUpon>Content_Removal.aspx</DependentUpon>
     </Compile>
     <Compile Include="Custom_Controls\App_Start\RouteConfig.cs" />
+    <Compile Include="Custom_Controls\Comment_Api\CommentGroup.ascx.cs">
+      <DependentUpon>CommentGroup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Custom_Controls\Comment_Api\CommentGroup.ascx.designer.cs">
+      <DependentUpon>CommentGroup.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Custom_Controls\Media_Api\ImageControl.ascx.cs">
       <DependentUpon>ImageControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -372,6 +380,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CommentApi\CommentApi.csproj">
+      <Project>{1fb4ffb8-7499-4d2b-8996-9c4ffc112522}</Project>
+      <Name>CommentApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CookieApi\CookieApi.csproj">
       <Project>{01a82bc2-2491-4381-981a-6540c8a93b45}</Project>
       <Name>CookieApi</Name>
