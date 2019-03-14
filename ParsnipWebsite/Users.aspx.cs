@@ -8,6 +8,9 @@ using UacApi;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using LogApi;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace ParsnipWebsite
 {
@@ -15,9 +18,17 @@ namespace ParsnipWebsite
     {
         User myUser;
         static Guid selectedUserId;
+        static HttpClient client;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //For consuming webservices
+            client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:59622/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+
             if (Request.QueryString["userId"] == null)
                 Response.Redirect("users?userId=" + Guid.Empty.ToString());
 
@@ -66,11 +77,33 @@ namespace ParsnipWebsite
             System.Diagnostics.Debug.WriteLine("Page_LoadComplete complete!");
         }
 
-        void UpdateUserList()
+        static async Task<ParsnipApi.Models.User> GetUserAsync(string path)
+        {
+            ParsnipApi.Models.User user = null;
+            HttpResponseMessage response = await client.GetAsync(path);
+            if (response.IsSuccessStatusCode)
+            {
+                user = await response.Content.ReadAsAsync<ParsnipApi.Models.User>();
+            }
+            else
+            {
+
+                System.Diagnostics.Debug.WriteLine("There was an error whilst getting the value because " + response.ReasonPhrase);
+            }
+            return user;
+        }
+
+        protected async void Button1_Click(object sender, EventArgs e)
+        {
+            ParsnipApi.Models.User thing = await GetUserAsync("api/users/GetUser?id=1");
+            System.Diagnostics.Debug.WriteLine("Thing = " + thing._forename);
+        }
+
+        async void UpdateUserList()
         {
             var tempUsers = new List<User>();
             tempUsers.Add(new UacApi.User(Guid.Empty) { Forename = "New", Surname = "User", Username = "Create a new user" });
-            tempUsers.AddRange(UacApi.User.GetAllUsers());
+            tempUsers.AddRange(await UacApi.User.GetAllUsers());
 
             ListItem[] ListItems = new ListItem[tempUsers.Count];
 

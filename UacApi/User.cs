@@ -10,30 +10,28 @@ using System.Diagnostics;
 using LogApi;
 using CookieApi;
 using ParsnipApi;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Net.Http.Formatting;
 
 namespace UacApi
 {
-    public class User
+    public class User : ParsnipApi.Models.User
     {
+        static HttpClient client;
+        private static string apiUrl = "api/users/";
         Log DebugLog = new Log("Debug");
 
         #region Properties
         private LogWriter AccountLog;
-        private Guid _id;
         public Guid Id { get { return _id; } private set { /*Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value));*/ _id = value; } }
-        private string _username;
         public string Username { get { return _username; } set { /*Debug.WriteLine(string.Format("----------username is being set to = {0}", value));*/ _username = value; } }
-        private string _email;
         public string Email { get { return _email; } set { /*Debug.WriteLine(string.Format("----------email is being set to = {0}", value));*/ _email = value; } }
-        private string _pwd;
         public string Password { get { return _pwd; } set { /*Debug.WriteLine(string.Format("----------pwd is being set to = {0}", value));*/ _pwd = value; } }
-        private string _forename;
         public string Forename { get { return _forename; } set { /*Debug.WriteLine(string.Format("----------forename is being set to = {0}", value));*/ _forename = value; } }
-        private string _surname;
         public string Surname { get { return _surname; } set { /*Debug.WriteLine(string.Format("----------surname is being set to = {0}", value));*/ _surname = value; } }
-        private DateTime _dob;
         public DateTime Dob { get { return _dob; } set { /*Debug.WriteLine(string.Format("----------dob is being set to = {0}", value));*/ _dob = value; } }
-        private string _gender;
         public string GenderUpper
         {
             get
@@ -126,61 +124,75 @@ namespace UacApi
                     return "them";
             }
         }
-        private string _address1;
         public string Address1 { get { return _address1; } set { /*Debug.WriteLine(string.Format("----------address1 is being set to = {0}", value));*/ _address1 = value; } }
-        private string _address2;
         public string Address2 { get { return _address2; } set { /*Debug.WriteLine(string.Format("----------address2 is being set to = {0}", value));*/ _address2 = value; } }
-        private string _address3;
         public string Address3 { get { return _address3; } set { /*Debug.WriteLine(string.Format("----------address3 is being set to = {0}", value));*/ _address3 = value; } }
-        private string _postCode;
         public string PostCode { get { return _postCode; } set { /*Debug.WriteLine(string.Format("----------postCode is being set to = {0}", value));*/ _postCode = value; } }
-        private string _mobilePhone;
         public string MobilePhone { get { return _mobilePhone; } set { /*Debug.WriteLine(string.Format("----------mobilePhone is being set to = {0}", value));*/ _mobilePhone = value; } }
-        private string _homePhone;
         public string HomePhone { get { return _homePhone; } set { /*Debug.WriteLine(string.Format("----------homePhone is being set to = {0}", value));*/ _homePhone = value; } }
-        private string _workPhone;
         public string WorkPhone { get { return _workPhone; } set { /*Debug.WriteLine(string.Format("----------workPhone is being set to = {0}", value));*/ _workPhone = value; } }
-        private DateTime _dateTimeCreated;
         public DateTime DateTimeCreated { get { return _dateTimeCreated; } set { /*Debug.WriteLine(string.Format("----------dateTimeCreated is being set to = {0}", value));*/ _dateTimeCreated = value; } }
-        private DateTime _lastLogIn;
         public DateTime LastLogIn { get { return _lastLogIn; } set { /*Debug.WriteLine(string.Format("----------lastLogIn is being set to = {0}", value));*/ _lastLogIn = value; } }
-        private string _accountType;
         public string AccountType { get { return _accountType; } set { /*Debug.WriteLine(string.Format("----------accountType is being set to = {0}", value));*/ _accountType = value; } }
-        private string _accountStatus;
         public string AccountStatus { get { return _accountStatus; } set { /*Debug.WriteLine(string.Format("----------accountStatus is being set to = {0}", value));*/ _accountStatus = value; } }
-        private Guid _createdByUserId;
         public Guid createdByUserId { get { return _createdByUserId; } set { /*Debug.WriteLine(string.Format("----------createdByUserId is being set to = {0}", value));*/ _createdByUserId = value; } }
         public string FullName { get { return string.Format("{0} {1}", Forename, Surname); } }
         public List<string> ValidationErrors { get;  set; }
         #endregion
 
         #region Constructors
-        public User(string pWhereAmI)
+        public User(ParsnipApi.Models.User pApiUser)
+        {
+            Id = pApiUser._id;
+            Username = pApiUser._username;
+            Email = pApiUser._email;
+            Password = pApiUser._pwd;
+            Forename = pApiUser._forename;
+            Surname = pApiUser._surname;
+            Dob = pApiUser._dob;
+            GenderLower = pApiUser._gender;
+            Address1 = pApiUser._address1;
+            Address2 = pApiUser._address2;
+            Address3 = pApiUser._address3;
+            PostCode = pApiUser._postCode;
+            MobilePhone = pApiUser._mobilePhone;
+            HomePhone = pApiUser._homePhone;
+            WorkPhone = pApiUser._workPhone;
+            DateTimeCreated = pApiUser._dateTimeCreated;
+            LastLogIn = pApiUser._lastLogIn;
+            AccountType = pApiUser._accountType;
+            AccountStatus = pApiUser._accountStatus;
+
+        }
+
+        public User(string pWhereAmI) : this()
         {
             //Debug.WriteLine(string.Format("User was initialised without a guid. WhereAmI = {0} Their guid will be: {1}", pWhereAmI, Guid.Empty));
             Id = Guid.Empty;
             
             DateTimeCreated = Parsnip.adjustedTime;
-            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
-        public User(Guid pGuid)
+        public User(Guid pGuid) : this()
         {
             //Debug.WriteLine("User was initialised with the guid: " + pGuid);
             Id = pGuid;
-            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
-        public User(SqlDataReader pReader)
+        public User(SqlDataReader pReader) : this()
         {
             //Debug.WriteLine("User was initialised with an SqlDataReader. Guid: " + pReader[0]);
             AddValues(pReader);
-            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
         private User()
         {
             AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
+            client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:59622/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
         }
         #endregion
 
@@ -758,10 +770,59 @@ namespace UacApi
             return ExistsOnDb(Parsnip.GetOpenDbConnection());
         }
 
-        
+
         #endregion
 
         #region Other Private / Internal Methods
+
+        public static async Task<List<User>> GetAllUsers()
+        {
+            string path = apiUrl + "getallusers";
+            List<ParsnipApi.Models.User> users = null;
+            List<User> fullUsers = new List<User>();
+            HttpResponseMessage response = await client.GetAsync(path);
+            if (response.IsSuccessStatusCode)
+            {
+                users = await response.Content.ReadAsAsync<List<ParsnipApi.Models.User>>();
+            }
+            else
+            {
+
+                System.Diagnostics.Debug.WriteLine("There was an error whilst getting the value because " + response.ReasonPhrase);
+            }
+
+            foreach(ParsnipApi.Models.User user in users)
+            {
+                fullUsers.Add(new User(user));
+            }
+
+            return fullUsers;
+        }
+
+        static async Task<ParsnipApi.Models.User> GetUser(string id)
+        {
+            string path = apiUrl + "GetUser?id=" + id;
+            ParsnipApi.Models.User user = null;
+            HttpResponseMessage response = await client.GetAsync(path);
+            if (response.IsSuccessStatusCode)
+            {
+                user = await response.Content.ReadAsAsync<ParsnipApi.Models.User>();
+            }
+            else
+            {
+
+                System.Diagnostics.Debug.WriteLine("There was an error whilst getting the value because " + response.ReasonPhrase);
+            }
+            return user;
+        }
+
+        public static User GetLoggedInUser(string pUsername, string pPwd)
+        {
+            User tempUser = new User();
+            tempUser.LogIn(pUsername, false, pPwd, false, true);
+            return tempUser;
+        }
+
         private bool ExistsOnDb(SqlConnection pOpenConn)
         {
             if (IdExistsOnDb(pOpenConn) || UsernameExistsOnDb(pOpenConn))

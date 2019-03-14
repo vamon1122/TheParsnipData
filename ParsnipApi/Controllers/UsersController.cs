@@ -32,21 +32,12 @@ namespace ParsnipApi.Controllers
                 }
             }
 
-            foreach (User temp in users)
-            {
-                if (logMe)
-                    Debug.WriteLine(string.Format("Found user {0} with id {1}", temp.FullName, temp.Id));
-            }
-
             return users;
         }
 
-        public static User GetLoggedInUser(string pUsername, string pPwd)
-        {
-            User tempUser = new User();
-            tempUser.LogIn(pUsername, false, pPwd, false, true);
-            return tempUser;
-        }
+        
+        
+        
 
         public static User LogIn(string pUsername, string pPassword)
         {

@@ -88,10 +88,10 @@ namespace ParsnipWebsite
             new LogEntry(DebugLog) { text = "Successfully deleted photos uploaded photos createdbyid = " + selectedUserId };
         }
 
-        void UpdateUserList()
+        async void UpdateUserList()
         {
             var tempUsers = new List<User>();
-            tempUsers.AddRange(UacApi.User.GetAllUsers());
+            tempUsers.AddRange(await UacApi.User.GetAllUsers());
 
             ListItem[] ListItems = new ListItem[tempUsers.Count];
 
