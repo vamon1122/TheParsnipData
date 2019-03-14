@@ -5,31 +5,73 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ParsnipApi.Models;
+using System.Diagnostics;
+using System.Data.SqlClient;
 
 namespace ParsnipApi.Controllers
 {
     public class UsersController : ApiController
     {
-        User[] users = new User[]
+        public static List<User> GetAllUsers()
         {
-            new User { Forename = "Ben", Surname = "Barton", Password = "BBTbbt1704" },
-            new User { Forename = "Hadassah", Surname = "Max", Password = "P4ssw0rd" },
-            new User { Forename = "Laim", Surname = "Aldred", Password = "iphone4s" }
-        };
+            bool logMe = false;
 
-        public IEnumerable<User> GetAllUsers()
-        {
+            if (logMe)
+                Debug.WriteLine("----------Getting all users...");
+
+            var users = new List<User>();
+            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            {
+                SqlCommand GetUsers = new SqlCommand("SELECT * FROM t_Users", conn);
+                using (SqlDataReader reader = GetUsers.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        users.Add(new User(reader));
+                    }
+                }
+            }
+
+            foreach (User temp in users)
+            {
+                if (logMe)
+                    Debug.WriteLine(string.Format("Found user {0} with id {1}", temp.FullName, temp.Id));
+            }
+
             return users;
         }
 
-        public IHttpActionResult GetUser(string pForename)
+        public static User GetLoggedInUser(string pUsername, string pPwd)
         {
-            var user = users.FirstOrDefault((u) => u.Forename == pForename);
-            if (user == null)
+            User tempUser = new User();
+            tempUser.LogIn(pUsername, false, pPwd, false, true);
+            return tempUser;
+        }
+
+        public static User LogIn(string pUsername, string pPassword)
+        {
+            using (var openConn = Parsnip.GetOpenDbConnection())
             {
-                return NotFound();
+                try
+                {
+                    SqlCommand getId = new SqlCommand("SELECT * FROM t_Users WHERE username = @username AND password = @password", openConn);
+                    getId.Parameters.Add(new SqlParameter("username", pUsername));
+
+                    using (SqlDataReader reader = getId.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return new User(reader);
+                        }
+                    }
+                    throw new InvalidOperationException("There is no user with this username / password combination");
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("[LogIn] There was an exception whilst getting the id from the database: " + e);
+                    throw new InvalidOperationException("There was an error whilst finding a user with username / password combination");
+                }
             }
-            return Ok(user);
         }
     }
 }

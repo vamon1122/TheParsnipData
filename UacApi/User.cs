@@ -185,6 +185,8 @@ namespace UacApi
         #endregion
 
         #region Static Methods
+        //Moved to users controller
+        /*
         public static List<User> GetAllUsers()
         {
             bool logMe = false;
@@ -246,7 +248,7 @@ namespace UacApi
                 }
             }
         }
-
+        */
         public static bool LogOut()
         {
             try
