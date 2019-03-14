@@ -15,6 +15,8 @@ namespace ParsnipWebsite
         {
             myUser = Uac.SecurePage("home", this, Data.DeviceType);
             WelcomeLabel.Text = string.Format("Hiya {0}, welcome back to the parsnip website!", myUser.Forename);
+            var UacServiceClient = new UacService.UacClient();
+            System.Diagnostics.Debug.WriteLine(UacServiceClient.DoMoreWork("some string parameter"));
         }
     }
 }

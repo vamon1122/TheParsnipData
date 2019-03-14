@@ -59,7 +59,7 @@
       <Name>CookieApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\ParsnipApi\ParsnipApi.csproj">
-      <Project>{f0504054-eed6-4f6f-b35c-c684381181d3}</Project>
+      <Project>{18c91388-bf45-4692-b252-2cafc500222d}</Project>
       <Name>ParsnipApi</Name>
     </ProjectReference>
   </ItemGroup>

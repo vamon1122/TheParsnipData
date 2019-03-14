@@ -46,5 +46,11 @@
     <Compile Include="Cookie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ParsnipApi\ParsnipApi.csproj">
+      <Project>{18c91388-bf45-4692-b252-2cafc500222d}</Project>
+      <Name>ParsnipApi</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
