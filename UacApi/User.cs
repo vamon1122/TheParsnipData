@@ -788,11 +788,11 @@ namespace UacApi
             {
 
                 System.Diagnostics.Debug.WriteLine("There was an error whilst getting the value because " + response.ReasonPhrase);
-                System.Diagnostics.Debug.WriteLine("I will still wait for the response...");
+                //System.Diagnostics.Debug.WriteLine("I will still wait for the response...");
                 //response.Content.Dispose(); //ReadAsAsync<List<ParsnipApi.Models.User>>();
                 System.Threading.Thread.Sleep(3000);
-                await response.Content;
-                System.Diagnostics.Debug.WriteLine("I recieved the response! Continuing...");
+                //await response.Content;
+                //System.Diagnostics.Debug.WriteLine("I recieved the response! Continuing...");
             }
 
             if (users == null)

@@ -14,22 +14,28 @@ namespace ParsnipApi.Controllers
     {
         public static List<User> GetAllUsers()
         {
-            bool logMe = false;
-
-            if (logMe)
-                Debug.WriteLine("----------Getting all users...");
-
+         
+            Debug.WriteLine("---------- [User Controller] Getting all users ...");
             var users = new List<User>();
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            try
             {
-                SqlCommand GetUsers = new SqlCommand("SELECT * FROM t_Users", conn);
-                using (SqlDataReader reader = GetUsers.ExecuteReader())
+                
+                using (SqlConnection conn = Parsnip.GetOpenDbConnection())
                 {
-                    while (reader.Read())
+                    SqlCommand GetUsers = new SqlCommand("SELECT * FROM t_Users", conn);
+                    using (SqlDataReader reader = GetUsers.ExecuteReader())
                     {
-                        users.Add(new User(reader));
+                        while (reader.Read())
+                        {
+                            users.Add(new User(reader));
+                        }
                     }
                 }
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine("---------- [User Controller] There was an exception whilst getting all users: " + e);
+                throw e;
             }
 
             return users;
