@@ -91,7 +91,12 @@ namespace ParsnipWebsite
         async void UpdateUserList()
         {
             var tempUsers = new List<User>();
-            tempUsers.AddRange(await UacApi.User.GetAllUsers());
+            var otherTempUsers = await UacApi.User.GetAllUsers();
+
+            if (otherTempUsers.Count() >= 1)
+                tempUsers.AddRange(otherTempUsers);
+            else
+                Debug.WriteLine("No users were returned, but that's okay.");
 
             ListItem[] ListItems = new ListItem[tempUsers.Count];
 

@@ -12,7 +12,6 @@ using CookieApi;
 using ParsnipApi;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using System.Net.Http.Formatting;
 
 namespace UacApi
@@ -789,11 +788,28 @@ namespace UacApi
             {
 
                 System.Diagnostics.Debug.WriteLine("There was an error whilst getting the value because " + response.ReasonPhrase);
+                System.Diagnostics.Debug.WriteLine("I will still wait for the response...");
+                //response.Content.Dispose(); //ReadAsAsync<List<ParsnipApi.Models.User>>();
+                System.Threading.Thread.Sleep(3000);
+                await response.Content;
+                System.Diagnostics.Debug.WriteLine("I recieved the response! Continuing...");
             }
 
-            foreach(ParsnipApi.Models.User user in users)
+            if (users == null)
             {
-                fullUsers.Add(new User(user));
+                Debug.WriteLine("Users was null! Not attempting to count users");
+            }
+            else
+            {
+                if (users.Count() >= 1)
+                {
+                    foreach (ParsnipApi.Models.User user in users)
+                    {
+                        fullUsers.Add(new User(user));
+                    }
+                }
+                else
+                    Debug.WriteLine("There was no users found in the UacApi method.");
             }
 
             return fullUsers;
