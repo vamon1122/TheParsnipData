@@ -78,26 +78,15 @@ namespace ParsnipWebsite
             System.Diagnostics.Debug.WriteLine("Page_LoadComplete complete!");
         }
 
-        static async Task<ParsnipApi.Models.User> GetUserAsync(string path)
+        static async Task<User> GetUserAsync(string path)
         {
-            ParsnipApi.Models.User user = null;
-            HttpResponseMessage response = await client.GetAsync(path);
-            if (response.IsSuccessStatusCode)
-            {
-                user = await response.Content.ReadAsAsync<ParsnipApi.Models.User>();
-            }
-            else
-            {
-
-                System.Diagnostics.Debug.WriteLine("There was an error whilst getting the value because " + response.ReasonPhrase);
-            }
-            return user;
+            throw new NotImplementedException();
         }
 
         protected async void Button1_Click(object sender, EventArgs e)
         {
-            ParsnipApi.Models.User thing = await GetUserAsync("api/users/GetUser?id=1");
-            System.Diagnostics.Debug.WriteLine("Thing = " + thing._forename);
+            //ParsnipApi.Models.User thing = await GetUserAsync("api/users/GetUser?id=1");
+            //System.Diagnostics.Debug.WriteLine("Thing = " + thing._forename);
         }
 
         async void UpdateUserList()
