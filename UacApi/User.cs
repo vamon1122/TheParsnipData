@@ -16,7 +16,7 @@ using System.Net.Http.Formatting;
 
 namespace UacApi
 {
-    public class User : ParsnipApi.Models.User
+    public class User
     {
         static HttpClient client;
         private static string apiUrl = "api/users/";
@@ -25,6 +25,27 @@ namespace UacApi
         #region Properties
         public Guid _id;
         public string _username;
+        public Guid Id { get; set; }
+        public string Username { get; set; }
+
+        public string _email;
+        public string _pwd;
+        public string _forename;
+        public string _surname;
+        public DateTime _dob;
+        public string _gender;
+        public string _address1;
+        public string _address2;
+        public string _address3;
+        public string _postCode;
+        public string _mobilePhone;
+        public string _homePhone;
+        public string _workPhone;
+        public DateTime _dateTimeCreated;
+        public DateTime _lastLogIn;
+        public string _accountType;
+        public string _accountStatus;
+        public Guid _createdByUserId;
 
         private LogWriter AccountLog;
         //public Guid Id { get { return _id; } private set { /*Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value));*/ _id = value; } }
@@ -143,29 +164,6 @@ namespace UacApi
         #endregion
 
         #region Constructors
-        public User(ParsnipApi.Models.User pApiUser)
-        {
-            Id = pApiUser.Id;
-            Username = pApiUser.Username;
-            Email = pApiUser._email;
-            Password = pApiUser._pwd;
-            Forename = pApiUser._forename;
-            Surname = pApiUser._surname;
-            Dob = pApiUser._dob;
-            GenderLower = pApiUser._gender;
-            Address1 = pApiUser._address1;
-            Address2 = pApiUser._address2;
-            Address3 = pApiUser._address3;
-            PostCode = pApiUser._postCode;
-            MobilePhone = pApiUser._mobilePhone;
-            HomePhone = pApiUser._homePhone;
-            WorkPhone = pApiUser._workPhone;
-            DateTimeCreated = pApiUser._dateTimeCreated;
-            LastLogIn = pApiUser._lastLogIn;
-            AccountType = pApiUser._accountType;
-            AccountStatus = pApiUser._accountStatus;
-
-        }
 
         public User(string pWhereAmI) : this()
         {
@@ -779,63 +777,12 @@ namespace UacApi
 
         public static async Task<List<User>> GetAllUsers()
         {
-            string path = apiUrl + "getallusers";
-            List<ParsnipApi.Models.User> users = null;
-            List<User> fullUsers = new List<User>();
-            HttpResponseMessage response = await client.GetAsync(path);
-            if (response.IsSuccessStatusCode)
-            {
-                users = await response.Content.ReadAsAsync<List<ParsnipApi.Models.User>>();
-            }
-            else
-            {
-
-                System.Diagnostics.Debug.WriteLine("There was an error whilst getting the value because " + response.ReasonPhrase);
-                System.Diagnostics.Debug.WriteLine("I will still wait for the response...");
-                //response.Content.Dispose(); //ReadAsAsync<List<ParsnipApi.Models.User>>();
-                //await response.Content;
-                //
-
-            //NEED TO DO SOMETHING HERE
-
-            
-            }
-
-            if (users == null)
-            {
-                Debug.WriteLine("Users was null! Not attempting to count users");
-            }
-            else
-            {
-                if (users.Count() >= 1)
-                {
-                    foreach (ParsnipApi.Models.User user in users)
-                    {
-                        fullUsers.Add(new User(user));
-                    }
-                }
-                else
-                    Debug.WriteLine("There was no users found in the UacApi method.");
-            }
-
-            return fullUsers;
+            throw new NotImplementedException();
         }
 
-        static async Task<ParsnipApi.Models.User> GetUser(string id)
+        static async Task<User> GetUser(string id)
         {
-            string path = apiUrl + "GetUser?id=" + id;
-            ParsnipApi.Models.User user = null;
-            HttpResponseMessage response = await client.GetAsync(path);
-            if (response.IsSuccessStatusCode)
-            {
-                user = await response.Content.ReadAsAsync<ParsnipApi.Models.User>();
-            }
-            else
-            {
-
-                System.Diagnostics.Debug.WriteLine("There was an error whilst getting the value because " + response.ReasonPhrase);
-            }
-            return user;
+            throw new NotImplementedException();
         }
 
         public static User GetLoggedInUser(string pUsername, string pPwd)

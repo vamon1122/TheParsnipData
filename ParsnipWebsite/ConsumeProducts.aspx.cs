@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Newtonsoft.Json;
 using ParsnipApi.Models;
+using ParsnipApiDataAccess;
+using ParsnipApi;
 
 namespace ParsnipWebsite
 {
@@ -23,7 +24,7 @@ namespace ParsnipWebsite
             client.BaseAddress = new Uri("http://localhost:59622/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
+                new MediaTypeWithQualityHeaderValue("application/xml"));
             
         }
 
@@ -43,44 +44,45 @@ namespace ParsnipWebsite
             return product;
         }
 
-        static async Task<User> GetUserAsync(string path)
+        static async Task<t_Users> GetUserAsync(string path)
         {
-            List<User> user = null;
+            t_Users user = null;
             HttpResponseMessage response = await client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
-                user = await response.Content.ReadAsAsync<List<User>>();
+                user = await response.Content.ReadAsAsync<t_Users>();
             }
             else
             {
 
                 System.Diagnostics.Debug.WriteLine("There was an error whilst getting the user because " + response.ReasonPhrase);
             }
-            return user.First();
+            
+            return user;
         }
 
         protected async void Button1_Click(object sender, EventArgs e)
         {
-            Product thing = await GetProductAsync("api/products/getproduct?pid=1");
+            Product thing = await GetProductAsync("api/products/getproduct?pid=1&somestring=wefwefw");
             System.Diagnostics.Debug.WriteLine("Thing = " + thing.Name);
         }
 
         protected async void Button_GetUsers_Click(object sender, EventArgs e)
         {
-            User me = await GetUserAsync("api/users/LogIn?pUsername=vamon1122&pPassword=BBTbbt1704");
+            var me = await GetUserAsync("api/users?username=vamon1122&password=BBTbbt1704");
 
             CheckMe();
             void CheckMe()
             {
                 if (me != null)
                 {
-                    if (string.IsNullOrEmpty(me._forename))
+                    if (string.IsNullOrEmpty(me.forename))
                     {
                         System.Diagnostics.Debug.WriteLine("forename is blank");
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Thing = " + me._forename);
+                        System.Diagnostics.Debug.WriteLine("Thing = " + me.forename);
                     }
                 }
                 else

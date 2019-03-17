@@ -109,7 +109,7 @@ namespace MediaApi
             return Images;
         }
 
-        public Album(User pCreatedBy)
+        public Album(UacApi.User pCreatedBy)
         {
             Id = Guid.NewGuid();
             DateCreated = Parsnip.adjustedTime;

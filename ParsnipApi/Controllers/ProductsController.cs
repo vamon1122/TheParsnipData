@@ -22,7 +22,7 @@ namespace ParsnipApi.Controllers
             return products;
         }
 
-        public IHttpActionResult GetProduct(int pId)
+        public IHttpActionResult GetProduct(int pId, string somestring)
         {
             var product = products.FirstOrDefault((p) => p.Id == pId);
             if (product == null)

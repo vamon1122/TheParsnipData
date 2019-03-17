@@ -453,6 +453,10 @@
       <Project>{4351ca47-1474-47bb-b472-610848b47858}</Project>
       <Name>MediaApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ParsnipApiDataAccess\ParsnipApiDataAccess.csproj">
+      <Project>{76ba2b9d-2e8c-4027-ae1f-cd73e3452b62}</Project>
+      <Name>ParsnipApiDataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ParsnipApi\ParsnipApi.csproj">
       <Project>{18c91388-bf45-4692-b252-2cafc500222d}</Project>
       <Name>ParsnipApi</Name>

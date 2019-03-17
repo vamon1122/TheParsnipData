@@ -19,6 +19,14 @@ namespace ParsnipApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            /* Didn't appear to fix antrhing
+            config.Routes.MapHttpRoute(
+                name: "DefaultApiParams",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+            */
         }
     }
 }
