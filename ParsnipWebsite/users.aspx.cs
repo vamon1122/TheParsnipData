@@ -104,8 +104,15 @@ namespace ParsnipWebsite
         {
             var tempUsers = new List<User>();
             tempUsers.Add(new UacApi.User(Guid.Empty) { Forename = "New", Surname = "User", Username = "Create a new user" });
-            tempUsers.AddRange(await UacApi.User.GetAllUsers());
 
+            try
+            {
+                tempUsers.AddRange(await UacApi.User.GetAllUsers());
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("[Users.aspx] There was an exception when getting all users to update the list: " + e);
+            }
             ListItem[] ListItems = new ListItem[tempUsers.Count];
 
             int i = 0;

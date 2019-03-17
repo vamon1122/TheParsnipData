@@ -91,12 +91,15 @@ namespace ParsnipWebsite
         async void UpdateUserList()
         {
             var tempUsers = new List<User>();
-            var otherTempUsers = await UacApi.User.GetAllUsers();
 
-            if (otherTempUsers.Count() >= 1)
-                tempUsers.AddRange(otherTempUsers);
-            else
-                Debug.WriteLine("No users were returned, but that's okay.");
+            try
+            {
+                tempUsers.AddRange(await UacApi.User.GetAllUsers());
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("[Manage_Photos.aspx] There was an exception when getting all users to update the list: " + e);
+            }
 
             ListItem[] ListItems = new ListItem[tempUsers.Count];
 

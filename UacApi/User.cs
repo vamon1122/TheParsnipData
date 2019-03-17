@@ -23,9 +23,12 @@ namespace UacApi
         Log DebugLog = new Log("Debug");
 
         #region Properties
+        public Guid _id;
+        public string _username;
+
         private LogWriter AccountLog;
-        public Guid Id { get { return _id; } private set { /*Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value));*/ _id = value; } }
-        public string Username { get { return _username; } set { /*Debug.WriteLine(string.Format("----------username is being set to = {0}", value));*/ _username = value; } }
+        //public Guid Id { get { return _id; } private set { /*Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value));*/ _id = value; } }
+        //public string Username { get { return _username; } set { /*Debug.WriteLine(string.Format("----------username is being set to = {0}", value));*/ _username = value; } }
         public string Email { get { return _email; } set { /*Debug.WriteLine(string.Format("----------email is being set to = {0}", value));*/ _email = value; } }
         public string Password { get { return _pwd; } set { /*Debug.WriteLine(string.Format("----------pwd is being set to = {0}", value));*/ _pwd = value; } }
         public string Forename { get { return _forename; } set { /*Debug.WriteLine(string.Format("----------forename is being set to = {0}", value));*/ _forename = value; } }
@@ -142,8 +145,8 @@ namespace UacApi
         #region Constructors
         public User(ParsnipApi.Models.User pApiUser)
         {
-            Id = pApiUser._id;
-            Username = pApiUser._username;
+            Id = pApiUser.Id;
+            Username = pApiUser.Username;
             Email = pApiUser._email;
             Password = pApiUser._pwd;
             Forename = pApiUser._forename;
@@ -788,11 +791,14 @@ namespace UacApi
             {
 
                 System.Diagnostics.Debug.WriteLine("There was an error whilst getting the value because " + response.ReasonPhrase);
-                //System.Diagnostics.Debug.WriteLine("I will still wait for the response...");
+                System.Diagnostics.Debug.WriteLine("I will still wait for the response...");
                 //response.Content.Dispose(); //ReadAsAsync<List<ParsnipApi.Models.User>>();
-                System.Threading.Thread.Sleep(3000);
                 //await response.Content;
-                //System.Diagnostics.Debug.WriteLine("I recieved the response! Continuing...");
+                //
+
+            //NEED TO DO SOMETHING HERE
+
+            
             }
 
             if (users == null)

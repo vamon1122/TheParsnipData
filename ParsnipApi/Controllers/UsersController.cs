@@ -12,7 +12,7 @@ namespace ParsnipApi.Controllers
 {
     public class UsersController : ApiController
     {
-        public static List<User> GetAllUsers()
+        public IEnumerable<User> GetAllUsers()
         {
          
             Debug.WriteLine("---------- [User Controller] Getting all users ...");
@@ -41,16 +41,17 @@ namespace ParsnipApi.Controllers
             return users;
         }
 
-        
-        
-        
 
-        public static User LogIn(string pUsername, string pPassword)
+
+
+
+        public IHttpActionResult LogIn(string pUsername, string pPassword)
         {
             using (var openConn = Parsnip.GetOpenDbConnection())
             {
                 try
                 {
+                    Debug.WriteLine(string.Format("[UserController] Finding user username = {0} password = {1}", pUsername, pPassword));
                     SqlCommand getId = new SqlCommand("SELECT * FROM t_Users WHERE username = @username AND password = @password", openConn);
                     getId.Parameters.Add(new SqlParameter("username", pUsername));
 
@@ -58,7 +59,7 @@ namespace ParsnipApi.Controllers
                     {
                         while (reader.Read())
                         {
-                            return new User(reader);
+                            return Ok(new User(reader));
                         }
                     }
                     throw new InvalidOperationException("There is no user with this username / password combination");
@@ -66,7 +67,8 @@ namespace ParsnipApi.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("[LogIn] There was an exception whilst getting the id from the database: " + e);
-                    throw new InvalidOperationException("There was an error whilst finding a user with username / password combination");
+                    //throw new InvalidOperationException("There was an error whilst finding a user with username / password combination");
+                    return NotFound();
                 }
             }
         }

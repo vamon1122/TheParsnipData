@@ -9,8 +9,10 @@ namespace ParsnipApi.Models
 {
     public class User
     {
-        public Guid _id;
-        public string _username;
+        
+        public Guid Id { get; set; }
+        public string Username { get; set; }
+        
         public string _email;
         public string _pwd;
         public string _forename;
@@ -52,12 +54,12 @@ namespace ParsnipApi.Models
                 if (logMe)
                     Debug.WriteLine(string.Format("----------Reading id: {0}", pReader[0]));
 
-                _id = new Guid(pReader[0].ToString());
+                Id = new Guid(pReader[0].ToString());
 
                 if (logMe)
                     Debug.WriteLine(string.Format("----------Reading username: {0}", pReader[1]));
 
-                _username = pReader[1].ToString().Trim();
+                Username = pReader[1].ToString().Trim();
                 if (pReader[2] != DBNull.Value)
                 {
                     if (logMe)
