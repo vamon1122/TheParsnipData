@@ -1,4 +1,4 @@
-﻿<%@ Async="true" Page Language="C#" AutoEventWireup="true" CodeBehind="Logs.aspx.cs" Inherits="ParsnipWebsite.Logs" %>
+﻿<%@ Page Async="true" Language="C#" AutoEventWireup="true" CodeBehind="Logs.aspx.cs" Inherits="ParsnipWebsite.Logs" %>
 <%@ Register Src="~/Custom_Controls/Admin/adminMenu.ascx" TagPrefix="adminControls" TagName="adminMenu" %>
 <!DOCTYPE html>
 

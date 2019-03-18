@@ -307,10 +307,47 @@ namespace UacApi
 
         public static async Task<User> CookieLogIn()
         {
+            User tempUser;
+
+            if (client == null)
+            {
+                AsyncLog.WriteLog("[CookieLogIn] Client was NULL!!! Attempting fix...");
+                client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:59622/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/xml"));
+                AsyncLog.WriteLog("[CookieLogIn] Client should no longer be null.");
+            }
+            else
+            {
+                AsyncLog.WriteLog("[CookieLogIn] Client was not null.");
+            }
+
             AsyncLog.WriteLog("[CookieLogIn] Getting cookies...");
-           string[] usernamePassword = GetCookies();
-            AsyncLog.WriteLog(string.Format("[CookieLogIn] Got cookies (username = {0} password = {1}). Awaiting response from LogIn()...", usernamePassword[0], usernamePassword[1]));
-            User tempUser = await LogIn(usernamePassword[0], true, usernamePassword[1], true);
+
+            string[] usernamePassword;
+            try
+            {
+                usernamePassword = GetCookies();
+            }
+            catch(Exception e)
+            {
+                AsyncLog.WriteLog("There was an exception whilst getting the cookies: " + e);
+                usernamePassword = new string[2];
+            }
+           
+            if(string.IsNullOrEmpty(usernamePassword[0]) || string.IsNullOrEmpty(usernamePassword[1]))
+            {
+                AsyncLog.WriteLog(string.Format("[CookieLogIn] Either the username or password cookies were blank"));
+                tempUser = new User(Guid.Empty);
+            }
+            else
+            {
+                AsyncLog.WriteLog(string.Format("[CookieLogIn] Got cookies (username = {0} password = {1}). Awaiting response from LogIn()...", usernamePassword[0], usernamePassword[1]));
+                tempUser = await LogIn(usernamePassword[0], true, usernamePassword[1], true);
+            }
+            
             AsyncLog.WriteLog("[CookieLogIn] Got response! Returning user.");
 
             return tempUser;
@@ -340,7 +377,7 @@ namespace UacApi
             catch (Exception e)
             {
                 AsyncLog.WriteLog(string.Format("[LogIn] There was an exception whilst logging in username={0} password={1} : {2}", username, password, e));
-                throw e;
+                return new User(Guid.Empty);
             }
 
             void SetCookies()
@@ -1106,7 +1143,7 @@ namespace UacApi
         private static string[] GetCookies()
         {
             AccountLog.Info("Getting user details from cookies...");
-
+            AsyncLog.WriteLog("[GetCookies] Getting user details from cookies...");
 
             string[] UserDetails = new string[2];
 

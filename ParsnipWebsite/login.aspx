@@ -24,6 +24,11 @@
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Confirm Identity</strong> You must log in first!
         </div>
+
+        <div class="alert alert-danger alert-dismissible" runat="server" style="display:none;" id="Alert_LogInError">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Login Failed</strong> No user was found with those details.
+        </div>
     </div>
     <div class="center_form">
     <form runat="server" >        

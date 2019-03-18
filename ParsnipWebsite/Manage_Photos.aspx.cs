@@ -58,7 +58,7 @@ namespace ParsnipWebsite
                 Debug.WriteLine("---------- not a postback");
 
                 if (Request.QueryString["userId"] == null)
-                    Response.Redirect("manage_photos?userId=" + Guid.Empty.ToString());
+                    Response.Redirect("manage_photos?userId=" + Guid.Empty.ToString(), false);
 
             }
 

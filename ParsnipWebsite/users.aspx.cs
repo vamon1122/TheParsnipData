@@ -23,36 +23,53 @@ namespace ParsnipWebsite
 
         protected async void Page_Load(object sender, EventArgs e)
         {
-            //For consuming webservices
-            client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:59622/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/xml"));
+            
 
-            if (Request.QueryString["userId"] == null)
-                Response.Redirect("users?userId=" + Guid.Empty.ToString());
+            
 
             myUser = await UacApi.User.CookieLogIn();
             Uac.NewSecurePage("users", this, Data.DeviceType, "admin", myUser);
 
-            selectedUserId = new Guid(Request.QueryString["userId"]);
-
-            if (selectedUserId.ToString() == Guid.Empty.ToString())
-            {
-                btnAction.Text = "Insert";
-                btnDelete.Visible = false;
-            }
-            else
-            {
-                btnAction.Text = "Update";
-                btnDelete.Visible = true;
-            }
+            
         }
 
         void Page_LoadComplete(object sender, EventArgs e)
         {
             Debug.WriteLine("----------Page load complete!");
+
+            //For consuming webservices
+            /*
+            client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:59622/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/xml"));
+                */
+            //Moved to loadcomplete because it was causing thread abort in asyncronous pageload method
+            if (Request.QueryString["userId"] == null)
+            {
+                //False stops thread abort
+                Response.Redirect("users?userId=" + Guid.Empty.ToString(), false);
+            }
+            else
+            {
+
+
+                //if (!pSecurePage.Response.IsRequestBeingRedirected)
+
+                selectedUserId = new Guid(Request.QueryString["userId"]);
+
+                if (selectedUserId.ToString() == Guid.Empty.ToString())
+                {
+                    btnAction.Text = "Insert";
+                    btnDelete.Visible = false;
+                }
+                else
+                {
+                    btnAction.Text = "Update";
+                    btnDelete.Visible = true;
+                }
+            }
 
             if (Request.QueryString["action"] != null)
             {

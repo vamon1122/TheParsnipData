@@ -17,7 +17,7 @@ namespace ParsnipWebsite
         private string Redirect;
         Log DebugLog = new Log("Debug");
 
-        protected async void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             /*
             new LogEntry(Log.Default) { text = "Detecting device and setting deviceType cookie..." };
@@ -75,12 +75,16 @@ namespace ParsnipWebsite
         {
             new LogEntry(DebugLog) { text = "Login Clicked! Remember password = " + RememberPwd.Checked };
             User tempUser = await UacApi.User.LogIn(inputUsername.Text, true, inputPwd.Text, true);
-            if (tempUser.GetType() == typeof(User))
+            if (tempUser.Id != Guid.Empty)
             {
                 new LogEntry(new Log("login/out")) { text = String.Format("{0} logged in from {1} {2}.", tempUser.FullName, tempUser.PosessivePronoun, Data.DeviceType) };
                 myUser = tempUser;
                 WriteCookie();
                 Response.Redirect(Redirect);
+            }
+            else
+            {
+                Alert_LogInError.Attributes.CssStyle.Add("display", "block");
             }
         }
     }

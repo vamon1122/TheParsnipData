@@ -31,6 +31,15 @@ namespace ParsnipWebsite {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Warning;
         
         /// <summary>
+        /// Alert_LogInError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Alert_LogInError;
+        
+        /// <summary>
         /// inputUsername control.
         /// </summary>
         /// <remarks>
