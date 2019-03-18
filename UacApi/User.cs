@@ -315,9 +315,12 @@ namespace UacApi
 
             return tempUser;
         }
-        
-        //LogWriter AsyncLog = new LogWriter("Asnyc_Login.txt", @"C:\Users\benba\Documents\GitHub\TheParsnipWeb");
-        static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
+
+        //Home
+        static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\benba\Documents\GitHub\TheParsnipWeb");
+
+        //Branson
+        //static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
 
         public static async Task<User> LogIn(string username, bool rememberUsername, string password, bool rememberPassword)
         {
@@ -677,7 +680,11 @@ namespace UacApi
 
         public static async Task<t_Users> GetUserAsync(string username, string password)
         {
-            LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
+            //Home
+            LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\benba\Documents\GitHub\TheParsnipWeb");
+
+            //Branson
+            //static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
 
             AsyncLog.WriteLog("[GetUserAsync] Begin!");
 

@@ -18,7 +18,12 @@ namespace UacApi
         private static readonly Log PageAccessJustificationLog = new Log("access justification");
         private static readonly Log DebugLog = new Log("debug");
         private static readonly Log SessionLog = new Log("session");
-        static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
+
+        //Home
+        static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\benba\Documents\GitHub\TheParsnipWeb");
+        
+        //Branson
+        //static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
 
         public static void NewSecurePage(string pSecurePageUrl, Page pSecurePage, string pDeviceType, string pRequiredAccountType, User myUser)
         {
