@@ -44,13 +44,13 @@ namespace ParsnipWebsite
             }
 
 
-
+            /*
             myUser = new User("login");
 
             if (String.IsNullOrEmpty(inputUsername.Text) && String.IsNullOrWhiteSpace(inputUsername.Text))
             {
                 //The problematic line
-                User tempUser = await myUser.LogIn(false);
+                User tempUser = await UacApi.User.CookieLogIn();
                 if (tempUser.Id != Guid.Empty)
                 {
                     WriteCookie();
@@ -61,6 +61,7 @@ namespace ParsnipWebsite
                     inputUsername.Text = myUser.Username;
                 }
             }
+            */
         }
 
         private void WriteCookie()
@@ -73,10 +74,11 @@ namespace ParsnipWebsite
         protected async void ButLogIn_Click(object sender, EventArgs e)
         {
             new LogEntry(DebugLog) { text = "Login Clicked! Remember password = " + RememberPwd.Checked };
-            User tempUser = await myUser.LogIn(inputUsername.Text, true, inputPwd.Text, RememberPwd.Checked, false);
+            User tempUser = await UacApi.User.LogIn(inputUsername.Text, true, inputPwd.Text, true);
             if (tempUser.GetType() == typeof(User))
             {
-                new LogEntry(new Log("login/out")) { text = String.Format("{0} logged in from {1} {2}.", myUser.FullName, myUser.PosessivePronoun, Data.DeviceType) };
+                new LogEntry(new Log("login/out")) { text = String.Format("{0} logged in from {1} {2}.", tempUser.FullName, tempUser.PosessivePronoun, Data.DeviceType) };
+                myUser = tempUser;
                 WriteCookie();
                 Response.Redirect(Redirect);
             }

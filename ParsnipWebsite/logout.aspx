@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Logout.aspx.cs" Inherits="ParsnipWebsite.Logout" %>
+﻿<%@ Page Asnyc="true" Language="C#" AutoEventWireup="true" CodeBehind="Logout.aspx.cs" Inherits="ParsnipWebsite.Logout" %>
 
 <!DOCTYPE html>
 

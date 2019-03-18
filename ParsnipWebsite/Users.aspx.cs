@@ -33,7 +33,8 @@ namespace ParsnipWebsite
             if (Request.QueryString["userId"] == null)
                 Response.Redirect("users?userId=" + Guid.Empty.ToString());
 
-            myUser = await Uac.SecurePage("users", this, Data.DeviceType, "admin");
+            myUser = await UacApi.User.CookieLogIn();
+            Uac.NewSecurePage("users", this, Data.DeviceType, "admin", myUser);
 
             selectedUserId = new Guid(Request.QueryString["userId"]);
 

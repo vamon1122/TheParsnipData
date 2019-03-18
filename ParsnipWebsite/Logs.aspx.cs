@@ -18,7 +18,8 @@ namespace ParsnipWebsite
             if (Request.QueryString["logId"] == null)
                 Response.Redirect("logs?logId=" + Guid.Empty);
 
-            myUser = await Uac.SecurePage("logs", this, Data.DeviceType, "admin");
+            myUser = await UacApi.User.CookieLogIn();
+            Uac.NewSecurePage("logs", this, Data.DeviceType, "admin", myUser);
 
             selectedLogId = new Guid(Request.QueryString["logId"]);
 

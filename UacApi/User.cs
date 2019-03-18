@@ -48,7 +48,7 @@ namespace UacApi
         public string _accountStatus;
         public Guid _createdByUserId;
 
-        private LogWriter AccountLog;
+        private static LogWriter AccountLog;
         //public Guid Id { get { return _id; } private set { /*Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value));*/ _id = value; } }
         //public string Username { get { return _username; } set { /*Debug.WriteLine(string.Format("----------username is being set to = {0}", value));*/ _username = value; } }
         public string Email { get { return _email; } set { /*Debug.WriteLine(string.Format("----------email is being set to = {0}", value));*/ _email = value; } }
@@ -305,41 +305,21 @@ namespace UacApi
 
         #region Public Methods
 
-        public async Task<User> LogIn()
+        public static async Task<User> CookieLogIn()
         {
-           return await LogIn(true);
+            AsyncLog.WriteLog("[CookieLogIn] Getting cookies...");
+           string[] usernamePassword = GetCookies();
+            AsyncLog.WriteLog(string.Format("[CookieLogIn] Got cookies (username = {0} password = {1}). Awaiting response from LogIn()...", usernamePassword[0], usernamePassword[1]));
+            User tempUser = await LogIn(usernamePassword[0], true, usernamePassword[1], true);
+            AsyncLog.WriteLog("[CookieLogIn] Got response! Returning user.");
+
+            return tempUser;
         }
-
-        public async Task<User> LogIn(bool silent)
-        {
-            string[] Cookies = GetCookies();
-            string CookieUsername = Cookies[0];
-            Username = Cookies[0];
-            string CookiePwd = Cookies[1];
-            if (string.IsNullOrEmpty(CookiePwd))
-            {
-                return new User() { Id = Guid.Empty };
-            }
-
-
-            //Debug.WriteLine("CookieUsername = " + CookieUsername);
-            //Debug.WriteLine("CookiePwd = " + CookiePwd);
-
-            
-                return await LogIn(CookieUsername, false, CookiePwd, false, silent);
-                
-
-            
-        }
-
-        public async Task<User> LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
-        {
-            return await LogIn(pUsername, pRememberUsername, pPwd, pRememberPwd, true);
-        }
+        
         //LogWriter AsyncLog = new LogWriter("Asnyc_Login.txt", @"C:\Users\benba\Documents\GitHub\TheParsnipWeb");
         static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
 
-        public static async Task<User> LogIn(string username, string password)
+        public static async Task<User> LogIn(string username, bool rememberUsername, string password, bool rememberPassword)
         {
             try
             {
@@ -348,6 +328,10 @@ namespace UacApi
                 AsyncLog.WriteLog(string.Format("[LogIn] Login for user (username={0} password={1}) was successful! Object returned = {2}. Id = {3}. Creating user object...", username, password, myUserData, myUserData.id));
                 var myUser = new User(myUserData);
                 AsyncLog.WriteLog(string.Format("[LogIn] Created user object.. returning"));
+
+                SetCookies();
+                SetLastLogIn();
+
                 return myUser;
             }
             catch (Exception e)
@@ -355,100 +339,61 @@ namespace UacApi
                 AsyncLog.WriteLog(string.Format("[LogIn] There was an exception whilst logging in username={0} password={1} : {2}", username, password, e));
                 throw e;
             }
-        }
 
-        public async Task<User> LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd, bool silent)
-        {
-            //pPwd = "BBTbbt1704";
-            AsyncLog.WriteLog(string.Format("[LogIn] Attempting to log a user in. username={0} password={1}", pUsername, pPwd));
-            //AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
-            //Debug.WriteLine(string.Format("----------User.Login() for {0}", Username));
-
-            new LogEntry(DebugLog) { text = "Logging in. pRememberPwd = " + pRememberPwd };
-            
-            Username = pUsername;
-            //AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
-
-            try
+            void SetCookies()
             {
-                t_Users myUserData = await GetUserAsync(pUsername, pPwd);
-                AsyncLog.WriteLog(string.Format("[LogIn] Login for user (username={0} password={1}) was successful! Object returned = {2}. Id = {3}. Creating user object...", pUsername, pPwd, myUserData, myUserData.id));
-                var myUser = new User(myUserData);
-                AsyncLog.WriteLog(string.Format("[LogIn] Created user object.. returning"));
-                return myUser;
-            }
-            catch(Exception e)
-            {
-                AsyncLog.WriteLog(string.Format("[LogIn] There was an exception whilst logging in username={0} password={1} : {2}", pUsername, pPwd, e));
-                throw e;
-            }
-
-                                //Debug.WriteLine(string.Format("----------User.Login() - Selected user {0} whilst logging in", Username));
-            if (pRememberUsername)
-                                {
-                                    //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
-                                    //Debug.WriteLine("----------User.Login() - Username permanently remembered!");
-                                    Cookie.WritePerm("userName", pUsername);
-                                }
-
-                                if (pRememberPwd)
-                                {
-                                    //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
-                                    //Debug.WriteLine("----------User.Login() - Password permanently remembered!");
-                                    Cookie.WritePerm("userPwd", pPwd);
-                                    Cookie.WritePerm("userPwdPerm", pPwd);
-                                    //Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
-                                }
-                                else
-                                {
-                                    //This check ensures that permanent cookies 
-                                    //are not replaced with temporary ones
-                                    if (!Cookie.Exists("userPwd"))
-                                    {
-                                        Cookie.WriteSession("userPwd", pPwd);
-                                    }
-                                }
-
-                                if (SetLastLogIn())
-                                {
-                                    //AccountLog.Info("[LogIn] Logged in successfully!");
-                                    if (!silent)
-                                    {
-                                        Debug.WriteLine(string.Format("----------User.Login() - {0} logged in LOUDLY", FullName));
-                                    }
-                                    else
-                                    {
-                                        //Debug.WriteLine(String.Format("----------User.Login() - {0} logged in SILENTLY", FullName));
-                                    }
-                                }
-
-                bool SetLastLogIn()
+                if (rememberUsername)
                 {
-                    int RecordsAffected;
+                    //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
+                    //Debug.WriteLine("----------User.Login() - Username permanently remembered!");
+                    Cookie.WritePerm("userName", username);
+                }
 
-                    //AccountLog.Debug("[LogIn] Attempting to set LastLogIn...");
-                    try
+                if (rememberPassword)
+                {
+                    //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
+                    //Debug.WriteLine("----------User.Login() - Password permanently remembered!");
+                    Cookie.WritePerm("userPwd", password);
+                    Cookie.WritePerm("userPwdPerm", password);
+                    //Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
+                }
+                else
+                {
+                    //This check ensures that permanent cookies 
+                    //are not replaced with temporary ones
+                    if (!Cookie.Exists("userPwd"))
                     {
+                        Cookie.WriteSession("userPwd", password);
+                    }
+                }
+            }
+
+            bool SetLastLogIn()
+            {
+                int RecordsAffected;
+
+                //AccountLog.Debug("[LogIn] Attempting to set LastLogIn...");
+                try
+                {
                     //AccountLog.Debug("username = " + username);
                     using (SqlConnection conn = ParsnipApi.Parsnip.GetOpenDbConnection())
                     {
                         SqlCommand Command = new SqlCommand("UPDATE t_Users SET lastLogIn = @date WHERE username = @username;", conn);
-                        Command.Parameters.Add(new SqlParameter("username", Username));
+                        Command.Parameters.Add(new SqlParameter("username", username));
                         Command.Parameters.Add(new SqlParameter("date", Parsnip.adjustedTime));
                         RecordsAffected = Command.ExecuteNonQuery();
                     }
 
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("[LogIn] There was an exception whilst setting the LastLogIn: " + e);
-                        return false;
-                    }
-
-                    //AccountLog.Debug(String.Format("[LogIn] Set LastLogIn successfully! {0} records were affected.", RecordsAffected));
-                    return true;
                 }
-            
+                catch (Exception e)
+                {
+                    Debug.WriteLine("[LogIn] There was an exception whilst setting the LastLogIn: " + e);
+                    return false;
+                }
+
+                //AccountLog.Debug(String.Format("[LogIn] Set LastLogIn successfully! {0} records were affected.", RecordsAffected));
+                return true;
+            }
         }
 
         public bool Select()
@@ -788,10 +733,10 @@ namespace UacApi
             throw new NotImplementedException();
         }
 
-        public static User GetLoggedInUser(string pUsername, string pPwd)
+        public async static Task<User> GetLoggedInUser()
         {
-            User tempUser = new User();
-            tempUser.LogIn(pUsername, false, pPwd, false, true);
+            User tempUser = await CookieLogIn();
+
             return tempUser;
         }
 
@@ -1116,7 +1061,7 @@ namespace UacApi
             }
         }
 
-        private string[] GetCookies()
+        private string[] GetMyCookies()
         {
             AccountLog.Info("Getting user details from cookies...");
             
@@ -1145,6 +1090,40 @@ namespace UacApi
             {
                 AccountLog.Debug("No password cookie was found.");
                 UserDetails[1] = "";
+            }
+
+            AccountLog.Info("Returning user details from cookies.");
+            return UserDetails;
+        }
+
+        private static string[] GetCookies()
+        {
+            AccountLog.Info("Getting user details from cookies...");
+
+
+            string[] UserDetails = new string[2];
+
+            if (Cookie.Read("userName") != null)
+            {
+                UserDetails[0] = Cookie.Read("userName");
+                AccountLog.Debug("Found a username cookie! Username = " + UserDetails[0]);
+            }
+            else
+            {
+                UserDetails[0] = "";
+                AccountLog.Debug("No username cookie was found.");
+            }
+
+            if (Cookie.Read("userPwd") != null)
+            {
+                UserDetails[1] = Cookie.Read("userPwd");
+                AccountLog.Debug("Found a password cookie! Password = " + UserDetails[1]);
+
+            }
+            else
+            {
+                UserDetails[1] = "";
+                AccountLog.Debug("No password cookie was found.");
             }
 
             AccountLog.Info("Returning user details from cookies.");

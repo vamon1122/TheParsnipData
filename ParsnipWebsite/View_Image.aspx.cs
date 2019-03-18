@@ -22,10 +22,14 @@ namespace ParsnipWebsite
             //This ensures that the user is logged in etc
             //You only need to change where it says '_NEW TEMPLATE'.
             //Change this to match your page name without the '.aspx' extension.
+
+            myUser = await UacApi.User.CookieLogIn();
+            
+
             if (Request.QueryString["imageid"] == null)
-                myUser = await Uac.SecurePage("view_image", this, Data.DeviceType);
+                Uac.NewSecurePage("view_image", this, Data.DeviceType, "member", myUser);
             else
-                myUser = await Uac.SecurePage("view_image?imageid=" + Request.QueryString["imageid"], this, Data.DeviceType);
+                Uac.NewSecurePage("view_image?imageid=" + Request.QueryString["imageid"], this, Data.DeviceType, "member", myUser);
 
             if (Request.QueryString["imageid"] != null)
             {

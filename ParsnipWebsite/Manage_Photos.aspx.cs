@@ -24,7 +24,8 @@ namespace ParsnipWebsite
 
         protected async void Page_Load(object sender, EventArgs e)
         {
-            myUser = await Uac.SecurePage("manage_photos", this, Data.DeviceType, "admin");
+            myUser = await UacApi.User.CookieLogIn();
+            Uac.NewSecurePage("manage_photos", this, Data.DeviceType, "admin", myUser);
         }
 
         protected void Page_LoadComplete(object sender, EventArgs e)
