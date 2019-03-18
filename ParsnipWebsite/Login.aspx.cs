@@ -66,8 +66,8 @@ namespace ParsnipWebsite
         private void WriteCookie()
         {
             Cookie.WritePerm("accountType", myUser.AccountType);
-            System.Diagnostics.Debug.WriteLine("----------accountType = " + myUser.AccountType);
-            System.Diagnostics.Debug.WriteLine("----------accountType = " + Cookie.Read("accountType"));
+            System.Diagnostics.Debug.WriteLine("---------- Writing cookie. accountType = " + myUser.AccountType);
+            System.Diagnostics.Debug.WriteLine("---------- Reading cookie back as a check. accountType = " + Cookie.Read("accountType"));
         }
 
         protected async void ButLogIn_Click(object sender, EventArgs e)

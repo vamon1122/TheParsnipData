@@ -21,7 +21,7 @@ namespace UacApi
     {
         static HttpClient client;
         private static string apiUrl = "api/users/";
-        Log DebugLog = new Log("Debug");
+        static readonly Log DebugLog = new Log("Debug");
 
         #region Properties
         public Guid _id;
@@ -331,7 +331,25 @@ namespace UacApi
             return await LogIn(pUsername, pRememberUsername, pPwd, pRememberPwd, true);
         }
         //LogWriter AsyncLog = new LogWriter("Asnyc_Login.txt", @"C:\Users\benba\Documents\GitHub\TheParsnipWeb");
-        LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
+        static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
+
+        public static async Task<User> LogIn(string username, string password)
+        {
+            try
+            {
+                t_Users myUserData = await GetUserAsync(username, password);
+                AsyncLog.WriteLog(string.Format("[LogIn] Login for user (username={0} password={1}) was successful! Object returned = {2}. Id = {3}. Creating user object...", username, password, myUserData, myUserData.id));
+                var myUser = new User(myUserData);
+                AsyncLog.WriteLog(string.Format("[LogIn] Created user object.. returning"));
+                return myUser;
+            }
+            catch (Exception e)
+            {
+                AsyncLog.WriteLog(string.Format("[LogIn] There was an exception whilst logging in username={0} password={1} : {2}", username, password, e));
+                throw e;
+            }
+        }
+
         public async Task<User> LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd, bool silent)
         {
             //pPwd = "BBTbbt1704";
@@ -833,34 +851,44 @@ namespace UacApi
                 Debug.WriteLine("t_User was null");
             }
             
-            //Debug.WriteLine("Id = " + pUser.id);
-            Debug.WriteLine("Username = " + pUser.username);
-            Debug.WriteLine("Email = " + pUser.email);
-            Debug.WriteLine("Password = " + pUser.password);
-            Debug.WriteLine("Forename = " + pUser.forename);
             Id = pUser.id;
-            Username = pUser.username;
-            Email = pUser.email;
-            Password = pUser.password;
-            Forename = pUser.forename;
-            Surname = pUser.surname;
+            Username = pUser.username.Trim();
+            if (!string.IsNullOrEmpty(pUser.email))
+                Email = pUser.email.Trim();
+            Password = pUser.password.Trim();
+            Forename = pUser.forename.Trim();
+            Surname = pUser.surname.Trim();
             Dob = Convert.ToDateTime(pUser.dob);
 
             if (!string.IsNullOrEmpty(pUser.gender))
                 GenderLower = pUser.gender;
 
-            Address1 = pUser.address1;
-            Address2 = pUser.address2;
-            Address3 = pUser.address3;
-            PostCode = pUser.postCode;
-            MobilePhone = pUser.mobilePhone;
-            HomePhone = pUser.homePhone;
-            WorkPhone = pUser.workPhone;
+            if (!string.IsNullOrEmpty(pUser.address1))
+                Address1 = pUser.address1.Trim();
+
+            if (!string.IsNullOrEmpty(pUser.address2))
+                Address2 = pUser.address2.Trim();
+
+            if (!string.IsNullOrEmpty(pUser.address3))
+                Address3 = pUser.address3.Trim();
+
+            if (!string.IsNullOrEmpty(pUser.postCode))
+                PostCode = pUser.postCode.Trim();
+
+            if (!string.IsNullOrEmpty(pUser.mobilePhone))
+                MobilePhone = pUser.mobilePhone.Trim();
+
+            if (!string.IsNullOrEmpty(pUser.homePhone))
+                HomePhone = pUser.homePhone.Trim();
+
+            if (!string.IsNullOrEmpty(pUser.workPhone))
+                WorkPhone = pUser.workPhone.Trim();
+
             DateTimeCreated = pUser.created;
             LastLogIn = Convert.ToDateTime(pUser.lastLogIn);
-            AccountType = pUser.type;
-            AccountStatus = pUser.status;
-
+            AccountType = pUser.type.Trim();
+            AccountStatus = pUser.status.Trim();
+            
 
         }
 
