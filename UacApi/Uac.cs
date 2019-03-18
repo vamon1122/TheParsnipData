@@ -20,7 +20,7 @@ namespace UacApi
         private static readonly Log SessionLog = new Log("session");
         static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
 
-        public static void NewSecurePage(string pSecurePageUrl, Page pSecurePage, string pDeviceType, User myUser)
+        public static void NewSecurePage(string pSecurePageUrl, Page pSecurePage, string pDeviceType, string pRequiredAccountType, User myUser)
         {
             Debug.WriteLine("Securing page...");
             AsyncLog.WriteLog("Securing page...");
@@ -69,7 +69,7 @@ namespace UacApi
                         return string.Format("this page requires {0} to have {1} access and {2} is {3} {4} which means that {2} has the required permission level.", myUser.ObjectiveGenderPronoun, pRequiredAccess, myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType);
                     }
 
-                    switch (myUser.AccountType)
+                    switch (pRequiredAccountType)
                     {
                         case "admin":
                             if (myUser.AccountType == "admin")

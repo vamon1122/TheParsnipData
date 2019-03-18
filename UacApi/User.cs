@@ -186,8 +186,14 @@ namespace UacApi
             AddValues(pReader);
         }
 
-        public User(t_Users user) : this()
+        public User(t_Users user)
         {
+            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
+            client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:59622/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/xml"));
             //Debug.WriteLine("User was initialised with an SqlDataReader. Guid: " + pReader[0]);
             AddValues(user);
         }
@@ -199,7 +205,7 @@ namespace UacApi
             client.BaseAddress = new Uri("http://localhost:59622/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
+                new MediaTypeWithQualityHeaderValue("application/xml"));
         }
         #endregion
 
@@ -337,6 +343,7 @@ namespace UacApi
         {
             try
             {
+                AsyncLog.WriteLog(string.Format("[LogIn] Trying to get user data..."));
                 t_Users myUserData = await GetUserAsync(username, password);
                 AsyncLog.WriteLog(string.Format("[LogIn] Login for user (username={0} password={1}) was successful! Object returned = {2}. Id = {3}. Creating user object...", username, password, myUserData, myUserData.id));
                 var myUser = new User(myUserData);
@@ -726,13 +733,32 @@ namespace UacApi
         public static async Task<t_Users> GetUserAsync(string username, string password)
         {
             LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
+
+            AsyncLog.WriteLog("[GetUserAsync] Begin!");
+
             string path = string.Format("api/users?username={0}&password={1}", username, password);
 
             AsyncLog.WriteLog("[GetUserAsync] Path to get data will be = " + path);
 
 
-            t_Users user = null;
+            t_Users user;
             AsyncLog.WriteLog("[GetUserAsync] Getting response");
+
+            if(client == null)
+            {
+                AsyncLog.WriteLog("[GetUserAsync] Client was NULL!!! Attempting fix...");
+                client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:59622/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/xml"));
+                AsyncLog.WriteLog("[GetUserAsync] Client should no longer be null.");
+            }
+            else
+            {
+                AsyncLog.WriteLog("[GetUserAsync] Client was not null.");
+            }
+
             HttpResponseMessage response = await client.GetAsync(path);
             AsyncLog.WriteLog("[GetUserAsync] Got response!");
             if (response.IsSuccessStatusCode)
@@ -743,7 +769,7 @@ namespace UacApi
             }
             else
             {
-                //user = new t_Users();
+                user = null;
                 Debug.WriteLine("There was an error whilst getting the user because " + response.ReasonPhrase);
                 AsyncLog.WriteLog("[GetUserAsync] Response indicated faliure! The response was an error: " + response.ReasonPhrase);
                 AsyncLog.WriteLog("[GetUserAsync] User was NOT returned. Will return null.");

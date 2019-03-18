@@ -28,8 +28,8 @@ namespace ParsnipWebsite
                 new MediaTypeWithQualityHeaderValue("application/xml"));
                 */
 
-            myUser = await UacApi.User.LogIn("vamon1122", "BBTbbt1704"); //Uac.SecurePage("home", this, Data.DeviceType);
-            Uac.NewSecurePage("home", this, Data.DeviceType, myUser);
+            myUser = await UacApi.User.LogIn("vamon1122", "BBTbbt1704"); 
+            Uac.NewSecurePage("home", this, Data.DeviceType, "user", myUser);
             WelcomeLabel.Text = string.Format("Hiya {0}, welcome back to the parsnip website!", myUser.Forename);
             var UacServiceClient = new UacService.UacClient();
         }

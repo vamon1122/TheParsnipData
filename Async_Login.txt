@@ -1,208 +1,30 @@
 [LogIn] Attempting to log a user in. username=vamon1122 password=BBTbbt1704
+[GetUserAsync] Begin!
 [GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
 [GetUserAsync] Getting response
+[GetUserAsync] Client was not null.
+[GetUserAsync] Got response!
+[GetUserAsync] Response indicated success. Waiting for user to be returned...
+[GetUserAsync] A user was returned! Will return the user.
+[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
+[LogIn] Created user object.. returning
+[LogIn] Trying to get user data...
+[GetUserAsync] Begin!
+[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
+[GetUserAsync] Getting response
+[GetUserAsync] Client was not null.
 [GetUserAsync] Got response!
 [GetUserAsync] Response indicated success. Waiting for user to be returned...
 [GetUserAsync] A user was returned! Will return the user.
 [LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
 [LogIn] Created user object.. returning
 Securing page...
-Attempting to log user in...
-Logged user in. User = UacApi.User
-Securing page...
-Attempting to log user in...
-Logged user in. User = UacApi.User
-[LogIn] Attempting to log a user in. username=vamon1122 password=BBTbbt1704
+[LogIn] Trying to get user data...
+[GetUserAsync] Begin!
 [GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
 [GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-Securing page...
-Attempting to log user in...
-Logged user in. User = UacApi.User
-[LogIn] Attempting to log a user in. username=vamon1122 password=BBTbbt1704
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[LogIn] There was an exception whilst logging in username=vamon1122 password=BBTbbt1704 : System.NullReferenceException: Object reference not set to an instance of an object.
-   at UacApi.User.<GetUserAsync>d__119.MoveNext() in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 736
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
-   at UacApi.User.<LogIn>d__112.MoveNext() in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 340
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[LogIn] There was an exception whilst logging in username=vamon1122 password=BBTbbt1704 : System.NullReferenceException: Object reference not set to an instance of an object.
-   at UacApi.User.<GetUserAsync>d__119.MoveNext() in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 736
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
-   at UacApi.User.<LogIn>d__112.MoveNext() in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 340
-[LogIn] Attempting to log a user in. username=vamon1122 password=BBTbbt1704
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-[LogIn] Attempting to log a user in. username=vamon1122 password=BBTbbt1704
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-[LogIn] Attempting to log a user in. username=vamon1122 password=BBTbbt1704
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-[LogIn] Attempting to log a user in. username=vamon1122 password=BBTbbt1704
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[LogIn] There was an exception whilst logging in username=vamon1122 password=BBTbbt1704 : System.NullReferenceException: Object reference not set to an instance of an object.
-   at UacApi.User.<GetUserAsync>d__119.MoveNext() in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 736
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
-   at UacApi.User.<LogIn>d__112.MoveNext() in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 340
-[LogIn] Attempting to log a user in. username=vamon1122 password=BBTbbt1704
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-Securing page...
-[LogIn] Attempting to log a user in. username=vamon1122 password=BBTbbt1704
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] There was an exception whilst logging in username=vamon1122 password=BBTbbt1704 : System.NullReferenceException: Object reference not set to an instance of an object.
-   at UacApi.User.AddValues(t_Users pUser) in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 856
-   at UacApi.User..ctor(t_Users user) in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 192
-   at UacApi.User.<LogIn>d__113.MoveNext() in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 369
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] There was an exception whilst logging in username=vamon1122 password=BBTbbt1704 : System.NullReferenceException: Object reference not set to an instance of an object.
-   at UacApi.User.AddValues(t_Users pUser) in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 856
-   at UacApi.User..ctor(t_Users user) in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 192
-   at UacApi.User.<LogIn>d__112.MoveNext() in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 342
-[LogIn] Attempting to log a user in. username=vamon1122 password=BBTbbt1704
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] There was an exception whilst logging in username=vamon1122 password=BBTbbt1704 : System.NullReferenceException: Object reference not set to an instance of an object.
-   at UacApi.User.AddValues(t_Users pUser) in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 856
-   at UacApi.User..ctor(t_Users user) in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 192
-   at UacApi.User.<LogIn>d__113.MoveNext() in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 369
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] There was an exception whilst logging in username=vamon1122 password=BBTbbt1704 : System.NullReferenceException: Object reference not set to an instance of an object.
-   at UacApi.User.AddValues(t_Users pUser) in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 856
-   at UacApi.User..ctor(t_Users user) in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 192
-   at UacApi.User.<LogIn>d__112.MoveNext() in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 342
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] Created user object.. returning
-Securing page...
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
-[GetUserAsync] Got response!
-[GetUserAsync] Response indicated success. Waiting for user to be returned...
-[GetUserAsync] A user was returned! Will return the user.
-[LogIn] Login for user (username=vamon1122 password=BBTbbt1704) was successful! Object returned = ParsnipApiDataAccess.t_Users. Id = 36f378b5-3895-4bc0-b5b6-fc3d7abe1da6. Creating user object...
-[LogIn] There was an exception whilst logging in username=vamon1122 password=BBTbbt1704 : System.NullReferenceException: Object reference not set to an instance of an object.
-   at UacApi.User.AddValues(t_Users pUser) in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 867
-   at UacApi.User..ctor(t_Users user) in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 192
-   at UacApi.User.<LogIn>d__112.MoveNext() in C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb\UacApi\User.cs:line 342
-[GetUserAsync] Path to get data will be = api/users?username=vamon1122&password=BBTbbt1704
-[GetUserAsync] Getting response
+[GetUserAsync] Client was NULL!!! Attempting fix...
+[GetUserAsync] Client should no longer be null.
 [GetUserAsync] Got response!
 [GetUserAsync] Response indicated success. Waiting for user to be returned...
 [GetUserAsync] A user was returned! Will return the user.
