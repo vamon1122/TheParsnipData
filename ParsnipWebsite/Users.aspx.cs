@@ -21,7 +21,7 @@ namespace ParsnipWebsite
         static Guid selectedUserId;
         static HttpClient client;
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected async void Page_Load(object sender, EventArgs e)
         {
             //For consuming webservices
             client = new HttpClient();
@@ -33,7 +33,7 @@ namespace ParsnipWebsite
             if (Request.QueryString["userId"] == null)
                 Response.Redirect("users?userId=" + Guid.Empty.ToString());
 
-            myUser = Uac.SecurePage("users", this, Data.DeviceType, "admin");
+            myUser = await Uac.SecurePage("users", this, Data.DeviceType, "admin");
 
             selectedUserId = new Guid(Request.QueryString["userId"]);
 

@@ -16,16 +16,16 @@ namespace ParsnipWebsite
     {
         User myUser;
         Log DebugLog = new Log("Debug");
-        protected void Page_Load(object sender, EventArgs e)
+        protected async void Page_Load(object sender, EventArgs e)
         {
             //We secure the page using the UacApi. 
             //This ensures that the user is logged in etc
             //You only need to change where it says '_NEW TEMPLATE'.
             //Change this to match your page name without the '.aspx' extension.
             if (Request.QueryString["imageid"] == null)
-                myUser = Uac.SecurePage("view_image", this, Data.DeviceType);
+                myUser = await Uac.SecurePage("view_image", this, Data.DeviceType);
             else
-                myUser = Uac.SecurePage("view_image?imageid=" + Request.QueryString["imageid"], this, Data.DeviceType);
+                myUser = await Uac.SecurePage("view_image?imageid=" + Request.QueryString["imageid"], this, Data.DeviceType);
 
             if (Request.QueryString["imageid"] != null)
             {

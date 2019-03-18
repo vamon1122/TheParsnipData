@@ -11,9 +11,9 @@ namespace ParsnipWebsite
     public partial class Bios : System.Web.UI.Page
     {
         private User myUser;
-        protected void Page_Load(object sender, EventArgs e)
+        protected async void Page_Load(object sender, EventArgs e)
         {
-            myUser = Uac.SecurePage("minecraft", this, Data.DeviceType);
+            myUser = await Uac.SecurePage("minecraft", this, Data.DeviceType);
         }
     }
 }

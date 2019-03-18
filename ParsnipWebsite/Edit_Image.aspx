@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Edit_Image.aspx.cs" Inherits="ParsnipWebsite.Edit_Image" %>
+﻿<%@ Page Async="true" Language="C#" AutoEventWireup="true" CodeBehind="Edit_Image.aspx.cs" Inherits="ParsnipWebsite.Edit_Image" %>
 <%@ Register Src="~/Custom_Controls/Menu/Menu.ascx" TagPrefix="menuControls" TagName="Menu" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">

@@ -74,6 +74,10 @@
       <Project>{a463135f-93cf-4c00-8f13-b324a5d291e3}</Project>
       <Name>LogApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ParsnipApiDataAccess\ParsnipApiDataAccess.csproj">
+      <Project>{76ba2b9d-2e8c-4027-ae1f-cd73e3452b62}</Project>
+      <Name>ParsnipApiDataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ParsnipApi\ParsnipApi.csproj">
       <Project>{18c91388-bf45-4692-b252-2cafc500222d}</Project>
       <Name>ParsnipApi</Name>

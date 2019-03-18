@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="_TEMPLATE.aspx.cs" Inherits="_TEMPLATE" %>
+﻿<%@ Page Async="true" Language="C#" AutoEventWireup="true" CodeBehind="_TEMPLATE.aspx.cs" Inherits="_TEMPLATE" %>
 <%@ Register Src="~/Custom_Controls/Menu/Menu.ascx" TagPrefix="menuControls" TagName="Menu" %>
 
 <!DOCTYPE html>

@@ -22,9 +22,9 @@ namespace ParsnipWebsite
 
 
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected async void Page_Load(object sender, EventArgs e)
         {
-            myUser = Uac.SecurePage("manage_photos", this, Data.DeviceType, "admin");
+            myUser = await Uac.SecurePage("manage_photos", this, Data.DeviceType, "admin");
         }
 
         protected void Page_LoadComplete(object sender, EventArgs e)

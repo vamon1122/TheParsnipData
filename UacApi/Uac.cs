@@ -13,11 +13,11 @@ namespace UacApi
 {
     public static class Uac
     {
-        private static Log PageAccessLog = new Log("access");
-        private static Log PageAccessJustificationLog = new Log("access justification");
-        private static Log DebugLog = new Log("debug");
-        private static Log SessionLog = new Log("session");
-        public static User SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
+        private static readonly Log PageAccessLog = new Log("access");
+        private static readonly Log PageAccessJustificationLog = new Log("access justification");
+        private static readonly Log DebugLog = new Log("debug");
+        private static readonly Log SessionLog = new Log("session");
+        public async static Task<User> SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
         {
             Debug.WriteLine("Securing page...");
 
@@ -25,7 +25,7 @@ namespace UacApi
             {
                 Debug.WriteLine("Devicetype is empty, getting device info...");
                 //new LogEntry(Log.Default) { text = "Attempted to secure the page but deviceInfo was incomplete. Getting device info..." };
-                pPage.Response.Redirect("get_device_info?url=" + pUrl);
+                //pPage.Response.Redirect("get_device_info?url=" + pUrl);
             }
             else
             {
@@ -41,9 +41,11 @@ namespace UacApi
 
 
             Debug.WriteLine("Attempting to log user in...");
-            if (myUser.LogIn())
+            User myOtherUser = await myUser.LogIn();
+
+            if (myOtherUser.GetType() == typeof(User))
             {
-                Debug.WriteLine("User logged in");
+                Debug.WriteLine("User logged in and returned a user");
                 //Debug.WriteLine("----------Securing page, accountType = " + myUser.AccountType);
 
                 if (pPage.Session["userName"] == null)
@@ -162,6 +164,7 @@ namespace UacApi
             }
             else
             {
+                Debug.WriteLine("No user was returned!");
                 new LogEntry(PageAccessLog) { text = String.Format("Someone tried to access the {0} page from {1} {2}, without logging in!", pUrl, myUser.PosessivePronoun, pDeviceType) };
                 pPage.Response.Redirect(String.Format("login?url={0}", pUrl));
             }
@@ -169,10 +172,10 @@ namespace UacApi
             return myUser;
         }
 
-        public static User SecurePage(string pUrl, Page pPage, string pDeviceType)
+        public async static Task<User> SecurePage(string pUrl, Page pPage, string pDeviceType)
         {
             Debug.WriteLine("Attempting to secure page in...");
-            return SecurePage(pUrl, pPage, pDeviceType, "user");
+            return await SecurePage(pUrl, pPage, pDeviceType, "user");
         }
     }
 }

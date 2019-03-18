@@ -17,7 +17,7 @@ namespace ParsnipWebsite
         User myUser;
         Log DebugLog = new Log("Debug");
         MediaApi.Image MyImage;
-        protected void Page_Load(object sender, EventArgs e)
+        protected async void Page_Load(object sender, EventArgs e)
         {
             //REQUIRED TO VIEW POSTBACK
             form1.Action = Request.RawUrl;
@@ -28,9 +28,9 @@ namespace ParsnipWebsite
             //Change this to match your page name without the '.aspx' extension.
 
             if (Request.QueryString["imageid"] == null)
-                myUser = Uac.SecurePage("edit_image", this, Data.DeviceType);
+                myUser = await Uac.SecurePage("edit_image", this, Data.DeviceType);
             else
-                myUser = Uac.SecurePage("edit_image?imageid=" + Request.QueryString["imageid"], this, Data.DeviceType);
+                myUser = await Uac.SecurePage("edit_image?imageid=" + Request.QueryString["imageid"], this, Data.DeviceType);
 
             //myUser = Uac.SecurePage("edit_image", this, Data.DeviceType);
 

@@ -13,6 +13,7 @@ using ParsnipApi;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Formatting;
+using ParsnipApiDataAccess;
 
 namespace UacApi
 {
@@ -185,6 +186,12 @@ namespace UacApi
             AddValues(pReader);
         }
 
+        public User(t_Users user) : this()
+        {
+            //Debug.WriteLine("User was initialised with an SqlDataReader. Guid: " + pReader[0]);
+            AddValues(user);
+        }
+
         private User()
         {
             AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
@@ -292,73 +299,66 @@ namespace UacApi
 
         #region Public Methods
 
-        public bool LogIn()
+        public async Task<User> LogIn()
         {
-            return LogIn(true);
+           return await LogIn(true);
         }
 
-        public bool LogIn(bool silent)
+        public async Task<User> LogIn(bool silent)
         {
             string[] Cookies = GetCookies();
             string CookieUsername = Cookies[0];
             Username = Cookies[0];
             string CookiePwd = Cookies[1];
+            if (string.IsNullOrEmpty(CookiePwd))
+            {
+                return new User() { Id = Guid.Empty };
+            }
 
 
             //Debug.WriteLine("CookieUsername = " + CookieUsername);
             //Debug.WriteLine("CookiePwd = " + CookiePwd);
 
-            if (String.IsNullOrEmpty(CookieUsername) || String.IsNullOrWhiteSpace(CookieUsername) || String.IsNullOrEmpty(CookiePwd) || String.IsNullOrWhiteSpace(CookiePwd))
-            {
-                return false;
-            }
-            else
-            {
-                if (LogIn(CookieUsername, false, CookiePwd, false, silent))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+            
+                return await LogIn(CookieUsername, false, CookiePwd, false, silent);
+                
 
-            }
+            
         }
 
-        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
+        public async Task<User> LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
         {
-            return LogIn(pUsername, pRememberUsername, pPwd, pRememberPwd, true);
+            return await LogIn(pUsername, pRememberUsername, pPwd, pRememberPwd, true);
         }
-
-        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd, bool silent)
+        LogWriter AsyncLog = new LogWriter("Asnyc_Login.txt", @"C:\Users\benba\Documents\GitHub\TheParsnipWeb");
+        public async Task<User> LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd, bool silent)
         {
+            //pPwd = "BBTbbt1704";
+            AsyncLog.WriteLog(string.Format("Attempting to log a user in. username={0} password={1}", pUsername, pPwd));
             //AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
             //Debug.WriteLine(string.Format("----------User.Login() for {0}", Username));
 
             new LogEntry(DebugLog) { text = "Logging in. pRememberPwd = " + pRememberPwd };
-
-            string dbPwd = null;
+            
             Username = pUsername;
+            //AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
 
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            try
             {
-                //AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
+                t_Users myUserData = await GetUserAsync(pUsername, pPwd);
+                AsyncLog.WriteLog(string.Format("Login for user (username={0} password={1}) was successful! Creating user object...", pUsername, pPwd));
+                var myUser = new User(myUserData);
+                AsyncLog.WriteLog(string.Format("Created user object.. returning"));
+                return myUser;
+            }
+            catch(Exception e)
+            {
+                AsyncLog.WriteLog(string.Format("There was an exception whilst logging in username={0} password={1} : {2}", pUsername, pPwd, e));
+                throw e;
+            }
 
-
-
-                if (GetPwdFromDb())
-                {
-                    if (pPwd == dbPwd)
-                    {
-                        //Debug.WriteLine(string.Format("----------User.Login() - Got password from db for user {0}. Id = {1}. Pwd = {2}", Username, Id, Password));
-                        if (GetIdFromDb())
-                        {
-                            //AccountLog.Debug(String.Format("[LogIn] DbPwd == Pwd ({0} == {1})", dbPwd, pPwd));
-                            if (DbSelect(conn))
-                            {
                                 //Debug.WriteLine(string.Format("----------User.Login() - Selected user {0} whilst logging in", Username));
-                                if (pRememberUsername)
+            if (pRememberUsername)
                                 {
                                     //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
                                     //Debug.WriteLine("----------User.Login() - Username permanently remembered!");
@@ -394,56 +394,7 @@ namespace UacApi
                                     {
                                         //Debug.WriteLine(String.Format("----------User.Login() - {0} logged in SILENTLY", FullName));
                                     }
-
-                                    return true;
                                 }
-
-                            }
-                            else
-                            {
-                                Debug.WriteLine(string.Format("DbSelect failed when logging user {0} in", Username));
-                            }
-                        }
-                        else
-                            Debug.WriteLine("----------User.LogIn() - Failed to get user id");
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("Error whilst logging in {0}. {1} != {2}", Username, pPwd, dbPwd));
-                    }
-                }
-
-                else
-                {
-                    Debug.WriteLine(string.Format("GetPwdFromDb() failed when logging user {0} in", Username));
-                    //AccountLog.Debug(String.Format("[LogIn] DbPwd != Pwd ({0} != {1}", dbPwd, pPwd));
-                }
-                //AccountLog.Error("[LogIn] Failed to log in.");
-                return false;
-
-                bool GetIdFromDb()
-                {
-                    try
-                    {
-                        SqlCommand getId = new SqlCommand("SELECT id FROM t_Users WHERE username = @username", conn);
-                        getId.Parameters.Add(new SqlParameter("username", pUsername));
-
-                        using (SqlDataReader reader = getId.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                Id = new Guid(reader[0].ToString());
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("[LogIn] There was an exception whilst getting the id from the database: " + e);
-                        return false;
-                    }
-                    //AccountLog.Debug("[LogIn] Got password from database successfully!");
-                    return true;
-                }
 
                 bool SetLastLogIn()
                 {
@@ -452,11 +403,14 @@ namespace UacApi
                     //AccountLog.Debug("[LogIn] Attempting to set LastLogIn...");
                     try
                     {
-                        //AccountLog.Debug("username = " + username);
+                    //AccountLog.Debug("username = " + username);
+                    using (SqlConnection conn = ParsnipApi.Parsnip.GetOpenDbConnection())
+                    {
                         SqlCommand Command = new SqlCommand("UPDATE t_Users SET lastLogIn = @date WHERE username = @username;", conn);
                         Command.Parameters.Add(new SqlParameter("username", Username));
                         Command.Parameters.Add(new SqlParameter("date", Parsnip.adjustedTime));
                         RecordsAffected = Command.ExecuteNonQuery();
+                    }
 
                     }
                     catch (Exception e)
@@ -468,32 +422,7 @@ namespace UacApi
                     //AccountLog.Debug(String.Format("[LogIn] Set LastLogIn successfully! {0} records were affected.", RecordsAffected));
                     return true;
                 }
-
-                bool GetPwdFromDb()
-                {
-                    //AccountLog.Debug("[LogIn] Attempting to get password from database...");
-                    try
-                    {
-                        SqlCommand getPassword = new SqlCommand("SELECT password FROM t_Users WHERE username = @username", conn);
-                        getPassword.Parameters.Add(new SqlParameter("Username", pUsername));
-
-                        using (SqlDataReader reader = getPassword.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                dbPwd = reader[0].ToString().Trim();
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("[LogIn] There was an exception whilst getting the password from the database: " + e);
-                        return false;
-                    }
-                    //AccountLog.Debug("[LogIn] Got password from database successfully!");
-                    return true;
-                }
-            }
+            
         }
 
         public bool Select()
@@ -775,6 +704,23 @@ namespace UacApi
 
         #region Other Private / Internal Methods
 
+        public static async Task<t_Users> GetUserAsync(string username, string password)
+        {
+            string path = string.Format("api/users?username={0}&password={1}", username, password);
+            t_Users user = null;
+            HttpResponseMessage response = await client.GetAsync(path);
+            if (response.IsSuccessStatusCode)
+            {
+                user = await response.Content.ReadAsAsync<t_Users>();
+            }
+            else
+            {
+                Debug.WriteLine("There was an error whilst getting the user because " + response.ReasonPhrase);
+            }
+
+            return user;
+        }
+
         public static async Task<List<User>> GetAllUsers()
         {
             throw new NotImplementedException();
@@ -864,6 +810,31 @@ namespace UacApi
                 System.Diagnostics.Debug.WriteLine("There was an error whilst checking if user exists on the database by using their username: " + e);
                 return false;
             }
+        }
+
+        internal void AddValues(t_Users pUser)
+        {
+            Id = pUser.id;
+            Username = pUser.username;
+            Email = pUser.email;
+                Password = pUser.password;
+            Forename = pUser.forename;
+            Surname = pUser.surname;
+                Dob = Convert.ToDateTime(pUser.dob);
+            GenderLower = pUser.gender;
+            Address1 = pUser.address1;
+            Address2 = pUser.address2;
+            Address3 = pUser.address3;
+            PostCode = pUser.postCode;
+            MobilePhone = pUser.mobilePhone;
+            HomePhone = pUser.homePhone;
+            WorkPhone = pUser.workPhone;
+            DateTimeCreated = pUser.created;
+            LastLogIn = Convert.ToDateTime(pUser.lastLogIn);
+            AccountType = pUser.type;
+            AccountStatus = pUser.status;
+
+
         }
 
         internal bool AddValues(SqlDataReader pReader)

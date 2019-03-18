@@ -44,22 +44,7 @@ namespace ParsnipWebsite
             return product;
         }
 
-        static async Task<t_Users> GetUserAsync(string path)
-        {
-            t_Users user = null;
-            HttpResponseMessage response = await client.GetAsync(path);
-            if (response.IsSuccessStatusCode)
-            {
-                user = await response.Content.ReadAsAsync<t_Users>();
-            }
-            else
-            {
-
-                System.Diagnostics.Debug.WriteLine("There was an error whilst getting the user because " + response.ReasonPhrase);
-            }
-            
-            return user;
-        }
+        
 
         protected async void Button1_Click(object sender, EventArgs e)
         {
@@ -69,7 +54,7 @@ namespace ParsnipWebsite
 
         protected async void Button_GetUsers_Click(object sender, EventArgs e)
         {
-            var me = await GetUserAsync("api/users?username=vamon1122&password=BBTbbt1704");
+            var me = await UacApi.User.GetUserAsync("vamon1122", "BBTbbt1704");
 
             CheckMe();
             void CheckMe()

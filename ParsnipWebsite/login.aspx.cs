@@ -17,7 +17,7 @@ namespace ParsnipWebsite
         private string Redirect;
         Log DebugLog = new Log("Debug");
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected async void Page_Load(object sender, EventArgs e)
         {
             /*
             new LogEntry(Log.Default) { text = "Detecting device and setting deviceType cookie..." };
@@ -49,7 +49,9 @@ namespace ParsnipWebsite
 
             if (String.IsNullOrEmpty(inputUsername.Text) && String.IsNullOrWhiteSpace(inputUsername.Text))
             {
-                if (myUser.LogIn(false))
+                //The problematic line
+                User tempUser = await myUser.LogIn(false);
+                if (tempUser.Id != Guid.Empty)
                 {
                     WriteCookie();
                     Response.Redirect(Redirect);
@@ -68,11 +70,11 @@ namespace ParsnipWebsite
             System.Diagnostics.Debug.WriteLine("----------accountType = " + Cookie.Read("accountType"));
         }
 
-        protected void ButLogIn_Click(object sender, EventArgs e)
+        protected async void ButLogIn_Click(object sender, EventArgs e)
         {
             new LogEntry(DebugLog) { text = "Login Clicked! Remember password = " + RememberPwd.Checked };
-
-            if (myUser.LogIn(inputUsername.Text, true, inputPwd.Text, RememberPwd.Checked, false))
+            User tempUser = await myUser.LogIn(inputUsername.Text, true, inputPwd.Text, RememberPwd.Checked, false);
+            if (tempUser.GetType() == typeof(User))
             {
                 new LogEntry(new Log("login/out")) { text = String.Format("{0} logged in from {1} {2}.", myUser.FullName, myUser.PosessivePronoun, Data.DeviceType) };
                 WriteCookie();

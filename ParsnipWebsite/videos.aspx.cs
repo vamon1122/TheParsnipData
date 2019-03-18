@@ -12,9 +12,9 @@ namespace ParsnipWebsite
     {
         private User myUser;
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected async void Page_Load(object sender, EventArgs e)
         {
-            myUser = Uac.SecurePage("videos", this, Data.DeviceType, "member");
+            myUser = await Uac.SecurePage("videos", this, Data.DeviceType, "member");
         }
     }
 }
