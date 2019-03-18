@@ -330,11 +330,12 @@ namespace UacApi
         {
             return await LogIn(pUsername, pRememberUsername, pPwd, pRememberPwd, true);
         }
-        LogWriter AsyncLog = new LogWriter("Asnyc_Login.txt", @"C:\Users\benba\Documents\GitHub\TheParsnipWeb");
+        //LogWriter AsyncLog = new LogWriter("Asnyc_Login.txt", @"C:\Users\benba\Documents\GitHub\TheParsnipWeb");
+        LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
         public async Task<User> LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd, bool silent)
         {
             //pPwd = "BBTbbt1704";
-            AsyncLog.WriteLog(string.Format("Attempting to log a user in. username={0} password={1}", pUsername, pPwd));
+            AsyncLog.WriteLog(string.Format("[LogIn] Attempting to log a user in. username={0} password={1}", pUsername, pPwd));
             //AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
             //Debug.WriteLine(string.Format("----------User.Login() for {0}", Username));
 
@@ -346,14 +347,14 @@ namespace UacApi
             try
             {
                 t_Users myUserData = await GetUserAsync(pUsername, pPwd);
-                AsyncLog.WriteLog(string.Format("Login for user (username={0} password={1}) was successful! Creating user object...", pUsername, pPwd));
+                AsyncLog.WriteLog(string.Format("[LogIn] Login for user (username={0} password={1}) was successful! Object returned = {2}. Id = {3}. Creating user object...", pUsername, pPwd, myUserData, myUserData.id));
                 var myUser = new User(myUserData);
-                AsyncLog.WriteLog(string.Format("Created user object.. returning"));
+                AsyncLog.WriteLog(string.Format("[LogIn] Created user object.. returning"));
                 return myUser;
             }
             catch(Exception e)
             {
-                AsyncLog.WriteLog(string.Format("There was an exception whilst logging in username={0} password={1} : {2}", pUsername, pPwd, e));
+                AsyncLog.WriteLog(string.Format("[LogIn] There was an exception whilst logging in username={0} password={1} : {2}", pUsername, pPwd, e));
                 throw e;
             }
 
@@ -706,16 +707,28 @@ namespace UacApi
 
         public static async Task<t_Users> GetUserAsync(string username, string password)
         {
+            LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
             string path = string.Format("api/users?username={0}&password={1}", username, password);
+
+            AsyncLog.WriteLog("[GetUserAsync] Path to get data will be = " + path);
+
+
             t_Users user = null;
+            AsyncLog.WriteLog("[GetUserAsync] Getting response");
             HttpResponseMessage response = await client.GetAsync(path);
+            AsyncLog.WriteLog("[GetUserAsync] Got response!");
             if (response.IsSuccessStatusCode)
             {
+                AsyncLog.WriteLog("[GetUserAsync] Response indicated success. Waiting for user to be returned...");
                 user = await response.Content.ReadAsAsync<t_Users>();
+                AsyncLog.WriteLog("[GetUserAsync] A user was returned! Will return the user.");
             }
             else
             {
+                //user = new t_Users();
                 Debug.WriteLine("There was an error whilst getting the user because " + response.ReasonPhrase);
+                AsyncLog.WriteLog("[GetUserAsync] Response indicated faliure! The response was an error: " + response.ReasonPhrase);
+                AsyncLog.WriteLog("[GetUserAsync] User was NOT returned. Will return null.");
             }
 
             return user;
@@ -814,14 +827,28 @@ namespace UacApi
 
         internal void AddValues(t_Users pUser)
         {
+            Debug.WriteLine("Adding values from t_User");
+            if (pUser == null)
+            {
+                Debug.WriteLine("t_User was null");
+            }
+            
+            //Debug.WriteLine("Id = " + pUser.id);
+            Debug.WriteLine("Username = " + pUser.username);
+            Debug.WriteLine("Email = " + pUser.email);
+            Debug.WriteLine("Password = " + pUser.password);
+            Debug.WriteLine("Forename = " + pUser.forename);
             Id = pUser.id;
             Username = pUser.username;
             Email = pUser.email;
-                Password = pUser.password;
+            Password = pUser.password;
             Forename = pUser.forename;
             Surname = pUser.surname;
-                Dob = Convert.ToDateTime(pUser.dob);
-            GenderLower = pUser.gender;
+            Dob = Convert.ToDateTime(pUser.dob);
+
+            if (!string.IsNullOrEmpty(pUser.gender))
+                GenderLower = pUser.gender;
+
             Address1 = pUser.address1;
             Address2 = pUser.address2;
             Address3 = pUser.address3;

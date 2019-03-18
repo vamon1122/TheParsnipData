@@ -21,9 +21,9 @@ namespace ParsnipWebsite
         Log DebugLog = new Log("debug");
         Album MemesAlbum = new Album(new Guid("5F15861A-689C-482A-8E31-2F13429C36E5"));
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected async void Page_Load(object sender, EventArgs e)
         {
-            myUser = Uac.SecurePage("memes", this, Data.DeviceType, "member");
+            myUser = await Uac.SecurePage("memes", this, Data.DeviceType, "member");
             
 
             if (IsPostBack && PhotoUpload.PostedFile != null)

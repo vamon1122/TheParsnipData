@@ -13,12 +13,12 @@ namespace ParsnipWebsite
     {
         User myUser;
         Guid selectedLogId;
-        protected void Page_Load(object sender, EventArgs e)
+        protected async void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["logId"] == null)
                 Response.Redirect("logs?logId=" + Guid.Empty);
 
-            myUser = Uac.SecurePage("logs", this, Data.DeviceType, "admin");
+            myUser = await Uac.SecurePage("logs", this, Data.DeviceType, "admin");
 
             selectedLogId = new Guid(Request.QueryString["logId"]);
 

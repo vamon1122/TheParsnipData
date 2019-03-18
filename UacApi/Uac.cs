@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Diagnostics;
+using BenLog;
 
 namespace UacApi
 {
@@ -17,11 +18,14 @@ namespace UacApi
         private static readonly Log PageAccessJustificationLog = new Log("access justification");
         private static readonly Log DebugLog = new Log("debug");
         private static readonly Log SessionLog = new Log("session");
+        static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
+
         public async static Task<User> SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
         {
             Debug.WriteLine("Securing page...");
+            AsyncLog.WriteLog("Securing page...");
 
-            if(string.IsNullOrEmpty(pDeviceType) || string.IsNullOrWhiteSpace(pDeviceType))
+            if (string.IsNullOrEmpty(pDeviceType) || string.IsNullOrWhiteSpace(pDeviceType))
             {
                 Debug.WriteLine("Devicetype is empty, getting device info...");
                 //new LogEntry(Log.Default) { text = "Attempted to secure the page but deviceInfo was incomplete. Getting device info..." };
@@ -41,7 +45,9 @@ namespace UacApi
 
 
             Debug.WriteLine("Attempting to log user in...");
+            AsyncLog.WriteLog("Attempting to log user in...");
             User myOtherUser = await myUser.LogIn();
+            AsyncLog.WriteLog("Logged user in. User = " + myOtherUser);
 
             if (myOtherUser.GetType() == typeof(User))
             {

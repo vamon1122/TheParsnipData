@@ -1,3 +1,0 @@
-Attempting to log a user in. username=vamon1122 password=BBTbbt1704
-Login for user (username=vamon1122 password=BBTbbt1704) was successful! Creating user object...
-Created user object.. returning

@@ -28,7 +28,7 @@ namespace ParsnipWebsite
             client.BaseAddress = new Uri("http://localhost:59622/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
+                new MediaTypeWithQualityHeaderValue("application/xml"));
 
             if (Request.QueryString["userId"] == null)
                 Response.Redirect("users?userId=" + Guid.Empty.ToString());
