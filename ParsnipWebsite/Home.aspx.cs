@@ -22,14 +22,14 @@ namespace ParsnipWebsite
             //For consuming webservices
             /*
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:59622/");
+            client.BaseAddress = new Uri(Parsnip.baseAddress);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/xml"));
                 */
 
-            myUser = await UacApi.User.CookieLogIn();
-            Uac.NewSecurePage("home", this, Data.DeviceType, "user", myUser);
+            myUser = await UacApi.User.LogInFromCookies();
+            Uac.SecurePage("home", this, Data.DeviceType, "user", myUser);
             WelcomeLabel.Text = string.Format("Hiya {0}, welcome back to the parsnip website!", myUser.Forename);
             var UacServiceClient = new UacService.UacClient();
         }

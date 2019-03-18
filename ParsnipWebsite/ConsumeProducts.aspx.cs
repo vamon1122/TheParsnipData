@@ -21,7 +21,7 @@ namespace ParsnipWebsite
         protected void Page_Load(object sender, EventArgs e)
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:59622/");
+            client.BaseAddress = new Uri(Parsnip.baseAddress);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/xml"));

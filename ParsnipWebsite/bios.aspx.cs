@@ -13,8 +13,8 @@ namespace ParsnipWebsite
         private User myUser;
         protected async void Page_Load(object sender, EventArgs e)
         {
-            myUser = await UacApi.User.CookieLogIn();
-            Uac.NewSecurePage("minecraft", this, Data.DeviceType, "user", myUser);
+            myUser = await UacApi.User.LogInFromCookies();
+            Uac.SecurePage("minecraft", this, Data.DeviceType, "user", myUser);
         }
     }
 }

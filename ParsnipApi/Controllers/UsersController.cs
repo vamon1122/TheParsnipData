@@ -14,8 +14,6 @@ namespace ParsnipApi.Controllers
 {
     public class UsersController : ApiController
     {
-        readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
-
         public IHttpActionResult Get(string username, string password)
         {
             {

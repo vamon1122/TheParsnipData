@@ -16,7 +16,7 @@ namespace ParsnipWebsite
             if (string.IsNullOrEmpty(Data.DeviceType) || string.IsNullOrWhiteSpace(Data.DeviceType))
                 Response.Redirect("get_device_info?url=logout");
 
-            User myUser = await UacApi.User.CookieLogIn();
+            User myUser = await UacApi.User.LogInFromCookies();
 
             new LogEntry(new Log("login/out")) { text = String.Format("{0} logged out from {1} {2} device.", myUser.FullName, myUser.PosessivePronoun, Data.DeviceType) };
             UacApi.User.LogOut();

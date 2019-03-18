@@ -24,42 +24,56 @@ namespace ParsnipWebsite
 
         protected async void Page_Load(object sender, EventArgs e)
         {
-            myUser = await UacApi.User.CookieLogIn();
-            Uac.NewSecurePage("manage_photos", this, Data.DeviceType, "admin", myUser);
+            myUser = await UacApi.User.LogInFromCookies();
+            Uac.SecurePage("manage_photos", this, Data.DeviceType, "admin", myUser);
         }
 
         protected void Page_LoadComplete(object sender, EventArgs e)
         {
             UpdateUserList();
 
-            if (Request.QueryString["userId"] != null && Request.QueryString["userId"].ToString() != "")
+            if (Request.QueryString["userId"] != null)
             {
-                new LogEntry(DebugLog) { text = "Manage_Photos userId = " + Request.QueryString["userId"].ToString() };
-                selectedUserId = new Guid(Request.QueryString["userId"].ToString());
-                
-                SelectUser.SelectedValue = selectedUserId.ToString();
-
-                Debug.WriteLine("---------- posted back with id = " + selectedUserId);
-
-                List<MediaApi.Image> MyPhotos = MediaApi.Image.GetImagesByUser(selectedUserId);
-                //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
-                foreach (MediaApi.Image temp in MyPhotos)
+                if (Request.QueryString["userId"].ToString() != "")
                 {
-                    var MyImageControl = (ImageControl)LoadControl("~/Custom_Controls/Media_Api/ImageControl.ascx");
-                    MyImageControl.MyImage = temp;
-                    DisplayPhotosDiv.Controls.Add(MyImageControl);
 
-                    //new LogEntry(Debug) { text = "Added new image to the page. Url = " + temp.PhotoSrc };
+
+                    new LogEntry(DebugLog) { text = "Manage_Photos userId = " + Request.QueryString["userId"].ToString() };
+                    selectedUserId = new Guid(Request.QueryString["userId"].ToString());
+
+                    SelectUser.SelectedValue = selectedUserId.ToString();
+
+                    Debug.WriteLine("---------- posted back with id = " + selectedUserId);
+
+                    List<MediaApi.Image> MyPhotos = MediaApi.Image.GetImagesByUser(selectedUserId);
+                    //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
+                    foreach (MediaApi.Image temp in MyPhotos)
+                    {
+                        var MyImageControl = (ImageControl)LoadControl("~/Custom_Controls/Media_Api/ImageControl.ascx");
+                        MyImageControl.MyImage = temp;
+                        DisplayPhotosDiv.Controls.Add(MyImageControl);
+
+                        //new LogEntry(Debug) { text = "Added new image to the page. Url = " + temp.PhotoSrc };
+                    }
+                }
+                else
+                {
+                    redirectToDefaultAlbum();
                 }
 
             }
             else
             {
+                redirectToDefaultAlbum();
+
+            }
+
+            void redirectToDefaultAlbum()
+            {
                 Debug.WriteLine("---------- not a postback");
 
                 if (Request.QueryString["userId"] == null)
                     Response.Redirect("manage_photos?userId=" + Guid.Empty.ToString(), false);
-
             }
 
 
@@ -118,7 +132,7 @@ namespace ParsnipWebsite
 
         protected void SelectUser_Changed(object sender, EventArgs e)
         {
-            Response.Redirect("manage_photos?userId=" + SelectUser.SelectedValue);
+            Response.Redirect("manage_photos?userId=" + SelectUser.SelectedValue, false);
         }
     }
 }

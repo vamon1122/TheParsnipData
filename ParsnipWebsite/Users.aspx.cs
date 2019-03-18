@@ -27,8 +27,8 @@ namespace ParsnipWebsite
 
             
 
-            myUser = await UacApi.User.CookieLogIn();
-            Uac.NewSecurePage("users", this, Data.DeviceType, "admin", myUser);
+            myUser = await UacApi.User.LogInFromCookies();
+            Uac.SecurePage("users", this, Data.DeviceType, "admin", myUser);
 
             
         }
@@ -136,7 +136,8 @@ namespace ParsnipWebsite
 
         protected void SelectUser_Changed(object sender, EventArgs e)
         {
-            Response.Redirect("users?userId=" + selectUser.SelectedValue);
+
+            Response.Redirect("users?userId=" + selectUser.SelectedValue, false);
         }
 
         protected void btnAction_Click(object sender, EventArgs e)

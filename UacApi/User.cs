@@ -20,7 +20,7 @@ namespace UacApi
     public class User
     {
         static HttpClient client;
-        private static string apiUrl = "api/users/";
+        public static readonly string usersApiUrl = string.Format("{0}{1}users",Parsnip.baseAddress, Parsnip.apiUrl);
         static readonly Log DebugLog = new Log("Debug");
 
         #region Properties
@@ -190,7 +190,7 @@ namespace UacApi
         {
             AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:59622/");
+            client.BaseAddress = new Uri(Parsnip.baseAddress);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/xml"));
@@ -202,7 +202,7 @@ namespace UacApi
         {
             AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:59622/");
+            client.BaseAddress = new Uri(Parsnip.baseAddress);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/xml"));
@@ -305,26 +305,26 @@ namespace UacApi
 
         #region Public Methods
 
-        public static async Task<User> CookieLogIn()
+        public static async Task<User> LogInFromCookies()
         {
             User tempUser;
 
             if (client == null)
             {
-                AsyncLog.WriteLog("[CookieLogIn] Client was NULL!!! Attempting fix...");
+                Parsnip.AsyncLog.WriteLog("[CookieLogIn] Client was NULL!!! Attempting fix...");
                 client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:59622/");
+                client.BaseAddress = new Uri(Parsnip.baseAddress);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/xml"));
-                AsyncLog.WriteLog("[CookieLogIn] Client should no longer be null.");
+                Parsnip.AsyncLog.WriteLog("[CookieLogIn] Client should no longer be null.");
             }
             else
             {
-                AsyncLog.WriteLog("[CookieLogIn] Client was not null.");
+                Parsnip.AsyncLog.WriteLog("[CookieLogIn] Client was not null.");
             }
 
-            AsyncLog.WriteLog("[CookieLogIn] Getting cookies...");
+            Parsnip.AsyncLog.WriteLog("[CookieLogIn] Getting cookies...");
 
             string[] usernamePassword;
             try
@@ -333,41 +333,37 @@ namespace UacApi
             }
             catch(Exception e)
             {
-                AsyncLog.WriteLog("There was an exception whilst getting the cookies: " + e);
+                Parsnip.AsyncLog.WriteLog("There was an exception whilst getting the cookies: " + e);
                 usernamePassword = new string[2];
             }
            
             if(string.IsNullOrEmpty(usernamePassword[0]) || string.IsNullOrEmpty(usernamePassword[1]))
             {
-                AsyncLog.WriteLog(string.Format("[CookieLogIn] Either the username or password cookies were blank"));
+                Parsnip.AsyncLog.WriteLog(string.Format("[CookieLogIn] Either the username or password cookies were blank"));
                 tempUser = new User(Guid.Empty);
             }
             else
             {
-                AsyncLog.WriteLog(string.Format("[CookieLogIn] Got cookies (username = {0} password = {1}). Awaiting response from LogIn()...", usernamePassword[0], usernamePassword[1]));
+                Parsnip.AsyncLog.WriteLog(string.Format("[CookieLogIn] Got cookies (username = {0} password = {1}). Awaiting response from LogIn()...", usernamePassword[0], usernamePassword[1]));
                 tempUser = await LogIn(usernamePassword[0], true, usernamePassword[1], true);
             }
-            
-            AsyncLog.WriteLog("[CookieLogIn] Got response! Returning user.");
+
+            Parsnip.AsyncLog.WriteLog("[CookieLogIn] Got response! Returning user.");
 
             return tempUser;
         }
 
-        //Home
-        static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\benba\Documents\GitHub\TheParsnipWeb");
-
-        //Branson
-        //static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
+        
 
         public static async Task<User> LogIn(string username, bool rememberUsername, string password, bool rememberPassword)
         {
             try
             {
-                AsyncLog.WriteLog(string.Format("[LogIn] Trying to get user data..."));
+                Parsnip.AsyncLog.WriteLog(string.Format("[LogIn] Trying to get user data..."));
                 t_Users myUserData = await GetUserAsync(username, password);
-                AsyncLog.WriteLog(string.Format("[LogIn] Login for user (username={0} password={1}) was successful! Object returned = {2}. Id = {3}. Creating user object...", username, password, myUserData, myUserData.id));
+                Parsnip.AsyncLog.WriteLog(string.Format("[LogIn] Login for user (username={0} password={1}) was successful! Object returned = {2}. Id = {3}. Creating user object...", username, password, myUserData, myUserData.id));
                 var myUser = new User(myUserData);
-                AsyncLog.WriteLog(string.Format("[LogIn] Created user object.. returning"));
+                Parsnip.AsyncLog.WriteLog(string.Format("[LogIn] Created user object.. returning"));
 
                 SetCookies();
                 SetLastLogIn();
@@ -376,7 +372,7 @@ namespace UacApi
             }
             catch (Exception e)
             {
-                AsyncLog.WriteLog(string.Format("[LogIn] There was an exception whilst logging in username={0} password={1} : {2}", username, password, e));
+                Parsnip.AsyncLog.WriteLog(string.Format("[LogIn] There was an exception whilst logging in username={0} password={1} : {2}", username, password, e));
                 return new User(Guid.Empty);
             }
 
@@ -717,59 +713,110 @@ namespace UacApi
 
         public static async Task<t_Users> GetUserAsync(string username, string password)
         {
-            //Home
-            LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\benba\Documents\GitHub\TheParsnipWeb");
 
-            //Branson
-            //static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
+            Parsnip.AsyncLog.WriteLog("[GetUserAsync] Begin!");
 
-            AsyncLog.WriteLog("[GetUserAsync] Begin!");
+            string path = string.Format("{0}?username={1}&password={2}", usersApiUrl ,username, password);
 
-            string path = string.Format("api/users?username={0}&password={1}", username, password);
-
-            AsyncLog.WriteLog("[GetUserAsync] Path to get data will be = " + path);
+            Parsnip.AsyncLog.WriteLog("[GetUserAsync] Path to get data will be = " + path);
 
 
             t_Users user;
-            AsyncLog.WriteLog("[GetUserAsync] Getting response");
+            Parsnip.AsyncLog.WriteLog("[GetUserAsync] Getting response");
 
             if(client == null)
             {
-                AsyncLog.WriteLog("[GetUserAsync] Client was NULL!!! Attempting fix...");
+                Parsnip.AsyncLog.WriteLog("[GetUserAsync] Client was NULL!!! Attempting fix...");
                 client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:59622/");
+                client.BaseAddress = new Uri(Parsnip.baseAddress);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/xml"));
-                AsyncLog.WriteLog("[GetUserAsync] Client should no longer be null.");
+                Parsnip.AsyncLog.WriteLog("[GetUserAsync] Client should no longer be null.");
             }
             else
             {
-                AsyncLog.WriteLog("[GetUserAsync] Client was not null.");
+                Parsnip.AsyncLog.WriteLog("[GetUserAsync] Client was not null.");
             }
 
             HttpResponseMessage response = await client.GetAsync(path);
-            AsyncLog.WriteLog("[GetUserAsync] Got response!");
+            Parsnip.AsyncLog.WriteLog("[GetUserAsync] Got response!");
             if (response.IsSuccessStatusCode)
             {
-                AsyncLog.WriteLog("[GetUserAsync] Response indicated success. Waiting for user to be returned...");
+                Parsnip.AsyncLog.WriteLog("[GetUserAsync] Response indicated success. Waiting for user to be returned...");
                 user = await response.Content.ReadAsAsync<t_Users>();
-                AsyncLog.WriteLog("[GetUserAsync] A user was returned! Will return the user.");
+                Parsnip.AsyncLog.WriteLog("[GetUserAsync] A user was returned! Will return the user.");
             }
             else
             {
                 user = null;
                 Debug.WriteLine("There was an error whilst getting the user because " + response.ReasonPhrase);
-                AsyncLog.WriteLog("[GetUserAsync] Response indicated faliure! The response was an error: " + response.ReasonPhrase);
-                AsyncLog.WriteLog("[GetUserAsync] User was NOT returned. Will return null.");
+                Parsnip.AsyncLog.WriteLog("[GetUserAsync] Response indicated faliure! The response was an error: " + response.ReasonPhrase);
+                Parsnip.AsyncLog.WriteLog("[GetUserAsync] User was NOT returned. Will return null.");
             }
 
             return user;
         }
 
+        private static async Task<List<t_Users>> GetAllUsersAsync()
+        {
+            string methodName = "GetAllUsersAsync";
+
+            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Begin!", methodName));
+
+            //This looks stupid, it's probably gonna be a more complax string soon...
+            string path = string.Format("{0}", usersApiUrl);
+
+            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Path to get data will be = {1}", methodName, path));
+
+
+            List<t_Users> allUsers;
+            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Getting response", methodName));
+
+            if (client == null)
+            {
+                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Client was NULL!!! Attempting fix...", methodName));
+                client = new HttpClient();
+                client.BaseAddress = new Uri(Parsnip.baseAddress);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/xml"));
+                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Client should no longer be null.", methodName));
+            }
+            else
+            {
+                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Client was not null.", methodName));
+            }
+
+            HttpResponseMessage response = await client.GetAsync(path);
+            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Got response!", methodName));
+            if (response.IsSuccessStatusCode)
+            {
+                Parsnip.AsyncLog.WriteLog("[GetUserAsync] Response indicated success. Waiting for user to be returned...");
+                allUsers = await response.Content.ReadAsAsync<List<t_Users>>();
+                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] All users were returned! Will return the users.", methodName));
+            }
+            else
+            {
+                allUsers = new List<t_Users>();
+                Debug.WriteLine("There was an error whilst getting all of the users: " + response.ReasonPhrase);
+                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Response indicated faliure! The response was an error: {1}", methodName, response.ReasonPhrase));
+                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Users were NOT returned. Will return an empty list.", methodName));
+            }
+
+            return allUsers;
+        }
+
         public static async Task<List<User>> GetAllUsers()
         {
-            throw new NotImplementedException();
+            List<t_Users> allTUsers = await GetAllUsersAsync();
+            List<User> allUsers = new List<User>();
+            foreach(var user in allTUsers)
+            {
+                allUsers.Add(new User(user));
+            }
+
+            return allUsers;
         }
 
         static async Task<User> GetUser(string id)
@@ -779,7 +826,7 @@ namespace UacApi
 
         public async static Task<User> GetLoggedInUser()
         {
-            User tempUser = await CookieLogIn();
+            User tempUser = await LogInFromCookies();
 
             return tempUser;
         }
@@ -1143,7 +1190,7 @@ namespace UacApi
         private static string[] GetCookies()
         {
             AccountLog.Info("Getting user details from cookies...");
-            AsyncLog.WriteLog("[GetCookies] Getting user details from cookies...");
+            Parsnip.AsyncLog.WriteLog("[GetCookies] Getting user details from cookies...");
 
             string[] UserDetails = new string[2];
 

@@ -17,8 +17,8 @@ namespace ParsnipWebsite
         Log Debug = new Log("Debug");
         protected async void Page_Load(object sender, EventArgs e)
         {
-            myUser = await UacApi.User.CookieLogIn();
-            Uac.NewSecurePage("admin", this, Data.DeviceType, "admin", myUser);
+            myUser = await UacApi.User.LogInFromCookies();
+            Uac.SecurePage("admin", this, Data.DeviceType, "admin", myUser);
         }
 
         protected void OpenLogsButton_Click(object sender, EventArgs e)

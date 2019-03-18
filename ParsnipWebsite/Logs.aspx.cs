@@ -15,8 +15,8 @@ namespace ParsnipWebsite
         Guid selectedLogId;
         protected async void Page_Load(object sender, EventArgs e)
         {
-            myUser = await UacApi.User.CookieLogIn();
-            Uac.NewSecurePage("logs", this, Data.DeviceType, "admin", myUser);
+            myUser = await UacApi.User.LogInFromCookies();
+            Uac.SecurePage("logs", this, Data.DeviceType, "admin", myUser);
         }
 
         void Page_LoadComplete(object sender, EventArgs e)

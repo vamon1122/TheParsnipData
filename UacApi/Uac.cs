@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Diagnostics;
 using BenLog;
+using ParsnipApi;
 
 namespace UacApi
 {
@@ -19,23 +20,15 @@ namespace UacApi
         private static readonly Log DebugLog = new Log("debug");
         private static readonly Log SessionLog = new Log("session");
 
-        //Home
-        static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\benba\Documents\GitHub\TheParsnipWeb");
-
-        //Branson
-        //static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\Users\ben.2ESKIMOS\Documents\GitHub\TheParsnipWeb");
-
-        public static void NewSecurePage(string pSecurePageUrl, Page pSecurePage, string pDeviceType, string pRequiredAccountType, User myUser)
+        public static void SecurePage(string pSecurePageUrl, Page pSecurePage, string pDeviceType, string pRequiredAccountType, User myUser)
         {
-
-
             Debug.WriteLine("Securing page...");
-            AsyncLog.WriteLog("Securing page...");
+            Parsnip.AsyncLog.WriteLog("Securing page...");
 
             if(myUser.Id == Guid.Empty)
             {
-                Debug.WriteLine("SUser was not logged in. Redirecting to login");
-                AsyncLog.WriteLog("[NewSecurePage] User was not logged in. Redirecting to login");
+                Debug.WriteLine("User was not logged in. Redirecting to login");
+                Parsnip.AsyncLog.WriteLog("[NewSecurePage] User was not logged in. Redirecting to login");
 
                 //The false stops threadabortexeption
                 if (!pSecurePage.Response.IsRequestBeingRedirected)

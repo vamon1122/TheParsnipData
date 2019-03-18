@@ -19,8 +19,8 @@ namespace ParsnipWebsite
             //This ensures that the user is logged in etc
             //You only need to change where it says '_NEW TEMPLATE'.
             //Change this to match your page name without the '.aspx' extension.
-            myUser = await UacApi.User.CookieLogIn();
-            Uac.NewSecurePage("_template", this, Data.DeviceType, "user", myUser);
+            myUser = await UacApi.User.LogInFromCookies();
+            Uac.SecurePage("_template", this, Data.DeviceType, "user", myUser);
         }
     }
 }
