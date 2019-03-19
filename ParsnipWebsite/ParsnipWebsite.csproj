@@ -117,7 +117,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="ConsumeProducts.aspx" />
     <Content Include="Content_Removal.aspx" />
     <Content Include="Css\Jonsuh_Hamburgers\Hamburgers.css" />
     <Content Include="Css\Jonsuh_Hamburgers\Hamburgers.min.css" />
@@ -261,13 +260,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="ConsumeProducts.aspx.cs">
-      <DependentUpon>ConsumeProducts.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ConsumeProducts.aspx.designer.cs">
-      <DependentUpon>ConsumeProducts.aspx</DependentUpon>
     </Compile>
     <Compile Include="Content_Removal.aspx.cs">
       <DependentUpon>Content_Removal.aspx</DependentUpon>

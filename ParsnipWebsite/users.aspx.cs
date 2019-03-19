@@ -19,32 +19,17 @@ namespace ParsnipWebsite
     {
         User myUser;
         static Guid selectedUserId;
-        static HttpClient client;
 
         protected async void Page_Load(object sender, EventArgs e)
         {
-            
-
-            
-
             myUser = await UacApi.User.LogInFromCookies();
             Uac.SecurePage("users", this, Data.DeviceType, "admin", myUser);
-
-            
         }
 
         void Page_LoadComplete(object sender, EventArgs e)
         {
             Debug.WriteLine("----------Page load complete!");
 
-            //For consuming webservices
-            /*
-            client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:59622/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/xml"));
-                */
             //Moved to loadcomplete because it was causing thread abort in asyncronous pageload method
             if (Request.QueryString["userId"] == null)
             {

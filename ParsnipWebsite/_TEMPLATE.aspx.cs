@@ -22,5 +22,10 @@ namespace ParsnipWebsite
             myUser = await UacApi.User.LogInFromCookies();
             Uac.SecurePage("_template", this, Data.DeviceType, "user", myUser);
         }
+
+        void Page_LoadComplete(object sender, EventArgs e)
+        {
+            //Put redirects here. Redirects in asnyc methods will cause ThreadAbortException
+        }
     }
 }
