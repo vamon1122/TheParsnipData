@@ -30,7 +30,7 @@ namespace ParsnipApi
 
         //Live
         public static readonly string sqlConnectionString = "Server=198.38.83.33;Database=vamon112_parsnipdb;Uid=vamon112_ben;Password=ccjO07JT";
-        public static readonly string baseAddress = "https://www.theparsnip.co.uk";
+        public static readonly string baseAddress = "http://api.theparsnip.co.uk";
 
         //Home
         //public static readonly string sqlConnectionString = @"Data Source=BEN-PC\SQLEXPRESS;Initial Catalog=ParsnipTestDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
