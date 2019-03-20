@@ -327,9 +327,21 @@ namespace UacApi
             return DbSelect(Parsnip.GetOpenDbConnection());
         }
 
-        public async Task<User> Update()
+        public async Task<bool> Update()
         {
-            return new User(await PutUserAsync(PrepareUserData(this)));
+            Parsnip.AsyncLog.WriteLog("Doing async update");
+            try
+            {
+                AddValues(await PutUserAsync(PrepareUserData(this)));
+            }
+            catch(Exception e)
+            {
+                Parsnip.AsyncLog.WriteLog("There was an error: " + e);
+                return false;
+            }
+
+            Parsnip.AsyncLog.WriteLog("Success!");
+            return true;
         }
 
         private static t_Users PrepareUserData(User pUser)
@@ -412,9 +424,10 @@ namespace UacApi
         {
             string methodName = "PutUserAsync";
 
-            Parsnip.AsyncLog.WriteLog(string.Format("[{0]] Begin!", methodName));
+            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Begin!", methodName));
 
             string path = string.Format("{0}", usersApiUrl);
+            
 
             Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Path to get data will be = {1}", methodName, path));
 

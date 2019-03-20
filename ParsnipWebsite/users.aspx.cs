@@ -125,7 +125,7 @@ namespace ParsnipWebsite
             Response.Redirect("users?userId=" + selectUser.SelectedValue, false);
         }
 
-        protected void btnAction_Click(object sender, EventArgs e)
+        protected async void btnAction_Click(object sender, EventArgs e)
         {
             string rememberSelectedValue = selectUser.SelectedValue;
             Debug.WriteLine("BEN!!!1 " + UserForm.DataSubject.Id.ToString());
@@ -140,7 +140,8 @@ namespace ParsnipWebsite
 
             if (UserForm.DataSubject.Validate())
             {
-                if (UserForm.DataSubject.Update())
+                
+                if (await UserForm.DataSubject.Update())
                 {
                     new LogEntry(Log.Default) { text = String.Format("{0} {1} an account for {2} via the UserForm", myUser.FullName, actionPast, UserForm.DataSubject.FullName) };
                     Response.Redirect(string.Format("users?userId={0}&action=update&success=true", UserForm.DataSubject.Id.ToString()));

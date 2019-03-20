@@ -40,48 +40,60 @@ namespace ParsnipApi.Controllers
         //[FromBody]: From the body of the Http request
         public HttpResponseMessage Put([FromBody]t_Users user)
         {
-            try
+            if (user == null)
             {
-                using (var entities = new ParsnipTestDbEntities())
-                {
-                    var existingUser = entities.t_Users.Where(u => u.id == user.id).FirstOrDefault();
-
-                    if (existingUser == null)
-                    {
-                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, string.Format("No user was found with id = {0}. Could not update user.", user.id));
-                    }
-                    else
-                    {
-                        existingUser.id = user.id;
-                        existingUser.username = user.username;
-                        existingUser.email = user.email;
-                        existingUser.password = user.password;
-                        existingUser.forename = user.forename;
-                        existingUser.surname = user.surname;
-                        existingUser.dob = user.dob;
-                        existingUser.gender = user.gender;
-                        existingUser.address1 = user.address1;
-                        existingUser.address2 = user.address2;
-                        existingUser.address3 = user.address3;
-                        existingUser.postCode = user.postCode;
-                        existingUser.mobilePhone = user.mobilePhone;
-                        existingUser.homePhone = user.homePhone;
-                        existingUser.workPhone = user.workPhone;
-                        //existingUser.created = user.created;
-                        existingUser.lastLogIn = user.lastLogIn;
-                        existingUser.type = user.type;
-                        existingUser.status = user.status;
-                        existingUser.ProfilePicUrl = user.ProfilePicUrl;
-
-                        entities.SaveChanges();
-                        return Request.CreateResponse(HttpStatusCode.OK, existingUser);
-                    }
-
-                }
+                Parsnip.AsyncLog.WriteLog("[UsersController - Put(user)] user is null!");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "User parameter was null!");
             }
-            catch(Exception e)
+            else
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
+                Parsnip.AsyncLog.WriteLog("[UsersController - Put(user)] user = " + user);
+                Parsnip.AsyncLog.WriteLog("[UsersController - Put(user)] user.id = " + user.id);
+                Parsnip.AsyncLog.WriteLog("[UsersController - Put(user)] user.forename = " + user.forename);
+
+                try
+                {
+                    using (var entities = new ParsnipTestDbEntities())
+                    {
+                        var existingUser = entities.t_Users.Where(u => u.id == user.id).FirstOrDefault();
+
+                        if (existingUser == null)
+                        {
+                            return Request.CreateErrorResponse(HttpStatusCode.NotFound, string.Format("No user was found with id = {0}. Could not update user.", user.id));
+                        }
+                        else
+                        {
+                            existingUser.id = user.id;
+                            existingUser.username = user.username;
+                            existingUser.email = user.email;
+                            existingUser.password = user.password;
+                            existingUser.forename = user.forename;
+                            existingUser.surname = user.surname;
+                            existingUser.dob = user.dob;
+                            existingUser.gender = user.gender;
+                            existingUser.address1 = user.address1;
+                            existingUser.address2 = user.address2;
+                            existingUser.address3 = user.address3;
+                            existingUser.postCode = user.postCode;
+                            existingUser.mobilePhone = user.mobilePhone;
+                            existingUser.homePhone = user.homePhone;
+                            existingUser.workPhone = user.workPhone;
+                            //existingUser.created = user.created;
+                            existingUser.lastLogIn = user.lastLogIn;
+                            existingUser.type = user.type;
+                            existingUser.status = user.status;
+                            existingUser.ProfilePicUrl = user.ProfilePicUrl;
+
+                            entities.SaveChanges();
+                            return Request.CreateResponse(HttpStatusCode.OK, existingUser);
+                        }
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
+                }
             }
         }
 
