@@ -39,7 +39,6 @@ namespace ParsnipApi
         //Branson
         //public static readonly string sqlConnectionString = @"Data Source=branson\sqlexpress;Initial Catalog=ParsnipTestDb;Integrated Security=True";
         //public static readonly string baseAddress = "http://localhost:59622";
-        //public static readonly string baseAddress = "http://localhost:8080";
 
         public static SqlConnection GetOpenDbConnection()
         {

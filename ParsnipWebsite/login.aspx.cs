@@ -80,7 +80,7 @@ namespace ParsnipWebsite
                 new LogEntry(new Log("login/out")) { text = String.Format("{0} logged in from {1} {2}.", tempUser.FullName, tempUser.PosessivePronoun, Data.DeviceType) };
                 myUser = tempUser;
                 WriteCookie();
-                Response.Redirect(Redirect);
+                Response.Redirect(Redirect, false);
             }
             else
             {

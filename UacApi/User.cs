@@ -402,31 +402,13 @@ namespace UacApi
             Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Begin!", methodName));
 
             //This looks stupid, it's probably gonna be a more complax string soon...
-            string path = string.Format("{0}", usersApiUrl);
+            string path = string.Format("{0}/getall", usersApiUrl);
 
             Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Path to get data will be = {1}", methodName, path));
 
 
             List<t_Users> allUsers;
             Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Getting response", methodName));
-
-            //Client is now initialised in parsnipapi
-            /*
-            if (client == null)
-            {
-                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Client was NULL!!! Attempting fix...", methodName));
-                client = new HttpClient();
-                client.BaseAddress = new Uri(Parsnip.baseAddress);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(
-                    new MediaTypeWithQualityHeaderValue("application/xml"));
-                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Client should no longer be null.", methodName));
-            }
-            else
-            {
-                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Client was not null.", methodName));
-            }
-            */
 
             HttpResponseMessage response = await Parsnip.client.GetAsync(path);
             Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Got response!", methodName));

@@ -88,7 +88,7 @@ namespace ParsnipWebsite
                             break;
                     }
 
-                    Response.Redirect(Redirect);
+                    Response.Redirect(Redirect, false);
                 }
 
                 if (IsPostBack)
@@ -128,7 +128,7 @@ namespace ParsnipWebsite
                             Redirect = "home?error=noimagealbum2";
                             break;
                     }
-                    Response.Redirect(Redirect);
+                    Response.Redirect(Redirect, false);
                 }
 
                 if (MyImage.Title != null && !string.IsNullOrEmpty(MyImage.Title) && !string.IsNullOrWhiteSpace(MyImage.Title))
@@ -155,7 +155,7 @@ namespace ParsnipWebsite
                     }
                     else
                     {
-                        Response.Redirect("photos?error=0");
+                        Response.Redirect("photos?error=0", false);
                     }
                 }
                 ImagePreview.ImageUrl = MyImage.ImageSrc;
@@ -166,7 +166,7 @@ namespace ParsnipWebsite
             }
             else
             {
-                Response.Redirect("home");
+                Response.Redirect("home", false);
             }
         }
 

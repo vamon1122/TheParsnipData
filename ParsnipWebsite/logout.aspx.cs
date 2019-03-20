@@ -14,7 +14,7 @@ namespace ParsnipWebsite
         protected async void Page_Load(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(Data.DeviceType) || string.IsNullOrWhiteSpace(Data.DeviceType))
-                Response.Redirect("get_device_info?url=logout");
+                Response.Redirect("get_device_info?url=logout", false);
 
             User myUser = await UacApi.User.LogInFromCookies();
 
