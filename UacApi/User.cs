@@ -327,6 +327,39 @@ namespace UacApi
             return DbSelect(Parsnip.GetOpenDbConnection());
         }
 
+        public async Task<User> Update()
+        {
+            return new User(await PutUserAsync(PrepareUserData(this)));
+        }
+
+        private static t_Users PrepareUserData(User pUser)
+        {
+            return new t_Users()
+            {
+                id = pUser.Id,
+                username = pUser.Username,
+                email = pUser.Email,
+                password = pUser.Password,
+                forename = pUser.Forename,
+                surname = pUser.Surname,
+                dob = pUser.Dob,
+                gender = pUser._gender,
+                address1 = pUser.Address1,
+                address2 = pUser.Address2,
+                address3 = pUser.Address3,
+                postCode = pUser.PostCode,
+                mobilePhone = pUser.MobilePhone,
+                homePhone = pUser.HomePhone,
+                workPhone = pUser.WorkPhone,
+                created = pUser.DateTimeCreated,
+                lastLogIn = pUser.LastLogIn,
+                type = pUser.AccountType,
+                status = pUser.AccountStatus,
+                ProfilePicUrl = null
+            };
+        }
+
+        /*
         public bool Update()
         {
             bool success;
@@ -335,19 +368,17 @@ namespace UacApi
             UpdateConnection.Close();
             return success;
         }
+        */
 
         public bool Delete()
         {
             return DbDelete(Parsnip.GetOpenDbConnection());
         }
-
-        
         #endregion
 
         #region ParsnipApi CRUD Interfaces
         private static async Task<t_Users> GetUserAsync(string username, string password)
         {
-
             Parsnip.AsyncLog.WriteLog("[GetUserAsync] Begin!");
 
             string path = string.Format("{0}?username={1}&password={2}", usersApiUrl, username, password);
@@ -356,28 +387,10 @@ namespace UacApi
 
 
             t_Users user;
-            Parsnip.AsyncLog.WriteLog("[GetUserAsync] Getting response");
-
-            //client is now a part of the ParsnipApi
-            /*
-            if (client == null)
-            {
-                Parsnip.AsyncLog.WriteLog("[GetUserAsync] Client was NULL!!! Attempting fix...");
-                client = new HttpClient();
-                client.BaseAddress = new Uri(Parsnip.baseAddress);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(
-                    new MediaTypeWithQualityHeaderValue("application/xml"));
-                Parsnip.AsyncLog.WriteLog("[GetUserAsync] Client should no longer be null.");
-            }
-            else
-            {
-                Parsnip.AsyncLog.WriteLog("[GetUserAsync] Client was not null.");
-            }
-            */
+            Parsnip.AsyncLog.WriteLog("[GetUserAsync] Attempting get...");
 
             HttpResponseMessage response = await Parsnip.client.GetAsync(path);
-            Parsnip.AsyncLog.WriteLog("[GetUserAsync] Got response!");
+            Parsnip.AsyncLog.WriteLog("[GetUserAsync] Got response from get!");
             if (response.IsSuccessStatusCode)
             {
                 Parsnip.AsyncLog.WriteLog("[GetUserAsync] Response indicated success. Waiting for user to be returned...");
@@ -390,6 +403,40 @@ namespace UacApi
                 Debug.WriteLine("There was an error whilst getting the user because " + response.ReasonPhrase);
                 Parsnip.AsyncLog.WriteLog("[GetUserAsync] Response indicated faliure! The response was an error: " + response.ReasonPhrase);
                 Parsnip.AsyncLog.WriteLog("[GetUserAsync] User was NOT returned. Will return null.");
+            }
+
+            return user;
+        }
+
+        private static async Task<t_Users> PutUserAsync(t_Users pUser)
+        {
+            string methodName = "PutUserAsync";
+
+            Parsnip.AsyncLog.WriteLog(string.Format("[{0]] Begin!", methodName));
+
+            string path = string.Format("{0}", usersApiUrl);
+
+            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Path to get data will be = {1}", methodName, path));
+
+
+            t_Users user;
+            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Attempting put...", methodName));
+
+            HttpResponseMessage response = await Parsnip.client.PutAsXmlAsync(path, pUser);
+
+            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Got response from put!", methodName));
+            if (response.IsSuccessStatusCode)
+            {
+                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Response indicated success. Waiting for user to be returned...", methodName));
+                user = await response.Content.ReadAsAsync<t_Users>();
+                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] A user was returned! Will return the user.", methodName));
+            }
+            else
+            {
+                user = null;
+                Debug.WriteLine("There was an error whilst getting the user because " + response.ReasonPhrase);
+                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Response indicated faliure! The response was an error: {1}", methodName, response.ReasonPhrase));
+                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] User was NOT returned. Will return null.", methodName));
             }
 
             return user;
