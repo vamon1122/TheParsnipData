@@ -14,6 +14,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Formatting;
 using ParsnipApiDataAccess;
+using System.Net;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Drawing;
 
 namespace UacApi
 {
@@ -255,24 +259,24 @@ namespace UacApi
                 {
                     //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
                     //Debug.WriteLine("----------User.Login() - Username permanently remembered!");
-                    Cookie.WritePerm("userName", username);
+                    CookieApi.Cookie.WritePerm("userName", username);
                 }
 
                 if (rememberPassword)
                 {
                     //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
                     //Debug.WriteLine("----------User.Login() - Password permanently remembered!");
-                    Cookie.WritePerm("userPwd", password);
-                    Cookie.WritePerm("userPwdPerm", password);
+                    CookieApi.Cookie.WritePerm("userPwd", password);
+                    CookieApi.Cookie.WritePerm("userPwdPerm", password);
                     //Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
                 }
                 else
                 {
                     //This check ensures that permanent cookies 
                     //are not replaced with temporary ones
-                    if (!Cookie.Exists("userPwd"))
+                    if (!CookieApi.Cookie.Exists("userPwd"))
                     {
-                        Cookie.WriteSession("userPwd", password);
+                        CookieApi.Cookie.WriteSession("userPwd", password);
                     }
                 }
             }
@@ -401,7 +405,7 @@ namespace UacApi
             t_Users user;
             Parsnip.AsyncLog.WriteLog("[GetUserAsync] Attempting get...");
 
-            HttpResponseMessage response = await Parsnip.client.GetAsync(path);
+            HttpResponseMessage response = await Parsnip.xmlClient.GetAsync(path);
             Parsnip.AsyncLog.WriteLog("[GetUserAsync] Got response from get!");
             if (response.IsSuccessStatusCode)
             {
@@ -420,22 +424,32 @@ namespace UacApi
             return user;
         }
 
+        
+
+        //(Equivalent to SQL UPDATE)
         private static async Task<t_Users> PutUserAsync(t_Users pUser)
         {
             string methodName = "PutUserAsync";
 
             Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Begin!", methodName));
 
-            string path = string.Format("{0}", usersApiUrl);
+            string path = string.Format("{0}?username={1}", usersApiUrl, pUser.username);
             
 
             Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Path to get data will be = {1}", methodName, path));
 
 
             t_Users user;
-            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Attempting put...", methodName));
+            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Attempting put user with id = {1}...", methodName, pUser.id));
 
-            HttpResponseMessage response = await Parsnip.client.PutAsXmlAsync(path, pUser);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(path);
+            request.Method = "Put";//post, put ...
+            request.KeepAlive = true;
+            request.ContentType = "appication/json";
+            
+
+            HttpResponseMessage response = await Parsnip.jsonClient.PutAsJsonAsync(path , pUser);
+            //response.EnsureSuccessStatusCode();
 
             Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Got response from put!", methodName));
             if (response.IsSuccessStatusCode)
@@ -449,6 +463,7 @@ namespace UacApi
                 user = null;
                 Debug.WriteLine("There was an error whilst getting the user because " + response.ReasonPhrase);
                 Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Response indicated faliure! The response was an error: {1}", methodName, response.ReasonPhrase));
+                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Response indicated faliure! The response was an error: {1}", methodName, response.RequestMessage));
                 Parsnip.AsyncLog.WriteLog(string.Format("[{0}] User was NOT returned. Will return null.", methodName));
             }
 
@@ -470,7 +485,7 @@ namespace UacApi
             List<t_Users> allUsers;
             Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Getting response", methodName));
 
-            HttpResponseMessage response = await Parsnip.client.GetAsync(path);
+            HttpResponseMessage response = await Parsnip.xmlClient.GetAsync(path);
             Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Got response!", methodName));
             if (response.IsSuccessStatusCode)
             {
@@ -1032,8 +1047,8 @@ namespace UacApi
         {
             try
             {
-                Cookie.WriteSession("userName", "");
-                Cookie.WriteSession("userPwd", "");
+                CookieApi.Cookie.WriteSession("userName", "");
+                CookieApi.Cookie.WriteSession("userPwd", "");
                 return true;
             }
             catch
@@ -1377,9 +1392,9 @@ namespace UacApi
 
             string[] UserDetails = new string[2];
 
-            if (Cookie.Read("userName") != null)
+            if (CookieApi.Cookie.Read("userName") != null)
             {
-                Username = Cookie.Read("userName");
+                Username = CookieApi.Cookie.Read("userName");
                 AccountLog.Debug("Found a username cookie! Username = " + Username);
                 UserDetails[0] = Username;
             }
@@ -1389,9 +1404,9 @@ namespace UacApi
                 UserDetails[0] = "";
             }
 
-            if (Cookie.Read("userPwd") != null)
+            if (CookieApi.Cookie.Read("userPwd") != null)
             {
-                UserDetails[1] = Cookie.Read("userPwd");
+                UserDetails[1] = CookieApi.Cookie.Read("userPwd");
                 AccountLog.Debug("Found a password cookie! Password = " + UserDetails[1]);
                 
             }
@@ -1412,9 +1427,9 @@ namespace UacApi
 
             string[] UserDetails = new string[2];
 
-            if (Cookie.Read("userName") != null)
+            if (CookieApi.Cookie.Read("userName") != null)
             {
-                UserDetails[0] = Cookie.Read("userName");
+                UserDetails[0] = CookieApi.Cookie.Read("userName");
                 AccountLog.Debug("Found a username cookie! Username = " + UserDetails[0]);
             }
             else
@@ -1423,9 +1438,9 @@ namespace UacApi
                 AccountLog.Debug("No username cookie was found.");
             }
 
-            if (Cookie.Read("userPwd") != null)
+            if (CookieApi.Cookie.Read("userPwd") != null)
             {
-                UserDetails[1] = Cookie.Read("userPwd");
+                UserDetails[1] = CookieApi.Cookie.Read("userPwd");
                 AccountLog.Debug("Found a password cookie! Password = " + UserDetails[1]);
 
             }

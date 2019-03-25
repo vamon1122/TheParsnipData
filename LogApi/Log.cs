@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using ParsnipApi;
 using CookieApi;
 
 namespace LogApi
@@ -17,6 +16,7 @@ namespace LogApi
         public DateTime DateTimeCreated { get; private set; }
         public string Name { get; set;  }
         public string SessionId { get; private set; }
+        
 
 
         public Log(SqlDataReader pReader) : this()
@@ -28,7 +28,7 @@ namespace LogApi
         {
             isNew = true;
             Id = pLogId;
-            DateTimeCreated = Parsnip.adjustedTime;
+            DateTimeCreated = Data.adjustedTime;
 
         }
 
@@ -39,7 +39,7 @@ namespace LogApi
 
         public Log(string pName) : this()
         {
-            using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
+            using (SqlConnection openConn = Data.GetOpenDbConnection())
             {
                 Debug.WriteLine("Creating new Log object with name = " + pName);
                 Name = pName;
@@ -51,7 +51,7 @@ namespace LogApi
                 else
                 {
                     Id = Guid.NewGuid();
-                    DateTimeCreated = Parsnip.adjustedTime;
+                    DateTimeCreated = Data.adjustedTime;
                     Insert();
                 }
             }
@@ -65,7 +65,7 @@ namespace LogApi
             {
                 var logEntries = new List<LogEntry>();
 
-                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using (SqlConnection conn = new SqlConnection(Data.sqlConnectionString))
                 {
                     conn.Open();
                     SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM t_LogEntries WHERE logId = @logId  ORDER BY dateTime DESC", conn);
@@ -96,7 +96,7 @@ namespace LogApi
                 Debug.WriteLine("----------Getting all logs...");
 
             var logs = new List<Log>();
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            using (SqlConnection conn = Data.GetOpenDbConnection())
             {
                 SqlCommand GetLogs = new SqlCommand("SELECT * FROM t_Logs", conn);
                 using (SqlDataReader reader = GetLogs.ExecuteReader())
@@ -137,7 +137,7 @@ namespace LogApi
 
         public bool Select()
         {
-            using (SqlConnection openConnection = Parsnip.GetOpenDbConnection())
+            using (SqlConnection openConnection = Data.GetOpenDbConnection())
             {
                 if (Id != null && Id != Guid.Empty)
                 {
@@ -211,7 +211,7 @@ namespace LogApi
 
         public bool Exists()
         {
-            using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
+            using (SqlConnection openConn = Data.GetOpenDbConnection())
             {
                 if (IdExists(openConn))
                 {
@@ -283,7 +283,7 @@ namespace LogApi
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using (SqlConnection conn = new SqlConnection(Data.sqlConnectionString))
                 {
                     conn.Open();
 

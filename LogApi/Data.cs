@@ -4,12 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
-using ParsnipApi;
-
 namespace LogApi
 {
     public static class Data
     {
+        //Live
+        //public static readonly string sqlConnectionString = "Server=198.38.83.33;Database=vamon112_parsnipdb;Uid=vamon112_ben;Password=ccjO07JT";
+        //public static readonly string baseAddress = "http://api.theparsnip.co.uk";
+        //public static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", HttpContext.Current.Server.MapPath("~"));
+
+        //Home
+        public static readonly string sqlConnectionString = @"Data Source=BEN-PC\SQLEXPRESS;Initial Catalog=ParsnipTestDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        public static readonly string baseAddress = "http://localhost:59622";
+
+        //Branson
+        //public static readonly string sqlConnectionString = @"Data Source=branson\sqlexpress;Initial Catalog=ParsnipTestDb;Integrated Security=True";
+        //public static readonly string baseAddress = "http://localhost:59622";
+        //public static readonly LogWriter AsyncLog = new LogWriter("Async_Login.txt", @"C:\");
+
+        public static DateTime adjustedTime { get { return DateTime.Now.AddHours(8); } }
+
+        public static SqlConnection GetOpenDbConnection()
+        {
+            SqlConnection conn = new SqlConnection(sqlConnectionString);
+            conn.Open();
+            return conn;
+        }
+
         public static List<LogEntry> logEntries { get; internal set; }
 
         public static bool ClearLogs()
@@ -17,7 +38,7 @@ namespace LogApi
             
             try
             {
-                using(SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using(SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     conn.Open();
 
@@ -42,7 +63,7 @@ namespace LogApi
             {
                 logEntries = new List<LogEntry>();
                 
-                using(SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using(SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     conn.Open();
                     SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM t_LogEntries ORDER BY dateTime DESC", conn);

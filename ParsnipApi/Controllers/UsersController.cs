@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Data.SqlClient;
 using ParsnipApiDataAccess;
 using BenLog;
+using LogApi;
 
 namespace ParsnipApi.Controllers
 {
@@ -38,7 +39,7 @@ namespace ParsnipApi.Controllers
         }
 
         //[FromBody]: From the body of the Http request
-        public HttpResponseMessage Put([FromBody]t_Users user)
+        public HttpResponseMessage Put(string username, [FromBody]t_Users user)
         {
             if (user == null)
             {
@@ -55,7 +56,7 @@ namespace ParsnipApi.Controllers
                 {
                     using (var entities = new ParsnipTestDbEntities())
                     {
-                        var existingUser = entities.t_Users.Where(u => u.id == user.id).FirstOrDefault();
+                        var existingUser = entities.t_Users.FirstOrDefault(u => u.username == username);
 
                         if (existingUser == null)
                         {
@@ -100,7 +101,8 @@ namespace ParsnipApi.Controllers
         //Must begin with the 'Get' keyword
         public IEnumerable<t_Users> GetAll()
         {
-            using(ParsnipTestDbEntities entities = new ParsnipTestDbEntities())
+            new LogEntry(Parsnip.debugLog) { text = "[UsersController - GetAll()] " };
+            using (ParsnipTestDbEntities entities = new ParsnipTestDbEntities())
             {
                 return entities.t_Users.ToList();
             }

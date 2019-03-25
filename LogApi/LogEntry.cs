@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ParsnipApi;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using CookieApi;
@@ -72,7 +71,7 @@ namespace LogApi
             Debug.WriteLine("----------Creating new log entry. Logid = " + logId);
             logId = pLog.Id;
             //userId = pUserId;
-            date = Parsnip.adjustedTime;
+            date = Data.adjustedTime;
 
         }
 
@@ -81,7 +80,7 @@ namespace LogApi
             string stage = "";
             try
             {
-                using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
+                using (SqlConnection openConn = Data.GetOpenDbConnection())
                 {
                     stage = "inserting LogEntry...";
                     

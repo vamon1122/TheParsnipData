@@ -8,21 +8,28 @@ using BenLog;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
+using LogApi;
 
 namespace ParsnipApi
 {
     public static class Parsnip
     {
         public static readonly string apiUrl = @"/api/";
-        public static readonly HttpClient client = new HttpClient();
-        
+        public static readonly HttpClient xmlClient = new HttpClient();
+        public static readonly HttpClient jsonClient = new HttpClient();
+        public static Log debugLog = new Log("Debug");
 
         static Parsnip()
         {
-            client.BaseAddress = new Uri(baseAddress);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
+            xmlClient.BaseAddress = new Uri(baseAddress);
+            xmlClient.DefaultRequestHeaders.Accept.Clear();
+            xmlClient.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/xml"));
+
+            jsonClient.BaseAddress = new Uri(baseAddress);
+            jsonClient.DefaultRequestHeaders.Accept.Clear();
+            jsonClient.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
 
