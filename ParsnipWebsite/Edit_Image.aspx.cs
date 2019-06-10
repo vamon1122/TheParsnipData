@@ -17,26 +17,20 @@ namespace ParsnipWebsite
         User myUser;
         Log DebugLog = new Log("Debug");
         MediaApi.Image MyImage;
-        protected async void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
+            //REQUIRED TO VIEW POSTBACK
+            form1.Action = Request.RawUrl;
+
             //We secure the page using the UacApi. 
             //This ensures that the user is logged in etc
             //You only need to change where it says '_NEW TEMPLATE'.
             //Change this to match your page name without the '.aspx' extension.
 
-            myUser = await UacApi.User.LogInFromCookies();
-            Uac.SecurePage("users", this, Data.DeviceType, "member", myUser);
-        }
-
-        void Page_LoadComplete(object sender, EventArgs e)
-        {
-            //REQUIRED TO VIEW POSTBACK
-            form1.Action = Request.RawUrl;
-
             if (Request.QueryString["imageid"] == null)
-                Uac.SecurePage("edit_image", this, Data.DeviceType, "user", myUser);
+                myUser = Uac.SecurePage("edit_image", this, Data.DeviceType);
             else
-                Uac.SecurePage("edit_image?imageid=" + Request.QueryString["imageid"], this, Data.DeviceType, "user", myUser);
+                myUser = Uac.SecurePage("edit_image?imageid=" + Request.QueryString["imageid"], this, Data.DeviceType);
 
             //myUser = Uac.SecurePage("edit_image", this, Data.DeviceType);
 
@@ -88,7 +82,7 @@ namespace ParsnipWebsite
                             break;
                     }
 
-                    Response.Redirect(Redirect, false);
+                    Response.Redirect(Redirect);
                 }
 
                 if (IsPostBack)
@@ -100,15 +94,15 @@ namespace ParsnipWebsite
                     */
 
                     MyImage.Title = Request["InputTitleTwo"].ToString();
-
+                        
                     //This breaks on some older browsers. Seems android specific?
-                    var tempAlbumId = Request["NewAlbumsDropDown"].ToString();
+                    var tempAlbumId = Request["NewAlbumsDropDown"].ToString(); 
 
-                    if (tempAlbumId != Guid.Empty.ToString())
+                    if(tempAlbumId != Guid.Empty.ToString())
                     {
                         MyImage.AlbumId = new Guid(tempAlbumId);
                     }
-
+                    
                     MyImage.Update();
 
                     string Redirect;
@@ -128,7 +122,7 @@ namespace ParsnipWebsite
                             Redirect = "home?error=noimagealbum2";
                             break;
                     }
-                    Response.Redirect(Redirect, false);
+                    Response.Redirect(Redirect);
                 }
 
                 if (MyImage.Title != null && !string.IsNullOrEmpty(MyImage.Title) && !string.IsNullOrWhiteSpace(MyImage.Title))
@@ -155,19 +149,21 @@ namespace ParsnipWebsite
                     }
                     else
                     {
-                        Response.Redirect("photos?error=0", false);
+                        Response.Redirect("photos?error=0");
                     }
                 }
-                ImagePreview.ImageUrl = MyImage.ImageSrc;
+                    ImagePreview.ImageUrl = MyImage.ImageSrc;
 
-
-
+                    
+                
 
             }
             else
             {
-                Response.Redirect("home", false);
+                Response.Redirect("home");
             }
+
+            
         }
 
         protected void ButtonSave_Click(object sender, EventArgs e)

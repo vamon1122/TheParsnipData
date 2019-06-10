@@ -13,12 +13,11 @@ namespace ParsnipWebsite
 {
     public partial class Admin : System.Web.UI.Page
     {
-        User myUser;
+        User myAccount;
         Log Debug = new Log("Debug");
-        protected async void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = await UacApi.User.LogInFromCookies();
-            Uac.SecurePage("admin", this, Data.DeviceType, "admin", myUser);
+            myAccount = Uac.SecurePage("admin", this, Data.DeviceType, "admin");
         }
 
         protected void OpenLogsButton_Click(object sender, EventArgs e)

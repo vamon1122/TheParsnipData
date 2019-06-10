@@ -1,4 +1,4 @@
-﻿<%@ Page Async="true" Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ParsnipWebsite.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ParsnipWebsite.Login" %>
 
 <!DOCTYPE html>
 
@@ -23,11 +23,6 @@
         <div class="alert alert-warning alert-dismissible" runat="server" style="display:none;" id="Warning">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Confirm Identity</strong> You must log in first!
-        </div>
-
-        <div class="alert alert-danger alert-dismissible" runat="server" style="display:none;" id="Alert_LogInError">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Login Failed</strong> No user was found with those details.
         </div>
     </div>
     <div class="center_form">

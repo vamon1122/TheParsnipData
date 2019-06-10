@@ -10,53 +10,30 @@ using System.Diagnostics;
 using LogApi;
 using CookieApi;
 using ParsnipApi;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Http.Formatting;
-using ParsnipApiDataAccess;
-using System.Net;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Drawing;
 
 namespace UacApi
 {
     public class User
     {
-        private static readonly string usersApiUrl = string.Format("{0}{1}users", Parsnip.baseAddress, Parsnip.apiUrl);
-        private static readonly Log DebugLog = new Log("Debug");
-        private static readonly LogWriter AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
+        Log DebugLog = new Log("Debug");
 
         #region Properties
-        public Guid _id;
-        public string _username;
-        public string _email;
-        public string _pwd;
-        public string _forename;
-        public string _surname;
-        public DateTime _dob;
-        public string _gender;
-        public string _address1;
-        public string _address2;
-        public string _address3;
-        public string _postCode;
-        public string _mobilePhone;
-        public string _homePhone;
-        public string _workPhone;
-        public DateTime _dateTimeCreated;
-        public DateTime _lastLogIn;
-        public string _accountType;
-        public string _accountStatus;
-        public Guid _createdByUserId;
-
-        
+        private LogWriter AccountLog;
+        private Guid _id;
         public Guid Id { get { return _id; } private set { /*Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value));*/ _id = value; } }
+        private string _username;
         public string Username { get { return _username; } set { /*Debug.WriteLine(string.Format("----------username is being set to = {0}", value));*/ _username = value; } }
+        private string _email;
         public string Email { get { return _email; } set { /*Debug.WriteLine(string.Format("----------email is being set to = {0}", value));*/ _email = value; } }
+        private string _pwd;
         public string Password { get { return _pwd; } set { /*Debug.WriteLine(string.Format("----------pwd is being set to = {0}", value));*/ _pwd = value; } }
+        private string _forename;
         public string Forename { get { return _forename; } set { /*Debug.WriteLine(string.Format("----------forename is being set to = {0}", value));*/ _forename = value; } }
+        private string _surname;
         public string Surname { get { return _surname; } set { /*Debug.WriteLine(string.Format("----------surname is being set to = {0}", value));*/ _surname = value; } }
+        private DateTime _dob;
         public DateTime Dob { get { return _dob; } set { /*Debug.WriteLine(string.Format("----------dob is being set to = {0}", value));*/ _dob = value; } }
+        private string _gender;
         public string GenderUpper
         {
             get
@@ -149,181 +126,360 @@ namespace UacApi
                     return "them";
             }
         }
+        private string _address1;
         public string Address1 { get { return _address1; } set { /*Debug.WriteLine(string.Format("----------address1 is being set to = {0}", value));*/ _address1 = value; } }
+        private string _address2;
         public string Address2 { get { return _address2; } set { /*Debug.WriteLine(string.Format("----------address2 is being set to = {0}", value));*/ _address2 = value; } }
+        private string _address3;
         public string Address3 { get { return _address3; } set { /*Debug.WriteLine(string.Format("----------address3 is being set to = {0}", value));*/ _address3 = value; } }
+        private string _postCode;
         public string PostCode { get { return _postCode; } set { /*Debug.WriteLine(string.Format("----------postCode is being set to = {0}", value));*/ _postCode = value; } }
+        private string _mobilePhone;
         public string MobilePhone { get { return _mobilePhone; } set { /*Debug.WriteLine(string.Format("----------mobilePhone is being set to = {0}", value));*/ _mobilePhone = value; } }
+        private string _homePhone;
         public string HomePhone { get { return _homePhone; } set { /*Debug.WriteLine(string.Format("----------homePhone is being set to = {0}", value));*/ _homePhone = value; } }
+        private string _workPhone;
         public string WorkPhone { get { return _workPhone; } set { /*Debug.WriteLine(string.Format("----------workPhone is being set to = {0}", value));*/ _workPhone = value; } }
+        private DateTime _dateTimeCreated;
         public DateTime DateTimeCreated { get { return _dateTimeCreated; } set { /*Debug.WriteLine(string.Format("----------dateTimeCreated is being set to = {0}", value));*/ _dateTimeCreated = value; } }
+        private DateTime _lastLogIn;
         public DateTime LastLogIn { get { return _lastLogIn; } set { /*Debug.WriteLine(string.Format("----------lastLogIn is being set to = {0}", value));*/ _lastLogIn = value; } }
+        private string _accountType;
         public string AccountType { get { return _accountType; } set { /*Debug.WriteLine(string.Format("----------accountType is being set to = {0}", value));*/ _accountType = value; } }
+        private string _accountStatus;
         public string AccountStatus { get { return _accountStatus; } set { /*Debug.WriteLine(string.Format("----------accountStatus is being set to = {0}", value));*/ _accountStatus = value; } }
+        private Guid _createdByUserId;
         public Guid createdByUserId { get { return _createdByUserId; } set { /*Debug.WriteLine(string.Format("----------createdByUserId is being set to = {0}", value));*/ _createdByUserId = value; } }
         public string FullName { get { return string.Format("{0} {1}", Forename, Surname); } }
         public List<string> ValidationErrors { get;  set; }
         #endregion
 
         #region Constructors
-        public User(string pWhereAmI) : this()
+        public User(string pWhereAmI)
         {
             //Debug.WriteLine(string.Format("User was initialised without a guid. WhereAmI = {0} Their guid will be: {1}", pWhereAmI, Guid.Empty));
             Id = Guid.Empty;
             
             DateTimeCreated = Parsnip.adjustedTime;
+            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
-        public User(Guid pGuid) : this()
+        public User(Guid pGuid)
         {
             //Debug.WriteLine("User was initialised with the guid: " + pGuid);
             Id = pGuid;
+            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
-        public User(SqlDataReader pReader) : this()
+        public User(SqlDataReader pReader)
         {
             //Debug.WriteLine("User was initialised with an SqlDataReader. Guid: " + pReader[0]);
             AddValues(pReader);
-        }
-
-        public User(t_Users user)
-        {
-            //Debug.WriteLine("User was initialised with an SqlDataReader. Guid: " + pReader[0]);
-            AddValues(user);
+            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
         private User()
         {
-
+            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
         #endregion
 
-        #region Public CRUD Methods
-        public static async Task<User> LogInFromCookies()
+        #region Static Methods
+        public static List<User> GetAllUsers()
         {
-            User tempUser;
+            bool logMe = false;
 
-            Parsnip.AsyncLog.WriteLog("[CookieLogIn] Getting cookies...");
+            if (logMe)
+                Debug.WriteLine("----------Getting all users...");
 
-            string[] usernamePassword;
-            try
+            var users = new List<User>();
+            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
-                usernamePassword = GetCookies();
-            }
-            catch(Exception e)
-            {
-                Parsnip.AsyncLog.WriteLog("There was an exception whilst getting the cookies: " + e);
-                usernamePassword = new string[2];
-            }
-           
-            if(string.IsNullOrEmpty(usernamePassword[0]) || string.IsNullOrEmpty(usernamePassword[1]))
-            {
-                Parsnip.AsyncLog.WriteLog(string.Format("[CookieLogIn] Either the username or password cookies were blank"));
-                tempUser = new User(Guid.Empty);
-            }
-            else
-            {
-                Parsnip.AsyncLog.WriteLog(string.Format("[CookieLogIn] Got cookies (username = {0} password = {1}). Awaiting response from LogIn()...", usernamePassword[0], usernamePassword[1]));
-                tempUser = await LogIn(usernamePassword[0], true, usernamePassword[1], true);
+                SqlCommand GetUsers = new SqlCommand("SELECT * FROM t_Users", conn);
+                using (SqlDataReader reader = GetUsers.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        users.Add(new UacApi.User(reader));
+                    }
+                }
             }
 
-            Parsnip.AsyncLog.WriteLog("[CookieLogIn] Got response! Returning user.");
+            foreach (User temp in users)
+            {
+                if (logMe)
+                    Debug.WriteLine(string.Format("Found user {0} with id {1}", temp.FullName, temp.Id));
+            }
 
+            return users;
+        }
+
+        public static User GetLoggedInUser(string pUsername, string pPwd)
+        {
+            User tempUser = new User();
+            tempUser.LogIn(pUsername, false, pPwd, false, true);
             return tempUser;
         }
 
-        public static async Task<User> LogIn(string username, bool rememberUsername, string password, bool rememberPassword)
+        public static User LogIn(string pUsername, string pPassword)
         {
-            try
+            using (var openConn = Parsnip.GetOpenDbConnection())
             {
-                Parsnip.AsyncLog.WriteLog(string.Format("[LogIn] Trying to get user data..."));
-                t_Users myUserData = await GetUserAsync(username, password);
-                Parsnip.AsyncLog.WriteLog(string.Format("[LogIn] Login for user (username={0} password={1}) was successful! Object returned = {2}. Id = {3}. Creating user object...", username, password, myUserData, myUserData.id));
-                var myUser = new User(myUserData);
-                Parsnip.AsyncLog.WriteLog(string.Format("[LogIn] Created user object.. returning"));
-
-                SetCookies();
-                SetLastLogIn();
-
-                return myUser;
-            }
-            catch (Exception e)
-            {
-                Parsnip.AsyncLog.WriteLog(string.Format("[LogIn] There was an exception whilst logging in username={0} password={1} : {2}", username, password, e));
-                return new User(Guid.Empty);
-            }
-
-            void SetCookies()
-            {
-                if (rememberUsername)
-                {
-                    //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
-                    //Debug.WriteLine("----------User.Login() - Username permanently remembered!");
-                    CookieApi.Cookie.WritePerm("userName", username);
-                }
-
-                if (rememberPassword)
-                {
-                    //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
-                    //Debug.WriteLine("----------User.Login() - Password permanently remembered!");
-                    CookieApi.Cookie.WritePerm("userPwd", password);
-                    CookieApi.Cookie.WritePerm("userPwdPerm", password);
-                    //Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
-                }
-                else
-                {
-                    //This check ensures that permanent cookies 
-                    //are not replaced with temporary ones
-                    if (!CookieApi.Cookie.Exists("userPwd"))
-                    {
-                        CookieApi.Cookie.WriteSession("userPwd", password);
-                    }
-                }
-            }
-
-            bool SetLastLogIn()
-            {
-                int RecordsAffected;
-
-                //AccountLog.Debug("[LogIn] Attempting to set LastLogIn...");
                 try
                 {
-                    //AccountLog.Debug("username = " + username);
-                    using (SqlConnection conn = ParsnipApi.Parsnip.GetOpenDbConnection())
-                    {
-                        SqlCommand Command = new SqlCommand("UPDATE t_Users SET lastLogIn = @date WHERE username = @username;", conn);
-                        Command.Parameters.Add(new SqlParameter("username", username));
-                        Command.Parameters.Add(new SqlParameter("date", Parsnip.adjustedTime));
-                        RecordsAffected = Command.ExecuteNonQuery();
-                    }
+                    SqlCommand getId = new SqlCommand("SELECT * FROM t_Users WHERE username = @username AND password = @password", openConn);
+                    getId.Parameters.Add(new SqlParameter("username", pUsername));
 
+                    using (SqlDataReader reader = getId.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return new User(reader);
+                        }
+                    }
+                    throw new InvalidOperationException("There is no user with this username / password combination");
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("[LogIn] There was an exception whilst setting the LastLogIn: " + e);
+                    Debug.WriteLine("[LogIn] There was an exception whilst getting the id from the database: " + e);
+                    throw new InvalidOperationException("There was an error whilst finding a user with username / password combination");
+                }
+            }
+        }
+
+        public static bool LogOut()
+        {
+            try
+            {
+                Cookie.WriteSession("userName", "");
+                Cookie.WriteSession("userPwd", "");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region LogIn / LogOut
+
+
+        internal bool LogIn(string pUsername)
+        {
+            Username = pUsername;
+            return DbSelect(Parsnip.GetOpenDbConnection());
+        }
+
+        
+
+        
+        #endregion
+
+        #region Public Methods
+
+        public bool LogIn()
+        {
+            return LogIn(true);
+        }
+
+        public bool LogIn(bool silent)
+        {
+            string[] Cookies = GetCookies();
+            string CookieUsername = Cookies[0];
+            Username = Cookies[0];
+            string CookiePwd = Cookies[1];
+
+
+            //Debug.WriteLine("CookieUsername = " + CookieUsername);
+            //Debug.WriteLine("CookiePwd = " + CookiePwd);
+
+            if (String.IsNullOrEmpty(CookieUsername) || String.IsNullOrWhiteSpace(CookieUsername) || String.IsNullOrEmpty(CookiePwd) || String.IsNullOrWhiteSpace(CookiePwd))
+            {
+                return false;
+            }
+            else
+            {
+                if (LogIn(CookieUsername, false, CookiePwd, false, silent))
+                {
+                    return true;
+                }
+                else
+                {
                     return false;
                 }
 
-                //AccountLog.Debug(String.Format("[LogIn] Set LastLogIn successfully! {0} records were affected.", RecordsAffected));
-                return true;
             }
         }
 
-        public static async Task<List<User>> GetAllUsers()
+        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
         {
-            List<t_Users> allTUsers = await GetAllUsersAsync();
-            List<User> allUsers = new List<User>();
-            foreach (var user in allTUsers)
+            return LogIn(pUsername, pRememberUsername, pPwd, pRememberPwd, true);
+        }
+
+        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd, bool silent)
+        {
+            //AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
+            //Debug.WriteLine(string.Format("----------User.Login() for {0}", Username));
+
+            new LogEntry(DebugLog) { text = "Logging in. pRememberPwd = " + pRememberPwd };
+
+            string dbPwd = null;
+            Username = pUsername;
+
+            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
-                allUsers.Add(new User(user));
+                //AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
+
+
+
+                if (GetPwdFromDb())
+                {
+                    if (pPwd == dbPwd)
+                    {
+                        //Debug.WriteLine(string.Format("----------User.Login() - Got password from db for user {0}. Id = {1}. Pwd = {2}", Username, Id, Password));
+                        if (GetIdFromDb())
+                        {
+                            //AccountLog.Debug(String.Format("[LogIn] DbPwd == Pwd ({0} == {1})", dbPwd, pPwd));
+                            if (DbSelect(conn))
+                            {
+                                //Debug.WriteLine(string.Format("----------User.Login() - Selected user {0} whilst logging in", Username));
+                                if (pRememberUsername)
+                                {
+                                    //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
+                                    //Debug.WriteLine("----------User.Login() - Username permanently remembered!");
+                                    Cookie.WritePerm("userName", pUsername);
+                                }
+
+                                if (pRememberPwd)
+                                {
+                                    //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
+                                    //Debug.WriteLine("----------User.Login() - Password permanently remembered!");
+                                    Cookie.WritePerm("userPwd", pPwd);
+                                    Cookie.WritePerm("userPwdPerm", pPwd);
+                                    //Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
+                                }
+                                else
+                                {
+                                    //This check ensures that permanent cookies 
+                                    //are not replaced with temporary ones
+                                    if (!Cookie.Exists("userPwd"))
+                                    {
+                                        Cookie.WriteSession("userPwd", pPwd);
+                                    }
+                                }
+
+                                if (SetLastLogIn())
+                                {
+                                    //AccountLog.Info("[LogIn] Logged in successfully!");
+                                    if (!silent)
+                                    {
+                                        Debug.WriteLine(string.Format("----------User.Login() - {0} logged in LOUDLY", FullName));
+                                    }
+                                    else
+                                    {
+                                        //Debug.WriteLine(String.Format("----------User.Login() - {0} logged in SILENTLY", FullName));
+                                    }
+
+                                    return true;
+                                }
+
+                            }
+                            else
+                            {
+                                Debug.WriteLine(string.Format("DbSelect failed when logging user {0} in", Username));
+                            }
+                        }
+                        else
+                            Debug.WriteLine("----------User.LogIn() - Failed to get user id");
+                    }
+                    else
+                    {
+                        Debug.WriteLine(string.Format("Error whilst logging in {0}. {1} != {2}", Username, pPwd, dbPwd));
+                    }
+                }
+
+                else
+                {
+                    Debug.WriteLine(string.Format("GetPwdFromDb() failed when logging user {0} in", Username));
+                    //AccountLog.Debug(String.Format("[LogIn] DbPwd != Pwd ({0} != {1}", dbPwd, pPwd));
+                }
+                //AccountLog.Error("[LogIn] Failed to log in.");
+                return false;
+
+                bool GetIdFromDb()
+                {
+                    try
+                    {
+                        SqlCommand getId = new SqlCommand("SELECT id FROM t_Users WHERE username = @username", conn);
+                        getId.Parameters.Add(new SqlParameter("username", pUsername));
+
+                        using (SqlDataReader reader = getId.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Id = new Guid(reader[0].ToString());
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("[LogIn] There was an exception whilst getting the id from the database: " + e);
+                        return false;
+                    }
+                    //AccountLog.Debug("[LogIn] Got password from database successfully!");
+                    return true;
+                }
+
+                bool SetLastLogIn()
+                {
+                    int RecordsAffected;
+
+                    //AccountLog.Debug("[LogIn] Attempting to set LastLogIn...");
+                    try
+                    {
+                        //AccountLog.Debug("username = " + username);
+                        SqlCommand Command = new SqlCommand("UPDATE t_Users SET lastLogIn = @date WHERE username = @username;", conn);
+                        Command.Parameters.Add(new SqlParameter("username", Username));
+                        Command.Parameters.Add(new SqlParameter("date", Parsnip.adjustedTime));
+                        RecordsAffected = Command.ExecuteNonQuery();
+
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("[LogIn] There was an exception whilst setting the LastLogIn: " + e);
+                        return false;
+                    }
+
+                    //AccountLog.Debug(String.Format("[LogIn] Set LastLogIn successfully! {0} records were affected.", RecordsAffected));
+                    return true;
+                }
+
+                bool GetPwdFromDb()
+                {
+                    //AccountLog.Debug("[LogIn] Attempting to get password from database...");
+                    try
+                    {
+                        SqlCommand getPassword = new SqlCommand("SELECT password FROM t_Users WHERE username = @username", conn);
+                        getPassword.Parameters.Add(new SqlParameter("Username", pUsername));
+
+                        using (SqlDataReader reader = getPassword.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                dbPwd = reader[0].ToString().Trim();
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("[LogIn] There was an exception whilst getting the password from the database: " + e);
+                        return false;
+                    }
+                    //AccountLog.Debug("[LogIn] Got password from database successfully!");
+                    return true;
+                }
             }
-
-            return allUsers;
-        }
-
-        static async Task<User> GetUser(Guid id)
-        {
-            throw new NotImplementedException();
         }
 
         public bool Select()
@@ -331,51 +487,6 @@ namespace UacApi
             return DbSelect(Parsnip.GetOpenDbConnection());
         }
 
-        public async Task<bool> Update()
-        {
-            Parsnip.AsyncLog.WriteLog("Doing async update");
-            try
-            {
-                AddValues(await PutUserAsync(PrepareUserData(this)));
-            }
-            catch(Exception e)
-            {
-                Parsnip.AsyncLog.WriteLog("There was an error: " + e);
-                return false;
-            }
-
-            Parsnip.AsyncLog.WriteLog("Success!");
-            return true;
-        }
-
-        private static t_Users PrepareUserData(User pUser)
-        {
-            return new t_Users()
-            {
-                id = pUser.Id,
-                username = pUser.Username,
-                email = pUser.Email,
-                password = pUser.Password,
-                forename = pUser.Forename,
-                surname = pUser.Surname,
-                dob = pUser.Dob,
-                gender = pUser._gender,
-                address1 = pUser.Address1,
-                address2 = pUser.Address2,
-                address3 = pUser.Address3,
-                postCode = pUser.PostCode,
-                mobilePhone = pUser.MobilePhone,
-                homePhone = pUser.HomePhone,
-                workPhone = pUser.WorkPhone,
-                created = pUser.DateTimeCreated,
-                lastLogIn = pUser.LastLogIn,
-                type = pUser.AccountType,
-                status = pUser.AccountStatus,
-                ProfilePicUrl = null
-            };
-        }
-
-        /*
         public bool Update()
         {
             bool success;
@@ -384,128 +495,578 @@ namespace UacApi
             UpdateConnection.Close();
             return success;
         }
-        */
 
         public bool Delete()
         {
             return DbDelete(Parsnip.GetOpenDbConnection());
         }
-        #endregion
 
-        #region ParsnipApi CRUD Interfaces
-        private static async Task<t_Users> GetUserAsync(string username, string password)
+        public bool Validate()
         {
-            Parsnip.AsyncLog.WriteLog("[GetUserAsync] Begin!");
+            ValidationErrors = new List<string>();
 
-            string path = string.Format("{0}?username={1}&password={2}", usersApiUrl, username, password);
+            bool validateSuccess = true;
 
-            Parsnip.AsyncLog.WriteLog("[GetUserAsync] Path to get data will be = " + path);
+            validateSuccess = validateUsername() ? validateSuccess : false;
+            validateSuccess = validateEmail() ? validateSuccess : false;
+            validateSuccess = validatePwd() ? validateSuccess : false;
+            validateSuccess = validateForename() ? validateSuccess : false;
+            validateSuccess = validateSurname() ? validateSuccess : false;
+            validateSuccess = validateDob() ? validateSuccess : false;
+            validateSuccess = validateGender() ? validateSuccess : false;
+            validateSuccess = validateAddress1() ? validateSuccess : false;
+            validateSuccess = validateAddress2() ? validateSuccess : false;
+            validateSuccess = validateAddress3() ? validateSuccess : false;
+            validateSuccess = validatePostCode() ? validateSuccess : false;
+            validateSuccess = validateMobilePhone() ? validateSuccess : false;
+            validateSuccess = validateHomePhone() ? validateSuccess : false;
+            validateSuccess = validateWorkPhone() ? validateSuccess : false;
+            validateSuccess = validateDateTimeCreated() ? validateSuccess : false;
+            validateSuccess = validateAccountType() ? validateSuccess : false;
+            validateSuccess = validateAccountStatus() ? validateSuccess : false;
 
+            string validateSuccessString = validateSuccess ? "was validated successfully!" : "failed to be validated. See details below:";
 
-            t_Users user;
-            Parsnip.AsyncLog.WriteLog("[GetUserAsync] Attempting get...");
+            new LogEntry(Log.Default) { text = string.Format("{0} {1}", FullName, validateSuccessString) };
 
-            HttpResponseMessage response = await Parsnip.xmlClient.GetAsync(path);
-            Parsnip.AsyncLog.WriteLog("[GetUserAsync] Got response from get!");
-            if (response.IsSuccessStatusCode)
+            return validateSuccess;
+
+            bool validateUsername()
             {
-                Parsnip.AsyncLog.WriteLog("[GetUserAsync] Response indicated success. Waiting for user to be returned...");
-                user = await response.Content.ReadAsAsync<t_Users>();
-                Parsnip.AsyncLog.WriteLog("[GetUserAsync] A user was returned! Will return the user.");
-            }
-            else
-            {
-                user = null;
-                Debug.WriteLine("There was an error whilst getting the user because " + response.ReasonPhrase);
-                Parsnip.AsyncLog.WriteLog("[GetUserAsync] Response indicated faliure! The response was an error: " + response.ReasonPhrase);
-                Parsnip.AsyncLog.WriteLog("[GetUserAsync] User was NOT returned. Will return null.");
+                if (Username.Length == 0)
+                {
+                    new LogEntry(Log.Default) { text = "Cannot create a user without a username! Username: " + Username };
+                    ValidationErrors.Add("username cannot be blank");
+                    return false;
+                }
+                else if (Username.Length > 50)
+                {
+                    new LogEntry(Log.Default) { text = String.Format("Username is {0} characters long. Username must be no longer than 50 characters!", Username.Length) };
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
 
-            return user;
+            bool validateEmail()
+            {
+                string EmailAddress = Email;
+
+                if (EmailAddress.Length != 0)
+                {
+                    int AsperandIndex; //Index of "@" sign
+                    int PointIndex; //Index of "."
+                    string Username;
+                    string MailServer;
+                    string DomainExtension;
+
+                    if (EmailAddress.Contains("@"))
+                    {
+                        int NoOfAsperand = EmailAddress.Split('@').Length - 1;
+                        if (NoOfAsperand == 1)
+                        {
+                            AsperandIndex = EmailAddress.IndexOf("@");
+                            Username = EmailAddress.Substring(0, AsperandIndex);
+                            //MyLog.Debug("Email: Username = " + Username);
+                            if (EmailAddress.Substring(AsperandIndex + 1, EmailAddress.Length - AsperandIndex - 1).Contains("."))
+                            {
+                                PointIndex = EmailAddress.LastIndexOf('.');
+                                MailServer = EmailAddress.Substring(AsperandIndex + 1, PointIndex - AsperandIndex - 1);
+                                //MyLog.Debug("Email: Mail server = " + MailServer);
+                                DomainExtension = EmailAddress.Substring(PointIndex + 1, EmailAddress.Length - PointIndex - 1);
+                                return true;
+                            }
+                            else
+                            {
+                                //MyLog.Warning("Email address domain does not contain a \".\". Email address will be blank!");
+                                new LogEntry(Log.Default) { text = String.Format("Email address \"{0}\" does not contain a dot. Email addresses must contain a dot.", EmailAddress) };
+                                ValidationErrors.Add("email address must contain a dot");
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            //MyLog.Warning("Email address contains too many @'s. Email address will be blank!");
+                            new LogEntry(Log.Default) { text = String.Format("Email address \"{0}\" contains too many '@' signs. Email addresses must contain only one '@' sign.", EmailAddress) };
+                            ValidationErrors.Add("email address cannot contain more than one @");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        new LogEntry(Log.Default) { text = String.Format("Email address \"{0}\" does not contain an '@' sign. Email addresses must contain an '@' sign.", EmailAddress) };
+                        ValidationErrors.Add("email address must contain at least one @");
+                        //MyLog.Warning("Email address does not contain an \"@\" sign. Email address will be blank!");
+                        return false;
+                    }
+                }
+                else
+                {
+                    //Don't really need to be warned about blank fields.
+                    //MyLog.Warning(String.Format("Email \"{0}\" is made up from blank characters! Email address will be blank!", EmailVal));
+                    return true;
+                }
+            }
+
+            bool validatePwd()
+            {
+                if (Password.Trim().Length > 0)
+                {
+                    if (Password.Trim().Length > 5)
+                        return true;
+                    else
+                    {
+                        new LogEntry(Log.Default) { text = String.Format("----------Password \"{0}\" is too short. Passwords must be at least 5 characters long.", Password.Trim()) };
+                        ValidationErrors.Add("if you have a password, it must be at least 5 characters long");
+                        return false;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            bool validateForename()
+            {
+                if (Forename.Length > 0)
+                    return true;
+                else
+                {
+                    new LogEntry(Log.Default) { text = String.Format("----------Forename \"{0}\" cannot be left blank!", Forename.Trim()) };
+                    ValidationErrors.Add("forename cannot be blank");
+                    return false;
+                }
+            }
+
+            bool validateSurname()
+            {
+                if (Surname.Length > 0)
+                    return true;
+                else
+                {
+                    new LogEntry(Log.Default) { text = String.Format("----------Surname \"{0}\" cannot be left blank!", Forename.Trim()) };
+                    ValidationErrors.Add("surname cannot be blank");
+                    return false;
+                }
+            }
+
+
+            bool validateDob()
+            {
+                return true;
+            }
+
+            bool validateGender()
+            {
+                if (_gender != null)
+                {
+                    string tempGender = _gender.ToString().ToUpper();
+                    if (tempGender == "M" || tempGender == "F" || tempGender == "O")
+                        return true;
+                    else
+                    {
+                        new LogEntry(Log.Default) { text = String.Format("Gender \"{0}\" is not M, F or O. Gender must be M, F or O.", tempGender) };
+                        ValidationErrors.Add("gender must be M, F or O");
+                        return false;
+                    };
+                }
+                else
+                {
+                    return true;
+                }
+
+            }
+
+
+            bool validateAddress1()
+            {
+                if (Address1.Length > 50)
+                {
+                    ValidationErrors.Add("address1 must be no more than 50 characters long");
+                    return false;
+                }
+                else
+                    return true;
+            }
+
+            bool validateAddress2()
+            {
+                if (Address2.Length > 50)
+                {
+                    ValidationErrors.Add("address2 must be no more than 50 characters long");
+                    return false;
+                }
+                else
+                    return true;
+            }
+
+            bool validateAddress3()
+            {
+                if (Address3.Length > 50)
+                {
+                    ValidationErrors.Add("address1 must be no more than 50 characters long");
+                    return false;
+                }
+                else
+                    return true;
+            }
+
+            bool validatePostCode()
+            {
+                return true;
+            }
+
+            bool validateMobilePhone()
+            {
+                return true;
+            }
+
+            bool validateHomePhone()
+            {
+                return true;
+            }
+
+            bool validateWorkPhone()
+            {
+                return true;
+            }
+
+
+            bool validateDateTimeCreated()
+            {
+                return true;
+            }
+
+            bool validateAccountType()
+            {
+                return true;
+            }
+
+            bool validateAccountStatus()
+            {
+                return true;
+            }
+        }
+
+        public bool ExistsOnDb()
+        {
+            return ExistsOnDb(Parsnip.GetOpenDbConnection());
         }
 
         
-
-        //(Equivalent to SQL UPDATE)
-        private static async Task<t_Users> PutUserAsync(t_Users pUser)
-        {
-            string methodName = "PutUserAsync";
-
-            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Begin!", methodName));
-
-            string path = string.Format("{0}?username={1}", usersApiUrl, pUser.username);
-            
-
-            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Path to get data will be = {1}", methodName, path));
-
-
-            t_Users user;
-            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Attempting put user with id = {1}...", methodName, pUser.id));
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(path);
-            request.Method = "Put";//post, put ...
-            request.KeepAlive = true;
-            request.ContentType = "appication/json";
-            
-
-            HttpResponseMessage response = await Parsnip.jsonClient.PutAsJsonAsync(path , pUser);
-            //response.EnsureSuccessStatusCode();
-
-            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Got response from put!", methodName));
-            if (response.IsSuccessStatusCode)
-            {
-                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Response indicated success. Waiting for user to be returned...", methodName));
-                user = await response.Content.ReadAsAsync<t_Users>();
-                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] A user was returned! Will return the user.", methodName));
-            }
-            else
-            {
-                user = null;
-                Debug.WriteLine("There was an error whilst getting the user because " + response.ReasonPhrase);
-                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Response indicated faliure! The response was an error: {1}", methodName, response.ReasonPhrase));
-                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Response indicated faliure! The response was an error: {1}", methodName, response.RequestMessage));
-                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] User was NOT returned. Will return null.", methodName));
-            }
-
-            return user;
-        }
-
-        private static async Task<List<t_Users>> GetAllUsersAsync()
-        {
-            string methodName = "GetAllUsersAsync";
-            //Test commit 2
-            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Begin!", methodName));
-
-            //This looks stupid, it's probably gonna be a more complax string soon...
-            string path = string.Format("{0}/getall", usersApiUrl);
-
-            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Path to get data will be = {1}", methodName, path));
-
-
-            List<t_Users> allUsers;
-            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Getting response", methodName));
-
-            HttpResponseMessage response = await Parsnip.xmlClient.GetAsync(path);
-            Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Got response!", methodName));
-            if (response.IsSuccessStatusCode)
-            {
-                Parsnip.AsyncLog.WriteLog("[GetUserAsync] Response indicated success. Waiting for user to be returned...");
-                allUsers = await response.Content.ReadAsAsync<List<t_Users>>();
-                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] All users were returned! Will return the users.", methodName));
-            }
-            else
-            {
-                allUsers = new List<t_Users>();
-                Debug.WriteLine("There was an error whilst getting all of the users: " + response.ReasonPhrase);
-                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Response indicated faliure! The response was an error: {1}", methodName, response.ReasonPhrase));
-                Parsnip.AsyncLog.WriteLog(string.Format("[{0}] Users were NOT returned. Will return an empty list.", methodName));
-            }
-
-            return allUsers;
-        }
         #endregion
 
-        #region SQL CRUD Interfaces
+        #region Other Private / Internal Methods
+        private bool ExistsOnDb(SqlConnection pOpenConn)
+        {
+            if (IdExistsOnDb(pOpenConn) || UsernameExistsOnDb(pOpenConn))
+                return true;
+            else
+                return false;
+        }
+
+        private bool IdExistsOnDb(SqlConnection pOpenConn)
+        {
+            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using {1} Id {1}", FullName, PosessivePronoun, Id));
+            try
+            {
+                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE id = @id", pOpenConn);
+                findMeById.Parameters.Add(new SqlParameter("id", Id.ToString()));
+
+                int userExists;
+
+                using (SqlDataReader reader = findMeById.ExecuteReader())
+                {
+                    reader.Read();
+                    userExists = Convert.ToInt16(reader[0]);
+                    //Debug.WriteLine("Found user by Id. userExists = " + userExists);
+                }
+
+                //Debug.WriteLine(userExists + " user(s) were found with the id " + Id);
+
+                if (userExists > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("There was an error whilst checking if user exists on the database by using thier Id: " + e);
+                return false;
+            }
+        }
+
+        private bool UsernameExistsOnDb(SqlConnection pOpenConn)
+        {
+            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using their username {1}", FullName, Username));
+            try
+            {
+                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE username = @username", pOpenConn);
+                findMeById.Parameters.Add(new SqlParameter("username", Username));
+
+                int userExists;
+
+                using (SqlDataReader reader = findMeById.ExecuteReader())
+                {
+                    reader.Read();
+                    userExists = Convert.ToInt16(reader[0]);
+                    //Debug.WriteLine("Found user by Id. userExists = " + userExists);
+                }
+
+                Debug.WriteLine(userExists + " user(s) were found with the username " + Username);
+
+
+
+                if (userExists > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("There was an error whilst checking if user exists on the database by using their username: " + e);
+                return false;
+            }
+        }
+
+        internal bool AddValues(SqlDataReader pReader)
+        {
+            bool logMe = false;
+
+            if(logMe)
+                Debug.WriteLine("----------Adding values...");
+
+            try
+            {
+                if (logMe)
+                    Debug.WriteLine(string.Format("----------Reading id: {0}", pReader[0]));
+
+                Id = new Guid(pReader[0].ToString());
+
+                if (logMe)
+                    Debug.WriteLine(string.Format("----------Reading username: {0}", pReader[1]));
+
+                Username = pReader[1].ToString().Trim();
+                if (pReader[2] != DBNull.Value)
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading email");
+
+                    Email = pReader[2].ToString().Trim();
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------email is blank. Skipping email");
+                }
+
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading pwd");
+                Password = pReader[3].ToString().Trim();
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading forename");
+                Forename = pReader[4].ToString().Trim();
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading surname");
+                Surname = pReader[5].ToString().Trim();
+
+
+                if (pReader[6] == DBNull.Value)
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------dob is blank. Skipping dob");
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading dob");
+                    Dob = Convert.ToDateTime(pReader[6]);
+                }
+
+                if (pReader[7] == DBNull.Value || pReader[7].ToString() == "")
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------gender is blank. Skipping gender");
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading gender");
+
+                    GenderLower = pReader[7].ToString();
+                }
+                if (pReader[8] == DBNull.Value)
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------address1 is blank. Skipping address1");
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading address1");
+
+                    Address1 = pReader[8].ToString().Trim();
+                }
+                if (pReader[9] == DBNull.Value)
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------address2 is blank. Skipping address2");
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading address2");
+
+                    Address2 = pReader[9].ToString().Trim();
+                }
+                if (pReader[10] == DBNull.Value)
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------address3 is blank. Skipping address3");
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading address3");
+
+                    Address3 = pReader[10].ToString().Trim();
+                }
+                if (pReader[11] == DBNull.Value)
+                {
+                    if (logMe)
+                       Debug.WriteLine("----------postCode is blank. Skipping postCode");
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading postCode");
+
+                    PostCode = pReader[11].ToString().Trim();
+                }
+                if (pReader[12] == DBNull.Value)
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------mobilePhone is blank. Skipping mobilePhone");
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading mobilePhone");
+
+                    MobilePhone = pReader[12].ToString().Trim();
+                }
+                if (pReader[13] == DBNull.Value)
+                {
+                    if (logMe)
+                       Debug.WriteLine("----------homePhone is blank. Skipping homePhone");
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading homePhone");
+
+                    HomePhone = pReader[13].ToString().Trim();
+                }
+                if (pReader[14] == DBNull.Value)
+                {
+                    if (logMe)
+                       Debug.WriteLine("----------workPhone is blank. Skipping workPhone");
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading workPhone");
+
+                    WorkPhone = pReader[14].ToString().Trim();
+                }
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading dateTimeCreated");
+
+                DateTimeCreated = Convert.ToDateTime(pReader[15]);
+                if (logMe)
+                    Debug.WriteLine("----------dateTimeCreated = " + DateTimeCreated);
+
+                if (pReader[16] == DBNull.Value)
+                {
+                    if (logMe)
+                       Debug.WriteLine("----------lastLogIn is blank. Skipping lastLogIn");
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading lastLogIn");
+
+                    LastLogIn = Convert.ToDateTime(pReader[16]);
+                }
+
+                if (logMe)
+                    Debug.WriteLine(string.Format("----------Reading {0}'s accountType", FullName));
+
+                AccountType = pReader[17].ToString().Trim();
+                if (logMe)
+                    Debug.WriteLine(string.Format("----------{0}'s accountType = {1}", FullName, AccountType));
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading accountStatus");
+
+                AccountStatus = pReader[18].ToString().Trim();
+
+                if (logMe)
+                    Debug.WriteLine("added values successfully!");
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("There was an error whilst reading the User's values: ", e);
+                return false;
+            }
+        }
+
+        private string[] GetCookies()
+        {
+            AccountLog.Info("Getting user details from cookies...");
+            
+
+            string[] UserDetails = new string[2];
+
+            if (Cookie.Read("userName") != null)
+            {
+                Username = Cookie.Read("userName");
+                AccountLog.Debug("Found a username cookie! Username = " + Username);
+                UserDetails[0] = Username;
+            }
+            else
+            {
+                AccountLog.Debug("No username cookie was found.");
+                UserDetails[0] = "";
+            }
+
+            if (Cookie.Read("userPwd") != null)
+            {
+                UserDetails[1] = Cookie.Read("userPwd");
+                AccountLog.Debug("Found a password cookie! Password = " + UserDetails[1]);
+                
+            }
+            else
+            {
+                AccountLog.Debug("No password cookie was found.");
+                UserDetails[1] = "";
+            }
+
+            AccountLog.Info("Returning user details from cookies.");
+            return UserDetails;
+        }
+
         private bool DbInsert(string pPwd, SqlConnection pOpenConn)
         {
             if (Id.ToString() == Guid.Empty.ToString())
@@ -521,7 +1082,7 @@ namespace UacApi
                     if (!ExistsOnDb(pOpenConn))
                     {
                         SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (id, username, forename, surname, created, type, status) VALUES(@id, @username, @forename, @surname, @dateTimeCreated, @accountType, @accountStatus)", pOpenConn);
-
+                        
                         InsertIntoDb.Parameters.Add(new SqlParameter("id", Id));
                         InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
                         InsertIntoDb.Parameters.Add(new SqlParameter("forename", Forename.Trim()));
@@ -559,7 +1120,7 @@ namespace UacApi
         {
             //AccountLog.Debug("Attempting to get user details...");
             //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get user details with id {0}...", Id));
-
+            
             try
             {
                 SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Users WHERE id = @id", pOpenConn);
@@ -568,10 +1129,10 @@ namespace UacApi
                 int recordsFound = 0;
                 using (SqlDataReader reader = SelectAccount.ExecuteReader())
                 {
-
+                    
                     while (reader.Read())
                     {
-
+                        
                         AddValues(reader);
                         recordsFound++;
                     }
@@ -590,7 +1151,7 @@ namespace UacApi
                     //AccountLog.Debug("Got user's details successfully!");
                     return false;
                 }
-
+                
             }
             catch (Exception e)
             {
@@ -1040,737 +1601,6 @@ namespace UacApi
                 return false;
             }
         }
-        #endregion
-
-        #region Other Methods
-        public static bool LogOut()
-        {
-            try
-            {
-                CookieApi.Cookie.WriteSession("userName", "");
-                CookieApi.Cookie.WriteSession("userPwd", "");
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public async static Task<User> GetLoggedInUser()
-        {
-            User tempUser = await LogInFromCookies();
-
-            return tempUser;
-        }
-
-        private bool ExistsOnDb(SqlConnection pOpenConn)
-        {
-            if (IdExistsOnDb(pOpenConn) || UsernameExistsOnDb(pOpenConn))
-                return true;
-            else
-                return false;
-        }
-
-        private bool IdExistsOnDb(SqlConnection pOpenConn)
-        {
-            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using {1} Id {1}", FullName, PosessivePronoun, Id));
-            try
-            {
-                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE id = @id", pOpenConn);
-                findMeById.Parameters.Add(new SqlParameter("id", Id.ToString()));
-
-                int userExists;
-
-                using (SqlDataReader reader = findMeById.ExecuteReader())
-                {
-                    reader.Read();
-                    userExists = Convert.ToInt16(reader[0]);
-                    //Debug.WriteLine("Found user by Id. userExists = " + userExists);
-                }
-
-                //Debug.WriteLine(userExists + " user(s) were found with the id " + Id);
-
-                if (userExists > 0)
-                    return true;
-                else
-                    return false;
-
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("There was an error whilst checking if user exists on the database by using thier Id: " + e);
-                return false;
-            }
-        }
-
-        private bool UsernameExistsOnDb(SqlConnection pOpenConn)
-        {
-            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using their username {1}", FullName, Username));
-            try
-            {
-                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE username = @username", pOpenConn);
-                findMeById.Parameters.Add(new SqlParameter("username", Username));
-
-                int userExists;
-
-                using (SqlDataReader reader = findMeById.ExecuteReader())
-                {
-                    reader.Read();
-                    userExists = Convert.ToInt16(reader[0]);
-                    //Debug.WriteLine("Found user by Id. userExists = " + userExists);
-                }
-
-                Debug.WriteLine(userExists + " user(s) were found with the username " + Username);
-
-
-
-                if (userExists > 0)
-                    return true;
-                else
-                    return false;
-
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("There was an error whilst checking if user exists on the database by using their username: " + e);
-                return false;
-            }
-        }
-
-        internal void AddValues(t_Users pUser)
-        {
-            Debug.WriteLine("Adding values from t_User");
-            if (pUser == null)
-            {
-                Debug.WriteLine("t_User was null");
-            }
-            
-            Id = pUser.id;
-            Username = pUser.username.Trim();
-            if (!string.IsNullOrEmpty(pUser.email))
-                Email = pUser.email.Trim();
-            Password = pUser.password.Trim();
-            Forename = pUser.forename.Trim();
-            Surname = pUser.surname.Trim();
-            Dob = Convert.ToDateTime(pUser.dob);
-
-            if (!string.IsNullOrEmpty(pUser.gender))
-                GenderLower = pUser.gender;
-
-            if (!string.IsNullOrEmpty(pUser.address1))
-                Address1 = pUser.address1.Trim();
-
-            if (!string.IsNullOrEmpty(pUser.address2))
-                Address2 = pUser.address2.Trim();
-
-            if (!string.IsNullOrEmpty(pUser.address3))
-                Address3 = pUser.address3.Trim();
-
-            if (!string.IsNullOrEmpty(pUser.postCode))
-                PostCode = pUser.postCode.Trim();
-
-            if (!string.IsNullOrEmpty(pUser.mobilePhone))
-                MobilePhone = pUser.mobilePhone.Trim();
-
-            if (!string.IsNullOrEmpty(pUser.homePhone))
-                HomePhone = pUser.homePhone.Trim();
-
-            if (!string.IsNullOrEmpty(pUser.workPhone))
-                WorkPhone = pUser.workPhone.Trim();
-
-            DateTimeCreated = pUser.created;
-            LastLogIn = Convert.ToDateTime(pUser.lastLogIn);
-            AccountType = pUser.type.Trim();
-            AccountStatus = pUser.status.Trim();
-            
-
-        }
-
-        internal bool AddValues(SqlDataReader pReader)
-        {
-            bool logMe = false;
-
-            if(logMe)
-                Debug.WriteLine("----------Adding values...");
-
-            try
-            {
-                if (logMe)
-                    Debug.WriteLine(string.Format("----------Reading id: {0}", pReader[0]));
-
-                Id = new Guid(pReader[0].ToString());
-
-                if (logMe)
-                    Debug.WriteLine(string.Format("----------Reading username: {0}", pReader[1]));
-
-                Username = pReader[1].ToString().Trim();
-                if (pReader[2] != DBNull.Value)
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading email");
-
-                    Email = pReader[2].ToString().Trim();
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------email is blank. Skipping email");
-                }
-
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading pwd");
-                Password = pReader[3].ToString().Trim();
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading forename");
-                Forename = pReader[4].ToString().Trim();
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading surname");
-                Surname = pReader[5].ToString().Trim();
-
-
-                if (pReader[6] == DBNull.Value)
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------dob is blank. Skipping dob");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading dob");
-                    Dob = Convert.ToDateTime(pReader[6]);
-                }
-
-                if (pReader[7] == DBNull.Value || pReader[7].ToString() == "")
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------gender is blank. Skipping gender");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading gender");
-
-                    GenderLower = pReader[7].ToString();
-                }
-                if (pReader[8] == DBNull.Value)
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------address1 is blank. Skipping address1");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading address1");
-
-                    Address1 = pReader[8].ToString().Trim();
-                }
-                if (pReader[9] == DBNull.Value)
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------address2 is blank. Skipping address2");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading address2");
-
-                    Address2 = pReader[9].ToString().Trim();
-                }
-                if (pReader[10] == DBNull.Value)
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------address3 is blank. Skipping address3");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading address3");
-
-                    Address3 = pReader[10].ToString().Trim();
-                }
-                if (pReader[11] == DBNull.Value)
-                {
-                    if (logMe)
-                       Debug.WriteLine("----------postCode is blank. Skipping postCode");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading postCode");
-
-                    PostCode = pReader[11].ToString().Trim();
-                }
-                if (pReader[12] == DBNull.Value)
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------mobilePhone is blank. Skipping mobilePhone");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading mobilePhone");
-
-                    MobilePhone = pReader[12].ToString().Trim();
-                }
-                if (pReader[13] == DBNull.Value)
-                {
-                    if (logMe)
-                       Debug.WriteLine("----------homePhone is blank. Skipping homePhone");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading homePhone");
-
-                    HomePhone = pReader[13].ToString().Trim();
-                }
-                if (pReader[14] == DBNull.Value)
-                {
-                    if (logMe)
-                       Debug.WriteLine("----------workPhone is blank. Skipping workPhone");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading workPhone");
-
-                    WorkPhone = pReader[14].ToString().Trim();
-                }
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading dateTimeCreated");
-
-                DateTimeCreated = Convert.ToDateTime(pReader[15]);
-                if (logMe)
-                    Debug.WriteLine("----------dateTimeCreated = " + DateTimeCreated);
-
-                if (pReader[16] == DBNull.Value)
-                {
-                    if (logMe)
-                       Debug.WriteLine("----------lastLogIn is blank. Skipping lastLogIn");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading lastLogIn");
-
-                    LastLogIn = Convert.ToDateTime(pReader[16]);
-                }
-
-                if (logMe)
-                    Debug.WriteLine(string.Format("----------Reading {0}'s accountType", FullName));
-
-                AccountType = pReader[17].ToString().Trim();
-                if (logMe)
-                    Debug.WriteLine(string.Format("----------{0}'s accountType = {1}", FullName, AccountType));
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading accountStatus");
-
-                AccountStatus = pReader[18].ToString().Trim();
-
-                if (logMe)
-                    Debug.WriteLine("added values successfully!");
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("There was an error whilst reading the User's values: ", e);
-                return false;
-            }
-        }
-
-        private string[] GetMyCookies()
-        {
-            AccountLog.Info("Getting user details from cookies...");
-            
-
-            string[] UserDetails = new string[2];
-
-            if (CookieApi.Cookie.Read("userName") != null)
-            {
-                Username = CookieApi.Cookie.Read("userName");
-                AccountLog.Debug("Found a username cookie! Username = " + Username);
-                UserDetails[0] = Username;
-            }
-            else
-            {
-                AccountLog.Debug("No username cookie was found.");
-                UserDetails[0] = "";
-            }
-
-            if (CookieApi.Cookie.Read("userPwd") != null)
-            {
-                UserDetails[1] = CookieApi.Cookie.Read("userPwd");
-                AccountLog.Debug("Found a password cookie! Password = " + UserDetails[1]);
-                
-            }
-            else
-            {
-                AccountLog.Debug("No password cookie was found.");
-                UserDetails[1] = "";
-            }
-
-            AccountLog.Info("Returning user details from cookies.");
-            return UserDetails;
-        }
-
-        private static string[] GetCookies()
-        {
-            AccountLog.Info("Getting user details from cookies...");
-            Parsnip.AsyncLog.WriteLog("[GetCookies] Getting user details from cookies...");
-
-            string[] UserDetails = new string[2];
-
-            if (CookieApi.Cookie.Read("userName") != null)
-            {
-                UserDetails[0] = CookieApi.Cookie.Read("userName");
-                AccountLog.Debug("Found a username cookie! Username = " + UserDetails[0]);
-            }
-            else
-            {
-                UserDetails[0] = "";
-                AccountLog.Debug("No username cookie was found.");
-            }
-
-            if (CookieApi.Cookie.Read("userPwd") != null)
-            {
-                UserDetails[1] = CookieApi.Cookie.Read("userPwd");
-                AccountLog.Debug("Found a password cookie! Password = " + UserDetails[1]);
-
-            }
-            else
-            {
-                UserDetails[1] = "";
-                AccountLog.Debug("No password cookie was found.");
-            }
-
-            AccountLog.Info("Returning user details from cookies.");
-            return UserDetails;
-        }
-
-        public bool Validate()
-        {
-            ValidationErrors = new List<string>();
-
-            bool validateSuccess = true;
-
-            validateSuccess = validateUsername() ? validateSuccess : false;
-            validateSuccess = validateEmail() ? validateSuccess : false;
-            validateSuccess = validatePwd() ? validateSuccess : false;
-            validateSuccess = validateForename() ? validateSuccess : false;
-            validateSuccess = validateSurname() ? validateSuccess : false;
-            validateSuccess = validateDob() ? validateSuccess : false;
-            validateSuccess = validateGender() ? validateSuccess : false;
-            validateSuccess = validateAddress1() ? validateSuccess : false;
-            validateSuccess = validateAddress2() ? validateSuccess : false;
-            validateSuccess = validateAddress3() ? validateSuccess : false;
-            validateSuccess = validatePostCode() ? validateSuccess : false;
-            validateSuccess = validateMobilePhone() ? validateSuccess : false;
-            validateSuccess = validateHomePhone() ? validateSuccess : false;
-            validateSuccess = validateWorkPhone() ? validateSuccess : false;
-            validateSuccess = validateDateTimeCreated() ? validateSuccess : false;
-            validateSuccess = validateAccountType() ? validateSuccess : false;
-            validateSuccess = validateAccountStatus() ? validateSuccess : false;
-
-            string validateSuccessString = validateSuccess ? "was validated successfully!" : "failed to be validated. See details below:";
-
-            new LogEntry(Log.Default) { text = string.Format("{0} {1}", FullName, validateSuccessString) };
-
-            return validateSuccess;
-
-            bool validateUsername()
-            {
-                if (Username.Length == 0)
-                {
-                    new LogEntry(Log.Default) { text = "Cannot create a user without a username! Username: " + Username };
-                    ValidationErrors.Add("username cannot be blank");
-                    return false;
-                }
-                else if (Username.Length > 50)
-                {
-                    new LogEntry(Log.Default) { text = String.Format("Username is {0} characters long. Username must be no longer than 50 characters!", Username.Length) };
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-
-            bool validateEmail()
-            {
-                string EmailAddress = Email;
-
-                if (EmailAddress.Length != 0)
-                {
-                    int AsperandIndex; //Index of "@" sign
-                    int PointIndex; //Index of "."
-                    string Username;
-                    string MailServer;
-                    string DomainExtension;
-
-                    if (EmailAddress.Contains("@"))
-                    {
-                        int NoOfAsperand = EmailAddress.Split('@').Length - 1;
-                        if (NoOfAsperand == 1)
-                        {
-                            AsperandIndex = EmailAddress.IndexOf("@");
-                            Username = EmailAddress.Substring(0, AsperandIndex);
-                            //MyLog.Debug("Email: Username = " + Username);
-                            if (EmailAddress.Substring(AsperandIndex + 1, EmailAddress.Length - AsperandIndex - 1).Contains("."))
-                            {
-                                PointIndex = EmailAddress.LastIndexOf('.');
-                                MailServer = EmailAddress.Substring(AsperandIndex + 1, PointIndex - AsperandIndex - 1);
-                                //MyLog.Debug("Email: Mail server = " + MailServer);
-                                DomainExtension = EmailAddress.Substring(PointIndex + 1, EmailAddress.Length - PointIndex - 1);
-                                return true;
-                            }
-                            else
-                            {
-                                //MyLog.Warning("Email address domain does not contain a \".\". Email address will be blank!");
-                                new LogEntry(Log.Default) { text = String.Format("Email address \"{0}\" does not contain a dot. Email addresses must contain a dot.", EmailAddress) };
-                                ValidationErrors.Add("email address must contain a dot");
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            //MyLog.Warning("Email address contains too many @'s. Email address will be blank!");
-                            new LogEntry(Log.Default) { text = String.Format("Email address \"{0}\" contains too many '@' signs. Email addresses must contain only one '@' sign.", EmailAddress) };
-                            ValidationErrors.Add("email address cannot contain more than one @");
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        new LogEntry(Log.Default) { text = String.Format("Email address \"{0}\" does not contain an '@' sign. Email addresses must contain an '@' sign.", EmailAddress) };
-                        ValidationErrors.Add("email address must contain at least one @");
-                        //MyLog.Warning("Email address does not contain an \"@\" sign. Email address will be blank!");
-                        return false;
-                    }
-                }
-                else
-                {
-                    //Don't really need to be warned about blank fields.
-                    //MyLog.Warning(String.Format("Email \"{0}\" is made up from blank characters! Email address will be blank!", EmailVal));
-                    return true;
-                }
-            }
-
-            bool validatePwd()
-            {
-                if (Password.Trim().Length > 0)
-                {
-                    if (Password.Trim().Length > 5)
-                        return true;
-                    else
-                    {
-                        new LogEntry(Log.Default) { text = String.Format("----------Password \"{0}\" is too short. Passwords must be at least 5 characters long.", Password.Trim()) };
-                        ValidationErrors.Add("if you have a password, it must be at least 5 characters long");
-                        return false;
-                    }
-                }
-                else
-                {
-                    return true;
-                }
-            }
-
-            bool validateForename()
-            {
-                if (Forename.Length > 0)
-                    return true;
-                else
-                {
-                    new LogEntry(Log.Default) { text = String.Format("----------Forename \"{0}\" cannot be left blank!", Forename.Trim()) };
-                    ValidationErrors.Add("forename cannot be blank");
-                    return false;
-                }
-            }
-
-            bool validateSurname()
-            {
-                if (Surname.Length > 0)
-                    return true;
-                else
-                {
-                    new LogEntry(Log.Default) { text = String.Format("----------Surname \"{0}\" cannot be left blank!", Forename.Trim()) };
-                    ValidationErrors.Add("surname cannot be blank");
-                    return false;
-                }
-            }
-
-            bool validateDob()
-            {
-                return true;
-            }
-
-            bool validateGender()
-            {
-                if (_gender != null)
-                {
-                    string tempGender = _gender.ToString().ToUpper();
-                    if (tempGender == "M" || tempGender == "F" || tempGender == "O")
-                        return true;
-                    else
-                    {
-                        new LogEntry(Log.Default) { text = String.Format("Gender \"{0}\" is not M, F or O. Gender must be M, F or O.", tempGender) };
-                        ValidationErrors.Add("gender must be M, F or O");
-                        return false;
-                    };
-                }
-                else
-                {
-                    return true;
-                }
-
-            }
-
-            bool validateAddress1()
-            {
-                if (Address1.Length > 50)
-                {
-                    ValidationErrors.Add("address1 must be no more than 50 characters long");
-                    return false;
-                }
-                else
-                    return true;
-            }
-
-            bool validateAddress2()
-            {
-                if (Address2.Length > 50)
-                {
-                    ValidationErrors.Add("address2 must be no more than 50 characters long");
-                    return false;
-                }
-                else
-                    return true;
-            }
-
-            bool validateAddress3()
-            {
-                if (Address3.Length > 50)
-                {
-                    ValidationErrors.Add("address1 must be no more than 50 characters long");
-                    return false;
-                }
-                else
-                    return true;
-            }
-
-            bool validatePostCode()
-            {
-                return true;
-            }
-
-            bool validateMobilePhone()
-            {
-                return true;
-            }
-
-            bool validateHomePhone()
-            {
-                return true;
-            }
-
-            bool validateWorkPhone()
-            {
-                return true;
-            }
-
-            bool validateDateTimeCreated()
-            {
-                return true;
-            }
-
-            bool validateAccountType()
-            {
-                return true;
-            }
-
-            bool validateAccountStatus()
-            {
-                return true;
-            }
-        }
-
-        public bool ExistsOnDb()
-        {
-            return ExistsOnDb(Parsnip.GetOpenDbConnection());
-        }
-        #endregion
-
-        #region Moved To Controller
-        /*
-        public static List<User> GetAllUsers()
-        {
-            bool logMe = false;
-
-            if (logMe)
-                Debug.WriteLine("----------Getting all users...");
-
-            var users = new List<User>();
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
-            {
-                SqlCommand GetUsers = new SqlCommand("SELECT * FROM t_Users", conn);
-                using (SqlDataReader reader = GetUsers.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        users.Add(new UacApi.User(reader));
-                    }
-                }
-            }
-
-            foreach (User temp in users)
-            {
-                if (logMe)
-                    Debug.WriteLine(string.Format("Found user {0} with id {1}", temp.FullName, temp.Id));
-            }
-
-            return users;
-        }
-
-        public static User GetLoggedInUser(string pUsername, string pPwd)
-        {
-            User tempUser = new User();
-            tempUser.LogIn(pUsername, false, pPwd, false, true);
-            return tempUser;
-        }
-
-        public static User LogIn(string pUsername, string pPassword)
-        {
-            using (var openConn = Parsnip.GetOpenDbConnection())
-            {
-                try
-                {
-                    SqlCommand getId = new SqlCommand("SELECT * FROM t_Users WHERE username = @username AND password = @password", openConn);
-                    getId.Parameters.Add(new SqlParameter("username", pUsername));
-
-                    using (SqlDataReader reader = getId.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            return new User(reader);
-                        }
-                    }
-                    throw new InvalidOperationException("There is no user with this username / password combination");
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("[LogIn] There was an exception whilst getting the id from the database: " + e);
-                    throw new InvalidOperationException("There was an error whilst finding a user with username / password combination");
-                }
-            }
-        }
-        */
         #endregion
     }
 }

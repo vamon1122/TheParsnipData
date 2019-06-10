@@ -22,58 +22,43 @@ namespace ParsnipWebsite
 
 
 
-        protected async void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = await UacApi.User.LogInFromCookies();
-            Uac.SecurePage("manage_photos", this, Data.DeviceType, "admin", myUser);
+            myUser = Uac.SecurePage("manage_photos", this, Data.DeviceType, "admin");
         }
 
         protected void Page_LoadComplete(object sender, EventArgs e)
         {
             UpdateUserList();
 
-            if (Request.QueryString["userId"] != null)
+            if (Request.QueryString["userId"] != null && Request.QueryString["userId"].ToString() != "")
             {
-                if (Request.QueryString["userId"].ToString() != "")
+                new LogEntry(DebugLog) { text = "Manage_Photos userId = " + Request.QueryString["userId"].ToString() };
+                selectedUserId = new Guid(Request.QueryString["userId"].ToString());
+                
+                SelectUser.SelectedValue = selectedUserId.ToString();
+
+                Debug.WriteLine("---------- posted back with id = " + selectedUserId);
+
+                List<MediaApi.Image> MyPhotos = MediaApi.Image.GetImagesByUser(selectedUserId);
+                //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
+                foreach (MediaApi.Image temp in MyPhotos)
                 {
+                    var MyImageControl = (ImageControl)LoadControl("~/Custom_Controls/Media_Api/ImageControl.ascx");
+                    MyImageControl.MyImage = temp;
+                    DisplayPhotosDiv.Controls.Add(MyImageControl);
 
-
-                    new LogEntry(DebugLog) { text = "Manage_Photos userId = " + Request.QueryString["userId"].ToString() };
-                    selectedUserId = new Guid(Request.QueryString["userId"].ToString());
-
-                    SelectUser.SelectedValue = selectedUserId.ToString();
-
-                    Debug.WriteLine("---------- posted back with id = " + selectedUserId);
-
-                    List<MediaApi.Image> MyPhotos = MediaApi.Image.GetImagesByUser(selectedUserId);
-                    //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
-                    foreach (MediaApi.Image temp in MyPhotos)
-                    {
-                        var MyImageControl = (ImageControl)LoadControl("~/Custom_Controls/Media_Api/ImageControl.ascx");
-                        MyImageControl.MyImage = temp;
-                        DisplayPhotosDiv.Controls.Add(MyImageControl);
-
-                        //new LogEntry(Debug) { text = "Added new image to the page. Url = " + temp.PhotoSrc };
-                    }
-                }
-                else
-                {
-                    redirectToDefaultAlbum();
+                    //new LogEntry(Debug) { text = "Added new image to the page. Url = " + temp.PhotoSrc };
                 }
 
             }
             else
             {
-                redirectToDefaultAlbum();
-
-            }
-
-            void redirectToDefaultAlbum()
-            {
                 Debug.WriteLine("---------- not a postback");
 
                 if (Request.QueryString["userId"] == null)
-                    Response.Redirect("manage_photos?userId=" + Guid.Empty.ToString(), false);
+                    Response.Redirect("manage_photos?userId=" + Guid.Empty.ToString());
+
             }
 
 
@@ -103,18 +88,10 @@ namespace ParsnipWebsite
             new LogEntry(DebugLog) { text = "Successfully deleted photos uploaded photos createdbyid = " + selectedUserId };
         }
 
-        async void UpdateUserList()
+        void UpdateUserList()
         {
             var tempUsers = new List<User>();
-
-            try
-            {
-                tempUsers.AddRange(await UacApi.User.GetAllUsers());
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("[Manage_Photos.aspx] There was an exception when getting all users to update the list: " + e);
-            }
+            tempUsers.AddRange(UacApi.User.GetAllUsers());
 
             ListItem[] ListItems = new ListItem[tempUsers.Count];
 
@@ -132,7 +109,7 @@ namespace ParsnipWebsite
 
         protected void SelectUser_Changed(object sender, EventArgs e)
         {
-            Response.Redirect("manage_photos?userId=" + SelectUser.SelectedValue, false);
+            Response.Redirect("manage_photos?userId=" + SelectUser.SelectedValue);
         }
     }
 }

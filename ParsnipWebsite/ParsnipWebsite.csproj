@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ParsnipWebsite</RootNamespace>
     <AssemblyName>ParsnipWebsite</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
@@ -55,49 +55,19 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.SqlClient, Version=4.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SqlClient.4.6.0\lib\net461\System.Data.SqlClient.dll</HintPath>
     </Reference>
-    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\System-Web-Helpers.dll.1.0.0\lib\Net40\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -110,18 +80,10 @@
   <ItemGroup>
     <Content Include="Access_Denied.aspx" />
     <Content Include="Bios.aspx" />
-    <None Include="Connected Services\UacService\Uac.disco" />
-    <None Include="Connected Services\UacService\configuration91.svcinfo" />
-    <None Include="Connected Services\UacService\configuration.svcinfo" />
-    <None Include="Connected Services\UacService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Content_Removal.aspx" />
     <Content Include="Css\Jonsuh_Hamburgers\Hamburgers.css" />
     <Content Include="Css\Jonsuh_Hamburgers\Hamburgers.min.css" />
     <Content Include="Css\Mobile_Landscape_Style.css" />
-    <Content Include="Custom_Controls\Comment_Api\CommentGroup.ascx" />
     <Content Include="Custom_Controls\Media_Api\ImageControl.ascx" />
     <Content Include="Custom_Controls\Menu\Menu.ascx" />
     <Content Include="Edit_Image.aspx" />
@@ -137,13 +99,6 @@
     <Content Include="Manage_Photos.aspx" />
     <Content Include="Memes.aspx" />
     <Content Include="package.json" />
-    <None Include="Connected Services\UacService\Uac.wsdl" />
-    <None Include="Connected Services\UacService\Uac.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\UacService\Uac1.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Publish To Folder.pubxml" />
     <None Include="Properties\PublishProfiles\Publish To Live.pubxml" />
@@ -256,11 +211,6 @@
     <Compile Include="Bios.aspx.designer.cs">
       <DependentUpon>Bios.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Connected Services\UacService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Content_Removal.aspx.cs">
       <DependentUpon>Content_Removal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -269,13 +219,6 @@
       <DependentUpon>Content_Removal.aspx</DependentUpon>
     </Compile>
     <Compile Include="Custom_Controls\App_Start\RouteConfig.cs" />
-    <Compile Include="Custom_Controls\Comment_Api\CommentGroup.ascx.cs">
-      <DependentUpon>CommentGroup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Custom_Controls\Comment_Api\CommentGroup.ascx.designer.cs">
-      <DependentUpon>CommentGroup.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Custom_Controls\Media_Api\ImageControl.ascx.cs">
       <DependentUpon>ImageControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -429,10 +372,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommentApi\CommentApi.csproj">
-      <Project>{1fb4ffb8-7499-4d2b-8996-9c4ffc112522}</Project>
-      <Name>CommentApi</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CookieApi\CookieApi.csproj">
       <Project>{01a82bc2-2491-4381-981a-6540c8a93b45}</Project>
       <Name>CookieApi</Name>
@@ -445,12 +384,8 @@
       <Project>{4351ca47-1474-47bb-b472-610848b47858}</Project>
       <Name>MediaApi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ParsnipApiDataAccess\ParsnipApiDataAccess.csproj">
-      <Project>{76ba2b9d-2e8c-4027-ae1f-cd73e3452b62}</Project>
-      <Name>ParsnipApiDataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ParsnipApi\ParsnipApi.csproj">
-      <Project>{18c91388-bf45-4692-b252-2cafc500222d}</Project>
+      <Project>{f0504054-eed6-4f6f-b35c-c684381181d3}</Project>
       <Name>ParsnipApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\UacApi\UacApi.csproj">
@@ -460,12 +395,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Media\Images\Uploads\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\UacService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

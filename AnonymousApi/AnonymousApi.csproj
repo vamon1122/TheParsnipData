@@ -52,8 +52,12 @@
     <Compile Include="ReactionType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LogApi\LogApi.csproj">
+      <Project>{a463135f-93cf-4c00-8f13-b324a5d291e3}</Project>
+      <Name>LogApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ParsnipApi\ParsnipApi.csproj">
-      <Project>{18c91388-bf45-4692-b252-2cafc500222d}</Project>
+      <Project>{f0504054-eed6-4f6f-b35c-c684381181d3}</Project>
       <Name>ParsnipApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\UacApi\UacApi.csproj">
@@ -62,7 +66,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

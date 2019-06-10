@@ -13,73 +13,73 @@ using LogApi;
 namespace MediaApi
 {
     public class Album
-    {
+    { 
         public Guid Id { get; set; }
         public Guid CreatedById { get; set; }
         public DateTime DateCreated { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public static List<Album> GetAllAlbums()
+    public static List<Album> GetAllAlbums()
+    {
+        bool logMe = false;
+
+        if (logMe)
+            Debug.WriteLine("----------Getting all albums...");
+
+        var albums = new List<Album>();
+        using (SqlConnection conn = Parsnip.GetOpenDbConnection())
         {
-            bool logMe = false;
-
-            if (logMe)
-                Debug.WriteLine("----------Getting all albums...");
-
-            var albums = new List<Album>();
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            SqlCommand GetAlbums = new SqlCommand("SELECT * FROM t_Albums ORDER BY datecreated DESC", conn);
+            using (SqlDataReader reader = GetAlbums.ExecuteReader())
             {
-                SqlCommand GetAlbums = new SqlCommand("SELECT * FROM t_Albums ORDER BY datecreated DESC", conn);
-                using (SqlDataReader reader = GetAlbums.ExecuteReader())
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        albums.Add(new Album(reader));
-                    }
+                    albums.Add(new Album(reader));
                 }
             }
-
-            foreach (Album temp in albums)
-            {
-                if (logMe)
-                    Debug.WriteLine(string.Format("Found album with id {0}", temp.Id));
-            }
-
-            return albums;
         }
 
-        public static List<Image> GetAlbumsByUser(Guid pUserId)
+        foreach (Album temp in albums)
         {
-            bool logMe = true;
-
             if (logMe)
-                Debug.WriteLine("----------Getting all albums by user...");
+                Debug.WriteLine(string.Format("Found album with id {0}", temp.Id));
+        }
 
-            var albums = new List<Image>();
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+        return albums;
+    }
+
+    public static List<Image> GetAlbumsByUser(Guid pUserId)
+    {
+        bool logMe = true;
+
+        if (logMe)
+            Debug.WriteLine("----------Getting all albums by user...");
+
+        var albums = new List<Image>();
+        using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+        {
+            Debug.WriteLine("---------- Selecting albums by user with id = " + pUserId);
+            SqlCommand GetAlbums = new SqlCommand("SELECT * FROM t_Albums WHERE createdbyid = @createdbyid ORDER BY datecreated DESC", conn);
+            GetAlbums.Parameters.Add(new SqlParameter("createdbyid", pUserId));
+
+            using (SqlDataReader reader = GetAlbums.ExecuteReader())
             {
-                Debug.WriteLine("---------- Selecting albums by user with id = " + pUserId);
-                SqlCommand GetAlbums = new SqlCommand("SELECT * FROM t_Albums WHERE createdbyid = @createdbyid ORDER BY datecreated DESC", conn);
-                GetAlbums.Parameters.Add(new SqlParameter("createdbyid", pUserId));
-
-                using (SqlDataReader reader = GetAlbums.ExecuteReader())
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        albums.Add(new Image(reader));
-                    }
+                    albums.Add(new Image(reader));
                 }
             }
-
-            foreach (Image temp in albums)
-            {
-                if (logMe)
-                    Debug.WriteLine(string.Format("Found album with id {0}", temp.Id));
-            }
-
-            return albums;
         }
+
+        foreach (Image temp in albums)
+        {
+            if (logMe)
+                Debug.WriteLine(string.Format("Found album with id {0}", temp.Id));
+        }
+
+        return albums;
+    }
 
         public List<Image> GetAllImages()
         {
@@ -92,7 +92,7 @@ namespace MediaApi
                 SqlCommand GetImages = new SqlCommand("SELECT * FROM t_Images FULL OUTER JOIN t_ImageAlbumPairs ON t_Images.id = t_ImageAlbumPairs.imageid WHERE t_ImageAlbumPairs.albumid = @id ORDER BY t_Images.datecreated DESC", openConn);
                 GetImages.Parameters.Add(new SqlParameter("id", Id));
 
-                using (SqlDataReader reader = GetImages.ExecuteReader())
+                using(SqlDataReader reader = GetImages.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -109,135 +109,135 @@ namespace MediaApi
             return Images;
         }
 
-        public Album(UacApi.User pCreatedBy)
-        {
-            Id = Guid.NewGuid();
-            DateCreated = Parsnip.adjustedTime;
-            CreatedById = pCreatedBy.Id;
-        }
+    public Album(User pCreatedBy)
+    {
+        Id = Guid.NewGuid();
+        DateCreated = Parsnip.adjustedTime;
+        CreatedById = pCreatedBy.Id;
+    }
 
-        public Album(Guid pGuid)
-        {
-            //Debug.WriteLine("Album was initialised with the guid: " + pGuid);
-            Id = pGuid;
-        }
+    public Album(Guid pGuid)
+    {
+        //Debug.WriteLine("Album was initialised with the guid: " + pGuid);
+        Id = pGuid;
+    }
 
-        public Album(SqlDataReader pReader)
-        {
-            //Debug.WriteLine("Album was initialised with an SqlDataReader. Guid: " + pReader[0]);
-            AddValues(pReader);
-        }
+    public Album(SqlDataReader pReader)
+    {
+        //Debug.WriteLine("Album was initialised with an SqlDataReader. Guid: " + pReader[0]);
+        AddValues(pReader);
+    }
 
-        public bool ExistsOnDb()
-        {
-            return ExistsOnDb(Parsnip.GetOpenDbConnection());
-        }
+    public bool ExistsOnDb()
+    {
+        return ExistsOnDb(Parsnip.GetOpenDbConnection());
+    }
 
-        private bool ExistsOnDb(SqlConnection pOpenConn)
+    private bool ExistsOnDb(SqlConnection pOpenConn)
+    {
+        if (IdExistsOnDb(pOpenConn))
+            return true;
+        else
+            return false;
+    }
+
+    private bool IdExistsOnDb(SqlConnection pOpenConn)
+    {
+        Debug.WriteLine(string.Format("Checking weather album exists on database by using Id {0}", Id));
+        try
         {
-            if (IdExistsOnDb(pOpenConn))
+            SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Albums WHERE id = @id", pOpenConn);
+            findMeById.Parameters.Add(new SqlParameter("id", Id.ToString()));
+
+            int albumExists;
+
+            using (SqlDataReader reader = findMeById.ExecuteReader())
+            {
+                reader.Read();
+                albumExists = Convert.ToInt16(reader[0]);
+                //Debug.WriteLine("Found album by Id. albumExists = " + albumExists);
+            }
+
+            //Debug.WriteLine(albumExists + " album(s) were found with the id " + Id);
+
+            if (albumExists > 0)
                 return true;
             else
                 return false;
+
         }
-
-        private bool IdExistsOnDb(SqlConnection pOpenConn)
+        catch (Exception e)
         {
-            Debug.WriteLine(string.Format("Checking weather album exists on database by using Id {0}", Id));
-            try
-            {
-                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Albums WHERE id = @id", pOpenConn);
-                findMeById.Parameters.Add(new SqlParameter("id", Id.ToString()));
-
-                int albumExists;
-
-                using (SqlDataReader reader = findMeById.ExecuteReader())
-                {
-                    reader.Read();
-                    albumExists = Convert.ToInt16(reader[0]);
-                    //Debug.WriteLine("Found album by Id. albumExists = " + albumExists);
-                }
-
-                //Debug.WriteLine(albumExists + " album(s) were found with the id " + Id);
-
-                if (albumExists > 0)
-                    return true;
-                else
-                    return false;
-
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("There was an error whilst checking if album exists on the database by using thier Id: " + e);
-                return false;
-            }
+            Debug.WriteLine("There was an error whilst checking if album exists on the database by using thier Id: " + e);
+            return false;
         }
+    }
 
-        internal bool AddValues(SqlDataReader pReader)
+    internal bool AddValues(SqlDataReader pReader)
+    {
+        bool logMe = false;
+
+        if (logMe)
+            Debug.WriteLine("----------Adding values...");
+
+        try
         {
-            bool logMe = false;
+            if (logMe)
+                Debug.WriteLine(string.Format("----------Reading id: {0}", pReader[0]));
+
+            Id = new Guid(pReader[0].ToString());
+
+            CreatedById = new Guid(pReader[1].ToString());
+
+            DateCreated = Convert.ToDateTime(pReader[2]);
+
+            if (pReader[3] != DBNull.Value && !string.IsNullOrEmpty(pReader[3].ToString()) && !string.IsNullOrWhiteSpace(pReader[3].ToString()))
+            {
+                if (logMe)
+                    Debug.WriteLine("----------Reading name");
+
+                Name = pReader[3].ToString().Trim();
+            }
+            else
+            {
+                if (logMe)
+                    Debug.WriteLine("----------Name is blank. Skipping name");
+            }
+
+
+
+            if (pReader[4] != DBNull.Value && !string.IsNullOrEmpty(pReader[4].ToString()) && !string.IsNullOrWhiteSpace(pReader[4].ToString()))
+            {
+                if (logMe)
+                    Debug.WriteLine("----------Reading description");
+
+                Description = pReader[4].ToString().Trim();
+            }
+            else
+            {
+                if (logMe)
+                    Debug.WriteLine("----------Description is blank. Skipping description");
+            }
 
             if (logMe)
-                Debug.WriteLine("----------Adding values...");
+                Debug.WriteLine("added values successfully!");
 
-            try
-            {
-                if (logMe)
-                    Debug.WriteLine(string.Format("----------Reading id: {0}", pReader[0]));
-
-                Id = new Guid(pReader[0].ToString());
-
-                CreatedById = new Guid(pReader[1].ToString());
-
-                DateCreated = Convert.ToDateTime(pReader[2]);
-
-                if (pReader[3] != DBNull.Value && !string.IsNullOrEmpty(pReader[3].ToString()) && !string.IsNullOrWhiteSpace(pReader[3].ToString()))
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading name");
-
-                    Name = pReader[3].ToString().Trim();
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Name is blank. Skipping name");
-                }
-
-
-
-                if (pReader[4] != DBNull.Value && !string.IsNullOrEmpty(pReader[4].ToString()) && !string.IsNullOrWhiteSpace(pReader[4].ToString()))
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading description");
-
-                    Description = pReader[4].ToString().Trim();
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Description is blank. Skipping description");
-                }
-
-                if (logMe)
-                    Debug.WriteLine("added values successfully!");
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("There was an error whilst reading the Album's values: ", e);
-                return false;
-            }
+            return true;
         }
-
-        private bool DbInsert(SqlConnection pOpenConn)
+        catch (Exception e)
         {
-            if (Id.ToString() == Guid.Empty.ToString())
-            {
-                Id = Guid.NewGuid();
-                Debug.WriteLine("Id was empty when trying to insert album into the database. A new guid was generated: {0}", Id);
-            }
+            Debug.WriteLine("There was an error whilst reading the Album's values: ", e);
+            return false;
+        }
+    }
+
+    private bool DbInsert(SqlConnection pOpenConn)
+    {
+        if (Id.ToString() == Guid.Empty.ToString())
+        {
+            Id = Guid.NewGuid();
+            Debug.WriteLine("Id was empty when trying to insert album into the database. A new guid was generated: {0}", Id);
+        }
             try
             {
                 if (!ExistsOnDb(pOpenConn))
@@ -247,7 +247,7 @@ namespace MediaApi
                     InsertAlbumIntoDb.Parameters.Add(new SqlParameter("id", Id));
                     InsertAlbumIntoDb.Parameters.Add(new SqlParameter("createdbyid", CreatedById));
                     InsertAlbumIntoDb.Parameters.Add(new SqlParameter("datecreated", Parsnip.adjustedTime));
-
+                    
 
                     InsertAlbumIntoDb.ExecuteNonQuery();
 
@@ -268,170 +268,170 @@ namespace MediaApi
             new LogEntry(Log.Default) { text = string.Format("Album was successfully inserted into the database!") };
             return DbUpdate(pOpenConn);
         }
+    
 
+    public bool Select()
+    {
+        return DbSelect(Parsnip.GetOpenDbConnection());
+    }
 
-        public bool Select()
+    internal bool DbSelect(SqlConnection pOpenConn)
+    {
+        //AccountLog.Debug("Attempting to get album details...");
+        //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get album details with id {0}...", Id));
+
+        try
         {
-            return DbSelect(Parsnip.GetOpenDbConnection());
-        }
+            SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Albums WHERE id = @id", pOpenConn);
+            SelectAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
-        internal bool DbSelect(SqlConnection pOpenConn)
-        {
-            //AccountLog.Debug("Attempting to get album details...");
-            //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get album details with id {0}...", Id));
-
-            try
+            int recordsFound = 0;
+            using (SqlDataReader reader = SelectAccount.ExecuteReader())
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Albums WHERE id = @id", pOpenConn);
-                SelectAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
-                int recordsFound = 0;
-                using (SqlDataReader reader = SelectAccount.ExecuteReader())
+                while (reader.Read())
                 {
 
-                    while (reader.Read())
-                    {
-
-                        AddValues(reader);
-                        recordsFound++;
-                    }
+                    AddValues(reader);
+                    recordsFound++;
                 }
-                //Debug.WriteLine(string.Format("----------DbSelect() - Found {0} record(s) ", recordsFound));
-
-                if (recordsFound > 0)
-                {
-                    //Debug.WriteLine("----------DbSelect() - Got album's details successfully!");
-                    //AccountLog.Debug("Got album's details successfully!");
-                    return true;
-                }
-                else
-                {
-                    Debug.WriteLine("----------DbSelect() - No album data was returned");
-                    //AccountLog.Debug("Got album's details successfully!");
-                    return false;
-                }
-
             }
-            catch (Exception e)
+            //Debug.WriteLine(string.Format("----------DbSelect() - Found {0} record(s) ", recordsFound));
+
+            if (recordsFound > 0)
             {
-                Debug.WriteLine("There was an exception whilst getting album data: " + e);
-                return false;
-            }
-        }
-
-        public bool Update()
-        {
-            bool success;
-            SqlConnection UpdateConnection = Parsnip.GetOpenDbConnection();
-            if (ExistsOnDb(UpdateConnection)) success = DbUpdate(UpdateConnection); else success = DbInsert(UpdateConnection);
-            UpdateConnection.Close();
-            return success;
-        }
-
-        private bool DbUpdate(SqlConnection pOpenConn)
-        {
-            Debug.WriteLine("Attempting to update album with Id = " + Id);
-            bool HasBeenInserted = true;
-
-            if (HasBeenInserted)
-            {
-                try
-                {
-                    Album temp = new Album(Id);
-                    temp.Select();
-
-                    if (Name != temp.Name)
-                    {
-                        Debug.WriteLine(string.Format("----------Attempting to update name..."));
-
-
-                        SqlCommand UpdateAlbumName = new SqlCommand("UPDATE t_Albums SET name = @name WHERE id = @id", pOpenConn);
-                        UpdateAlbumName.Parameters.Add(new SqlParameter("id", Id));
-                        UpdateAlbumName.Parameters.Add(new SqlParameter("name", Name.Trim()));
-
-                        UpdateAlbumName.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------Name was updated successfully!"));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------Name was not changed. Not updating name."));
-                    }
-
-                    if (Description != temp.Description)
-                    {
-                        Debug.WriteLine(string.Format("----------Attempting to update description..."));
-
-
-                        SqlCommand UpdateAlt = new SqlCommand("UPDATE t_Albums SET description = @description WHERE id = @id", pOpenConn);
-                        UpdateAlt.Parameters.Add(new SqlParameter("id", Id));
-                        UpdateAlt.Parameters.Add(new SqlParameter("description", Description.Trim()));
-
-                        UpdateAlt.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------Description was updated successfully!"));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------Description was not changed. Not updating description."));
-                    }
-
-                }
-                catch (Exception e)
-                {
-                    string error = string.Format("[UacApi.Album.DbUpdate] There was an error whilst updating album: {0}", e);
-                    Debug.WriteLine(error);
-                    new LogEntry(Log.Default) { text = error };
-                    return false;
-                }
-                new LogEntry(Log.Default) { text = string.Format("Album was successfully updated on the database!") };
+                //Debug.WriteLine("----------DbSelect() - Got album's details successfully!");
+                //AccountLog.Debug("Got album's details successfully!");
                 return true;
             }
             else
             {
-                throw new System.InvalidOperationException("Account cannot be updated. Account must be inserted into the database before it can be updated!");
+                Debug.WriteLine("----------DbSelect() - No album data was returned");
+                //AccountLog.Debug("Got album's details successfully!");
+                return false;
             }
+
         }
-
-        public bool Delete()
+        catch (Exception e)
         {
-            return DbDelete(Parsnip.GetOpenDbConnection());
+            Debug.WriteLine("There was an exception whilst getting album data: " + e);
+            return false;
         }
+    }
 
-        internal bool DbDelete(SqlConnection pOpenConn)
+    public bool Update()
+    {
+        bool success;
+        SqlConnection UpdateConnection = Parsnip.GetOpenDbConnection();
+        if (ExistsOnDb(UpdateConnection)) success = DbUpdate(UpdateConnection); else success = DbInsert(UpdateConnection);
+        UpdateConnection.Close();
+        return success;
+    }
+
+    private bool DbUpdate(SqlConnection pOpenConn)
+    {
+        Debug.WriteLine("Attempting to update album with Id = " + Id);
+        bool HasBeenInserted = true;
+
+        if (HasBeenInserted)
         {
-            //AccountLog.Debug("Attempting to get album details...");
-            //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get album details with id {0}...", Id));
-
             try
             {
-                SqlCommand deleteAccount = new SqlCommand("DELETE FROM t_Albums WHERE id = @id", pOpenConn);
-                deleteAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
+                Album temp = new Album(Id);
+                temp.Select();
 
-                int recordsFound = deleteAccount.ExecuteNonQuery();
-                //Debug.WriteLine(string.Format("----------DbDelete() - Found {0} record(s) ", recordsFound));
-
-                if (recordsFound > 0)
+                if (Name != temp.Name)
                 {
-                    //Debug.WriteLine("----------DbDelete() - Got album's details successfully!");
-                    //AccountLog.Debug("Got album's details successfully!");
-                    return true;
+                    Debug.WriteLine(string.Format("----------Attempting to update name..."));
+
+
+                    SqlCommand UpdateAlbumName = new SqlCommand("UPDATE t_Albums SET name = @name WHERE id = @id", pOpenConn);
+                    UpdateAlbumName.Parameters.Add(new SqlParameter("id", Id));
+                    UpdateAlbumName.Parameters.Add(new SqlParameter("name", Name.Trim()));
+
+                    UpdateAlbumName.ExecuteNonQuery();
+
+                    Debug.WriteLine(string.Format("----------Name was updated successfully!"));
                 }
                 else
                 {
-                    Debug.WriteLine("----------DbDelete() - No album data was deleted");
-                    //AccountLog.Debug("Got album's details successfully!");
-                    return false;
+                    Debug.WriteLine(string.Format("----------Name was not changed. Not updating name."));
+                }
+
+                if (Description != temp.Description)
+                {
+                    Debug.WriteLine(string.Format("----------Attempting to update description..."));
+
+
+                    SqlCommand UpdateAlt = new SqlCommand("UPDATE t_Albums SET description = @description WHERE id = @id", pOpenConn);
+                    UpdateAlt.Parameters.Add(new SqlParameter("id", Id));
+                    UpdateAlt.Parameters.Add(new SqlParameter("description", Description.Trim()));
+
+                    UpdateAlt.ExecuteNonQuery();
+
+                    Debug.WriteLine(string.Format("----------Description was updated successfully!"));
+                }
+                else
+                {
+                    Debug.WriteLine(string.Format("----------Description was not changed. Not updating description."));
                 }
 
             }
             catch (Exception e)
             {
-                Debug.WriteLine("There was an exception whilst deleting album data: " + e);
+                string error = string.Format("[UacApi.Album.DbUpdate] There was an error whilst updating album: {0}", e);
+                Debug.WriteLine(error);
+                new LogEntry(Log.Default) { text = error };
                 return false;
             }
+            new LogEntry(Log.Default) { text = string.Format("Album was successfully updated on the database!") };
+            return true;
         }
-
+        else
+        {
+            throw new System.InvalidOperationException("Account cannot be updated. Account must be inserted into the database before it can be updated!");
+        }
     }
+
+    public bool Delete()
+    {
+        return DbDelete(Parsnip.GetOpenDbConnection());
+    }
+
+    internal bool DbDelete(SqlConnection pOpenConn)
+    {
+        //AccountLog.Debug("Attempting to get album details...");
+        //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get album details with id {0}...", Id));
+
+        try
+        {
+            SqlCommand deleteAccount = new SqlCommand("DELETE FROM t_Albums WHERE id = @id", pOpenConn);
+            deleteAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
+
+            int recordsFound = deleteAccount.ExecuteNonQuery();
+            //Debug.WriteLine(string.Format("----------DbDelete() - Found {0} record(s) ", recordsFound));
+
+            if (recordsFound > 0)
+            {
+                //Debug.WriteLine("----------DbDelete() - Got album's details successfully!");
+                //AccountLog.Debug("Got album's details successfully!");
+                return true;
+            }
+            else
+            {
+                Debug.WriteLine("----------DbDelete() - No album data was deleted");
+                //AccountLog.Debug("Got album's details successfully!");
+                return false;
+            }
+
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("There was an exception whilst deleting album data: " + e);
+            return false;
+        }
+    }
+
+}
 
 }

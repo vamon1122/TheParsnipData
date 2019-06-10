@@ -13,48 +13,40 @@ namespace ParsnipWebsite
     {
         User myUser;
         Guid selectedLogId;
-        protected async void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = await UacApi.User.LogInFromCookies();
-            Uac.SecurePage("logs", this, Data.DeviceType, "admin", myUser);
+            if (Request.QueryString["logId"] == null)
+                Response.Redirect("logs?logId=" + Guid.Empty);
+
+            myUser = Uac.SecurePage("logs", this, Data.DeviceType, "admin");
+
+            selectedLogId = new Guid(Request.QueryString["logId"]);
+
+            List<LogEntry> LogEntries;
+
+            if (selectedLogId.ToString() == Guid.Empty.ToString())
+                LogEntries = LogApi.Data.GetAllLogEntries().OrderByDescending(x => x.date).ToList();
+            else
+            {
+                Log temp = new Log(selectedLogId);
+                LogEntries = temp.GetLogEntries().OrderByDescending(x => x.date).ToList();
+            }
+
+            foreach (LogEntry myEntry in LogEntries)
+            {
+                TableRow MyRow = new TableRow();
+                MyRow.Cells.Add(new TableCell() { Text = myEntry.date.ToString() });
+                MyRow.Cells.Add(new TableCell() { Text = myEntry.text });
+                LogTable.Rows.Add(MyRow);
+            }
+
+            EntryCount.Text = string.Format("{0} entries found", LogEntries.Count());
         }
 
         void Page_LoadComplete(object sender, EventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("----------Page load complete!");
 
-            //Moved to loadcomplete because it was causing thread abort in asyncronous pageload method
-            if (Request.QueryString["logId"] == null)
-            {
-                //If statement stops thread from being aborted
-                //if (!Response.IsRequestBeingRedirected)
-                Response.Redirect("logs?logId=" + Guid.Empty, false);
-            }
-            else
-            {
-
-                selectedLogId = new Guid(Request.QueryString["logId"]);
-
-                List<LogEntry> LogEntries;
-
-                if (selectedLogId.ToString() == Guid.Empty.ToString())
-                    LogEntries = LogApi.Data.GetAllLogEntries().OrderByDescending(x => x.date).ToList();
-                else
-                {
-                    Log temp = new Log(selectedLogId);
-                    LogEntries = temp.GetLogEntries().OrderByDescending(x => x.date).ToList();
-                }
-
-                foreach (LogEntry myEntry in LogEntries)
-                {
-                    TableRow MyRow = new TableRow();
-                    MyRow.Cells.Add(new TableCell() { Text = myEntry.date.ToString() });
-                    MyRow.Cells.Add(new TableCell() { Text = myEntry.text });
-                    LogTable.Rows.Add(MyRow);
-                }
-
-                EntryCount.Text = string.Format("{0} entries found", LogEntries.Count());
-            }
             if (Request.QueryString["action"] != null)
             {
                 string action = Request.QueryString["action"];
@@ -80,7 +72,7 @@ namespace ParsnipWebsite
 
         protected void SelectLog_Changed(object sender, EventArgs e)
         {
-            Response.Redirect("logs?logId=" + SelectLog.SelectedValue, false);
+            Response.Redirect("logs?logId=" + SelectLog.SelectedValue);
         }
 
         protected void btnClearLogsConfirm_Click(object sender, EventArgs e)

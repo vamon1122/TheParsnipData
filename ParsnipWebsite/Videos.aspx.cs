@@ -12,10 +12,9 @@ namespace ParsnipWebsite
     {
         private User myUser;
 
-        protected async void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = await UacApi.User.LogInFromCookies();
-            Uac.SecurePage("videos", this, Data.DeviceType, "member", myUser);
+            myUser = Uac.SecurePage("videos", this, Data.DeviceType, "member");
         }
     }
 }

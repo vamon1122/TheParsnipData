@@ -5,33 +5,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using UacApi;
-using LogApi;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
 
 namespace ParsnipWebsite
 {
     public partial class Home : System.Web.UI.Page
     {
         private User myUser;
-        //static HttpClient client;
-
-        protected async void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            //For consuming webservices
-            /*
-            client = new HttpClient();
-            client.BaseAddress = new Uri(Parsnip.baseAddress);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/xml"));
-                */
-
-            myUser = await UacApi.User.LogInFromCookies();
-            Uac.SecurePage("home", this, Data.DeviceType, "user", myUser);
+            myUser = Uac.SecurePage("home", this, Data.DeviceType);
             WelcomeLabel.Text = string.Format("Hiya {0}, welcome back to the parsnip website!", myUser.Forename);
-            var UacServiceClient = new UacService.UacClient();
         }
     }
 }

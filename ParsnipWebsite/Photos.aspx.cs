@@ -26,10 +26,9 @@ namespace ParsnipWebsite
             PhotosAlbum.Select();
         }
 
-        protected async void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = await UacApi.User.LogInFromCookies();
-            Uac.SecurePage("photos", this, Data.DeviceType, "member", myUser);
+            myUser = Uac.SecurePage("photos", this, Data.DeviceType, "member");
 
             if (IsPostBack && PhotoUpload.PostedFile != null)
             {

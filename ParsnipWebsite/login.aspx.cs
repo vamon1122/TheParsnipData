@@ -44,14 +44,12 @@ namespace ParsnipWebsite
             }
 
 
-            /*
+
             myUser = new User("login");
 
             if (String.IsNullOrEmpty(inputUsername.Text) && String.IsNullOrWhiteSpace(inputUsername.Text))
             {
-                //The problematic line
-                User tempUser = await UacApi.User.CookieLogIn();
-                if (tempUser.Id != Guid.Empty)
+                if (myUser.LogIn(false))
                 {
                     WriteCookie();
                     Response.Redirect(Redirect);
@@ -61,30 +59,24 @@ namespace ParsnipWebsite
                     inputUsername.Text = myUser.Username;
                 }
             }
-            */
         }
 
         private void WriteCookie()
         {
             Cookie.WritePerm("accountType", myUser.AccountType);
-            System.Diagnostics.Debug.WriteLine("---------- Writing cookie. accountType = " + myUser.AccountType);
-            System.Diagnostics.Debug.WriteLine("---------- Reading cookie back as a check. accountType = " + Cookie.Read("accountType"));
+            System.Diagnostics.Debug.WriteLine("----------accountType = " + myUser.AccountType);
+            System.Diagnostics.Debug.WriteLine("----------accountType = " + Cookie.Read("accountType"));
         }
 
-        protected async void ButLogIn_Click(object sender, EventArgs e)
+        protected void ButLogIn_Click(object sender, EventArgs e)
         {
             new LogEntry(DebugLog) { text = "Login Clicked! Remember password = " + RememberPwd.Checked };
-            User tempUser = await UacApi.User.LogIn(inputUsername.Text, true, inputPwd.Text, true);
-            if (tempUser.Id != Guid.Empty)
+
+            if (myUser.LogIn(inputUsername.Text, true, inputPwd.Text, RememberPwd.Checked, false))
             {
-                new LogEntry(new Log("login/out")) { text = String.Format("{0} logged in from {1} {2}.", tempUser.FullName, tempUser.PosessivePronoun, Data.DeviceType) };
-                myUser = tempUser;
+                new LogEntry(new Log("login/out")) { text = String.Format("{0} logged in from {1} {2}.", myUser.FullName, myUser.PosessivePronoun, Data.DeviceType) };
                 WriteCookie();
-                Response.Redirect(Redirect, false);
-            }
-            else
-            {
-                Alert_LogInError.Attributes.CssStyle.Add("display", "block");
+                Response.Redirect(Redirect);
             }
         }
     }

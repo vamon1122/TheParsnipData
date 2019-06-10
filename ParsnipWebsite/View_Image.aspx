@@ -1,4 +1,4 @@
-﻿<%@ Page Async="true" Language="C#" AutoEventWireup="true" CodeBehind="View_Image.aspx.cs" Inherits="ParsnipWebsite.View_Image" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="View_Image.aspx.cs" Inherits="ParsnipWebsite.View_Image" %>
 <%@ Register Src="~/Custom_Controls/Menu/Menu.ascx" TagPrefix="menuControls" TagName="Menu" %>
 
 <!DOCTYPE html>
@@ -25,7 +25,7 @@
         }
     </style>
 
-    <title>View Image</title>
+    <title>New Title</title>
 </head>
 <body class="fade0p5" id="body" style="text-align:center">
     <menuControls:Menu runat="server" ID="Menu" />
@@ -38,14 +38,11 @@
   <input type="text" id="ShareLink" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" />
 </div>
     <h2 id="ImageTitle"></h2>
-    
+
     <form id="form1" runat="server">
-        <asp:Label runat="server" id="Album"></asp:Label>
-        <asp:Label runat="server" ID="AlbumId" Visible="false"></asp:Label>
         <asp:Image runat="server" ID="ImagePreview" CssClass="width100" />
     </form>
-        <br />
-        <button class="btn btn-primary" onclick="ViewInAlbum()">View In Album</button>
+
         
     
         </div>
@@ -55,33 +52,7 @@
             url = new URL(url_string);
             document.getElementById("ImageTitle").innerHTML = url.searchParams.get("title");
 
-            document.getElementById("ShareLink").value = "https://www.theparsnip.co.uk/view_image?imageid=" + url.searchParams.get("imageid");
-    </script>
-
-    <script>
-        function ViewInAlbum() {
-            var url_string = window.location.href
-            url = new URL(url_string);
-
-            var albumUrl = document.getElementById("Album").innerHTML.toLowerCase();
-
-            /*
-            var albumId = document.getElementById("AlbumId").innerHTML.toUpperCase();
-            switch (albumId) {
-                case "4B4E450A-2311-4400-AB66-9F7546F44f4E":
-                    albumUrl = "photos";
-                    break;
-                case "5F15861A-689C-482A-8E31-2F13429C36E5":
-                    albumUrl = "memes";
-                    break;
-                default:
-                    albumId = "errorAlbum";
-                    break;
-            }
-            */
-            //Href doesn't delete this page from the history wheras redirect would.
-            window.location.href = "https://www.theparsnip.co.uk/"+ albumUrl +"?imageid=" + url.searchParams.get("imageid");
-        }
+            document.getElementById("ShareLink").value = "https://www.theparsnip.co.uk/photos?imageid=" + url.searchParams.get("imageid");
     </script>
 
     

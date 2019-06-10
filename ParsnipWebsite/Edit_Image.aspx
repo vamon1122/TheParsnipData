@@ -1,4 +1,4 @@
-﻿<%@ Page Async="true" Language="C#" AutoEventWireup="true" CodeBehind="Edit_Image.aspx.cs" Inherits="ParsnipWebsite.Edit_Image" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Edit_Image.aspx.cs" Inherits="ParsnipWebsite.Edit_Image" %>
 <%@ Register Src="~/Custom_Controls/Menu/Menu.ascx" TagPrefix="menuControls" TagName="Menu" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -44,7 +44,7 @@
             <br />
 
             <!-- Delete / save buttons -->
-            <div style="width:100%; padding-left:5%; padding-right:5%; height:38px;">
+            <div style="width:100%; padding-left:5%; padding-right:5%;">
                 <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary float-left" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;" UseSubmitBehavior="false"></asp:Button>
                 <asp:Button runat="server" ID="ButtonSave" class="btn btn-primary float-right" Text="Save" Width="100px" OnClick="ButtonSave_Click"></asp:Button>
             </div>

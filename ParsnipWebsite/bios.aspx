@@ -1,4 +1,4 @@
-﻿<%@ Page Async="true" Language="C#" AutoEventWireup="true" CodeBehind="Bios.aspx.cs" Inherits="ParsnipWebsite.Bios" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Bios.aspx.cs" Inherits="ParsnipWebsite.Bios" %>
 <%@ Register Src="~/Custom_Controls/Menu/Menu.ascx" TagPrefix="menuControls" TagName="Menu" %>
 
 <!DOCTYPE html>

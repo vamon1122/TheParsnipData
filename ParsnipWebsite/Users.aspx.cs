@@ -8,10 +8,6 @@ using UacApi;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using LogApi;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Net.Http.Formatting;
 
 namespace ParsnipWebsite
 {
@@ -20,41 +16,30 @@ namespace ParsnipWebsite
         User myUser;
         static Guid selectedUserId;
 
-        protected async void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = await UacApi.User.LogInFromCookies();
-            Uac.SecurePage("users", this, Data.DeviceType, "admin", myUser);
+            if (Request.QueryString["userId"] == null)
+                Response.Redirect("users?userId=" + Guid.Empty.ToString());
+
+            myUser = Uac.SecurePage("users", this, Data.DeviceType, "admin");
+
+            selectedUserId = new Guid(Request.QueryString["userId"]);
+
+            if (selectedUserId.ToString() == Guid.Empty.ToString())
+            {
+                btnAction.Text = "Insert";
+                btnDelete.Visible = false;
+            }
+            else
+            {
+                btnAction.Text = "Update";
+                btnDelete.Visible = true;
+            }
         }
 
         void Page_LoadComplete(object sender, EventArgs e)
         {
             Debug.WriteLine("----------Page load complete!");
-
-            //Moved to loadcomplete because it was causing thread abort in asyncronous pageload method
-            if (Request.QueryString["userId"] == null)
-            {
-                //False stops thread abort
-                Response.Redirect("users?userId=" + Guid.Empty.ToString(), false);
-            }
-            else
-            {
-
-
-                //if (!pSecurePage.Response.IsRequestBeingRedirected)
-
-                selectedUserId = new Guid(Request.QueryString["userId"]);
-
-                if (selectedUserId.ToString() == Guid.Empty.ToString())
-                {
-                    btnAction.Text = "Insert";
-                    btnDelete.Visible = false;
-                }
-                else
-                {
-                    btnAction.Text = "Update";
-                    btnDelete.Visible = true;
-                }
-            }
 
             if (Request.QueryString["action"] != null)
             {
@@ -81,30 +66,12 @@ namespace ParsnipWebsite
             System.Diagnostics.Debug.WriteLine("Page_LoadComplete complete!");
         }
 
-        static async Task<User> GetUserAsync(string path)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected async void Button1_Click(object sender, EventArgs e)
-        {
-            //ParsnipApi.Models.User thing = await GetUserAsync("api/users/GetUser?id=1");
-            //System.Diagnostics.Debug.WriteLine("Thing = " + thing._forename);
-        }
-
-        async void UpdateUserList()
+        void UpdateUserList()
         {
             var tempUsers = new List<User>();
             tempUsers.Add(new UacApi.User(Guid.Empty) { Forename = "New", Surname = "User", Username = "Create a new user" });
+            tempUsers.AddRange(UacApi.User.GetAllUsers());
 
-            try
-            {
-                tempUsers.AddRange(await UacApi.User.GetAllUsers());
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("[Users.aspx] There was an exception when getting all users to update the list: " + e);
-            }
             ListItem[] ListItems = new ListItem[tempUsers.Count];
 
             int i = 0;
@@ -121,11 +88,10 @@ namespace ParsnipWebsite
 
         protected void SelectUser_Changed(object sender, EventArgs e)
         {
-
-            Response.Redirect("users?userId=" + selectUser.SelectedValue, false);
+            Response.Redirect("users?userId=" + selectUser.SelectedValue);
         }
 
-        protected async void btnAction_Click(object sender, EventArgs e)
+        protected void btnAction_Click(object sender, EventArgs e)
         {
             string rememberSelectedValue = selectUser.SelectedValue;
             Debug.WriteLine("BEN!!!1 " + UserForm.DataSubject.Id.ToString());
@@ -140,8 +106,7 @@ namespace ParsnipWebsite
 
             if (UserForm.DataSubject.Validate())
             {
-                
-                if (await UserForm.DataSubject.Update())
+                if (UserForm.DataSubject.Update())
                 {
                     new LogEntry(Log.Default) { text = String.Format("{0} {1} an account for {2} via the UserForm", myUser.FullName, actionPast, UserForm.DataSubject.FullName) };
                     Response.Redirect(string.Format("users?userId={0}&action=update&success=true", UserForm.DataSubject.Id.ToString()));
