@@ -131,7 +131,7 @@ namespace UacApi
                             DateTime start = DateTime.Now;
                             while (DateTime.Now < start.AddMilliseconds(1)) { }
                             new LogEntry(PageAccessJustificationLog) { text = String.Format("{0} was denied access to the {1} page because {2} did not have sufficient permissions.", myUser.FullName, pUrl, myUser.PosessivePronoun) };
-                            pPage.Response.Redirect(String.Format("access-denied?url={0}", pUrl));
+                            pPage.Response.Redirect(String.Format("access_denied?url={0}", pUrl));
                         }
                         else
                         {
