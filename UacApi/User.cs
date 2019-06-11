@@ -317,15 +317,15 @@ namespace UacApi
             return LogIn(pUsername, pRememberUsername, pPwd, pRememberPwd, true);
         }
 
-        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd, bool silent)
+        public bool LogIn(string username, bool rememberUsername, string password, bool rememberPassword, bool silent)
         {
             //AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
             //Debug.WriteLine(string.Format("----------User.Login() for {0}", Username));
 
-            new LogEntry(DebugLog) { text = "Logging in. pRememberPwd = " + pRememberPwd };
+            new LogEntry(DebugLog) { text = "Logging in. pRememberPwd = " + rememberPassword };
 
             string dbPwd = null;
-            Username = pUsername;
+            Username = username;
 
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
@@ -335,7 +335,7 @@ namespace UacApi
 
                 if (GetPwdFromDb())
                 {
-                    if (pPwd == dbPwd)
+                    if (password == dbPwd)
                     {
                         //Debug.WriteLine(string.Format("----------User.Login() - Got password from db for user {0}. Id = {1}. Pwd = {2}", Username, Id, Password));
                         if (GetIdFromDb())
@@ -344,28 +344,30 @@ namespace UacApi
                             if (DbSelect(conn))
                             {
                                 //Debug.WriteLine(string.Format("----------User.Login() - Selected user {0} whilst logging in", Username));
-                                if (pRememberUsername)
+                                if (rememberUsername)
                                 {
                                     //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
                                     //Debug.WriteLine("----------User.Login() - Username permanently remembered!");
-                                    Cookie.WritePerm("userName", pUsername);
+                                    Cookie.WritePerm("userName", username);
                                 }
 
-                                if (pRememberPwd)
+                                if (rememberPassword)
                                 {
                                     //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
                                     //Debug.WriteLine("----------User.Login() - Password permanently remembered!");
-                                    Cookie.WritePerm("userPwd", pPwd);
-                                    Cookie.WritePerm("userPwdPerm", pPwd);
+                                    Cookie.WritePerm("userPwd", password);
+                                    Cookie.WritePerm("userPwdPerm", password);
                                     //Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
                                 }
                                 else
                                 {
                                     //This check ensures that permanent cookies 
                                     //are not replaced with temporary ones
-                                    if (!Cookie.Exists("userPwd"))
+                                    Cookie.WriteSession("userPwd", password);
+                                    if (!silent && Cookie.Exists("userPwdPerm"))
                                     {
-                                        Cookie.WriteSession("userPwd", pPwd);
+                                        Debug.WriteLine("________________________________FORGETTING REMEMBERED PASSWORD!!!");
+                                        Cookie.WriteSession("userPwdPerm", "");
                                     }
                                 }
 
@@ -395,7 +397,7 @@ namespace UacApi
                     }
                     else
                     {
-                        Debug.WriteLine(string.Format("Error whilst logging in {0}. {1} != {2}", Username, pPwd, dbPwd));
+                        Debug.WriteLine(string.Format("Error whilst logging in {0}. {1} != {2}", Username, password, dbPwd));
                     }
                 }
 
@@ -412,7 +414,7 @@ namespace UacApi
                     try
                     {
                         SqlCommand getId = new SqlCommand("SELECT id FROM t_Users WHERE username = @username", conn);
-                        getId.Parameters.Add(new SqlParameter("username", pUsername));
+                        getId.Parameters.Add(new SqlParameter("username", username));
 
                         using (SqlDataReader reader = getId.ExecuteReader())
                         {
@@ -461,7 +463,7 @@ namespace UacApi
                     try
                     {
                         SqlCommand getPassword = new SqlCommand("SELECT password FROM t_Users WHERE username = @username", conn);
-                        getPassword.Parameters.Add(new SqlParameter("Username", pUsername));
+                        getPassword.Parameters.Add(new SqlParameter("Username", username));
 
                         using (SqlDataReader reader = getPassword.ExecuteReader())
                         {
@@ -1056,6 +1058,13 @@ namespace UacApi
                 UserDetails[1] = Cookie.Read("userPwd");
                 AccountLog.Debug("Found a password cookie! Password = " + UserDetails[1]);
                 
+            }
+            else if (Cookie.Read("userPwdPerm") != null)
+            {
+                UserDetails[1] = Cookie.Read("userPwdPerm");
+                Cookie.WriteSession("userPwd", UserDetails[1]);
+                AccountLog.Debug("Found a password cookie! Password = " + UserDetails[1]);
+
             }
             else
             {
