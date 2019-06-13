@@ -282,6 +282,8 @@ namespace MediaApi
                         Debug.WriteLine("----------Description is blank. Skipping description");
                 }
 
+                AlbumId = new Guid(pReader[8].ToString());
+
                 if (logMe)
                     Debug.WriteLine("added values successfully!");
 
@@ -316,6 +318,12 @@ namespace MediaApi
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("createdbyid", CreatedById));
 
                         InsertImageIntoDb.ExecuteNonQuery();
+
+                        SqlCommand InsertImageAlbumPairIntoDb = new SqlCommand("INSERT INTO t_ImageAlbumPairs VALUES(@imageid, @albumid)", pOpenConn);
+                        InsertImageAlbumPairIntoDb.Parameters.Add(new SqlParameter("imageid", Id));
+                        InsertImageAlbumPairIntoDb.Parameters.Add(new SqlParameter("albumid", AlbumId));
+
+                        InsertImageAlbumPairIntoDb.ExecuteNonQuery();
 
                         Debug.WriteLine(String.Format("Successfully inserted image into database ({0}) ", Id));
                     }
@@ -352,7 +360,7 @@ namespace MediaApi
 
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Images WHERE id = @id", pOpenConn);
+                SqlCommand SelectAccount = new SqlCommand("SELECT t_Images.*, t_ImageAlbumPairs.albumid FROM t_Images INNER JOIN t_ImageAlbumPairs ON t_Images.id = t_ImageAlbumPairs.imageid WHERE id = @id", pOpenConn);
                 SelectAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
                 int recordsFound = 0;
@@ -422,6 +430,8 @@ namespace MediaApi
                         SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO t_ImageAlbumPairs VALUES (@imageid, @albumid)", pOpenConn);
                         CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("imageid", Id));
                         CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("albumid", AlbumId));
+
+                        Debug.WriteLine("---------- Image album (INSERT) = " + AlbumId);
 
                         CreatePhotoAlbumPair.ExecuteNonQuery();
                         new LogEntry(DebugLog) { text = string.Format("INSERTED ALBUM PAIR {0}, {1} ",Id, AlbumId) };

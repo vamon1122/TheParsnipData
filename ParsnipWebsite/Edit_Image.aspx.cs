@@ -9,6 +9,7 @@ using MediaApi;
 using LogApi;
 using System.Data.SqlClient;
 using ParsnipApi;
+using System.Diagnostics;
 
 namespace ParsnipWebsite
 {
@@ -38,6 +39,8 @@ namespace ParsnipWebsite
             {
                 MyImage = new MediaApi.Image(new Guid(Request.QueryString["imageid"]));
                 MyImage.Select();
+
+                Debug.WriteLine("----------Image album = " + MyImage.AlbumId);
 
                 NewAlbumsDropDown.Items.Clear();
 
@@ -94,20 +97,32 @@ namespace ParsnipWebsite
                     */
 
                     MyImage.Title = Request["InputTitleTwo"].ToString();
-                        
-                    //This breaks on some older browsers. Seems android specific?
-                    var tempAlbumId = Request["NewAlbumsDropDown"].ToString(); 
 
-                    if(tempAlbumId != Guid.Empty.ToString())
+                    //This breaks on some older browsers. Seems android specific?
+                    string newAlbumId;
+                    try
                     {
-                        MyImage.AlbumId = new Guid(tempAlbumId);
+                        newAlbumId = Request["NewAlbumsDropDown"].ToString();
+                    }
+                    catch
+                    {
+                        newAlbumId = null;
+                    }
+
+
+                    if (newAlbumId != null)
+                    {
+                        if (newAlbumId != Guid.Empty.ToString())
+                        {
+                            MyImage.AlbumId = new Guid(newAlbumId);
+                        }
                     }
                     
                     MyImage.Update();
 
                     string Redirect;
 
-                    switch (Request["NewAlbumsDropDown"].ToString().ToUpper())
+                    switch (MyImage.AlbumId.ToString().ToUpper())
                     {
                         case "4B4E450A-2311-4400-AB66-9F7546F44F4E":
                             Redirect = "photos?imageid=" + MyImage.Id.ToString();
