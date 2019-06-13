@@ -30,7 +30,7 @@ namespace MediaApi
             return AllowedFileExtensions.Contains(pExtension);
         }
 
-        Log DebugLog = new Log("Debug");
+        static readonly Log DebugLog = new Log("Debug");
 
         public List<Guid> AlbumIds()
         {
