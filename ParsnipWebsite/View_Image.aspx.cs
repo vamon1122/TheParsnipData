@@ -190,8 +190,12 @@ namespace ParsnipWebsite
 
             MediaApi.Image myImage;
 
+
+            //If there is an access token, get the token & it's data.
+            //If there is no access token, check that the user is logged in.
             if (Request.QueryString["access_token"] != null)
             {
+                
                 var myAccessToken = new AccessToken(new Guid(Request.QueryString["access_token"]));
                 try
                 {
@@ -222,13 +226,29 @@ namespace ParsnipWebsite
                 myImage = new MediaApi.Image(new Guid(Request.QueryString["imageid"]));
             }
 
-           
+           //Get the image which the user is trying to access, and display it on the screen.
             myImage.Select();
-            ImageTitle.InnerText = myImage.Title;
-            Page.Title = myImage.Title;
-            ImagePreview.ImageUrl = myImage.ImageSrc;
-            
 
+            Debug.WriteLine(string.Format("AlbumId {0}", myImage.AlbumId));
+
+            //If the image has been deleted, display a warning.
+            //If the image has not been deleted, display the image.
+            if (myImage.AlbumId == Guid.Empty)
+            {
+                Debug.WriteLine(string.Format("AlbumId {0} == {1}", myImage.AlbumId, Guid.Empty));
+                ImageTitle.InnerText = "Error: This image has been deleted!";
+            }
+            else
+            {
+                Debug.WriteLine(string.Format("AlbumId {0} != {1}", myImage.AlbumId, Guid.Empty));
+
+                ImageTitle.InnerText = myImage.Title;
+                Page.Title = myImage.Title;
+                ImagePreview.ImageUrl = myImage.ImageSrc;   
+            }
+
+            //If there was no access token, the user is trying to share the photo.
+            //Generate a shareable link and display it on the screen.
             if (Request.QueryString["access_token"] == null)
             {
                 AccessToken myAccessToken;
@@ -242,8 +262,8 @@ namespace ParsnipWebsite
                     myAccessToken = new AccessToken(myUser.Id, myImage.Id);
                     myAccessToken.Insert();
                 }
-                
-                
+
+
                 ShareLink.Value = myAccessToken.Redirect;
             }
             else
@@ -251,14 +271,6 @@ namespace ParsnipWebsite
                 ShareLinkContainer.Visible = false;
             }
 
-            
         }
-
-        public void ShareLink_Click()
-        {
-            Debug.WriteLine("Share link was clicked");
-        }
-
-
     }
 }
