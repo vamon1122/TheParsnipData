@@ -19,13 +19,72 @@ namespace ParsnipWebsite
         public Guid UserId { get; set; }
         public DateTime DateTimeCreated { get; set; }
         public int TimesUsed { get; set; }
-        private string _redirect;
         public string Redirect { get {
 
                 var myImage = new MediaApi.Image(MediaId);
                 myImage.Select();
-                return string.Format("http://localhost:58646/view_image?access_token={0}", Id); } }
+                return string.Format("https://www.theparsnip.co.uk/view_image?access_token={0}", Id); } }
         public Guid MediaId { get; set; }
+
+        public static bool TokenExists(Guid userId, Guid mediaId)
+        {
+            try
+            {
+                using (SqlConnection conn = ParsnipApi.Parsnip.GetOpenDbConnection())
+                {
+                    var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE user_id = @user_id AND media_id = @media_id", conn);
+                    selectAccessToken.Parameters.Add(new SqlParameter("user_id", userId));
+                    selectAccessToken.Parameters.Add(new SqlParameter("media_id", mediaId));
+
+                    using (SqlDataReader reader = selectAccessToken.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return false;
+        }
+
+        public static AccessToken GetToken(Guid userId, Guid mediaId)
+        {
+            AccessToken myToken = null;
+            try
+            {
+                using (SqlConnection conn = ParsnipApi.Parsnip.GetOpenDbConnection())
+                {
+                    var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE user_id = @user_id AND media_id = @media_id", conn);
+                    selectAccessToken.Parameters.Add(new SqlParameter("user_id", userId));
+                    selectAccessToken.Parameters.Add(new SqlParameter("media_id", mediaId));
+
+                    using (SqlDataReader reader = selectAccessToken.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            myToken = new AccessToken((Guid)reader[0]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            if (myToken == null)
+                throw new NullReferenceException();
+
+            myToken.Select();
+
+            return myToken;
+        }
 
         public AccessToken(Guid userId, Guid mediaId)
         {
@@ -166,13 +225,25 @@ namespace ParsnipWebsite
            
             myImage.Select();
             ImageTitle.InnerText = myImage.Title;
+            Page.Title = myImage.Title;
             ImagePreview.ImageUrl = myImage.ImageSrc;
             
 
             if (Request.QueryString["access_token"] == null)
             {
-                AccessToken myAccessToken = new AccessToken(myUser.Id, myImage.Id);
-                myAccessToken.Insert();
+                AccessToken myAccessToken;
+
+                if (AccessToken.TokenExists(myUser.Id, myImage.Id))
+                {
+                    myAccessToken = AccessToken.GetToken(myUser.Id, myImage.Id);
+                }
+                else
+                {
+                    myAccessToken = new AccessToken(myUser.Id, myImage.Id);
+                    myAccessToken.Insert();
+                }
+                
+                
                 ShareLink.Value = myAccessToken.Redirect;
             }
             else
