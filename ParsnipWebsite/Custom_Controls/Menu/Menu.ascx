@@ -95,21 +95,30 @@
 
     /////Buttons/////
     createButton("Home", "home");
+    
 
-    if (getCookie("accountType") === "admin" || getCookie("accountType") === "member")
-    {
+    /*if (getCookie("accountType") === "admin" || getCookie("accountType") === "member")
+    {*/
         createButton("Memes", "memes");
         createButton("Photos", "photos");
         createButton("AfternoonT", "https://www.mixcloud.com/afternoontlive/");
         createButton("Videos", "videos");
         createButton("Bios", "bios");    
-    }
+    //}
 
     if (getCookie("accountType") === "admin") {
         createButton("Admin", "admin");
     }
 
-    createButton("Log Out", "logout");
+    if (getCookie("accountType") === "admin" || getCookie("accountType") === "member" || getCookie("accountType") === "user")
+    {
+        createButton("Log Out", "logout");
+    }
+    else
+    {
+        createButton("Log In", "login");
+    }
+    
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //document.getElementById("body").style.backgroundColor = "white";

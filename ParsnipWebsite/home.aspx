@@ -43,34 +43,7 @@
     </div>
     <hr class="break" />
     <h3>LATEST VIDEO: Aaron Gets Wavy</h3>
-    <div class="cincopa-container">
-        <div id="cp_widget_ec1e351e-1fd5-4c76-94f4-8abb144b50c7">Loading...</div>
-        <script type="text/javascript">
-            var cpo = []; cpo["_object"] ="cp_widget_ec1e351e-1fd5-4c76-94f4-8abb144b50c7"; cpo["_fid"] = "AAHA-Y-m0XgX";
-            var _cpmp = _cpmp || []; _cpmp.push(cpo);
-            (function() { var cp = document.createElement("script"); cp.type = "text/javascript";
-            cp.async = true; cp.src = "//www.cincopa.com/media-platform/runtime/libasync.js";
-            var c = document.getElementsByTagName("script")[0];
-                c.parentNode.insertBefore(cp, c);
-            })(); 
-        </script>
-        <noscript>
-            <span>New Gallery 2019/2/8</span>
-            <span>Aaron Gets Wavy</span>
-            <span>bitrate</span>
-            <span> 4364 kb/s</span>
-            <span>height</span>
-            <span> 720</span>
-            <span>duration</span>
-            <span> 00:05:22.28</span>
-            <span>fps</span>
-            <span> 23.98</span>
-            <span>width</span>
-            <span> 1280</span>
-            <span>originaldate</span>
-            <span> 2019-02-08T12:32:36.000000Z</span>
-        </noscript>
-    </div>
+    <iframe src="https://player.vimeo.com/video/316090011" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
     <hr class="break" />
 

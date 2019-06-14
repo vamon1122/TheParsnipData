@@ -22,7 +22,7 @@
 <body class="fade0p5" id="body" style="text-align:center;"  >
     <menuControls:Menu runat="server" ID="Menu" />
 
-    <div class="center_form">
+    <div class="center_form" style="padding-bottom:5%" >
         <form id="form1" runat="server" >
             <!-- Title -->
             <div class="form-group" style="padding-left:5%; padding-right: 5%;" >

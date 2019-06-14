@@ -31,13 +31,13 @@
     <menuControls:Menu runat="server" ID="Menu" />
 
     <div class="center_form">
-        <div class="input-group mb-3" style="padding-left:5%; padding-right:5%">
+        <div runat="server" id="ShareLinkContainer" class="input-group mb-3" style="padding-left:5%; padding-right:5%">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">Link</span>
   </div>
-  <input type="text" id="ShareLink" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" />
+  <input runat="server" type="text" id="ShareLink" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" />
 </div>
-    <h2 id="ImageTitle"></h2>
+    <h2 runat="server" id="ImageTitle"></h2>
 
     <form id="form1" runat="server">
         <asp:Image runat="server" ID="ImagePreview" CssClass="width100" />
@@ -47,12 +47,13 @@
     
         </div>
         <script>
-
+            /*
             var url_string = window.location.href
             url = new URL(url_string);
             document.getElementById("ImageTitle").innerHTML = url.searchParams.get("title");
 
             document.getElementById("ShareLink").value = "https://www.theparsnip.co.uk/photos?imageid=" + url.searchParams.get("imageid");
+            */
     </script>
 
     
