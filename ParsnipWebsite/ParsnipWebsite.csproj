@@ -112,6 +112,7 @@
     <Content Include="Resources\Media\Images\Web_Media\pix-vertical-placeholder.jpg" />
     <Content Include="Resources\Media\Images\Web_Media\placeholder.gif" />
     <Content Include="Resources\Media\Images\Web_Media\you_shall_not_pass.jpg" />
+    <Content Include="Resources\Media\Videos\Local\Aaron Gets Wavy.mp4" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -43,7 +43,10 @@
     </div>
     <hr class="break" />
     <h3>LATEST VIDEO: Aaron Gets Wavy</h3>
-    <iframe src="https://player.vimeo.com/video/316090011" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    <video class="video-container" controls="controls">
+            <source src="Resources/Media/Videos/Local/Aaron%20Gets%20Wavy.mp4" type="video/mp4" />
+            Your browser does not support HTML5 video.
+        </video>
 
     <hr class="break" />
 
