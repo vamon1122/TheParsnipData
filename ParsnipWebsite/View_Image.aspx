@@ -25,10 +25,15 @@
         }
     </style>
 
-    <title>New Title</title>
+    <title>View Image</title>
 </head>
 <body class="fade0p5" id="body" style="text-align:center">
     <menuControls:Menu runat="server" ID="Menu" />
+
+    <div runat="server" class="alert alert-danger alert-dismissible parsnip-alert" Visible="false" id="NotExistError">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error:</strong> Could not access image. The image which you are trying to access has been deleted or the link which you are using has expired!
+    </div>
 
     <div class="center_form">
         <div runat="server" id="ShareLinkContainer" class="input-group mb-3" style="padding-left:5%; padding-right:5%">
@@ -39,8 +44,13 @@
 </div>
     <h2 runat="server" id="ImageTitle"></h2>
 
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" style="width:100%; margin-bottom:5%">
         <asp:Image runat="server" ID="ImagePreview" CssClass="width100" />
+        <br />
+        <br />
+        <div style="padding-left:2.5%; padding-right:2.5%">
+        <asp:Button runat="server" ID="Button_ViewAlbum" class="btn btn-info btn-lg btn-block" Text="CLICK for more like this!" OnClick="Button_ViewAlbum_Click"></asp:Button>
+            </div>
     </form>
 
         

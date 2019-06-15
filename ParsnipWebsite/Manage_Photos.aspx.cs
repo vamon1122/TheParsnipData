@@ -40,7 +40,7 @@ namespace ParsnipWebsite
 
                 Debug.WriteLine("---------- posted back with id = " + selectedUserId);
 
-                List<MediaApi.Image> MyPhotos = MediaApi.Image.GetImagesByUser(selectedUserId);
+                List<MediaApi.Image> MyPhotos = MediaApi.Image.GetImagesByUser(selectedUserId).Where(user => user.AlbumId != Guid.Empty).ToList();
                 //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
                 foreach (MediaApi.Image temp in MyPhotos)
                 {

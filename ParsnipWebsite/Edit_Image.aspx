@@ -43,6 +43,8 @@
             <br />
             <br />
 
+            
+
             <!-- Delete / save buttons -->
             <div style="width:100%; padding-left:5%; padding-right:5%;">
                 <asp:Button runat="server" ID="btn_AdminDelete"  CssClass="btn btn-primary float-left" Width="100px" Text="Delete" Visible="false" data-toggle="modal" data-target="#confirmDelete" OnClientClick="return false;" UseSubmitBehavior="false"></asp:Button>

@@ -79,6 +79,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Access_Denied.aspx" />
+    <Content Include="AlbumPage.aspx" />
+    <Content Include="Albums.aspx" />
     <Content Include="Bios.aspx" />
     <Content Include="Content_Removal.aspx" />
     <Content Include="Css\Jonsuh_Hamburgers\Hamburgers.css" />
@@ -204,6 +206,20 @@
     </Compile>
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AlbumPage.aspx.cs">
+      <DependentUpon>AlbumPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AlbumPage.aspx.designer.cs">
+      <DependentUpon>AlbumPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Albums.aspx.cs">
+      <DependentUpon>Albums.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Albums.aspx.designer.cs">
+      <DependentUpon>Albums.aspx</DependentUpon>
     </Compile>
     <Compile Include="Bios.aspx.cs">
       <DependentUpon>Bios.aspx</DependentUpon>
@@ -359,7 +375,6 @@
     </Compile>
     <Compile Include="View_Image.aspx.cs">
       <DependentUpon>View_Image.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="View_Image.aspx.designer.cs">
       <DependentUpon>View_Image.aspx</DependentUpon>
