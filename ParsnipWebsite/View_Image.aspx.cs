@@ -45,7 +45,8 @@ namespace ParsnipWebsite
                 {
                     throw ex;
                 }
-                myAccessToken.TimesUsed++;
+                if(!IsPostBack)
+                    myAccessToken.TimesUsed++;
 
                 User createdBy = new User(myAccessToken.UserId);
                 createdBy.Select();
