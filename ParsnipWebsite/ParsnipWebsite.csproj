@@ -115,6 +115,7 @@
     <Content Include="Resources\Media\Images\Web_Media\placeholder.gif" />
     <Content Include="Resources\Media\Images\Web_Media\you_shall_not_pass.jpg" />
     <Content Include="Resources\Media\Videos\Local\Aaron Gets Wavy.mp4" />
+    <Content Include="Share_Stats.aspx" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -228,6 +229,7 @@
     <Compile Include="Bios.aspx.designer.cs">
       <DependentUpon>Bios.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AccessToken.cs" />
     <Compile Include="Content_Removal.aspx.cs">
       <DependentUpon>Content_Removal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -345,6 +347,13 @@
       <DependentUpon>Photos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Share_Stats.aspx.cs">
+      <DependentUpon>Share_Stats.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Share_Stats.aspx.designer.cs">
+      <DependentUpon>Share_Stats.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -375,6 +384,7 @@
     </Compile>
     <Compile Include="View_Image.aspx.cs">
       <DependentUpon>View_Image.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="View_Image.aspx.designer.cs">
       <DependentUpon>View_Image.aspx</DependentUpon>

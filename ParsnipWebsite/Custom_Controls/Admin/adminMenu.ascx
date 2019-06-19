@@ -13,6 +13,9 @@
           <li class="nav-item">
     <a class="nav-link" href="manage_photos">Photos</a>
   </li>
+          <li class="nav-item">
+    <a class="nav-link" href="share_stats">Share Stats</a>
+  </li>
   <!--
           <li class="nav-item">
     <a class="nav-link disabled" href="#">Disabled</a>
