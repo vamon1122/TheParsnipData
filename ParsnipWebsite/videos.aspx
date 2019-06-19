@@ -37,12 +37,9 @@
         
         -->
     
-    <hr class="break" />
-    <h3>Aaron Gets Wavy</h3>
-        <video class="video-container" controls="controls">
-            <source src="Resources/Media/Videos/Local/Aaron%20Gets%20Wavy.mp4" type="video/mp4" />
-            Your browser does not support HTML5 video.
-        </video>
+    <div runat="server" id="links_div">
+
+    </div>
 
 
     <!--27 Jun-->

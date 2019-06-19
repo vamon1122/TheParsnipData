@@ -109,6 +109,8 @@
     <Content Include="Javascript\Intersection_Observer.js" />
     <Content Include="Logs.aspx" />
     <Content Include="Photos.aspx" />
+    <Content Include="Resources\Media\Images\Video_Thumbnails\Aaron Gets Wavy.PNG" />
+    <Content Include="Resources\Media\Images\Video_Thumbnails\Kieron At Aaron%27s.PNG" />
     <Content Include="Resources\Media\Videos\Local\Kieron At Aaron%27s.mp4" />
     <Content Include="Resources\Media\Videos\Local\Let Me Entertain You Edit.mp4" />
     <Content Include="Video_Player.aspx" />

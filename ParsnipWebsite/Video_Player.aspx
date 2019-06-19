@@ -30,7 +30,7 @@
     
     <hr class="break" />
     <h2 runat="server" id="VideoTitle"></h2>
-        <video controls="controls">
+        <video controls="controls" style="width:98%">
             <source runat="server" id="VideoSource" src="" type="video/mp4" />
             Your browser does not support HTML5 video.
         </video>

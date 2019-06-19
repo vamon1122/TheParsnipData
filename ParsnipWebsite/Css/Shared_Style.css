@@ -163,6 +163,13 @@ a {
     }
 }
 
+.thumbnail {
+    display: block;
+    margin: auto;
+    width: 100%;
+    max-width: 600px;
+}
+
 .video-container {
     display: block;
     margin:auto;
