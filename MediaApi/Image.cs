@@ -11,23 +11,18 @@ using LogApi;
 
 namespace MediaApi
 {
-    public class Image
+    public class Image : Media
     {
-        public Guid Id { get; set; }
         public string Placeholder { get; set; }
-        public string ImageSrc { get; set; }
+        
         public string Classes { get; set; }
         public string Alt { get; set; }
-        public DateTime DateCreated { get; set; }
-        public Guid CreatedById { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public Guid AlbumId { get; set; }
-        public static string[] AllowedFileExtensions = new string[] { "png", "gif", "jpg", "jpeg", "tiff" };
+        private static string[] _allowedFileExtensions = new string[] { "png", "gif", "jpg", "jpeg", "tiff" };
+    public override string[] AllowedFileExtensions { get { return _allowedFileExtensions; } }
 
         public static bool IsValidFileExtension(string pExtension)
         {
-            return AllowedFileExtensions.Contains(pExtension);
+            return _allowedFileExtensions.Contains(pExtension);
         }
 
         static readonly Log DebugLog = new Log("Debug");
@@ -136,7 +131,7 @@ namespace MediaApi
         public Image(string pSrc, User pCreatedBy, Album pAlbum)
         {
             Id = Guid.NewGuid();
-            ImageSrc = pSrc;
+            Directory = pSrc;
             Log DebugLog = new Log("Debug");
             new LogEntry(DebugLog) { text = "Image created with albumid = " + pAlbum.Id };
             AlbumId = pAlbum.Id;
@@ -231,7 +226,7 @@ namespace MediaApi
 
                 if (logMe)
                     Debug.WriteLine("----------Reading ImageSrc");
-                ImageSrc = pReader[2].ToString().Trim();
+                Directory = pReader[2].ToString().Trim();
 
 
 
@@ -304,7 +299,7 @@ namespace MediaApi
                 Debug.WriteLine("Id was empty when trying to insert image into the database. A new guid was generated: {0}", Id);
             }
 
-            if (ImageSrc != null)
+            if (Directory != null)
             {
                 try
                 {
@@ -313,7 +308,7 @@ namespace MediaApi
                         SqlCommand InsertImageIntoDb = new SqlCommand("INSERT INTO t_Images (id, imagesrc, datecreated, createdbyid) VALUES(@id, @imagesrc, @datecreated, @createdbyid)", pOpenConn);
 
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("id", Id));
-                        InsertImageIntoDb.Parameters.Add(new SqlParameter("imagesrc", ImageSrc.Trim()));
+                        InsertImageIntoDb.Parameters.Add(new SqlParameter("imagesrc", Directory.Trim()));
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("datecreated", Parsnip.adjustedTime));
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("createdbyid", CreatedById));
 

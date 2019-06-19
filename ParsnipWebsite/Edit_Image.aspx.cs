@@ -167,7 +167,7 @@ namespace ParsnipWebsite
                         Response.Redirect("photos?error=0");
                     }
                 }
-                    ImagePreview.ImageUrl = MyImage.ImageSrc;
+                    ImagePreview.ImageUrl = MyImage.Directory;
 
                     
                 

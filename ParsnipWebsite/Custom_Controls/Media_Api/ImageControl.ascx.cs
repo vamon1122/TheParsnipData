@@ -22,8 +22,8 @@ namespace ParsnipWebsite.Custom_Controls.Media_Api
                 myImage = value;
                 MyTitle.InnerHtml = MyImage.Title;
                 MyImageHolder.ImageUrl = "../../Resources/Media/Images/Web_Media/placeholder.gif";
-                MyImageHolder.Attributes.Add("data-src", MyImage.ImageSrc);
-                MyImageHolder.Attributes.Add("data-srcset", MyImage.ImageSrc);
+                MyImageHolder.Attributes.Add("data-src", MyImage.Directory);
+                MyImageHolder.Attributes.Add("data-srcset", MyImage.Directory);
                 MyImageHolder.CssClass = "meme lazy";
                 MyImageContainer.ID = myImage.Id.ToString();
 
