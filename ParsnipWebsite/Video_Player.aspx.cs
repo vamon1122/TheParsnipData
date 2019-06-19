@@ -62,7 +62,7 @@ namespace ParsnipWebsite
                 if (Request.QueryString["videoid"] == null)
                     myUser = Uac.SecurePage("video_player", this, Data.DeviceType, "member");
                 else
-                    myUser = Uac.SecurePage("video_player?videoid={0}", this, Data.DeviceType, "member");
+                    myUser = Uac.SecurePage(string.Format("video_player?videoid={0}", Request.QueryString["videoid"]), this, Data.DeviceType, "member");
 
 
                 
@@ -87,7 +87,7 @@ namespace ParsnipWebsite
             {
                 Debug.WriteLine(string.Format("AlbumId {0} == {1}", myVideo.AlbumId, Guid.Empty));
                 NotExistError.Visible = true;
-                //Button_ViewAlbum.Visible = false;
+                Button_ViewAlbum.Visible = false;
             }
             else
             {
@@ -102,7 +102,7 @@ namespace ParsnipWebsite
             //Generate a shareable link and display it on the screen.
             if (Request.QueryString["access_token"] == null)
             {
-                //Button_ViewAlbum.Visible = false;
+                Button_ViewAlbum.Visible = false;
 
                 AccessToken myAccessToken;
 
@@ -117,16 +117,19 @@ namespace ParsnipWebsite
                 }
 
                 //Gets URL without sub pages
-                //ShareLink.Value = Request.Url.GetLeftPart(UriPartial.Authority) + myAccessToken.Redirect;
+                ShareLink.Value = Request.Url.GetLeftPart(UriPartial.Authority) + myAccessToken.VideoRedirect;
             }
             else
             {
-                //ShareLinkContainer.Visible = false;
+                ShareLinkContainer.Visible = false;
             }
             
         }
-        
 
+        protected void Button_ViewAlbum_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/videos");
+        }
 
     }
 }

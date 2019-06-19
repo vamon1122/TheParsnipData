@@ -119,7 +119,7 @@ namespace ParsnipWebsite
                 }
 
                 //Gets URL without sub pages
-                ShareLink.Value = Request.Url.GetLeftPart(UriPartial.Authority) + myAccessToken.Redirect;
+                ShareLink.Value = Request.Url.GetLeftPart(UriPartial.Authority) + myAccessToken.ImageRedirect;
             }
             else
             {

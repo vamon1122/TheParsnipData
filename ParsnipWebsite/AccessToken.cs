@@ -19,7 +19,7 @@ namespace ParsnipWebsite
         public Guid UserId { get; set; }
         public DateTime DateTimeCreated { get; set; }
         public int TimesUsed { get; set; }
-        public string Redirect
+        public string ImageRedirect
         {
             get
             {
@@ -27,6 +27,17 @@ namespace ParsnipWebsite
                 var myImage = new MediaApi.Image(MediaId);
                 myImage.Select();
                 return string.Format("/view_image?access_token={0}", Id);
+            }
+        }
+
+        public string VideoRedirect
+        {
+            get
+            {
+
+                var myImage = new MediaApi.Image(MediaId);
+                myImage.Select();
+                return string.Format("/video_player?access_token={0}", Id);
             }
         }
         public Guid MediaId { get; set; }

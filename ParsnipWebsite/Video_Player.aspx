@@ -22,21 +22,25 @@
 </head>
 <body class="fade0p5" id="body" style="text-align:center">
     <menuControls:Menu runat="server" ID="Menu" />
-
+    <div runat="server" id="ShareLinkContainer" class="input-group mb-3" style="padding-left:5%; padding-right:5%">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Link</span>
+  </div>
+  <input runat="server" type="text" id="ShareLink" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" />
+</div>
     <div runat="server" class="alert alert-danger alert-dismissible parsnip-alert" Visible="false" id="NotExistError">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Error:</strong> Could not access image. The image which you are trying to access has been deleted or the link which you are using has expired!
     </div>
-    
-    <hr class="break" />
     <h2 runat="server" id="VideoTitle"></h2>
-        <video controls="controls" style="width:98%">
-            <source runat="server" id="VideoSource" src="" type="video/mp4" />
+        <video controls="controls" autoplay style="width:100%; max-width:1280px">
+            <source runat="server" id="VideoSource" type="video/mp4" />
             Your browser does not support HTML5 video.
         </video>
     <form id="form1" runat="server">
-        <div>
-        </div>
+        <div style="padding-left:2.5%; padding-right:2.5%">
+        <asp:Button runat="server" ID="Button_ViewAlbum" class="btn btn-info btn-lg btn-block" Text="CLICK for more like this!" OnClick="Button_ViewAlbum_Click"></asp:Button>
+            </div>
     </form>
 </body>
 </html>
