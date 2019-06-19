@@ -262,7 +262,11 @@ namespace MediaApi
                     Debug.WriteLine("----------Reading createdbyid");
                 CreatedById = new Guid(reader[6].ToString());
 
-                
+                if (logMe)
+                    Debug.WriteLine("----------Reading album id");
+                AlbumId = new Guid(reader[7].ToString());
+
+
 
                 //AlbumId = new Guid(reader[8].ToString());
 
@@ -342,7 +346,7 @@ namespace MediaApi
 
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT t_Videos.*, t_ImageAlbumPairs.albumid FROM video INNER JOIN t_ImageAlbumPairs ON video.id = t_ImageAlbumPairs.imageid WHERE id = @id", pOpenConn);
+                SqlCommand SelectAccount = new SqlCommand("SELECT video.*, t_ImageAlbumPairs.albumid FROM video INNER JOIN t_ImageAlbumPairs ON video.video_id = t_ImageAlbumPairs.imageid WHERE video_id = @id", pOpenConn);
                 SelectAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
                 int recordsFound = 0;

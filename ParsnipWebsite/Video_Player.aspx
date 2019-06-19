@@ -22,11 +22,16 @@
 </head>
 <body class="fade0p5" id="body" style="text-align:center">
     <menuControls:Menu runat="server" ID="Menu" />
+
+    <div runat="server" class="alert alert-danger alert-dismissible parsnip-alert" Visible="false" id="NotExistError">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error:</strong> Could not access image. The image which you are trying to access has been deleted or the link which you are using has expired!
+    </div>
     
     <hr class="break" />
-    <h3>Aaron Gets Wavy</h3>
+    <h2 runat="server" id="VideoTitle"></h2>
         <video controls="controls">
-            <source src="Resources/Media/Videos/Local/Aaron%20Gets%20Wavy.mp4" type="video/mp4" />
+            <source runat="server" id="VideoSource" src="" type="video/mp4" />
             Your browser does not support HTML5 video.
         </video>
     <form id="form1" runat="server">

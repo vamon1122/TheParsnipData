@@ -37,10 +37,7 @@
             <br />
         <br />
         <h3>*NEW*</h3>
-        - Share photos! (They don't even need an account to view shared links!!!)
-        - 'Remember password' now <b><i>actually</i></b> works! You don't have to enter your password every bloody time anymore :P<br />
-        - You can now upload & caption your very own <a href="photos">photos</a> & <a href="memes">memes</a>!<br />
-        - Shortcut to the <a href="https://www.mixcloud.com/afternoontlive/">AfternoonT</a> podcast added to website menu. <br />
+        - [19/06/19] Share photos! (Recipient doesn't even need an account to view shared photos!!!)
     </div>
     <hr class="break" />
     <h3>LATEST VIDEO: Aaron Gets Wavy</h3>

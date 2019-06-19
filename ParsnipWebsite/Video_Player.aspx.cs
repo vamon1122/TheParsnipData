@@ -17,11 +17,10 @@ namespace ParsnipWebsite
     {
         User myUser;
         Log DebugLog = new Log("Debug");
-        MediaApi.Video myImage;
+        MediaApi.Video myVideo;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
             //We secure the page using the UacApi. 
             //This ensures that the user is logged in etc
             //You only need to change where it says '_NEW TEMPLATE'.
@@ -53,10 +52,10 @@ namespace ParsnipWebsite
 
                 myAccessToken.Update();
 
-                myImage = new MediaApi.Image(myAccessToken.MediaId);
-                myImage.Select();
+                myVideo = new MediaApi.Video(myAccessToken.MediaId);
+                myVideo.Select();
 
-                new LogEntry(DebugLog) { text = string.Format("{0}'s link to {1} got another hit! Now up to {2}", createdBy.FullName, myImage.Title, myAccessToken.TimesUsed) };
+                new LogEntry(DebugLog) { text = string.Format("{0}'s link to {1} got another hit! Now up to {2}", createdBy.FullName, myVideo.Title, myAccessToken.TimesUsed) };
             }
             else
             {
@@ -66,65 +65,67 @@ namespace ParsnipWebsite
                     myUser = Uac.SecurePage("video_player?videoid={0}", this, Data.DeviceType, "member");
 
 
-
-                if (Request.QueryString["imageid"] == null)
+                
+                if (Request.QueryString["videoid"] == null)
                     Response.Redirect("home");
+                    
 
-                myImage = new MediaApi.Image(new Guid(Request.QueryString["imageid"]));
-                myImage.Select();
+                myVideo = new MediaApi.Video(new Guid(Request.QueryString["videoid"]));
+                myVideo.Select();
             }
 
             //Get the image which the user is trying to access, and display it on the screen.
 
 
-            Debug.WriteLine(string.Format("AlbumId {0}", myImage.AlbumId));
+            Debug.WriteLine(string.Format("AlbumId {0}", myVideo.AlbumId));
 
 
 
             //If the image has been deleted, display a warning.
             //If the image has not been deleted, display the image.
-            if (myImage.AlbumId == Guid.Empty)
+            if (myVideo.AlbumId == Guid.Empty)
             {
-                Debug.WriteLine(string.Format("AlbumId {0} == {1}", myImage.AlbumId, Guid.Empty));
+                Debug.WriteLine(string.Format("AlbumId {0} == {1}", myVideo.AlbumId, Guid.Empty));
                 NotExistError.Visible = true;
-                Button_ViewAlbum.Visible = false;
+                //Button_ViewAlbum.Visible = false;
             }
             else
             {
-                Debug.WriteLine(string.Format("AlbumId {0} != {1}", myImage.AlbumId, Guid.Empty));
+                Debug.WriteLine(string.Format("AlbumId {0} != {1}", myVideo.AlbumId, Guid.Empty));
 
-                ImageTitle.InnerText = myImage.Title;
-                Page.Title = myImage.Title;
-                ImagePreview.ImageUrl = myImage.ImageSrc;
+                VideoTitle.InnerText = myVideo.Title;
+                Page.Title = myVideo.Title;
+                VideoSource.Src = myVideo.Directory;
             }
 
             //If there was no access token, the user is trying to share the photo.
             //Generate a shareable link and display it on the screen.
             if (Request.QueryString["access_token"] == null)
             {
-                Button_ViewAlbum.Visible = false;
+                //Button_ViewAlbum.Visible = false;
 
                 AccessToken myAccessToken;
 
-                if (AccessToken.TokenExists(myUser.Id, myImage.Id))
+                if (AccessToken.TokenExists(myUser.Id, myVideo.Id))
                 {
-                    myAccessToken = AccessToken.GetToken(myUser.Id, myImage.Id);
+                    myAccessToken = AccessToken.GetToken(myUser.Id, myVideo.Id);
                 }
                 else
                 {
-                    myAccessToken = new AccessToken(myUser.Id, myImage.Id);
+                    myAccessToken = new AccessToken(myUser.Id, myVideo.Id);
                     myAccessToken.Insert();
                 }
 
                 //Gets URL without sub pages
-                ShareLink.Value = Request.Url.GetLeftPart(UriPartial.Authority) + myAccessToken.Redirect;
+                //ShareLink.Value = Request.Url.GetLeftPart(UriPartial.Authority) + myAccessToken.Redirect;
             }
             else
             {
-                ShareLinkContainer.Visible = false;
+                //ShareLinkContainer.Visible = false;
             }
-
+            
         }
+        
 
 
     }
