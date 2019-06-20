@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="Css/Shared_Style.css" />
     <script src="../Javascript/Apply_Style.js"></script>
 
-    <title>Create User</title>
+    <title>Share Stats</title>
 </head>
 <body style="padding-bottom:2.5%; padding-top:4%">
     <form runat="server">
