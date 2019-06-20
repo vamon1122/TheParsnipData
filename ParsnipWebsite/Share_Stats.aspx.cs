@@ -85,10 +85,10 @@ namespace ParsnipWebsite
             {
                 var myRow = new TableRow();
                 myRow.Cells.Add(new TableCell() { Text = row[0].ToString() });
-                myRow.Cells.Add(new TableCell() { Text = row[1].ToString() });
+                //myRow.Cells.Add(new TableCell() { Text = row[1].ToString() });
                 myRow.Cells.Add(new TableCell() { Text = row[2].ToString() });
                 myRow.Cells.Add(new TableCell() { Text = row[3].ToString() });
-                myRow.Cells.Add(new TableCell() { Text = row[4].ToString() });
+                //myRow.Cells.Add(new TableCell() { Text = row[4].ToString() });
 
                 Table_Stats.Rows.Add(myRow);
             }

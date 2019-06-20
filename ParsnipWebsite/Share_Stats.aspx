@@ -46,10 +46,8 @@
             <asp:Table runat="server" ID="Table_Stats" CssClass="table table-striped" >
                 <asp:TableHeaderRow>
                     <asp:TableHeaderCell>Title</asp:TableHeaderCell>
-                    <asp:TableHeaderCell>Uploaded By</asp:TableHeaderCell>
                     <asp:TableHeaderCell>Shared By</asp:TableHeaderCell>
                     <asp:TableHeaderCell>Times Used</asp:TableHeaderCell>
-                    <asp:TableHeaderCell>Media Directory</asp:TableHeaderCell>
                 </asp:TableHeaderRow>
                 
             </asp:Table>
