@@ -24,37 +24,45 @@ namespace ParsnipWebsite
         void Page_LoadComplete(object sender, EventArgs e)
         {
             var allStats = new DataTable();
+            
             var allStatsVideo = new DataTable();
             var allStatsImage = new DataTable();
-            try
-            {
+            //try
+            //{
                 using (SqlConnection conn = Parsnip.GetOpenDbConnection())
                 {
                     var getImageStats = new SqlCommand(
-                        "SELECT t_Images.title," +
+                        "SELECT t_Images.id AS media_id, " +
+                        "t_Images.title, " +
                         "uploaded_by.forename," +
                         "shared_by.forename," +
                         "access_token.times_used," +
-                        "access_token.access_token_id " +
-    
+                        "access_token.access_token_id, " +
+                        "t_ImageAlbumPairs.albumid " +
+
                         "FROM access_token " +
                         "INNER JOIN t_Images ON access_token.media_id = t_Images.Id " +
                         "INNER JOIN t_Users AS uploaded_by ON t_Images.createdbyid = uploaded_by.Id " +
                         "INNER JOIN t_Users AS shared_by ON access_token.user_id = shared_by.Id " +
+                        "INNER JOIN t_ImageAlbumPairs ON t_Images.id = t_ImageAlbumPairs.imageid " +
 
                         "ORDER BY times_used DESC", conn);
 
                     var getVideoStats = new SqlCommand(
-                        "SELECT video.title," +
-                        "uploaded_by.forename," +
-                        "shared_by.forename," +
-                        "access_token.times_used AS times_used, " +
-                        "access_token.access_token_id " +
+                        "SELECT video.video_id AS media_id, " +
+                        "video.title, "+
+                        "uploaded_by.forename, "+
+                        "shared_by.forename, "+
+                        "access_token.times_used , "+
+                        "access_token.access_token_id, "+
+                        "t_ImageAlbumPairs.albumid "+
+                        
 
-                        "FROM access_token " +
-                        "INNER JOIN video ON access_token.media_id = video.video_id " +
-                        "INNER JOIN t_Users AS uploaded_by ON video.created_by_id = uploaded_by.Id " +
-                        "INNER JOIN t_Users AS shared_by ON access_token.user_id = shared_by.Id " +
+                        "FROM access_token "+
+                        "INNER JOIN video ON access_token.media_id = video.video_id "+
+                        "INNER JOIN t_Users AS uploaded_by ON video.created_by_id = uploaded_by.Id "+
+                        "INNER JOIN t_Users AS shared_by ON access_token.user_id = shared_by.Id "+
+                        "INNER JOIN t_ImageAlbumPairs ON video.video_id = t_ImageAlbumPairs.imageid "+
 
                         "ORDER BY times_used DESC", conn);
 
@@ -73,22 +81,40 @@ namespace ParsnipWebsite
                     allStats.DefaultView.Sort = "times_used DESC";
                     allStats = allStats.DefaultView.ToTable();
                 }
-            }
+            /*}
             catch(Exception ex)
             {
                 throw ex;
-            }
+            }*/
             
             
 
             foreach(DataRow row in allStats.Rows)
             {
+                string redirect;
+                switch (row[6].ToString().ToUpper())
+                {
+                    case "73C436A1-893B-4418-8800-821823C18DFE":
+                        redirect = "video_player?videoid=";
+
+                        break;
+                    default:
+                        redirect = "view_image?imageid=";
+                        break;
+                }
                 var myRow = new TableRow();
-                myRow.Cells.Add(new TableCell() { Text = row[0].ToString() });
+
+                var myTableCell = new TableCell();
+                myTableCell.Controls.Add(new LiteralControl(string.Format("<a href={0}>{1}</a>", redirect + row[0].ToString(), row[1].ToString())));
+                myRow.Cells.Add(myTableCell);
+
+
                 //myRow.Cells.Add(new TableCell() { Text = row[1].ToString() });
-                myRow.Cells.Add(new TableCell() { Text = row[2].ToString() });
+                //myRow.Cells.Add(new TableCell() { Text = row[2].ToString() });
                 myRow.Cells.Add(new TableCell() { Text = row[3].ToString() });
-                //myRow.Cells.Add(new TableCell() { Text = row[4].ToString() });
+                myRow.Cells.Add(new TableCell() { Text = row[4].ToString() });
+                //myRow.Cells.Add(new TableCell() { Text = row[5].ToString() });
+
 
                 Table_Stats.Rows.Add(myRow);
             }
