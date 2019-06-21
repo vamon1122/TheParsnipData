@@ -38,7 +38,8 @@ namespace ParsnipWebsite
                         "shared_by.forename," +
                         "access_token.times_used," +
                         "access_token.access_token_id, " +
-                        "t_ImageAlbumPairs.albumid " +
+                        "t_ImageAlbumPairs.albumid, " +
+                        "shared_by.id " +
 
                         "FROM access_token " +
                         "INNER JOIN t_Images ON access_token.media_id = t_Images.Id " +
@@ -55,10 +56,12 @@ namespace ParsnipWebsite
                         "shared_by.forename, "+
                         "access_token.times_used , "+
                         "access_token.access_token_id, "+
-                        "t_ImageAlbumPairs.albumid "+
-                        
+                        "t_ImageAlbumPairs.albumid, "+
+                        "shared_by.id " +
 
-                        "FROM access_token "+
+
+
+                        "FROM access_token " +
                         "INNER JOIN video ON access_token.media_id = video.video_id "+
                         "INNER JOIN t_Users AS uploaded_by ON video.created_by_id = uploaded_by.Id "+
                         "INNER JOIN t_Users AS shared_by ON access_token.user_id = shared_by.Id "+
@@ -91,29 +94,33 @@ namespace ParsnipWebsite
 
             foreach(DataRow row in allStats.Rows)
             {
-                string redirect;
+                string mediaRedirect;
+                string shareRedirect;
                 switch (row[6].ToString().ToUpper())
                 {
                     case "73C436A1-893B-4418-8800-821823C18DFE":
-                        redirect = "video_player?videoid=";
+                        mediaRedirect = "video_player?videoid=";
+                        shareRedirect = "video_player?access_token=";
 
                         break;
                     default:
-                        redirect = "view_image?imageid=";
+                        mediaRedirect = "view_image?imageid=";
+                        shareRedirect = "view_image?access_token=";
                         break;
                 }
                 var myRow = new TableRow();
 
-                var myTableCell = new TableCell();
-                myTableCell.Controls.Add(new LiteralControl(string.Format("<a href={0}>{1}</a>", redirect + row[0].ToString(), row[1].ToString())));
-                myRow.Cells.Add(myTableCell);
+                var titleCell = new TableCell();
+                titleCell.Controls.Add(new LiteralControl(string.Format("<a href={0}>{1}</a>", mediaRedirect + row[0].ToString(), row[1].ToString())));
+                myRow.Cells.Add(titleCell);
 
+                var userCell = new TableCell();
+                userCell.Controls.Add(new LiteralControl(string.Format("<a href={0}>{1}</a>", "users?userid=" + row[7].ToString(), row[3].ToString())));
+                myRow.Cells.Add(userCell);
 
-                //myRow.Cells.Add(new TableCell() { Text = row[1].ToString() });
-                //myRow.Cells.Add(new TableCell() { Text = row[2].ToString() });
-                myRow.Cells.Add(new TableCell() { Text = row[3].ToString() });
-                myRow.Cells.Add(new TableCell() { Text = row[4].ToString() });
-                //myRow.Cells.Add(new TableCell() { Text = row[5].ToString() });
+                var timesUsedCell = new TableCell();
+                timesUsedCell.Controls.Add(new LiteralControl(string.Format("<a href={0}>{1}</a>", shareRedirect + row[5].ToString(), row[4].ToString())));
+                myRow.Cells.Add(timesUsedCell);
 
 
                 Table_Stats.Rows.Add(myRow);
