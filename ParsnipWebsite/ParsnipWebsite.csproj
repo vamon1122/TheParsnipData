@@ -326,6 +326,7 @@
     <Content Include="Resources\Media\Images\Web_Media\google-photos.svg" />
     <Content Include="Resources\Media\Images\Web_Media\pix-vertical-placeholder.jpg" />
     <Content Include="Resources\Media\Images\Web_Media\placeholder.gif" />
+    <Content Include="Resources\Media\Images\Web_Media\play_button.png" />
     <Content Include="Resources\Media\Images\Web_Media\you_shall_not_pass.jpg" />
     <Content Include="Resources\Media\Videos\Local\Aaron Gets Throttled 2.mp4" />
     <Content Include="Resources\Media\Videos\Local\Aaron Gets Throttled.mp4" />

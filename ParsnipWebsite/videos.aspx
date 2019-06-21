@@ -18,6 +18,19 @@
     <script src="../Javascript/Apply_Style.js"></script>
 
     <title>Videos</title>
+
+    <style>
+        .play-button-div {
+  position: relative;
+  display: block;
+}
+.play-button-icon {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+}
+    </style>
 </head>
 <body class="fade0p5" id="body" style="text-align:center">
     <menuControls:Menu runat="server" ID="Menu" />
