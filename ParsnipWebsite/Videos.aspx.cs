@@ -20,14 +20,13 @@ namespace ParsnipWebsite
 
             foreach(MediaApi.Video video in allVideos)
             {
-                
-                links_div.InnerHtml += "<hr class=\"break\" />";
-                links_div.InnerHtml += string.Format("<h2>{0}</ h2>", video.Title);
+                links_div.InnerHtml += "<div><hr class=\"break\" />";
+                links_div.InnerHtml += string.Format("<h2>{0}</h2>", video.Title);
                 links_div.InnerHtml += string.Format("<a href=\"{0}/video_player?videoid={1}\">", Request.Url.GetLeftPart(UriPartial.Authority), video.Id, video.Thumbnail);
                 links_div.InnerHtml += "<div class=\"play-button-div\">";
                 links_div.InnerHtml += string.Format("<img src=\"{2}\" class=\"thumbnail\" />", Request.Url.GetLeftPart(UriPartial.Authority), video.Id, video.Thumbnail);
                 links_div.InnerHtml += "<span class=\"play-button-icon\"><img src=\"Resources\\Media\\Images\\Web_Media\\play_button_100.png\" /></span>";
-                links_div.InnerHtml += "</div></a><!--End-->";
+                links_div.InnerHtml += "</div></a></div>";
             }
                 
         }
