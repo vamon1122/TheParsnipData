@@ -33,7 +33,7 @@
         <strong>Error:</strong> Could not access image. The image which you are trying to access has been deleted or the link which you are using has expired!
     </div>
     <h2 runat="server" id="VideoTitle"></h2>
-        <video controls="controls" autoplay style="width:100%; max-width:1280px">
+        <video runat="server" id="video_container" controls="controls" style="width:100%; max-width:1280px">
             <source runat="server" id="VideoSource" type="video/mp4" />
             Your browser does not support HTML5 video.
         </video>

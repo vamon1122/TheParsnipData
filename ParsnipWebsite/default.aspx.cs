@@ -11,7 +11,7 @@ namespace ParsnipWebsite
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Response.Redirect("login");
+            Response.Redirect("home");
         }
     }
 }

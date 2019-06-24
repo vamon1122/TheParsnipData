@@ -18,6 +18,7 @@ namespace ParsnipWebsite
         User myUser;
         Log DebugLog = new Log("Debug");
         MediaApi.Video myVideo;
+        AccessToken myAccessToken;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,7 +35,7 @@ namespace ParsnipWebsite
             if (Request.QueryString["access_token"] != null)
             {
 
-                var myAccessToken = new AccessToken(new Guid(Request.QueryString["access_token"]));
+                myAccessToken = new AccessToken(new Guid(Request.QueryString["access_token"]));
                 try
                 {
                     myAccessToken.Select();
@@ -43,20 +44,8 @@ namespace ParsnipWebsite
                 {
                     throw ex;
                 }
-                if (!IsPostBack)
-                    myAccessToken.TimesUsed++;
-
-                User createdBy = new User(myAccessToken.UserId);
-                createdBy.Select();
-
-
-
-                myAccessToken.Update();
 
                 myVideo = new MediaApi.Video(myAccessToken.MediaId);
-                myVideo.Select();
-
-                new LogEntry(DebugLog) { text = string.Format("{0}'s link to {1} got another hit! Now up to {2}", createdBy.FullName, myVideo.Title, myAccessToken.TimesUsed) };
             }
             else
             {
@@ -72,18 +61,27 @@ namespace ParsnipWebsite
                     
 
                 myVideo = new MediaApi.Video(new Guid(Request.QueryString["videoid"]));
-                myVideo.Select();
+            }
+        }
+
+        void Page_LoadComplete(object sender, EventArgs e)
+        {
+            //If the image has been deleted, display a warning.
+            //If the image has not been deleted, display the image.
+
+            if (Data.IsMobile)
+            {
+                video_container.Attributes.Add("preload", "none");
+            }
+            else
+            {
+                video_container.Attributes.Add("autoplay", "true");
             }
 
-            //Get the image which the user is trying to access, and display it on the screen.
-
+            myVideo.Select();
 
             Debug.WriteLine(string.Format("AlbumId {0}", myVideo.AlbumId));
 
-
-
-            //If the image has been deleted, display a warning.
-            //If the image has not been deleted, display the image.
             if (myVideo.AlbumId == Guid.Empty)
             {
                 Debug.WriteLine(string.Format("AlbumId {0} == {1}", myVideo.AlbumId, Guid.Empty));
@@ -98,6 +96,8 @@ namespace ParsnipWebsite
                 Page.Title = myVideo.Title;
                 VideoSource.Src = myVideo.Directory;
             }
+
+            
 
             //If there was no access token, the user is trying to share the photo.
             //Generate a shareable link and display it on the screen.
@@ -122,9 +122,23 @@ namespace ParsnipWebsite
             }
             else
             {
+                if (!IsPostBack)
+                    myAccessToken.TimesUsed++;
+
+                User createdBy = new User(myAccessToken.UserId);
+                createdBy.Select();
+
+
+
+                myAccessToken.Update();
+
+                myVideo = new MediaApi.Video(myAccessToken.MediaId);
+                //myVideo.Select();
+
+                new LogEntry(DebugLog) { text = string.Format("{0}'s link to {1} got another hit! Now up to {2}", createdBy.FullName, myVideo.Title, myAccessToken.TimesUsed) };
+
                 ShareLinkContainer.Visible = false;
             }
-            
         }
 
         protected void Button_ViewAlbum_Click(object sender, EventArgs e)
