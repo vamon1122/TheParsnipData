@@ -37,7 +37,7 @@
             
     <hr class="break" />
         <h3>*NEW*</h3>
-        - [19/06/19] Share photos! (Recipient doesn't even need an account to view shared photos!!!)
+        - [24/06/19] Share photos and videos! (Recipient doesn't even need an account to view shared media!!!)
     </div>
     <hr class="break" />
 
