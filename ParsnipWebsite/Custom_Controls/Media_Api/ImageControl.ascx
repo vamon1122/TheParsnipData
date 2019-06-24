@@ -6,5 +6,5 @@
     <br />
     <a runat="server" id="MyEdit">Edit</a>
     <a runat="server" id="MyShare">Share</a>
-    <br />
+    <hr class="break" />
 </div>
