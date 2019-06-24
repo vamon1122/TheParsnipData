@@ -56,7 +56,6 @@
         <div class="youtube-player" data-id="CSpMImRp8BY"></div>
     </div>
 
-    <br />
     <!--27 Jun-->
     <!--<hr class="break" />
     <h2>Let Me Entertain You (1)</h2>
