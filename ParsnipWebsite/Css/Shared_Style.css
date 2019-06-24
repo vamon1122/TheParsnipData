@@ -20,6 +20,19 @@ body {
     -webkit-text-size-adjust: 100%;
 }
 
+.play-button-div {
+    position: relative;
+    display: block;
+}
+
+
+.play-button-icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .parsnip-alert {
     position: fixed;
     top: 55px;

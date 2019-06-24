@@ -34,18 +34,22 @@
     <h2>Home</h2>
     <div class="padded-text center_div">
         <asp:Label runat="server" ID="WelcomeLabel"></asp:Label>
-            <br />
-        <br />
+            
+    <hr class="break" />
         <h3>*NEW*</h3>
         - [19/06/19] Share photos! (Recipient doesn't even need an account to view shared photos!!!)
     </div>
     <hr class="break" />
+
+    <div runat="server" id="LatestVideo"></div>
+
+    <!--
     <h3>LATEST VIDEO: Aaron Gets Wavy</h3>
     <video class="video-container" controls="controls">
             <source src="Resources/Media/Videos/Local/Aaron%20Gets%20Wavy.mp4" type="video/mp4" />
             Your browser does not support HTML5 video.
         </video>
-
+        -->
     <hr class="break" />
 
     <!--DEVICE DETECT END-->

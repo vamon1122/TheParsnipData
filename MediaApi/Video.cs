@@ -58,6 +58,31 @@ namespace MediaApi
             return albumIds;
         }
 
+        public static Video GetLatest()
+        {
+            Video video = new Video();
+            try
+            {
+                using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+                {
+                    SqlCommand GetVideos = new SqlCommand("SELECT TOP 1 * FROM video ORDER BY date_time_created DESC", conn);
+                    using (SqlDataReader reader = GetVideos.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            video.AddValues(reader);
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+            return video;
+        }
+
         public static List<Video> GetAllVideos()
         {
             bool logMe = false;
@@ -122,6 +147,11 @@ namespace MediaApi
         public static List<Video> GetVideosNotInAnAlbum()
         {
             throw new NotImplementedException();
+        }
+
+        private Video()
+        {
+
         }
 
         public Video(string directory, User createdBy, Album album)
