@@ -224,7 +224,7 @@ namespace MediaApi
 
         internal bool AddValues(SqlDataReader reader)
         {
-            bool logMe = false;
+            bool logMe = true;
 
             if (logMe)
                 Debug.WriteLine("----------Adding values...");
@@ -292,10 +292,28 @@ namespace MediaApi
                     Debug.WriteLine("----------Reading createdbyid");
                 CreatedById = new Guid(reader[6].ToString());
 
-                if (logMe)
-                    Debug.WriteLine("----------Reading album id");
-                AlbumId = new Guid(reader[7].ToString());
+                try
+                {
 
+
+                    if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
+                    {
+                        if (logMe)
+                            Debug.WriteLine("----------Reading album id");
+
+                        AlbumId = new Guid(reader[7].ToString());
+                    }
+                    else
+                    {
+                        if (logMe)
+                            Debug.WriteLine("----------Album id is blank. Skipping album id");
+                    }
+                }
+                catch(IndexOutOfRangeException)
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Album id was not requested in the query. Skipping album id");
+                }
 
 
                 //AlbumId = new Guid(reader[8].ToString());
@@ -305,9 +323,9 @@ namespace MediaApi
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Debug.WriteLine("There was an error whilst reading the Video's values: ", e);
+                Debug.WriteLine("There was an error whilst reading the Video's values: " + ex);
                 return false;
             }
         }

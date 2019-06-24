@@ -15,7 +15,7 @@ namespace UacApi
 {
     public class User
     {
-        Log DebugLog = new Log("Debug");
+        public static readonly Log DebugLog = new Log("Debug");
 
         #region Properties
         private LogWriter AccountLog;
@@ -212,6 +212,16 @@ namespace UacApi
             }
 
             return users;
+        }
+
+        public static User GetLoggedInUser()
+        {
+            
+            User tempUser = new User();
+            var cookies = tempUser.GetCookies();
+
+            tempUser.LogIn(cookies[0], false, cookies[1], false, true);
+            return tempUser;
         }
 
         public static User GetLoggedInUser(string pUsername, string pPwd)

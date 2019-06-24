@@ -277,11 +277,31 @@ namespace MediaApi
                         Debug.WriteLine("----------Description is blank. Skipping description");
                 }
 
-                AlbumId = new Guid(pReader[8].ToString());
+                try
+                {
+                    if (pReader[8] != DBNull.Value && !string.IsNullOrEmpty(pReader[8].ToString()) && !string.IsNullOrWhiteSpace(pReader[8].ToString()))
+                    {
+
+                        AlbumId = new Guid(pReader[8].ToString());
+                        if (logMe)
+                            Debug.WriteLine("----------Reading album id");
+
+
+                    }
+                    else
+                    {
+                        if (logMe)
+                            Debug.WriteLine("----------Album id is blank. Skipping album id");
+                    }
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Album id was not requested in the query. Skipping album id");
+                }
 
                 if (logMe)
                     Debug.WriteLine("added values successfully!");
-
                 return true;
             }
             catch (Exception e)

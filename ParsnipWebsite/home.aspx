@@ -22,37 +22,23 @@
 <body class="fade0p5" id="body" style="text-align:center">
     <label class="censored" id="pageId">home.html</label>
     
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE START-->
-
-    
-
-    <!--FOR JS DYNAMIC PAGE CREATION DO NOT MOVE END-->
-    
-    
-        <menuControls:Menu runat="server" ID="Menu" />
+    <menuControls:Menu runat="server" ID="Menu" />
 
     <h2>Home</h2>
     <div class="padded-text center_div">
         <asp:Label runat="server" ID="WelcomeLabel"></asp:Label>
             
-    <hr class="break" />
+        <hr class="break" />
         <h3>*NEW*</h3>
+        - [24/06/19] You can now access the home page without logging in<br />
+        - [24/06/19] Join Tom's minecraft server! IP: 195.206.181.20:25594<br />
         - [24/06/19] Share photos and videos! (Recipient doesn't even need an account to view shared media!!!)
     </div>
+
     <hr class="break" />
 
     <div runat="server" id="LatestVideo"></div>
 
-    <!--
-    <h3>LATEST VIDEO: Aaron Gets Wavy</h3>
-    <video class="video-container" controls="controls">
-            <source src="Resources/Media/Videos/Local/Aaron%20Gets%20Wavy.mp4" type="video/mp4" />
-            Your browser does not support HTML5 video.
-        </video>
-        -->
     <hr class="break" />
-
-    <!--DEVICE DETECT END-->
-    <!--SCRIPTS-->
 </body>
 </html>
