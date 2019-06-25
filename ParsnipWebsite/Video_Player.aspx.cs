@@ -26,10 +26,6 @@ namespace ParsnipWebsite
             //This ensures that the user is logged in etc
             //You only need to change where it says '_NEW TEMPLATE'.
             //Change this to match your page name without the '.aspx' extension.
-
-
-
-
             //If there is an access token, get the token & it's data.
             //If there is no access token, check that the user is logged in.
             if (Request.QueryString["access_token"] != null)
@@ -53,14 +49,23 @@ namespace ParsnipWebsite
                     myUser = Uac.SecurePage("video_player", this, Data.DeviceType, "member");
                 else
                     myUser = Uac.SecurePage(string.Format("video_player?videoid={0}", Request.QueryString["videoid"]), this, Data.DeviceType, "member");
-
-
                 
-                if (Request.QueryString["videoid"] == null)
-                    Response.Redirect("home");
+                if (Request.QueryString["data-id"] == null)
+                {
+                    if(Request.QueryString["videoid"] == null)
+                    {
+                        Response.Redirect("home");
+                    }
+                    else
+                    {
+                        myVideo = new MediaApi.Video(new Guid(Request.QueryString["videoid"]));
+                    }
+                }
+                else
+                {
+                    youtube_video.Attributes.Add("data-id", Request.QueryString["data-id"]);
                     
-
-                myVideo = new MediaApi.Video(new Guid(Request.QueryString["videoid"]));
+                }
             }
         }
 
@@ -69,7 +74,11 @@ namespace ParsnipWebsite
             //If the image has been deleted, display a warning.
             //If the image has not been deleted, display the image.
 
-            if (Data.IsMobile)
+            
+
+            if (Request.QueryString["data-id"] == null)
+            {
+                if (Data.IsMobile)
             {
                 video_container.Attributes.Add("preload", "none");
             }
@@ -77,67 +86,79 @@ namespace ParsnipWebsite
             {
                 video_container.Attributes.Add("autoplay", "true");
             }
+                myVideo.Select();
 
-            myVideo.Select();
+                Debug.WriteLine(string.Format("AlbumId {0}", myVideo.AlbumId));
 
-            Debug.WriteLine(string.Format("AlbumId {0}", myVideo.AlbumId));
+                if (myVideo.AlbumId == Guid.Empty)
+                {
+                    Debug.WriteLine(string.Format("AlbumId {0} == {1}", myVideo.AlbumId, Guid.Empty));
+                    NotExistError.Visible = true;
+                    Button_ViewAlbum.Visible = false;
+                }
+                else
+                {
+                    Debug.WriteLine(string.Format("AlbumId {0} != {1}", myVideo.AlbumId, Guid.Empty));
 
-            if (myVideo.AlbumId == Guid.Empty)
-            {
-                Debug.WriteLine(string.Format("AlbumId {0} == {1}", myVideo.AlbumId, Guid.Empty));
-                NotExistError.Visible = true;
-                Button_ViewAlbum.Visible = false;
-            }
-            else
-            {
-                Debug.WriteLine(string.Format("AlbumId {0} != {1}", myVideo.AlbumId, Guid.Empty));
-
-                VideoTitle.InnerText = myVideo.Title;
-                Page.Title = myVideo.Title;
-                VideoSource.Src = myVideo.Directory;
-            }
+                    VideoTitle.InnerText = myVideo.Title;
+                    Page.Title = myVideo.Title;
+                    VideoSource.Src = myVideo.Directory;
+                }
+            
 
             
 
             //If there was no access token, the user is trying to share the photo.
             //Generate a shareable link and display it on the screen.
             if (Request.QueryString["access_token"] == null)
-            {
-                Button_ViewAlbum.Visible = false;
-
-                AccessToken myAccessToken;
-
-                if (AccessToken.TokenExists(myUser.Id, myVideo.Id))
                 {
-                    myAccessToken = AccessToken.GetToken(myUser.Id, myVideo.Id);
+                    Button_ViewAlbum.Visible = false;
+
+                    AccessToken myAccessToken;
+
+                    if (AccessToken.TokenExists(myUser.Id, myVideo.Id))
+                    {
+                        myAccessToken = AccessToken.GetToken(myUser.Id, myVideo.Id);
+                    }
+                    else
+                    {
+                        myAccessToken = new AccessToken(myUser.Id, myVideo.Id);
+                        myAccessToken.Insert();
+                    }
+
+                    //Gets URL without sub pages
+                    ShareLink.Value = Request.Url.GetLeftPart(UriPartial.Authority) + myAccessToken.VideoRedirect;
                 }
                 else
                 {
-                    myAccessToken = new AccessToken(myUser.Id, myVideo.Id);
-                    myAccessToken.Insert();
-                }
+                    if (!IsPostBack)
+                        myAccessToken.TimesUsed++;
 
-                //Gets URL without sub pages
-                ShareLink.Value = Request.Url.GetLeftPart(UriPartial.Authority) + myAccessToken.VideoRedirect;
+                    User createdBy = new User(myAccessToken.UserId);
+                    createdBy.Select();
+
+
+
+                    myAccessToken.Update();
+
+                    myVideo = new MediaApi.Video(myAccessToken.MediaId);
+                    //myVideo.Select();
+
+                    new LogEntry(DebugLog) { text = string.Format("{0}'s link to {1} got another hit! Now up to {2}", createdBy.FullName, myVideo.Title, myAccessToken.TimesUsed) };
+
+                    ShareLinkContainer.Visible = false;
+                }
             }
             else
             {
-                if (!IsPostBack)
-                    myAccessToken.TimesUsed++;
-
-                User createdBy = new User(myAccessToken.UserId);
-                createdBy.Select();
-
-
-
-                myAccessToken.Update();
-
-                myVideo = new MediaApi.Video(myAccessToken.MediaId);
-                //myVideo.Select();
-
-                new LogEntry(DebugLog) { text = string.Format("{0}'s link to {1} got another hit! Now up to {2}", createdBy.FullName, myVideo.Title, myAccessToken.TimesUsed) };
-
+                youtube_video_container.Visible = true;
+                video_container.Visible = false;
                 ShareLinkContainer.Visible = false;
+                Button_ViewAlbum.Visible = false;
+//                youtube_video.Attributes.Add("data-id", Request.QueryString["data-id"]);
+
+                Debug.WriteLine("Data id = " + Request.QueryString["data-id"]);
+                //Response.Redirect("home?data-id=" + Request.QueryString["data-id"]);
             }
         }
 

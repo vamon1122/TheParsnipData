@@ -85,6 +85,24 @@ namespace ParsnipWebsite {
         protected global::System.Web.UI.HtmlControls.HtmlSource VideoSource;
         
         /// <summary>
+        /// youtube_video_container control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl youtube_video_container;
+        
+        /// <summary>
+        /// youtube_video control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl youtube_video;
+        
+        /// <summary>
         /// form1 control.
         /// </summary>
         /// <remarks>

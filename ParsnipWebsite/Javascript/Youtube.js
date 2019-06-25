@@ -16,14 +16,19 @@
     for (var n = 0; n < v.length; n++) {
         var p = document.createElement("div");
         p.innerHTML = labnolThumb(v[n].dataset.id);
-        p.onclick = labnolIframe;
+        //p.onclick = labnolIframe;
         v[n].appendChild(p);
     }
+
+    
+
 })();
 
 function labnolThumb(id) {
-    return '<img class="youtube-thumb" src="//i.ytimg.com/vi/' + id + '/hqdefault.jpg"><div class="play-button"></div>';
+    return '<a href= "video_player?data-id=' + id + '"><img class="youtube-thumb" src="//i.ytimg.com/vi/' + id + '/hqdefault.jpg"><div class="play-button"></div></a>';
 }
+
+
 
 function labnolIframe() {
     var iframe = document.createElement("iframe");
