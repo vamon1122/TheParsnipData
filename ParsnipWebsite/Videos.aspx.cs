@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UacApi;
+using ParsnipData.UacApi;
 
 namespace ParsnipWebsite
 {
@@ -16,9 +16,9 @@ namespace ParsnipWebsite
         {
             myUser = Uac.SecurePage("videos", this, Data.DeviceType, "member");
 
-            List<MediaApi.Video> allVideos = MediaApi.Video.GetAllVideos();
+            List<ParsnipData.Media.Video> allVideos = ParsnipData.Media.Video.GetAllVideos();
 
-            foreach(MediaApi.Video video in allVideos)
+            foreach(ParsnipData.Media.Video video in allVideos)
             {
                 links_div.InnerHtml += "<div><hr class=\"break\" />";
                 links_div.InnerHtml += string.Format("<h2>{0}</h2>", video.Title);

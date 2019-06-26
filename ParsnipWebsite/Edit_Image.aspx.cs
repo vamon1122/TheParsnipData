@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UacApi;
-using MediaApi;
-using LogApi;
+using ParsnipData.UacApi;
+using ParsnipData.Media;
+using ParsnipData.Logs;
 using System.Data.SqlClient;
-using ParsnipApi;
+using ParsnipData;
 using System.Diagnostics;
 
 namespace ParsnipWebsite
@@ -17,7 +17,7 @@ namespace ParsnipWebsite
     {
         User myUser;
         Log DebugLog = new Log("Debug");
-        MediaApi.Image MyImage;
+        ParsnipData.Media.Image MyImage;
         protected void Page_Load(object sender, EventArgs e)
         {
             //REQUIRED TO VIEW POSTBACK
@@ -37,7 +37,7 @@ namespace ParsnipWebsite
 
             if (Request.QueryString["imageid"] != null)
             {
-                MyImage = new MediaApi.Image(new Guid(Request.QueryString["imageid"]));
+                MyImage = new ParsnipData.Media.Image(new Guid(Request.QueryString["imageid"]));
                 MyImage.Select();
 
                 Debug.WriteLine("----------Image album = " + MyImage.AlbumId);

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UacApi;
-using LogApi;
+using ParsnipData.UacApi;
+using ParsnipData.Logs;
 using System.Data.SqlClient;
-using ParsnipApi;
-using MediaApi;
+using ParsnipData;
+using ParsnipData.Media;
 using System.Diagnostics;
 using ParsnipWebsite.Custom_Controls.Media_Api;
 
@@ -40,9 +40,9 @@ namespace ParsnipWebsite
 
                 Debug.WriteLine("---------- posted back with id = " + selectedUserId);
 
-                List<MediaApi.Image> MyPhotos = MediaApi.Image.GetImagesByUser(selectedUserId).Where(user => user.AlbumId != Guid.Empty).ToList();
+                List<ParsnipData.Media.Image> MyPhotos = ParsnipData.Media.Image.GetImagesByUser(selectedUserId).Where(user => user.AlbumId != Guid.Empty).ToList();
                 //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
-                foreach (MediaApi.Image temp in MyPhotos)
+                foreach (ParsnipData.Media.Image temp in MyPhotos)
                 {
                     var MyImageControl = (ImageControl)LoadControl("~/Custom_Controls/Media_Api/ImageControl.ascx");
                     MyImageControl.MyImage = temp;
@@ -91,7 +91,7 @@ namespace ParsnipWebsite
         void UpdateUserList()
         {
             var tempUsers = new List<User>();
-            tempUsers.AddRange(UacApi.User.GetAllUsers());
+            tempUsers.AddRange(ParsnipData.UacApi.User.GetAllUsers());
 
             ListItem[] ListItems = new ListItem[tempUsers.Count];
 

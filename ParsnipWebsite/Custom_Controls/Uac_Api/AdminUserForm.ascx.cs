@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ParsnipApi;
+using ParsnipData;
 using System.Diagnostics;
-using UacApi;
+using ParsnipData.UacApi;
 
 namespace ParsnipWebsite.CustomControls.UacApi
 {

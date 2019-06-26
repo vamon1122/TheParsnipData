@@ -249,6 +249,7 @@
     <Content Include="Resources\Media\Images\Uploads\BenBarton_acea3dcf-a26c-4148-9e6f-41c4baa433df_15-02-2019_image.jpg" />
     <Content Include="Resources\Media\Images\Uploads\BenBarton_ad043d38-8a1f-4d70-84bf-f9bd8c8cf394_19-03-2019_image.jpg" />
     <Content Include="Resources\Media\Images\Uploads\BenBarton_ba580c6d-2ea3-4428-9782-f70b9b4f2509_16-02-2019_image.jpg" />
+    <Content Include="Resources\Media\Images\Uploads\BenBarton_bbe0560b-0807-4014-af36-30854e213211_18-06-2019_9AEE6D89-4859-4258-9AF8-B655260831CF.jpeg" />
     <Content Include="Resources\Media\Images\Uploads\BenBarton_c39b3093-76cf-47b1-92aa-6443fc1a3d18_15-02-2019_image.jpg" />
     <Content Include="Resources\Media\Images\Uploads\BenBarton_c625b77d-a46b-48eb-ac73-6f160367db34_15-02-2019_image.jpg" />
     <Content Include="Resources\Media\Images\Uploads\BenBarton_ce31b61e-b691-47c9-bad5-4f507bd3c55f_15-02-2019_image.jpg" />
@@ -606,25 +607,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CookieApi\CookieApi.csproj">
-      <Project>{01a82bc2-2491-4381-981a-6540c8a93b45}</Project>
-      <Name>CookieApi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LogApi\LogApi.csproj">
-      <Project>{a463135f-93cf-4c00-8f13-b324a5d291e3}</Project>
-      <Name>LogApi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MediaApi\MediaApi.csproj">
-      <Project>{4351ca47-1474-47bb-b472-610848b47858}</Project>
-      <Name>MediaApi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ParsnipApi\ParsnipApi.csproj">
+    <ProjectReference Include="..\ParsnipApi\ParsnipData.csproj">
       <Project>{f0504054-eed6-4f6f-b35c-c684381181d3}</Project>
-      <Name>ParsnipApi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UacApi\UacApi.csproj">
-      <Project>{cb9e3c22-c371-4e16-81d9-3b83a0efb355}</Project>
-      <Name>UacApi</Name>
+      <Name>ParsnipData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

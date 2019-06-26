@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UacApi;
-using MediaApi;
-using LogApi;
+using ParsnipData.UacApi;
+using ParsnipData.Media;
+using ParsnipData.Logs;
 using System.Data.SqlClient;
-using ParsnipApi;
+using ParsnipData;
 using System.Diagnostics;
 
 namespace ParsnipWebsite
@@ -17,7 +17,7 @@ namespace ParsnipWebsite
     {
         User myUser;
         Log DebugLog = new Log("Debug");
-        MediaApi.Video myVideo;
+        ParsnipData.Media.Video myVideo;
         AccessToken myAccessToken;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace ParsnipWebsite
                     throw ex;
                 }
 
-                myVideo = new MediaApi.Video(myAccessToken.MediaId);
+                myVideo = new ParsnipData.Media.Video(myAccessToken.MediaId);
             }
             else
             {
@@ -58,7 +58,7 @@ namespace ParsnipWebsite
                     }
                     else
                     {
-                        myVideo = new MediaApi.Video(new Guid(Request.QueryString["videoid"]));
+                        myVideo = new ParsnipData.Media.Video(new Guid(Request.QueryString["videoid"]));
                     }
                 }
                 else
@@ -141,7 +141,7 @@ namespace ParsnipWebsite
 
                     myAccessToken.Update();
 
-                    myVideo = new MediaApi.Video(myAccessToken.MediaId);
+                    myVideo = new ParsnipData.Media.Video(myAccessToken.MediaId);
                     //myVideo.Select();
 
                     new LogEntry(DebugLog) { text = string.Format("{0}'s link to {1} got another hit! Now up to {2}", createdBy.FullName, myVideo.Title, myAccessToken.TimesUsed) };

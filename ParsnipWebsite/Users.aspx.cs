@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UacApi;
+using ParsnipData.UacApi;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using LogApi;
+using ParsnipData.Logs;
 
 namespace ParsnipWebsite
 {
@@ -69,8 +69,8 @@ namespace ParsnipWebsite
         void UpdateUserList()
         {
             var tempUsers = new List<User>();
-            tempUsers.Add(new UacApi.User(Guid.Empty) { Forename = "New", Surname = "User", Username = "Create a new user" });
-            tempUsers.AddRange(UacApi.User.GetAllUsers());
+            tempUsers.Add(new User(Guid.Empty) { Forename = "New", Surname = "User", Username = "Create a new user" });
+            tempUsers.AddRange(ParsnipData.UacApi.User.GetAllUsers());
 
             ListItem[] ListItems = new ListItem[tempUsers.Count];
 

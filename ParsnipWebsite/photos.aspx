@@ -47,7 +47,7 @@
 
     <br />
     <div class="padded-text">
-        <label>Click <a href="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7">here</a> to view 'The Parsnip Collection' on google photos. This includes most of the photos on this page and was curated by Tom.</label>
+        <label>Click <a href="https://photos.app.goo.gl/GgkSHa8FvichfXRZ7">here</a> to view 'The Parsnip Collection' on google photos. This includes many of the photos on this page and was curated by Tom.</label>
     </div>
     <hr class="break" />
         

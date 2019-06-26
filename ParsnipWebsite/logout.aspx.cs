@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UacApi;
-using LogApi;
+using ParsnipData.UacApi;
+using ParsnipData.Logs;
 
 namespace ParsnipWebsite
 {
@@ -19,7 +19,7 @@ namespace ParsnipWebsite
             User myUser = new User("logout get name");
             myUser.LogIn();
             new LogEntry(new Log("login/out")) { text = String.Format("{0} logged out from {1} {2} device.", myUser.FullName, myUser.PosessivePronoun, Data.DeviceType) };
-            UacApi.User.LogOut();
+            ParsnipData.UacApi.User.LogOut();
             Response.Redirect("login");
         }
     }

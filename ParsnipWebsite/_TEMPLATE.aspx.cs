@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UacApi;
-using LogApi;
-using CookieApi;
+using ParsnipData.UacApi;
+using ParsnipData.Logs;
+using ParsnipData.Cookies;
 
 namespace ParsnipWebsite
 {

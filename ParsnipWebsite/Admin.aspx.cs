@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UacApi;
+using ParsnipData.UacApi;
 using System.Data.SqlClient;
-using LogApi;
-using ParsnipApi;
+using ParsnipData.Logs;
+using ParsnipData;
 
 namespace ParsnipWebsite
 {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UacApi;
-using MediaApi;
-using LogApi;
+using ParsnipData.UacApi;
+using ParsnipData.Media;
+using ParsnipData.Logs;
 
 namespace ParsnipWebsite
 {
@@ -16,7 +16,7 @@ namespace ParsnipWebsite
         private User myUser;
         protected void Page_Load(object sender, EventArgs e)
         {
-            myUser = UacApi.User.GetLoggedInUser();
+            myUser = ParsnipData.UacApi.User.GetLoggedInUser();
             if (string.IsNullOrEmpty(Data.DeviceType))
             {
                 Response.Redirect("get_device_info?url=home");

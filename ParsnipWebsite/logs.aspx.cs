@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UacApi;
-using LogApi;
+using ParsnipData.UacApi;
+using ParsnipData.Logs;
 
 namespace ParsnipWebsite
 {
@@ -25,7 +25,7 @@ namespace ParsnipWebsite
             List<LogEntry> LogEntries;
 
             if (selectedLogId.ToString() == Guid.Empty.ToString())
-                LogEntries = LogApi.Data.GetAllLogEntries().OrderByDescending(x => x.date).ToList();
+                LogEntries = ParsnipData.Logs.Data.GetAllLogEntries().OrderByDescending(x => x.date).ToList();
             else
             {
                 Log temp = new Log(selectedLogId);
@@ -77,7 +77,7 @@ namespace ParsnipWebsite
 
         protected void btnClearLogsConfirm_Click(object sender, EventArgs e)
         {
-            LogApi.Data.ClearLogs();
+            ParsnipData.Logs.Data.ClearLogs();
 
             new LogEntry(Log.Default) { text = string.Format("Logs were cleared by {0}!", myUser.FullName) };
 

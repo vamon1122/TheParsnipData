@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UacApi;
-using MediaApi;
-using LogApi;
+using ParsnipData.UacApi;
+using ParsnipData.Media;
+using ParsnipData.Logs;
 using System.Data.SqlClient;
-using ParsnipApi;
+using ParsnipData;
 using System.Diagnostics;
 
 namespace ParsnipWebsite
@@ -20,7 +20,7 @@ namespace ParsnipWebsite
     {
         User myUser;
         Log DebugLog = new Log("Debug");
-        MediaApi.Image myImage;
+        ParsnipData.Media.Image myImage;
         protected void Page_Load(object sender, EventArgs e)
         {
             //We secure the page using the UacApi. 
@@ -55,7 +55,7 @@ namespace ParsnipWebsite
 
                 myAccessToken.Update();
 
-                myImage = new MediaApi.Image(myAccessToken.MediaId);
+                myImage = new ParsnipData.Media.Image(myAccessToken.MediaId);
                 myImage.Select();
 
                 new LogEntry(DebugLog) { text = string.Format("{0}'s link to {1} got another hit! Now up to {2}", createdBy.FullName, myImage.Title, myAccessToken.TimesUsed) };
@@ -72,7 +72,7 @@ namespace ParsnipWebsite
                 if (Request.QueryString["imageid"] == null)
                     Response.Redirect("home");
 
-                myImage = new MediaApi.Image(new Guid(Request.QueryString["imageid"]));
+                myImage = new ParsnipData.Media.Image(new Guid(Request.QueryString["imageid"]));
                 myImage.Select();
             }
 

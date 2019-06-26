@@ -1,14 +1,14 @@
 ﻿using System;
-using UacApi;
+using ParsnipData.UacApi;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using LogApi;
-using MediaApi;
+using ParsnipData.Logs;
+using ParsnipData.Media;
 using System.Web.UI.HtmlControls;
-using ParsnipApi;
+using ParsnipData;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using ParsnipWebsite.Custom_Controls.Media_Api;
@@ -43,7 +43,7 @@ namespace ParsnipWebsite
                         string myFileName = fileDir.Last();
                         string myFileExtension = myFileName.Split('.').Last().ToLower();
 
-                        if (MediaApi.Image.IsValidFileExtension(myFileExtension))
+                        if (ParsnipData.Media.Image.IsValidFileExtension(myFileExtension))
                         {
 
                             string newDir = string.Format("Resources/Media/Images/Uploads/{0}{1}_{2}_{3}_{4}", myUser.Forename, myUser.Surname, Guid.NewGuid(), Parsnip.adjustedTime.ToString("dd-MM-yyyy"), myFileName);
@@ -51,7 +51,7 @@ namespace ParsnipWebsite
                             /*if (PhotoUpload.PostedFile.HasFile)
                             {*/
                             PhotoUpload.PostedFile.SaveAs(Server.MapPath("~/" + newDir));
-                            MediaApi.Image temp = new MediaApi.Image(newDir, myUser, PhotosAlbum);
+                            ParsnipData.Media.Image temp = new ParsnipData.Media.Image(newDir, myUser, PhotosAlbum);
                             temp.Update();
                             Response.Redirect("edit_image?redirect=photos&imageid=" + temp.Id);
                             //}
@@ -74,10 +74,10 @@ namespace ParsnipWebsite
                 UploadDiv.Style.Clear();
             }
             Debug.WriteLine("Getting all photos");
-            List<MediaApi.Image> AllPhotos = PhotosAlbum.GetAllImages();
+            List<ParsnipData.Media.Image> AllPhotos = PhotosAlbum.GetAllImages();
             Debug.WriteLine("Got all photos");
             //new LogEntry(Debug) { text = "Got all photos. There were {0} photo(s) = " + AllPhotos.Count() };
-            foreach (MediaApi.Image temp in AllPhotos)
+            foreach (ParsnipData.Media.Image temp in AllPhotos)
             {
                 var MyImageControl = (ImageControl)LoadControl("~/Custom_Controls/Media_Api/ImageControl.ascx");
                 MyImageControl.MyImage = temp;
@@ -104,7 +104,7 @@ namespace ParsnipWebsite
                 if (PhotoUpload.HasFile)
                 {
                     PhotoUpload.SaveAs(Server.MapPath("~/" + newDir));
-                    MediaApi.Image temp = new MediaApi.Image(newDir, myUser, PhotosAlbum);
+                    ParsnipData.Media.Image temp = new ParsnipData.Media.Image(newDir, myUser, PhotosAlbum);
                     temp.Update();
                 }
             }

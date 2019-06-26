@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UacApi;
-using MediaApi;
-using LogApi;
+using ParsnipData.UacApi;
+using ParsnipData.Media;
+using ParsnipData.Logs;
 using System.Data.SqlClient;
-using ParsnipApi;
+using ParsnipData;
 using System.Diagnostics;
 
 namespace ParsnipWebsite
@@ -24,7 +24,7 @@ namespace ParsnipWebsite
             get
             {
 
-                var myImage = new MediaApi.Image(MediaId);
+                var myImage = new ParsnipData.Media.Image(MediaId);
                 myImage.Select();
                 return string.Format("/view_image?access_token={0}", Id);
             }
@@ -35,7 +35,7 @@ namespace ParsnipWebsite
             get
             {
 
-                var myImage = new MediaApi.Image(MediaId);
+                var myImage = new ParsnipData.Media.Image(MediaId);
                 myImage.Select();
                 return string.Format("/video_player?access_token={0}", Id);
             }
@@ -46,7 +46,7 @@ namespace ParsnipWebsite
         {
             try
             {
-                using (SqlConnection conn = ParsnipApi.Parsnip.GetOpenDbConnection())
+                using (SqlConnection conn = ParsnipData.Parsnip.GetOpenDbConnection())
                 {
                     var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE user_id = @user_id AND media_id = @media_id", conn);
                     selectAccessToken.Parameters.Add(new SqlParameter("user_id", userId));
@@ -74,7 +74,7 @@ namespace ParsnipWebsite
             AccessToken myToken = null;
             try
             {
-                using (SqlConnection conn = ParsnipApi.Parsnip.GetOpenDbConnection())
+                using (SqlConnection conn = ParsnipData.Parsnip.GetOpenDbConnection())
                 {
                     var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE user_id = @user_id AND media_id = @media_id", conn);
                     selectAccessToken.Parameters.Add(new SqlParameter("user_id", userId));
@@ -106,7 +106,7 @@ namespace ParsnipWebsite
         {
             Id = Guid.NewGuid();
             UserId = userId;
-            DateTimeCreated = ParsnipApi.Parsnip.adjustedTime;
+            DateTimeCreated = ParsnipData.Parsnip.adjustedTime;
             TimesUsed = 0;
             MediaId = mediaId;
         }
@@ -120,7 +120,7 @@ namespace ParsnipWebsite
         {
             try
             {
-                using (SqlConnection conn = ParsnipApi.Parsnip.GetOpenDbConnection())
+                using (SqlConnection conn = ParsnipData.Parsnip.GetOpenDbConnection())
                 {
                     var selectAccessToken = new SqlCommand("SELECT * FROM access_token WHERE access_token_id = @id", conn);
                     selectAccessToken.Parameters.Add(new SqlParameter("id", Id));
@@ -153,7 +153,7 @@ namespace ParsnipWebsite
         {
             try
             {
-                using (SqlConnection conn = ParsnipApi.Parsnip.GetOpenDbConnection())
+                using (SqlConnection conn = ParsnipData.Parsnip.GetOpenDbConnection())
                 {
                     var insertAccessToken = new SqlCommand("INSERT INTO access_token VALUES (@access_token_id, @user_id, @date_time_created, @times_used, @media_id)", conn);
                     insertAccessToken.Parameters.Add(new SqlParameter("access_token_id", Id));
@@ -175,7 +175,7 @@ namespace ParsnipWebsite
         {
             try
             {
-                using (SqlConnection conn = ParsnipApi.Parsnip.GetOpenDbConnection())
+                using (SqlConnection conn = ParsnipData.Parsnip.GetOpenDbConnection())
                 {
                     var updateAccessToken = new SqlCommand("UPDATE access_token SET times_used = @times_used WHERE access_token_id = @access_token_id", conn);
                     updateAccessToken.Parameters.Add(new SqlParameter("access_token_id", Id));

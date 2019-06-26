@@ -5,8 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
-using ParsnipApi;
-using UacApi;
+using ParsnipData;
+using ParsnipData.UacApi;
 using System.Data;
 
 namespace ParsnipWebsite
