@@ -92,7 +92,7 @@ namespace ParsnipData.Media
 
         public static List<Image> GetImagesByUser(Guid pUserId)
         {
-            bool logMe = true;
+            bool logMe = false;
 
             if (logMe)
                 Debug.WriteLine("----------Getting all images by user...");
@@ -306,7 +306,6 @@ namespace ParsnipData.Media
                         AlbumId = new Guid(pReader[8].ToString());
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
-
 
                     }
                     else
