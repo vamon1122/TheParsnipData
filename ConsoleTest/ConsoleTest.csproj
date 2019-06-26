@@ -71,12 +71,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ParsnipApi\ParsnipData.csproj">
-      <Project>{f0504054-eed6-4f6f-b35c-c684381181d3}</Project>
-      <Name>ParsnipData</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7 %28x86 and x64%29</ProductName>
