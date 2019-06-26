@@ -1,4 +1,17 @@
-﻿.center_form {
+﻿.video-container {
+    display: block;
+    margin: auto;
+    width: 100%;
+}
+
+/*Youtube CSS*/
+.large-youtube-container {
+    display: block;
+    margin: auto;
+    width: 100%;
+}
+
+.center_form {
     width: 100%;
     display: inline-block;
 }

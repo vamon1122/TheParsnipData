@@ -183,20 +183,35 @@ a {
     max-width: 600px;
 }
 
+/*
 .video-container {
     display: block;
-    margin:auto;
+    margin: auto;
     width: 100%;
-    max-width: 600px;
+    max-width: 900px;
+        
 }
+
+/*Youtube CSS*//*
+.large-youtube-container {
+    display: block;
+    margin: auto;
+    width: 100%;
+    max-width: 900px;
+}
+                   */
 
 /*Youtube CSS*/
 .youtube-container {
     display: block;
     margin: auto;
+    
     width: 100%;
+    
     max-width: 600px;
+      
 }
+
 
 .youtube-player {
     display: block;

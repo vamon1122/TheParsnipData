@@ -1,3 +1,15 @@
+.video-container {
+    display: block;
+    margin: auto;
+    width: 80%;
+}
+
+/*Youtube CSS*/
+.large-youtube-container {
+    display: block;
+    margin: auto;
+    width: 80%;
+}
 
 .center_form {
     width: 50%;

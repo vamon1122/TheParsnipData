@@ -33,11 +33,13 @@
         <strong>Error:</strong> Could not access image. The image which you are trying to access has been deleted or the link which you are using has expired!
     </div>
     <h2 runat="server" id="VideoTitle"></h2>
-        <video runat="server" id="video_container" controls="controls" style="width:100%; max-width:1280px">
+    <div class="video-container">
+        <video runat="server" id="video_container" controls="controls" style="width:100%">
             <source runat="server" id="VideoSource" type="video/mp4" />
             Your browser does not support HTML5 video.
         </video>
-    <div runat="server" id="youtube_video_container" class="youtube-container" visible="false">
+        </div>
+    <div runat="server" id="youtube_video_container" class="large-youtube-container" visible="false">
         <div runat="server" id="youtube_video" class="youtube-player"></div>
         
     </div>
@@ -48,32 +50,14 @@
     </form>
     <script>
         (function () {
-    var v = document.getElementsByClassName("youtube-player");
-    for (var n = 0; n < v.length; n++) {
-        var p = document.createElement("div");
-        p.innerHTML = labnolThumb(v[n].dataset.id);
-        p.onclick = labnolIframe;
-        v[n].appendChild(p);
-
-            }})();
-
-            function labnolThumb(id) {
-    return '<img class="youtube-thumb" src="//i.ytimg.com/vi/' + id + '/hqdefault.jpg"><div class="play-button"></div>';
-}
-
-
-
-function labnolIframe() {
-    var iframe = document.createElement("iframe");
-    iframe.setAttribute("src", "//www.youtube.com/embed/" + this.parentNode.dataset.id + "?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&controls=0&showinfo=0");
-    iframe.setAttribute("frameborder", "0");
-    iframe.setAttribute("id", "youtube-iframe");
-    this.parentNode.replaceChild(iframe, this);
-}
-
-    
-
-
+            var v = document.getElementsByClassName("youtube-player");
+            var p = document.getElementById("youtube_video");
+            var iframe = document.createElement("iframe");
+            iframe.setAttribute("src", "//www.youtube.com/embed/" + v[0].dataset.id + "?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&controls=0&showinfo=0");
+            iframe.setAttribute("frameborder", "0");
+            iframe.setAttribute("id", "youtube-iframe");
+            p.appendChild(iframe);
+})()
     </script>
 </body>
 </html>
