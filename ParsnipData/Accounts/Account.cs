@@ -9,23 +9,23 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Diagnostics;
 
-namespace ParsnipData.UacApi
+namespace ParsnipData.Accounts
 {
-    public static class Uac
+    public static class Account
     {
-        private static Log PageAccessLog = new Log("access");
-        private static Log PageAccessJustificationLog = new Log("access justification");
-        private static Log DebugLog = new Log("debug");
-        private static Log SessionLog = new Log("session");
-        public static User SecurePage(string pUrl, Page pPage, string pDeviceType, string pAccountType)
+        private static readonly Log PageAccessLog = new Log("access");
+        private static readonly Log PageAccessJustificationLog = new Log("access justification");
+        private static readonly Log DebugLog = new Log("debug");
+        private static readonly Log SessionLog = new Log("session");
+        public static User SecurePage(string url, Page page, string deviceType, string accountType)
         {
             Debug.WriteLine("Securing page...");
 
-            if(string.IsNullOrEmpty(pDeviceType) || string.IsNullOrWhiteSpace(pDeviceType))
+            if(string.IsNullOrEmpty(deviceType) || string.IsNullOrWhiteSpace(deviceType))
             {
                 Debug.WriteLine("Devicetype is empty, getting device info...");
                 //new LogEntry(Log.Default) { text = "Attempted to secure the page but deviceInfo was incomplete. Getting device info..." };
-                pPage.Response.Redirect("get_device_info?url=" + pUrl);
+                page.Response.Redirect("get_device_info?url=" + url);
             }
             else
             {
@@ -46,13 +46,13 @@ namespace ParsnipData.UacApi
                 Debug.WriteLine("User logged in");
                 //Debug.WriteLine("----------Securing page, accountType = " + myUser.AccountType);
 
-                if (pPage.Session["userName"] == null)
+                if (page.Session["userName"] == null)
                 {
-                    pPage.Session["userName"] = myUser.Username;
-                    new LogEntry(SessionLog) { text = string.Format("{0} started a new session from {1} {2}. Session ID = {3}.",myUser.FullName, myUser.PosessivePronoun, pDeviceType, pPage.Session.SessionID.ToString()) };
+                    page.Session["userName"] = myUser.Username;
+                    new LogEntry(SessionLog) { text = string.Format("{0} started a new session from {1} {2}. Session ID = {3}.",myUser.FullName, myUser.PosessivePronoun, deviceType, page.Session.SessionID.ToString()) };
                 }
                 else
-                    new LogEntry(SessionLog) { text = string.Format("{0} continued {1} session on {1} {2}. Session ID = {3}.", myUser.FullName, myUser.PosessivePronoun, pDeviceType, pPage.Session.SessionID.ToString()) };
+                    new LogEntry(SessionLog) { text = string.Format("{0} continued {1} session on {1} {2}. Session ID = {3}.", myUser.FullName, myUser.PosessivePronoun, deviceType, page.Session.SessionID.ToString()) };
 
 
 
@@ -73,7 +73,7 @@ namespace ParsnipData.UacApi
                         return string.Format("this page requires {0} to have {1} access and {2} is {3} {4} which means that {2} has the required permission level.", myUser.ObjectiveGenderPronoun, pRequiredAccess, myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType);
                     }
 
-                    switch (pAccountType)
+                    switch (accountType)
                     {
                         case "admin":
                             if (myUser.AccountType == "admin")
@@ -110,32 +110,32 @@ namespace ParsnipData.UacApi
                     if (canAccess)
                     {
                         //Debug.WriteLine("----------{0} is allowed to access {1}", myUser.FullName, pUrl);
-                        if (!pPage.IsPostBack)
+                        if (!page.IsPostBack)
                         {
-                            new LogEntry(PageAccessLog) { text = String.Format("{0} accessed the {1} page from {2} {3}.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType, myUser.Forename, justification) };
+                            new LogEntry(PageAccessLog) { text = String.Format("{0} accessed the {1} page from {2} {3}.", myUser.FullName, url, myUser.PosessivePronoun, deviceType, myUser.Forename, justification) };
                             DateTime start = DateTime.Now;
                             while (DateTime.Now < start.AddMilliseconds(1)) { }
-                            new LogEntry(PageAccessJustificationLog) { text = String.Format("{0} was allowed to access the {1} page because {2}", myUser.FullName, pUrl, justification) };
+                            new LogEntry(PageAccessJustificationLog) { text = String.Format("{0} was allowed to access the {1} page because {2}", myUser.FullName, url, justification) };
                         }
                         else
                         {
-                            new LogEntry(PageAccessLog) { text = String.Format("{0} reloaded the {1} page from {2} {3}.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType, myUser.Forename, justification) };
+                            new LogEntry(PageAccessLog) { text = String.Format("{0} reloaded the {1} page from {2} {3}.", myUser.FullName, url, myUser.PosessivePronoun, deviceType, myUser.Forename, justification) };
                         }
                     }
                     else
                     {
-                        if (!pPage.IsPostBack)
+                        if (!page.IsPostBack)
                         {
-                            Debug.WriteLine("----------{0} is NOT allowed to access {1}", myUser.FullName, pUrl);
-                            new LogEntry(PageAccessLog) { text = String.Format("{0} tried to access the {1} page but access was denied.", myUser.FullName, pUrl) };
+                            Debug.WriteLine("----------{0} is NOT allowed to access {1}", myUser.FullName, url);
+                            new LogEntry(PageAccessLog) { text = String.Format("{0} tried to access the {1} page but access was denied.", myUser.FullName, url) };
                             DateTime start = DateTime.Now;
                             while (DateTime.Now < start.AddMilliseconds(1)) { }
-                            new LogEntry(PageAccessJustificationLog) { text = String.Format("{0} was denied access to the {1} page because {2} did not have sufficient permissions.", myUser.FullName, pUrl, myUser.PosessivePronoun) };
-                            pPage.Response.Redirect(String.Format("access_denied?url={0}", pUrl));
+                            new LogEntry(PageAccessJustificationLog) { text = String.Format("{0} was denied access to the {1} page because {2} did not have sufficient permissions.", myUser.FullName, url, myUser.PosessivePronoun) };
+                            page.Response.Redirect(String.Format("access_denied?url={0}", url));
                         }
                         else
                         {
-                            new LogEntry(PageAccessLog) { text = String.Format("{0} tried to reload the page to access the {1} page but access was denied.", myUser.FullName, pUrl) };
+                            new LogEntry(PageAccessLog) { text = String.Format("{0} tried to reload the page to access the {1} page but access was denied.", myUser.FullName, url) };
                         }
                     }
 
@@ -143,16 +143,16 @@ namespace ParsnipData.UacApi
                 else
                 {
                     canAccess = false;
-                    if (!pPage.IsPostBack)
+                    if (!page.IsPostBack)
                     {
-                        new LogEntry(PageAccessLog) { text = string.Format("{0} tried to access the {1} page from {2} {3} but access was denied.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
+                        new LogEntry(PageAccessLog) { text = string.Format("{0} tried to access the {1} page from {2} {3} but access was denied.", myUser.FullName, url, myUser.PosessivePronoun, deviceType) };
                         DateTime start = DateTime.Now;
                         while (DateTime.Now < start.AddMilliseconds(1)) { }
-                        new LogEntry(PageAccessJustificationLog) { text = string.Format("{0} was denied access to the {1} page because {2} account is not active!", myUser.FullName, pUrl, myUser.PosessivePronoun) };
+                        new LogEntry(PageAccessJustificationLog) { text = string.Format("{0} was denied access to the {1} page because {2} account is not active!", myUser.FullName, url, myUser.PosessivePronoun) };
                     }
                     else
                     {
-                        new LogEntry(PageAccessLog) { text = string.Format("{0} tried to reload the page to access the {1} page from {2} {3} but access was denied.", myUser.FullName, pUrl, myUser.PosessivePronoun, pDeviceType) };
+                        new LogEntry(PageAccessLog) { text = string.Format("{0} tried to reload the page to access the {1} page from {2} {3} but access was denied.", myUser.FullName, url, myUser.PosessivePronoun, deviceType) };
                     }
                 }
 
@@ -162,17 +162,16 @@ namespace ParsnipData.UacApi
             }
             else
             {
-                new LogEntry(PageAccessLog) { text = String.Format("Someone tried to access the {0} page from {1} {2}, without logging in!", pUrl, myUser.PosessivePronoun, pDeviceType) };
-                pPage.Response.Redirect(String.Format("login?url={0}", pUrl));
+                new LogEntry(PageAccessLog) { text = String.Format("Someone tried to access the {0} page from {1} {2}, without logging in!", url, myUser.PosessivePronoun, deviceType) };
+                page.Response.Redirect(String.Format("login?url={0}", url));
             }
 
             return myUser;
         }
-
-        public static User SecurePage(string pUrl, Page pPage, string pDeviceType)
+        public static User SecurePage(string url, Page page, string deviceType)
         {
             Debug.WriteLine("Attempting to secure page in...");
-            return SecurePage(pUrl, pPage, pDeviceType, "user");
+            return SecurePage(url, page, deviceType, "user");
         }
     }
 }

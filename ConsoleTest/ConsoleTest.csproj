@@ -64,7 +64,7 @@
     <Compile Include="ImageTestClass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UacTestClass.cs" />
+    <Compile Include="AccountsTestClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -81,6 +81,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ParsnipData\ParsnipData.csproj">
+      <Project>{f0504054-eed6-4f6f-b35c-c684381181d3}</Project>
+      <Name>ParsnipData</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -65,12 +65,12 @@
     <Compile Include="Polls\Poll.cs" />
     <Compile Include="Polls\PollOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UAC\Uac.cs" />
-    <Compile Include="UAC\User.cs" />
+    <Compile Include="Accounts\Account.cs" />
+    <Compile Include="Accounts\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Media\About.txt" />
-    <Content Include="UAC\About.txt" />
+    <Content Include="Accounts\About.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

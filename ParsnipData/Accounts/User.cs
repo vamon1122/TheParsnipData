@@ -11,7 +11,7 @@ using ParsnipData.Logs;
 using ParsnipData.Cookies;
 using ParsnipData;
 
-namespace ParsnipData.UacApi
+namespace ParsnipData.Accounts
 {
     public class User
     {
@@ -200,7 +200,7 @@ namespace ParsnipData.UacApi
                 {
                     while (reader.Read())
                     {
-                        users.Add(new UacApi.User(reader));
+                        users.Add(new Accounts.User(reader));
                     }
                 }
             }
