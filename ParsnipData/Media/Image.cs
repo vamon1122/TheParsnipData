@@ -122,6 +122,27 @@ namespace ParsnipData.Media
             return images;
         }
 
+        public static void DeleteImagesByUser(Guid userId)
+        {
+            try
+            {
+                new LogEntry(DebugLog) { text = "Attempting to delete uploaded photos createdbyid = " + userId };
+
+                using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+                {
+                    SqlCommand DeleteUploads = new SqlCommand("DELETE iap FROM t_ImageAlbumPairs iap FULL OUTER JOIN t_Images ON imageid = t_Images.id  WHERE t_Images.createdbyid = @createdbyid", conn);
+                    DeleteUploads.Parameters.Add(new SqlParameter("createdbyid", userId));
+                    int recordsAffected = DeleteUploads.ExecuteNonQuery();
+
+                    new LogEntry(DebugLog) { text = string.Format("{0} record(s) were affected", recordsAffected) };
+                }
+            }
+            catch (Exception err)
+            {
+
+                new LogEntry(DebugLog) { text = "There was an exception whilst DELETING the photo: " + err };
+            }
+        }
 
         public static List<Image> GetImagesNotInAnAlbum()
         {

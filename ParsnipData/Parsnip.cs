@@ -9,8 +9,8 @@ namespace ParsnipData
 {
     public static class Parsnip
     {
-        public static readonly string sqlConnectionString = "Server=198.38.83.33;Database=vamon112_parsnipdb;Uid=vamon112_ben;Password=ccjO07JT";
-        //public static readonly string sqlConnectionString = @"Data Source=BEN-PC\SQLEXPRESS;Initial Catalog=ParsnipTestDb;Integrated Security=True";
+        internal static readonly string sqlConnectionString = "Server=198.38.83.33;Database=vamon112_parsnipdb;Uid=vamon112_ben;Password=ccjO07JT";
+        //internal static readonly string sqlConnectionString = @"Data Source=BEN-PC\SQLEXPRESS;Initial Catalog=ParsnipTestDb;Integrated Security=True";
         public static SqlConnection GetOpenDbConnection()
         {
             SqlConnection conn = new SqlConnection(sqlConnectionString);

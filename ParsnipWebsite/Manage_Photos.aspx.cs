@@ -67,24 +67,7 @@ namespace ParsnipWebsite
         protected void BtnDeleteUploads_Click(object sender, EventArgs e)
         {
             selectedUserId = new Guid(Request.QueryString["userId"].ToString());
-            try
-            {
-                new LogEntry(DebugLog) { text = "Attempting to delete uploaded photos createdbyid = " + selectedUserId };
-
-                using (SqlConnection conn = Parsnip.GetOpenDbConnection())
-                {
-                    SqlCommand DeleteUploads = new SqlCommand("DELETE iap FROM t_ImageAlbumPairs iap FULL OUTER JOIN t_Images ON imageid = t_Images.id  WHERE t_Images.createdbyid = @createdbyid", conn);
-                    DeleteUploads.Parameters.Add(new SqlParameter("createdbyid", selectedUserId));
-                    int recordsAffected = DeleteUploads.ExecuteNonQuery();
-
-                    new LogEntry(DebugLog) { text = string.Format("{0} record(s) were affected", recordsAffected) };
-                }
-            }
-            catch (Exception err)
-            {
-
-                new LogEntry(DebugLog) { text = "There was an exception whilst DELETING the photo: " + err };
-            }
+            ParsnipData.Media.Image.DeleteImagesByUser(selectedUserId);
             new LogEntry(DebugLog) { text = "Successfully deleted photos uploaded photos createdbyid = " + selectedUserId };
         }
 

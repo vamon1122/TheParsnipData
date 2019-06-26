@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using ParsnipData;
 using ParsnipData.UacApi;
 using System.Data;
+using ParsnipData.Media;
 
 namespace ParsnipWebsite
 {
@@ -23,74 +24,7 @@ namespace ParsnipWebsite
 
         void Page_LoadComplete(object sender, EventArgs e)
         {
-            var allStats = new DataTable();
-            
-            var allStatsVideo = new DataTable();
-            var allStatsImage = new DataTable();
-            //try
-            //{
-                using (SqlConnection conn = Parsnip.GetOpenDbConnection())
-                {
-                    var getImageStats = new SqlCommand(
-                        "SELECT t_Images.id AS media_id, " +
-                        "t_Images.title, " +
-                        "uploaded_by.forename," +
-                        "shared_by.forename," +
-                        "access_token.times_used," +
-                        "access_token.access_token_id, " +
-                        "t_ImageAlbumPairs.albumid, " +
-                        "shared_by.id " +
-
-                        "FROM access_token " +
-                        "INNER JOIN t_Images ON access_token.media_id = t_Images.Id " +
-                        "INNER JOIN t_Users AS uploaded_by ON t_Images.createdbyid = uploaded_by.Id " +
-                        "INNER JOIN t_Users AS shared_by ON access_token.user_id = shared_by.Id " +
-                        "INNER JOIN t_ImageAlbumPairs ON t_Images.id = t_ImageAlbumPairs.imageid " +
-
-                        "ORDER BY times_used DESC", conn);
-
-                    var getVideoStats = new SqlCommand(
-                        "SELECT video.video_id AS media_id, " +
-                        "video.title, "+
-                        "uploaded_by.forename, "+
-                        "shared_by.forename, "+
-                        "access_token.times_used , "+
-                        "access_token.access_token_id, "+
-                        "t_ImageAlbumPairs.albumid, "+
-                        "shared_by.id " +
-
-
-
-                        "FROM access_token " +
-                        "INNER JOIN video ON access_token.media_id = video.video_id "+
-                        "INNER JOIN t_Users AS uploaded_by ON video.created_by_id = uploaded_by.Id "+
-                        "INNER JOIN t_Users AS shared_by ON access_token.user_id = shared_by.Id "+
-                        "INNER JOIN t_ImageAlbumPairs ON video.video_id = t_ImageAlbumPairs.imageid "+
-
-                        "ORDER BY times_used DESC", conn);
-
-                    using (var imageStats = getImageStats.ExecuteReader())
-                    {
-                        allStats.Load(imageStats);
-                        allStatsImage.Load(imageStats);
-                    }
-
-                    using(var videoStats = getVideoStats.ExecuteReader())
-                    {
-                        allStats.Load(videoStats);
-                        allStatsVideo.Load(videoStats);
-                    }
-                    
-                    allStats.DefaultView.Sort = "times_used DESC";
-                    allStats = allStats.DefaultView.ToTable();
-                }
-            /*}
-            catch(Exception ex)
-            {
-                throw ex;
-            }*/
-            
-            
+            DataTable allStats = AccessToken.GetStats();
 
             foreach(DataRow row in allStats.Rows)
             {

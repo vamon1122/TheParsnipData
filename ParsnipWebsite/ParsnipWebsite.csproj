@@ -431,7 +431,6 @@
     <Compile Include="Bios.aspx.designer.cs">
       <DependentUpon>Bios.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AccessToken.cs" />
     <Compile Include="Content_Removal.aspx.cs">
       <DependentUpon>Content_Removal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -606,7 +605,12 @@
       <DependentUpon>_TEMPLATE.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ParsnipData\ParsnipData.csproj">
+      <Project>{f0504054-eed6-4f6f-b35c-c684381181d3}</Project>
+      <Name>ParsnipData</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

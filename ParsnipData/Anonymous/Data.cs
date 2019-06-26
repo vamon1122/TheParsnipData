@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using ParsnipData;
 using ParsnipData.Logs;
 
-namespace AnonymousApi
+namespace ParsnipData.AnonymousApi
 {
     public static class Data
     {
