@@ -60,6 +60,7 @@
     <Compile Include="Media\Image.cs" />
     <Compile Include="Media\Media.cs" />
     <Compile Include="Media\Video.cs" />
+    <Compile Include="Media\YoutubeVideo.cs" />
     <Compile Include="Parsnip.cs" />
     <Compile Include="Polls\Data.cs" />
     <Compile Include="Polls\Poll.cs" />
