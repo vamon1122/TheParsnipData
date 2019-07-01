@@ -20,6 +20,7 @@ namespace ParsnipData.Media
         public override string[] AllowedFileExtensions { get { return _allowedFileExtensions; } }
         static readonly Log DebugLog = new Log("Debug");
 
+
         public string DataId { get; set; }
 
         public static bool IsValidFileExtension(string extension)
@@ -245,27 +246,55 @@ namespace ParsnipData.Media
                 Id = new Guid(reader[0].ToString());
 
                 
-                    DataId = reader[1].ToString().Trim();
+                    
 
+
+                if (reader[1] != DBNull.Value && !string.IsNullOrEmpty(reader[1].ToString()) && !string.IsNullOrWhiteSpace(reader[1].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading title");
+
+                    Title = reader[1].ToString().Trim();
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Title is blank. Getting title");
+                }
+
+                if (reader[2] != DBNull.Value && !string.IsNullOrEmpty(reader[2].ToString()) && !string.IsNullOrWhiteSpace(reader[2].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading description");
+
+                    Description = reader[2].ToString().Trim();
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Description is blank. Skipping description");
+                }
+
+                DataId = reader[3].ToString().Trim();
 
                 if (logMe)
                     Debug.WriteLine("----------Reading datecreated");
-                DateCreated = Convert.ToDateTime(reader[2]);
+                DateCreated = Convert.ToDateTime(reader[4]);
 
                 if (logMe)
                     Debug.WriteLine("----------Reading createdbyid");
-                CreatedById = new Guid(reader[3].ToString());
+                CreatedById = new Guid(reader[5].ToString());
 
                 try
                 {
 
 
-                    if (reader[4] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
+                    if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
                     {
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
 
-                        AlbumId = new Guid(reader[7].ToString());
+                        AlbumId = new Guid(reader[6].ToString());
                     }
                     else
                     {
@@ -280,9 +309,11 @@ namespace ParsnipData.Media
                 }
 
                 if (logMe)
-                    Debug.WriteLine("added values successfully!");
+                    Debug.WriteLine("added values successfully! Checking title...");
 
-                Title = GetTitle(DataId);
+                CheckTitle();
+                
+                Debug.WriteLine("----------Youtube video title = " + Title);
 
                 return true;
             }
@@ -291,23 +322,61 @@ namespace ParsnipData.Media
                 Debug.WriteLine("There was an error whilst reading the YoutubeVideo's values: " + ex);
                 return false;
             }
+
+            void CheckTitle()
+            {
+                if (string.IsNullOrEmpty(Title))
+                {
+
+                    Debug.WriteLine("Title was null!");
+                    
+                    Title = GetTitle(DataId);
+                    Debug.WriteLine(string.Format("Got title! \"{0}\" Updating database", Title));
+                    try
+                    {
+
+
+                        using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+                        {
+                            SqlCommand UpdateTitle = new SqlCommand("UPDATE youtube_video SET title = @title WHERE youtube_video_id = @youtube_video_id", conn);
+                            UpdateTitle.Parameters.Add(new SqlParameter("title", Title));
+                            UpdateTitle.Parameters.Add(new SqlParameter("youtube_video_id", Id));
+
+                            Debug.WriteLine("Executing query");
+                            UpdateTitle.ExecuteNonQuery();
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        Debug.WriteLine("Exception thrown: " + ex);
+                        throw ex;
+                    }
+
+                    Debug.WriteLine("Database updated!");
+                }
+            }
         }
+
+        
 
         private static string GetTitle(string url)
         {
+            Debug.WriteLine("----------Getting youtube video title...");
             //var api = $"http://youtube.com/get_video_info?video_id={GetArgs(url, "v", '?')}";
             var api = $"http://youtube.com/get_video_info?video_id=" + url;
             return GetArgs(new WebClient().DownloadString(api), "title", '&');
+
+            string GetArgs(string args, string key, char query)
+            {
+                var iqs = args.IndexOf(query);
+                return iqs == -1
+                    ? string.Empty
+                    : HttpUtility.ParseQueryString(iqs < args.Length - 1
+                        ? args.Substring(iqs + 1) : string.Empty)[key];
+            }
         }
 
-        private static string GetArgs(string args, string key, char query)
-        {
-            var iqs = args.IndexOf(query);
-            return iqs == -1
-                ? string.Empty
-                : HttpUtility.ParseQueryString(iqs < args.Length - 1
-                    ? args.Substring(iqs + 1) : string.Empty)[key];
-        }
+        
 
         private bool DbInsert(SqlConnection conn)
         {
@@ -433,6 +502,7 @@ namespace ParsnipData.Media
 
         private bool DbUpdate(SqlConnection conn)
         {
+            throw new NotImplementedException();
             Debug.WriteLine("Attempting to update youtubeVideo with Id = " + Id);
             bool HasBeenInserted = true;
 
