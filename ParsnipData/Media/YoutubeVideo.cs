@@ -8,6 +8,8 @@ using System.Diagnostics;
 using ParsnipData;
 using ParsnipData.Accounts;
 using ParsnipData.Logs;
+using System.Web;
+using System.Net;
 
 namespace ParsnipData.Media
 {
@@ -258,7 +260,7 @@ namespace ParsnipData.Media
                 {
 
 
-                    if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
+                    if (reader[4] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
                     {
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
@@ -277,11 +279,10 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Album id was not requested in the query. Skipping album id");
                 }
 
-
-                //AlbumId = new Guid(reader[8].ToString());
-
                 if (logMe)
                     Debug.WriteLine("added values successfully!");
+
+                Title = GetTitle(DataId);
 
                 return true;
             }
@@ -290,6 +291,22 @@ namespace ParsnipData.Media
                 Debug.WriteLine("There was an error whilst reading the YoutubeVideo's values: " + ex);
                 return false;
             }
+        }
+
+        private static string GetTitle(string url)
+        {
+            //var api = $"http://youtube.com/get_video_info?video_id={GetArgs(url, "v", '?')}";
+            var api = $"http://youtube.com/get_video_info?video_id=" + url;
+            return GetArgs(new WebClient().DownloadString(api), "title", '&');
+        }
+
+        private static string GetArgs(string args, string key, char query)
+        {
+            var iqs = args.IndexOf(query);
+            return iqs == -1
+                ? string.Empty
+                : HttpUtility.ParseQueryString(iqs < args.Length - 1
+                    ? args.Substring(iqs + 1) : string.Empty)[key];
         }
 
         private bool DbInsert(SqlConnection conn)

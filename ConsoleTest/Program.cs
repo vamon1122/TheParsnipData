@@ -15,6 +15,7 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
+            /*
             User tempUser = User.LogIn("ADMIN", "BBTbbt1704");
             //UacTest.DoTest();
             Console.WriteLine("Beginning batch photo upload");
@@ -86,6 +87,8 @@ namespace ConsoleTest
             Console.WriteLine();
             Debug.WriteLine(String.Format("Upload complete!"));
             Console.ReadLine();
+            */
         }
+        
     }
 }
