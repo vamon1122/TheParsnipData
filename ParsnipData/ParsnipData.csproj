@@ -36,6 +36,7 @@
       <HintPath>..\BenLog .NET 4.0\BenLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -72,6 +73,14 @@
   <ItemGroup>
     <Content Include="Media\About.txt" />
     <Content Include="Accounts\About.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LIVE_connections.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Local_connnections.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
