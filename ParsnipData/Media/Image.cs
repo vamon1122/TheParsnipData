@@ -130,7 +130,7 @@ namespace ParsnipData.Media
 
                 using (SqlConnection conn = Parsnip.GetOpenDbConnection())
                 {
-                    SqlCommand DeleteUploads = new SqlCommand("DELETE iap FROM media_tag_pair iap FULL OUTER JOIN image ON image_id = image.id  WHERE image.created_by_id = @created_by_id", conn);
+                    SqlCommand DeleteUploads = new SqlCommand("DELETE iap FROM media_tag_pair iap FULL OUTER JOIN image ON image_id = image.image_id  WHERE image.created_by_id = @created_by_id", conn);
                     DeleteUploads.Parameters.Add(new SqlParameter("created_by_id", userId));
                     int recordsAffected = DeleteUploads.ExecuteNonQuery();
 
@@ -190,8 +190,8 @@ namespace ParsnipData.Media
             Debug.WriteLine(string.Format("Checking weather image exists on database by using Id {0}", Id));
             try
             {
-                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM image WHERE id = @id", pOpenConn);
-                findMeById.Parameters.Add(new SqlParameter("id", Id.ToString()));
+                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM image WHERE image_id = @image_id", pOpenConn);
+                findMeById.Parameters.Add(new SqlParameter("image_id", Id.ToString()));
 
                 int imageExists;
 
@@ -345,9 +345,9 @@ namespace ParsnipData.Media
                 {
                     if (!ExistsOnDb(pOpenConn))
                     {
-                        SqlCommand InsertImageIntoDb = new SqlCommand("INSERT INTO image (id, src, date_time_created, created_by_id) VALUES(@id, @src, @date_time_created, @created_by_id)", pOpenConn);
+                        SqlCommand InsertImageIntoDb = new SqlCommand("INSERT INTO image (image_id, src, date_time_created, created_by_id) VALUES(@image_id, @src, @date_time_created, @created_by_id)", pOpenConn);
 
-                        InsertImageIntoDb.Parameters.Add(new SqlParameter("id", Id));
+                        InsertImageIntoDb.Parameters.Add(new SqlParameter("image_id", Id));
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("src", Directory.Trim()));
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.adjustedTime));
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("created_by_id", CreatedById));
@@ -458,12 +458,12 @@ namespace ParsnipData.Media
                         Log DebugLog = new Log("Debug");
                         new LogEntry(DebugLog) { text = "AlbumId != null = " + AlbumId };
 
-                        SqlCommand DeleteOldPairs = new SqlCommand("DELETE FROM media_tag_pair WHERE image_id = @image_id", pOpenConn);
+                        SqlCommand DeleteOldPairs = new SqlCommand("DELETE FROM media_tag_pair WHERE media_id = @image_id", pOpenConn);
                         DeleteOldPairs.Parameters.Add(new SqlParameter("image_id", Id));
                         DeleteOldPairs.ExecuteNonQuery();
 
-                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO media_tag_pair VALUES (@image_id, @album_id)", pOpenConn);
-                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("image_id", Id));
+                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO media_tag_pair VALUES (@media_id, @album_id)", pOpenConn);
+                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_id", Id));
                         CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("album_id", AlbumId));
 
                         Debug.WriteLine("---------- Image album (INSERT) = " + AlbumId);
@@ -583,7 +583,7 @@ namespace ParsnipData.Media
 
                 using (SqlConnection conn = Parsnip.GetOpenDbConnection())
                 {
-                    SqlCommand DeleteImage = new SqlCommand("DELETE iap FROM media_tag_pair iap FULL OUTER JOIN image ON image_id = image.id  WHERE image.id = @image_id", conn);
+                    SqlCommand DeleteImage = new SqlCommand("DELETE iap FROM media_tag_pair iap FULL OUTER JOIN image ON image_id = image.image_id  WHERE image.image_id = @image_id", conn);
                     DeleteImage.Parameters.Add(new SqlParameter("image_id", Id));
                     int recordsAffected = DeleteImage.ExecuteNonQuery();
 

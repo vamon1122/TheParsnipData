@@ -1100,7 +1100,7 @@ namespace ParsnipData.Accounts
                 {
                     if (!ExistsOnDb(pOpenConn))
                     {
-                        SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO user (user_id, username, forename, surname, date_time_created, type, status) VALUES(@user_id, @username, @forename, @surname, @date_time_created, @type, @status)", pOpenConn);
+                        SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO [user] (user_id, username, forename, surname, date_time_created, type, status) VALUES(@user_id, @username, @forename, @surname, @date_time_created, @type, @status)", pOpenConn);
                         
                         InsertIntoDb.Parameters.Add(new SqlParameter("user_id", Id));
                         InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
@@ -1367,18 +1367,18 @@ namespace ParsnipData.Accounts
 
                     if (Address1 != temp.Address1 || Address1 == "")
                     {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s address1...", temp.FullName));
+                        Debug.WriteLine(string.Format("----------Updating {0}'s address_1...", temp.FullName));
 
-                        SqlCommand UpdateAddress1 = new SqlCommand("UPDATE [user] SET address_1 = @address1 WHERE user_id = @user_id", pOpenConn);
+                        SqlCommand UpdateAddress1 = new SqlCommand("UPDATE [user] SET address_1 = @address_1 WHERE user_id = @user_id", pOpenConn);
 
                         UpdateAddress1.Parameters.Add(new SqlParameter("user_id", Id));
                         if (Address1 == "")
                         {
-                            UpdateAddress1.Parameters.Add(new SqlParameter("address1", DBNull.Value));
+                            UpdateAddress1.Parameters.Add(new SqlParameter("address_1", DBNull.Value));
                             Debug.WriteLine(string.Format("----------{0}'s address1 will be set to NULL in the database", temp.FullName));
                         }
                         else
-                            UpdateAddress1.Parameters.Add(new SqlParameter("address1", Address1));
+                            UpdateAddress1.Parameters.Add(new SqlParameter("address_1", Address1));
 
                         UpdateAddress1.ExecuteNonQuery();
 
@@ -1391,87 +1391,87 @@ namespace ParsnipData.Accounts
 
                     if (Address2 != temp.Address2 || Address2 == "")
                     {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s address2...", temp.FullName));
+                        Debug.WriteLine(string.Format("----------Updating {0}'s address_2...", temp.FullName));
 
-                        SqlCommand UpdateAddress2 = new SqlCommand("UPDATE [user] SET address2 = @address2 WHERE user_id = @user_id", pOpenConn);
+                        SqlCommand UpdateAddress2 = new SqlCommand("UPDATE [user] SET address_2 = @address_2 WHERE user_id = @user_id", pOpenConn);
 
                         UpdateAddress2.Parameters.Add(new SqlParameter("user_id", Id));
                         if (Address2 == "")
                         {
-                            UpdateAddress2.Parameters.Add(new SqlParameter("address2", DBNull.Value));
-                            Debug.WriteLine(string.Format("----------{0}'s address2 will be set to NULL in the database", temp.FullName));
+                            UpdateAddress2.Parameters.Add(new SqlParameter("address_2", DBNull.Value));
+                            Debug.WriteLine(string.Format("----------{0}'s address_2 will be set to NULL in the database", temp.FullName));
                         }
 
                         else
-                            UpdateAddress2.Parameters.Add(new SqlParameter("address2", Address2));
+                            UpdateAddress2.Parameters.Add(new SqlParameter("address_2", Address2));
 
                         UpdateAddress2.ExecuteNonQuery();
 
-                        Debug.WriteLine(string.Format("----------{0}'s address2 was updated successfully!", temp.FullName));
+                        Debug.WriteLine(string.Format("----------{0}'s address_2 was updated successfully!", temp.FullName));
                     }
                     else
                     {
-                        Debug.WriteLine(string.Format("----------{0}'s address2 was not changed. Not updating address2.", temp.FullName));
+                        Debug.WriteLine(string.Format("----------{0}'s address_2 was not changed. Not updating address_2.", temp.FullName));
                     }
 
                     if (Address3 != temp.Address3 || Address3 == "")
                     {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s address3...", temp.FullName));
+                        Debug.WriteLine(string.Format("----------Updating {0}'s address_3...", temp.FullName));
 
-                        SqlCommand UpdateAddress3 = new SqlCommand("UPDATE [user] SET address3 = @address3 WHERE user_id = @user_id", pOpenConn);
+                        SqlCommand UpdateAddress3 = new SqlCommand("UPDATE [user] SET address_3 = @address_3 WHERE user_id = @user_id", pOpenConn);
 
                         UpdateAddress3.Parameters.Add(new SqlParameter("user_id", Id));
                         if (Address3 == "")
                         {
-                            UpdateAddress3.Parameters.Add(new SqlParameter("address3", DBNull.Value));
-                            Debug.WriteLine(string.Format("----------{0}'s address3 will be set to NULL in the database", temp.FullName));
+                            UpdateAddress3.Parameters.Add(new SqlParameter("address_3", DBNull.Value));
+                            Debug.WriteLine(string.Format("----------{0}'s address_3 will be set to NULL in the database", temp.FullName));
                         }
                         else
-                            UpdateAddress3.Parameters.Add(new SqlParameter("address3", Address3));
+                            UpdateAddress3.Parameters.Add(new SqlParameter("address_3", Address3));
 
                         UpdateAddress3.ExecuteNonQuery();
 
-                        Debug.WriteLine(string.Format("----------{0}'s address3 was updated successfully!", temp.FullName));
+                        Debug.WriteLine(string.Format("----------{0}'s address_3 was updated successfully!", temp.FullName));
                     }
                     else
                     {
-                        Debug.WriteLine(string.Format("----------{0}'s address3 was not changed. Not updating {0}'s address3.", temp.FullName));
+                        Debug.WriteLine(string.Format("----------{0}'s address_3 was not changed. Not updating {0}'s address_3.", temp.FullName));
                     }
 
                     if (PostCode != temp.PostCode || PostCode == "")
                     {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s postcode...", temp.FullName));
+                        Debug.WriteLine(string.Format("----------Updating {0}'s post_code...", temp.FullName));
 
-                        SqlCommand UpdatePostCode = new SqlCommand("UPDATE [user] SET postCode = @postCode WHERE user_id = @user_id", pOpenConn);
+                        SqlCommand UpdatePostCode = new SqlCommand("UPDATE [user] SET post_code = @post_code WHERE user_id = @user_id", pOpenConn);
 
                         UpdatePostCode.Parameters.Add(new SqlParameter("user_id", Id));
                         if (PostCode == "")
                         {
-                            UpdatePostCode.Parameters.Add(new SqlParameter("postCode", DBNull.Value));
+                            UpdatePostCode.Parameters.Add(new SqlParameter("post_code", DBNull.Value));
                             Debug.WriteLine(string.Format("----------{0}'s postCode will be set to NULL in the database", temp.FullName));
                         }
                         else
-                            UpdatePostCode.Parameters.Add(new SqlParameter("postCode", PostCode));
+                            UpdatePostCode.Parameters.Add(new SqlParameter("post_code", PostCode));
 
                         UpdatePostCode.ExecuteNonQuery();
 
-                        Debug.WriteLine(string.Format("----------{0}'s postCode was updated successfully!", temp.FullName));
+                        Debug.WriteLine(string.Format("----------{0}'s post_code was updated successfully!", temp.FullName));
                     }
                     else
                     {
-                        Debug.WriteLine(string.Format("----------{0}'s postCode was not changed. Not updating {0}'s postcode.", temp.FullName));
+                        Debug.WriteLine(string.Format("----------{0}'s post_code was not changed. Not updating {0}'s postcode.", temp.FullName));
                     }
 
                     if (MobilePhone != temp.MobilePhone || MobilePhone == "")
                     {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s mobilePhone...", temp.FullName));
+                        Debug.WriteLine(string.Format("----------Updating {0}'s mobile phone...", temp.FullName));
 
                         SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE [user] SET mobile_phone = @mobile_phone WHERE user_id = @user_id", pOpenConn);
 
                         UpdateMobilePhone.Parameters.Add(new SqlParameter("user_id", Id));
                         if (MobilePhone == "")
                         {
-                            UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", DBNull.Value));
+                            UpdateMobilePhone.Parameters.Add(new SqlParameter("mobile_phone", DBNull.Value));
                             Debug.WriteLine(string.Format("----------{0}'s mobilePhone will be set to NULL in the database", temp.FullName));
                         }
                         else
@@ -1490,7 +1490,7 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s homePhone...", temp.FullName));
 
-                        SqlCommand UpdateHomePhone = new SqlCommand("UPDATE [user] SET homePhone = @home_phone WHERE user_id = @user_id", pOpenConn);
+                        SqlCommand UpdateHomePhone = new SqlCommand("UPDATE [user] SET home_phone = @home_phone WHERE user_id = @user_id", pOpenConn);
 
                         UpdateHomePhone.Parameters.Add(new SqlParameter("user_id", Id));
                         if (HomePhone == "")
