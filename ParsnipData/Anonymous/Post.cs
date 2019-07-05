@@ -48,7 +48,7 @@ namespace ParsnipData.AnonymousApi
             {
                 using (pConn)
                 {
-                    SqlCommand insertPost = new SqlCommand("INSERT INTO t_Posts VALUES(@id, @userid, @date, @text)", pConn);
+                    SqlCommand insertPost = new SqlCommand("INSERT INTO post VALUES(@id, @userid, @date, @text)", pConn);
                     insertPost.Parameters.Add(new SqlParameter("id", id));
                     insertPost.Parameters.Add(new SqlParameter("userid", userId));
                     insertPost.Parameters.Add(new SqlParameter("date", date));

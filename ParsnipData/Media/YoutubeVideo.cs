@@ -38,8 +38,8 @@ namespace ParsnipData.Media
             var albumIds = new List<Guid>();
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand GetYoutubeVideos = new SqlCommand("SELECT albumid FROM t_ImageAlbumPairs WHERE imageid = @youtubeVideo_id", conn);
-                GetYoutubeVideos.Parameters.Add(new SqlParameter("youtubeVideo_id", Id));
+                SqlCommand GetYoutubeVideos = new SqlCommand("SELECT album_id FROM media_tag_pair WHERE image_id = @youtube_video_id", conn);
+                GetYoutubeVideos.Parameters.Add(new SqlParameter("youtube_video_id", Id));
 
                 using (SqlDataReader reader = GetYoutubeVideos.ExecuteReader())
                 {
@@ -168,7 +168,7 @@ namespace ParsnipData.Media
             Id = Guid.NewGuid();
             Directory = directory;
             Log DebugLog = new Log("Debug");
-            new LogEntry(DebugLog) { text = "YoutubeVideo created with albumid = " + album.Id };
+            new LogEntry(DebugLog) { text = "YoutubeVideo created with album_id = " + album.Id };
             AlbumId = album.Id;
             DateCreated = Parsnip.adjustedTime;
             CreatedById = createdBy.Id;
@@ -402,9 +402,9 @@ namespace ParsnipData.Media
 
                         InsertYoutubeVideoIntoDb.ExecuteNonQuery();
 
-                        SqlCommand InsertYoutubeVideoAlbumPairIntoDb = new SqlCommand("INSERT INTO t_YoutubeVideoAlbumPairs VALUES(@imageid, @albumid)", conn);
-                        InsertYoutubeVideoAlbumPairIntoDb.Parameters.Add(new SqlParameter("imageid", Id));
-                        InsertYoutubeVideoAlbumPairIntoDb.Parameters.Add(new SqlParameter("albumid", AlbumId));
+                        SqlCommand InsertYoutubeVideoAlbumPairIntoDb = new SqlCommand("INSERT INTO t_YoutubeVideoAlbumPairs VALUES(@image_id, @album_id)", conn);
+                        InsertYoutubeVideoAlbumPairIntoDb.Parameters.Add(new SqlParameter("image_id", Id));
+                        InsertYoutubeVideoAlbumPairIntoDb.Parameters.Add(new SqlParameter("album_id", AlbumId));
 
                         InsertYoutubeVideoAlbumPairIntoDb.ExecuteNonQuery();
 
@@ -518,13 +518,13 @@ namespace ParsnipData.Media
                         Log DebugLog = new Log("Debug");
                         new LogEntry(DebugLog) { text = "AlbumId != null = " + AlbumId };
 
-                        SqlCommand DeleteOldPairs = new SqlCommand("DELETE FROM t_ImageAlbumPairs WHERE imageid = @youtube_video_id", conn);
+                        SqlCommand DeleteOldPairs = new SqlCommand("DELETE FROM media_tag_pair WHERE image_id = @youtube_video_id", conn);
                         DeleteOldPairs.Parameters.Add(new SqlParameter("youtubeVideoid", Id));
                         DeleteOldPairs.ExecuteNonQuery();
 
-                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO t_ImageAlbumPairs VALUES (@youtube_video_id, @albumid)", conn);
+                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO media_tag_pair VALUES (@youtube_video_id, @album_id)", conn);
                         CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("youtube_video_id", Id));
-                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("albumid", AlbumId));
+                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("album_id", AlbumId));
 
                         Debug.WriteLine("---------- YoutubeVideo album (INSERT) = " + AlbumId);
 
@@ -534,7 +534,7 @@ namespace ParsnipData.Media
                     else
                     {
                         Log DebugLog = new Log("Debug");
-                        new LogEntry(DebugLog) { text = "YoutubeVideo created with albumid = null :( " };
+                        new LogEntry(DebugLog) { text = "YoutubeVideo created with album_id = null :( " };
                     }
 
 
@@ -647,7 +647,7 @@ namespace ParsnipData.Media
 
                 using (SqlConnection conn = Parsnip.GetOpenDbConnection())
                 {
-                    SqlCommand DeleteYoutubeVideo = new SqlCommand("DELETE iap FROM t_ImageAlbumPairs iap FULL OUTER JOIN youtube_video ON imageid = youtube_video.youtube_video_id  WHERE youtube_video.id = @youtube_video_id", conn);
+                    SqlCommand DeleteYoutubeVideo = new SqlCommand("DELETE iap FROM media_tag_pair iap FULL OUTER JOIN youtube_video ON image_id = youtube_video.youtube_video_id  WHERE youtube_video.id = @youtube_video_id", conn);
                     DeleteYoutubeVideo.Parameters.Add(new SqlParameter("youtube_video_id", Id));
                     int recordsAffected = DeleteYoutubeVideo.ExecuteNonQuery();
 

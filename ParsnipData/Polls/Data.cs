@@ -25,7 +25,7 @@ namespace PollApi
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     conn.Open();
-                    SqlCommand selectPolls = new SqlCommand("SELECT * FROM t_Polls", conn);
+                    SqlCommand selectPolls = new SqlCommand("SELECT * FROM poll", conn);
 
                     using (SqlDataReader reader = selectPolls.ExecuteReader())
                     {
@@ -60,7 +60,7 @@ namespace PollApi
                 {
                     conn.Open();
 
-                    SqlCommand insertPoll = new SqlCommand("INSERT INTO t_Polls (id, createdByUserId, dateCreated, name) VALUES(@id, @createdByUserId, @dateCreated, @name)", conn);
+                    SqlCommand insertPoll = new SqlCommand("INSERT INTO poll (id, createdByUserId, dateCreated, name) VALUES(@id, @createdByUserId, @dateCreated, @name)", conn);
                     insertPoll.Parameters.Add(new SqlParameter("id", pPoll.id));
                     insertPoll.Parameters.Add(new SqlParameter("createdByUserId", pPoll.createdByUserId));
                     insertPoll.Parameters.Add(new SqlParameter("dateCreated", pPoll.dateCreated));
@@ -70,7 +70,7 @@ namespace PollApi
 
                     if (pPoll.description != null && pPoll.description != "")
                     {
-                        SqlCommand insertPoll_updateDescription = new SqlCommand("UPDATE t_Polls SET description = @description WHERE id = @id", conn);
+                        SqlCommand insertPoll_updateDescription = new SqlCommand("UPDATE poll SET description = @description WHERE id = @id", conn);
                         insertPoll_updateDescription.Parameters.Add(new SqlParameter("description", pPoll.description));
                         insertPoll_updateDescription.Parameters.Add(new SqlParameter("id", pPoll.id));
 
@@ -92,7 +92,7 @@ namespace PollApi
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     conn.Open();
-                    SqlCommand selectPollOptions = new SqlCommand("SELECT * FROM t_PollOptions", conn);
+                    SqlCommand selectPollOptions = new SqlCommand("SELECT * FROM poll_option", conn);
 
                     using (SqlDataReader reader = selectPollOptions.ExecuteReader())
                     {
@@ -124,7 +124,7 @@ namespace PollApi
                 {
                     conn.Open();
 
-                    SqlCommand insertPollOption = new SqlCommand("INSERT INTO t_PollOptions (id, pollId, createdByUserId, dateCreated, value) VALUES(@id, @pollId, createdByUserId, @dateCreated, @value)", conn);
+                    SqlCommand insertPollOption = new SqlCommand("INSERT INTO poll_option (id, pollId, createdByUserId, dateCreated, value) VALUES(@id, @pollId, createdByUserId, @dateCreated, @value)", conn);
                     insertPollOption.Parameters.Add(new SqlParameter("id", pPollOption.id));
                     insertPollOption.Parameters.Add(new SqlParameter("pollId", pPollOption.pollId));
                     insertPollOption.Parameters.Add(new SqlParameter("createdByUserId", pPollOption.createdByUserId));

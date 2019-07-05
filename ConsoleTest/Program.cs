@@ -69,7 +69,7 @@ namespace ConsoleTest
                     DateTime TimerEnd = DateTime.Now.AddMilliseconds(100);
                     while (DateTime.Now < TimerEnd) { }
 
-                    SqlCommand InsertPhotoIntoDb = new SqlCommand("INSERT INTO t_Images (photosrc, datecreated, createdbyid) VALUES(@photosrc, @datecreated, @createdbyid)", openConn);
+                    SqlCommand InsertPhotoIntoDb = new SqlCommand("INSERT INTO image (photosrc, datecreated, createdbyid) VALUES(@photosrc, @datecreated, @createdbyid)", openConn);
 
                     //InsertPhotoIntoDb.Parameters.Add(new SqlParameter("id", Id));
                     InsertPhotoIntoDb.Parameters.Add(new SqlParameter("photosrc", temp));

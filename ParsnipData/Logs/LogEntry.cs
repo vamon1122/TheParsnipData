@@ -14,7 +14,7 @@ namespace ParsnipData.Logs
     {
         private bool isNew;
         public Guid id { get; private set; }
-        public Guid logId { get; set; }
+        public Guid log_id { get; set; }
         public Guid userId { get; private set;  } 
         public DateTime date { get; private set; }
         private string SessionId;
@@ -52,7 +52,7 @@ namespace ParsnipData.Logs
         {
             isNew = false;
             id = new Guid(pReader[0].ToString());
-            logId = new Guid(pReader[1].ToString());
+            log_id = new Guid(pReader[1].ToString());
             date = Convert.ToDateTime(pReader[3].ToString());
             _text = pReader[5].ToString();
 
@@ -69,8 +69,8 @@ namespace ParsnipData.Logs
             id = Guid.NewGuid();
             if (pLog.Id == Guid.Empty)
                 throw new Exception("LogId was empty!");
-            Debug.WriteLine("----------Creating new log entry. Logid = " + logId);
-            logId = pLog.Id;
+            Debug.WriteLine("----------Creating new log entry. Logid = " + log_id);
+            log_id = pLog.Id;
             //userId = pUserId;
             date = Parsnip.adjustedTime;
 
@@ -85,15 +85,15 @@ namespace ParsnipData.Logs
                 {
                     stage = "inserting LogEntry...";
                     
-                    Debug.WriteLine("---------- BEN! - sessionId = " + SessionId);
+                    Debug.WriteLine("---------- BEN! - session_id = " + SessionId);
                     
 
-                    SqlCommand insertLogEntry = new SqlCommand("INSERT INTO t_LogEntries (id, logId, sessionId, dateTime, text) VALUES(@id, @logId, @sessionId, @dateTime, @text)", openConn);
-                    insertLogEntry.Parameters.Add(new SqlParameter("id", id));
-                    insertLogEntry.Parameters.Add(new SqlParameter("logId", logId));
-                    insertLogEntry.Parameters.Add(new SqlParameter("sessionId", SessionId));
+                    SqlCommand insertLogEntry = new SqlCommand("INSERT INTO log_entry (log_entry_id, log_id, session_id, date_time_created, text) VALUES(@log_entry_id, @log_id, @session_id, @date_time_created, @text)", openConn);
+                    insertLogEntry.Parameters.Add(new SqlParameter("log_entry_id", id));
+                    insertLogEntry.Parameters.Add(new SqlParameter("log_id", log_id));
+                    insertLogEntry.Parameters.Add(new SqlParameter("session_id", SessionId));
                     insertLogEntry.Parameters.Add(new SqlParameter("text", text));
-                    insertLogEntry.Parameters.Add(new SqlParameter("dateTime", date));
+                    insertLogEntry.Parameters.Add(new SqlParameter("date_time_created", date));
 
 
                     
@@ -106,20 +106,22 @@ namespace ParsnipData.Logs
 
                     insertLogEntry.ExecuteNonQuery();
 
+                    /*
                     if (userId != null && userId != Guid.Empty)
                     {
                         stage = "UserId was null. Updating LogEntry...";
-                        SqlCommand insertLogEntry_updateUserId = new SqlCommand("UPDATE t_LogEntries SET userId = @userId WHERE id = @id", openConn);
+                        SqlCommand insertLogEntry_updateUserId = new SqlCommand("UPDATE log_entry SET userId = @userId WHERE log_entry_id = @id", openConn);
                         insertLogEntry_updateUserId.Parameters.Add(new SqlParameter("userId", userId));
                         insertLogEntry_updateUserId.Parameters.Add(new SqlParameter("id", id));
 
                         insertLogEntry_updateUserId.ExecuteNonQuery();
                     }
+                    */
 
                     if (type != null)
                     {
                         stage = "type was null. Updating LogEntry...";
-                        SqlCommand insertLogEntry_updateType = new SqlCommand("UPDATE t_LogEntries SET type = @type WHERE id = @id", openConn);
+                        SqlCommand insertLogEntry_updateType = new SqlCommand("UPDATE log_entry SET type = @type WHERE log_entry_id = @id", openConn);
                         insertLogEntry_updateType.Parameters.Add(new SqlParameter("type", type));
                         insertLogEntry_updateType.Parameters.Add(new SqlParameter("id", id));
 

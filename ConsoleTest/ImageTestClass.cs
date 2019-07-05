@@ -14,7 +14,7 @@ namespace ConsoleTest
 
             using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand GetPhotoIds = new SqlCommand("SELECT id FROM t_Images", openConn);
+                SqlCommand GetPhotoIds = new SqlCommand("SELECT id FROM image", openConn);
                 using (SqlDataReader reader = GetPhotoIds.ExecuteReader())
                 {
                     while (reader.Read())
@@ -31,9 +31,9 @@ namespace ConsoleTest
                 {
 
 
-                    SqlCommand AddToAlbum = new SqlCommand("INSERT INTO t_ImageAlbumPairs VALUES (@imageid, @albumid)", openConn);
-                    AddToAlbum.Parameters.Add(new SqlParameter("imageid", tempid));
-                    AddToAlbum.Parameters.Add(new SqlParameter("albumid", new Guid("4b4e450a-2311-4400-ab66-9f7546f44f4e")));
+                    SqlCommand AddToAlbum = new SqlCommand("INSERT INTO media_tag_pair VALUES (@image_id, @album_id)", openConn);
+                    AddToAlbum.Parameters.Add(new SqlParameter("image_id", tempid));
+                    AddToAlbum.Parameters.Add(new SqlParameter("album_id", new Guid("4b4e450a-2311-4400-ab66-9f7546f44f4e")));
 
                     AddToAlbum.ExecuteNonQuery();
                     inserts++;
@@ -67,7 +67,7 @@ namespace ConsoleTest
             Console.WriteLine("Beginning fix photo dates");
             using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand fixPhotos = new SqlCommand("SELECT DATEADD(HOUR,-8,datecreated)FROM t_Images", openConn);
+                SqlCommand fixPhotos = new SqlCommand("SELECT DATEADD(HOUR,-8,datecreated)FROM image", openConn);
                 fixPhotos.ExecuteNonQuery();
             }
             Console.WriteLine("Fixed photo dates!");
@@ -454,7 +454,7 @@ namespace ConsoleTest
                     DateTime TimerEnd = DateTime.Now.AddMilliseconds(100);
                     while (DateTime.Now < TimerEnd) { }
 
-                    SqlCommand InsertPhotoIntoDb = new SqlCommand("INSERT INTO t_Images (photosrc, datecreated, createdbyid) VALUES(@photosrc, @datecreated, @createdbyid)", openConn);
+                    SqlCommand InsertPhotoIntoDb = new SqlCommand("INSERT INTO image (photosrc, datecreated, createdbyid) VALUES(@photosrc, @datecreated, @createdbyid)", openConn);
 
                     //InsertPhotoIntoDb.Parameters.Add(new SqlParameter("id", Id));
                     InsertPhotoIntoDb.Parameters.Add(new SqlParameter("photosrc", temp));

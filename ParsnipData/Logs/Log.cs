@@ -68,8 +68,8 @@ namespace ParsnipData.Logs
                 using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
                 {
                     conn.Open();
-                    SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM t_LogEntries WHERE logId = @logId  ORDER BY dateTime DESC", conn);
-                    selectLogEntries.Parameters.Add(new SqlParameter("logId", Id));
+                    SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM log_entry WHERE log_id = @log_id  ORDER BY date_time_created DESC", conn);
+                    selectLogEntries.Parameters.Add(new SqlParameter("log_id", Id));
 
                     using (SqlDataReader reader = selectLogEntries.ExecuteReader())
                     {
@@ -98,7 +98,7 @@ namespace ParsnipData.Logs
             var logs = new List<Log>();
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand GetLogs = new SqlCommand("SELECT * FROM t_Logs", conn);
+                SqlCommand GetLogs = new SqlCommand("SELECT * FROM log", conn);
                 using (SqlDataReader reader = GetLogs.ExecuteReader())
                 {
                     while (reader.Read())
@@ -166,7 +166,7 @@ namespace ParsnipData.Logs
         {
             try
             {
-                SqlCommand selectLog = new SqlCommand("SELECT * FROM t_Logs WHERE id = @id", pOpenConn);
+                SqlCommand selectLog = new SqlCommand("SELECT * FROM log WHERE log_id = @log_id", pOpenConn);
                 selectLog.Parameters.Add(new SqlParameter("id", Id));
 
                 using (SqlDataReader reader = selectLog.ExecuteReader())
@@ -189,7 +189,7 @@ namespace ParsnipData.Logs
         {
             try
             {
-                SqlCommand selectLog = new SqlCommand("SELECT * FROM t_Logs WHERE name = @name", pOpenConn);
+                SqlCommand selectLog = new SqlCommand("SELECT * FROM log WHERE name = @name", pOpenConn);
                 selectLog.Parameters.Add(new SqlParameter("name", Name));
                 
                 using(SqlDataReader reader = selectLog.ExecuteReader())
@@ -231,8 +231,8 @@ namespace ParsnipData.Logs
         {
             try
             {
-                SqlCommand doesLogIdExist = new SqlCommand("SELECT COUNT(*) FROM t_Logs WHERE id = @id", pOpenConn);
-                doesLogIdExist.Parameters.Add(new SqlParameter("id", Id));
+                SqlCommand doesLogIdExist = new SqlCommand("SELECT COUNT(*) FROM log WHERE log_id = @log_id", pOpenConn);
+                doesLogIdExist.Parameters.Add(new SqlParameter("log_id", Id));
 
                 int logsFound;
                 using (SqlDataReader reader = doesLogIdExist.ExecuteReader())
@@ -257,7 +257,7 @@ namespace ParsnipData.Logs
         {
             try
             {
-                SqlCommand doesLogNameExist = new SqlCommand("SELECT COUNT(*) FROM t_Logs WHERE name = @name", pOpenConn);
+                SqlCommand doesLogNameExist = new SqlCommand("SELECT COUNT(*) FROM log WHERE name = @name", pOpenConn);
                 doesLogNameExist.Parameters.Add(new SqlParameter("name", Name));
 
                 int logsFound;
@@ -287,9 +287,9 @@ namespace ParsnipData.Logs
                 {
                     conn.Open();
 
-                    SqlCommand insertLog = new SqlCommand("INSERT INTO t_Logs (id, dateTime, name) VALUES(@id, @dateTime, @name)", conn);
-                    insertLog.Parameters.Add(new SqlParameter("id", Id));
-                    insertLog.Parameters.Add(new SqlParameter("dateTime", DateTimeCreated));
+                    SqlCommand insertLog = new SqlCommand("INSERT INTO log (log_id, date_time_created, name) VALUES(@log_id, @date_time_created, @name)", conn);
+                    insertLog.Parameters.Add(new SqlParameter("log_id", Id));
+                    insertLog.Parameters.Add(new SqlParameter("date_time_created", DateTimeCreated));
                     insertLog.Parameters.Add(new SqlParameter("name", Name));
 
                     insertLog.ExecuteNonQuery();

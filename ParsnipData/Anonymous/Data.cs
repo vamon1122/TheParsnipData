@@ -21,7 +21,7 @@ namespace ParsnipData.AnonymousApi
                 posts.Clear();
                 using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
                 {
-                    SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM t_Posts", openConn);
+                    SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM post", openConn);
 
                     using (SqlDataReader reader = selectLogEntries.ExecuteReader())
                     {
@@ -58,7 +58,7 @@ namespace ParsnipData.AnonymousApi
                 using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
                 {
                 
-                    SqlCommand insertLogEntry = new SqlCommand("INSERT INTO t_LogEntries (id, datetime, value) VALUES(@id, @datetime, @value)", openConn);
+                    SqlCommand insertLogEntry = new SqlCommand("INSERT INTO log_entry (id, datetime, value) VALUES(@id, @datetime, @value)", openConn);
                     insertLogEntry.Parameters.Add(new SqlParameter("id", pLogEntry.id));
                     insertLogEntry.Parameters.Add(new SqlParameter("datetime", pLogEntry.date));
                     insertLogEntry.Parameters.Add(new SqlParameter("value", pLogEntry.text));
@@ -67,7 +67,7 @@ namespace ParsnipData.AnonymousApi
 
                     if (pLogEntry.userId != null && pLogEntry.userId != Guid.Empty)
                     {
-                        SqlCommand insertLogEntry_updateUserId = new SqlCommand("UPDATE t_LogEntries SET userId = @userId WHERE id = @id", openConn);
+                        SqlCommand insertLogEntry_updateUserId = new SqlCommand("UPDATE log_entry SET userId = @userId WHERE id = @id", openConn);
                         insertLogEntry_updateUserId.Parameters.Add(new SqlParameter("userId", pLogEntry.userId));
                         insertLogEntry_updateUserId.Parameters.Add(new SqlParameter("id", pLogEntry.id));
 
@@ -76,7 +76,7 @@ namespace ParsnipData.AnonymousApi
 
                     if (pLogEntry.type != null)
                     {
-                        SqlCommand insertLogEntry_updateType = new SqlCommand("UPDATE t_LogEntries SET type = @type WHERE id = @id", openConn);
+                        SqlCommand insertLogEntry_updateType = new SqlCommand("UPDATE log_entry SET type = @type WHERE id = @id", openConn);
                         insertLogEntry_updateType.Parameters.Add(new SqlParameter("type", pLogEntry.type));
                         insertLogEntry_updateType.Parameters.Add(new SqlParameter("id", pLogEntry.id));
 

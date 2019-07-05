@@ -81,20 +81,20 @@ namespace ParsnipData.Media
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
                 var getImageStats = new SqlCommand(
-                    "SELECT t_Images.id AS media_id, " +
-                    "t_Images.title, " +
+                    "SELECT image.image_id AS media_id, " +
+                    "image.title, " +
                     "uploaded_by.forename," +
                     "shared_by.forename," +
                     "access_token.times_used," +
                     "access_token.access_token_id, " +
-                    "t_ImageAlbumPairs.albumid, " +
-                    "shared_by.id " +
+                    "media_tag_pair.album_id, " +
+                    "shared_by.user_id " +
 
                     "FROM access_token " +
-                    "INNER JOIN t_Images ON access_token.media_id = t_Images.Id " +
-                    "INNER JOIN t_Users AS uploaded_by ON t_Images.createdbyid = uploaded_by.Id " +
-                    "INNER JOIN t_Users AS shared_by ON access_token.user_id = shared_by.Id " +
-                    "INNER JOIN t_ImageAlbumPairs ON t_Images.id = t_ImageAlbumPairs.imageid " +
+                    "INNER JOIN image ON access_token.media_id = image.image_id " +
+                    "INNER JOIN [user] AS uploaded_by ON image.created_by_id = uploaded_by.user_id " +
+                    "INNER JOIN [user] AS shared_by ON access_token.user_id = shared_by.user_id " +
+                    "INNER JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id " +
 
                     "ORDER BY times_used DESC", conn);
 
@@ -105,16 +105,16 @@ namespace ParsnipData.Media
                     "shared_by.forename, " +
                     "access_token.times_used , " +
                     "access_token.access_token_id, " +
-                    "t_ImageAlbumPairs.albumid, " +
-                    "shared_by.id " +
+                    "media_tag_pair.album_id, " +
+                    "shared_by.user_id " +
 
 
 
                     "FROM access_token " +
                     "INNER JOIN video ON access_token.media_id = video.video_id " +
-                    "INNER JOIN t_Users AS uploaded_by ON video.created_by_id = uploaded_by.Id " +
-                    "INNER JOIN t_Users AS shared_by ON access_token.user_id = shared_by.Id " +
-                    "INNER JOIN t_ImageAlbumPairs ON video.video_id = t_ImageAlbumPairs.imageid " +
+                    "INNER JOIN [user] AS uploaded_by ON video.created_by_id = uploaded_by.user_id " +
+                    "INNER JOIN [user] AS shared_by ON access_token.user_id = shared_by.user_id " +
+                    "INNER JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id " +
 
                     "ORDER BY times_used DESC", conn);
 

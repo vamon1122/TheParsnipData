@@ -30,7 +30,7 @@ namespace ParsnipData.Media
         var albums = new List<Album>();
         using (SqlConnection conn = Parsnip.GetOpenDbConnection())
         {
-            SqlCommand GetAlbums = new SqlCommand("SELECT * FROM t_Albums ORDER BY datecreated DESC", conn);
+            SqlCommand GetAlbums = new SqlCommand("SELECT * FROM media_tag ORDER BY date_time_created DESC", conn);
             using (SqlDataReader reader = GetAlbums.ExecuteReader())
             {
                 while (reader.Read())
@@ -43,7 +43,7 @@ namespace ParsnipData.Media
         foreach (Album temp in albums)
         {
             if (logMe)
-                Debug.WriteLine(string.Format("Found album with id {0}", temp.Id));
+                Debug.WriteLine(string.Format("Found album with media_tag_id {0}", temp.Id));
         }
 
         return albums;
@@ -59,9 +59,9 @@ namespace ParsnipData.Media
         var albums = new List<Image>();
         using (SqlConnection conn = Parsnip.GetOpenDbConnection())
         {
-            Debug.WriteLine("---------- Selecting albums by user with id = " + pUserId);
-            SqlCommand GetAlbums = new SqlCommand("SELECT * FROM t_Albums WHERE createdbyid = @createdbyid ORDER BY datecreated DESC", conn);
-            GetAlbums.Parameters.Add(new SqlParameter("createdbyid", pUserId));
+            Debug.WriteLine("---------- Selecting albums by user with media_tag_id = " + pUserId);
+            SqlCommand GetAlbums = new SqlCommand("SELECT * FROM media_tag WHERE created_by_id = @created_by_id ORDER BY date_time_created DESC", conn);
+            GetAlbums.Parameters.Add(new SqlParameter("created_by_id", pUserId));
 
             using (SqlDataReader reader = GetAlbums.ExecuteReader())
             {
@@ -75,7 +75,7 @@ namespace ParsnipData.Media
         foreach (Image temp in albums)
         {
             if (logMe)
-                Debug.WriteLine(string.Format("Found album with id {0}", temp.Id));
+                Debug.WriteLine(string.Format("Found album with media_tag_id {0}", temp.Id));
         }
 
         return albums;
@@ -89,7 +89,7 @@ namespace ParsnipData.Media
 
             using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand GetImages = new SqlCommand("SELECT * FROM t_Images FULL OUTER JOIN t_ImageAlbumPairs ON t_Images.id = t_ImageAlbumPairs.imageid WHERE t_ImageAlbumPairs.albumid = @id ORDER BY t_Images.datecreated DESC", openConn);
+                SqlCommand GetImages = new SqlCommand("SELECT * FROM image FULL OUTER JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id WHERE media_tag_pair.album_id = @id ORDER BY image.date_time_created DESC", openConn);
                 GetImages.Parameters.Add(new SqlParameter("id", Id));
 
                 using(SqlDataReader reader = GetImages.ExecuteReader())
@@ -146,7 +146,7 @@ namespace ParsnipData.Media
         Debug.WriteLine(string.Format("Checking weather album exists on database by using Id {0}", Id));
         try
         {
-            SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Albums WHERE id = @id", pOpenConn);
+            SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM media_tag WHERE media_tag_id = @id", pOpenConn);
             findMeById.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
             int albumExists;
@@ -158,7 +158,7 @@ namespace ParsnipData.Media
                 //Debug.WriteLine("Found album by Id. albumExists = " + albumExists);
             }
 
-            //Debug.WriteLine(albumExists + " album(s) were found with the id " + Id);
+            //Debug.WriteLine(albumExists + " album(s) were found with the media_tag_id " + Id);
 
             if (albumExists > 0)
                 return true;
@@ -242,11 +242,11 @@ namespace ParsnipData.Media
             {
                 if (!ExistsOnDb(pOpenConn))
                 {
-                    SqlCommand InsertAlbumIntoDb = new SqlCommand("INSERT INTO t_Albums (id, createdbyid, datecreated) VALUES(@id, @createdbyid, @datecreated)", pOpenConn);
+                    SqlCommand InsertAlbumIntoDb = new SqlCommand("INSERT INTO media_tag (id, created_by_id, date_time_created) VALUES(@id, @created_by_id, @date_time_created)", pOpenConn);
 
                     InsertAlbumIntoDb.Parameters.Add(new SqlParameter("id", Id));
-                    InsertAlbumIntoDb.Parameters.Add(new SqlParameter("createdbyid", CreatedById));
-                    InsertAlbumIntoDb.Parameters.Add(new SqlParameter("datecreated", Parsnip.adjustedTime));
+                    InsertAlbumIntoDb.Parameters.Add(new SqlParameter("created_by_id", CreatedById));
+                    InsertAlbumIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.adjustedTime));
                     
 
                     InsertAlbumIntoDb.ExecuteNonQuery();
@@ -278,11 +278,11 @@ namespace ParsnipData.Media
     internal bool DbSelect(SqlConnection pOpenConn)
     {
         //AccountLog.Debug("Attempting to get album details...");
-        //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get album details with id {0}...", Id));
+        //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get album details with media_tag_id {0}...", Id));
 
         try
         {
-            SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Albums WHERE id = @id", pOpenConn);
+            SqlCommand SelectAccount = new SqlCommand("SELECT * FROM media_tag WHERE media_tag_id = @id", pOpenConn);
             SelectAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
             int recordsFound = 0;
@@ -345,7 +345,7 @@ namespace ParsnipData.Media
                     Debug.WriteLine(string.Format("----------Attempting to update name..."));
 
 
-                    SqlCommand UpdateAlbumName = new SqlCommand("UPDATE t_Albums SET name = @name WHERE id = @id", pOpenConn);
+                    SqlCommand UpdateAlbumName = new SqlCommand("UPDATE media_tag SET name = @name WHERE media_tag_id = @id", pOpenConn);
                     UpdateAlbumName.Parameters.Add(new SqlParameter("id", Id));
                     UpdateAlbumName.Parameters.Add(new SqlParameter("name", Name.Trim()));
 
@@ -363,7 +363,7 @@ namespace ParsnipData.Media
                     Debug.WriteLine(string.Format("----------Attempting to update description..."));
 
 
-                    SqlCommand UpdateAlt = new SqlCommand("UPDATE t_Albums SET description = @description WHERE id = @id", pOpenConn);
+                    SqlCommand UpdateAlt = new SqlCommand("UPDATE media_tag SET description = @description WHERE media_tag_id = @id", pOpenConn);
                     UpdateAlt.Parameters.Add(new SqlParameter("id", Id));
                     UpdateAlt.Parameters.Add(new SqlParameter("description", Description.Trim()));
 
@@ -401,11 +401,11 @@ namespace ParsnipData.Media
     internal bool DbDelete(SqlConnection pOpenConn)
     {
         //AccountLog.Debug("Attempting to get album details...");
-        //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get album details with id {0}...", Id));
+        //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get album details with media_tag_id {0}...", Id));
 
         try
         {
-            SqlCommand deleteAccount = new SqlCommand("DELETE FROM t_Albums WHERE id = @id", pOpenConn);
+            SqlCommand deleteAccount = new SqlCommand("DELETE FROM media_tag WHERE media_tag_id = @id", pOpenConn);
             deleteAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
             int recordsFound = deleteAccount.ExecuteNonQuery();

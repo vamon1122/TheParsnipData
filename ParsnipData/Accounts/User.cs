@@ -195,7 +195,7 @@ namespace ParsnipData.Accounts
             var users = new List<User>();
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand GetUsers = new SqlCommand("SELECT * FROM t_Users", conn);
+                SqlCommand GetUsers = new SqlCommand("SELECT * FROM [user]", conn);
                 using (SqlDataReader reader = GetUsers.ExecuteReader())
                 {
                     while (reader.Read())
@@ -237,7 +237,7 @@ namespace ParsnipData.Accounts
             {
                 try
                 {
-                    SqlCommand getId = new SqlCommand("SELECT * FROM t_Users WHERE username = @username AND password = @password", openConn);
+                    SqlCommand getId = new SqlCommand("SELECT * FROM [user] WHERE username = @username AND password = @password", openConn);
                     getId.Parameters.Add(new SqlParameter("username", pUsername));
 
                     using (SqlDataReader reader = getId.ExecuteReader())
@@ -423,7 +423,7 @@ namespace ParsnipData.Accounts
                 {
                     try
                     {
-                        SqlCommand getId = new SqlCommand("SELECT id FROM t_Users WHERE username = @username", conn);
+                        SqlCommand getId = new SqlCommand("SELECT user_id FROM [user] WHERE username = @username", conn);
                         getId.Parameters.Add(new SqlParameter("username", username));
 
                         using (SqlDataReader reader = getId.ExecuteReader())
@@ -451,7 +451,7 @@ namespace ParsnipData.Accounts
                     try
                     {
                         //AccountLog.Debug("username = " + username);
-                        SqlCommand Command = new SqlCommand("UPDATE t_Users SET lastLogIn = @date WHERE username = @username;", conn);
+                        SqlCommand Command = new SqlCommand("UPDATE [user] SET last_login = @date WHERE username = @username;", conn);
                         Command.Parameters.Add(new SqlParameter("username", Username));
                         Command.Parameters.Add(new SqlParameter("date", Parsnip.adjustedTime));
                         RecordsAffected = Command.ExecuteNonQuery();
@@ -472,8 +472,8 @@ namespace ParsnipData.Accounts
                     //AccountLog.Debug("[LogIn] Attempting to get password from database...");
                     try
                     {
-                        SqlCommand getPassword = new SqlCommand("SELECT password FROM t_Users WHERE username = @username", conn);
-                        getPassword.Parameters.Add(new SqlParameter("Username", username));
+                        SqlCommand getPassword = new SqlCommand("SELECT password FROM [user] WHERE username = @username", conn);
+                        getPassword.Parameters.Add(new SqlParameter("username", username));
 
                         using (SqlDataReader reader = getPassword.ExecuteReader())
                         {
@@ -785,8 +785,8 @@ namespace ParsnipData.Accounts
             Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using {1} Id {1}", FullName, PosessivePronoun, Id));
             try
             {
-                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE id = @id", pOpenConn);
-                findMeById.Parameters.Add(new SqlParameter("id", Id.ToString()));
+                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM [user] WHERE user_id = @user_id", pOpenConn);
+                findMeById.Parameters.Add(new SqlParameter("user_id", Id.ToString()));
 
                 int userExists;
 
@@ -817,7 +817,7 @@ namespace ParsnipData.Accounts
             Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using their username {1}", FullName, Username));
             try
             {
-                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM t_Users WHERE username = @username", pOpenConn);
+                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM [user] WHERE username = @username", pOpenConn);
                 findMeById.Parameters.Add(new SqlParameter("username", Username));
 
                 int userExists;
@@ -1100,15 +1100,15 @@ namespace ParsnipData.Accounts
                 {
                     if (!ExistsOnDb(pOpenConn))
                     {
-                        SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO t_Users (id, username, forename, surname, created, type, status) VALUES(@id, @username, @forename, @surname, @dateTimeCreated, @accountType, @accountStatus)", pOpenConn);
+                        SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO user (user_id, username, forename, surname, date_time_created, type, status) VALUES(@user_id, @username, @forename, @surname, @date_time_created, @type, @status)", pOpenConn);
                         
-                        InsertIntoDb.Parameters.Add(new SqlParameter("id", Id));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("user_id", Id));
                         InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
                         InsertIntoDb.Parameters.Add(new SqlParameter("forename", Forename.Trim()));
                         InsertIntoDb.Parameters.Add(new SqlParameter("surname", Surname.Trim()));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("dateTimeCreated", Parsnip.adjustedTime));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("accountType", AccountType));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("accountStatus", AccountStatus));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.adjustedTime));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("type", AccountType));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("status", AccountStatus));
 
                         InsertIntoDb.ExecuteNonQuery();
 
@@ -1142,8 +1142,8 @@ namespace ParsnipData.Accounts
             
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM t_Users WHERE id = @id", pOpenConn);
-                SelectAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
+                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM [user] WHERE user_id = @user_id", pOpenConn);
+                SelectAccount.Parameters.Add(new SqlParameter("user_id", Id.ToString()));
 
                 int recordsFound = 0;
                 using (SqlDataReader reader = SelectAccount.ExecuteReader())
@@ -1202,8 +1202,8 @@ namespace ParsnipData.Accounts
                         }
 
 
-                        SqlCommand UpdateUsername = new SqlCommand("UPDATE t_Users SET username = @username WHERE id = @id", pOpenConn);
-                        UpdateUsername.Parameters.Add(new SqlParameter("id", Id));
+                        SqlCommand UpdateUsername = new SqlCommand("UPDATE [user] SET username = @username WHERE user_id = @user_id", pOpenConn);
+                        UpdateUsername.Parameters.Add(new SqlParameter("user_id", Id));
                         UpdateUsername.Parameters.Add(new SqlParameter("username", Username));
 
                         UpdateUsername.ExecuteNonQuery();
@@ -1220,9 +1220,9 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s email...", temp.FullName));
 
-                        SqlCommand UpdateEmail = new SqlCommand("UPDATE t_Users SET email = @email WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateEmail = new SqlCommand("UPDATE [user] SET email = @email WHERE user_id = @user_id", pOpenConn);
 
-                        UpdateEmail.Parameters.Add(new SqlParameter("id", Id));
+                        UpdateEmail.Parameters.Add(new SqlParameter("user_id", Id));
                         if (Email == "")
                         {
                             UpdateEmail.Parameters.Add(new SqlParameter("email", DBNull.Value));
@@ -1244,9 +1244,9 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s password...", temp.FullName));
 
-                        SqlCommand UpdatePwd = new SqlCommand("UPDATE t_Users SET password = @password WHERE id = @id", pOpenConn);
+                        SqlCommand UpdatePwd = new SqlCommand("UPDATE [user] SET password = @password WHERE user_id = @user_id", pOpenConn);
 
-                        UpdatePwd.Parameters.Add(new SqlParameter("id", Id));
+                        UpdatePwd.Parameters.Add(new SqlParameter("user_id", Id));
                         if (Password == "")
                         {
                             UpdatePwd.Parameters.Add(new SqlParameter("password", DBNull.Value));
@@ -1275,9 +1275,9 @@ namespace ParsnipData.Accounts
                             throw new InvalidCastException(e);
                         }
 
-                        SqlCommand UpdateForename = new SqlCommand("UPDATE t_Users SET forename = @forename WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateForename = new SqlCommand("UPDATE [user] SET forename = @forename WHERE user_id = @user_id", pOpenConn);
 
-                        UpdateForename.Parameters.Add(new SqlParameter("id", Id));
+                        UpdateForename.Parameters.Add(new SqlParameter("user_id", Id));
                         UpdateForename.Parameters.Add(new SqlParameter("forename", Forename));
 
 
@@ -1302,9 +1302,9 @@ namespace ParsnipData.Accounts
                             throw new InvalidCastException(e);
                         }
 
-                        SqlCommand updateSurname = new SqlCommand("UPDATE t_Users SET surname = @surname WHERE id = @id", pOpenConn);
+                        SqlCommand updateSurname = new SqlCommand("UPDATE [user] SET surname = @surname WHERE user_id = @user_id", pOpenConn);
 
-                        updateSurname.Parameters.Add(new SqlParameter("id", Id));
+                        updateSurname.Parameters.Add(new SqlParameter("user_id", Id));
                         updateSurname.Parameters.Add(new SqlParameter("surname", Surname));
 
                         updateSurname.ExecuteNonQuery();
@@ -1320,9 +1320,9 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s gender...", temp.FullName));
 
-                        SqlCommand updateGender = new SqlCommand("UPDATE t_Users SET gender = @gender WHERE id = @id", pOpenConn);
+                        SqlCommand updateGender = new SqlCommand("UPDATE [user] SET gender = @gender WHERE user_id = @user_id", pOpenConn);
 
-                        updateGender.Parameters.Add(new SqlParameter("id", Id));
+                        updateGender.Parameters.Add(new SqlParameter("user_id", Id));
                         if (_gender == "")
                         {
                             updateGender.Parameters.Add(new SqlParameter("gender", DBNull.Value));
@@ -1344,17 +1344,17 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s dob...", temp.FullName));
 
-                        SqlCommand UpdateDob = new SqlCommand("UPDATE t_Users SET dob = @dob WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateDob = new SqlCommand("UPDATE [user] SET dob = @date_of_birth WHERE user_id = @user_id", pOpenConn);
 
-                        UpdateDob.Parameters.Add(new SqlParameter("id", Id));
+                        UpdateDob.Parameters.Add(new SqlParameter("user_id", Id));
 
                         if (Dob == DateTime.MinValue)
                         {
                             Debug.WriteLine(string.Format("----------{0}'s dob will be set to NULL in the database", temp.FullName));
-                            UpdateDob.Parameters.Add(new SqlParameter("dob", DBNull.Value));
+                            UpdateDob.Parameters.Add(new SqlParameter("date_of_birth", DBNull.Value));
                         }
                         else
-                            UpdateDob.Parameters.Add(new SqlParameter("dob", Dob));
+                            UpdateDob.Parameters.Add(new SqlParameter("date_of_birth", Dob));
 
                         UpdateDob.ExecuteNonQuery();
 
@@ -1369,9 +1369,9 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s address1...", temp.FullName));
 
-                        SqlCommand UpdateAddress1 = new SqlCommand("UPDATE t_Users SET address1 = @address1 WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateAddress1 = new SqlCommand("UPDATE [user] SET address_1 = @address1 WHERE user_id = @user_id", pOpenConn);
 
-                        UpdateAddress1.Parameters.Add(new SqlParameter("id", Id));
+                        UpdateAddress1.Parameters.Add(new SqlParameter("user_id", Id));
                         if (Address1 == "")
                         {
                             UpdateAddress1.Parameters.Add(new SqlParameter("address1", DBNull.Value));
@@ -1393,9 +1393,9 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s address2...", temp.FullName));
 
-                        SqlCommand UpdateAddress2 = new SqlCommand("UPDATE t_Users SET address2 = @address2 WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateAddress2 = new SqlCommand("UPDATE [user] SET address2 = @address2 WHERE user_id = @user_id", pOpenConn);
 
-                        UpdateAddress2.Parameters.Add(new SqlParameter("id", Id));
+                        UpdateAddress2.Parameters.Add(new SqlParameter("user_id", Id));
                         if (Address2 == "")
                         {
                             UpdateAddress2.Parameters.Add(new SqlParameter("address2", DBNull.Value));
@@ -1418,9 +1418,9 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s address3...", temp.FullName));
 
-                        SqlCommand UpdateAddress3 = new SqlCommand("UPDATE t_Users SET address3 = @address3 WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateAddress3 = new SqlCommand("UPDATE [user] SET address3 = @address3 WHERE user_id = @user_id", pOpenConn);
 
-                        UpdateAddress3.Parameters.Add(new SqlParameter("id", Id));
+                        UpdateAddress3.Parameters.Add(new SqlParameter("user_id", Id));
                         if (Address3 == "")
                         {
                             UpdateAddress3.Parameters.Add(new SqlParameter("address3", DBNull.Value));
@@ -1442,9 +1442,9 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s postcode...", temp.FullName));
 
-                        SqlCommand UpdatePostCode = new SqlCommand("UPDATE t_Users SET postCode = @postCode WHERE id = @id", pOpenConn);
+                        SqlCommand UpdatePostCode = new SqlCommand("UPDATE [user] SET postCode = @postCode WHERE user_id = @user_id", pOpenConn);
 
-                        UpdatePostCode.Parameters.Add(new SqlParameter("id", Id));
+                        UpdatePostCode.Parameters.Add(new SqlParameter("user_id", Id));
                         if (PostCode == "")
                         {
                             UpdatePostCode.Parameters.Add(new SqlParameter("postCode", DBNull.Value));
@@ -1466,16 +1466,16 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s mobilePhone...", temp.FullName));
 
-                        SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE t_Users SET mobilePhone = @mobilePhone WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE [user] SET mobile_phone = @mobile_phone WHERE user_id = @user_id", pOpenConn);
 
-                        UpdateMobilePhone.Parameters.Add(new SqlParameter("id", Id));
+                        UpdateMobilePhone.Parameters.Add(new SqlParameter("user_id", Id));
                         if (MobilePhone == "")
                         {
                             UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", DBNull.Value));
                             Debug.WriteLine(string.Format("----------{0}'s mobilePhone will be set to NULL in the database", temp.FullName));
                         }
                         else
-                            UpdateMobilePhone.Parameters.Add(new SqlParameter("mobilePhone", MobilePhone));
+                            UpdateMobilePhone.Parameters.Add(new SqlParameter("mobile_phone", MobilePhone));
 
                         UpdateMobilePhone.ExecuteNonQuery();
 
@@ -1490,16 +1490,16 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s homePhone...", temp.FullName));
 
-                        SqlCommand UpdateHomePhone = new SqlCommand("UPDATE t_Users SET homePhone = @homePhone WHERE id = @id", pOpenConn);
+                        SqlCommand UpdateHomePhone = new SqlCommand("UPDATE [user] SET homePhone = @home_phone WHERE user_id = @user_id", pOpenConn);
 
-                        UpdateHomePhone.Parameters.Add(new SqlParameter("id", Id));
+                        UpdateHomePhone.Parameters.Add(new SqlParameter("user_id", Id));
                         if (HomePhone == "")
                         {
-                            UpdateHomePhone.Parameters.Add(new SqlParameter("homePhone", DBNull.Value));
+                            UpdateHomePhone.Parameters.Add(new SqlParameter("home_phone", DBNull.Value));
                             Debug.WriteLine(string.Format("----------{0}'s homePhone will be set to NULL in the database", temp.FullName));
                         }
                         else
-                            UpdateHomePhone.Parameters.Add(new SqlParameter("homePhone", HomePhone));
+                            UpdateHomePhone.Parameters.Add(new SqlParameter("home_phone", HomePhone));
 
                         UpdateHomePhone.ExecuteNonQuery();
 
@@ -1514,16 +1514,16 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s workPhone...", temp.FullName));
 
-                        SqlCommand updateWorkPhone = new SqlCommand("UPDATE t_Users SET workPhone = @workPhone WHERE id = @id", pOpenConn);
+                        SqlCommand updateWorkPhone = new SqlCommand("UPDATE [user] SET work_phone = @work_phone WHERE user_id = @user_id", pOpenConn);
 
-                        updateWorkPhone.Parameters.Add(new SqlParameter("id", Id));
+                        updateWorkPhone.Parameters.Add(new SqlParameter("user_id", Id));
                         if (WorkPhone == "")
                         {
-                            updateWorkPhone.Parameters.Add(new SqlParameter("workPhone", DBNull.Value));
+                            updateWorkPhone.Parameters.Add(new SqlParameter("work_phone", DBNull.Value));
                             Debug.WriteLine(string.Format("----------{0}'s workPhone will be set to NULL in the database", temp.FullName));
                         }
                         else
-                            updateWorkPhone.Parameters.Add(new SqlParameter("workPhone", WorkPhone));
+                            updateWorkPhone.Parameters.Add(new SqlParameter("work_phone", WorkPhone));
 
                         updateWorkPhone.ExecuteNonQuery();
 
@@ -1538,10 +1538,10 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s accountType...", temp.FullName));
 
-                        SqlCommand updateAccountType = new SqlCommand("UPDATE t_Users SET type = @accountType WHERE id = @id", pOpenConn);
+                        SqlCommand updateAccountType = new SqlCommand("UPDATE [user] SET type = @type WHERE user_id = @user_id", pOpenConn);
 
-                        updateAccountType.Parameters.Add(new SqlParameter("id", Id));
-                        updateAccountType.Parameters.Add(new SqlParameter("accountType", AccountType));
+                        updateAccountType.Parameters.Add(new SqlParameter("user_id", Id));
+                        updateAccountType.Parameters.Add(new SqlParameter("type", AccountType));
 
                         updateAccountType.ExecuteNonQuery();
 
@@ -1556,10 +1556,10 @@ namespace ParsnipData.Accounts
                     {
                         Debug.WriteLine(string.Format("----------Updating {0}'s accountStatus...", temp.FullName));
 
-                        SqlCommand updateAccountStatus = new SqlCommand("UPDATE t_Users SET status = @accountStatus WHERE id = @id", pOpenConn);
+                        SqlCommand updateAccountStatus = new SqlCommand("UPDATE [user] SET status = @status WHERE user_id = @user_id", pOpenConn);
 
-                        updateAccountStatus.Parameters.Add(new SqlParameter("id", Id));
-                        updateAccountStatus.Parameters.Add(new SqlParameter("accountStatus", AccountStatus));
+                        updateAccountStatus.Parameters.Add(new SqlParameter("user_id", Id));
+                        updateAccountStatus.Parameters.Add(new SqlParameter("status", AccountStatus));
 
                         updateAccountStatus.ExecuteNonQuery();
 
@@ -1594,8 +1594,8 @@ namespace ParsnipData.Accounts
 
             try
             {
-                SqlCommand deleteAccount = new SqlCommand("DELETE FROM t_Users WHERE id = @id", pOpenConn);
-                deleteAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
+                SqlCommand deleteAccount = new SqlCommand("DELETE FROM [user] WHERE user_id = @user_id", pOpenConn);
+                deleteAccount.Parameters.Add(new SqlParameter("user_id", Id.ToString()));
 
                 int recordsFound = deleteAccount.ExecuteNonQuery();
                 //Debug.WriteLine(string.Format("----------DbDelete() - Found {0} record(s) ", recordsFound));

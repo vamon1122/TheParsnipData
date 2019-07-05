@@ -58,7 +58,7 @@ namespace ParsnipData.Media
             var albumIds = new List<Guid>();
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand GetVideos = new SqlCommand("SELECT albumid FROM t_ImageAlbumPairs WHERE imageid = @video_id", conn);
+                SqlCommand GetVideos = new SqlCommand("SELECT album_id FROM media_tag_pair WHERE media_id = @video_id", conn);
                 GetVideos.Parameters.Add(new SqlParameter("video_id", Id));
 
                 using (SqlDataReader reader = GetVideos.ExecuteReader())
@@ -183,7 +183,7 @@ namespace ParsnipData.Media
             Id = Guid.NewGuid();
             Directory = directory;
             Log DebugLog = new Log("Debug");
-            new LogEntry(DebugLog) { text = "Video created with albumid = " + album.Id };
+            new LogEntry(DebugLog) { text = "Video created with album_id = " + album.Id };
             AlbumId = album.Id;
             DateCreated = Parsnip.adjustedTime;
             CreatedById = createdBy.Id;
@@ -377,9 +377,9 @@ namespace ParsnipData.Media
 
                         InsertVideoIntoDb.ExecuteNonQuery();
 
-                        SqlCommand InsertVideoAlbumPairIntoDb = new SqlCommand("INSERT INTO t_VideoAlbumPairs VALUES(@imageid, @albumid)", pOpenConn);
-                        InsertVideoAlbumPairIntoDb.Parameters.Add(new SqlParameter("imageid", Id));
-                        InsertVideoAlbumPairIntoDb.Parameters.Add(new SqlParameter("albumid", AlbumId));
+                        SqlCommand InsertVideoAlbumPairIntoDb = new SqlCommand("INSERT INTO t_VideoAlbumPairs VALUES(@media_id, @album_id)", pOpenConn);
+                        InsertVideoAlbumPairIntoDb.Parameters.Add(new SqlParameter("media_id", Id));
+                        InsertVideoAlbumPairIntoDb.Parameters.Add(new SqlParameter("album_id", AlbumId));
 
                         InsertVideoAlbumPairIntoDb.ExecuteNonQuery();
 
@@ -418,7 +418,7 @@ namespace ParsnipData.Media
 
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT video.*, t_ImageAlbumPairs.albumid FROM video INNER JOIN t_ImageAlbumPairs ON video.video_id = t_ImageAlbumPairs.imageid WHERE video_id = @id", pOpenConn);
+                SqlCommand SelectAccount = new SqlCommand("SELECT video.*, media_tag_pair.album_id FROM video INNER JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id WHERE video_id = @id", pOpenConn);
                 SelectAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
                 int recordsFound = 0;
@@ -481,13 +481,13 @@ namespace ParsnipData.Media
                         Log DebugLog = new Log("Debug");
                         new LogEntry(DebugLog) { text = "AlbumId != null = " + AlbumId };
 
-                        SqlCommand DeleteOldPairs = new SqlCommand("DELETE FROM t_ImageAlbumPairs WHERE videoid = @videoid", pOpenConn);
+                        SqlCommand DeleteOldPairs = new SqlCommand("DELETE FROM media_tag_pair WHERE videoid = @videoid", pOpenConn);
                         DeleteOldPairs.Parameters.Add(new SqlParameter("videoid", Id));
                         DeleteOldPairs.ExecuteNonQuery();
 
-                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO t_ImageAlbumPairs VALUES (@imageid, @albumid)", pOpenConn);
-                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("imageid", Id));
-                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("albumid", AlbumId));
+                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO media_tag_pair VALUES (@media_id, @album_id)", pOpenConn);
+                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_id", Id));
+                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("album_id", AlbumId));
 
                         Debug.WriteLine("---------- Video album (INSERT) = " + AlbumId);
 
@@ -497,7 +497,7 @@ namespace ParsnipData.Media
                     else
                     {
                         Log DebugLog = new Log("Debug");
-                        new LogEntry(DebugLog) { text = "Video created with albumid = null :( " };
+                        new LogEntry(DebugLog) { text = "Video created with album_id = null :( " };
                     }
 
 
@@ -608,7 +608,7 @@ namespace ParsnipData.Media
 
                 using (SqlConnection conn = Parsnip.GetOpenDbConnection())
                 {
-                    SqlCommand DeleteVideo = new SqlCommand("DELETE iap FROM t_ImageAlbumPairs iap FULL OUTER JOIN video ON imageid = video.video_id  WHERE video.id = @video_id", conn);
+                    SqlCommand DeleteVideo = new SqlCommand("DELETE iap FROM media_tag_pair iap FULL OUTER JOIN video ON media_id = video.video_id  WHERE video.id = @video_id", conn);
                     DeleteVideo.Parameters.Add(new SqlParameter("video_id", Id));
                     int recordsAffected = DeleteVideo.ExecuteNonQuery();
 

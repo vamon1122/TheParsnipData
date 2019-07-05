@@ -44,10 +44,10 @@ namespace ParsnipData.AnonymousApi
             {
                 using (pConn)
                 {
-                    SqlCommand insertComment = new SqlCommand("INSERT INTO t_Comments VALUES(@id, @userId, @postId, @date, @text)", pConn);
+                    SqlCommand insertComment = new SqlCommand("INSERT INTO comment VALUES(@id, @user_id, @post_id, @date_time_id, @text)", pConn);
                     insertComment.Parameters.Add(new SqlParameter("id", id));
-                    insertComment.Parameters.Add(new SqlParameter("userId", userId));
-                    insertComment.Parameters.Add(new SqlParameter("postId", postId));
+                    insertComment.Parameters.Add(new SqlParameter("user_id", userId));
+                    insertComment.Parameters.Add(new SqlParameter("post_id", postId));
                     insertComment.Parameters.Add(new SqlParameter("date", date));
                     insertComment.Parameters.Add(new SqlParameter("text", text));
 
