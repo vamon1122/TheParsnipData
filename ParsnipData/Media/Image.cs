@@ -583,7 +583,7 @@ namespace ParsnipData.Media
 
                 using (SqlConnection conn = Parsnip.GetOpenDbConnection())
                 {
-                    SqlCommand DeleteImage = new SqlCommand("DELETE iap FROM media_tag_pair iap FULL OUTER JOIN image ON image_id = image.image_id  WHERE image.image_id = @image_id", conn);
+                    SqlCommand DeleteImage = new SqlCommand("DELETE FROM media_tag_pair WHERE media_id = @image_id", conn);
                     DeleteImage.Parameters.Add(new SqlParameter("image_id", Id));
                     int recordsAffected = DeleteImage.ExecuteNonQuery();
 
