@@ -418,8 +418,8 @@ namespace ParsnipData.Media
 
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT video.*, media_tag_pair.media_tag_id FROM video INNER JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id WHERE video_id = @id", pOpenConn);
-                SelectAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
+                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM video WHERE video_id = @video_id", pOpenConn);
+                SelectAccount.Parameters.Add(new SqlParameter("video_id", Id.ToString()));
 
                 int recordsFound = 0;
                 using (SqlDataReader reader = SelectAccount.ExecuteReader())
