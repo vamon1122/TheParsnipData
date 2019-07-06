@@ -126,13 +126,12 @@ namespace ParsnipData.Media
         {
             try
             {
-                throw new NotImplementedException();
                 new LogEntry(DebugLog) { text = "Attempting to delete uploaded photos created_by_user_id = " + userId };
 
                 using (SqlConnection conn = Parsnip.GetOpenDbConnection())
                 {
                     //THIS LOOKS DANGEROUS!!!
-                    SqlCommand DeleteUploads = new SqlCommand("DELETE FROM media_tag_pair FULL OUTER JOIN image ON image_id = image.image_id  WHERE image.created_by_user_id = @created_by_user_id", conn);
+                    SqlCommand DeleteUploads = new SqlCommand("DELETE media_tag_pair FROM media_tag_pair INNER JOIN image ON media_tag_pair.media_id = image.image_id  WHERE image.created_by_user_id = @created_by_user_id", conn);
                     DeleteUploads.Parameters.Add(new SqlParameter("created_by_user_id", userId));
                     int recordsAffected = DeleteUploads.ExecuteNonQuery();
 
