@@ -37,7 +37,7 @@ namespace ParsnipData.Media
             var albumIds = new List<Guid>();
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand GetImages = new SqlCommand("SELECT album_id FROM media_tag_pair WHERE media_id = @image_id", conn);
+                SqlCommand GetImages = new SqlCommand("SELECT media_tag_id FROM media_tag_pair WHERE media_id = @image_id", conn);
                 GetImages.Parameters.Add(new SqlParameter("image_id", Id));
 
                 using (SqlDataReader reader = GetImages.ExecuteReader())
@@ -101,8 +101,8 @@ namespace ParsnipData.Media
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
                 Debug.WriteLine("---------- Selecting images by user with id = " + pUserId);
-                SqlCommand GetImages = new SqlCommand("SELECT * FROM image WHERE created_by_id = @created_by_id ORDER BY date_time_created DESC", conn);
-                GetImages.Parameters.Add(new SqlParameter("created_by_id", pUserId));
+                SqlCommand GetImages = new SqlCommand("SELECT * FROM image WHERE created_by_user_id = @created_by_user_id ORDER BY date_time_created DESC", conn);
+                GetImages.Parameters.Add(new SqlParameter("created_by_user_id", pUserId));
 
                 using (SqlDataReader reader = GetImages.ExecuteReader())
                 {
@@ -126,12 +126,14 @@ namespace ParsnipData.Media
         {
             try
             {
-                new LogEntry(DebugLog) { text = "Attempting to delete uploaded photos created_by_id = " + userId };
+                throw new NotImplementedException();
+                new LogEntry(DebugLog) { text = "Attempting to delete uploaded photos created_by_user_id = " + userId };
 
                 using (SqlConnection conn = Parsnip.GetOpenDbConnection())
                 {
-                    SqlCommand DeleteUploads = new SqlCommand("DELETE iap FROM media_tag_pair iap FULL OUTER JOIN image ON image_id = image.image_id  WHERE image.created_by_id = @created_by_id", conn);
-                    DeleteUploads.Parameters.Add(new SqlParameter("created_by_id", userId));
+                    //THIS LOOKS DANGEROUS!!!
+                    SqlCommand DeleteUploads = new SqlCommand("DELETE FROM media_tag_pair FULL OUTER JOIN image ON image_id = image.image_id  WHERE image.created_by_user_id = @created_by_user_id", conn);
+                    DeleteUploads.Parameters.Add(new SqlParameter("created_by_user_id", userId));
                     int recordsAffected = DeleteUploads.ExecuteNonQuery();
 
                     new LogEntry(DebugLog) { text = string.Format("{0} record(s) were affected", recordsAffected) };
@@ -269,7 +271,7 @@ namespace ParsnipData.Media
                 DateCreated = Convert.ToDateTime(pReader[4]);
 
                 if (logMe)
-                    Debug.WriteLine("----------Reading created_by_id");
+                    Debug.WriteLine("----------Reading created_by_user_id");
                 CreatedById = new Guid(pReader[5].ToString());
 
                 if (pReader[6] != DBNull.Value && !string.IsNullOrEmpty(pReader[6].ToString()) && !string.IsNullOrWhiteSpace(pReader[6].ToString()))
@@ -345,18 +347,18 @@ namespace ParsnipData.Media
                 {
                     if (!ExistsOnDb(pOpenConn))
                     {
-                        SqlCommand InsertImageIntoDb = new SqlCommand("INSERT INTO image (image_id, src, date_time_created, created_by_id) VALUES(@image_id, @src, @date_time_created, @created_by_id)", pOpenConn);
+                        SqlCommand InsertImageIntoDb = new SqlCommand("INSERT INTO image (image_id, src, date_time_created, created_by_user_id) VALUES(@image_id, @src, @date_time_created, @created_by_user_id)", pOpenConn);
 
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("image_id", Id));
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("src", Directory.Trim()));
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.adjustedTime));
-                        InsertImageIntoDb.Parameters.Add(new SqlParameter("created_by_id", CreatedById));
+                        InsertImageIntoDb.Parameters.Add(new SqlParameter("created_by_user_id", CreatedById));
 
                         InsertImageIntoDb.ExecuteNonQuery();
 
-                        SqlCommand InsertImageAlbumPairIntoDb = new SqlCommand("INSERT INTO media_tag_pair VALUES(@image_id, @album_id)", pOpenConn);
-                        InsertImageAlbumPairIntoDb.Parameters.Add(new SqlParameter("image_id", Id));
-                        InsertImageAlbumPairIntoDb.Parameters.Add(new SqlParameter("album_id", AlbumId));
+                        SqlCommand InsertImageAlbumPairIntoDb = new SqlCommand("INSERT INTO media_tag_pair VALUES(@media_id, @media_tag_id)", pOpenConn);
+                        InsertImageAlbumPairIntoDb.Parameters.Add(new SqlParameter("media_id", Id));
+                        InsertImageAlbumPairIntoDb.Parameters.Add(new SqlParameter("media_tag_id", AlbumId));
 
                         InsertImageAlbumPairIntoDb.ExecuteNonQuery();
 
@@ -395,7 +397,7 @@ namespace ParsnipData.Media
 
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT image.*, media_tag_pair.album_id FROM image INNER JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id WHERE image_id = @image_id", pOpenConn);
+                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM image WHERE image_id = @image_id", pOpenConn);
                 SelectAccount.Parameters.Add(new SqlParameter("image_id", Id.ToString()));
 
                 int recordsFound = 0;
@@ -462,9 +464,9 @@ namespace ParsnipData.Media
                         DeleteOldPairs.Parameters.Add(new SqlParameter("image_id", Id));
                         DeleteOldPairs.ExecuteNonQuery();
 
-                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO media_tag_pair VALUES (@media_id, @album_id)", pOpenConn);
+                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO media_tag_pair VALUES (@media_id, @media_tag_id)", pOpenConn);
                         CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_id", Id));
-                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("album_id", AlbumId));
+                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_tag_id", AlbumId));
 
                         Debug.WriteLine("---------- Image album (INSERT) = " + AlbumId);
 

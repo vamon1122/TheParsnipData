@@ -60,8 +60,8 @@ namespace ParsnipData.Media
         using (SqlConnection conn = Parsnip.GetOpenDbConnection())
         {
             Debug.WriteLine("---------- Selecting albums by user with media_tag_id = " + pUserId);
-            SqlCommand GetAlbums = new SqlCommand("SELECT * FROM media_tag WHERE created_by_id = @created_by_id ORDER BY date_time_created DESC", conn);
-            GetAlbums.Parameters.Add(new SqlParameter("created_by_id", pUserId));
+            SqlCommand GetAlbums = new SqlCommand("SELECT * FROM media_tag WHERE created_by_user_id = @created_by_user_id ORDER BY date_time_created DESC", conn);
+            GetAlbums.Parameters.Add(new SqlParameter("created_by_user_id", pUserId));
 
             using (SqlDataReader reader = GetAlbums.ExecuteReader())
             {
@@ -89,8 +89,8 @@ namespace ParsnipData.Media
 
             using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
             {
-                SqlCommand GetImages = new SqlCommand("SELECT * FROM image FULL OUTER JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id WHERE media_tag_pair.album_id = @id ORDER BY image.date_time_created DESC", openConn);
-                GetImages.Parameters.Add(new SqlParameter("id", Id));
+                SqlCommand GetImages = new SqlCommand("SELECT image.* FROM image LEFT JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id WHERE media_tag_pair.media_tag_id = @media_tag_id ORDER BY image.date_time_created DESC", openConn);
+                GetImages.Parameters.Add(new SqlParameter("media_tag_id", Id));
 
                 using(SqlDataReader reader = GetImages.ExecuteReader())
                 {
@@ -242,10 +242,10 @@ namespace ParsnipData.Media
             {
                 if (!ExistsOnDb(pOpenConn))
                 {
-                    SqlCommand InsertAlbumIntoDb = new SqlCommand("INSERT INTO media_tag (id, created_by_id, date_time_created) VALUES(@id, @created_by_id, @date_time_created)", pOpenConn);
+                    SqlCommand InsertAlbumIntoDb = new SqlCommand("INSERT INTO media_tag (id, created_by_user_id, date_time_created) VALUES(@id, @created_by_user_id, @date_time_created)", pOpenConn);
 
                     InsertAlbumIntoDb.Parameters.Add(new SqlParameter("id", Id));
-                    InsertAlbumIntoDb.Parameters.Add(new SqlParameter("created_by_id", CreatedById));
+                    InsertAlbumIntoDb.Parameters.Add(new SqlParameter("created_by_user_id", CreatedById));
                     InsertAlbumIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.adjustedTime));
                     
 

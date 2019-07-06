@@ -147,8 +147,8 @@ namespace ParsnipData.Media
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
                 Debug.WriteLine("---------- Selecting videos by user with id = " + userId);
-                SqlCommand GetVideos = new SqlCommand("SELECT * FROM video WHERE created_by_id = @created_by_id ORDER BY date_time_created DESC", conn);
-                GetVideos.Parameters.Add(new SqlParameter("created_by_id", userId));
+                SqlCommand GetVideos = new SqlCommand("SELECT * FROM video WHERE created_by_user_id = @created_by_user_id ORDER BY date_time_created DESC", conn);
+                GetVideos.Parameters.Add(new SqlParameter("created_by_user_id", userId));
 
                 using (SqlDataReader reader = GetVideos.ExecuteReader())
                 {
@@ -368,12 +368,12 @@ namespace ParsnipData.Media
                 {
                     if (!ExistsOnDb(pOpenConn))
                     {
-                        SqlCommand InsertVideoIntoDb = new SqlCommand("INSERT INTO t_Videos (video_id, directory, date_time_created, created_by_id) VALUES(@video_id, @directory, @date_time_created, @created_by_id)", pOpenConn);
+                        SqlCommand InsertVideoIntoDb = new SqlCommand("INSERT INTO t_Videos (video_id, directory, date_time_created, created_by_user_id) VALUES(@video_id, @directory, @date_time_created, @created_by_user_id)", pOpenConn);
 
                         InsertVideoIntoDb.Parameters.Add(new SqlParameter("id", Id));
                         InsertVideoIntoDb.Parameters.Add(new SqlParameter("directory", Directory.Trim()));
                         InsertVideoIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.adjustedTime));
-                        InsertVideoIntoDb.Parameters.Add(new SqlParameter("created_by_id", CreatedById));
+                        InsertVideoIntoDb.Parameters.Add(new SqlParameter("created_by_user_id", CreatedById));
 
                         InsertVideoIntoDb.ExecuteNonQuery();
 
@@ -418,7 +418,7 @@ namespace ParsnipData.Media
 
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT video.*, media_tag_pair.album_id FROM video INNER JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id WHERE video_id = @id", pOpenConn);
+                SqlCommand SelectAccount = new SqlCommand("SELECT video.*, media_tag_pair.media_tag_id FROM video INNER JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id WHERE video_id = @id", pOpenConn);
                 SelectAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
                 int recordsFound = 0;
@@ -485,9 +485,9 @@ namespace ParsnipData.Media
                         DeleteOldPairs.Parameters.Add(new SqlParameter("videoid", Id));
                         DeleteOldPairs.ExecuteNonQuery();
 
-                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO media_tag_pair VALUES (@media_id, @album_id)", pOpenConn);
+                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO media_tag_pair VALUES (@media_id, @media_tag_id)", pOpenConn);
                         CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_id", Id));
-                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("album_id", AlbumId));
+                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_tag_id", AlbumId));
 
                         Debug.WriteLine("---------- Video album (INSERT) = " + AlbumId);
 
@@ -604,6 +604,8 @@ namespace ParsnipData.Media
 
             try
             {
+                //FULL OUTER JOIN LOOKS DANGEROUS!!!
+                throw new NotImplementedException();
                 new LogEntry(DebugLog) { text = "Attempting to delete uploaded photo id = " + Id };
 
                 using (SqlConnection conn = Parsnip.GetOpenDbConnection())

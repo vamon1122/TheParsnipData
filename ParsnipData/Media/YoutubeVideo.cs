@@ -127,8 +127,8 @@ namespace ParsnipData.Media
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
                 Debug.WriteLine("---------- Selecting youtubeVideos by user with id = " + userId);
-                SqlCommand GetYoutubeVideos = new SqlCommand("SELECT * FROM youtube_video WHERE created_by_id = @created_by_id ORDER BY date_time_created DESC", conn);
-                GetYoutubeVideos.Parameters.Add(new SqlParameter("created_by_id", userId));
+                SqlCommand GetYoutubeVideos = new SqlCommand("SELECT * FROM youtube_video WHERE created_by_user_id = @created_by_user_id ORDER BY date_time_created DESC", conn);
+                GetYoutubeVideos.Parameters.Add(new SqlParameter("created_by_user_id", userId));
 
                 using (SqlDataReader reader = GetYoutubeVideos.ExecuteReader())
                 {
@@ -393,12 +393,12 @@ namespace ParsnipData.Media
                 {
                     if (!ExistsOnDb(conn))
                     {
-                        SqlCommand InsertYoutubeVideoIntoDb = new SqlCommand("INSERT INTO youtube _videos (youtubeVideo_id, directory, date_time_created, created_by_id) VALUES(@youtubeVideo_id, @directory, @date_time_created, @created_by_id)", conn);
+                        SqlCommand InsertYoutubeVideoIntoDb = new SqlCommand("INSERT INTO youtube _videos (youtubeVideo_id, directory, date_time_created, created_by_user_id) VALUES(@youtubeVideo_id, @directory, @date_time_created, @created_by_user_id)", conn);
 
                         InsertYoutubeVideoIntoDb.Parameters.Add(new SqlParameter("id", Id));
                         InsertYoutubeVideoIntoDb.Parameters.Add(new SqlParameter("directory", Directory.Trim()));
                         InsertYoutubeVideoIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.adjustedTime));
-                        InsertYoutubeVideoIntoDb.Parameters.Add(new SqlParameter("created_by_id", CreatedById));
+                        InsertYoutubeVideoIntoDb.Parameters.Add(new SqlParameter("created_by_user_id", CreatedById));
 
                         InsertYoutubeVideoIntoDb.ExecuteNonQuery();
 

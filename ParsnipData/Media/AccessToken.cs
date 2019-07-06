@@ -49,8 +49,8 @@ namespace ParsnipData.Media
             {
                 using (SqlConnection conn = ParsnipData.Parsnip.GetOpenDbConnection())
                 {
-                    var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE user_id = @user_id AND media_id = @media_id", conn);
-                    selectAccessToken.Parameters.Add(new SqlParameter("user_id", userId));
+                    var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE created_by_user_id = @created_by_user_id AND media_id = @media_id", conn);
+                    selectAccessToken.Parameters.Add(new SqlParameter("created_by_user_id", userId));
                     selectAccessToken.Parameters.Add(new SqlParameter("media_id", mediaId));
 
                     using (SqlDataReader reader = selectAccessToken.ExecuteReader())
@@ -81,20 +81,13 @@ namespace ParsnipData.Media
             using (SqlConnection conn = Parsnip.GetOpenDbConnection())
             {
                 var getImageStats = new SqlCommand(
-                    "SELECT image.image_id AS media_id, " +
-                    "image.title, " +
-                    "uploaded_by.forename," +
-                    "shared_by.forename," +
-                    "access_token.times_used," +
-                    "access_token.access_token_id, " +
-                    "media_tag_pair.album_id, " +
-                    "shared_by.user_id " +
+                    "SELECT image.image_id AS media_id, image.title, uploaded_by.forename, shared_by.forename, access_token.times_used, access_token.access_token_id, media_tag_pair.media_tag_id, shared_by.user_id " +
 
                     "FROM access_token " +
                     "INNER JOIN image ON access_token.media_id = image.image_id " +
-                    "INNER JOIN [user] AS uploaded_by ON image.created_by_id = uploaded_by.user_id " +
-                    "INNER JOIN [user] AS shared_by ON access_token.user_id = shared_by.user_id " +
-                    "INNER JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id " +
+                    "INNER JOIN[user] AS uploaded_by ON image.created_by_user_id = uploaded_by.user_id " +
+                    "INNER JOIN[user] AS shared_by ON access_token.created_by_user_id = shared_by.user_id " +
+                    "LEFT JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id " +
 
                     "ORDER BY times_used DESC", conn);
 
@@ -105,16 +98,16 @@ namespace ParsnipData.Media
                     "shared_by.forename, " +
                     "access_token.times_used , " +
                     "access_token.access_token_id, " +
-                    "media_tag_pair.album_id, " +
+                    "media_tag_pair.media_tag_id, " +
                     "shared_by.user_id " +
 
 
 
                     "FROM access_token " +
                     "INNER JOIN video ON access_token.media_id = video.video_id " +
-                    "INNER JOIN [user] AS uploaded_by ON video.created_by_id = uploaded_by.user_id " +
-                    "INNER JOIN [user] AS shared_by ON access_token.user_id = shared_by.user_id " +
-                    "INNER JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id " +
+                    "INNER JOIN [user] AS uploaded_by ON video.created_by_user_id = uploaded_by.user_id " +
+                    "INNER JOIN [user] AS shared_by ON access_token.created_by_user_id = shared_by.user_id " +
+                    "LEFT JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id " +
 
                     "ORDER BY times_used DESC", conn);
 
@@ -149,8 +142,8 @@ namespace ParsnipData.Media
             {
                 using (SqlConnection conn = ParsnipData.Parsnip.GetOpenDbConnection())
                 {
-                    var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE user_id = @user_id AND media_id = @media_id", conn);
-                    selectAccessToken.Parameters.Add(new SqlParameter("user_id", userId));
+                    var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE created_by_user_id = @created_by_user_id AND media_id = @media_id", conn);
+                    selectAccessToken.Parameters.Add(new SqlParameter("created_by_user_id", userId));
                     selectAccessToken.Parameters.Add(new SqlParameter("media_id", mediaId));
 
                     using (SqlDataReader reader = selectAccessToken.ExecuteReader())
@@ -228,9 +221,9 @@ namespace ParsnipData.Media
             {
                 using (SqlConnection conn = ParsnipData.Parsnip.GetOpenDbConnection())
                 {
-                    var insertAccessToken = new SqlCommand("INSERT INTO access_token VALUES (@access_token_id, @user_id, @date_time_created, @times_used, @media_id)", conn);
+                    var insertAccessToken = new SqlCommand("INSERT INTO access_token VALUES (@access_token_id, @created_by_user_id, @date_time_created, @times_used, @media_id)", conn);
                     insertAccessToken.Parameters.Add(new SqlParameter("access_token_id", Id));
-                    insertAccessToken.Parameters.Add(new SqlParameter("user_id", UserId));
+                    insertAccessToken.Parameters.Add(new SqlParameter("created_by_user_id", UserId));
                     insertAccessToken.Parameters.Add(new SqlParameter("date_time_created", DateTimeCreated));
                     insertAccessToken.Parameters.Add(new SqlParameter("times_used", TimesUsed));
                     insertAccessToken.Parameters.Add(new SqlParameter("media_id", MediaId));
