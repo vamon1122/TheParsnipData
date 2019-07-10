@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Web;
-using BenLog;
 using System.Diagnostics;
 using ParsnipData.Logs;
 using ParsnipData.Cookies;
@@ -15,10 +14,7 @@ namespace ParsnipData.Accounts
 {
     public class User
     {
-        public static readonly Log DebugLog = new Log("Debug");
-
         #region Properties
-        private LogWriter AccountLog;
         private Guid _id;
         public Guid Id { get { return _id; } private set { /*Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value));*/ _id = value; } }
         private string _username;
@@ -161,26 +157,23 @@ namespace ParsnipData.Accounts
             Id = Guid.Empty;
             
             DateTimeCreated = Parsnip.adjustedTime;
-            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
         public User(Guid pGuid)
         {
             //Debug.WriteLine("User was initialised with the guid: " + pGuid);
             Id = pGuid;
-            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
         public User(SqlDataReader pReader)
         {
             //Debug.WriteLine("User was initialised with an SqlDataReader. Guid: " + pReader[0]);
             AddValues(pReader);
-            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
         }
 
         private User()
         {
-            AccountLog = new LogWriter("Account Object.txt", AppDomain.CurrentDomain.BaseDirectory);
+
         }
         #endregion
 
@@ -331,8 +324,7 @@ namespace ParsnipData.Accounts
         {
             //AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
             //Debug.WriteLine(string.Format("----------User.Login() for {0}", Username));
-
-            new LogEntry(DebugLog) { text = "Logging in. pRememberPwd = " + rememberPassword };
+            
 
             string dbPwd = null;
             Username = username;
@@ -1046,7 +1038,6 @@ namespace ParsnipData.Accounts
 
         private string[] GetCookies()
         {
-            AccountLog.Info("Getting user details from cookies...");
             
 
             string[] UserDetails = new string[2];
@@ -1054,35 +1045,29 @@ namespace ParsnipData.Accounts
             if (Cookie.Read("userName") != null)
             {
                 Username = Cookie.Read("userName");
-                AccountLog.Debug("Found a username cookie! Username = " + Username);
                 UserDetails[0] = Username;
             }
             else
             {
-                AccountLog.Debug("No username cookie was found.");
                 UserDetails[0] = "";
             }
 
             if (Cookie.Read("userPwd") != null)
             {
                 UserDetails[1] = Cookie.Read("userPwd");
-                AccountLog.Debug("Found a password cookie! Password = " + UserDetails[1]);
                 
             }
             else if (Cookie.Read("userPwdPerm") != null)
             {
                 UserDetails[1] = Cookie.Read("userPwdPerm");
                 Cookie.WriteSession("userPwd", UserDetails[1]);
-                AccountLog.Debug("Found a password cookie! Password = " + UserDetails[1]);
 
             }
             else
             {
-                AccountLog.Debug("No password cookie was found.");
                 UserDetails[1] = "";
             }
-
-            AccountLog.Info("Returning user details from cookies.");
+            
             return UserDetails;
         }
 
