@@ -47,7 +47,7 @@ namespace ParsnipData.Media
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
 
@@ -80,7 +80,7 @@ namespace ParsnipData.Media
             var allStatsImage = new DataTable();
             //try
             //{
-            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
                 var getImageStats = new SqlCommand(
@@ -143,7 +143,7 @@ namespace ParsnipData.Media
             AccessToken myToken = null;
             try
             {
-                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
 
@@ -177,7 +177,7 @@ namespace ParsnipData.Media
         {
             Id = Guid.NewGuid();
             UserId = userId;
-            DateTimeCreated = ParsnipData.Parsnip.adjustedTime;
+            DateTimeCreated = ParsnipData.Parsnip.AdjustedTime;
             TimesUsed = 0;
             MediaId = mediaId;
         }
@@ -226,7 +226,7 @@ namespace ParsnipData.Media
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
 
@@ -250,7 +250,7 @@ namespace ParsnipData.Media
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
 

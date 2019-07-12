@@ -72,7 +72,7 @@ namespace ParsnipData.Logs
             Debug.WriteLine("----------Creating new log entry. Logid = " + log_id);
             log_id = pLog.Id;
             //userId = pUserId;
-            date = Parsnip.adjustedTime;
+            date = Parsnip.AdjustedTime;
 
         }
 
@@ -81,7 +81,7 @@ namespace ParsnipData.Logs
             string stage = "";
             try
             {
-                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
 

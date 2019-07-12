@@ -28,7 +28,7 @@ namespace ParsnipData.Logs
         {
             isNew = true;
             Id = pLogId;
-            DateTimeCreated = Parsnip.adjustedTime;
+            DateTimeCreated = Parsnip.AdjustedTime;
 
         }
 
@@ -39,7 +39,7 @@ namespace ParsnipData.Logs
 
         public Log(string pName) : this()
         {
-            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
 
@@ -53,7 +53,7 @@ namespace ParsnipData.Logs
                 else
                 {
                     Id = Guid.NewGuid();
-                    DateTimeCreated = Parsnip.adjustedTime;
+                    DateTimeCreated = Parsnip.AdjustedTime;
                     Insert();
                 }
             }
@@ -67,7 +67,7 @@ namespace ParsnipData.Logs
             {
                 var logEntries = new List<LogEntry>();
 
-                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
                     SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM log_entry WHERE log_id = @log_id  ORDER BY date_time_created DESC", conn);
@@ -98,7 +98,7 @@ namespace ParsnipData.Logs
                 Debug.WriteLine("----------Getting all logs...");
 
             var logs = new List<Log>();
-            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
 
@@ -141,7 +141,7 @@ namespace ParsnipData.Logs
 
         public bool Select()
         {
-            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
 
@@ -217,7 +217,7 @@ namespace ParsnipData.Logs
 
         public bool Exists()
         {
-            using (SqlConnection openConn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection openConn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 openConn.Open();
 
@@ -291,7 +291,7 @@ namespace ParsnipData.Logs
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
 

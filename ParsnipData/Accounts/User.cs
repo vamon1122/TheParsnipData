@@ -156,7 +156,7 @@ namespace ParsnipData.Accounts
             //Debug.WriteLine(string.Format("User was initialised without a guid. WhereAmI = {0} Their guid will be: {1}", pWhereAmI, Guid.Empty));
             Id = Guid.Empty;
             
-            DateTimeCreated = Parsnip.adjustedTime;
+            DateTimeCreated = Parsnip.AdjustedTime;
         }
 
         public User(Guid pGuid)
@@ -186,7 +186,7 @@ namespace ParsnipData.Accounts
                 Debug.WriteLine("----------Getting all users...");
 
             var users = new List<User>();
-            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
                 SqlCommand GetUsers = new SqlCommand("SELECT * FROM [user]", conn);
@@ -227,7 +227,7 @@ namespace ParsnipData.Accounts
 
         public static User LogIn(string pUsername, string pPassword)
         {
-            using (var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
                 try
@@ -274,7 +274,7 @@ namespace ParsnipData.Accounts
         {
             Username = pUsername;
             bool success;
-            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 success = DbSelect(conn);
             }
@@ -336,7 +336,7 @@ namespace ParsnipData.Accounts
             string dbPwd = null;
             Username = username;
 
-            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
                 //AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
@@ -453,7 +453,7 @@ namespace ParsnipData.Accounts
                         //AccountLog.Debug("username = " + username);
                         SqlCommand Command = new SqlCommand("UPDATE [user] SET last_login = @date WHERE username = @username;", conn);
                         Command.Parameters.Add(new SqlParameter("username", Username));
-                        Command.Parameters.Add(new SqlParameter("date", Parsnip.adjustedTime));
+                        Command.Parameters.Add(new SqlParameter("date", Parsnip.AdjustedTime));
                         RecordsAffected = Command.ExecuteNonQuery();
 
                     }
@@ -496,7 +496,7 @@ namespace ParsnipData.Accounts
 
         public bool Select()
         {
-            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 return DbSelect(conn);
             }
@@ -505,7 +505,7 @@ namespace ParsnipData.Accounts
         public bool Update()
         {
             bool success;
-            using (var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
                 success = ExistsOnDb(conn) ? DbUpdate(conn) : DbInsert(Password, conn);
@@ -515,7 +515,7 @@ namespace ParsnipData.Accounts
 
         public bool Delete()
         {
-            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
                 return DbDelete(conn);
@@ -775,7 +775,7 @@ namespace ParsnipData.Accounts
 
         public bool ExistsOnDb()
         {
-            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 return ExistsOnDb(conn);
             }
@@ -1112,7 +1112,7 @@ namespace ParsnipData.Accounts
                         InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
                         InsertIntoDb.Parameters.Add(new SqlParameter("forename", Forename.Trim()));
                         InsertIntoDb.Parameters.Add(new SqlParameter("surname", Surname.Trim()));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.adjustedTime));
+                        InsertIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.AdjustedTime));
                         InsertIntoDb.Parameters.Add(new SqlParameter("type", AccountType));
                         InsertIntoDb.Parameters.Add(new SqlParameter("status", AccountStatus));
 

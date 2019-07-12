@@ -28,7 +28,7 @@ namespace ParsnipData.Media
         {
             try
             {
-                using(SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using(SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
                     SqlCommand countVideos = new SqlCommand("SELECT COUNT(*) from video where video_id = @id", conn);
@@ -57,7 +57,7 @@ namespace ParsnipData.Media
                 Debug.WriteLine("----------Getting all video's album Ids...");
 
             var albumIds = new List<Guid>();
-            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
                 SqlCommand GetVideos = new SqlCommand("SELECT album_id FROM media_tag_pair WHERE media_id = @video_id", conn);
@@ -89,7 +89,7 @@ namespace ParsnipData.Media
             Video video = new Video();
             try
             {
-                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
                     SqlCommand GetVideos = new SqlCommand("SELECT TOP 1 * FROM video ORDER BY date_time_created DESC", conn);
@@ -118,7 +118,7 @@ namespace ParsnipData.Media
                 Debug.WriteLine("----------Getting all videos...");
 
             var videos = new List<Video>();
-            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
                 SqlCommand GetVideos = new SqlCommand("SELECT * FROM video ORDER BY date_time_created DESC", conn);
@@ -148,7 +148,7 @@ namespace ParsnipData.Media
                 Debug.WriteLine("----------Getting all videos by user...");
 
             var videos = new List<Video>();
-            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
                 Debug.WriteLine("---------- Selecting videos by user with id = " + userId);
@@ -190,7 +190,7 @@ namespace ParsnipData.Media
             Log DebugLog = new Log("Debug");
             new LogEntry(DebugLog) { text = "Video created with album_id = " + album.Id };
             AlbumId = album.Id;
-            DateCreated = Parsnip.adjustedTime;
+            DateCreated = Parsnip.AdjustedTime;
             CreatedById = createdBy.Id;
         }
 
@@ -208,7 +208,7 @@ namespace ParsnipData.Media
 
         public bool ExistsOnDb()
         {
-            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 return ExistsOnDb(conn);
             }
@@ -381,7 +381,7 @@ namespace ParsnipData.Media
 
                         InsertVideoIntoDb.Parameters.Add(new SqlParameter("id", Id));
                         InsertVideoIntoDb.Parameters.Add(new SqlParameter("directory", Directory.Trim()));
-                        InsertVideoIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.adjustedTime));
+                        InsertVideoIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.AdjustedTime));
                         InsertVideoIntoDb.Parameters.Add(new SqlParameter("created_by_user_id", CreatedById));
 
                         InsertVideoIntoDb.ExecuteNonQuery();
@@ -417,7 +417,7 @@ namespace ParsnipData.Media
 
         public bool Select()
         {
-            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 return DbSelect(conn);
             }
@@ -471,7 +471,7 @@ namespace ParsnipData.Media
         public bool Update()
         {
             bool success;
-            using (SqlConnection UpdateConnection = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection UpdateConnection = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 success = ExistsOnDb(UpdateConnection) ?  DbUpdate(UpdateConnection) : DbInsert(UpdateConnection);
             }
@@ -609,7 +609,7 @@ namespace ParsnipData.Media
 
         public bool Delete()
         {
-            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
 

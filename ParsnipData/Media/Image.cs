@@ -35,7 +35,7 @@ namespace ParsnipData.Media
                 Debug.WriteLine("----------Getting all image's album Ids...");
 
             var albumIds = new List<Guid>();
-            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
 
@@ -71,7 +71,7 @@ namespace ParsnipData.Media
                 Debug.WriteLine("----------Getting all images...");
 
             var images = new List<Image>();
-            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
 
@@ -102,7 +102,7 @@ namespace ParsnipData.Media
                 Debug.WriteLine("----------Getting all images by user...");
 
             var images = new List<Image>();
-            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
 
@@ -134,7 +134,7 @@ namespace ParsnipData.Media
             {
                 new LogEntry(DebugLog) { text = "Attempting to delete uploaded photos created_by_user_id = " + userId };
 
-                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
                     
@@ -164,7 +164,7 @@ namespace ParsnipData.Media
             Log DebugLog = new Log("Debug");
             new LogEntry(DebugLog) { text = "Image created with album_id = " + pAlbum.Id };
             AlbumId = pAlbum.Id;
-            DateCreated = Parsnip.adjustedTime;
+            DateCreated = Parsnip.AdjustedTime;
             CreatedById = pCreatedBy.Id;
         }
 
@@ -182,7 +182,7 @@ namespace ParsnipData.Media
 
         public bool ExistsOnDb()
         {
-            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
                 return ExistsOnDb(conn);
@@ -362,7 +362,7 @@ namespace ParsnipData.Media
 
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("image_id", Id));
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("src", Directory.Trim()));
-                        InsertImageIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.adjustedTime));
+                        InsertImageIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.AdjustedTime));
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("created_by_user_id", CreatedById));
 
                         InsertImageIntoDb.ExecuteNonQuery();
@@ -398,7 +398,7 @@ namespace ParsnipData.Media
 
         public bool Select()
         {
-            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
 
@@ -455,7 +455,7 @@ namespace ParsnipData.Media
         {
             bool success;
 
-            using (SqlConnection UpdateConnection = new SqlConnection(Parsnip.sqlConnectionString))
+            using (SqlConnection UpdateConnection = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 UpdateConnection.Open();
                 success = ExistsOnDb(UpdateConnection) ? DbUpdate(UpdateConnection) : DbInsert(UpdateConnection);
@@ -593,7 +593,7 @@ namespace ParsnipData.Media
 
         public bool Delete()
         {
-            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
                 return DbDelete(conn);
@@ -610,7 +610,7 @@ namespace ParsnipData.Media
             {
                 new LogEntry(DebugLog) { text = "Attempting to delete uploaded photo id = " + Id };
 
-                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
 

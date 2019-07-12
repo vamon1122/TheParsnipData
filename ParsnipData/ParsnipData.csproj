@@ -67,14 +67,5 @@
     <Content Include="Media\About.txt" />
     <Content Include="Accounts\About.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="LIVE_connections.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Local_connections.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

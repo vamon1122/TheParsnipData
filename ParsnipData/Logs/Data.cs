@@ -17,7 +17,7 @@ namespace ParsnipData.Logs
             
             try
             {
-                using(SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using(SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
 
@@ -42,7 +42,7 @@ namespace ParsnipData.Logs
             {
                 logEntries = new List<LogEntry>();
                 
-                using(SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+                using(SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
                     SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM log_entry ORDER BY date_time_created DESC", conn);
