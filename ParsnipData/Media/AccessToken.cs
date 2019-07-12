@@ -51,7 +51,9 @@ namespace ParsnipData.Media
                 {
                     conn.Open();
 
-                    var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE created_by_user_id = @created_by_user_id AND media_id = @media_id", conn);
+                    var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE " +
+                        "created_by_user_id = @created_by_user_id AND media_id = @media_id", conn);
+
                     selectAccessToken.Parameters.Add(new SqlParameter("created_by_user_id", userId));
                     selectAccessToken.Parameters.Add(new SqlParameter("media_id", mediaId));
 
@@ -84,7 +86,9 @@ namespace ParsnipData.Media
             {
                 conn.Open();
                 var getImageStats = new SqlCommand(
-                    "SELECT image.image_id AS media_id, image.title, uploaded_by.forename, shared_by.forename, access_token.times_used, access_token.access_token_id, media_tag_pair.media_tag_id, shared_by.user_id " +
+                    "SELECT image.image_id AS media_id, image.title, uploaded_by.forename, shared_by.forename, " +
+                    "access_token.times_used, access_token.access_token_id, media_tag_pair.media_tag_id, " +
+                    "shared_by.user_id " +
 
                     "FROM access_token " +
                     "INNER JOIN image ON access_token.media_id = image.image_id " +
@@ -147,7 +151,8 @@ namespace ParsnipData.Media
                 {
                     conn.Open();
 
-                    var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE created_by_user_id = @created_by_user_id AND media_id = @media_id", conn);
+                    var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE " +
+                        "created_by_user_id = @created_by_user_id AND media_id = @media_id", conn);
                     selectAccessToken.Parameters.Add(new SqlParameter("created_by_user_id", userId));
                     selectAccessToken.Parameters.Add(new SqlParameter("media_id", mediaId));
 
@@ -195,7 +200,9 @@ namespace ParsnipData.Media
                 {
                     conn.Open();
 
-                    var selectAccessToken = new SqlCommand("SELECT * FROM access_token WHERE access_token_id = @id", conn);
+                    var selectAccessToken = 
+                        new SqlCommand("SELECT * FROM access_token WHERE access_token_id = @id", conn);
+
                     selectAccessToken.Parameters.Add(new SqlParameter("id", Id));
 
                     using (SqlDataReader reader = selectAccessToken.ExecuteReader())
@@ -230,7 +237,9 @@ namespace ParsnipData.Media
                 {
                     conn.Open();
 
-                    var insertAccessToken = new SqlCommand("INSERT INTO access_token VALUES (@access_token_id, @created_by_user_id, @date_time_created, @times_used, @media_id)", conn);
+                    var insertAccessToken = new SqlCommand("INSERT INTO access_token VALUES (@access_token_id, " +
+                        "@created_by_user_id, @date_time_created, @times_used, @media_id)", conn);
+
                     insertAccessToken.Parameters.Add(new SqlParameter("access_token_id", Id));
                     insertAccessToken.Parameters.Add(new SqlParameter("created_by_user_id", UserId));
                     insertAccessToken.Parameters.Add(new SqlParameter("date_time_created", DateTimeCreated));
@@ -254,7 +263,9 @@ namespace ParsnipData.Media
                 {
                     conn.Open();
 
-                    var updateAccessToken = new SqlCommand("UPDATE access_token SET times_used = @times_used WHERE access_token_id = @access_token_id", conn);
+                    var updateAccessToken = new SqlCommand("UPDATE access_token SET times_used = @times_used WHERE " +
+                        "access_token_id = @access_token_id", conn);
+
                     updateAccessToken.Parameters.Add(new SqlParameter("access_token_id", Id));
                     updateAccessToken.Parameters.Add(new SqlParameter("times_used", TimesUsed));
 
