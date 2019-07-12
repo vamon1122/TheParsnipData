@@ -28,8 +28,9 @@ namespace ParsnipData.Media
             Debug.WriteLine("----------Getting all albums...");
 
         var albums = new List<Album>();
-        using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+        using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
         {
+            conn.Open();
             SqlCommand GetAlbums = new SqlCommand("SELECT * FROM media_tag ORDER BY date_time_created DESC", conn);
             using (SqlDataReader reader = GetAlbums.ExecuteReader())
             {
@@ -57,20 +58,22 @@ namespace ParsnipData.Media
             Debug.WriteLine("----------Getting all albums by user...");
 
         var albums = new List<Image>();
-        using (SqlConnection conn = Parsnip.GetOpenDbConnection())
-        {
-            Debug.WriteLine("---------- Selecting albums by user with media_tag_id = " + pUserId);
-            SqlCommand GetAlbums = new SqlCommand("SELECT * FROM media_tag WHERE created_by_user_id = @created_by_user_id ORDER BY date_time_created DESC", conn);
-            GetAlbums.Parameters.Add(new SqlParameter("created_by_user_id", pUserId));
-
-            using (SqlDataReader reader = GetAlbums.ExecuteReader())
+            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
             {
-                while (reader.Read())
+                conn.Open();
+
+                Debug.WriteLine("---------- Selecting albums by user with media_tag_id = " + pUserId);
+                SqlCommand GetAlbums = new SqlCommand("SELECT * FROM media_tag WHERE created_by_user_id = @created_by_user_id ORDER BY date_time_created DESC", conn);
+                GetAlbums.Parameters.Add(new SqlParameter("created_by_user_id", pUserId));
+
+                using (SqlDataReader reader = GetAlbums.ExecuteReader())
                 {
-                    albums.Add(new Image(reader));
+                    while (reader.Read())
+                    {
+                        albums.Add(new Image(reader));
+                    }
                 }
             }
-        }
 
         foreach (Image temp in albums)
         {
@@ -87,9 +90,10 @@ namespace ParsnipData.Media
             List<Guid> ImageGuids = new List<Guid>();
             List<Image> Images = new List<Image>();
 
-            using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
+            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
             {
-                SqlCommand GetImages = new SqlCommand("SELECT image.* FROM image LEFT JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id WHERE media_tag_pair.media_tag_id = @media_tag_id ORDER BY image.date_time_created DESC", openConn);
+                conn.Open();
+                SqlCommand GetImages = new SqlCommand("SELECT image.* FROM image LEFT JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id WHERE media_tag_pair.media_tag_id = @media_tag_id ORDER BY image.date_time_created DESC", conn);
                 GetImages.Parameters.Add(new SqlParameter("media_tag_id", Id));
 
                 using(SqlDataReader reader = GetImages.ExecuteReader())
@@ -130,7 +134,12 @@ namespace ParsnipData.Media
 
     public bool ExistsOnDb()
     {
-        return ExistsOnDb(Parsnip.GetOpenDbConnection());
+            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            {
+                conn.Open();
+                return ExistsOnDb(conn);
+            }
+        
     }
 
     private bool ExistsOnDb(SqlConnection pOpenConn)
@@ -272,7 +281,12 @@ namespace ParsnipData.Media
 
     public bool Select()
     {
-        return DbSelect(Parsnip.GetOpenDbConnection());
+            using(SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
+            {
+                conn.Open();
+                return DbSelect(conn);
+            }
+        
     }
 
     internal bool DbSelect(SqlConnection pOpenConn)
@@ -322,9 +336,13 @@ namespace ParsnipData.Media
     public bool Update()
     {
         bool success;
-        SqlConnection UpdateConnection = Parsnip.GetOpenDbConnection();
-        if (ExistsOnDb(UpdateConnection)) success = DbUpdate(UpdateConnection); else success = DbInsert(UpdateConnection);
-        UpdateConnection.Close();
+            using (var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            {
+                conn.Open();
+                success = ExistsOnDb(conn) ? DbUpdate(conn) : DbInsert(conn);
+                
+            }
+                
         return success;
     }
 
@@ -395,7 +413,12 @@ namespace ParsnipData.Media
 
     public bool Delete()
     {
-        return DbDelete(Parsnip.GetOpenDbConnection());
+            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            {
+                conn.Open();
+                return DbDelete(conn);
+            }
+        
     }
 
     internal bool DbDelete(SqlConnection pOpenConn)

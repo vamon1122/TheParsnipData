@@ -186,8 +186,9 @@ namespace ParsnipData.Accounts
                 Debug.WriteLine("----------Getting all users...");
 
             var users = new List<User>();
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
             {
+                conn.Open();
                 SqlCommand GetUsers = new SqlCommand("SELECT * FROM [user]", conn);
                 using (SqlDataReader reader = GetUsers.ExecuteReader())
                 {
@@ -226,11 +227,12 @@ namespace ParsnipData.Accounts
 
         public static User LogIn(string pUsername, string pPassword)
         {
-            using (var openConn = Parsnip.GetOpenDbConnection())
+            using (var conn = new SqlConnection(Parsnip.sqlConnectionString))
             {
+                conn.Open();
                 try
                 {
-                    SqlCommand getId = new SqlCommand("SELECT * FROM [user] WHERE username = @username AND password = @password", openConn);
+                    SqlCommand getId = new SqlCommand("SELECT * FROM [user] WHERE username = @username AND password = @password", conn);
                     getId.Parameters.Add(new SqlParameter("username", pUsername));
 
                     using (SqlDataReader reader = getId.ExecuteReader())
@@ -271,7 +273,12 @@ namespace ParsnipData.Accounts
         internal bool LogIn(string pUsername)
         {
             Username = pUsername;
-            return DbSelect(Parsnip.GetOpenDbConnection());
+            bool success;
+            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            {
+                success = DbSelect(conn);
+            }
+            return success;
         }
 
         
@@ -329,8 +336,9 @@ namespace ParsnipData.Accounts
             string dbPwd = null;
             Username = username;
 
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
             {
+                conn.Open();
                 //AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
 
 
@@ -488,21 +496,31 @@ namespace ParsnipData.Accounts
 
         public bool Select()
         {
-            return DbSelect(Parsnip.GetOpenDbConnection());
+            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            {
+                return DbSelect(conn);
+            }
         }
 
         public bool Update()
         {
             bool success;
-            SqlConnection UpdateConnection = Parsnip.GetOpenDbConnection();
-            if (ExistsOnDb(UpdateConnection)) success = DbUpdate(UpdateConnection); else success = DbInsert(Password, UpdateConnection);
-            UpdateConnection.Close();
+            using (var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            {
+                conn.Open();
+                success = ExistsOnDb(conn) ? DbUpdate(conn) : DbInsert(Password, conn);
+            }
             return success;
         }
 
         public bool Delete()
         {
-            return DbDelete(Parsnip.GetOpenDbConnection());
+            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            {
+                conn.Open();
+                return DbDelete(conn);
+            }
+            
         }
 
         public bool Validate()
@@ -757,7 +775,10 @@ namespace ParsnipData.Accounts
 
         public bool ExistsOnDb()
         {
-            return ExistsOnDb(Parsnip.GetOpenDbConnection());
+            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            {
+                return ExistsOnDb(conn);
+            }
         }
 
         

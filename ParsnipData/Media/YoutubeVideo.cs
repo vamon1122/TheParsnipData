@@ -36,8 +36,9 @@ namespace ParsnipData.Media
                 Debug.WriteLine("----------Getting all youtubeVideo's album Ids...");
 
             var albumIds = new List<Guid>();
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
             {
+                conn.Open();
                 SqlCommand GetYoutubeVideos = new SqlCommand("SELECT album_id FROM media_tag_pair WHERE image_id = @youtube_video_id", conn);
                 GetYoutubeVideos.Parameters.Add(new SqlParameter("youtube_video_id", Id));
 
@@ -67,8 +68,9 @@ namespace ParsnipData.Media
             YoutubeVideo youtubeVideo = new YoutubeVideo();
             try
             {
-                using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
                 {
+                    conn.Open();
                     SqlCommand GetYoutubeVideos = new SqlCommand("SELECT TOP 1 * FROM youtube_video ORDER BY date_time_created DESC", conn);
                     using (SqlDataReader reader = GetYoutubeVideos.ExecuteReader())
                     {
@@ -95,8 +97,10 @@ namespace ParsnipData.Media
                 Debug.WriteLine("----------Getting all youtube videos...");
 
             var youtubeVideos = new List<YoutubeVideo>();
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
             {
+                conn.Open();
+
                 SqlCommand GetYoutubeVideos = new SqlCommand("SELECT * FROM youtube_video ORDER BY date_time_created DESC", conn);
                 using (SqlDataReader reader = GetYoutubeVideos.ExecuteReader())
                 {
@@ -124,8 +128,9 @@ namespace ParsnipData.Media
                 Debug.WriteLine("----------Getting all youtubeVideos by user...");
 
             var youtubeVideos = new List<YoutubeVideo>();
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
             {
+                conn.Open();
                 Debug.WriteLine("---------- Selecting youtubeVideos by user with id = " + userId);
                 SqlCommand GetYoutubeVideos = new SqlCommand("SELECT * FROM youtube_video WHERE created_by_user_id = @created_by_user_id ORDER BY date_time_created DESC", conn);
                 GetYoutubeVideos.Parameters.Add(new SqlParameter("created_by_user_id", userId));
@@ -188,7 +193,11 @@ namespace ParsnipData.Media
 
         public bool ExistsOnDb()
         {
-            return ExistsOnDb(Parsnip.GetOpenDbConnection());
+            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            {
+                return ExistsOnDb(conn);
+            }
+            
         }
 
         private bool ExistsOnDb(SqlConnection conn)
@@ -336,8 +345,9 @@ namespace ParsnipData.Media
                     {
 
 
-                        using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+                        using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
                         {
+                            conn.Open();
                             SqlCommand UpdateTitle = new SqlCommand("UPDATE youtube_video SET title = @title WHERE youtube_video_id = @youtube_video_id", conn);
                             UpdateTitle.Parameters.Add(new SqlParameter("title", Title));
                             UpdateTitle.Parameters.Add(new SqlParameter("youtube_video_id", Id));
@@ -433,7 +443,11 @@ namespace ParsnipData.Media
 
         public bool Select()
         {
-            return DbSelect(Parsnip.GetOpenDbConnection());
+            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            {
+                return DbSelect(conn);
+            }
+            
         }
 
         internal bool DbSelect(SqlConnection conn)
@@ -494,9 +508,12 @@ namespace ParsnipData.Media
         public bool Update()
         {
             bool success;
-            SqlConnection UpdateConnection = Parsnip.GetOpenDbConnection();
-            if (ExistsOnDb(UpdateConnection)) success = DbUpdate(UpdateConnection); else success = DbInsert(UpdateConnection);
-            UpdateConnection.Close();
+            using (SqlConnection UpdateConnection = new SqlConnection(Parsnip.sqlConnectionString))
+            {
+                UpdateConnection.Open();
+                success = ExistsOnDb(UpdateConnection) ? DbUpdate(UpdateConnection) : DbInsert(UpdateConnection);
+            }
+                
             return success;
         }
 
@@ -633,7 +650,11 @@ namespace ParsnipData.Media
 
         public bool Delete()
         {
-            return DbDelete(Parsnip.GetOpenDbConnection());
+            using(var conn = new SqlConnection(Parsnip.sqlConnectionString))
+            {
+                return DbDelete(conn);
+            }
+            
         }
 
         internal bool DbDelete(SqlConnection pOpenConn)
@@ -645,14 +666,15 @@ namespace ParsnipData.Media
             {
                 new LogEntry(DebugLog) { text = "Attempting to delete uploaded photo id = " + Id };
 
-                using (SqlConnection conn = Parsnip.GetOpenDbConnection())
-                {
-                    SqlCommand DeleteYoutubeVideo = new SqlCommand("DELETE iap FROM media_tag_pair iap FULL OUTER JOIN youtube_video ON image_id = youtube_video.youtube_video_id  WHERE youtube_video.id = @youtube_video_id", conn);
+
+                /*using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+                {*/
+                    SqlCommand DeleteYoutubeVideo = new SqlCommand("DELETE iap FROM media_tag_pair iap FULL OUTER JOIN youtube_video ON image_id = youtube_video.youtube_video_id  WHERE youtube_video.id = @youtube_video_id", pOpenConn);
                     DeleteYoutubeVideo.Parameters.Add(new SqlParameter("youtube_video_id", Id));
                     int recordsAffected = DeleteYoutubeVideo.ExecuteNonQuery();
 
                     new LogEntry(DebugLog) { text = string.Format("{0} record(s) were affected", recordsAffected) };
-                }
+                //}
             }
             catch (Exception err)
             {

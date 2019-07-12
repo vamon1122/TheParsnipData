@@ -39,14 +39,16 @@ namespace ParsnipData.Logs
 
         public Log(string pName) : this()
         {
-            using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
+            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
             {
+                conn.Open();
+
                 Debug.WriteLine("Creating new Log object with name = " + pName);
                 Name = pName;
 
-                if (NameExists(openConn))
+                if (NameExists(conn))
                 {
-                    SelectByName(openConn);
+                    SelectByName(conn);
                 }
                 else
                 {
@@ -96,8 +98,10 @@ namespace ParsnipData.Logs
                 Debug.WriteLine("----------Getting all logs...");
 
             var logs = new List<Log>();
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
             {
+                conn.Open();
+
                 SqlCommand GetLogs = new SqlCommand("SELECT * FROM log", conn);
                 using (SqlDataReader reader = GetLogs.ExecuteReader())
                 {
@@ -137,12 +141,14 @@ namespace ParsnipData.Logs
 
         public bool Select()
         {
-            using (SqlConnection openConnection = Parsnip.GetOpenDbConnection())
+            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
             {
+                conn.Open();
+
                 if (Id != null && Id != Guid.Empty)
                 {
-                    if (IdExists(openConnection))
-                        return SelectById(openConnection);
+                    if (IdExists(conn))
+                        return SelectById(conn);
                     else
                         return false;
 
@@ -150,8 +156,8 @@ namespace ParsnipData.Logs
 
                 if (Name != null && Name != "")
                 {
-                    if (NameExists(openConnection))
-                        return SelectByName(openConnection);
+                    if (NameExists(conn))
+                        return SelectByName(conn);
                     else
                         return false;
                 }
@@ -211,8 +217,10 @@ namespace ParsnipData.Logs
 
         public bool Exists()
         {
-            using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
+            using (SqlConnection openConn = new SqlConnection(Parsnip.sqlConnectionString))
             {
+                openConn.Open();
+
                 if (IdExists(openConn))
                 {
                     Debug.WriteLine("The log Id already existed!");

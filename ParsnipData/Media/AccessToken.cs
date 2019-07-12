@@ -47,8 +47,10 @@ namespace ParsnipData.Media
         {
             try
             {
-                using (SqlConnection conn = ParsnipData.Parsnip.GetOpenDbConnection())
+                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
                 {
+                    conn.Open();
+
                     var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE created_by_user_id = @created_by_user_id AND media_id = @media_id", conn);
                     selectAccessToken.Parameters.Add(new SqlParameter("created_by_user_id", userId));
                     selectAccessToken.Parameters.Add(new SqlParameter("media_id", mediaId));
@@ -78,8 +80,9 @@ namespace ParsnipData.Media
             var allStatsImage = new DataTable();
             //try
             //{
-            using (SqlConnection conn = Parsnip.GetOpenDbConnection())
+            using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
             {
+                conn.Open();
                 var getImageStats = new SqlCommand(
                     "SELECT image.image_id AS media_id, image.title, uploaded_by.forename, shared_by.forename, access_token.times_used, access_token.access_token_id, media_tag_pair.media_tag_id, shared_by.user_id " +
 
@@ -140,8 +143,10 @@ namespace ParsnipData.Media
             AccessToken myToken = null;
             try
             {
-                using (SqlConnection conn = ParsnipData.Parsnip.GetOpenDbConnection())
+                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
                 {
+                    conn.Open();
+
                     var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE created_by_user_id = @created_by_user_id AND media_id = @media_id", conn);
                     selectAccessToken.Parameters.Add(new SqlParameter("created_by_user_id", userId));
                     selectAccessToken.Parameters.Add(new SqlParameter("media_id", mediaId));
@@ -186,8 +191,10 @@ namespace ParsnipData.Media
         {
             try
             {
-                using (SqlConnection conn = ParsnipData.Parsnip.GetOpenDbConnection())
+                using (SqlConnection conn = new SqlConnection())
                 {
+                    conn.Open();
+
                     var selectAccessToken = new SqlCommand("SELECT * FROM access_token WHERE access_token_id = @id", conn);
                     selectAccessToken.Parameters.Add(new SqlParameter("id", Id));
 
@@ -219,8 +226,10 @@ namespace ParsnipData.Media
         {
             try
             {
-                using (SqlConnection conn = ParsnipData.Parsnip.GetOpenDbConnection())
+                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
                 {
+                    conn.Open();
+
                     var insertAccessToken = new SqlCommand("INSERT INTO access_token VALUES (@access_token_id, @created_by_user_id, @date_time_created, @times_used, @media_id)", conn);
                     insertAccessToken.Parameters.Add(new SqlParameter("access_token_id", Id));
                     insertAccessToken.Parameters.Add(new SqlParameter("created_by_user_id", UserId));
@@ -241,8 +250,10 @@ namespace ParsnipData.Media
         {
             try
             {
-                using (SqlConnection conn = ParsnipData.Parsnip.GetOpenDbConnection())
+                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
                 {
+                    conn.Open();
+
                     var updateAccessToken = new SqlCommand("UPDATE access_token SET times_used = @times_used WHERE access_token_id = @access_token_id", conn);
                     updateAccessToken.Parameters.Add(new SqlParameter("access_token_id", Id));
                     updateAccessToken.Parameters.Add(new SqlParameter("times_used", TimesUsed));

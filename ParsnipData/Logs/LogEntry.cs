@@ -81,14 +81,16 @@ namespace ParsnipData.Logs
             string stage = "";
             try
             {
-                using (SqlConnection openConn = Parsnip.GetOpenDbConnection())
+                using (SqlConnection conn = new SqlConnection(Parsnip.sqlConnectionString))
                 {
+                    conn.Open();
+
                     stage = "inserting LogEntry...";
                     
                     Debug.WriteLine("---------- BEN! - session_id = " + SessionId);
                     
 
-                    SqlCommand insertLogEntry = new SqlCommand("INSERT INTO log_entry (log_entry_id, log_id, session_id, date_time_created, text) VALUES(@log_entry_id, @log_id, @session_id, @date_time_created, @text)", openConn);
+                    SqlCommand insertLogEntry = new SqlCommand("INSERT INTO log_entry (log_entry_id, log_id, session_id, date_time_created, text) VALUES(@log_entry_id, @log_id, @session_id, @date_time_created, @text)", conn);
                     insertLogEntry.Parameters.Add(new SqlParameter("log_entry_id", id));
                     insertLogEntry.Parameters.Add(new SqlParameter("log_id", log_id));
                     insertLogEntry.Parameters.Add(new SqlParameter("session_id", SessionId));
@@ -121,7 +123,7 @@ namespace ParsnipData.Logs
                     if (type != null)
                     {
                         stage = "type was null. Updating LogEntry...";
-                        SqlCommand insertLogEntry_updateType = new SqlCommand("UPDATE log_entry SET type = @type WHERE log_entry_id = @id", openConn);
+                        SqlCommand insertLogEntry_updateType = new SqlCommand("UPDATE log_entry SET type = @type WHERE log_entry_id = @id", conn);
                         insertLogEntry_updateType.Parameters.Add(new SqlParameter("type", type));
                         insertLogEntry_updateType.Parameters.Add(new SqlParameter("id", id));
 
