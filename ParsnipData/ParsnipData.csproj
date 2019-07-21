@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Media\About.txt" />
-    <Content Include="Accounts\About.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -395,7 +395,6 @@ namespace ParsnipData.Accounts
 
                                     return true;
                                 }
-
                             }
                             else
                             {
@@ -498,6 +497,7 @@ namespace ParsnipData.Accounts
         {
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
+                conn.Open();
                 return DbSelect(conn);
             }
         }
