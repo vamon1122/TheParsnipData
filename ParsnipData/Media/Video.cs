@@ -210,6 +210,7 @@ namespace ParsnipData.Media
         {
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
+                conn.Open();
                 return ExistsOnDb(conn);
             }
             
@@ -419,6 +420,7 @@ namespace ParsnipData.Media
         {
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
+                conn.Open();
                 return DbSelect(conn);
             }
             
@@ -471,9 +473,10 @@ namespace ParsnipData.Media
         public bool Update()
         {
             bool success;
-            using (SqlConnection UpdateConnection = new SqlConnection(Parsnip.ParsnipConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
-                success = ExistsOnDb(UpdateConnection) ?  DbUpdate(UpdateConnection) : DbInsert(UpdateConnection);
+                conn.Open();
+                success = ExistsOnDb(conn) ?  DbUpdate(conn) : DbInsert(conn);
             }
                 
             return success;

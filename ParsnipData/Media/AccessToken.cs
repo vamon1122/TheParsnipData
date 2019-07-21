@@ -35,7 +35,6 @@ namespace ParsnipData.Media
         {
             get
             {
-
                 var myImage = new ParsnipData.Media.Image(MediaId);
                 myImage.Select();
                 return string.Format("/video_player?access_token={0}", Id);
@@ -196,7 +195,7 @@ namespace ParsnipData.Media
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection())
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
 
