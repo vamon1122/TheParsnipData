@@ -189,7 +189,7 @@ namespace ParsnipData.Accounts
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                SqlCommand GetUsers = new SqlCommand("SELECT * FROM [user]", conn);
+                SqlCommand GetUsers = new SqlCommand("SELECT * FROM [user] WHERE deleted IS NULL OR deleted <>  '1'", conn);
                 using (SqlDataReader reader = GetUsers.ExecuteReader())
                 {
                     while (reader.Read())
@@ -777,6 +777,7 @@ namespace ParsnipData.Accounts
         {
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
+                conn.Open();
                 return ExistsOnDb(conn);
             }
         }
@@ -1148,7 +1149,7 @@ namespace ParsnipData.Accounts
             
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM [user] WHERE user_id = @user_id", pOpenConn);
+                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM [user] WHERE user_id = @user_id AND (deleted IS NULL OR deleted <>  '1')", pOpenConn);
                 SelectAccount.Parameters.Add(new SqlParameter("user_id", Id.ToString()));
 
                 int recordsFound = 0;
@@ -1600,7 +1601,8 @@ namespace ParsnipData.Accounts
 
             try
             {
-                SqlCommand deleteAccount = new SqlCommand("DELETE FROM [user] WHERE user_id = @user_id", pOpenConn);
+                Debug.WriteLine(string.Format("Setting account with id = '{0}' to deleted", Id));
+                SqlCommand deleteAccount = new SqlCommand("UPDATE [user] SET deleted = '1' WHERE user_id = @user_id", pOpenConn);
                 deleteAccount.Parameters.Add(new SqlParameter("user_id", Id.ToString()));
 
                 int recordsFound = deleteAccount.ExecuteNonQuery();
