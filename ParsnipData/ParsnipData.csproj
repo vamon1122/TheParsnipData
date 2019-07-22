@@ -63,8 +63,5 @@
     <Compile Include="Accounts\Account.cs" />
     <Compile Include="Accounts\User.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Media\About.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

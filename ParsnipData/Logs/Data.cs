@@ -14,7 +14,6 @@ namespace ParsnipData.Logs
 
         public static bool ClearLogs()
         {
-            
             try
             {
                 using(SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
