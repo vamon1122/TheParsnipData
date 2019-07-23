@@ -77,6 +77,7 @@ namespace ParsnipData.Media
         {
             var allStats = new DataTable();
 
+            var allStatsYoutubeVideo = new DataTable();
             var allStatsVideo = new DataTable();
             var allStatsImage = new DataTable();
             //try
@@ -117,6 +118,24 @@ namespace ParsnipData.Media
 
                     "ORDER BY times_used DESC", conn);
 
+                var getYoutubeVideoStats = new SqlCommand(
+                    "SELECT youtube_video.youtube_video_id AS media_id, " +
+                    "youtube_video.title, " +
+                    "uploaded_by.forename, " +
+                    "shared_by.forename, " +
+                    "access_token.times_used, " +
+                    "access_token.access_token_id, " +
+                    "media_tag_pair.media_tag_id, " +
+                    "shared_by.user_id " +
+
+                    "FROM access_token " +
+                    "INNER JOIN youtube_video ON access_token.media_id = youtube_video.youtube_video_id " +
+                    "INNER JOIN[user] AS uploaded_by ON youtube_video.created_by_user_id = uploaded_by.user_id " +
+                    "INNER JOIN[user] AS shared_by ON access_token.created_by_user_id = shared_by.user_id " +
+                    "LEFT JOIN media_tag_pair ON youtube_video.youtube_video_id = media_tag_pair.media_id " +
+
+                    "ORDER BY times_used DESC" ,conn);
+
                 using (var imageStats = getImageStats.ExecuteReader())
                 {
                     allStats.Load(imageStats);
@@ -127,6 +146,12 @@ namespace ParsnipData.Media
                 {
                     allStats.Load(videoStats);
                     allStatsVideo.Load(videoStats);
+                }
+
+                using (var youtubeVideoStats = getYoutubeVideoStats.ExecuteReader())
+                {
+                    allStats.Load(youtubeVideoStats);
+                    allStatsYoutubeVideo.Load(youtubeVideoStats);
                 }
 
                 allStats.DefaultView.Sort = "times_used DESC";
