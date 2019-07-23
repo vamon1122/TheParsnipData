@@ -284,6 +284,7 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Description is blank. Skipping description");
                 }
 
+                Debug.WriteLine("Reading data id " + reader[3].ToString());
                 DataId = reader[3].ToString().Trim();
 
                 if (logMe)
@@ -296,9 +297,9 @@ namespace ParsnipData.Media
 
                 try
                 {
+                    if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && 
+                        !string.IsNullOrWhiteSpace(reader[6].ToString()))
 
-
-                    if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
                     {
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
@@ -459,23 +460,22 @@ namespace ParsnipData.Media
 
                 if (DataId == null)
                 {
+                    Debug.WriteLine(string.Format("DataId \"{0}\" was NULL", DataId));
                     SelectYoutubeVideo = new SqlCommand("SELECT * FROM youtube_video WHERE youtube_video_id = @id", conn);
                     SelectYoutubeVideo.Parameters.Add(new SqlParameter("id", Id.ToString()));
                 }
                 else
                 {
+                    Debug.WriteLine(string.Format("DataId \"{0}\" was NOT NULL", DataId));
                     SelectYoutubeVideo = new SqlCommand("SELECT * FROM youtube_video WHERE data_id = @dataid", conn);
                     SelectYoutubeVideo.Parameters.Add(new SqlParameter("dataid", DataId));
                 }
-                
 
                 int recordsFound = 0;
                 using (SqlDataReader reader = SelectYoutubeVideo.ExecuteReader())
                 {
-
                     while (reader.Read())
                     {
-
                         AddValues(reader);
                         recordsFound++;
                     }

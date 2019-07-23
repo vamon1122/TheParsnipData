@@ -224,15 +224,20 @@ namespace ParsnipData.Media
                 {
                     conn.Open();
 
+                    Debug.WriteLine("Selecting access token...");
+
                     var selectAccessToken = 
                         new SqlCommand("SELECT * FROM access_token WHERE access_token_id = @id", conn);
 
                     selectAccessToken.Parameters.Add(new SqlParameter("id", Id));
 
+                    Debug.WriteLine("Reading...");
+
                     using (SqlDataReader reader = selectAccessToken.ExecuteReader())
                     {
                         while (reader.Read())
                         {
+                            Debug.WriteLine("reader[1] = " + reader[1]);
                             AddValues(reader);
                         }
                     }
@@ -245,6 +250,7 @@ namespace ParsnipData.Media
 
             void AddValues(SqlDataReader reader)
             {
+                Debug.WriteLine("Reading MediaId = " + reader[4]);
                 Id = (Guid)reader[0];
                 UserId = (Guid)reader[1];
                 DateTimeCreated = (DateTime)reader[2];
