@@ -15,7 +15,6 @@ namespace ParsnipData.Media
 {
     public class YoutubeVideo : Media
     {
-
         private static string[] _allowedFileExtensions = new string[0];
         public override string[] AllowedFileExtensions { get { return _allowedFileExtensions; } }
         static readonly Log DebugLog = new Log("Debug");
@@ -195,6 +194,7 @@ namespace ParsnipData.Media
         {
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
+                conn.Open();
                 return ExistsOnDb(conn);
             }
             
@@ -386,8 +386,6 @@ namespace ParsnipData.Media
             }
         }
 
-        
-
         private bool DbInsert(SqlConnection conn)
         {
             throw new NotImplementedException();
@@ -445,9 +443,9 @@ namespace ParsnipData.Media
         {
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
+                conn.Open();
                 return DbSelect(conn);
             }
-            
         }
 
         internal bool DbSelect(SqlConnection conn)
@@ -508,10 +506,10 @@ namespace ParsnipData.Media
         public bool Update()
         {
             bool success;
-            using (SqlConnection UpdateConnection = new SqlConnection(Parsnip.ParsnipConnectionString))
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
-                UpdateConnection.Open();
-                success = ExistsOnDb(UpdateConnection) ? DbUpdate(UpdateConnection) : DbInsert(UpdateConnection);
+                conn.Open();
+                success = ExistsOnDb(conn) ? DbUpdate(conn) : DbInsert(conn);
             }
                 
             return success;
@@ -652,6 +650,7 @@ namespace ParsnipData.Media
         {
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
+                conn.Open();
                 return DbDelete(conn);
             }
             
