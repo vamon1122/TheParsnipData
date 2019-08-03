@@ -75,7 +75,7 @@ namespace ParsnipData.Media
             {
                 conn.Open();
 
-                SqlCommand GetImages = new SqlCommand("SELECT * FROM image ORDER BY date_time_created DESC", conn);
+                SqlCommand GetImages = new SqlCommand("SELECT * FROM image INNER JOIN [user] ON [user].user_id = image.created_by_user_id WHERE [user].deleted IS NULL ORDER BY image.date_time_created DESC", conn);
                 using (SqlDataReader reader = GetImages.ExecuteReader())
                 {
                     while (reader.Read())
@@ -107,7 +107,7 @@ namespace ParsnipData.Media
                 conn.Open();
 
                 Debug.WriteLine("---------- Selecting images by user with id = " + pUserId);
-                SqlCommand GetImages = new SqlCommand("SELECT * FROM image WHERE created_by_user_id = @created_by_user_id ORDER BY date_time_created DESC", conn);
+                SqlCommand GetImages = new SqlCommand("SELECT * FROM image INNER JOIN [user] ON [user].user_id = image.created_by_user_id  WHERE created_by_user_id = @created_by_user_id AND [user].deleted IS NULL ORDER BY image.date_time_created DESC", conn);
                 GetImages.Parameters.Add(new SqlParameter("created_by_user_id", pUserId));
 
                 using (SqlDataReader reader = GetImages.ExecuteReader())
@@ -401,7 +401,6 @@ namespace ParsnipData.Media
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-
                 return DbSelect(conn);
             }
             
@@ -414,7 +413,7 @@ namespace ParsnipData.Media
 
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM image WHERE image_id = @image_id", pOpenConn);
+                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM image INNER JOIN [user] ON [user].user_id = image.created_by_user_id WHERE image_id = @image_id AND [user].deleted IS NULL", pOpenConn);
                 SelectAccount.Parameters.Add(new SqlParameter("image_id", Id.ToString()));
 
                 int recordsFound = 0;

@@ -189,7 +189,7 @@ namespace ParsnipData.Accounts
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                SqlCommand GetUsers = new SqlCommand("SELECT * FROM [user] WHERE deleted IS NULL OR deleted <>  '1'", conn);
+                SqlCommand GetUsers = new SqlCommand("SELECT * FROM [user] WHERE deleted IS NULL", conn);
                 using (SqlDataReader reader = GetUsers.ExecuteReader())
                 {
                     while (reader.Read())
@@ -232,7 +232,8 @@ namespace ParsnipData.Accounts
                 conn.Open();
                 try
                 {
-                    SqlCommand getId = new SqlCommand("SELECT * FROM [user] WHERE username = @username AND password = @password", conn);
+                    SqlCommand getId = new SqlCommand("SELECT * FROM [user] " +
+                        "WHERE username = @username AND password = @password AND deleted IS NULL", conn);
                     getId.Parameters.Add(new SqlParameter("username", pUsername));
 
                     using (SqlDataReader reader = getId.ExecuteReader())
@@ -1149,7 +1150,7 @@ namespace ParsnipData.Accounts
             
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM [user] WHERE user_id = @user_id AND (deleted IS NULL OR deleted <>  '1')", pOpenConn);
+                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM [user] WHERE user_id = @user_id AND (deleted IS NULL)", pOpenConn);
                 SelectAccount.Parameters.Add(new SqlParameter("user_id", Id.ToString()));
 
                 int recordsFound = 0;
@@ -1602,8 +1603,9 @@ namespace ParsnipData.Accounts
             try
             {
                 Debug.WriteLine(string.Format("Setting account with id = '{0}' to deleted", Id));
-                SqlCommand deleteAccount = new SqlCommand("UPDATE [user] SET deleted = '1' WHERE user_id = @user_id", pOpenConn);
+                SqlCommand deleteAccount = new SqlCommand("UPDATE [user] SET deleted = @dateTimeNow WHERE user_id = @user_id", pOpenConn);
                 deleteAccount.Parameters.Add(new SqlParameter("user_id", Id.ToString()));
+                deleteAccount.Parameters.Add(new SqlParameter("dateTimeNow", Parsnip.AdjustedTime));
 
                 int recordsFound = deleteAccount.ExecuteNonQuery();
                 //Debug.WriteLine(string.Format("----------DbDelete() - Found {0} record(s) ", recordsFound));

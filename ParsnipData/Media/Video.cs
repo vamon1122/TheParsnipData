@@ -499,11 +499,15 @@ namespace ParsnipData.Media
                         Log DebugLog = new Log("Debug");
                         new LogEntry(DebugLog) { text = "AlbumId != null = " + AlbumId };
 
-                        SqlCommand DeleteOldPairs = new SqlCommand("DELETE FROM media_tag_pair WHERE videoid = @videoid", pOpenConn);
+                        SqlCommand DeleteOldPairs = 
+                            new SqlCommand("DELETE FROM media_tag_pair WHERE videoid = @videoid", pOpenConn);
+
                         DeleteOldPairs.Parameters.Add(new SqlParameter("videoid", Id));
                         DeleteOldPairs.ExecuteNonQuery();
 
-                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO media_tag_pair VALUES (@media_id, @media_tag_id)", pOpenConn);
+                        SqlCommand CreatePhotoAlbumPair = 
+                            new SqlCommand("INSERT INTO media_tag_pair VALUES (@media_id, @media_tag_id)", pOpenConn);
+
                         CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_id", Id));
                         CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_tag_id", AlbumId));
 
@@ -524,7 +528,9 @@ namespace ParsnipData.Media
                         Debug.WriteLine(string.Format("----------Attempting to update placeholder..."));
 
 
-                        SqlCommand UpdatePlaceholder = new SqlCommand("UPDATE video SET thumbnail_directory = @thumbnail_directory WHERE video_id = @video_id", pOpenConn);
+                        SqlCommand UpdatePlaceholder = new SqlCommand("UPDATE video " +
+                            "SET thumbnail_directory = @thumbnail_directory WHERE video_id = @video_id", pOpenConn);
+
                         UpdatePlaceholder.Parameters.Add(new SqlParameter("video_id", Id));
                         UpdatePlaceholder.Parameters.Add(new SqlParameter("thumbnail_directory", Thumbnail.Trim()));
 
@@ -562,7 +568,9 @@ namespace ParsnipData.Media
                         Debug.WriteLine(string.Format("----------Attempting to update title..."));
 
 
-                        SqlCommand UpdateTitle = new SqlCommand("UPDATE video SET title = @title WHERE video_id = @video_id", pOpenConn);
+                        SqlCommand UpdateTitle = 
+                            new SqlCommand("UPDATE video SET title = @title WHERE video_id = @video_id", pOpenConn);
+
                         UpdateTitle.Parameters.Add(new SqlParameter("video_id", Id));
                         UpdateTitle.Parameters.Add(new SqlParameter("title", Title.Trim()));
 
@@ -580,7 +588,8 @@ namespace ParsnipData.Media
                         Debug.WriteLine(string.Format("----------Attempting to update description..."));
 
 
-                        SqlCommand UpdateDescription = new SqlCommand("UPDATE video SET description = @description WHERE video_id = @video_id", pOpenConn);
+                        SqlCommand UpdateDescription = new SqlCommand(
+                            "UPDATE video SET description = @description WHERE video_id = @video_id", pOpenConn);
                         UpdateDescription.Parameters.Add(new SqlParameter("video_id", Id));
                         UpdateDescription.Parameters.Add(new SqlParameter("description", Description.Trim()));
 
@@ -606,7 +615,8 @@ namespace ParsnipData.Media
             }
             else
             {
-                throw new System.InvalidOperationException("Account cannot be updated. Account must be inserted into the database before it can be updated!");
+                throw new System.InvalidOperationException(
+                    "Account cannot be updated. Account must be inserted into the database before it can be updated!");
             }
         }
 
