@@ -30,7 +30,6 @@ namespace ParsnipData.Media
                 return string.Format("/view_image?access_token={0}", Id);
             }
         }
-
         public string VideoRedirect
         {
             get
@@ -308,5 +307,4 @@ namespace ParsnipData.Media
             }
         }
     }
-
 }

@@ -413,7 +413,7 @@ namespace ParsnipData.Media
 
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM image INNER JOIN [user] ON [user].user_id = image.created_by_user_id WHERE image_id = @image_id AND [user].deleted IS NULL", pOpenConn);
+                SqlCommand SelectAccount = new SqlCommand("SELECT image.*, media_tag_pair.media_tag_id FROM image LEFT JOIN media_tag_pair ON media_tag_pair.media_id = image.image_id INNER JOIN [user] ON [user].user_id = image.created_by_user_id WHERE image_id = @image_id AND [user].deleted IS NULL", pOpenConn);
                 SelectAccount.Parameters.Add(new SqlParameter("image_id", Id.ToString()));
 
                 int recordsFound = 0;
