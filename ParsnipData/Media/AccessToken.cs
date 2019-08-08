@@ -175,8 +175,8 @@ namespace ParsnipData.Media
                 {
                     conn.Open();
 
-                    var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token WHERE " +
-                        "created_by_user_id = @created_by_user_id AND media_id = @media_id", conn);
+                    var selectAccessToken = new SqlCommand("SELECT access_token_id FROM access_token INNER JOIN [user] ON [user].user_id = access_token.created_by_user_id WHERE " +
+                        "created_by_user_id = @created_by_user_id AND media_id = @media_id AND [user].deleted IS NULL", conn);
                     selectAccessToken.Parameters.Add(new SqlParameter("created_by_user_id", userId));
                     selectAccessToken.Parameters.Add(new SqlParameter("media_id", mediaId));
 
@@ -227,7 +227,7 @@ namespace ParsnipData.Media
                     Debug.WriteLine("Selecting access token...");
 
                     var selectAccessToken = 
-                        new SqlCommand("SELECT * FROM access_token WHERE access_token_id = @id", conn);
+                        new SqlCommand("SELECT * FROM access_token INNER JOIN [user] ON [user].user_id = access_token.created_by_user_id WHERE access_token_id = @id AND [user].deleted IS NULL", conn);
 
                     selectAccessToken.Parameters.Add(new SqlParameter("id", Id));
 
