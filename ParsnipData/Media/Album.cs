@@ -101,7 +101,7 @@ namespace ParsnipData.Media
                 SqlCommand GetImages = new SqlCommand("SELECT image.* FROM image " +
                     "INNER JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id " +
                     "INNER JOIN [user] ON [user].user_id = image.created_by_user_id " +
-                    "WHERE media_tag_pair.media_tag_id = @media_tag_id AND [user].deleted IS NULL " +
+                    "WHERE image.deleted IS NULL AND media_tag_pair.media_tag_id = @media_tag_id AND [user].deleted IS NULL " +
                     "ORDER BY image.date_time_created DESC", conn);
 
                 GetImages.Parameters.Add(new SqlParameter("media_tag_id", Id));

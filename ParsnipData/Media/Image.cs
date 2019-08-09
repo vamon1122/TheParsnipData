@@ -75,7 +75,38 @@ namespace ParsnipData.Media
             {
                 conn.Open();
 
-                SqlCommand GetImages = new SqlCommand("SELECT * FROM image INNER JOIN [user] ON [user].user_id = image.created_by_user_id WHERE [user].deleted IS NULL ORDER BY image.date_time_created DESC", conn);
+                SqlCommand GetImages = new SqlCommand("SELECT * FROM image INNER JOIN [user] ON [user].user_id = image.created_by_user_id WHERE image.deleted IS NULL AND [user].deleted IS NULL ORDER BY image.date_time_created DESC", conn);
+                using (SqlDataReader reader = GetImages.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        images.Add(new Image(reader));
+                    }
+                }
+            }
+
+            foreach (Image temp in images)
+            {
+                if (logMe)
+                    Debug.WriteLine(string.Format("Found image with id {0}", temp.Id));
+            }
+
+            return images;
+        }
+
+        public static List<Image> GetAllDeleted()
+        {
+            bool logMe = false;
+
+            if (logMe)
+                Debug.WriteLine("----------Getting all images...");
+
+            var images = new List<Image>();
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+            {
+                conn.Open();
+
+                SqlCommand GetImages = new SqlCommand("SELECT * FROM image INNER JOIN [user] ON [user].user_id = image.created_by_user_id WHERE image.deleted NOT NULL AND [user].deleted NOT NULL ORDER BY image.date_time_created DESC", conn);
                 using (SqlDataReader reader = GetImages.ExecuteReader())
                 {
                     while (reader.Read())
@@ -107,7 +138,7 @@ namespace ParsnipData.Media
                 conn.Open();
 
                 Debug.WriteLine("---------- Selecting images by user with id = " + pUserId);
-                SqlCommand GetImages = new SqlCommand("SELECT * FROM image INNER JOIN [user] ON [user].user_id = image.created_by_user_id  WHERE created_by_user_id = @created_by_user_id AND [user].deleted IS NULL ORDER BY image.date_time_created DESC", conn);
+                SqlCommand GetImages = new SqlCommand("SELECT * FROM image INNER JOIN [user] ON [user].user_id = image.created_by_user_id  WHERE image.deleted IS NULL AND created_by_user_id = @created_by_user_id ORDER BY image.date_time_created DESC", conn);
                 GetImages.Parameters.Add(new SqlParameter("created_by_user_id", pUserId));
 
                 using (SqlDataReader reader = GetImages.ExecuteReader())
@@ -128,7 +159,7 @@ namespace ParsnipData.Media
             return images;
         }
 
-        public static void DeleteImagesByUser(Guid userId)
+        public static void DeleteMediaTagPairsByUserId(Guid userId)
         {
             try
             {
@@ -313,10 +344,10 @@ namespace ParsnipData.Media
 
                 try
                 {
-                    if (pReader[8] != DBNull.Value && !string.IsNullOrEmpty(pReader[8].ToString()) && !string.IsNullOrWhiteSpace(pReader[8].ToString()))
+                    if (pReader[9] != DBNull.Value && !string.IsNullOrEmpty(pReader[9].ToString()) && !string.IsNullOrWhiteSpace(pReader[9].ToString()))
                     {
 
-                        AlbumId = new Guid(pReader[8].ToString());
+                        AlbumId = new Guid(pReader[9].ToString());
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
 
@@ -413,7 +444,7 @@ namespace ParsnipData.Media
 
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT image.*, media_tag_pair.media_tag_id FROM image LEFT JOIN media_tag_pair ON media_tag_pair.media_id = image.image_id INNER JOIN [user] ON [user].user_id = image.created_by_user_id WHERE image_id = @image_id AND [user].deleted IS NULL", pOpenConn);
+                SqlCommand SelectAccount = new SqlCommand("SELECT image.*, media_tag_pair.media_tag_id FROM image LEFT JOIN media_tag_pair ON media_tag_pair.media_id = image.image_id INNER JOIN [user] ON [user].user_id = image.created_by_user_id WHERE image_id = @image_id AND image.deleted IS NULL AND [user].deleted IS NULL", pOpenConn);
                 SelectAccount.Parameters.Add(new SqlParameter("image_id", Id.ToString()));
 
                 int recordsFound = 0;
@@ -592,15 +623,14 @@ namespace ParsnipData.Media
 
         public bool Delete()
         {
-            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+            using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
                 return DbDelete(conn);
             }
-            
         }
 
-        internal bool DbDelete(SqlConnection pOpenConn)
+        private bool DbDelete(SqlConnection pOpenConn)
         {
             //AccountLog.Debug("Attempting to get image details...");
             //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get image details with id {0}...", Id));
@@ -613,7 +643,8 @@ namespace ParsnipData.Media
                 {
                     conn.Open();
 
-                    SqlCommand DeleteImage = new SqlCommand("DELETE FROM media_tag_pair WHERE media_id = @image_id", conn);
+                    SqlCommand DeleteImage = new SqlCommand("UPDATE image SET deleted = @dateTimeNow WHERE image_id = @image_id", conn);
+                    DeleteImage.Parameters.Add(new SqlParameter("dateTimeNow", Parsnip.AdjustedTime));
                     DeleteImage.Parameters.Add(new SqlParameter("image_id", Id));
                     int recordsAffected = DeleteImage.ExecuteNonQuery();
 
@@ -660,5 +691,43 @@ namespace ParsnipData.Media
             */
         }
 
+        public bool RemoveFromAllAlbums()
+        {
+            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+            {
+                conn.Open();
+                return DbRemoveFromAllAlbums(conn);
+            }
+        }
+
+        internal bool DbRemoveFromAllAlbums(SqlConnection pOpenConn)
+        {
+            //AccountLog.Debug("Attempting to get image details...");
+            //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get image details with id {0}...", Id));
+
+            try
+            {
+                new LogEntry(DebugLog) { text = string.Format("Attempting to remove uploaded photo id = {0} from all albums!", Id) };
+
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand DeleteImage = new SqlCommand("DELETE FROM media_tag_pair WHERE media_id = @image_id", conn);
+                    DeleteImage.Parameters.Add(new SqlParameter("image_id", Id));
+                    int recordsAffected = DeleteImage.ExecuteNonQuery();
+
+                    new LogEntry(DebugLog) { text = string.Format("{0} record(s) were affected", recordsAffected) };
+                }
+            }
+            catch (Exception err)
+            {
+
+                new LogEntry(DebugLog) { text = "There was an exception whilst removing the photo from all albums: " + err };
+                return false;
+            }
+            new LogEntry(DebugLog) { text = string.Format("Successfully removed the photo with id = {0} from all albums!", Id) };
+            return true;
+        }
     }
 }
