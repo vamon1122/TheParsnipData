@@ -507,23 +507,28 @@ namespace ParsnipData.Media
                     Image temp = new Image(Id);
                     temp.Select();
 
-                    if(AlbumId != null && AlbumId.ToString() != Guid.Empty.ToString())
+                    //Null AlbumId would suggest that there was an error whilst loading / editing the image
+                    if(AlbumId != null)
                     {
                         Log DebugLog = new Log("Debug");
                         new LogEntry(DebugLog) { text = "AlbumId != null = " + AlbumId };
+                        
+                        DbRemoveFromAllAlbums(pOpenConn);
 
-                        SqlCommand DeleteOldPairs = new SqlCommand("DELETE FROM media_tag_pair WHERE media_id = @image_id", pOpenConn);
-                        DeleteOldPairs.Parameters.Add(new SqlParameter("image_id", Id));
-                        DeleteOldPairs.ExecuteNonQuery();
+                        //If the image is not an album, we want to re-insert the correct image-album-pair
+                        if (AlbumId.ToString() != Guid.Empty.ToString())
+                        {
+                            SqlCommand CreateImageTagPair = new SqlCommand(
+                                "INSERT INTO media_tag_pair VALUES (@media_id, @media_tag_id)", pOpenConn);
+                            CreateImageTagPair.Parameters.Add(new SqlParameter("media_id", Id));
+                            CreateImageTagPair.Parameters.Add(new SqlParameter("media_tag_id", AlbumId));
 
-                        SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO media_tag_pair VALUES (@media_id, @media_tag_id)", pOpenConn);
-                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_id", Id));
-                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_tag_id", AlbumId));
+                            Debug.WriteLine("---------- Image album (INSERT) = " + AlbumId);
 
-                        Debug.WriteLine("---------- Image album (INSERT) = " + AlbumId);
-
-                        CreatePhotoAlbumPair.ExecuteNonQuery();
-                        new LogEntry(DebugLog) { text = string.Format("INSERTED ALBUM PAIR {0}, {1} ",Id, AlbumId) };
+                            CreateImageTagPair.ExecuteNonQuery();
+                            new LogEntry(DebugLog) {
+                                text = string.Format("INSERTED ALBUM PAIR {0}, {1} ", Id, AlbumId) };
+                        }
                     }
                     else
                     {
@@ -537,7 +542,8 @@ namespace ParsnipData.Media
                         Debug.WriteLine(string.Format("----------Attempting to update placeholder..."));
 
 
-                        SqlCommand UpdatePlaceholder = new SqlCommand("UPDATE image SET placeholder = @placeholder WHERE image_id = @image_id", pOpenConn);
+                        SqlCommand UpdatePlaceholder = new SqlCommand(
+                            "UPDATE image SET placeholder = @placeholder WHERE image_id = @image_id", pOpenConn);
                         UpdatePlaceholder.Parameters.Add(new SqlParameter("image_id", Id));
                         UpdatePlaceholder.Parameters.Add(new SqlParameter("placeholder", Placeholder.Trim()));
 
@@ -547,7 +553,8 @@ namespace ParsnipData.Media
                     }
                     else
                     {
-                        Debug.WriteLine(string.Format("----------placeholder was not changed. Not updating placeholder."));
+                        Debug.WriteLine(
+                            string.Format("----------placeholder was not changed. Not updating placeholder."));
                     }
 
                     if (Alt != temp.Alt)
@@ -555,7 +562,8 @@ namespace ParsnipData.Media
                         Debug.WriteLine(string.Format("----------Attempting to update alt..."));
 
 
-                        SqlCommand UpdateAlt = new SqlCommand("UPDATE image SET alt = @alt WHERE image_id = @image_id", pOpenConn);
+                        SqlCommand UpdateAlt = new SqlCommand(
+                            "UPDATE image SET alt = @alt WHERE image_id = @image_id", pOpenConn);
                         UpdateAlt.Parameters.Add(new SqlParameter("image_id", Id));
                         UpdateAlt.Parameters.Add(new SqlParameter("alt", Alt.Trim()));
 
@@ -573,7 +581,8 @@ namespace ParsnipData.Media
                         Debug.WriteLine(string.Format("----------Attempting to update title..."));
 
 
-                        SqlCommand UpdateTitle = new SqlCommand("UPDATE image SET title = @title WHERE image_id = @image_id", pOpenConn);
+                        SqlCommand UpdateTitle = new SqlCommand(
+                            "UPDATE image SET title = @title WHERE image_id = @image_id", pOpenConn);
                         UpdateTitle.Parameters.Add(new SqlParameter("image_id", Id));
                         UpdateTitle.Parameters.Add(new SqlParameter("title", Title.Trim()));
 
@@ -591,7 +600,8 @@ namespace ParsnipData.Media
                         Debug.WriteLine(string.Format("----------Attempting to update description..."));
 
 
-                        SqlCommand UpdateDescription = new SqlCommand("UPDATE image SET description = @description WHERE image_id = @image_id", pOpenConn);
+                        SqlCommand UpdateDescription = new SqlCommand(
+                            "UPDATE image SET description = @description WHERE image_id = @image_id", pOpenConn);
                         UpdateDescription.Parameters.Add(new SqlParameter("image_id", Id));
                         UpdateDescription.Parameters.Add(new SqlParameter("description", Description.Trim()));
 
@@ -601,13 +611,15 @@ namespace ParsnipData.Media
                     }
                     else
                     {
-                        Debug.WriteLine(string.Format("----------Description was not changed. Not updating description."));
+                        Debug.WriteLine(
+                            string.Format("----------Description was not changed. Not updating description."));
                     }
 
                 }
                 catch (Exception e)
                 {
-                    string error = string.Format("[UacApi.Image.DbUpdate] There was an error whilst updating image: {0}", e);
+                    string error = 
+                        string.Format("[UacApi.Image.DbUpdate] There was an error whilst updating image: {0}", e);
                     Debug.WriteLine(error);
                     new LogEntry(Log.Default) { text = error };
                     return false;
@@ -617,7 +629,8 @@ namespace ParsnipData.Media
             }
             else
             {
-                throw new System.InvalidOperationException("Image cannot be updated. Image must be inserted into the database before it can be updated!");
+                throw new System.InvalidOperationException(
+                    "Image cannot be updated. Image must be inserted into the database before it can be updated!");
             }
         }
 
