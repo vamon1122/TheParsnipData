@@ -475,13 +475,13 @@ namespace ParsnipData.Media
                 if (DataId == null)
                 {
                     Debug.WriteLine(string.Format("DataId \"{0}\" was NULL", DataId));
-                    SelectYoutubeVideo = new SqlCommand("SELECT * FROM youtube_video WHERE youtube_video_id = @id", conn);
-                    SelectYoutubeVideo.Parameters.Add(new SqlParameter("id", Id.ToString()));
+                    SelectYoutubeVideo = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id FROM youtube_video LEFT JOIN media_tag_pair ON media_tag_pair.media_id = youtube_video.youtube_video_id INNER JOIN [user] ON [user].user_id = youtube_video.created_by_user_id WHERE youtube_video_id = @youtube_video_id AND youtube_video.deleted IS NULL AND [user].deleted IS NULL", conn);
+                    SelectYoutubeVideo.Parameters.Add(new SqlParameter("youtube_video_id", Id.ToString()));
                 }
                 else
                 {
                     Debug.WriteLine(string.Format("DataId \"{0}\" was NOT NULL", DataId));
-                    SelectYoutubeVideo = new SqlCommand("SELECT * FROM youtube_video WHERE data_id = @dataid", conn);
+                    SelectYoutubeVideo = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id FROM youtube_video LEFT JOIN media_tag_pair ON media_tag_pair.media_id = youtube_video.youtube_video_id INNER JOIN [user] ON [user].user_id = youtube_video.created_by_user_id WHERE data_id = @data_id AND youtube_video.deleted IS NULL AND [user].deleted IS NULL", conn);
                     SelectYoutubeVideo.Parameters.Add(new SqlParameter("dataid", DataId));
                 }
 

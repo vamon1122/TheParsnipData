@@ -313,8 +313,6 @@ namespace ParsnipData.Media
 
                 try
                 {
-
-
                     if (reader[8] != DBNull.Value && !string.IsNullOrEmpty(reader[8].ToString()) && !string.IsNullOrWhiteSpace(reader[8].ToString()))
                     {
                         if (logMe)
@@ -418,7 +416,7 @@ namespace ParsnipData.Media
 
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM video WHERE video_id = @video_id", pOpenConn);
+                SqlCommand SelectAccount = new SqlCommand("SELECT video.*, media_tag_pair.media_tag_id FROM video LEFT JOIN media_tag_pair ON media_tag_pair.media_id = video.video_id INNER JOIN [user] ON [user].user_id = video.created_by_user_id WHERE video_id = @video_id AND video.deleted IS NULL AND [user].deleted IS NULL", pOpenConn);
                 SelectAccount.Parameters.Add(new SqlParameter("video_id", Id.ToString()));
 
                 int recordsFound = 0;

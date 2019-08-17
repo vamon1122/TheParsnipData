@@ -98,7 +98,7 @@ namespace ParsnipData.Media
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                SqlCommand GetImages = new SqlCommand("SELECT image.* FROM image " +
+                SqlCommand GetImages = new SqlCommand("SELECT image.*, media_tag_pair.media_tag_id FROM image " +
                     "INNER JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id " +
                     "INNER JOIN [user] ON [user].user_id = image.created_by_user_id " +
                     "WHERE image.deleted IS NULL AND media_tag_pair.media_tag_id = @media_tag_id AND [user].deleted IS NULL " +
@@ -132,7 +132,7 @@ namespace ParsnipData.Media
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                SqlCommand GetVideos = new SqlCommand("SELECT video.* FROM video " +
+                SqlCommand GetVideos = new SqlCommand("SELECT video.*, media_tag_pair.media_tag_id FROM video " +
                     "INNER JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id " +
                     "INNER JOIN[user] ON[user].user_id = video.created_by_user_id " +
                     "WHERE video.deleted IS NULL AND media_tag_pair.media_tag_id = @media_tag_id AND[user].deleted IS NULL " +
@@ -166,7 +166,7 @@ namespace ParsnipData.Media
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                SqlCommand GetYoutubeVideos = new SqlCommand("SELECT youtube_video.* FROM youtube_video " +
+                SqlCommand GetYoutubeVideos = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id FROM youtube_video " +
                     "INNER JOIN media_tag_pair ON youtube_video.youtube_video_id = media_tag_pair.media_id " +
                     "INNER JOIN[user] ON[user].user_id = youtube_video.created_by_user_id " +
                     "WHERE youtube_video.deleted IS NULL AND media_tag_pair.media_tag_id = @media_tag_id AND[user].deleted IS NULL " +
