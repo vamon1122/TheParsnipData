@@ -604,14 +604,14 @@ namespace ParsnipData.Media
                         Debug.WriteLine(string.Format("----------alt was not changed. Not updating alt."));
                     }
                     */
-                    /*
+                    
                     if (Title != temp.Title)
                     {
                         Debug.WriteLine(string.Format("----------Attempting to update title..."));
 
 
-                        SqlCommand UpdateTitle = new SqlCommand("UPDATE youtubeVideo SET title = @title WHERE youtubeVideo_id = @youtubeVideo_id", conn);
-                        UpdateTitle.Parameters.Add(new SqlParameter("youtubeVideo_id", Id));
+                        SqlCommand UpdateTitle = new SqlCommand("UPDATE youtube_video SET title = @title WHERE youtube_video_id = @youtube_video_id", conn);
+                        UpdateTitle.Parameters.Add(new SqlParameter("youtube_video_id", Id));
                         UpdateTitle.Parameters.Add(new SqlParameter("title", Title.Trim()));
 
                         UpdateTitle.ExecuteNonQuery();
@@ -623,6 +623,7 @@ namespace ParsnipData.Media
                         Debug.WriteLine(string.Format("----------Title was not changed. Not updating title."));
                     }
 
+                    /*
                     if (Description != temp.Description)
                     {
                         Debug.WriteLine(string.Format("----------Attempting to update description..."));
