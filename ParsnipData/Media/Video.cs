@@ -26,30 +26,15 @@ namespace ParsnipData.Media
 
         public static bool Exists(Guid videoId)
         {
-            try
+            using(SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
-                using(SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
-                {
-                    conn.Open();
-                    SqlCommand countVideos = new SqlCommand("SELECT COUNT(*) from video where video_id = @id", conn);
-                    countVideos.Parameters.Add(new SqlParameter("id", videoId));
-
-                    int userCount = (int)countVideos.ExecuteScalar();
-                    if (userCount > 0)
-
-                        return true;
-                    else
-                        return false;
-                    
-                }
+                conn.Open();
+                return IdExistsOnDb(conn, videoId);
             }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
+            
         }
 
-        public List<Guid> AlbumIds()
+        public override List<Guid> AlbumIds()
         {
             bool logMe = false;
 
@@ -60,7 +45,7 @@ namespace ParsnipData.Media
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                SqlCommand GetVideos = new SqlCommand("SELECT album_id FROM media_tag_pair WHERE media_id = @video_id", conn);
+                SqlCommand GetVideos = new SqlCommand("SELECT media_tag_id FROM media_tag_pair WHERE media_id = @video_id", conn);
                 GetVideos.Parameters.Add(new SqlParameter("video_id", Id));
 
                 using (SqlDataReader reader = GetVideos.ExecuteReader())
@@ -224,13 +209,13 @@ namespace ParsnipData.Media
                 return false;
         }
 
-        private bool IdExistsOnDb(SqlConnection pOpenConn)
+        private static bool IdExistsOnDb(SqlConnection pOpenConn, Guid id)
         {
-            Debug.WriteLine(string.Format("Checking weather video exists on database by using Id {0}", Id));
+            Debug.WriteLine(string.Format("Checking weather video exists on database by using Id {0}", id));
             try
             {
-                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM video WHERE id = @id", pOpenConn);
-                findMeById.Parameters.Add(new SqlParameter("id", Id.ToString()));
+                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM video WHERE video_id = @id", pOpenConn);
+                findMeById.Parameters.Add(new SqlParameter("id", id.ToString()));
 
                 int videoExists;
 
@@ -254,6 +239,11 @@ namespace ParsnipData.Media
                 Debug.WriteLine("There was an error whilst checking if video exists on the database by using it's Id: " + e);
                 return false;
             }
+        }
+
+        private bool IdExistsOnDb(SqlConnection pOpenConn)
+        {
+            return IdExistsOnDb(pOpenConn, Id);
         }
 
         internal bool AddValues(SqlDataReader reader)
@@ -313,11 +303,6 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Thumbnail is blank. Skipping thumbnail");
                 }
 
-
-                
-
-                
-
                 if (logMe)
                     Debug.WriteLine("----------Reading datecreated");
                 DateCreated = Convert.ToDateTime(reader[5]);
@@ -330,12 +315,12 @@ namespace ParsnipData.Media
                 {
 
 
-                    if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
+                    if (reader[8] != DBNull.Value && !string.IsNullOrEmpty(reader[8].ToString()) && !string.IsNullOrWhiteSpace(reader[8].ToString()))
                     {
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
 
-                        AlbumId = new Guid(reader[7].ToString());
+                        AlbumId = new Guid(reader[8].ToString());
                     }
                     else
                     {
@@ -380,14 +365,14 @@ namespace ParsnipData.Media
                     {
                         SqlCommand InsertVideoIntoDb = new SqlCommand("INSERT INTO t_Videos (video_id, directory, date_time_created, created_by_user_id) VALUES(@video_id, @directory, @date_time_created, @created_by_user_id)", pOpenConn);
 
-                        InsertVideoIntoDb.Parameters.Add(new SqlParameter("id", Id));
+                        InsertVideoIntoDb.Parameters.Add(new SqlParameter("video_id", Id));
                         InsertVideoIntoDb.Parameters.Add(new SqlParameter("directory", Directory.Trim()));
                         InsertVideoIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.AdjustedTime));
                         InsertVideoIntoDb.Parameters.Add(new SqlParameter("created_by_user_id", CreatedById));
 
                         InsertVideoIntoDb.ExecuteNonQuery();
 
-                        SqlCommand InsertVideoAlbumPairIntoDb = new SqlCommand("INSERT INTO t_VideoAlbumPairs VALUES(@media_id, @album_id)", pOpenConn);
+                        SqlCommand InsertVideoAlbumPairIntoDb = new SqlCommand("INSERT INTO media_tag_pairs VALUES(@media_id, @album_id)", pOpenConn);
                         InsertVideoAlbumPairIntoDb.Parameters.Add(new SqlParameter("media_id", Id));
                         InsertVideoAlbumPairIntoDb.Parameters.Add(new SqlParameter("album_id", AlbumId));
 
@@ -470,7 +455,7 @@ namespace ParsnipData.Media
             }
         }
 
-        public bool Update()
+        public override bool Update()
         {
             bool success;
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
@@ -500,9 +485,9 @@ namespace ParsnipData.Media
                         new LogEntry(DebugLog) { text = "AlbumId != null = " + AlbumId };
 
                         SqlCommand DeleteOldPairs = 
-                            new SqlCommand("DELETE FROM media_tag_pair WHERE videoid = @videoid", pOpenConn);
+                            new SqlCommand("DELETE FROM media_tag_pair WHERE media_id = @video_id", pOpenConn);
 
-                        DeleteOldPairs.Parameters.Add(new SqlParameter("videoid", Id));
+                        DeleteOldPairs.Parameters.Add(new SqlParameter("video_id", Id));
                         DeleteOldPairs.ExecuteNonQuery();
 
                         SqlCommand CreatePhotoAlbumPair = 
@@ -620,7 +605,7 @@ namespace ParsnipData.Media
             }
         }
 
-        public bool Delete()
+        public override bool Delete()
         {
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
@@ -632,18 +617,16 @@ namespace ParsnipData.Media
 
         internal bool DbDelete(SqlConnection pOpenConn)
         {
-            //AccountLog.Debug("Attempting to get video details...");
-            //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get video details with id {0}...", Id));
-
             try
             {
-                //FULL OUTER JOIN LOOKS DANGEROUS!!!
-                throw new NotImplementedException();
-                new LogEntry(DebugLog) { text = "Attempting to delete uploaded photo id = " + Id };
+                new LogEntry(DebugLog) { text = "Attempting to delete uploaded video id = " + Id };
 
-                using (SqlConnection conn = pOpenConn)
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
-                    SqlCommand DeleteVideo = new SqlCommand("DELETE iap FROM media_tag_pair iap FULL OUTER JOIN video ON media_id = video.video_id  WHERE video.id = @video_id", conn);
+                    conn.Open();
+
+                    SqlCommand DeleteVideo = new SqlCommand("UPDATE video SET deleted = @date_time_now WHERE video_id = @video_id", conn);
+                    DeleteVideo.Parameters.Add(new SqlParameter("date_time_now", Parsnip.AdjustedTime));
                     DeleteVideo.Parameters.Add(new SqlParameter("video_id", Id));
                     int recordsAffected = DeleteVideo.ExecuteNonQuery();
 
@@ -658,36 +641,6 @@ namespace ParsnipData.Media
             }
             new LogEntry(DebugLog) { text = "Successfully deleted video with id = " + Id };
             return true;
-
-            /*
-            try
-            {
-                SqlCommand deleteAccount = new SqlCommand("DELETE FROM t_Videos WHERE id = @id", pOpenConn);
-                deleteAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
-
-                int recordsFound = deleteAccount.ExecuteNonQuery();
-                //Debug.WriteLine(string.Format("----------DbDelete() - Found {0} record(s) ", recordsFound));
-
-                if (recordsFound > 0)
-                {
-                    //Debug.WriteLine("----------DbDelete() - Got video's details successfully!");
-                    //AccountLog.Debug("Got video's details successfully!");
-                    return true;
-                }
-                else
-                {
-                    Debug.WriteLine("----------DbDelete() - No video data was deleted");
-                    //AccountLog.Debug("Got video's details successfully!");
-                    return false;
-                }
-
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("There was an exception whilst deleting video data: " + e);
-                return false;
-            }
-            */
         }
     }
 }

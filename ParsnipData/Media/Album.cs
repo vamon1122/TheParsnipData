@@ -123,6 +123,74 @@ namespace ParsnipData.Media
             return Images;
         }
 
+        public List<Video> GetAllVideos()
+        {
+            Debug.WriteLine("Getting all videos for album");
+            List<Guid> VideoGuids = new List<Guid>();
+            List<Video> Videos = new List<Video>();
+
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+            {
+                conn.Open();
+                SqlCommand GetVideos = new SqlCommand("SELECT video.* FROM video " +
+                    "INNER JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id " +
+                    "INNER JOIN[user] ON[user].user_id = video.created_by_user_id " +
+                    "WHERE video.deleted IS NULL AND media_tag_pair.media_tag_id = @media_tag_id AND[user].deleted IS NULL " +
+                    "ORDER BY video.date_time_created DESC", conn);
+
+                GetVideos.Parameters.Add(new SqlParameter("media_tag_id", Id));
+
+                using (SqlDataReader reader = GetVideos.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Videos.Add(new Video(reader));
+                    }
+                }
+
+                Debug.WriteLine("" + VideoGuids.Count() + "Videos were found");
+
+                int i = 0;
+
+            }
+
+            return Videos;
+        }
+
+        public List<YoutubeVideo> GetAllYoutubeVideos()
+        {
+            Debug.WriteLine("Getting all youtube videos for album");
+            List<Guid> YoutubeVideoGuids = new List<Guid>();
+            List<YoutubeVideo> YoutubeVideos = new List<YoutubeVideo>();
+
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+            {
+                conn.Open();
+                SqlCommand GetYoutubeVideos = new SqlCommand("SELECT youtube_video.* FROM youtube_video " +
+                    "INNER JOIN media_tag_pair ON youtube_video.youtube_video_id = media_tag_pair.media_id " +
+                    "INNER JOIN[user] ON[user].user_id = youtube_video.created_by_user_id " +
+                    "WHERE youtube_video.deleted IS NULL AND media_tag_pair.media_tag_id = @media_tag_id AND[user].deleted IS NULL " +
+                    "ORDER BY youtube_video.date_time_created DESC", conn);
+
+                GetYoutubeVideos.Parameters.Add(new SqlParameter("media_tag_id", Id));
+
+                using (SqlDataReader reader = GetYoutubeVideos.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        YoutubeVideos.Add(new YoutubeVideo(reader));
+                    }
+                }
+
+                Debug.WriteLine("" + YoutubeVideoGuids.Count() + "Videos were found");
+
+                int i = 0;
+
+            }
+
+            return YoutubeVideos;
+        }
+
         public Album(User pCreatedBy)
         {
             Id = Guid.NewGuid();

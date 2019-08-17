@@ -27,7 +27,7 @@ namespace ParsnipData.Media
 
         static readonly Log DebugLog = new Log("Debug");
 
-        public List<Guid> AlbumIds()
+        public override List<Guid> AlbumIds()
         {
             bool logMe = false;
 
@@ -61,6 +61,15 @@ namespace ParsnipData.Media
             }
 
             return albumIds;
+        }
+
+        public static bool Exists(Guid id)
+        {
+            using(SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+            {
+                conn.Open();
+                return IdExistsOnDb(conn, id);
+            }
         }
 
         public static List<Image> GetAllImages()
@@ -231,11 +240,16 @@ namespace ParsnipData.Media
 
         private bool IdExistsOnDb(SqlConnection pOpenConn)
         {
-            Debug.WriteLine(string.Format("Checking weather image exists on database by using Id {0}", Id));
+            return IdExistsOnDb(pOpenConn, Id);
+        }
+
+        private static bool IdExistsOnDb(SqlConnection pOpenConn, Guid id)
+        {
+            Debug.WriteLine(string.Format("Checking weather image exists on database by using id {0}", id));
             try
             {
                 SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM image WHERE image_id = @image_id", pOpenConn);
-                findMeById.Parameters.Add(new SqlParameter("image_id", Id.ToString()));
+                findMeById.Parameters.Add(new SqlParameter("image_id", id.ToString()));
 
                 int imageExists;
 
@@ -243,10 +257,10 @@ namespace ParsnipData.Media
                 {
                     reader.Read();
                     imageExists = Convert.ToInt16(reader[0]);
-                    //Debug.WriteLine("Found image by Id. imageExists = " + imageExists);
+                    //Debug.WriteLine("Found image by id. imageExists = " + imageExists);
                 }
 
-                //Debug.WriteLine(imageExists + " image(s) were found with the id " + Id);
+                //Debug.WriteLine(imageExists + " image(s) were found with the id " + id);
 
                 if (imageExists > 0)
                     return true;
@@ -256,7 +270,7 @@ namespace ParsnipData.Media
             }
             catch (Exception e)
             {
-                Debug.WriteLine("There was an error whilst checking if image exists on the database by using thier Id: " + e);
+                Debug.WriteLine("There was an error whilst checking if image exists on the database by using thier id: " + e);
                 return false;
             }
         }
@@ -481,7 +495,7 @@ namespace ParsnipData.Media
             }
         }
         
-        public bool Update()
+        public override bool Update()
         {
             bool success;
 
@@ -634,7 +648,7 @@ namespace ParsnipData.Media
             }
         }
 
-        public bool Delete()
+        public override bool Delete()
         {
             using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
@@ -645,9 +659,6 @@ namespace ParsnipData.Media
 
         private bool DbDelete(SqlConnection pOpenConn)
         {
-            //AccountLog.Debug("Attempting to get image details...");
-            //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get image details with id {0}...", Id));
-
             try
             {
                 new LogEntry(DebugLog) { text = "Attempting to delete uploaded photo id = " + Id };
@@ -672,36 +683,6 @@ namespace ParsnipData.Media
             }
             new LogEntry(DebugLog) { text = "Successfully deleted photo with id = " + Id };
             return true;
-
-            /*
-            try
-            {
-                SqlCommand deleteAccount = new SqlCommand("DELETE FROM image WHERE id = @id", pOpenConn);
-                deleteAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
-
-                int recordsFound = deleteAccount.ExecuteNonQuery();
-                //Debug.WriteLine(string.Format("----------DbDelete() - Found {0} record(s) ", recordsFound));
-
-                if (recordsFound > 0)
-                {
-                    //Debug.WriteLine("----------DbDelete() - Got image's details successfully!");
-                    //AccountLog.Debug("Got image's details successfully!");
-                    return true;
-                }
-                else
-                {
-                    Debug.WriteLine("----------DbDelete() - No image data was deleted");
-                    //AccountLog.Debug("Got image's details successfully!");
-                    return false;
-                }
-
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("There was an exception whilst deleting image data: " + e);
-                return false;
-            }
-            */
         }
 
         public bool RemoveFromAllAlbums()

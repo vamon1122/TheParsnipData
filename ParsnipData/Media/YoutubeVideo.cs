@@ -22,12 +22,21 @@ namespace ParsnipData.Media
 
         public string DataId { get; set; }
 
+        public static bool Exists(Guid id)
+        {
+            using(SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+            {
+                conn.Open();
+                return IdExistsOnDb(conn, id);
+            }
+        }
+
         public static bool IsValidFileExtension(string extension)
         {
             return _allowedFileExtensions.Contains(extension);
         }
 
-        public List<Guid> AlbumIds()
+        public override List<Guid> AlbumIds()
         {
             bool logMe = false;
 
@@ -38,7 +47,7 @@ namespace ParsnipData.Media
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                SqlCommand GetYoutubeVideos = new SqlCommand("SELECT album_id FROM media_tag_pair WHERE image_id = @youtube_video_id", conn);
+                SqlCommand GetYoutubeVideos = new SqlCommand("SELECT media_tag_id FROM media_tag_pair WHERE media_id = @youtube_video_id", conn);
                 GetYoutubeVideos.Parameters.Add(new SqlParameter("youtube_video_id", Id));
 
                 using (SqlDataReader reader = GetYoutubeVideos.ExecuteReader())
@@ -208,13 +217,13 @@ namespace ParsnipData.Media
                 return false;
         }
 
-        private bool IdExistsOnDb(SqlConnection conn)
+        private static bool IdExistsOnDb(SqlConnection conn, Guid id)
         {
-            Debug.WriteLine(string.Format("Checking weather youtube_video exists on database by using Id {0}", Id));
+            Debug.WriteLine(string.Format("Checking weather youtube_video exists on database by using Id {0}", id));
             try
             {
-                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM youtube_video WHERE id = @id", conn);
-                findMeById.Parameters.Add(new SqlParameter("id", Id.ToString()));
+                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM youtube_video WHERE youtube_video_id = @id", conn);
+                findMeById.Parameters.Add(new SqlParameter("id", id.ToString()));
 
                 int youtubeVideoExists;
 
@@ -238,6 +247,11 @@ namespace ParsnipData.Media
                 Debug.WriteLine("There was an error whilst checking if youtubeVideo exists on the database by using it's Id: " + e);
                 return false;
             }
+        }
+
+        private bool IdExistsOnDb(SqlConnection conn)
+        {
+            return IdExistsOnDb(conn, Id);
         }
 
         internal bool AddValues(SqlDataReader reader)
@@ -297,14 +311,14 @@ namespace ParsnipData.Media
 
                 try
                 {
-                    if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && 
-                        !string.IsNullOrWhiteSpace(reader[6].ToString()))
+                    if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && 
+                        !string.IsNullOrWhiteSpace(reader[7].ToString()))
 
                     {
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
 
-                        AlbumId = new Guid(reader[6].ToString());
+                        AlbumId = new Guid(reader[7].ToString());
                     }
                     else
                     {
@@ -503,7 +517,7 @@ namespace ParsnipData.Media
             }
         }
 
-        public bool Update()
+        public override bool Update()
         {
             bool success;
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
@@ -517,7 +531,6 @@ namespace ParsnipData.Media
 
         private bool DbUpdate(SqlConnection conn)
         {
-            throw new NotImplementedException();
             Debug.WriteLine("Attempting to update youtubeVideo with Id = " + Id);
             bool HasBeenInserted = true;
 
@@ -533,8 +546,8 @@ namespace ParsnipData.Media
                         Log DebugLog = new Log("Debug");
                         new LogEntry(DebugLog) { text = "AlbumId != null = " + AlbumId };
 
-                        SqlCommand DeleteOldPairs = new SqlCommand("DELETE FROM media_tag_pair WHERE image_id = @youtube_video_id", conn);
-                        DeleteOldPairs.Parameters.Add(new SqlParameter("youtubeVideoid", Id));
+                        SqlCommand DeleteOldPairs = new SqlCommand("DELETE FROM media_tag_pair WHERE media_id = @youtube_video_id", conn);
+                        DeleteOldPairs.Parameters.Add(new SqlParameter("youtube_video_id", Id));
                         DeleteOldPairs.ExecuteNonQuery();
 
                         SqlCommand CreatePhotoAlbumPair = new SqlCommand("INSERT INTO media_tag_pair VALUES (@youtube_video_id, @album_id)", conn);
@@ -646,7 +659,7 @@ namespace ParsnipData.Media
             }
         }
 
-        public bool Delete()
+        public override bool Delete()
         {
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
@@ -658,61 +671,30 @@ namespace ParsnipData.Media
 
         internal bool DbDelete(SqlConnection pOpenConn)
         {
-            //AccountLog.Debug("Attempting to get youtubeVideo details...");
-            //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get youtubeVideo details with id {0}...", Id));
-
             try
             {
-                new LogEntry(DebugLog) { text = "Attempting to delete uploaded photo id = " + Id };
+                new LogEntry(DebugLog) { text = "Attempting to delete uploaded video id = " + Id };
 
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+                {
+                    conn.Open();
 
-                /*using (SqlConnection conn = Parsnip.GetOpenDbConnection())
-                {*/
-                    SqlCommand DeleteYoutubeVideo = new SqlCommand("DELETE iap FROM media_tag_pair iap FULL OUTER JOIN youtube_video ON image_id = youtube_video.youtube_video_id  WHERE youtube_video.id = @youtube_video_id", pOpenConn);
+                    SqlCommand DeleteYoutubeVideo = new SqlCommand("UPDATE youtube_video SET deleted = @dateTimeNow WHERE youtube_video_id = @youtube_video_id", conn);
+                    DeleteYoutubeVideo.Parameters.Add(new SqlParameter("dateTimeNow", Parsnip.AdjustedTime));
                     DeleteYoutubeVideo.Parameters.Add(new SqlParameter("youtube_video_id", Id));
                     int recordsAffected = DeleteYoutubeVideo.ExecuteNonQuery();
 
                     new LogEntry(DebugLog) { text = string.Format("{0} record(s) were affected", recordsAffected) };
-                //}
+                }
             }
             catch (Exception err)
             {
 
-                new LogEntry(DebugLog) { text = "There was an exception whilst DELETING the youtubeVideo: " + err };
+                new LogEntry(DebugLog) { text = "There was an exception whilst DELETING the youtube video: " + err };
                 return false;
             }
-            new LogEntry(DebugLog) { text = "Successfully deleted youtubeVideo with id = " + Id };
+            new LogEntry(DebugLog) { text = "Successfully deleted youtube video with id = " + Id };
             return true;
-
-            /*
-            try
-            {
-                SqlCommand deleteAccount = new SqlCommand("DELETE FROM t_YoutubeVideos WHERE id = @id", pOpenConn);
-                deleteAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
-
-                int recordsFound = deleteAccount.ExecuteNonQuery();
-                //Debug.WriteLine(string.Format("----------DbDelete() - Found {0} record(s) ", recordsFound));
-
-                if (recordsFound > 0)
-                {
-                    //Debug.WriteLine("----------DbDelete() - Got youtubeVideo's details successfully!");
-                    //AccountLog.Debug("Got youtubeVideo's details successfully!");
-                    return true;
-                }
-                else
-                {
-                    Debug.WriteLine("----------DbDelete() - No youtubeVideo data was deleted");
-                    //AccountLog.Debug("Got youtubeVideo's details successfully!");
-                    return false;
-                }
-
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("There was an exception whilst deleting youtubeVideo data: " + e);
-                return false;
-            }
-            */
         }
     }
 }
