@@ -477,7 +477,7 @@ namespace ParsnipData.Media
                     Video temp = new Video(Id);
                     temp.Select();
 
-                    if (AlbumId != null && AlbumId.ToString() != Guid.Empty.ToString())
+                    if (AlbumId != null)
                     {
                         Log DebugLog = new Log("Debug");
                         new LogEntry(DebugLog) { text = "AlbumId != null = " + AlbumId };
@@ -488,16 +488,19 @@ namespace ParsnipData.Media
                         DeleteOldPairs.Parameters.Add(new SqlParameter("video_id", Id));
                         DeleteOldPairs.ExecuteNonQuery();
 
-                        SqlCommand CreatePhotoAlbumPair = 
-                            new SqlCommand("INSERT INTO media_tag_pair VALUES (@media_id, @media_tag_id)", pOpenConn);
+                        if (AlbumId.ToString() != Guid.Empty.ToString())
+                        {
+                            SqlCommand CreatePhotoAlbumPair =
+                                new SqlCommand("INSERT INTO media_tag_pair VALUES (@media_id, @media_tag_id)", pOpenConn);
 
-                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_id", Id));
-                        CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_tag_id", AlbumId));
+                            CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_id", Id));
+                            CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_tag_id", AlbumId));
 
-                        Debug.WriteLine("---------- Video album (INSERT) = " + AlbumId);
+                            Debug.WriteLine("---------- Video album pair (INSERT) = " + AlbumId);
 
-                        CreatePhotoAlbumPair.ExecuteNonQuery();
-                        new LogEntry(DebugLog) { text = string.Format("INSERTED ALBUM PAIR {0}, {1} ", Id, AlbumId) };
+                            CreatePhotoAlbumPair.ExecuteNonQuery();
+                            new LogEntry(DebugLog) { text = string.Format("INSERTED ALBUM PAIR {0}, {1} ", Id, AlbumId) };
+                        }
                     }
                     else
                     {
