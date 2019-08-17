@@ -34,6 +34,30 @@ namespace ParsnipData.Media
             
         }
 
+        public static void DeleteMediaTagPairsByUserId(Guid userId)
+        {
+            try
+            {
+                new LogEntry(DebugLog) { text = "Attempting to delete uploaded photos created_by_user_id = " + userId };
+
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand DeleteUploads = new SqlCommand("DELETE media_tag_pair FROM media_tag_pair INNER JOIN video ON media_tag_pair.media_id = video.video_id  WHERE video.created_by_user_id = @created_by_user_id", conn);
+                    DeleteUploads.Parameters.Add(new SqlParameter("created_by_user_id", userId));
+                    int recordsAffected = DeleteUploads.ExecuteNonQuery();
+
+                    new LogEntry(DebugLog) { text = string.Format("{0} record(s) were affected", recordsAffected) };
+                }
+            }
+            catch (Exception err)
+            {
+
+                new LogEntry(DebugLog) { text = "There was an exception whilst DELETING the photo: " + err };
+            }
+        }
+
         public override List<Guid> AlbumIds()
         {
             bool logMe = false;

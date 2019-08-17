@@ -18,6 +18,8 @@ namespace ParsnipData.Media
 
     public abstract class Media
     {
+        static readonly Log DebugLog = new Log("Debug");
+
         public static List<Image> GetImagesByUserId(Guid userId)
         {
             Debug.WriteLine("Getting all images for user");
@@ -27,7 +29,7 @@ namespace ParsnipData.Media
             {
                 conn.Open();
                 SqlCommand GetImages = new SqlCommand("SELECT image.*, media_tag_pair.media_tag_id FROM image " +
-                    "INNER JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id " +
+                    "LEFT JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id " +
                     "INNER JOIN [user] ON [user].user_id = image.created_by_user_id " +
                     "WHERE image.deleted IS NULL AND image.created_by_user_id = @created_by_user_id AND " +
                     "[user].deleted IS NULL ORDER BY image.date_time_created DESC", conn);
@@ -58,7 +60,7 @@ namespace ParsnipData.Media
             {
                 conn.Open();
                 SqlCommand GetVideos = new SqlCommand("SELECT video.*, media_tag_pair.media_tag_id FROM video " +
-                    "INNER JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id " +
+                    "LEFT JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id " +
                     "INNER JOIN [user] ON [user].user_id = video.created_by_user_id " +
                     "WHERE video.deleted IS NULL AND video.created_by_user_id = @created_by_user_id AND " +
                     "[user].deleted IS NULL ORDER BY video.date_time_created DESC", conn);
@@ -89,7 +91,7 @@ namespace ParsnipData.Media
             {
                 conn.Open();
                 SqlCommand GetYoutubeVideos = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id FROM youtube_video " +
-                    "INNER JOIN media_tag_pair ON youtube_video.youtube_video_id = media_tag_pair.media_id " +
+                    "LEFT JOIN media_tag_pair ON youtube_video.youtube_video_id = media_tag_pair.media_id " +
                     "INNER JOIN [user] ON [user].user_id = youtube_video.created_by_user_id " +
                     "WHERE youtube_video.deleted IS NULL AND youtube_video.created_by_user_id = @created_by_user_id AND " +
                     "[user].deleted IS NULL ORDER BY youtube_video.date_time_created DESC", conn);
