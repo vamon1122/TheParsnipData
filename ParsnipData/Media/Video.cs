@@ -13,6 +13,7 @@ namespace ParsnipData.Media
 {
     public class Video : Media
     {
+        public DateTime DateTimeMediaCreated { get; set; }
 
         private static string[] _allowedFileExtensions = new string[] { "mp4", "m4v" };
         public override string[] AllowedFileExtensions { get { return _allowedFileExtensions; } }
@@ -335,14 +336,18 @@ namespace ParsnipData.Media
                     Debug.WriteLine("----------Reading createdbyid");
                 CreatedById = new Guid(reader[6].ToString());
 
+                if (logMe)
+                    Debug.WriteLine("----------Reading ImageSrc");
+                DateTimeMediaCreated = Convert.ToDateTime(reader[8]);
+
                 try
                 {
-                    if (reader[8] != DBNull.Value && !string.IsNullOrEmpty(reader[8].ToString()) && !string.IsNullOrWhiteSpace(reader[8].ToString()))
+                    if (reader[9] != DBNull.Value && !string.IsNullOrEmpty(reader[9].ToString()) && !string.IsNullOrWhiteSpace(reader[9].ToString()))
                     {
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
 
-                        AlbumId = new Guid(reader[8].ToString());
+                        AlbumId = new Guid(reader[9].ToString());
                     }
                     else
                     {
@@ -385,11 +390,12 @@ namespace ParsnipData.Media
                 {
                     if (!ExistsOnDb(pOpenConn))
                     {
-                        SqlCommand InsertVideoIntoDb = new SqlCommand("INSERT INTO t_Videos (video_id, directory, date_time_created, created_by_user_id) VALUES(@video_id, @directory, @date_time_created, @created_by_user_id)", pOpenConn);
+                        SqlCommand InsertVideoIntoDb = new SqlCommand("INSERT INTO t_Videos (video_id, directory, date_time_created, date_time_media_created, created_by_user_id) VALUES(@video_id, @directory, @date_time_created, @date_time_media_created, @created_by_user_id)", pOpenConn);
 
                         InsertVideoIntoDb.Parameters.Add(new SqlParameter("video_id", Id));
                         InsertVideoIntoDb.Parameters.Add(new SqlParameter("directory", Directory.Trim()));
                         InsertVideoIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.AdjustedTime));
+                        InsertVideoIntoDb.Parameters.Add(new SqlParameter("date_time_media_created", Parsnip.AdjustedTime));
                         InsertVideoIntoDb.Parameters.Add(new SqlParameter("created_by_user_id", CreatedById));
 
                         InsertVideoIntoDb.ExecuteNonQuery();
@@ -610,6 +616,25 @@ namespace ParsnipData.Media
                     else
                     {
                         Debug.WriteLine(string.Format("----------Description was not changed. Not updating description."));
+                    }
+
+                    if (DateTimeMediaCreated != temp.DateTimeMediaCreated)
+                    {
+                        Debug.WriteLine(string.Format("----------Attempting to update date time media created..."));
+
+
+                        SqlCommand UpdateDateTimeMediaCreated = new SqlCommand(
+                            "UPDATE video SET date_time_media_created = @date_time_media_created WHERE video_id = @video_id", pOpenConn);
+                        UpdateDateTimeMediaCreated.Parameters.Add(new SqlParameter("video_id", Id));
+                        UpdateDateTimeMediaCreated.Parameters.Add(new SqlParameter("date_time_media_created", DateTimeMediaCreated));
+
+                        UpdateDateTimeMediaCreated.ExecuteNonQuery();
+
+                        Debug.WriteLine(string.Format("----------Date time media created was updated successfully!"));
+                    }
+                    else
+                    {
+                        Debug.WriteLine(string.Format("----------Date time media created was not changed. Not updating DateTimeMediaCreated."));
                     }
 
                 }

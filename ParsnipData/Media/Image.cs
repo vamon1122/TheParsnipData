@@ -13,6 +13,7 @@ namespace ParsnipData.Media
 {
     public class Image : Media
     {
+        public DateTime DateTimeMediaCreated { get; set; }
         public string Placeholder { get; set; }
         
         public string Classes { get; set; }
@@ -275,7 +276,7 @@ namespace ParsnipData.Media
             }
         }
 
-        internal bool AddValues(SqlDataReader pReader)
+        internal bool AddValues(SqlDataReader reader)
         {
             bool logMe = false;
 
@@ -285,16 +286,16 @@ namespace ParsnipData.Media
             try
             {
                 if (logMe)
-                    Debug.WriteLine(string.Format("----------Reading id: {0}", pReader[0]));
+                    Debug.WriteLine(string.Format("----------Reading id: {0}", reader[0]));
 
-                Id = new Guid(pReader[0].ToString());
+                Id = new Guid(reader[0].ToString());
 
-                if (pReader[1] != DBNull.Value && !string.IsNullOrEmpty(pReader[1].ToString()) && !string.IsNullOrWhiteSpace(pReader[1].ToString()))
+                if (reader[1] != DBNull.Value && !string.IsNullOrEmpty(reader[1].ToString()) && !string.IsNullOrWhiteSpace(reader[1].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading placeholder");
 
-                    Placeholder = pReader[1].ToString().Trim();
+                    Placeholder = reader[1].ToString().Trim();
                 }
                 else
                 {
@@ -305,16 +306,16 @@ namespace ParsnipData.Media
 
                 if (logMe)
                     Debug.WriteLine("----------Reading ImageSrc");
-                Directory = pReader[2].ToString().Trim();
+                Directory = reader[2].ToString().Trim();
 
 
 
-                if (pReader[3] != DBNull.Value && !string.IsNullOrEmpty(pReader[3].ToString()) && !string.IsNullOrWhiteSpace(pReader[3].ToString()))
+                if (reader[3] != DBNull.Value && !string.IsNullOrEmpty(reader[3].ToString()) && !string.IsNullOrWhiteSpace(reader[3].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading alt");
 
-                    Alt = pReader[3].ToString().Trim();
+                    Alt = reader[3].ToString().Trim();
                 }
                 else
                 {
@@ -324,18 +325,18 @@ namespace ParsnipData.Media
 
                 if (logMe)
                     Debug.WriteLine("----------Reading date_time_created");
-                DateCreated = Convert.ToDateTime(pReader[4]);
+                DateCreated = Convert.ToDateTime(reader[4]);
 
                 if (logMe)
                     Debug.WriteLine("----------Reading created_by_user_id");
-                CreatedById = new Guid(pReader[5].ToString());
+                CreatedById = new Guid(reader[5].ToString());
 
-                if (pReader[6] != DBNull.Value && !string.IsNullOrEmpty(pReader[6].ToString()) && !string.IsNullOrWhiteSpace(pReader[6].ToString()))
+                if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading title");
 
-                    Title = pReader[6].ToString().Trim();
+                    Title = reader[6].ToString().Trim();
                 }
                 else
                 {
@@ -343,12 +344,12 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Title is blank. Skipping title");
                 }
 
-                if (pReader[7] != DBNull.Value && !string.IsNullOrEmpty(pReader[7].ToString()) && !string.IsNullOrWhiteSpace(pReader[7].ToString()))
+                if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading description");
 
-                    Description = pReader[7].ToString().Trim();
+                    Description = reader[7].ToString().Trim();
                 }
                 else
                 {
@@ -356,12 +357,16 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Description is blank. Skipping description");
                 }
 
+                if (logMe)
+                    Debug.WriteLine("----------Reading ImageSrc");
+                DateTimeMediaCreated = Convert.ToDateTime(reader[9]);
+
                 try
                 {
-                    if (pReader[9] != DBNull.Value && !string.IsNullOrEmpty(pReader[9].ToString()) && !string.IsNullOrWhiteSpace(pReader[9].ToString()))
+                    if (reader[10] != DBNull.Value && !string.IsNullOrEmpty(reader[10].ToString()) && !string.IsNullOrWhiteSpace(reader[10].ToString()))
                     {
 
-                        AlbumId = new Guid(pReader[9].ToString());
+                        AlbumId = new Guid(reader[10].ToString());
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
 
@@ -403,11 +408,12 @@ namespace ParsnipData.Media
                 {
                     if (!ExistsOnDb(pOpenConn))
                     {
-                        SqlCommand InsertImageIntoDb = new SqlCommand("INSERT INTO image (image_id, src, date_time_created, created_by_user_id) VALUES(@image_id, @src, @date_time_created, @created_by_user_id)", pOpenConn);
+                        SqlCommand InsertImageIntoDb = new SqlCommand("INSERT INTO image (image_id, src, date_time_created, date_time_media_created, created_by_user_id) VALUES(@image_id, @src, @date_time_created, @date_time_media_created, @created_by_user_id)", pOpenConn);
 
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("image_id", Id));
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("src", Directory.Trim()));
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.AdjustedTime));
+                        InsertImageIntoDb.Parameters.Add(new SqlParameter("date_time_media_created", Parsnip.AdjustedTime));
                         InsertImageIntoDb.Parameters.Add(new SqlParameter("created_by_user_id", CreatedById));
 
                         InsertImageIntoDb.ExecuteNonQuery();
@@ -627,6 +633,26 @@ namespace ParsnipData.Media
                     {
                         Debug.WriteLine(
                             string.Format("----------Description was not changed. Not updating description."));
+                    }
+
+                    if (DateTimeMediaCreated != temp.DateTimeMediaCreated)
+                    {
+                        Debug.WriteLine(string.Format("----------Attempting to update DateTimeMediaCreated..."));
+
+
+                        SqlCommand UpdateDateTimeMediaCreated = new SqlCommand(
+                            "UPDATE image SET date_time_media_created = @date_time_media_created WHERE image_id = @image_id", pOpenConn);
+                        UpdateDateTimeMediaCreated.Parameters.Add(new SqlParameter("image_id", Id));
+                        UpdateDateTimeMediaCreated.Parameters.Add(new SqlParameter("date_time_media_created", DateTimeMediaCreated));
+
+                        UpdateDateTimeMediaCreated.ExecuteNonQuery();
+
+                        Debug.WriteLine(string.Format("----------DateTimeMediaCreated was updated successfully!"));
+                    }
+                    else
+                    {
+                        Debug.WriteLine(
+                            string.Format("----------DateTimeMediaCreated was not changed. Not updating DateTimeMediaCreated."));
                     }
 
                 }

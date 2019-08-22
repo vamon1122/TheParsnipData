@@ -15,6 +15,8 @@ namespace ParsnipData.Media
 {
     public class YoutubeVideo : Media
     {
+        public DateTime DateTimeMediaCreated { get; set; }
+
         private static string[] _allowedFileExtensions = new string[0];
         public override string[] AllowedFileExtensions { get { return _allowedFileExtensions; } }
         static readonly Log DebugLog = new Log("Debug");
@@ -333,16 +335,20 @@ namespace ParsnipData.Media
                     Debug.WriteLine("----------Reading createdbyid");
                 CreatedById = new Guid(reader[5].ToString());
 
+                if (logMe)
+                    Debug.WriteLine("----------Reading ImageSrc");
+                DateTimeMediaCreated = Convert.ToDateTime(reader[7]);
+
                 try
                 {
-                    if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && 
-                        !string.IsNullOrWhiteSpace(reader[7].ToString()))
+                    if (reader[8] != DBNull.Value && !string.IsNullOrEmpty(reader[8].ToString()) && 
+                        !string.IsNullOrWhiteSpace(reader[8].ToString()))
 
                     {
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
 
-                        AlbumId = new Guid(reader[7].ToString());
+                        AlbumId = new Guid(reader[8].ToString());
                     }
                     else
                     {
@@ -438,11 +444,12 @@ namespace ParsnipData.Media
                 {
                     if (!ExistsOnDb(conn))
                     {
-                        SqlCommand InsertYoutubeVideoIntoDb = new SqlCommand("INSERT INTO youtube _videos (youtubeVideo_id, directory, date_time_created, created_by_user_id) VALUES(@youtubeVideo_id, @directory, @date_time_created, @created_by_user_id)", conn);
+                        SqlCommand InsertYoutubeVideoIntoDb = new SqlCommand("INSERT INTO youtube _videos (youtubeVideo_id, directory, date_time_created, date_time_media_created, created_by_user_id) VALUES(@youtubeVideo_id, @directory, @date_time_created, date_time_media_created, @created_by_user_id)", conn);
 
                         InsertYoutubeVideoIntoDb.Parameters.Add(new SqlParameter("id", Id));
                         InsertYoutubeVideoIntoDb.Parameters.Add(new SqlParameter("directory", Directory.Trim()));
                         InsertYoutubeVideoIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.AdjustedTime));
+                        InsertYoutubeVideoIntoDb.Parameters.Add(new SqlParameter("date_time_media_created", Parsnip.AdjustedTime));
                         InsertYoutubeVideoIntoDb.Parameters.Add(new SqlParameter("created_by_user_id", CreatedById));
 
                         InsertYoutubeVideoIntoDb.ExecuteNonQuery();
@@ -667,6 +674,24 @@ namespace ParsnipData.Media
                         Debug.WriteLine(string.Format("----------Description was not changed. Not updating description."));
                     }
                     */
+
+                    if (DateTimeMediaCreated != temp.DateTimeMediaCreated)
+                    {
+                        Debug.WriteLine(string.Format("----------Attempting to update date_time_media_created..."));
+
+
+                        SqlCommand UpdateDescription = new SqlCommand("UPDATE youtube_video SET date_time_media_created = @date_time_media_created WHERE youtube_video_id = @youtube_video_id", conn);
+                        UpdateDescription.Parameters.Add(new SqlParameter("youtubeVideo_id", Id));
+                        UpdateDescription.Parameters.Add(new SqlParameter("date_time_media_created", DateTimeMediaCreated));
+
+                        UpdateDescription.ExecuteNonQuery();
+
+                        Debug.WriteLine(string.Format("----------date_time_media_created was updated successfully!"));
+                    }
+                    else
+                    {
+                        Debug.WriteLine(string.Format("----------date_time_media_created was not changed. Not updating date_time_media_created."));
+                    }
 
                 }
                 catch (Exception e)
