@@ -13,8 +13,6 @@ namespace ParsnipData.Media
 {
     public class Video : Media
     {
-        public DateTime DateTimeMediaCreated { get; set; }
-
         private static string[] _allowedFileExtensions = new string[] { "mp4", "m4v" };
         public override string[] AllowedFileExtensions { get { return _allowedFileExtensions; } }
         static readonly Log DebugLog = new Log("Debug");

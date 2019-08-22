@@ -18,6 +18,8 @@ namespace ParsnipData.Media
 
     public abstract class Media
     {
+        public DateTime DateTimeMediaCreated { get; set; }
+
         static readonly Log DebugLog = new Log("Debug");
 
         public static List<Image> GetImagesByUserId(Guid userId)

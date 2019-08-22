@@ -102,7 +102,7 @@ namespace ParsnipData.Media
                     "INNER JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id " +
                     "INNER JOIN [user] ON [user].user_id = image.created_by_user_id " +
                     "WHERE image.deleted IS NULL AND media_tag_pair.media_tag_id = @media_tag_id AND [user].deleted IS NULL " +
-                    "ORDER BY image.date_time_created DESC", conn);
+                    "ORDER BY image.date_time_media_created DESC", conn);
 
                 GetImages.Parameters.Add(new SqlParameter("media_tag_id", Id));
 
@@ -136,7 +136,7 @@ namespace ParsnipData.Media
                     "INNER JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id " +
                     "INNER JOIN[user] ON[user].user_id = video.created_by_user_id " +
                     "WHERE video.deleted IS NULL AND media_tag_pair.media_tag_id = @media_tag_id AND[user].deleted IS NULL " +
-                    "ORDER BY video.date_time_created DESC", conn);
+                    "ORDER BY video.date_time_media_created DESC", conn);
 
                 GetVideos.Parameters.Add(new SqlParameter("media_tag_id", Id));
 
@@ -170,7 +170,7 @@ namespace ParsnipData.Media
                     "INNER JOIN media_tag_pair ON youtube_video.youtube_video_id = media_tag_pair.media_id " +
                     "INNER JOIN[user] ON[user].user_id = youtube_video.created_by_user_id " +
                     "WHERE youtube_video.deleted IS NULL AND media_tag_pair.media_tag_id = @media_tag_id AND[user].deleted IS NULL " +
-                    "ORDER BY youtube_video.date_time_created DESC", conn);
+                    "ORDER BY youtube_video.date_time_media_created DESC", conn);
 
                 GetYoutubeVideos.Parameters.Add(new SqlParameter("media_tag_id", Id));
 

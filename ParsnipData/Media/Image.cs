@@ -13,7 +13,6 @@ namespace ParsnipData.Media
 {
     public class Image : Media
     {
-        public DateTime DateTimeMediaCreated { get; set; }
         public string Placeholder { get; set; }
         
         public string Classes { get; set; }

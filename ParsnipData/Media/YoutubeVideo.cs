@@ -15,7 +15,7 @@ namespace ParsnipData.Media
 {
     public class YoutubeVideo : Media
     {
-        public DateTime DateTimeMediaCreated { get; set; }
+        
 
         private static string[] _allowedFileExtensions = new string[0];
         public override string[] AllowedFileExtensions { get { return _allowedFileExtensions; } }
@@ -681,7 +681,7 @@ namespace ParsnipData.Media
 
 
                         SqlCommand UpdateDescription = new SqlCommand("UPDATE youtube_video SET date_time_media_created = @date_time_media_created WHERE youtube_video_id = @youtube_video_id", conn);
-                        UpdateDescription.Parameters.Add(new SqlParameter("youtubeVideo_id", Id));
+                        UpdateDescription.Parameters.Add(new SqlParameter("youtube_video_id", Id));
                         UpdateDescription.Parameters.Add(new SqlParameter("date_time_media_created", DateTimeMediaCreated));
 
                         UpdateDescription.ExecuteNonQuery();
