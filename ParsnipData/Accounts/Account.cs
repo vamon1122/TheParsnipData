@@ -85,7 +85,7 @@ namespace ParsnipData.Accounts
                                 canAccess = false;
                             break;
                         case "member":
-                            if (myUser.AccountType == "admin" || myUser.AccountType == "member")
+                            if (myUser.AccountType == "admin" || myUser.AccountType == "media" || myUser.AccountType == "member")
                             {
                                 justification += accessGrantedJustification("member");
                                 canAccess = true;
@@ -94,7 +94,7 @@ namespace ParsnipData.Accounts
                                 canAccess = false;
                             break;
                         case "user":
-                            if (myUser.AccountType == "admin" || myUser.AccountType == "member" || myUser.AccountType == "user")
+                            if (myUser.AccountType == "admin" || myUser.AccountType == "media" || myUser.AccountType == "member" || myUser.AccountType == "user")
                             {
                                 justification += accessGrantedJustification("user");
                                 canAccess = true;
