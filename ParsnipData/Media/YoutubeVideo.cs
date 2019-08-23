@@ -295,15 +295,29 @@ namespace ParsnipData.Media
                 Id = new Guid(reader[0].ToString());
 
                 
-                    
+
+                Debug.WriteLine("Reading data id " + reader[1].ToString());
+                DataId = reader[1].ToString().Trim();
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading DateTimeMediaCreated");
+                DateTimeMediaCreated = Convert.ToDateTime(reader[2]);
 
 
-                if (reader[1] != DBNull.Value && !string.IsNullOrEmpty(reader[1].ToString()) && !string.IsNullOrWhiteSpace(reader[1].ToString()))
+                if (logMe)
+                    Debug.WriteLine("----------Reading datecreated");
+                DateCreated = Convert.ToDateTime(reader[3]);
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading createdbyid");
+                CreatedById = new Guid(reader[4].ToString());
+
+                if (reader[5] != DBNull.Value && !string.IsNullOrEmpty(reader[5].ToString()) && !string.IsNullOrWhiteSpace(reader[5].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading title");
 
-                    Title = reader[1].ToString().Trim();
+                    Title = reader[5].ToString().Trim();
                 }
                 else
                 {
@@ -311,33 +325,18 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Title is blank. Getting title");
                 }
 
-                if (reader[2] != DBNull.Value && !string.IsNullOrEmpty(reader[2].ToString()) && !string.IsNullOrWhiteSpace(reader[2].ToString()))
+                if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading description");
 
-                    Description = reader[2].ToString().Trim();
+                    Description = reader[6].ToString().Trim();
                 }
                 else
                 {
                     if (logMe)
                         Debug.WriteLine("----------Description is blank. Skipping description");
                 }
-
-                Debug.WriteLine("Reading data id " + reader[3].ToString());
-                DataId = reader[3].ToString().Trim();
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading datecreated");
-                DateCreated = Convert.ToDateTime(reader[4]);
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading createdbyid");
-                CreatedById = new Guid(reader[5].ToString());
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading ImageSrc");
-                DateTimeMediaCreated = Convert.ToDateTime(reader[7]);
 
                 try
                 {

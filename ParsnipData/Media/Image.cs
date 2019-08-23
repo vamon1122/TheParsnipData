@@ -323,19 +323,23 @@ namespace ParsnipData.Media
                 }
 
                 if (logMe)
+                    Debug.WriteLine("----------Reading DateTimeMediaCreated");
+                DateTimeMediaCreated = Convert.ToDateTime(reader[4]);
+
+                if (logMe)
                     Debug.WriteLine("----------Reading date_time_created");
-                DateCreated = Convert.ToDateTime(reader[4]);
+                DateCreated = Convert.ToDateTime(reader[5]);
 
                 if (logMe)
                     Debug.WriteLine("----------Reading created_by_user_id");
-                CreatedById = new Guid(reader[5].ToString());
+                CreatedById = new Guid(reader[6].ToString());
 
-                if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
+                if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading title");
 
-                    Title = reader[6].ToString().Trim();
+                    Title = reader[7].ToString().Trim();
                 }
                 else
                 {
@@ -343,12 +347,12 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Title is blank. Skipping title");
                 }
 
-                if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
+                if (reader[8] != DBNull.Value && !string.IsNullOrEmpty(reader[8].ToString()) && !string.IsNullOrWhiteSpace(reader[8].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading description");
 
-                    Description = reader[7].ToString().Trim();
+                    Description = reader[8].ToString().Trim();
                 }
                 else
                 {
@@ -356,9 +360,7 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Description is blank. Skipping description");
                 }
 
-                if (logMe)
-                    Debug.WriteLine("----------Reading ImageSrc");
-                DateTimeMediaCreated = Convert.ToDateTime(reader[9]);
+                
 
                 try
                 {

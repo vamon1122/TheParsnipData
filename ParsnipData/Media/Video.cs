@@ -283,42 +283,18 @@ namespace ParsnipData.Media
 
                 Id = new Guid(reader[0].ToString());
 
-                if (reader[1] != DBNull.Value && !string.IsNullOrEmpty(reader[1].ToString()) && !string.IsNullOrWhiteSpace(reader[1].ToString()))
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading title");
+                
 
-                    Title = reader[1].ToString().Trim();
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Title is blank. Skipping title");
-                }
+                if (logMe)
+                    Debug.WriteLine("----------Reading Directory");
+                Directory = reader[1].ToString().Trim();
 
                 if (reader[2] != DBNull.Value && !string.IsNullOrEmpty(reader[2].ToString()) && !string.IsNullOrWhiteSpace(reader[2].ToString()))
                 {
                     if (logMe)
-                        Debug.WriteLine("----------Reading description");
-
-                    Description = reader[2].ToString().Trim();
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Description is blank. Skipping description");
-                }
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading Directory");
-                Directory = reader[3].ToString().Trim();
-
-                if (reader[4] != DBNull.Value && !string.IsNullOrEmpty(reader[4].ToString()) && !string.IsNullOrWhiteSpace(reader[4].ToString()))
-                {
-                    if (logMe)
                         Debug.WriteLine("----------Reading thumbnail");
 
-                    Thumbnail = reader[4].ToString().Trim();
+                    Thumbnail = reader[2].ToString().Trim();
                 }
                 else
                 {
@@ -327,16 +303,42 @@ namespace ParsnipData.Media
                 }
 
                 if (logMe)
+                    Debug.WriteLine("----------Reading DateTimeMediaCreated");
+                DateTimeMediaCreated = Convert.ToDateTime(reader[3]);
+
+                if (logMe)
                     Debug.WriteLine("----------Reading datecreated");
-                DateCreated = Convert.ToDateTime(reader[5]);
+                DateCreated = Convert.ToDateTime(reader[4]);
 
                 if (logMe)
                     Debug.WriteLine("----------Reading createdbyid");
-                CreatedById = new Guid(reader[6].ToString());
+                CreatedById = new Guid(reader[5].ToString());
 
-                if (logMe)
-                    Debug.WriteLine("----------Reading ImageSrc");
-                DateTimeMediaCreated = Convert.ToDateTime(reader[8]);
+                if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading title");
+
+                    Title = reader[6].ToString().Trim();
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Title is blank. Skipping title");
+                }
+
+                if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading description");
+
+                    Description = reader[7].ToString().Trim();
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Description is blank. Skipping description");
+                }
 
                 try
                 {
