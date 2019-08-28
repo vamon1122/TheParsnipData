@@ -315,7 +315,7 @@ namespace ParsnipData.Media
                 if (reader[5] != DBNull.Value && !string.IsNullOrEmpty(reader[5].ToString()) && !string.IsNullOrWhiteSpace(reader[5].ToString()))
                 {
                     if (logMe)
-                        Debug.WriteLine("----------Reading title");
+                        Debug.WriteLine("----------Reading youtube video title: " + reader[5].ToString().Trim());
 
                     Title = reader[5].ToString().Trim();
                 }
@@ -359,6 +359,35 @@ namespace ParsnipData.Media
                 {
                     if (logMe)
                         Debug.WriteLine("----------Album id was not requested in the query. Skipping album id");
+                }
+
+                try
+                {
+                    if (reader[9] != DBNull.Value && !string.IsNullOrEmpty(reader[9].ToString()) &&
+                        !string.IsNullOrWhiteSpace(reader[9].ToString()))
+
+                    {
+                        if (logMe)
+                            Debug.WriteLine("----------Reading access_token id");
+
+                        MyAccessToken = new AccessToken((Guid)reader[9], (Guid)reader[10], Convert.ToDateTime(reader[11]), (int)reader[12], (Guid)reader[13]);
+                    }
+                    else
+                    {
+                        if (logMe)
+                            Debug.WriteLine("----------Access_token id is blank. Creating new access token");
+
+                        Guid loggedInUserId = ParsnipData.Accounts.User.GetLoggedInUser().Id;
+                        if (loggedInUserId.ToString() != Guid.Empty.ToString())
+                        {
+                            MyAccessToken = new AccessToken(loggedInUserId, Id);
+                        }
+                    }
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Access_token was not in the query");
                 }
 
                 if (logMe)
@@ -482,16 +511,16 @@ namespace ParsnipData.Media
             }
         }
 
-        public bool Select()
+        public bool Select(Guid loggedInUserId)
         {
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                return DbSelect(conn);
+                return DbSelect(conn, loggedInUserId);
             }
         }
 
-        internal bool DbSelect(SqlConnection conn)
+        internal bool DbSelect(SqlConnection conn, Guid loggedInUserId)
         {
             //AccountLog.Debug("Attempting to get youtubeVideo details...");
             //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get youtubeVideo details with id {0}...", Id));
@@ -503,14 +532,16 @@ namespace ParsnipData.Media
                 if (DataId == null)
                 {
                     Debug.WriteLine(string.Format("DataId \"{0}\" was NULL", DataId));
-                    SelectYoutubeVideo = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id FROM youtube_video LEFT JOIN media_tag_pair ON media_tag_pair.media_id = youtube_video.youtube_video_id INNER JOIN [user] ON [user].user_id = youtube_video.created_by_user_id WHERE youtube_video_id = @youtube_video_id AND youtube_video.deleted IS NULL AND [user].deleted IS NULL", conn);
+                    SelectYoutubeVideo = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id FROM youtube_video LEFT JOIN media_tag_pair ON media_tag_pair.media_id = youtube_video.youtube_video_id INNER JOIN [user] ON [user].user_id = youtube_video.created_by_user_id LEFT JOIN access_token ON access_token.media_id = youtube_video.youtube_video_id AND access_token.created_by_user_id = @logged_in_user_id WHERE youtube_video_id = @youtube_video_id AND youtube_video.deleted IS NULL AND [user].deleted IS NULL", conn);
                     SelectYoutubeVideo.Parameters.Add(new SqlParameter("youtube_video_id", Id.ToString()));
+                    SelectYoutubeVideo.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
                 }
                 else
                 {
                     Debug.WriteLine(string.Format("DataId \"{0}\" was NOT NULL", DataId));
                     SelectYoutubeVideo = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id FROM youtube_video LEFT JOIN media_tag_pair ON media_tag_pair.media_id = youtube_video.youtube_video_id INNER JOIN [user] ON [user].user_id = youtube_video.created_by_user_id WHERE data_id = @data_id AND youtube_video.deleted IS NULL AND [user].deleted IS NULL", conn);
                     SelectYoutubeVideo.Parameters.Add(new SqlParameter("dataid", DataId));
+                    SelectYoutubeVideo.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
                 }
 
                 int recordsFound = 0;
@@ -567,7 +598,7 @@ namespace ParsnipData.Media
                 try
                 {
                     YoutubeVideo temp = new YoutubeVideo(Id);
-                    temp.Select();
+                    //temp.Select();
 
                     if (AlbumId != null)
                     {

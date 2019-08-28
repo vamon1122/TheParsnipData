@@ -89,7 +89,7 @@ namespace ParsnipData.Media
             return albums;
         }
 
-        public List<Image> GetAllImages()
+        public List<Image> GetAllImages(Guid loggedInUserId)
         {
             Debug.WriteLine("Getting all images for album");
             List<Guid> ImageGuids = new List<Guid>();
@@ -98,13 +98,18 @@ namespace ParsnipData.Media
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                SqlCommand GetImages = new SqlCommand("SELECT image.*, media_tag_pair.media_tag_id FROM image " +
+                SqlCommand GetImages = new SqlCommand("SELECT image.*, media_tag_pair.media_tag_id, access_token.* FROM image " +
                     "INNER JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id " +
+                    
                     "INNER JOIN [user] ON [user].user_id = image.created_by_user_id " +
+
+                    "LEFT JOIN access_token ON access_token.created_by_user_id = @logged_in_user_id AND access_token.media_id = image.image_id " +
+
                     "WHERE image.deleted IS NULL AND media_tag_pair.media_tag_id = @media_tag_id AND [user].deleted IS NULL " +
                     "ORDER BY image.date_time_media_created DESC", conn);
 
                 GetImages.Parameters.Add(new SqlParameter("media_tag_id", Id));
+                GetImages.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
 
                 using (SqlDataReader reader = GetImages.ExecuteReader())
                 {
@@ -114,7 +119,7 @@ namespace ParsnipData.Media
                     }
                 }
 
-                Debug.WriteLine("" + ImageGuids.Count() + "Photos were found");
+                Debug.WriteLine("" + Images.Count() + "Photos were found");
 
                 int i = 0;
 
@@ -123,7 +128,7 @@ namespace ParsnipData.Media
             return Images;
         }
 
-        public List<Video> GetAllVideos()
+        public List<Video> GetAllVideos(Guid loggedInUserId)
         {
             Debug.WriteLine("Getting all videos for album");
             List<Guid> VideoGuids = new List<Guid>();
@@ -132,13 +137,15 @@ namespace ParsnipData.Media
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                SqlCommand GetVideos = new SqlCommand("SELECT video.*, media_tag_pair.media_tag_id FROM video " +
+                SqlCommand GetVideos = new SqlCommand("SELECT video.*, media_tag_pair.media_tag_id, access_token.* FROM video " +
                     "INNER JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id " +
                     "INNER JOIN[user] ON[user].user_id = video.created_by_user_id " +
+                    "LEFT JOIN access_token ON access_token.created_by_user_id = @logged_in_user_id AND access_token.media_id = video.video_id " +
                     "WHERE video.deleted IS NULL AND media_tag_pair.media_tag_id = @media_tag_id AND[user].deleted IS NULL " +
                     "ORDER BY video.date_time_media_created DESC", conn);
 
                 GetVideos.Parameters.Add(new SqlParameter("media_tag_id", Id));
+                GetVideos.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
 
                 using (SqlDataReader reader = GetVideos.ExecuteReader())
                 {
@@ -148,7 +155,7 @@ namespace ParsnipData.Media
                     }
                 }
 
-                Debug.WriteLine("" + VideoGuids.Count() + "Videos were found");
+                Debug.WriteLine("" + Videos.Count() + "Videos were found");
 
                 int i = 0;
 
@@ -157,7 +164,7 @@ namespace ParsnipData.Media
             return Videos;
         }
 
-        public List<YoutubeVideo> GetAllYoutubeVideos()
+        public List<YoutubeVideo> GetAllYoutubeVideos(Guid loggedInUserId)
         {
             Debug.WriteLine("Getting all youtube videos for album");
             List<Guid> YoutubeVideoGuids = new List<Guid>();
@@ -166,13 +173,15 @@ namespace ParsnipData.Media
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                SqlCommand GetYoutubeVideos = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id FROM youtube_video " +
+                SqlCommand GetYoutubeVideos = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id, access_token.* FROM youtube_video " +
                     "INNER JOIN media_tag_pair ON youtube_video.youtube_video_id = media_tag_pair.media_id " +
                     "INNER JOIN[user] ON[user].user_id = youtube_video.created_by_user_id " +
+                    "LEFT JOIN access_token ON access_token.created_by_user_id = @logged_in_user_id AND access_token.media_id = youtube_video.youtube_video_id " +
                     "WHERE youtube_video.deleted IS NULL AND media_tag_pair.media_tag_id = @media_tag_id AND[user].deleted IS NULL " +
                     "ORDER BY youtube_video.date_time_media_created DESC", conn);
 
                 GetYoutubeVideos.Parameters.Add(new SqlParameter("media_tag_id", Id));
+                GetYoutubeVideos.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
 
                 using (SqlDataReader reader = GetYoutubeVideos.ExecuteReader())
                 {
@@ -182,7 +191,7 @@ namespace ParsnipData.Media
                     }
                 }
 
-                Debug.WriteLine("" + YoutubeVideoGuids.Count() + "Videos were found");
+                Debug.WriteLine("" + YoutubeVideos.Count() + "Videos were found");
 
                 int i = 0;
 

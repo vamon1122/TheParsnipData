@@ -214,7 +214,9 @@ namespace ParsnipData.Accounts
             User tempUser = new User();
             var cookies = tempUser.GetCookies();
 
-            tempUser.LogIn(cookies[0], false, cookies[1], false, true);
+            if (!string.IsNullOrEmpty(cookies[0]) && !string.IsNullOrEmpty(cookies[1]))
+                tempUser.LogIn(cookies[0], false, cookies[1], false, true);
+
             return tempUser;
         }
 
@@ -407,7 +409,7 @@ namespace ParsnipData.Accounts
                     }
                     else
                     {
-                        Debug.WriteLine(string.Format("Error whilst logging in {0}. {1} != {2}", Username, password, dbPwd));
+                        Debug.WriteLine(string.Format("Error whilst logging in {0}. Password \"{1}\" != \"{2}\"", Username, password, dbPwd));
                     }
                 }
 

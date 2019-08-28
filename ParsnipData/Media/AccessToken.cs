@@ -20,25 +20,6 @@ namespace ParsnipData.Media
         public Guid UserId { get; set; }
         public DateTime DateTimeCreated { get; set; }
         public int TimesUsed { get; set; }
-        public string ImageRedirect
-        {
-            get
-            {
-
-                var myImage = new ParsnipData.Media.Image(MediaId);
-                myImage.Select();
-                return string.Format("/view_image?access_token={0}", Id);
-            }
-        }
-        public string VideoRedirect
-        {
-            get
-            {
-                var myImage = new ParsnipData.Media.Image(MediaId);
-                myImage.Select();
-                return string.Format("/video_player?access_token={0}", Id);
-            }
-        }
         public Guid MediaId { get; set; }
 
         public static bool TokenExists(Guid userId, Guid mediaId)
@@ -167,6 +148,7 @@ namespace ParsnipData.Media
 
         public static AccessToken GetToken(Guid userId, Guid mediaId)
         {
+            Debug.WriteLine(string.Format("Getting token. userId: {0} & mediaId = {1}", userId, mediaId));
             AccessToken myToken = null;
             try
             {
@@ -213,6 +195,15 @@ namespace ParsnipData.Media
         public AccessToken(Guid id)
         {
             Id = id;
+        }
+
+        public AccessToken(Guid accessTokenId, Guid createdByUserId, DateTime dateTimeCreated, int timesUsed, Guid mediaId)
+        {
+            Id = accessTokenId;
+            UserId = createdByUserId;
+            DateTimeCreated = dateTimeCreated;
+            TimesUsed = timesUsed;
+            MediaId = mediaId;
         }
 
         public void Select()

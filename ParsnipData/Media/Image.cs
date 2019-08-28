@@ -277,7 +277,7 @@ namespace ParsnipData.Media
 
         internal bool AddValues(SqlDataReader reader)
         {
-            bool logMe = false;
+            bool logMe = true;
 
             if (logMe)
                 Debug.WriteLine("----------Adding values...");
@@ -337,7 +337,7 @@ namespace ParsnipData.Media
                 if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
                 {
                     if (logMe)
-                        Debug.WriteLine("----------Reading title");
+                        Debug.WriteLine("----------Reading image title: " + reader[7].ToString().Trim());
 
                     Title = reader[7].ToString().Trim();
                 }
@@ -382,6 +382,36 @@ namespace ParsnipData.Media
                 {
                     if (logMe)
                         Debug.WriteLine("----------Album id was not requested in the query. Skipping album id");
+                }
+
+                try
+                {
+                    if (reader[11] != DBNull.Value && !string.IsNullOrEmpty(reader[11].ToString()) &&
+                        !string.IsNullOrWhiteSpace(reader[11].ToString()))
+
+                    {
+                        if (logMe)
+                            Debug.WriteLine("----------Reading access_token id");
+
+                        MyAccessToken = new AccessToken((Guid)reader[11], (Guid)reader[12], Convert.ToDateTime(reader[13]), (int)reader[14], (Guid)reader[15]);
+                    }
+                    else
+                    {
+                        if (logMe)
+                            Debug.WriteLine("----------Access_token id is blank. Creating new access token");
+
+                        Guid loggedInUserId = ParsnipData.Accounts.User.GetLoggedInUser().Id;
+                        if(loggedInUserId.ToString() != Guid.Empty.ToString())
+                        {
+                            MyAccessToken = new AccessToken(loggedInUserId, Id);
+                        }
+                            
+                    }
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Access_token was not in the query");
                 }
 
                 if (logMe)
@@ -448,28 +478,29 @@ namespace ParsnipData.Media
             }
         }
 
-        public bool Select()
+        public bool Select(Guid loggedInUserId)
         {
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                return DbSelect(conn);
+                return DbSelect(conn, loggedInUserId);
             }
             
         }
 
-        internal bool DbSelect(SqlConnection pOpenConn)
+        internal bool DbSelect(SqlConnection pOpenConn, Guid loggedInUserId)
         {
             //AccountLog.Debug("Attempting to get image details...");
             //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get image details with id {0}...", Id));
 
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT image.*, media_tag_pair.media_tag_id FROM image LEFT JOIN media_tag_pair ON media_tag_pair.media_id = image.image_id INNER JOIN [user] ON [user].user_id = image.created_by_user_id WHERE image_id = @image_id AND image.deleted IS NULL AND [user].deleted IS NULL", pOpenConn);
-                SelectAccount.Parameters.Add(new SqlParameter("image_id", Id.ToString()));
+                SqlCommand SelectImage = new SqlCommand("SELECT image.*, media_tag_pair.media_tag_id FROM image LEFT JOIN media_tag_pair ON media_tag_pair.media_id = image.image_id INNER JOIN [user] ON [user].user_id = image.created_by_user_id LEFT JOIN access_token ON access_token.media_id = image.image_id AND access_token.created_by_user_id = @logged_in_user_id WHERE image_id = @image_id AND image.deleted IS NULL AND [user].deleted IS NULL", pOpenConn);
+                SelectImage.Parameters.Add(new SqlParameter("image_id", Id.ToString()));
+                SelectImage.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
 
                 int recordsFound = 0;
-                using (SqlDataReader reader = SelectAccount.ExecuteReader())
+                using (SqlDataReader reader = SelectImage.ExecuteReader())
                 {
 
                     while (reader.Read())
@@ -526,7 +557,7 @@ namespace ParsnipData.Media
                 try
                 {
                     Image temp = new Image(Id);
-                    temp.Select();
+                    //temp.Select();
 
                     //Null AlbumId would suggest that there was an error whilst loading / editing the image
                     if(AlbumId != null)

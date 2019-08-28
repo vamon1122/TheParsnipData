@@ -123,6 +123,9 @@ namespace ParsnipData.Media
         public Guid CreatedById { get; set; }
         public abstract string[] AllowedFileExtensions { get; }
         public string Directory { get; set; }
+
+        public AccessToken MyAccessToken { get; set; }
+
         public abstract bool Delete();
 
         public abstract bool Update();
