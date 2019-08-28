@@ -382,6 +382,7 @@ namespace ParsnipData.Media
                         if (loggedInUserId.ToString() != Guid.Empty.ToString())
                         {
                             MyAccessToken = new AccessToken(loggedInUserId, Id);
+                            MyAccessToken.Insert();
                         }
                     }
                 }
