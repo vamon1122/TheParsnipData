@@ -541,7 +541,7 @@ namespace ParsnipData.Media
                 {
                     Debug.WriteLine(string.Format("DataId \"{0}\" was NOT NULL", DataId));
                     SelectYoutubeVideo = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id FROM youtube_video LEFT JOIN media_tag_pair ON media_tag_pair.media_id = youtube_video.youtube_video_id INNER JOIN [user] ON [user].user_id = youtube_video.created_by_user_id WHERE data_id = @data_id AND youtube_video.deleted IS NULL AND [user].deleted IS NULL", conn);
-                    SelectYoutubeVideo.Parameters.Add(new SqlParameter("dataid", DataId));
+                    SelectYoutubeVideo.Parameters.Add(new SqlParameter("data_id", DataId));
                     SelectYoutubeVideo.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
                 }
 
@@ -732,7 +732,7 @@ namespace ParsnipData.Media
                     new LogEntry(Log.Default) { text = error };
                     return false;
                 }
-                new LogEntry(Log.Default) { text = string.Format("YoutubeVideo was successfully updated on the database!") };
+                new LogEntry(DebugLog) { text = string.Format("YoutubeVideo was successfully updated on the database!") };
                 return true;
             }
             else

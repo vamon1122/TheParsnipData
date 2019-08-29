@@ -697,7 +697,7 @@ namespace ParsnipData.Media
                     new LogEntry(Log.Default) { text = error };
                     return false;
                 }
-                new LogEntry(Log.Default) { text = string.Format("Image was successfully updated on the database!") };
+                new LogEntry(DebugLog) { text = string.Format("Image was successfully updated on the database!") };
                 return true;
             }
             else

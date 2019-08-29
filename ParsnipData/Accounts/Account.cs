@@ -49,10 +49,13 @@ namespace ParsnipData.Accounts
                 if (page.Session["userName"] == null)
                 {
                     page.Session["userName"] = myUser.Username;
-                    new LogEntry(SessionLog) { text = string.Format("{0} started a new session from {1} {2}. Session ID = {3}.",myUser.FullName, myUser.PosessivePronoun, deviceType, page.Session.SessionID.ToString()) };
+
+                    string logString = string.Format("{0} started a new session from {1} {2}. Session ID = {3}", myUser.FullName, myUser.PosessivePronoun, deviceType, page.Session.SessionID.ToString());
+                    new LogEntry(new Log("General")) { text = logString };
+                    new LogEntry(SessionLog) { text = logString };
                 }
                 else
-                    new LogEntry(SessionLog) { text = string.Format("{0} continued {1} session on {1} {2}. Session ID = {3}.", myUser.FullName, myUser.PosessivePronoun, deviceType, page.Session.SessionID.ToString()) };
+                    new LogEntry(SessionLog) { text = string.Format("{0} continued {1} session on {1} {2}. Session ID = {3}", myUser.FullName, myUser.PosessivePronoun, deviceType, page.Session.SessionID.ToString()) };
 
 
 

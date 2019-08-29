@@ -215,9 +215,13 @@ namespace ParsnipData.Accounts
             var cookies = tempUser.GetCookies();
 
             if (!string.IsNullOrEmpty(cookies[0]) && !string.IsNullOrEmpty(cookies[1]))
+            {
                 tempUser.LogIn(cookies[0], false, cookies[1], false, true);
-
-            return tempUser;
+                return tempUser;
+            }
+            else
+                return null;
+                
         }
 
         public static User GetLoggedInUser(string pUsername, string pPwd)
