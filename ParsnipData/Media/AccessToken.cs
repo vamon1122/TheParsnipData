@@ -76,7 +76,7 @@ namespace ParsnipData.Media
                     "INNER JOIN[user] AS shared_by ON access_token.created_by_user_id = shared_by.user_id " +
                     "LEFT JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id " +
 
-                    "ORDER BY times_used DESC", conn);
+                    "WHERE access_token.times_used > 0 ORDER BY times_used DESC", conn);
 
                 var getVideoStats = new SqlCommand(
                     "SELECT video.video_id AS media_id, " +
@@ -96,7 +96,7 @@ namespace ParsnipData.Media
                     "INNER JOIN [user] AS shared_by ON access_token.created_by_user_id = shared_by.user_id " +
                     "LEFT JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id " +
 
-                    "ORDER BY times_used DESC", conn);
+                    "WHERE access_token.times_used > 0 ORDER BY times_used DESC", conn);
 
                 var getYoutubeVideoStats = new SqlCommand(
                     "SELECT youtube_video.youtube_video_id AS media_id, " +
@@ -114,7 +114,7 @@ namespace ParsnipData.Media
                     "INNER JOIN[user] AS shared_by ON access_token.created_by_user_id = shared_by.user_id " +
                     "LEFT JOIN media_tag_pair ON youtube_video.youtube_video_id = media_tag_pair.media_id " +
 
-                    "ORDER BY times_used DESC" ,conn);
+                    "WHERE access_token.times_used > 0 ORDER BY times_used DESC", conn);
 
                 using (var imageStats = getImageStats.ExecuteReader())
                 {
