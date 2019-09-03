@@ -30,13 +30,17 @@ namespace ParsnipData.Media
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                SqlCommand GetImages = new SqlCommand("SELECT image.*, media_tag_pair.media_tag_id FROM image " +
+                SqlCommand GetImages = new SqlCommand("SELECT image.*, media_tag_pair.media_tag_id, access_token.* FROM image " +
                     "LEFT JOIN media_tag_pair ON image.image_id = media_tag_pair.media_id " +
                     "INNER JOIN [user] ON [user].user_id = image.created_by_user_id " +
+
+                    "LEFT JOIN access_token ON access_token.created_by_user_id = @logged_in_user_id AND access_token.media_id = image.image_id " +
+
                     "WHERE image.deleted IS NULL AND image.created_by_user_id = @created_by_user_id AND " +
                     "[user].deleted IS NULL ORDER BY image.date_time_created DESC", conn);
 
                 GetImages.Parameters.Add(new SqlParameter("created_by_user_id", userId));
+                GetImages.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUser().Id));
 
                 using (SqlDataReader reader = GetImages.ExecuteReader())
                 {
@@ -61,13 +65,17 @@ namespace ParsnipData.Media
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                SqlCommand GetVideos = new SqlCommand("SELECT video.*, media_tag_pair.media_tag_id FROM video " +
+                SqlCommand GetVideos = new SqlCommand("SELECT video.*, media_tag_pair.media_tag_id, access_token.* FROM video " +
                     "LEFT JOIN media_tag_pair ON video.video_id = media_tag_pair.media_id " +
                     "INNER JOIN [user] ON [user].user_id = video.created_by_user_id " +
+
+                    "LEFT JOIN access_token ON access_token.created_by_user_id = @logged_in_user_id AND access_token.media_id = video.video_id " +
+
                     "WHERE video.deleted IS NULL AND video.created_by_user_id = @created_by_user_id AND " +
                     "[user].deleted IS NULL ORDER BY video.date_time_created DESC", conn);
 
                 GetVideos.Parameters.Add(new SqlParameter("created_by_user_id", userId));
+                GetVideos.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUser().Id));
 
                 using (SqlDataReader reader = GetVideos.ExecuteReader())
                 {
@@ -83,7 +91,7 @@ namespace ParsnipData.Media
 
             return Videos;
         }
-
+        
         public static List<YoutubeVideo> GetYoutubeVideosByUserId(Guid userId)
         {
             Debug.WriteLine("Getting all YoutubeVideos for user");
@@ -92,13 +100,17 @@ namespace ParsnipData.Media
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                SqlCommand GetYoutubeVideos = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id FROM youtube_video " +
+                SqlCommand GetYoutubeVideos = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id, access_token.* FROM youtube_video " +
                     "LEFT JOIN media_tag_pair ON youtube_video.youtube_video_id = media_tag_pair.media_id " +
                     "INNER JOIN [user] ON [user].user_id = youtube_video.created_by_user_id " +
+
+                    "LEFT JOIN access_token ON access_token.created_by_user_id = @logged_in_user_id AND access_token.media_id = youtube_video.youtube_video_id " +
+
                     "WHERE youtube_video.deleted IS NULL AND youtube_video.created_by_user_id = @created_by_user_id AND " +
                     "[user].deleted IS NULL ORDER BY youtube_video.date_time_created DESC", conn);
 
                 GetYoutubeVideos.Parameters.Add(new SqlParameter("created_by_user_id", userId));
+                GetYoutubeVideos.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUser().Id));
 
                 using (SqlDataReader reader = GetYoutubeVideos.ExecuteReader())
                 {
