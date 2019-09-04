@@ -40,7 +40,7 @@ namespace ParsnipData.Media
                     "[user].deleted IS NULL ORDER BY image.date_time_created DESC", conn);
 
                 GetImages.Parameters.Add(new SqlParameter("created_by_user_id", userId));
-                GetImages.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUser().Id));
+                GetImages.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUserId()));
 
                 using (SqlDataReader reader = GetImages.ExecuteReader())
                 {
@@ -75,7 +75,7 @@ namespace ParsnipData.Media
                     "[user].deleted IS NULL ORDER BY video.date_time_created DESC", conn);
 
                 GetVideos.Parameters.Add(new SqlParameter("created_by_user_id", userId));
-                GetVideos.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUser().Id));
+                GetVideos.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUserId()));
 
                 using (SqlDataReader reader = GetVideos.ExecuteReader())
                 {
@@ -110,7 +110,7 @@ namespace ParsnipData.Media
                     "[user].deleted IS NULL ORDER BY youtube_video.date_time_created DESC", conn);
 
                 GetYoutubeVideos.Parameters.Add(new SqlParameter("created_by_user_id", userId));
-                GetYoutubeVideos.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUser().Id));
+                GetYoutubeVideos.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUserId()));
 
                 using (SqlDataReader reader = GetYoutubeVideos.ExecuteReader())
                 {

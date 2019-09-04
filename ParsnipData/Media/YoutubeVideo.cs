@@ -105,7 +105,9 @@ namespace ParsnipData.Media
                 using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
-                    SqlCommand GetYoutubeVideos = new SqlCommand("SELECT TOP 1 * FROM youtube_video ORDER BY date_time_created DESC", conn);
+                    SqlCommand GetYoutubeVideos = new SqlCommand("SELECT TOP 1 youtube_video.*, NULL , access_token.* FROM youtube_video LEFT JOIN access_token ON access_token.media_id = youtube_video.youtube_video_id AND access_token.created_by_user_id = @logged_in_user_id ORDER BY youtube_video.date_time_media_created DESC", conn);
+                    GetYoutubeVideos.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUserId()));
+
                     using (SqlDataReader reader = GetYoutubeVideos.ExecuteReader())
                     {
                         while (reader.Read())
@@ -377,7 +379,7 @@ namespace ParsnipData.Media
                         if (logMe)
                             Debug.WriteLine("----------Access_token id is blank. Creating new access token");
 
-                        Guid loggedInUserId = ParsnipData.Accounts.User.GetLoggedInUser().Id;
+                        Guid loggedInUserId = ParsnipData.Accounts.User.GetLoggedInUserId();
                         if (loggedInUserId.ToString() != Guid.Empty.ToString())
                         {
                             MyAccessToken = new AccessToken(loggedInUserId, Id);
@@ -512,16 +514,16 @@ namespace ParsnipData.Media
             }
         }
 
-        public bool Select(Guid loggedInUserId)
+        public bool Select()
         {
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                return DbSelect(conn, loggedInUserId);
+                return DbSelect(conn);
             }
         }
 
-        internal bool DbSelect(SqlConnection conn, Guid loggedInUserId)
+        internal bool DbSelect(SqlConnection conn)
         {
             //AccountLog.Debug("Attempting to get youtubeVideo details...");
             //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get youtubeVideo details with id {0}...", Id));
@@ -535,14 +537,14 @@ namespace ParsnipData.Media
                     Debug.WriteLine(string.Format("DataId \"{0}\" was NULL", DataId));
                     SelectYoutubeVideo = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id FROM youtube_video LEFT JOIN media_tag_pair ON media_tag_pair.media_id = youtube_video.youtube_video_id INNER JOIN [user] ON [user].user_id = youtube_video.created_by_user_id LEFT JOIN access_token ON access_token.media_id = youtube_video.youtube_video_id AND access_token.created_by_user_id = @logged_in_user_id WHERE youtube_video_id = @youtube_video_id AND youtube_video.deleted IS NULL AND [user].deleted IS NULL", conn);
                     SelectYoutubeVideo.Parameters.Add(new SqlParameter("youtube_video_id", Id.ToString()));
-                    SelectYoutubeVideo.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
+                    SelectYoutubeVideo.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUserId()));
                 }
                 else
                 {
                     Debug.WriteLine(string.Format("DataId \"{0}\" was NOT NULL", DataId));
                     SelectYoutubeVideo = new SqlCommand("SELECT youtube_video.*, media_tag_pair.media_tag_id FROM youtube_video LEFT JOIN media_tag_pair ON media_tag_pair.media_id = youtube_video.youtube_video_id INNER JOIN [user] ON [user].user_id = youtube_video.created_by_user_id WHERE data_id = @data_id AND youtube_video.deleted IS NULL AND [user].deleted IS NULL", conn);
                     SelectYoutubeVideo.Parameters.Add(new SqlParameter("data_id", DataId));
-                    SelectYoutubeVideo.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
+                    SelectYoutubeVideo.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUserId()));
                 }
 
                 int recordsFound = 0;

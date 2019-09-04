@@ -92,16 +92,16 @@ namespace ParsnipData.Media
             return albumIds;
         }
 
-        public static Video GetLatest(Guid loggedInUserId)
+        public static Video GetLatest()
         {
             Video video = new Video();
-            try
-            {
+            /*try
+            {*/
                 using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
-                    SqlCommand GetVideos = new SqlCommand("SELECT TOP 1 video.*, NULL , access_token.* FROM video LEFT JOIN access_token ON access_token.media_id = video.video_id AND access_token.created_by_user_id = @logged_in_user_id ORDER BY video.date_time_created DESC", conn);
-                    GetVideos.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
+                    SqlCommand GetVideos = new SqlCommand("SELECT TOP 1 video.*, NULL , access_token.* FROM video LEFT JOIN access_token ON access_token.media_id = video.video_id AND access_token.created_by_user_id = @logged_in_user_id ORDER BY video.date_time_media_created DESC", conn);
+                    GetVideos.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUserId()));
                     using (SqlDataReader reader = GetVideos.ExecuteReader())
                     {
                         while (reader.Read())
@@ -110,11 +110,11 @@ namespace ParsnipData.Media
                         }
                     }
                 }
-            }
+            /*}
             catch(Exception ex)
             {
                 throw ex;
-            }
+            }*/
             
             return video;
         }
@@ -378,7 +378,7 @@ namespace ParsnipData.Media
                         if (logMe)
                             Debug.WriteLine("----------Access_token id is blank. Creating new access token");
 
-                        Guid loggedInUserId = ParsnipData.Accounts.User.GetLoggedInUser().Id;
+                        Guid loggedInUserId = ParsnipData.Accounts.User.GetLoggedInUserId();
                         if (loggedInUserId.ToString() != Guid.Empty.ToString())
                         {
                             MyAccessToken = new AccessToken(loggedInUserId, Id);
@@ -460,17 +460,17 @@ namespace ParsnipData.Media
             }
         }
 
-        public bool Select(Guid loggedInUserId)
+        public bool Select()
         {
             using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                return DbSelect(conn, loggedInUserId);
+                return DbSelect(conn);
             }
             
         }
 
-        internal bool DbSelect(SqlConnection pOpenConn, Guid loggedInUserId)
+        internal bool DbSelect(SqlConnection pOpenConn)
         {
             //AccountLog.Debug("Attempting to get video details...");
             //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get video details with id {0}...", Id));
@@ -479,7 +479,7 @@ namespace ParsnipData.Media
             {
                 SqlCommand SelectVideo = new SqlCommand("SELECT video.*, media_tag_pair.media_tag_id FROM video LEFT JOIN media_tag_pair ON media_tag_pair.media_id = video.video_id INNER JOIN [user] ON [user].user_id = video.created_by_user_id LEFT JOIN access_token ON access_token.media_id = video.video_id AND access_token.created_by_user_id = @logged_in_user_id WHERE video_id = @video_id AND video.deleted IS NULL AND [user].deleted IS NULL", pOpenConn);
                 SelectVideo.Parameters.Add(new SqlParameter("video_id", Id.ToString()));
-                SelectVideo.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
+                SelectVideo.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUserId()));
 
                 int recordsFound = 0;
                 using (SqlDataReader reader = SelectVideo.ExecuteReader())

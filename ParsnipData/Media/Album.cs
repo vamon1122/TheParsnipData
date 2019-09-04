@@ -89,7 +89,7 @@ namespace ParsnipData.Media
             return albums;
         }
 
-        public List<Image> GetAllImages(Guid loggedInUserId)
+        public List<Image> GetAllImages()
         {
             Debug.WriteLine("Getting all images for album");
             List<Guid> ImageGuids = new List<Guid>();
@@ -109,7 +109,7 @@ namespace ParsnipData.Media
                     "ORDER BY image.date_time_media_created DESC", conn);
 
                 GetImages.Parameters.Add(new SqlParameter("media_tag_id", Id));
-                GetImages.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
+                GetImages.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUserId()));
 
                 using (SqlDataReader reader = GetImages.ExecuteReader())
                 {
@@ -128,7 +128,7 @@ namespace ParsnipData.Media
             return Images;
         }
 
-        public List<Video> GetAllVideos(Guid loggedInUserId)
+        public List<Video> GetAllVideos()
         {
             Debug.WriteLine("Getting all videos for album");
             List<Guid> VideoGuids = new List<Guid>();
@@ -145,7 +145,7 @@ namespace ParsnipData.Media
                     "ORDER BY video.date_time_media_created DESC", conn);
 
                 GetVideos.Parameters.Add(new SqlParameter("media_tag_id", Id));
-                GetVideos.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
+                GetVideos.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUserId()));
 
                 using (SqlDataReader reader = GetVideos.ExecuteReader())
                 {
@@ -164,7 +164,7 @@ namespace ParsnipData.Media
             return Videos;
         }
 
-        public List<YoutubeVideo> GetAllYoutubeVideos(Guid loggedInUserId)
+        public List<YoutubeVideo> GetAllYoutubeVideos()
         {
             Debug.WriteLine("Getting all youtube videos for album");
             List<Guid> YoutubeVideoGuids = new List<Guid>();
@@ -181,7 +181,7 @@ namespace ParsnipData.Media
                     "ORDER BY youtube_video.date_time_media_created DESC", conn);
 
                 GetYoutubeVideos.Parameters.Add(new SqlParameter("media_tag_id", Id));
-                GetYoutubeVideos.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
+                GetYoutubeVideos.Parameters.Add(new SqlParameter("logged_in_user_id", User.GetLoggedInUserId()));
 
                 using (SqlDataReader reader = GetYoutubeVideos.ExecuteReader())
                 {

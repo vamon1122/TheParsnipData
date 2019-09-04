@@ -208,6 +208,14 @@ namespace ParsnipData.Accounts
             return users;
         }
 
+        public static Guid GetLoggedInUserId()
+        {
+            if (GetLoggedInUser() == null || GetLoggedInUser().Id == null)
+                return Guid.Empty;
+            else
+                return GetLoggedInUser().Id;
+        }
+
         public static User GetLoggedInUser()
         {
             
