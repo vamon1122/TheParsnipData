@@ -324,7 +324,7 @@ namespace ParsnipData.Media
                 else
                 {
                     if (logMe)
-                        Debug.WriteLine("----------Title is blank. Getting title");
+                        Debug.WriteLine("----------Title is blank");
                 }
 
                 if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
@@ -396,6 +396,7 @@ namespace ParsnipData.Media
                 if (logMe)
                     Debug.WriteLine("added values successfully! Checking title...");
 
+                Debug.WriteLine("Checking title...");
                 CheckTitle();
                 
                 Debug.WriteLine("----------Youtube video title = " + Title);
@@ -440,24 +441,26 @@ namespace ParsnipData.Media
 
                     Debug.WriteLine("Database updated!");
                 }
+                else
+                {
+                    Debug.WriteLine("Title was not null or empty");
+                }
             }
         }
 
-        private static string GetTitle(string url)
+        private static string GetTitle(string dataId)
         {
-            Debug.WriteLine("----------Getting youtube video title...");
-            //var api = $"http://youtube.com/get_video_info?video_id={GetArgs(url, "v", '?')}";
-            var api = $"http://youtube.com/get_video_info?video_id=" + url;
-            return GetArgs(new WebClient().DownloadString(api), "title", '&');
+            Debug.WriteLine("----------Getting youtube video title from youtube API. DataId = " + dataId);
+            var api = $"http://youtube.com/get_video_info?video_id=" + dataId;
 
-            string GetArgs(string args, string key, char query)
-            {
-                var iqs = args.IndexOf(query);
-                return iqs == -1
-                    ? string.Empty
-                    : HttpUtility.ParseQueryString(iqs < args.Length - 1
-                        ? args.Substring(iqs + 1) : string.Empty)[key];
-            }
+            var youtubeApiResponse = WebUtility.UrlDecode(new WebClient().DownloadString(api));
+
+            int titleStart = youtubeApiResponse.IndexOf("\",\"title\":\"");
+            int titleEnd = youtubeApiResponse.IndexOf("\",\"lengthSeconds\":\"");
+
+            string title = youtubeApiResponse.Substring(titleStart + 11, titleEnd - titleStart - 11);
+
+            return title;
         }
 
         private bool DbInsert(SqlConnection conn)
