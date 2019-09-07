@@ -87,6 +87,15 @@ namespace ParsnipData.Accounts
                             else
                                 canAccess = false;
                             break;
+                        case "media":
+                            if (myUser.AccountType == "admin" || myUser.AccountType == "media")
+                            {
+                                justification += accessGrantedJustification("media");
+                                canAccess = true;
+                            }
+                            else
+                                canAccess = false;
+                            break;
                         case "member":
                             if (myUser.AccountType == "admin" || myUser.AccountType == "media" || myUser.AccountType == "member")
                             {
