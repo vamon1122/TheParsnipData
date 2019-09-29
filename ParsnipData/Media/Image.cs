@@ -13,7 +13,8 @@ namespace ParsnipData.Media
 {
     public class Image : Media
     {
-        public string Placeholder { get; set; }
+        private string _placeholder;
+        public string Placeholder { get { if (string.IsNullOrEmpty(_placeholder)) return "Resources/Media/Images/Web_Media/placeholder.gif"; else return _placeholder; } set { _placeholder = value; } }
         
         public string Classes { get; set; }
         public string Alt { get; set; }
@@ -80,24 +81,31 @@ namespace ParsnipData.Media
                 Debug.WriteLine("----------Getting all images...");
 
             var images = new List<Image>();
-            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+            try
             {
-                conn.Open();
-
-                SqlCommand GetImages = new SqlCommand("SELECT * FROM image INNER JOIN [user] ON [user].user_id = image.created_by_user_id WHERE image.deleted IS NULL AND [user].deleted IS NULL ORDER BY image.date_time_created DESC", conn);
-                using (SqlDataReader reader = GetImages.ExecuteReader())
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
-                    while (reader.Read())
+                    conn.Open();
+
+                    SqlCommand GetImages = new SqlCommand("SELECT * FROM image INNER JOIN [user] ON [user].user_id = image.created_by_user_id WHERE image.deleted IS NULL AND [user].deleted IS NULL ORDER BY image.date_time_created DESC", conn);
+                    using (SqlDataReader reader = GetImages.ExecuteReader())
                     {
-                        images.Add(new Image(reader));
+                        while (reader.Read())
+                        {
+                            images.Add(new Image(reader));
+                        }
                     }
                 }
-            }
 
-            foreach (Image temp in images)
+                foreach (Image temp in images)
+                {
+                    if (logMe)
+                        Debug.WriteLine(string.Format("Found image with id {0}", temp.Id));
+                }
+            }
+            catch
             {
-                if (logMe)
-                    Debug.WriteLine(string.Format("Found image with id {0}", temp.Id));
+                Debug.WriteLine("There was an exception whilst getting all images");
             }
 
             return images;
@@ -211,6 +219,7 @@ namespace ParsnipData.Media
         public Image(Guid pGuid)
         {
             //Debug.WriteLine("Image was initialised with the guid: " + pGuid);
+            Debug.WriteLine("Reading reader");
             Id = pGuid;
         }
 
