@@ -213,6 +213,7 @@ namespace ParsnipData.Media
             new LogEntry(DebugLog) { text = "Image created with album_id = " + pAlbum.Id };
             AlbumId = pAlbum.Id;
             DateCreated = Parsnip.AdjustedTime;
+            DateTimeMediaCreated = DateCreated;
             CreatedById = pCreatedBy.Id;
         }
 
