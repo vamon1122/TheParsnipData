@@ -18,7 +18,7 @@ namespace ParsnipData.Media
 
     public abstract class Media
     {
-        public DateTime DateTimeMediaCreated { get; set; }
+        
 
         static readonly Log DebugLog = new Log("Debug");
 
@@ -129,12 +129,26 @@ namespace ParsnipData.Media
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+
+        public int Width;
+
+        public int Height;
+
+        public string Alt { get; set; }
+
         public Guid AlbumId { get; set; }
         public abstract List<Guid> AlbumIds();
-        public DateTime DateCreated { get; set; }
+
+        public DateTime DateTimeMediaCreated { get; set; }
+
+        public DateTime DateTimeCreated { get; set; }
+
+
         public Guid CreatedById { get; set; }
         public abstract string[] AllowedFileExtensions { get; }
         public string Directory { get; set; }
+
+        public DateTime Deleted { get; set; }
 
         public AccessToken MyAccessToken { get; set; }
 
