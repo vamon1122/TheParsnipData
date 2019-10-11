@@ -199,7 +199,7 @@ namespace ParsnipData.Media
             Log DebugLog = new Log("Debug");
             new LogEntry(DebugLog) { text = "Video created with album_id = " + album.Id };
             AlbumId = album.Id;
-            DateTimeCreated = Parsnip.AdjustedTime;
+            DateCreated = Parsnip.AdjustedTime;
             CreatedById = createdBy.Id;
         }
 
@@ -309,7 +309,7 @@ namespace ParsnipData.Media
 
                 if (logMe)
                     Debug.WriteLine("----------Reading datecreated");
-                DateTimeCreated = Convert.ToDateTime(reader[4]);
+                DateCreated = Convert.ToDateTime(reader[4]);
 
                 if (logMe)
                     Debug.WriteLine("----------Reading createdbyid");

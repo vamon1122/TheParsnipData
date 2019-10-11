@@ -8,11 +8,6 @@ using System.Diagnostics;
 using ParsnipData;
 using ParsnipData.Accounts;
 using ParsnipData.Logs;
-using System.Web.UI.WebControls;
-using System.Drawing.Imaging;
-using System.Drawing;
-using System.Web;
-using System.Data;
 
 namespace ParsnipData.Media
 {
@@ -20,9 +15,9 @@ namespace ParsnipData.Media
     {
         private string _placeholder;
         public string Placeholder { get { if (string.IsNullOrEmpty(_placeholder)) return "Resources/Media/Images/Web_Media/placeholder.gif"; else return _placeholder; } set { _placeholder = value; } }
-        public string Original { get; set; }
+        
         public string Classes { get; set; }
-
+        public string Alt { get; set; }
         private static string[] _allowedFileExtensions = new string[] { "png", "gif", "jpg", "jpeg", "tiff" };
         public override string[] AllowedFileExtensions { get { return _allowedFileExtensions; } }
 
@@ -210,156 +205,6 @@ namespace ParsnipData.Media
             throw new NotImplementedException();
         }
 
-        public Image(User uploader, Album album, FileUpload uploadControl)
-        {
-            new LogEntry(DebugLog) { text = "POSTBACK with image" };
-            if (uploadControl.PostedFile.FileName.Length > 0)
-            {
-                try
-                {
-                    new LogEntry(DebugLog) { text = "Attempting to upload the photo" };
-
-                    string[] fileDir = uploadControl.PostedFile.FileName.Split('\\');
-                    string originalFileName = fileDir.Last();
-                    string originalFileExtension = "." + originalFileName.Split('.').Last();
-
-                    if (ParsnipData.Media.Image.IsValidFileExtension(originalFileExtension.Substring(1, originalFileExtension.Length - 1).ToLower()))
-                    {
-                        string uploadsDir = string.Format("Resources/Media/Images/Uploads/");
-
-                        string generatedFileName = string.Format("{0}{1}_{2}_{3}_{4}",
-                            uploader.Forename, uploader.Surname,
-                            Parsnip.AdjustedTime.ToString("dd-MM-yyyy_HH.mm.ss"), originalFileName.Substring(0, originalFileName.LastIndexOf('.')), Guid.NewGuid());
-
-                        Debug.WriteLine("Original image saved as = " + uploadsDir);
-                        uploadControl.PostedFile.SaveAs(HttpContext.Current.Server.MapPath("~/" + uploadsDir + "Originals/" + generatedFileName + originalFileExtension));
-                        
-
-                        Bitmap original = new System.Drawing.Bitmap(uploadControl.PostedFile.InputStream);
-
-                        //No resize is done here but image needs to go through the process so that it displays properly 
-                        //on PC's. If we use the 'original' bitmap, the image will display fine on mobile browser, fine 
-                        //on Windows File Explorer, but will be rotated in desktop browsers. However, I noticed that 
-                        //the thumbnail was displayed correctly at all times. So, I sumply put the original image 
-                        //through the same process, and called the new image 'compressedImage' (since it gets 
-                        //compressed later on). *NOTE* we also need to rotate the new image (as we do with the 
-                        //thumbnail), as they loose their rotation properties when they are processed using the 
-                        //'ResizeBitmap' function. This is done after the resize.
-                        Bitmap compressedImage = ResizeBitmap(original, (int)original.Width, (int)original.Height);
-
-                        //One of the numbers must be a double in order for the result to be double
-                        //Shortest side should be 250px
-                        Bitmap thumbnail = original.Width > original.Height ? ResizeBitmap(original, (int)(original.Width * (250d / original.Height)), 250) : ResizeBitmap(original, 250, (int)(original.Height * (250d / original.Width)));
-
-                        if (original.PropertyIdList.Contains(0x112)) //0x112 = Orientation
-                        {
-                            var prop = original.GetPropertyItem(0x112);
-                            if (prop.Type == 3 && prop.Len == 2)
-                            {
-                                UInt16 orientationExif = BitConverter.ToUInt16(original.GetPropertyItem(0x112).Value, 0);
-                                if (orientationExif == 8)
-                                {
-                                    compressedImage.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                                    thumbnail.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                                }
-                                else if (orientationExif == 3)
-                                {
-                                    compressedImage.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                                    thumbnail.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                                }
-                                else if (orientationExif == 6)
-                                {
-                                    compressedImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                                    thumbnail.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                                }
-                            }
-                        }
-
-                        //Change image quality
-                        //https://docs.microsoft.com/en-us/dotnet/api/system.drawing.image.save?view=netframework-4.8
-                        ImageCodecInfo myImageCodecInfo;
-                        System.Drawing.Imaging.Encoder myEncoder;
-                        EncoderParameter myEncoderParameter;
-                        EncoderParameters myEncoderParameters;
-                        string newFileExtension = ".jpg";
-
-                        // Get an ImageCodecInfo object that represents the JPEG codec.
-                        myImageCodecInfo = GetEncoderInfo("image/jpeg");
-
-                        // Create an Encoder object based on the GUID
-                        // for the Quality parameter category.
-                        myEncoder = System.Drawing.Imaging.Encoder.Quality;
-                        // Create an EncoderParameters object.
-                        // An EncoderParameters object has an array of EncoderParameter
-                        // objects. In this case, there is only one
-
-                        // EncoderParameter object in the array.
-                        myEncoderParameters = new EncoderParameters(1);
-
-                        //L value (e.g. 50L sets compression quality. 0 = min quality / smaller size, 
-                        //100 = max quality / larger size
-                        myEncoderParameter = new EncoderParameter(myEncoder, 50L);
-                        myEncoderParameters.Param[0] = myEncoderParameter;
-                        compressedImage.Save(HttpContext.Current.Server.MapPath(uploadsDir + generatedFileName + newFileExtension), myImageCodecInfo, myEncoderParameters);
-
-                        myEncoderParameter = new EncoderParameter(myEncoder, 15L);
-                        myEncoderParameters.Param[0] = myEncoderParameter;
-                        thumbnail.Save(HttpContext.Current.Server.MapPath(uploadsDir + "Thumbnails/" + generatedFileName + newFileExtension), myImageCodecInfo, myEncoderParameters);
-
-                        //ParsnipData.Media.Image image = new ParsnipData.Media.Image(uploadsDir + generatedFileName + newFileExtension, uploader, album);
-                        Original = uploadsDir + "Originals/" + generatedFileName + originalFileExtension;
-                        Directory = uploadsDir + generatedFileName + newFileExtension;
-                        Placeholder = uploadsDir + "Thumbnails/" + generatedFileName + newFileExtension;
-
-                        CreatedById = uploader.Id;
-
-                        AlbumId = album.Id;
-
-
-
-                        Width = original.Width;
-                        Height = original.Height;
-                        DateTimeCreated = Parsnip.AdjustedTime;
-                        DateTimeMediaCreated = DateTimeCreated;
-                    }
-                    else
-                    {
-
-                    }
-                }
-                catch (Exception err)
-                {
-                    new LogEntry(DebugLog) { text = "There was an exception whilst uploading the photo: " + err };
-                }
-            }
-
-            Bitmap ResizeBitmap(Bitmap bmp, int width, int height)
-            {
-                Bitmap result = new Bitmap(width, height);
-                using (Graphics g = Graphics.FromImage(result))
-                {
-                    g.DrawImage(bmp, 0, 0, width, height);
-                }
-
-                return result;
-            }
-
-            //Change image quality
-            //https://docs.microsoft.com/en-us/dotnet/api/system.drawing.image.save?view=netframework-4.8
-            ImageCodecInfo GetEncoderInfo(string mimeType)
-            {
-                int j;
-                ImageCodecInfo[] encoders;
-                encoders = ImageCodecInfo.GetImageEncoders();
-                for (j = 0; j < encoders.Length; ++j)
-                {
-                    if (encoders[j].MimeType == mimeType)
-                        return encoders[j];
-                }
-                return null;
-            }
-        }
-
         public Image(string pSrc, User pCreatedBy, Album pAlbum)
         {
             Id = Guid.NewGuid();
@@ -367,7 +212,7 @@ namespace ParsnipData.Media
             Log DebugLog = new Log("Debug");
             new LogEntry(DebugLog) { text = "Image created with album_id = " + pAlbum.Id };
             AlbumId = pAlbum.Id;
-            DateTimeCreated = Parsnip.AdjustedTime;
+            DateCreated = Parsnip.AdjustedTime;
             CreatedById = pCreatedBy.Id;
         }
 
@@ -450,58 +295,35 @@ namespace ParsnipData.Media
             {
                 if (logMe)
                     Debug.WriteLine(string.Format("----------Reading id: {0}", reader[0]));
+
                 Id = new Guid(reader[0].ToString());
 
-
+                if (reader[1] != DBNull.Value && !string.IsNullOrEmpty(reader[1].ToString()) && !string.IsNullOrWhiteSpace(reader[1].ToString()))
+                {
                     if (logMe)
                         Debug.WriteLine("----------Reading placeholder");
+
                     Placeholder = reader[1].ToString().Trim();
-
-
-
-
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Placeholder is blank. Skipping placeholder");
+                }
 
 
                 if (logMe)
-                    Debug.WriteLine("----------Reading CompressedImageSrc");
+                    Debug.WriteLine("----------Reading ImageSrc");
                 Directory = reader[2].ToString().Trim();
 
-                /*
-                if (logMe)
-                    Debug.WriteLine("----------Reading OriginalImageSrc");
-                Original = reader[3].ToString().Trim();
-                */
 
-                if (reader[4] != DBNull.Value && !string.IsNullOrEmpty(reader[4].ToString()) && !string.IsNullOrWhiteSpace(reader[4].ToString()))
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading ImageWidth");
-                    Width = (int)reader[4];
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Image width is blank. Skipping image width");
-                }
 
-                if (reader[5] != DBNull.Value && !string.IsNullOrEmpty(reader[5].ToString()) && !string.IsNullOrWhiteSpace(reader[5].ToString()))
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading ImageHeight");
-                    Height = (int)reader[5];
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Image height is blank. Skipping image height");
-                }
-
-                if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
+                if (reader[3] != DBNull.Value && !string.IsNullOrEmpty(reader[3].ToString()) && !string.IsNullOrWhiteSpace(reader[3].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading alt");
 
-                    Alt = reader[6].ToString().Trim();
+                    Alt = reader[3].ToString().Trim();
                 }
                 else
                 {
@@ -511,22 +333,22 @@ namespace ParsnipData.Media
 
                 if (logMe)
                     Debug.WriteLine("----------Reading DateTimeMediaCreated");
-                DateTimeMediaCreated = Convert.ToDateTime(reader[7]);
+                DateTimeMediaCreated = Convert.ToDateTime(reader[4]);
 
                 if (logMe)
                     Debug.WriteLine("----------Reading date_time_created");
-                DateTimeCreated = Convert.ToDateTime(reader[8]);
+                DateCreated = Convert.ToDateTime(reader[5]);
 
                 if (logMe)
                     Debug.WriteLine("----------Reading created_by_user_id");
-                CreatedById = new Guid(reader[9].ToString());
+                CreatedById = new Guid(reader[6].ToString());
 
-                if (reader[10] != DBNull.Value && !string.IsNullOrEmpty(reader[10].ToString()) && !string.IsNullOrWhiteSpace(reader[10].ToString()))
+                if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
                 {
                     if (logMe)
-                        Debug.WriteLine("----------Reading image title: " + reader[10].ToString().Trim());
+                        Debug.WriteLine("----------Reading image title: " + reader[7].ToString().Trim());
 
-                    Title = reader[10].ToString().Trim();
+                    Title = reader[7].ToString().Trim();
                 }
                 else
                 {
@@ -534,12 +356,12 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Title is blank. Skipping title");
                 }
 
-                if (reader[11] != DBNull.Value && !string.IsNullOrEmpty(reader[11].ToString()) && !string.IsNullOrWhiteSpace(reader[11].ToString()))
+                if (reader[8] != DBNull.Value && !string.IsNullOrEmpty(reader[8].ToString()) && !string.IsNullOrWhiteSpace(reader[8].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading description");
 
-                    Description = reader[11].ToString().Trim();
+                    Description = reader[8].ToString().Trim();
                 }
                 else
                 {
@@ -551,10 +373,10 @@ namespace ParsnipData.Media
 
                 try
                 {
-                    if (reader[13] != DBNull.Value && !string.IsNullOrEmpty(reader[13].ToString()) && !string.IsNullOrWhiteSpace(reader[13].ToString()))
+                    if (reader[10] != DBNull.Value && !string.IsNullOrEmpty(reader[10].ToString()) && !string.IsNullOrWhiteSpace(reader[10].ToString()))
                     {
 
-                        AlbumId = new Guid(reader[13].ToString());
+                        AlbumId = new Guid(reader[10].ToString());
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
 
@@ -573,14 +395,14 @@ namespace ParsnipData.Media
 
                 try
                 {
-                    if (reader[14] != DBNull.Value && !string.IsNullOrEmpty(reader[14].ToString()) &&
-                        !string.IsNullOrWhiteSpace(reader[14].ToString()))
+                    if (reader[11] != DBNull.Value && !string.IsNullOrEmpty(reader[11].ToString()) &&
+                        !string.IsNullOrWhiteSpace(reader[11].ToString()))
 
                     {
                         if (logMe)
                             Debug.WriteLine("----------Reading access_token id");
 
-                        MyAccessToken = new AccessToken((Guid)reader[14], (Guid)reader[15], Convert.ToDateTime(reader[16]), (int)reader[17], (Guid)reader[18]);
+                        MyAccessToken = new AccessToken((Guid)reader[11], (Guid)reader[12], Convert.ToDateTime(reader[13]), (int)reader[14], (Guid)reader[15]);
                     }
                     else
                     {
@@ -627,36 +449,22 @@ namespace ParsnipData.Media
                 {
                     if (!ExistsOnDb(pOpenConn))
                     {
-                        using (SqlCommand cmd = new SqlCommand("CreateImage", pOpenConn))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
+                        SqlCommand InsertImageIntoDb = new SqlCommand("INSERT INTO image (image_id, src, date_time_created, date_time_media_created, created_by_user_id) VALUES(@image_id, @src, @date_time_created, @date_time_media_created, @created_by_user_id)", pOpenConn);
 
-                            /*
-                            Debug.WriteLine("Id = " + Id);
-                            Debug.WriteLine("Placeholder = " + Placeholder); 
-                            Debug.WriteLine("Directory = " + Directory);
-                            Debug.WriteLine("Original = " + Original);
-                            Debug.WriteLine("Width = " + Width);
-                            Debug.WriteLine("Height = " + Height);
-                            Debug.WriteLine("DateTimeMediaCreated = " + DateTimeMediaCreated);
-                            Debug.WriteLine("DateTimeCreated = " + DateTimeCreated);
-                            Debug.WriteLine("CreatedById = " + CreatedById);
-                            Debug.WriteLine("AlbumId = " + AlbumId);
-                            */
+                        InsertImageIntoDb.Parameters.Add(new SqlParameter("image_id", Id));
+                        InsertImageIntoDb.Parameters.Add(new SqlParameter("src", Directory.Trim()));
+                        InsertImageIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.AdjustedTime));
+                        InsertImageIntoDb.Parameters.Add(new SqlParameter("date_time_media_created", Parsnip.AdjustedTime));
+                        InsertImageIntoDb.Parameters.Add(new SqlParameter("created_by_user_id", CreatedById));
 
-                            cmd.Parameters.Add("@image_id", SqlDbType.UniqueIdentifier).Value = Id;
-                            cmd.Parameters.Add("@placeholder_dir", SqlDbType.Char).Value = Placeholder;
-                            cmd.Parameters.Add("@compressed_dir", SqlDbType.Char).Value = Directory;
-                            cmd.Parameters.Add("@original_dir", SqlDbType.Char).Value = Original;
-                            cmd.Parameters.Add("@width", SqlDbType.Int).Value = Width;
-                            cmd.Parameters.Add("@height", SqlDbType.Char).Value = Height;
-                            cmd.Parameters.Add("@date_time_media_created", SqlDbType.DateTime).Value = DateTimeMediaCreated;
-                            cmd.Parameters.Add("@date_time_created", SqlDbType.DateTime).Value = DateTimeCreated;
-                            cmd.Parameters.Add("@created_by_user_id", SqlDbType.UniqueIdentifier).Value = CreatedById;
-                            cmd.Parameters.Add("@media_tag_id", SqlDbType.UniqueIdentifier).Value = AlbumId;
+                        InsertImageIntoDb.ExecuteNonQuery();
 
-                            cmd.ExecuteNonQuery();
-                        }
+                        SqlCommand InsertImageAlbumPairIntoDb = new SqlCommand("INSERT INTO media_tag_pair VALUES(@media_id, @media_tag_id)", pOpenConn);
+                        InsertImageAlbumPairIntoDb.Parameters.Add(new SqlParameter("media_id", Id));
+                        InsertImageAlbumPairIntoDb.Parameters.Add(new SqlParameter("media_tag_id", AlbumId));
+
+                        InsertImageAlbumPairIntoDb.ExecuteNonQuery();
+
                         Debug.WriteLine(String.Format("Successfully inserted image into database ({0}) ", Id));
                     }
                     else
@@ -797,9 +605,9 @@ namespace ParsnipData.Media
 
 
                         SqlCommand UpdatePlaceholder = new SqlCommand(
-                            "UPDATE image SET placeholder_dir = @placeholder_dir WHERE image_id = @image_id", pOpenConn);
+                            "UPDATE image SET placeholder = @placeholder WHERE image_id = @image_id", pOpenConn);
                         UpdatePlaceholder.Parameters.Add(new SqlParameter("image_id", Id));
-                        UpdatePlaceholder.Parameters.Add(new SqlParameter("placeholder_dir", Placeholder.Trim()));
+                        UpdatePlaceholder.Parameters.Add(new SqlParameter("placeholder", Placeholder.Trim()));
 
                         UpdatePlaceholder.ExecuteNonQuery();
 
