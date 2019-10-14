@@ -11,12 +11,28 @@ using ParsnipData.Logs;
 
 namespace ParsnipData.Media
 {
+    
     public class Video : Media
     {
+        public class VideoThumbnail
+        {
+            public string Original { get; set; }
+
+            public string Compressed { get; set; }
+
+            private string _placeholder;
+            public string Placeholder { get { if (string.IsNullOrEmpty(_placeholder)) return "Resources/Media/Images/Web_Media/placeholder.gif"; else return _placeholder; } set { _placeholder = value; } }
+
+            public int Height { get; set; }
+
+            public int Width { get; set; }
+        }
+
+        public VideoThumbnail Thumbnail { get; }
+
         private static string[] _allowedFileExtensions = new string[] { "mp4", "m4v" };
         public override string[] AllowedFileExtensions { get { return _allowedFileExtensions; } }
         static readonly Log DebugLog = new Log("Debug");
-        public string Thumbnail { get; set; }
 
         public static bool IsValidFileExtension(string extension)
         {
@@ -189,10 +205,10 @@ namespace ParsnipData.Media
 
         private Video()
         {
-
+            Thumbnail = new VideoThumbnail();
         }
 
-        public Video(string directory, User createdBy, Album album)
+        public Video(string directory, User createdBy, Album album) : this()
         {
             Id = Guid.NewGuid();
             Directory = directory;
@@ -203,7 +219,7 @@ namespace ParsnipData.Media
             CreatedById = createdBy.Id;
         }
 
-        public Video(Guid guid)
+        public Video(Guid guid) : this()
         {
             //Debug.WriteLine("Video was initialised with the guid: " + pGuid);
             Id = guid;
@@ -212,6 +228,7 @@ namespace ParsnipData.Media
         public Video(SqlDataReader reader)
         {
             //Debug.WriteLine("Video was initialised with an SqlDataReader. Guid: " + pReader[0]);
+            Thumbnail = new VideoThumbnail();
             AddValues(reader);
         }
 
@@ -284,43 +301,12 @@ namespace ParsnipData.Media
 
                 Id = new Guid(reader[0].ToString());
 
-                
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading Directory");
-                Directory = reader[1].ToString().Trim();
-
-                if (reader[2] != DBNull.Value && !string.IsNullOrEmpty(reader[2].ToString()) && !string.IsNullOrWhiteSpace(reader[2].ToString()))
+                if (reader[1] != DBNull.Value && !string.IsNullOrEmpty(reader[1].ToString()) && !string.IsNullOrWhiteSpace(reader[1].ToString()))
                 {
                     if (logMe)
-                        Debug.WriteLine("----------Reading thumbnail");
+                        Debug.WriteLine("----------Reading video title: " + reader[1].ToString().Trim());
 
-                    Thumbnail = reader[2].ToString().Trim();
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Thumbnail is blank. Skipping thumbnail");
-                }
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading DateTimeMediaCreated");
-                DateTimeMediaCreated = Convert.ToDateTime(reader[3]);
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading datecreated");
-                DateTimeCreated = Convert.ToDateTime(reader[4]);
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading createdbyid");
-                CreatedById = new Guid(reader[5].ToString());
-
-                if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading video title: " + reader[6].ToString().Trim());
-
-                    Title = reader[6].ToString().Trim();
+                    Title = reader[1].ToString().Trim();
                 }
                 else
                 {
@@ -328,12 +314,12 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Title is blank. Skipping title");
                 }
 
-                if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
+                if (reader[2] != DBNull.Value && !string.IsNullOrEmpty(reader[2].ToString()) && !string.IsNullOrWhiteSpace(reader[2].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading description");
 
-                    Description = reader[7].ToString().Trim();
+                    Description = reader[2].ToString().Trim();
                 }
                 else
                 {
@@ -341,14 +327,138 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Description is blank. Skipping description");
                 }
 
+                if (reader[3] != DBNull.Value && !string.IsNullOrEmpty(reader[3].ToString()) && !string.IsNullOrWhiteSpace(reader[3].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading alt");
+
+                    Description = reader[3].ToString().Trim();
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Alt is blank. Skipping alt");
+                }
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading DateTimeMediaCreated");
+                DateTimeMediaCreated = Convert.ToDateTime(reader[4]);
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading datecreated");
+                DateTimeCreated = Convert.ToDateTime(reader[5]);
+
+                if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading width");
+
+                    Width = (int)reader[6];
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Width is blank. Skipping width");
+                }
+
+                if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading height");
+
+                    Height = (int)reader[7];
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Height is blank. Skipping height");
+                }
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading Directory");
+                Directory = reader[8].ToString().Trim();
+
+
+                if (reader[9] != DBNull.Value && !string.IsNullOrEmpty(reader[9].ToString()) && !string.IsNullOrWhiteSpace(reader[9].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading thumbnail width");
+
+                    Thumbnail.Width = (int)reader[9];
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Thumbnail width is blank. Skipping thumbnail width");
+                }
+
+                if (reader[10] != DBNull.Value && !string.IsNullOrEmpty(reader[10].ToString()) && !string.IsNullOrWhiteSpace(reader[10].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading thumbnail height");
+
+                    Thumbnail.Height = (int)reader[10];
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Thumbnail height is blank. Skipping thumbnail height");
+                }
+
+                if (reader[11] != DBNull.Value && !string.IsNullOrEmpty(reader[11].ToString()) && !string.IsNullOrWhiteSpace(reader[11].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading original thumbnail");
+
+                    Thumbnail.Original = reader[11].ToString().Trim();
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Original thumbnail is blank. Skipping original thumbnail");
+                }
+
+                if (reader[12] != DBNull.Value && !string.IsNullOrEmpty(reader[12].ToString()) && !string.IsNullOrWhiteSpace(reader[12].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading compressed thumbnail");
+                    Thumbnail.Compressed = reader[12].ToString().Trim();
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Compressed thumbnail is blank. Skipping compressed thumbnail");
+                }
+
+                if (reader[13] != DBNull.Value && !string.IsNullOrEmpty(reader[13].ToString()) && !string.IsNullOrWhiteSpace(reader[13].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading placeholder thumbnail");
+
+                    Thumbnail.Placeholder = reader[13].ToString().Trim();
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Placeholder thumbnail is blank. Skipping placeholder thumbnail");
+                }
+
+
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading createdbyid");
+                CreatedById = new Guid(reader[14].ToString());
+
+                
+
                 try
                 {
-                    if (reader[9] != DBNull.Value && !string.IsNullOrEmpty(reader[9].ToString()) && !string.IsNullOrWhiteSpace(reader[9].ToString()))
+                    if (reader[16] != DBNull.Value && !string.IsNullOrEmpty(reader[16].ToString()) && !string.IsNullOrWhiteSpace(reader[16].ToString()))
                     {
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
 
-                        AlbumId = new Guid(reader[9].ToString());
+                        AlbumId = new Guid(reader[16].ToString());
                     }
                     else
                     {
@@ -364,14 +474,14 @@ namespace ParsnipData.Media
 
                 try
                 {
-                    if (reader[10] != DBNull.Value && !string.IsNullOrEmpty(reader[10].ToString()) &&
-                        !string.IsNullOrWhiteSpace(reader[10].ToString()))
+                    if (reader[17] != DBNull.Value && !string.IsNullOrEmpty(reader[17].ToString()) &&
+                        !string.IsNullOrWhiteSpace(reader[17].ToString()))
 
                     {
                         if (logMe)
                             Debug.WriteLine("----------Reading access_token id");
 
-                        MyAccessToken = new AccessToken((Guid)reader[10], (Guid)reader[11], Convert.ToDateTime(reader[12]), (int)reader[13], (Guid)reader[14]);
+                        MyAccessToken = new AccessToken((Guid)reader[17], (Guid)reader[18], Convert.ToDateTime(reader[19]), (int)reader[20], (Guid)reader[21]);
                     }
                     else
                     {
@@ -421,23 +531,7 @@ namespace ParsnipData.Media
                 {
                     if (!ExistsOnDb(pOpenConn))
                     {
-                        SqlCommand InsertVideoIntoDb = new SqlCommand("INSERT INTO t_Videos (video_id, directory, date_time_created, date_time_media_created, created_by_user_id) VALUES(@video_id, @directory, @date_time_created, @date_time_media_created, @created_by_user_id)", pOpenConn);
-
-                        InsertVideoIntoDb.Parameters.Add(new SqlParameter("video_id", Id));
-                        InsertVideoIntoDb.Parameters.Add(new SqlParameter("directory", Directory.Trim()));
-                        InsertVideoIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.AdjustedTime));
-                        InsertVideoIntoDb.Parameters.Add(new SqlParameter("date_time_media_created", Parsnip.AdjustedTime));
-                        InsertVideoIntoDb.Parameters.Add(new SqlParameter("created_by_user_id", CreatedById));
-
-                        InsertVideoIntoDb.ExecuteNonQuery();
-
-                        SqlCommand InsertVideoAlbumPairIntoDb = new SqlCommand("INSERT INTO media_tag_pairs VALUES(@media_id, @album_id)", pOpenConn);
-                        InsertVideoAlbumPairIntoDb.Parameters.Add(new SqlParameter("media_id", Id));
-                        InsertVideoAlbumPairIntoDb.Parameters.Add(new SqlParameter("album_id", AlbumId));
-
-                        InsertVideoAlbumPairIntoDb.ExecuteNonQuery();
-
-                        Debug.WriteLine(String.Format("Successfully inserted video into database ({0}) ", Id));
+                        throw new NotImplementedException();
                     }
                     else
                     {
@@ -580,7 +674,7 @@ namespace ParsnipData.Media
                             "SET thumbnail_directory = @thumbnail_directory WHERE video_id = @video_id", pOpenConn);
 
                         UpdatePlaceholder.Parameters.Add(new SqlParameter("video_id", Id));
-                        UpdatePlaceholder.Parameters.Add(new SqlParameter("thumbnail_directory", Thumbnail.Trim()));
+                        UpdatePlaceholder.Parameters.Add(new SqlParameter("thumbnail_directory", Thumbnail.Original.Trim()));
 
                         UpdatePlaceholder.ExecuteNonQuery();
 

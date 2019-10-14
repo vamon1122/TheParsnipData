@@ -452,56 +452,38 @@ namespace ParsnipData.Media
                     Debug.WriteLine(string.Format("----------Reading id: {0}", reader[0]));
                 Id = new Guid(reader[0].ToString());
 
-
-                    if (logMe)
-                        Debug.WriteLine("----------Reading placeholder");
-                    Placeholder = reader[1].ToString().Trim();
-
-
-
-
-
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading CompressedImageSrc");
-                Directory = reader[2].ToString().Trim();
-
-                /*
-                if (logMe)
-                    Debug.WriteLine("----------Reading OriginalImageSrc");
-                Original = reader[3].ToString().Trim();
-                */
-
-                if (reader[4] != DBNull.Value && !string.IsNullOrEmpty(reader[4].ToString()) && !string.IsNullOrWhiteSpace(reader[4].ToString()))
+                if (reader[1] != DBNull.Value && !string.IsNullOrEmpty(reader[1].ToString()) && !string.IsNullOrWhiteSpace(reader[1].ToString()))
                 {
                     if (logMe)
-                        Debug.WriteLine("----------Reading ImageWidth");
-                    Width = (int)reader[4];
+                        Debug.WriteLine("----------Reading image title: " + reader[1].ToString().Trim());
+
+                    Title = reader[1].ToString().Trim();
                 }
                 else
                 {
                     if (logMe)
-                        Debug.WriteLine("----------Image width is blank. Skipping image width");
+                        Debug.WriteLine("----------Title is blank. Skipping title");
                 }
 
-                if (reader[5] != DBNull.Value && !string.IsNullOrEmpty(reader[5].ToString()) && !string.IsNullOrWhiteSpace(reader[5].ToString()))
+                if (reader[2] != DBNull.Value && !string.IsNullOrEmpty(reader[2].ToString()) && !string.IsNullOrWhiteSpace(reader[2].ToString()))
                 {
                     if (logMe)
-                        Debug.WriteLine("----------Reading ImageHeight");
-                    Height = (int)reader[5];
+                        Debug.WriteLine("----------Reading description");
+
+                    Description = reader[2].ToString().Trim();
                 }
                 else
                 {
                     if (logMe)
-                        Debug.WriteLine("----------Image height is blank. Skipping image height");
+                        Debug.WriteLine("----------Description is blank. Skipping description");
                 }
 
-                if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
+                if (reader[3] != DBNull.Value && !string.IsNullOrEmpty(reader[3].ToString()) && !string.IsNullOrWhiteSpace(reader[3].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading alt");
 
-                    Alt = reader[6].ToString().Trim();
+                    Alt = reader[3].ToString().Trim();
                 }
                 else
                 {
@@ -511,43 +493,57 @@ namespace ParsnipData.Media
 
                 if (logMe)
                     Debug.WriteLine("----------Reading DateTimeMediaCreated");
-                DateTimeMediaCreated = Convert.ToDateTime(reader[7]);
+                DateTimeMediaCreated = Convert.ToDateTime(reader[4]);
 
                 if (logMe)
                     Debug.WriteLine("----------Reading date_time_created");
-                DateTimeCreated = Convert.ToDateTime(reader[8]);
+                DateTimeCreated = Convert.ToDateTime(reader[5]);
+
+
+                if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading ImageWidth");
+                    Width = (int)reader[6];
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Image width is blank. Skipping image width");
+                }
+
+                if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Reading ImageHeight");
+                    Height = (int)reader[7];
+                }
+                else
+                {
+                    if (logMe)
+                        Debug.WriteLine("----------Image height is blank. Skipping image height");
+                }
+
+                /*
+                if (logMe)
+                    Debug.WriteLine("----------Reading OriginalImageSrc");
+                Original = reader[8].ToString().Trim();
+                */
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading CompressedImageSrc");
+                Directory = reader[9].ToString().Trim();
+
+
+                if (logMe)
+                    Debug.WriteLine("----------Reading placeholder");
+                Placeholder = reader[10].ToString().Trim();
 
                 if (logMe)
                     Debug.WriteLine("----------Reading created_by_user_id");
-                CreatedById = new Guid(reader[9].ToString());
+                CreatedById = new Guid(reader[11].ToString());
 
-                if (reader[10] != DBNull.Value && !string.IsNullOrEmpty(reader[10].ToString()) && !string.IsNullOrWhiteSpace(reader[10].ToString()))
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading image title: " + reader[10].ToString().Trim());
 
-                    Title = reader[10].ToString().Trim();
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Title is blank. Skipping title");
-                }
-
-                if (reader[11] != DBNull.Value && !string.IsNullOrEmpty(reader[11].ToString()) && !string.IsNullOrWhiteSpace(reader[11].ToString()))
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading description");
-
-                    Description = reader[11].ToString().Trim();
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Description is blank. Skipping description");
-                }
-
-                
 
                 try
                 {
@@ -627,7 +623,7 @@ namespace ParsnipData.Media
                 {
                     if (!ExistsOnDb(pOpenConn))
                     {
-                        using (SqlCommand cmd = new SqlCommand("CreateImage", pOpenConn))
+                        using (SqlCommand cmd = new SqlCommand("st_insert_image", pOpenConn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
 
