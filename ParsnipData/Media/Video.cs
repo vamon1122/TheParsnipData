@@ -8,6 +8,7 @@ using System.Diagnostics;
 using ParsnipData;
 using ParsnipData.Accounts;
 using ParsnipData.Logs;
+using System.Data;
 
 namespace ParsnipData.Media
 {
@@ -531,7 +532,26 @@ namespace ParsnipData.Media
                 {
                     if (!ExistsOnDb(pOpenConn))
                     {
-                        throw new NotImplementedException();
+                        using (SqlCommand cmd = new SqlCommand("sp_insert_video", pOpenConn))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.Add("@video_id", SqlDbType.UniqueIdentifier).Value = Id;
+                            cmd.Parameters.Add("@date_time_media_created", SqlDbType.DateTime).Value = DateTimeMediaCreated;
+                            cmd.Parameters.Add("@date_time_created", SqlDbType.DateTime).Value = DateTimeCreated;
+                            cmd.Parameters.Add("@width", SqlDbType.Int).Value = Width;
+                            cmd.Parameters.Add("@height", SqlDbType.Char).Value = Height;
+                            cmd.Parameters.Add("@video_dir", SqlDbType.Char).Value = Directory;
+                            cmd.Parameters.Add("@thumbnail_width", SqlDbType.Int).Value = Thumbnail.Width;
+                            cmd.Parameters.Add("@thumbnail_height", SqlDbType.Char).Value = Thumbnail.Height;
+                            cmd.Parameters.Add("@thumbnail_original_dir", SqlDbType.Char).Value = Thumbnail.Original;
+                            cmd.Parameters.Add("@thumbnail_compressed_dir", SqlDbType.Char).Value = Thumbnail.Compressed;
+                            cmd.Parameters.Add("@thumbnail_placeholder_dir", SqlDbType.Char).Value = Thumbnail.Placeholder;
+                            cmd.Parameters.Add("@created_by_user_id", SqlDbType.UniqueIdentifier).Value = CreatedById;
+                            cmd.Parameters.Add("@media_tag_id", SqlDbType.UniqueIdentifier).Value = AlbumId;
+
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                     else
                     {
@@ -630,139 +650,19 @@ namespace ParsnipData.Media
             {
                 try
                 {
-                    Video temp = new Video(Id);
-                    //temp.Select();
-
-                    if (AlbumId != null)
+                    using (SqlCommand cmd = new SqlCommand("sp_update_video", pOpenConn))
                     {
-                        Log DebugLog = new Log("Debug");
-                        new LogEntry(DebugLog) { text = "AlbumId != null = " + AlbumId };
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                        SqlCommand DeleteOldPairs = 
-                            new SqlCommand("DELETE FROM media_tag_pair WHERE media_id = @video_id", pOpenConn);
+                        cmd.Parameters.Add("@video_id", SqlDbType.UniqueIdentifier).Value = Id;
+                        cmd.Parameters.Add("@title", SqlDbType.Char).Value = Title;
+                        cmd.Parameters.Add("@description", SqlDbType.Char).Value = Description;
+                        cmd.Parameters.Add("@alt", SqlDbType.Char).Value = Alt;
+                        cmd.Parameters.Add("@date_time_media_created", SqlDbType.DateTime).Value = DateTimeMediaCreated;
+                        cmd.Parameters.Add("@media_tag_id", SqlDbType.UniqueIdentifier).Value = AlbumId;
 
-                        DeleteOldPairs.Parameters.Add(new SqlParameter("video_id", Id));
-                        DeleteOldPairs.ExecuteNonQuery();
-
-                        if (AlbumId.ToString() != Guid.Empty.ToString())
-                        {
-                            SqlCommand CreatePhotoAlbumPair =
-                                new SqlCommand("INSERT INTO media_tag_pair VALUES (@media_id, @media_tag_id)", pOpenConn);
-
-                            CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_id", Id));
-                            CreatePhotoAlbumPair.Parameters.Add(new SqlParameter("media_tag_id", AlbumId));
-
-                            Debug.WriteLine("---------- Video album pair (INSERT) = " + AlbumId);
-
-                            CreatePhotoAlbumPair.ExecuteNonQuery();
-                            new LogEntry(DebugLog) { text = string.Format("INSERTED ALBUM PAIR {0}, {1} ", Id, AlbumId) };
-                        }
+                        cmd.ExecuteNonQuery();
                     }
-                    else
-                    {
-                        Log DebugLog = new Log("Debug");
-                        new LogEntry(DebugLog) { text = "Video created with album_id = null :( " };
-                    }
-
-
-                    if (Thumbnail != temp.Thumbnail)
-                    {
-                        Debug.WriteLine(string.Format("----------Attempting to update placeholder..."));
-
-
-                        SqlCommand UpdatePlaceholder = new SqlCommand("UPDATE video " +
-                            "SET thumbnail_directory = @thumbnail_directory WHERE video_id = @video_id", pOpenConn);
-
-                        UpdatePlaceholder.Parameters.Add(new SqlParameter("video_id", Id));
-                        UpdatePlaceholder.Parameters.Add(new SqlParameter("thumbnail_directory", Thumbnail.Original.Trim()));
-
-                        UpdatePlaceholder.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------placeholder was updated successfully!"));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------placeholder was not changed. Not updating placeholder."));
-                    }
-
-                    /*
-                    if (Alt != temp.Alt)
-                    {
-                        Debug.WriteLine(string.Format("----------Attempting to update alt..."));
-
-
-                        SqlCommand UpdateAlt = new SqlCommand("UPDATE t_Videos SET alt = @alt WHERE id = @id", pOpenConn);
-                        UpdateAlt.Parameters.Add(new SqlParameter("id", Id));
-                        UpdateAlt.Parameters.Add(new SqlParameter("alt", Alt.Trim()));
-
-                        UpdateAlt.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------alt was updated successfully!"));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------alt was not changed. Not updating alt."));
-                    }
-                    */
-
-                    if (Title != temp.Title)
-                    {
-                        Debug.WriteLine(string.Format("----------Attempting to update title..."));
-
-
-                        SqlCommand UpdateTitle = 
-                            new SqlCommand("UPDATE video SET title = @title WHERE video_id = @video_id", pOpenConn);
-
-                        UpdateTitle.Parameters.Add(new SqlParameter("video_id", Id));
-                        UpdateTitle.Parameters.Add(new SqlParameter("title", Title.Trim()));
-
-                        UpdateTitle.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------Title was updated successfully!"));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------Title was not changed. Not updating title."));
-                    }
-
-                    if (Description != temp.Description)
-                    {
-                        Debug.WriteLine(string.Format("----------Attempting to update description..."));
-
-
-                        SqlCommand UpdateDescription = new SqlCommand(
-                            "UPDATE video SET description = @description WHERE video_id = @video_id", pOpenConn);
-                        UpdateDescription.Parameters.Add(new SqlParameter("video_id", Id));
-                        UpdateDescription.Parameters.Add(new SqlParameter("description", Description.Trim()));
-
-                        UpdateDescription.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------Description was updated successfully!"));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------Description was not changed. Not updating description."));
-                    }
-
-                    if (DateTimeMediaCreated != temp.DateTimeMediaCreated)
-                    {
-                        Debug.WriteLine(string.Format("----------Attempting to update date time media created..."));
-
-
-                        SqlCommand UpdateDateTimeMediaCreated = new SqlCommand(
-                            "UPDATE video SET date_time_media_created = @date_time_media_created WHERE video_id = @video_id", pOpenConn);
-                        UpdateDateTimeMediaCreated.Parameters.Add(new SqlParameter("video_id", Id));
-                        UpdateDateTimeMediaCreated.Parameters.Add(new SqlParameter("date_time_media_created", DateTimeMediaCreated));
-
-                        UpdateDateTimeMediaCreated.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------Date time media created was updated successfully!"));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------Date time media created was not changed. Not updating DateTimeMediaCreated."));
-                    }
-
                 }
                 catch (Exception e)
                 {
