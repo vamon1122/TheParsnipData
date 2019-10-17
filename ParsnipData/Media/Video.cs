@@ -655,8 +655,8 @@ namespace ParsnipData.Media
                         cmd.CommandType = CommandType.StoredProcedure;
 
                         cmd.Parameters.Add("@video_id", SqlDbType.UniqueIdentifier).Value = Id;
-                        cmd.Parameters.Add("@title", SqlDbType.Char).Value = Title;
-                        cmd.Parameters.Add("@description", SqlDbType.Char).Value = Description;
+                        cmd.Parameters.Add("@title", SqlDbType.NChar).Value = Title;
+                        cmd.Parameters.Add("@description", SqlDbType.NChar).Value = Description;
                         cmd.Parameters.Add("@alt", SqlDbType.Char).Value = Alt;
                         cmd.Parameters.Add("@date_time_media_created", SqlDbType.DateTime).Value = DateTimeMediaCreated;
                         cmd.Parameters.Add("@media_tag_id", SqlDbType.UniqueIdentifier).Value = AlbumId;
