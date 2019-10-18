@@ -316,9 +316,9 @@ namespace ParsnipData.Media
                         AlbumId = album.Id;
 
 
-
-                        Width = original.Width;
-                        Height = original.Height;
+                        int scale = GetAspectScale(original.Width, original.Height);
+                        XScale = original.Width / scale;
+                        YScale = original.Height / scale;
                         DateTimeCreated = Parsnip.AdjustedTime;
                         DateTimeMediaCreated = DateTimeCreated;
                     }
@@ -331,6 +331,25 @@ namespace ParsnipData.Media
                 {
                     new LogEntry(DebugLog) { text = "There was an exception whilst uploading the photo: " + err };
                 }
+            }
+
+            int GetAspectScale(int width, int height)
+            {
+                //Gets HCF of width & height. This is used to get the aspect ratio
+                double shortSide = width < height ? width : height;
+
+                int hcf = 0;
+                for (int i = 1; i <= shortSide; i++)
+                {
+
+                    if (width % i == 0 && height % i == 0)
+                    {
+                        hcf = i;
+
+                    }
+                }
+
+                return hcf;
             }
 
             Bitmap ResizeBitmap(Bitmap bmp, int width, int height)
@@ -504,7 +523,7 @@ namespace ParsnipData.Media
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading ImageWidth");
-                    Width = (int)reader[6];
+                    XScale = (int)reader[6];
                 }
                 else
                 {
@@ -516,7 +535,7 @@ namespace ParsnipData.Media
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading ImageHeight");
-                    Height = (int)reader[7];
+                    YScale = (int)reader[7];
                 }
                 else
                 {
@@ -643,8 +662,8 @@ namespace ParsnipData.Media
                             cmd.Parameters.Add("@image_id", SqlDbType.UniqueIdentifier).Value = Id;
                             cmd.Parameters.Add("@date_time_media_created", SqlDbType.DateTime).Value = DateTimeMediaCreated;
                             cmd.Parameters.Add("@date_time_created", SqlDbType.DateTime).Value = DateTimeCreated;
-                            cmd.Parameters.Add("@width", SqlDbType.Int).Value = Width;
-                            cmd.Parameters.Add("@height", SqlDbType.Char).Value = Height;
+                            cmd.Parameters.Add("@x_scale", SqlDbType.Int).Value = XScale;
+                            cmd.Parameters.Add("@y_scale", SqlDbType.Char).Value = YScale;
                             cmd.Parameters.Add("@original_dir", SqlDbType.Char).Value = Original;
                             cmd.Parameters.Add("@compressed_dir", SqlDbType.Char).Value = Directory;
                             cmd.Parameters.Add("@placeholder_dir", SqlDbType.Char).Value = Placeholder;

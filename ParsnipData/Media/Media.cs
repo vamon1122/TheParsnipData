@@ -130,9 +130,9 @@ namespace ParsnipData.Media
         public string Title { get; set; }
         public string Description { get; set; }
 
-        public int Width;
+        public int XScale;
 
-        public int Height;
+        public int YScale;
 
         public string Alt { get; set; }
 

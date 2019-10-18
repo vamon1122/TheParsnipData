@@ -354,7 +354,7 @@ namespace ParsnipData.Media
                     if (logMe)
                         Debug.WriteLine("----------Reading width");
 
-                    Width = (int)reader[6];
+                    XScale = (int)reader[6];
                 }
                 else
                 {
@@ -367,7 +367,7 @@ namespace ParsnipData.Media
                     if (logMe)
                         Debug.WriteLine("----------Reading height");
 
-                    Height = (int)reader[7];
+                    YScale = (int)reader[7];
                 }
                 else
                 {
@@ -539,8 +539,8 @@ namespace ParsnipData.Media
                             cmd.Parameters.Add("@video_id", SqlDbType.UniqueIdentifier).Value = Id;
                             cmd.Parameters.Add("@date_time_media_created", SqlDbType.DateTime).Value = DateTimeMediaCreated;
                             cmd.Parameters.Add("@date_time_created", SqlDbType.DateTime).Value = DateTimeCreated;
-                            cmd.Parameters.Add("@width", SqlDbType.Int).Value = Width;
-                            cmd.Parameters.Add("@height", SqlDbType.Char).Value = Height;
+                            cmd.Parameters.Add("@x_scale", SqlDbType.Int).Value = XScale;
+                            cmd.Parameters.Add("@y_scale", SqlDbType.Char).Value = YScale;
                             cmd.Parameters.Add("@video_dir", SqlDbType.Char).Value = Directory;
                             cmd.Parameters.Add("@thumbnail_width", SqlDbType.Int).Value = Thumbnail.Width;
                             cmd.Parameters.Add("@thumbnail_height", SqlDbType.Char).Value = Thumbnail.Height;
