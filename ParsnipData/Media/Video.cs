@@ -24,9 +24,9 @@ namespace ParsnipData.Media
             private string _placeholder;
             public string Placeholder { get { if (string.IsNullOrEmpty(_placeholder)) return "Resources/Media/Images/Web_Media/placeholder.gif"; else return _placeholder; } set { _placeholder = value; } }
 
-            public int Height { get; set; }
+            public double YScale { get; set; }
 
-            public int Width { get; set; }
+            public double XScale { get; set; }
         }
 
         public VideoThumbnail Thumbnail { get; }
@@ -354,7 +354,7 @@ namespace ParsnipData.Media
                     if (logMe)
                         Debug.WriteLine("----------Reading width");
 
-                    XScale = (int)reader[6];
+                    XScale = (double)reader[6];
                 }
                 else
                 {
@@ -367,7 +367,7 @@ namespace ParsnipData.Media
                     if (logMe)
                         Debug.WriteLine("----------Reading height");
 
-                    YScale = (int)reader[7];
+                    YScale = (double)reader[7];
                 }
                 else
                 {
@@ -385,7 +385,7 @@ namespace ParsnipData.Media
                     if (logMe)
                         Debug.WriteLine("----------Reading thumbnail width");
 
-                    Thumbnail.Width = (int)reader[9];
+                    Thumbnail.XScale = (double)reader[9];
                 }
                 else
                 {
@@ -398,7 +398,7 @@ namespace ParsnipData.Media
                     if (logMe)
                         Debug.WriteLine("----------Reading thumbnail height");
 
-                    Thumbnail.Height = (int)reader[10];
+                    Thumbnail.YScale = (double)reader[10];
                 }
                 else
                 {
@@ -542,8 +542,8 @@ namespace ParsnipData.Media
                             cmd.Parameters.Add("@x_scale", SqlDbType.Int).Value = XScale;
                             cmd.Parameters.Add("@y_scale", SqlDbType.Char).Value = YScale;
                             cmd.Parameters.Add("@video_dir", SqlDbType.Char).Value = Directory;
-                            cmd.Parameters.Add("@thumbnail_width", SqlDbType.Int).Value = Thumbnail.Width;
-                            cmd.Parameters.Add("@thumbnail_height", SqlDbType.Char).Value = Thumbnail.Height;
+                            cmd.Parameters.Add("@thumbnail_x_scale", SqlDbType.Int).Value = Thumbnail.XScale;
+                            cmd.Parameters.Add("@thumbnail_y_scale", SqlDbType.Char).Value = Thumbnail.YScale;
                             cmd.Parameters.Add("@thumbnail_original_dir", SqlDbType.Char).Value = Thumbnail.Original;
                             cmd.Parameters.Add("@thumbnail_compressed_dir", SqlDbType.Char).Value = Thumbnail.Compressed;
                             cmd.Parameters.Add("@thumbnail_placeholder_dir", SqlDbType.Char).Value = Thumbnail.Placeholder;

@@ -523,7 +523,7 @@ namespace ParsnipData.Media
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading ImageWidth");
-                    XScale = (int)reader[6];
+                    XScale = (double)reader[6];
                 }
                 else
                 {
@@ -535,7 +535,7 @@ namespace ParsnipData.Media
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading ImageHeight");
-                    YScale = (int)reader[7];
+                    YScale = (double)reader[7];
                 }
                 else
                 {
