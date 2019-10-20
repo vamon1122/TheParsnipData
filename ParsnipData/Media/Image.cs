@@ -251,11 +251,14 @@ namespace ParsnipData.Media
                         //Shortest side should be 250px
                         Bitmap thumbnail = original.Width > original.Height ? ResizeBitmap(original, (int)(original.Width * (250d / original.Height)), 250) : ResizeBitmap(original, 250, (int)(original.Height * (250d / original.Width)));
 
+                        bool invertScale = false;
+
                         if (original.PropertyIdList.Contains(0x112)) //0x112 = Orientation
                         {
                             var prop = original.GetPropertyItem(0x112);
                             if (prop.Type == 3 && prop.Len == 2)
                             {
+                                invertScale = true;
                                 UInt16 orientationExif = BitConverter.ToUInt16(original.GetPropertyItem(0x112).Value, 0);
                                 if (orientationExif == 8)
                                 {
@@ -317,8 +320,8 @@ namespace ParsnipData.Media
 
 
                         int scale = GetAspectScale(original.Width, original.Height);
-                        XScale = original.Width / scale;
-                        YScale = original.Height / scale;
+                        XScale = invertScale ? original.Height / scale : original.Width / scale;
+                        YScale = invertScale? original.Width / scale : original.Height / scale;
                         DateTimeCreated = Parsnip.AdjustedTime;
                         DateTimeMediaCreated = DateTimeCreated;
                     }
