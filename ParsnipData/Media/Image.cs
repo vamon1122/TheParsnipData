@@ -245,20 +245,19 @@ namespace ParsnipData.Media
                         //compressed later on). *NOTE* we also need to rotate the new image (as we do with the 
                         //thumbnail), as they loose their rotation properties when they are processed using the 
                         //'ResizeBitmap' function. This is done after the resize.
+                        //MAKE SURE THAT COMPRESSED IMAGE IS SCALED EXACTLY (it is used to get scale soon)
                         Bitmap compressedImage = ResizeBitmap(original, (int)original.Width, (int)original.Height);
 
                         //One of the numbers must be a double in order for the result to be double
                         //Shortest side should be 250px
                         Bitmap thumbnail = original.Width > original.Height ? ResizeBitmap(original, (int)(original.Width * (250d / original.Height)), 250) : ResizeBitmap(original, 250, (int)(original.Height * (250d / original.Width)));
 
-                        bool invertScale = false;
-
                         if (original.PropertyIdList.Contains(0x112)) //0x112 = Orientation
                         {
                             var prop = original.GetPropertyItem(0x112);
                             if (prop.Type == 3 && prop.Len == 2)
                             {
-                                invertScale = true;
+                                //invertScale = true;
                                 UInt16 orientationExif = BitConverter.ToUInt16(original.GetPropertyItem(0x112).Value, 0);
                                 if (orientationExif == 8)
                                 {
@@ -320,8 +319,8 @@ namespace ParsnipData.Media
 
 
                         int scale = GetAspectScale(original.Width, original.Height);
-                        XScale = invertScale ? original.Height / scale : original.Width / scale;
-                        YScale = invertScale? original.Width / scale : original.Height / scale;
+                        XScale = compressedImage.Width / scale;
+                        YScale = compressedImage.Height / scale;
                         DateTimeCreated = Parsnip.AdjustedTime;
                         DateTimeMediaCreated = DateTimeCreated;
                     }
