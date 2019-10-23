@@ -248,12 +248,27 @@ namespace ParsnipData.Media
                         //resize. MAKE SURE THAT COMPRESSED IMAGE IS SCALED EXACTLY (it is used to get scale soon)
 
                         System.Drawing.Image originalImage = System.Drawing.Image.FromStream(originalFile.InputStream);
+                        int scale = GetAspectScale(originalImage.Width, originalImage.Height);
 
-                        Bitmap compressedBitmap = DrawNewBitmap(originalImage, (int)originalImage.Width, (int)originalImage.Height);
+
+                        //1280x720
+                        double compressedShortSide = 720;
+                        Bitmap compressedBitmap;
+                        if (originalImage.Width > compressedShortSide && originalImage.Height > compressedShortSide)
+                        {
+                            compressedBitmap = originalImage.Width > originalImage.Height ? DrawNewBitmap(originalImage, (int)(originalImage.Width * (compressedShortSide / originalImage.Height)), (int)compressedShortSide) : DrawNewBitmap(originalImage, (int)compressedShortSide, (int)(originalImage.Height * (compressedShortSide / originalImage.Width)));
+                        }
+                        else
+                        {
+                            compressedBitmap = DrawNewBitmap(originalImage, originalImage.Width, originalImage.Height);
+                        }
+
+                         
 
                         //One of the numbers must be a double in order for the result to be double
-                        //Shortest side should be 250px
-                        Bitmap thumbnail = originalImage.Width > originalImage.Height ? DrawNewBitmap(originalImage, (int)(originalImage.Width * (250d / originalImage.Height)), 250) : DrawNewBitmap(originalImage, 250, (int)(originalImage.Height * (250d / originalImage.Width)));
+                        //Shortest side of the thumbnail should be 250px
+                        double thumbnailShortSide = 250;
+                        Bitmap thumbnail = originalImage.Width > originalImage.Height ? DrawNewBitmap(originalImage, (int)(originalImage.Width * (thumbnailShortSide / originalImage.Height)), (int)thumbnailShortSide) : DrawNewBitmap(originalImage, (int)thumbnailShortSide, (int)(originalImage.Height * (thumbnailShortSide / originalImage.Width)));
 
                         if (originalImage.PropertyIdList.Contains(0x112)) //0x112 = Orientation
                         {
@@ -326,7 +341,7 @@ namespace ParsnipData.Media
                         AlbumId = album.Id;
 
 
-                        int scale = GetAspectScale(originalImage.Width, originalImage.Height);
+                        
                         XScale = originalImage.Width / scale;
                         YScale = originalImage.Height / scale;
                         DateTimeCreated = Parsnip.AdjustedTime;
