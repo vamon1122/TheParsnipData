@@ -210,16 +210,16 @@ namespace ParsnipData.Media
             throw new NotImplementedException();
         }
 
-        public Image(User uploader, Album album, FileUpload uploadControl)
+        public Image(User uploader, Album album, HttpPostedFile originalFile)
         {
             new LogEntry(DebugLog) { text = "POSTBACK with image" };
-            if (uploadControl.PostedFile.FileName.Length > 0)
+            if (originalFile.FileName.Length > 0)
             {
                 try
                 {
                     new LogEntry(DebugLog) { text = "Attempting to upload the photo" };
 
-                    string[] fileDir = uploadControl.PostedFile.FileName.Split('\\');
+                    string[] fileDir = originalFile.FileName.Split('\\');
                     string originalFileName = fileDir.Last();
                     string originalFileExtension = "." + originalFileName.Split('.').Last();
 
@@ -232,46 +232,54 @@ namespace ParsnipData.Media
                             Parsnip.AdjustedTime.ToString("dd-MM-yyyy_HH.mm.ss"), originalFileName.Substring(0, originalFileName.LastIndexOf('.')), Guid.NewGuid());
 
                         Debug.WriteLine("Original image saved as = " + uploadsDir);
-                        uploadControl.PostedFile.SaveAs(HttpContext.Current.Server.MapPath("~/" + uploadsDir + "Originals/" + generatedFileName + originalFileExtension));
                         
 
-                        Bitmap original = new System.Drawing.Bitmap(uploadControl.PostedFile.InputStream);
+                        originalFile.SaveAs(HttpContext.Current.Server.MapPath("~/" + uploadsDir + "Originals/" + generatedFileName + originalFileExtension));
+
+
 
                         //No resize is done here but image needs to go through the process so that it displays properly 
                         //on PC's. If we use the 'original' bitmap, the image will display fine on mobile browser, fine 
                         //on Windows File Explorer, but will be rotated in desktop browsers. However, I noticed that 
-                        //the thumbnail was displayed correctly at all times. So, I sumply put the original image 
-                        //through the same process, and called the new image 'compressedImage' (since it gets 
-                        //compressed later on). *NOTE* we also need to rotate the new image (as we do with the 
-                        //thumbnail), as they loose their rotation properties when they are processed using the 
-                        //'ResizeBitmap' function. This is done after the resize.
-                        //MAKE SURE THAT COMPRESSED IMAGE IS SCALED EXACTLY (it is used to get scale soon)
-                        Bitmap compressedImage = ResizeBitmap(original, (int)original.Width, (int)original.Height);
+                        //the thumbnail was displayed correctly at all times. So, I simply put the original image 
+                        //through the same process, and called the new image 'uncompressedImage'. *NOTE* we also need 
+                        //to rotate the new image (as we do with the thumbnail), as they loose their rotation 
+                        //properties when they are processed using the 'ResizeBitmap' function. This is done after the 
+                        //resize. MAKE SURE THAT COMPRESSED IMAGE IS SCALED EXACTLY (it is used to get scale soon)
+
+                        System.Drawing.Image originalImage = System.Drawing.Image.FromStream(originalFile.InputStream);
+
+                        Bitmap compressedBitmap = DrawNewBitmap(originalImage, (int)originalImage.Width, (int)originalImage.Height);
 
                         //One of the numbers must be a double in order for the result to be double
                         //Shortest side should be 250px
-                        Bitmap thumbnail = original.Width > original.Height ? ResizeBitmap(original, (int)(original.Width * (250d / original.Height)), 250) : ResizeBitmap(original, 250, (int)(original.Height * (250d / original.Width)));
+                        Bitmap thumbnail = originalImage.Width > originalImage.Height ? DrawNewBitmap(originalImage, (int)(originalImage.Width * (250d / originalImage.Height)), 250) : DrawNewBitmap(originalImage, 250, (int)(originalImage.Height * (250d / originalImage.Width)));
 
-                        if (original.PropertyIdList.Contains(0x112)) //0x112 = Orientation
+                        if (originalImage.PropertyIdList.Contains(0x112)) //0x112 = Orientation
                         {
-                            var prop = original.GetPropertyItem(0x112);
+                            var prop = originalImage.GetPropertyItem(0x112);
                             if (prop.Type == 3 && prop.Len == 2)
                             {
                                 //invertScale = true;
-                                UInt16 orientationExif = BitConverter.ToUInt16(original.GetPropertyItem(0x112).Value, 0);
+                                UInt16 orientationExif = BitConverter.ToUInt16(originalImage.GetPropertyItem(0x112).Value, 0);
                                 if (orientationExif == 8)
                                 {
-                                    compressedImage.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                                    //We rotate the original image because we need the correct dimensions later on.
+                                    //This will not affect the original image because it has already been saved.
+                                    originalImage.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                                    compressedBitmap.RotateFlip(RotateFlipType.Rotate270FlipNone);
                                     thumbnail.RotateFlip(RotateFlipType.Rotate270FlipNone);
                                 }
                                 else if (orientationExif == 3)
                                 {
-                                    compressedImage.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                                    originalImage.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                                    compressedBitmap.RotateFlip(RotateFlipType.Rotate180FlipNone);
                                     thumbnail.RotateFlip(RotateFlipType.Rotate180FlipNone);
                                 }
                                 else if (orientationExif == 6)
                                 {
-                                    compressedImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                                    originalImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                                    compressedBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                                     thumbnail.RotateFlip(RotateFlipType.Rotate90FlipNone);
                                 }
                             }
@@ -302,7 +310,7 @@ namespace ParsnipData.Media
                         //100 = max quality / larger size
                         myEncoderParameter = new EncoderParameter(myEncoder, 50L);
                         myEncoderParameters.Param[0] = myEncoderParameter;
-                        compressedImage.Save(HttpContext.Current.Server.MapPath(uploadsDir + generatedFileName + newFileExtension), myImageCodecInfo, myEncoderParameters);
+                        compressedBitmap.Save(HttpContext.Current.Server.MapPath(uploadsDir + generatedFileName + newFileExtension), myImageCodecInfo, myEncoderParameters);
 
                         myEncoderParameter = new EncoderParameter(myEncoder, 15L);
                         myEncoderParameters.Param[0] = myEncoderParameter;
@@ -318,9 +326,9 @@ namespace ParsnipData.Media
                         AlbumId = album.Id;
 
 
-                        int scale = GetAspectScale(original.Width, original.Height);
-                        XScale = compressedImage.Width / scale;
-                        YScale = compressedImage.Height / scale;
+                        int scale = GetAspectScale(originalImage.Width, originalImage.Height);
+                        XScale = originalImage.Width / scale;
+                        YScale = originalImage.Height / scale;
                         DateTimeCreated = Parsnip.AdjustedTime;
                         DateTimeMediaCreated = DateTimeCreated;
                     }
@@ -347,19 +355,18 @@ namespace ParsnipData.Media
                     if (width % i == 0 && height % i == 0)
                     {
                         hcf = i;
-
                     }
                 }
 
                 return hcf;
             }
 
-            Bitmap ResizeBitmap(Bitmap bmp, int width, int height)
+            Bitmap DrawNewBitmap(System.Drawing.Image source, int width, int height)
             {
                 Bitmap result = new Bitmap(width, height);
                 using (Graphics g = Graphics.FromImage(result))
                 {
-                    g.DrawImage(bmp, 0, 0, width, height);
+                    g.DrawImage(source, 0, 0, width, height);
                 }
 
                 return result;
