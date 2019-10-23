@@ -250,7 +250,6 @@ namespace ParsnipData.Media
                         System.Drawing.Image originalImage = System.Drawing.Image.FromStream(originalFile.InputStream);
                         int scale = GetAspectScale(originalImage.Width, originalImage.Height);
 
-
                         //1280x720
                         double compressedShortSide = 720;
                         Bitmap compressedBitmap;
@@ -262,8 +261,6 @@ namespace ParsnipData.Media
                         {
                             compressedBitmap = DrawNewBitmap(originalImage, originalImage.Width, originalImage.Height);
                         }
-
-                         
 
                         //One of the numbers must be a double in order for the result to be double
                         //Shortest side of the thumbnail should be 250px
@@ -337,11 +334,7 @@ namespace ParsnipData.Media
                         Placeholder = uploadsDir + "Thumbnails/" + generatedFileName + newFileExtension;
 
                         CreatedById = uploader.Id;
-
                         AlbumId = album.Id;
-
-
-                        
                         XScale = originalImage.Width / scale;
                         YScale = originalImage.Height / scale;
                         DateTimeCreated = Parsnip.AdjustedTime;
