@@ -320,7 +320,7 @@ namespace ParsnipData.Media
 
                         //L value (e.g. 50L sets compression quality. 0 = min quality / smaller size, 
                         //100 = max quality / larger size
-                        myEncoderParameter = new EncoderParameter(myEncoder, 75L);
+                        myEncoderParameter = new EncoderParameter(myEncoder, 85L);
                         myEncoderParameters.Param[0] = myEncoderParameter;
                         compressedBitmap.Save(HttpContext.Current.Server.MapPath(uploadsDir + generatedFileName + newFileExtension), myImageCodecInfo, myEncoderParameters);
 
