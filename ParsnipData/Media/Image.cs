@@ -330,7 +330,7 @@ namespace ParsnipData.Media
 
                         //ParsnipData.Media.Image image = new ParsnipData.Media.Image(uploadsDir + generatedFileName + newFileExtension, uploader, album);
                         Original = uploadsDir + "Originals/" + generatedFileName + originalFileExtension;
-                        Directory = uploadsDir + generatedFileName + newFileExtension;
+                        Directory = uploadsDir + "Compressed/" + generatedFileName + newFileExtension;
                         Placeholder = uploadsDir + "Thumbnails/" + generatedFileName + newFileExtension;
 
                         CreatedById = uploader.Id;
