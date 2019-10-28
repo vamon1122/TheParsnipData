@@ -326,12 +326,12 @@ namespace ParsnipData.Media
 
                         myEncoderParameter = new EncoderParameter(myEncoder, 15L);
                         myEncoderParameters.Param[0] = myEncoderParameter;
-                        thumbnail.Save(HttpContext.Current.Server.MapPath(uploadsDir + "Thumbnails/" + generatedFileName + newFileExtension), myImageCodecInfo, myEncoderParameters);
+                        thumbnail.Save(HttpContext.Current.Server.MapPath(uploadsDir + "Placeholders/" + generatedFileName + newFileExtension), myImageCodecInfo, myEncoderParameters);
 
                         //ParsnipData.Media.Image image = new ParsnipData.Media.Image(uploadsDir + generatedFileName + newFileExtension, uploader, album);
                         Original = uploadsDir + "Originals/" + generatedFileName + originalFileExtension;
                         Directory = uploadsDir + "Compressed/" + generatedFileName + newFileExtension;
-                        Placeholder = uploadsDir + "Thumbnails/" + generatedFileName + newFileExtension;
+                        Placeholder = uploadsDir + "Placeholders/" + generatedFileName + newFileExtension;
 
                         CreatedById = uploader.Id;
                         AlbumId = album.Id;
