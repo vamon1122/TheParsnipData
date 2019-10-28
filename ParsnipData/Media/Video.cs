@@ -459,7 +459,7 @@ namespace ParsnipData.Media
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
 
-                        AlbumId = new Guid(reader[16].ToString());
+                        AlbumId = new Guid(reader[17].ToString());
                     }
                     else
                     {
