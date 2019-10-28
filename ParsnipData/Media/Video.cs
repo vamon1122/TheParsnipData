@@ -377,15 +377,15 @@ namespace ParsnipData.Media
 
                 if (logMe)
                     Debug.WriteLine("----------Reading Directory");
-                Directory = reader[8].ToString().Trim();
+                Directory = reader[9].ToString().Trim();
 
 
-                if (reader[9] != DBNull.Value && !string.IsNullOrEmpty(reader[9].ToString()) && !string.IsNullOrWhiteSpace(reader[9].ToString()))
+                if (reader[10] != DBNull.Value && !string.IsNullOrEmpty(reader[10].ToString()) && !string.IsNullOrWhiteSpace(reader[10].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading thumbnail width");
 
-                    Thumbnail.XScale = (double)reader[9];
+                    Thumbnail.XScale = (double)reader[10];
                 }
                 else
                 {
@@ -393,12 +393,12 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Thumbnail width is blank. Skipping thumbnail width");
                 }
 
-                if (reader[10] != DBNull.Value && !string.IsNullOrEmpty(reader[10].ToString()) && !string.IsNullOrWhiteSpace(reader[10].ToString()))
+                if (reader[11] != DBNull.Value && !string.IsNullOrEmpty(reader[11].ToString()) && !string.IsNullOrWhiteSpace(reader[11].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading thumbnail height");
 
-                    Thumbnail.YScale = (double)reader[10];
+                    Thumbnail.YScale = (double)reader[11];
                 }
                 else
                 {
@@ -406,12 +406,12 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Thumbnail height is blank. Skipping thumbnail height");
                 }
 
-                if (reader[11] != DBNull.Value && !string.IsNullOrEmpty(reader[11].ToString()) && !string.IsNullOrWhiteSpace(reader[11].ToString()))
+                if (reader[12] != DBNull.Value && !string.IsNullOrEmpty(reader[12].ToString()) && !string.IsNullOrWhiteSpace(reader[12].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading original thumbnail");
 
-                    Thumbnail.Original = reader[11].ToString().Trim();
+                    Thumbnail.Original = reader[12].ToString().Trim();
                 }
                 else
                 {
@@ -419,11 +419,11 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Original thumbnail is blank. Skipping original thumbnail");
                 }
 
-                if (reader[12] != DBNull.Value && !string.IsNullOrEmpty(reader[12].ToString()) && !string.IsNullOrWhiteSpace(reader[12].ToString()))
+                if (reader[13] != DBNull.Value && !string.IsNullOrEmpty(reader[13].ToString()) && !string.IsNullOrWhiteSpace(reader[13].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading compressed thumbnail");
-                    Thumbnail.Compressed = reader[12].ToString().Trim();
+                    Thumbnail.Compressed = reader[13].ToString().Trim();
                 }
                 else
                 {
@@ -431,12 +431,12 @@ namespace ParsnipData.Media
                         Debug.WriteLine("----------Compressed thumbnail is blank. Skipping compressed thumbnail");
                 }
 
-                if (reader[13] != DBNull.Value && !string.IsNullOrEmpty(reader[13].ToString()) && !string.IsNullOrWhiteSpace(reader[13].ToString()))
+                if (reader[14] != DBNull.Value && !string.IsNullOrEmpty(reader[14].ToString()) && !string.IsNullOrWhiteSpace(reader[14].ToString()))
                 {
                     if (logMe)
                         Debug.WriteLine("----------Reading placeholder thumbnail");
 
-                    Thumbnail.Placeholder = reader[13].ToString().Trim();
+                    Thumbnail.Placeholder = reader[14].ToString().Trim();
                 }
                 else
                 {
@@ -448,13 +448,13 @@ namespace ParsnipData.Media
 
                 if (logMe)
                     Debug.WriteLine("----------Reading createdbyid");
-                CreatedById = new Guid(reader[14].ToString());
+                CreatedById = new Guid(reader[15].ToString());
 
                 
 
                 try
                 {
-                    if (reader[16] != DBNull.Value && !string.IsNullOrEmpty(reader[16].ToString()) && !string.IsNullOrWhiteSpace(reader[16].ToString()))
+                    if (reader[17] != DBNull.Value && !string.IsNullOrEmpty(reader[17].ToString()) && !string.IsNullOrWhiteSpace(reader[17].ToString()))
                     {
                         if (logMe)
                             Debug.WriteLine("----------Reading album id");
@@ -475,14 +475,14 @@ namespace ParsnipData.Media
 
                 try
                 {
-                    if (reader[17] != DBNull.Value && !string.IsNullOrEmpty(reader[17].ToString()) &&
-                        !string.IsNullOrWhiteSpace(reader[17].ToString()))
+                    if (reader[18] != DBNull.Value && !string.IsNullOrEmpty(reader[18].ToString()) &&
+                        !string.IsNullOrWhiteSpace(reader[18].ToString()))
 
                     {
                         if (logMe)
                             Debug.WriteLine("----------Reading access_token id");
 
-                        MyAccessToken = new AccessToken((Guid)reader[17], (Guid)reader[18], Convert.ToDateTime(reader[19]), (int)reader[20], (Guid)reader[21]);
+                        MyAccessToken = new AccessToken((Guid)reader[18], (Guid)reader[19], Convert.ToDateTime(reader[20]), (int)reader[21], (Guid)reader[22]);
                     }
                     else
                     {
