@@ -251,11 +251,11 @@ namespace ParsnipData.Media
                         int scale = GetAspectScale(originalImage.Width, originalImage.Height);
 
                         //1280x720
-                        double compressedShortSide = 720;
+                        double compressedLongSide = 1280;
                         Bitmap compressedBitmap;
-                        if (originalImage.Width > compressedShortSide && originalImage.Height > compressedShortSide)
+                        if (originalImage.Width > compressedLongSide || originalImage.Height > compressedLongSide)
                         {
-                            compressedBitmap = originalImage.Width > originalImage.Height ? DrawNewBitmap(originalImage, (int)(originalImage.Width * (compressedShortSide / originalImage.Height)), (int)compressedShortSide) : DrawNewBitmap(originalImage, (int)compressedShortSide, (int)(originalImage.Height * (compressedShortSide / originalImage.Width)));
+                            compressedBitmap = originalImage.Width > originalImage.Height ? DrawNewBitmap(originalImage, (int)compressedLongSide, (int)(originalImage.Height * (compressedLongSide / originalImage.Width))) : DrawNewBitmap(originalImage, (int)(originalImage.Width * (compressedLongSide / originalImage.Height)), (int)compressedLongSide);
                         }
                         else
                         {
@@ -264,8 +264,8 @@ namespace ParsnipData.Media
 
                         //One of the numbers must be a double in order for the result to be double
                         //Shortest side of the thumbnail should be 250px
-                        double thumbnailShortSide = 250;
-                        Bitmap thumbnail = originalImage.Width > originalImage.Height ? DrawNewBitmap(originalImage, (int)(originalImage.Width * (thumbnailShortSide / originalImage.Height)), (int)thumbnailShortSide) : DrawNewBitmap(originalImage, (int)thumbnailShortSide, (int)(originalImage.Height * (thumbnailShortSide / originalImage.Width)));
+                        double thumbnailLongSide = 250;
+                        Bitmap thumbnail = originalImage.Width > originalImage.Height ? DrawNewBitmap(originalImage, (int)thumbnailLongSide, (int)(originalImage.Height * (thumbnailLongSide / originalImage.Width))) : DrawNewBitmap(originalImage, (int)(originalImage.Width * (thumbnailLongSide / originalImage.Height)), (int)thumbnailLongSide);
 
                         if (originalImage.PropertyIdList.Contains(0x112)) //0x112 = Orientation
                         {
@@ -322,7 +322,7 @@ namespace ParsnipData.Media
                         //100 = max quality / larger size
                         myEncoderParameter = new EncoderParameter(myEncoder, 85L);
                         myEncoderParameters.Param[0] = myEncoderParameter;
-                        compressedBitmap.Save(HttpContext.Current.Server.MapPath(uploadsDir + generatedFileName + newFileExtension), myImageCodecInfo, myEncoderParameters);
+                        compressedBitmap.Save(HttpContext.Current.Server.MapPath(uploadsDir + "Compressed/" + generatedFileName + newFileExtension), myImageCodecInfo, myEncoderParameters);
 
                         myEncoderParameter = new EncoderParameter(myEncoder, 15L);
                         myEncoderParameters.Param[0] = myEncoderParameter;
