@@ -15,18 +15,18 @@ namespace ParsnipData.Accounts
     public class User
     {
         #region Properties
-        private Guid _id;
-        public Guid Id { get { return _id; } private set { /*Debug.WriteLine(string.Format("----------{0}'s id is being set to = {1}",_id, value));*/ _id = value; } }
+        private int _id;
+        public int Id { get { return _id; } private set { _id = value; } }
         private string _username;
-        public string Username { get { return _username; } set { /*Debug.WriteLine(string.Format("----------username is being set to = {0}", value));*/ _username = value; } }
+        public string Username { get { return _username; } set { _username = value; } }
         private string _email;
-        public string Email { get { return _email; } set { /*Debug.WriteLine(string.Format("----------email is being set to = {0}", value));*/ _email = value; } }
+        public string Email { get { return _email; } set { _email = value; } }
         private string _pwd;
-        public string Password { get { return _pwd; } set { /*Debug.WriteLine(string.Format("----------pwd is being set to = {0}", value));*/ _pwd = value; } }
+        public string Password { get { return _pwd; } set { _pwd = value; } }
         private string _forename;
-        public string Forename { get { return _forename; } set { /*Debug.WriteLine(string.Format("----------forename is being set to = {0}", value));*/ _forename = value; } }
+        public string Forename { get { return _forename; } set { _forename = value; } }
         private string _surname;
-        public string Surname { get { return _surname; } set { /*Debug.WriteLine(string.Format("----------surname is being set to = {0}", value));*/ _surname = value; } }
+        public string Surname { get { return _surname; } set { _surname = value; } }
         private DateTime _dob;
         public DateTime Dob { get { return _dob; } set { /*Debug.WriteLine(string.Format("----------dob is being set to = {0}", value));*/ _dob = value; } }
         private string _gender;
@@ -144,8 +144,8 @@ namespace ParsnipData.Accounts
         public string AccountType { get { return _accountType; } set { /*Debug.WriteLine(string.Format("----------accountType is being set to = {0}", value));*/ _accountType = value; } }
         private string _accountStatus;
         public string AccountStatus { get { return _accountStatus; } set { /*Debug.WriteLine(string.Format("----------accountStatus is being set to = {0}", value));*/ _accountStatus = value; } }
-        private Guid _createdByUserId;
-        public Guid createdByUserId { get { return _createdByUserId; } set { /*Debug.WriteLine(string.Format("----------createdByUserId is being set to = {0}", value));*/ _createdByUserId = value; } }
+        private int _createdByUserId;
+        public int createdByUserId { get { return _createdByUserId; } set { /*Debug.WriteLine(string.Format("----------createdByUserId is being set to = {0}", value));*/ _createdByUserId = value; } }
         public string FullName { get { return string.Format("{0} {1}", Forename, Surname); } }
         public List<string> ValidationErrors { get;  set; }
         #endregion
@@ -153,16 +153,7 @@ namespace ParsnipData.Accounts
         #region Constructors
         public User(string pWhereAmI)
         {
-            //Debug.WriteLine(string.Format("User was initialised without a guid. WhereAmI = {0} Their guid will be: {1}", pWhereAmI, Guid.Empty));
-            Id = Guid.Empty;
-            
             DateTimeCreated = Parsnip.AdjustedTime;
-        }
-
-        public User(Guid pGuid)
-        {
-            //Debug.WriteLine("User was initialised with the guid: " + pGuid);
-            Id = pGuid;
         }
 
         public User(SqlDataReader pReader)
@@ -171,7 +162,7 @@ namespace ParsnipData.Accounts
             AddValues(pReader);
         }
 
-        private User()
+        public User()
         {
 
         }
@@ -188,13 +179,15 @@ namespace ParsnipData.Accounts
             var users = new List<User>();
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
-                conn.Open();
-                SqlCommand GetUsers = new SqlCommand("SELECT * FROM [user] WHERE deleted IS NULL", conn);
-                using (SqlDataReader reader = GetUsers.ExecuteReader())
+                using (SqlCommand GetUsers = new SqlCommand("user_select", conn))
                 {
-                    while (reader.Read())
+                    conn.Open();
+                    using (SqlDataReader reader = GetUsers.ExecuteReader())
                     {
-                        users.Add(new Accounts.User(reader));
+                        while (reader.Read())
+                        {
+                            users.Add(new Accounts.User(reader));
+                        }
                     }
                 }
             }
@@ -208,71 +201,132 @@ namespace ParsnipData.Accounts
             return users;
         }
 
-        public static Guid GetLoggedInUserId()
+        public bool Exists()
         {
-            if (GetLoggedInUser() == null || GetLoggedInUser().Id == null)
-                return Guid.Empty;
-            else
-                return GetLoggedInUser().Id;
+            return Exists(Id);
         }
 
-        public static User GetLoggedInUser()
+        public static bool Exists(int id)
         {
-            
-            User tempUser = new User();
-            var cookies = tempUser.GetCookies();
-
-            if (!string.IsNullOrEmpty(cookies[0]) && !string.IsNullOrEmpty(cookies[1]))
-            {
-                tempUser.LogIn(cookies[0], false, cookies[1], false, true);
-                return tempUser;
-            }
-            else
-                return null;
-                
+            if (id == default) return false; else return true;
         }
 
-        public static User GetLoggedInUser(string pUsername, string pPwd)
+        public static User LogIn()
         {
-            User tempUser = new User();
-            tempUser.LogIn(pUsername, false, pPwd, false, true);
-            return tempUser;
+            var username = string.IsNullOrEmpty(Cookie.Read("persistentUsername")) ? Cookie.Read("sessionUsername") : Cookie.Read("persistentUsername");
+            var password = string.IsNullOrEmpty(Cookie.Read("persistentPassword")) ? Cookie.Read("sessionPassword") : Cookie.Read("persistentPassword");
+            return LogIn(username, UsernameRemembered(), password, PasswordRemembered());
         }
 
-        public static User LogIn(string pUsername, string pPassword)
+        public static User LogIn(string username, string password)
+        {
+            return LogIn(username, UsernameRemembered(), password, PasswordRemembered());
+        }
+
+        public static User LogIn(string username, bool rememberUsername, string password, bool rememberPassword)
         {
             using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
-                conn.Open();
-                try
-                {
-                    SqlCommand getId = new SqlCommand("SELECT * FROM [user] " +
-                        "WHERE username = @username AND password = @password AND deleted IS NULL", conn);
-                    getId.Parameters.Add(new SqlParameter("username", pUsername));
+                User user = byUsername();
 
-                    using (SqlDataReader reader = getId.ExecuteReader())
+                if(user == null)
+                    user = byEmail();
+
+                if (user != null)
+                {
+                    if (rememberUsername)
+                        Cookie.WritePerm("persistentUsername", username);
+                    else
+                        Cookie.WriteSession("sessionUsername", username);
+
+                    if (rememberPassword)
+                        Cookie.WritePerm("persistentPassword", password);
+                    else
+                        Cookie.WriteSession("sessionPassword", password);
+                }
+
+                return user;
+
+                User byUsername()
+                {
+                    try
                     {
-                        while (reader.Read())
+                        using (SqlCommand loginWithUsername = new SqlCommand("user_login_where_username", conn))
                         {
-                            return new User(reader);
+                            loginWithUsername.CommandType = System.Data.CommandType.StoredProcedure;
+                            loginWithUsername.Parameters.Add(new SqlParameter("username", username));
+                            loginWithUsername.Parameters.Add(new SqlParameter("password", password));
+
+                            conn.Open();
+
+                            using (SqlDataReader reader = loginWithUsername.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    //WriteSessionCookies(username, password);
+                                    return new User(reader);
+                                }
+                            }
                         }
                     }
-                    throw new InvalidOperationException("There is no user with this username / password combination");
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"There was an exception whilst logging in by username: {ex} : {ex.Message} {ex.InnerException}");
+                    }
+                    return null;
                 }
-                catch (Exception e)
+                
+                User byEmail()
                 {
-                    Debug.WriteLine("[LogIn] There was an exception whilst getting the id from the database: " + e);
-                    throw new InvalidOperationException("There was an error whilst finding a user with username / password combination");
+                    try
+                    {
+                        using (SqlCommand loginWithUsername = new SqlCommand("user_login_where_email", conn))
+                        {
+
+                            loginWithUsername.CommandType = System.Data.CommandType.StoredProcedure;
+                            loginWithUsername.Parameters.Add(new SqlParameter("email", username));
+                            loginWithUsername.Parameters.Add(new SqlParameter("password", password));
+
+                            using (SqlDataReader reader = loginWithUsername.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    return new User(reader);
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception emailEx)
+                    {
+                        Debug.WriteLine("[LogIn] Email not found, login failed: " + emailEx);
+                    }
+                    return null;
                 }
             }
         }
+
+        /*
+        public static void WritePermanentCookies(string username, string password)
+        {
+            Cookie.WriteSession("persistentUsername", username);
+            Cookie.WriteSession("persistentPassword", password);
+        }
+
+        public static void WriteSessionCookies(string username, string password)
+        {
+            Cookie.WriteSession("sessionUsername", username);
+            Cookie.WriteSession("sessionPassword", password);
+        }
+        */
 
         public static bool LogOut()
         {
             try
             {
-                Cookie.WriteSession("userName", "");
-                Cookie.WriteSession("userPwd", "");
+                Cookie.WriteSession("persistentUsername", "");
+                Cookie.WriteSession("persistentPassword", "");
+                Cookie.WriteSession("sessionUsername", "");
+                Cookie.WriteSession("sessionPassword", "");
                 return true;
             }
             catch
@@ -282,248 +336,15 @@ namespace ParsnipData.Accounts
         }
         #endregion
 
-        #region LogIn / LogOut
-
-
-        internal bool LogIn(string pUsername)
-        {
-            Username = pUsername;
-            bool success;
-            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
-            {
-                success = DbSelect(conn);
-            }
-            return success;
-        }
-
-        
-
-        
-        #endregion
-
         #region Public Methods
 
-        public bool LogIn()
-        {
-            return LogIn(true);
-        }
-
-        public bool LogIn(bool silent)
-        {
-            string[] Cookies = GetCookies();
-            string CookieUsername = Cookies[0];
-            Username = Cookies[0];
-            string CookiePwd = Cookies[1];
-
-
-            //Debug.WriteLine("CookieUsername = " + CookieUsername);
-            //Debug.WriteLine("CookiePwd = " + CookiePwd);
-
-            if (String.IsNullOrEmpty(CookieUsername) || String.IsNullOrWhiteSpace(CookieUsername) || String.IsNullOrEmpty(CookiePwd) || String.IsNullOrWhiteSpace(CookiePwd))
-            {
-                return false;
-            }
-            else
-            {
-                if (LogIn(CookieUsername, false, CookiePwd, false, silent))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            }
-        }
-
-        public bool LogIn(string pUsername, bool pRememberUsername, string pPwd, bool pRememberPwd)
-        {
-            return LogIn(pUsername, pRememberUsername, pPwd, pRememberPwd, true);
-        }
-
-        public bool LogIn(string username, bool rememberUsername, string password, bool rememberPassword, bool silent)
-        {
-            //AccountLog.Info(String.Format("[LogIn] Logging in with Username = {0} & Pwd = {1}...",pUsername, pPwd));
-            //Debug.WriteLine(string.Format("----------User.Login() for {0}", Username));
-            
-
-            string dbPwd = null;
-            Username = username;
-
-            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
-            {
-                conn.Open();
-                //AccountLog.Debug("[LogIn] Sql connection opened succesfully!");
-
-
-
-                if (GetPwdFromDb())
-                {
-                    if (password == dbPwd)
-                    {
-                        //Debug.WriteLine(string.Format("----------User.Login() - Got password from db for user {0}. Id = {1}. Pwd = {2}", Username, Id, Password));
-                        if (GetIdFromDb())
-                        {
-                            //AccountLog.Debug(String.Format("[LogIn] DbPwd == Pwd ({0} == {1})", dbPwd, pPwd));
-                            if (DbSelect(conn))
-                            {
-                                //Debug.WriteLine(string.Format("----------User.Login() - Selected user {0} whilst logging in", Username));
-                                if (rememberUsername)
-                                {
-                                    //AccountLog.Debug(String.Format("[LogIn] RememberUsername = true. Writing permanent username cookie (userName = {0})", pUsername));
-                                    //Debug.WriteLine("----------User.Login() - Username permanently remembered!");
-                                    Cookie.WritePerm("userName", username);
-                                }
-
-                                if (rememberPassword)
-                                {
-                                    //AccountLog.Debug(String.Format("[LogIn] RememberPassword = true. Writing permanent password cookie (userPwd = {0})", pPwd));
-                                    //Debug.WriteLine("----------User.Login() - Password permanently remembered!");
-                                    Cookie.WritePerm("userPwd", password);
-                                    Cookie.WritePerm("userPwdPerm", password);
-                                    //Debug.WriteLine("----------User.Login() - PERMANENT Password cookie = " + GetCookies()[1]);
-                                }
-                                else
-                                {
-                                    //This check ensures that permanent cookies 
-                                    //are not replaced with temporary ones
-                                    Cookie.WriteSession("userPwd", password);
-                                    if (!silent && Cookie.Exists("userPwdPerm"))
-                                    {
-                                        Debug.WriteLine("________________________________FORGETTING REMEMBERED PASSWORD!!!");
-                                        Cookie.WriteSession("userPwdPerm", "");
-                                    }
-                                }
-
-                                if (SetLastLogIn())
-                                {
-                                    //AccountLog.Info("[LogIn] Logged in successfully!");
-                                    if (!silent)
-                                    {
-                                        Debug.WriteLine(string.Format("----------User.Login() - {0} logged in LOUDLY", FullName));
-                                    }
-                                    else
-                                    {
-                                        //Debug.WriteLine(String.Format("----------User.Login() - {0} logged in SILENTLY", FullName));
-                                    }
-
-                                    return true;
-                                }
-                            }
-                            else
-                            {
-                                Debug.WriteLine(string.Format("DbSelect failed when logging user {0} in", Username));
-                            }
-                        }
-                        else
-                            Debug.WriteLine("----------User.LogIn() - Failed to get user id");
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("Error whilst logging in {0}. Password \"{1}\" != \"{2}\"", Username, password, dbPwd));
-                    }
-                }
-
-                else
-                {
-                    Debug.WriteLine(string.Format("GetPwdFromDb() failed when logging user {0} in", Username));
-                    //AccountLog.Debug(String.Format("[LogIn] DbPwd != Pwd ({0} != {1}", dbPwd, pPwd));
-                }
-                //AccountLog.Error("[LogIn] Failed to log in.");
-                return false;
-
-                bool GetIdFromDb()
-                {
-                    try
-                    {
-                        SqlCommand getId = new SqlCommand("SELECT user_id FROM [user] WHERE username = @username", conn);
-                        getId.Parameters.Add(new SqlParameter("username", username));
-
-                        using (SqlDataReader reader = getId.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                Id = new Guid(reader[0].ToString());
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("[LogIn] There was an exception whilst getting the id from the database: " + e);
-                        return false;
-                    }
-                    //AccountLog.Debug("[LogIn] Got password from database successfully!");
-                    return true;
-                }
-
-                bool SetLastLogIn()
-                {
-                    int RecordsAffected;
-
-                    //AccountLog.Debug("[LogIn] Attempting to set LastLogIn...");
-                    try
-                    {
-                        //AccountLog.Debug("username = " + username);
-                        SqlCommand Command = new SqlCommand("UPDATE [user] SET last_login = @date WHERE username = @username;", conn);
-                        Command.Parameters.Add(new SqlParameter("username", Username));
-                        Command.Parameters.Add(new SqlParameter("date", Parsnip.AdjustedTime));
-                        RecordsAffected = Command.ExecuteNonQuery();
-
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("[LogIn] There was an exception whilst setting the LastLogIn: " + e);
-                        return false;
-                    }
-
-                    //AccountLog.Debug(String.Format("[LogIn] Set LastLogIn successfully! {0} records were affected.", RecordsAffected));
-                    return true;
-                }
-
-                bool GetPwdFromDb()
-                {
-                    //AccountLog.Debug("[LogIn] Attempting to get password from database...");
-                    try
-                    {
-                        SqlCommand getPassword = new SqlCommand("SELECT password FROM [user] WHERE username = @username", conn);
-                        getPassword.Parameters.Add(new SqlParameter("username", username));
-
-                        using (SqlDataReader reader = getPassword.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                dbPwd = reader[0].ToString().Trim();
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("[LogIn] There was an exception whilst getting the password from the database: " + e);
-                        return false;
-                    }
-                    //AccountLog.Debug("[LogIn] Got password from database successfully!");
-                    return true;
-                }
-            }
-        }
-
-        public bool Select()
-        {
-            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
-            {
-                conn.Open();
-                return DbSelect(conn);
-            }
-        }
-
-        public bool Update()
+        public bool Insert()
         {
             bool success;
             using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-                success = ExistsOnDb(conn) ? DbUpdate(conn) : DbInsert(Password, conn);
+                success = DbInsert(Password, conn);
             }
             return success;
         }
@@ -788,281 +609,60 @@ namespace ParsnipData.Accounts
             }
         }
 
-        public bool ExistsOnDb()
-        {
-            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
-            {
-                conn.Open();
-                return ExistsOnDb(conn);
-            }
-        }
-
         
         #endregion
 
         #region Other Private / Internal Methods
-        private bool ExistsOnDb(SqlConnection pOpenConn)
-        {
-            if (IdExistsOnDb(pOpenConn) || UsernameExistsOnDb(pOpenConn))
-                return true;
-            else
-                return false;
-        }
-
-        private bool IdExistsOnDb(SqlConnection pOpenConn)
-        {
-            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using {1} Id {1}", FullName, PosessivePronoun, Id));
-            try
-            {
-                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM [user] WHERE user_id = @user_id", pOpenConn);
-                findMeById.Parameters.Add(new SqlParameter("user_id", Id.ToString()));
-
-                int userExists;
-
-                using (SqlDataReader reader = findMeById.ExecuteReader())
-                {
-                    reader.Read();
-                    userExists = Convert.ToInt16(reader[0]);
-                    //Debug.WriteLine("Found user by Id. userExists = " + userExists);
-                }
-
-                //Debug.WriteLine(userExists + " user(s) were found with the id " + Id);
-
-                if (userExists > 0)
-                    return true;
-                else
-                    return false;
-
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("There was an error whilst checking if user exists on the database by using thier Id: " + e);
-                return false;
-            }
-        }
-
-        private bool UsernameExistsOnDb(SqlConnection pOpenConn)
-        {
-            Debug.WriteLine(string.Format("Checking weather user {0} exists on database by using their username {1}", FullName, Username));
-            try
-            {
-                SqlCommand findMeById = new SqlCommand("SELECT COUNT(*) FROM [user] WHERE username = @username", pOpenConn);
-                findMeById.Parameters.Add(new SqlParameter("username", Username));
-
-                int userExists;
-
-                using (SqlDataReader reader = findMeById.ExecuteReader())
-                {
-                    reader.Read();
-                    userExists = Convert.ToInt16(reader[0]);
-                    //Debug.WriteLine("Found user by Id. userExists = " + userExists);
-                }
-
-                Debug.WriteLine(userExists + " user(s) were found with the username " + Username);
-
-
-
-                if (userExists > 0)
-                    return true;
-                else
-                    return false;
-
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("There was an error whilst checking if user exists on the database by using their username: " + e);
-                return false;
-            }
-        }
-
         internal bool AddValues(SqlDataReader pReader)
         {
-            bool logMe = false;
-
-            if(logMe)
-                Debug.WriteLine("----------Adding values...");
-
             try
             {
-                if (logMe)
-                    Debug.WriteLine(string.Format("----------Reading id: {0}", pReader[0]));
-
-                Id = new Guid(pReader[0].ToString());
-
-                if (logMe)
-                    Debug.WriteLine(string.Format("----------Reading username: {0}", pReader[1]));
-
+                Id = (int) pReader[0];
                 Username = pReader[1].ToString().Trim();
+
                 if (pReader[2] != DBNull.Value)
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading email");
+                    Email = pReader[2].ToString();
 
-                    Email = pReader[2].ToString().Trim();
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------email is blank. Skipping email");
-                }
-
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading pwd");
                 Password = pReader[3].ToString().Trim();
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading forename");
                 Forename = pReader[4].ToString().Trim();
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading surname");
                 Surname = pReader[5].ToString().Trim();
 
-
-                if (pReader[6] == DBNull.Value)
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------dob is blank. Skipping dob");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading dob");
+                if (pReader[6] != DBNull.Value)
                     Dob = Convert.ToDateTime(pReader[6]);
-                }
 
-                if (pReader[7] == DBNull.Value || pReader[7].ToString() == "")
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------gender is blank. Skipping gender");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading gender");
-
+                if (pReader[7] != DBNull.Value && pReader[7].ToString() != "")
                     GenderLower = pReader[7].ToString();
-                }
-                if (pReader[8] == DBNull.Value)
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------address1 is blank. Skipping address1");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading address1");
-
+                
+                if (pReader[8] != DBNull.Value)
                     Address1 = pReader[8].ToString().Trim();
-                }
-                if (pReader[9] == DBNull.Value)
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------address2 is blank. Skipping address2");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading address2");
-
+                
+                if (pReader[9] != DBNull.Value)
                     Address2 = pReader[9].ToString().Trim();
-                }
-                if (pReader[10] == DBNull.Value)
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------address3 is blank. Skipping address3");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading address3");
-
+                
+                if (pReader[10] != DBNull.Value)
                     Address3 = pReader[10].ToString().Trim();
-                }
-                if (pReader[11] == DBNull.Value)
-                {
-                    if (logMe)
-                       Debug.WriteLine("----------postCode is blank. Skipping postCode");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading postCode");
-
+                
+                if (pReader[11] != DBNull.Value)
                     PostCode = pReader[11].ToString().Trim();
-                }
-                if (pReader[12] == DBNull.Value)
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------mobilePhone is blank. Skipping mobilePhone");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading mobilePhone");
-
+                
+                if (pReader[12] != DBNull.Value)
                     MobilePhone = pReader[12].ToString().Trim();
-                }
-                if (pReader[13] == DBNull.Value)
-                {
-                    if (logMe)
-                       Debug.WriteLine("----------homePhone is blank. Skipping homePhone");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading homePhone");
-
+                
+                if (pReader[13] != DBNull.Value)
                     HomePhone = pReader[13].ToString().Trim();
-                }
-                if (pReader[14] == DBNull.Value)
-                {
-                    if (logMe)
-                       Debug.WriteLine("----------workPhone is blank. Skipping workPhone");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading workPhone");
-
+                
+                if (pReader[14] != DBNull.Value)
                     WorkPhone = pReader[14].ToString().Trim();
-                }
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading dateTimeCreated");
 
                 DateTimeCreated = Convert.ToDateTime(pReader[15]);
-                if (logMe)
-                    Debug.WriteLine("----------dateTimeCreated = " + DateTimeCreated);
-
-                if (pReader[16] == DBNull.Value)
-                {
-                    if (logMe)
-                       Debug.WriteLine("----------lastLogIn is blank. Skipping lastLogIn");
-                }
-                else
-                {
-                    if (logMe)
-                        Debug.WriteLine("----------Reading lastLogIn");
-
+                
+                if (pReader[16] != DBNull.Value)
                     LastLogIn = Convert.ToDateTime(pReader[16]);
-                }
 
-                if (logMe)
-                    Debug.WriteLine(string.Format("----------Reading {0}'s accountType", FullName));
+                //Debug.WriteLine($"{pReader[17].ToString()}, {pReader[18].ToString()}");
 
                 AccountType = pReader[17].ToString().Trim();
-                if (logMe)
-                    Debug.WriteLine(string.Format("----------{0}'s accountType = {1}", FullName, AccountType));
-
-                if (logMe)
-                    Debug.WriteLine("----------Reading accountStatus");
-
                 AccountStatus = pReader[18].ToString().Trim();
-
-                if (logMe)
-                    Debug.WriteLine("added values successfully!");
 
                 return true;
             }
@@ -1073,73 +673,46 @@ namespace ParsnipData.Accounts
             }
         }
 
-        private string[] GetCookies()
+        public static bool UsernameRemembered()
         {
-            
-
-            string[] UserDetails = new string[2];
-
-            if (Cookie.Read("userName") != null)
-            {
-                Username = Cookie.Read("userName");
-                UserDetails[0] = Username;
-            }
+            if (string.IsNullOrEmpty(Cookie.Read("persistentUsername")))
+                return false;
             else
-            {
-                UserDetails[0] = "";
-            }
+                return true;
+        }
 
-            if (Cookie.Read("userPwd") != null)
-            {
-                UserDetails[1] = Cookie.Read("userPwd");
-                
-            }
-            else if (Cookie.Read("userPwdPerm") != null)
-            {
-                UserDetails[1] = Cookie.Read("userPwdPerm");
-                Cookie.WriteSession("userPwd", UserDetails[1]);
-
-            }
+        public static bool PasswordRemembered()
+        {
+            if (string.IsNullOrEmpty(Cookie.Read("persistentPassword")))
+                return false;
             else
-            {
-                UserDetails[1] = "";
-            }
+                return true;
             
-            return UserDetails;
         }
 
         private bool DbInsert(string pPwd, SqlConnection pOpenConn)
         {
-            if (Id.ToString() == Guid.Empty.ToString())
-            {
-                Id = Guid.NewGuid();
-                Debug.WriteLine("Id was empty when trying to insert user {0} into the database. A new guid was generated: {1}", FullName, Id);
-            }
-
             if (Username != null && Forename != null && Surname != null)
             {
                 try
                 {
-                    if (!ExistsOnDb(pOpenConn))
                     {
-                        SqlCommand InsertIntoDb = new SqlCommand("INSERT INTO [user] (user_id, username, forename, surname, date_time_created, type, status) VALUES(@user_id, @username, @forename, @surname, @date_time_created, @type, @status)", pOpenConn);
-                        
-                        InsertIntoDb.Parameters.Add(new SqlParameter("user_id", Id));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("forename", Forename.Trim()));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("surname", Surname.Trim()));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("date_time_created", Parsnip.AdjustedTime));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("type", AccountType));
-                        InsertIntoDb.Parameters.Add(new SqlParameter("status", AccountStatus));
+                        using (SqlCommand InsertIntoDb = new SqlCommand("user_insert", pOpenConn))
+                        {
+                            InsertIntoDb.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        InsertIntoDb.ExecuteNonQuery();
+                            InsertIntoDb.Parameters.Add(new SqlParameter("username", Username.Trim()));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("forename", Forename.Trim()));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("surname", Surname.Trim()));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("datetime_created", Parsnip.AdjustedTime));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("type", AccountType));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("status", AccountStatus));
 
-                        Debug.WriteLine(String.Format("Successfully inserted account \"{0}\" into database: ", Username));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------Tried to insert user {0} but they already existed on the database! Id = {1}", FullName, Id));
-                    }
+                            InsertIntoDb.ExecuteNonQuery();
+
+                            Debug.WriteLine(String.Format("Successfully inserted account \"{0}\" into database: ", Username));
+                        }
+                    }       
                 }
                 catch (Exception e)
                 {
@@ -1157,48 +730,47 @@ namespace ParsnipData.Accounts
             }
         }
 
-        internal bool DbSelect(SqlConnection pOpenConn)
+        public static User Select(int userId)
         {
-            //AccountLog.Debug("Attempting to get user details...");
-            //Debug.WriteLine(string.Format("----------DbSelect() - Attempting to get user details with id {0}...", Id));
-            
             try
             {
-                SqlCommand SelectAccount = new SqlCommand("SELECT * FROM [user] WHERE user_id = @user_id AND (deleted IS NULL)", pOpenConn);
-                SelectAccount.Parameters.Add(new SqlParameter("user_id", Id.ToString()));
-
-                int recordsFound = 0;
-                using (SqlDataReader reader = SelectAccount.ExecuteReader())
+                using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
-                    
-                    while (reader.Read())
+                    using (SqlCommand selectAccount = new SqlCommand("user_select_where_id", conn))
                     {
-                        
-                        AddValues(reader);
-                        recordsFound++;
+                        selectAccount.CommandType = System.Data.CommandType.StoredProcedure;
+                        selectAccount.Parameters.Add(new SqlParameter("id", userId));
+
+                        conn.Open();
+                        using (SqlDataReader reader = selectAccount.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var myUser = new User();
+                                myUser.AddValues(reader);
+                                return myUser;
+                            }
+                        }
                     }
                 }
-                //Debug.WriteLine(string.Format("----------DbSelect() - Found {0} record(s) ", recordsFound));
-
-                if (recordsFound > 0)
-                {
-                    //Debug.WriteLine("----------DbSelect() - Got user's details successfully!");
-                    //AccountLog.Debug("Got user's details successfully!");
-                    return true;
-                }
-                else
-                {
-                    Debug.WriteLine("----------DbSelect() - No user data was returned");
-                    //AccountLog.Debug("Got user's details successfully!");
-                    return false;
-                }
-                
             }
             catch (Exception e)
             {
                 Debug.WriteLine("There was an exception whilst getting user data: " + e);
-                return false;
             }
+            return null;
+        }
+
+        public bool Update()
+        {
+            bool success = false;
+            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+            {
+                conn.Open();
+                success = DbUpdate(conn);
+            }
+
+            return success;
         }
 
         private bool DbUpdate(SqlConnection pOpenConn)
@@ -1210,388 +782,30 @@ namespace ParsnipData.Accounts
             {
                 try
                 {
-                    User temp = new User(Id);
-                    temp.Select();
-
-                    if (Username != temp.Username)
+                    using(var updateUser = new SqlCommand("user_update", pOpenConn))
                     {
-                        Debug.WriteLine(string.Format("----------Attempting to update {0}'s username...", temp.FullName));
-                        if (string.IsNullOrEmpty(Username))
-                        {
-                            string e = string.Format("The username which was supplied for {0} was null or empty", temp.FullName);
-                            Debug.WriteLine("----------{0}. An exception will be thrown since username is a mandatory field", e);
-                            throw new InvalidCastException(e);
-                        }
+                        updateUser.CommandType = System.Data.CommandType.StoredProcedure;
+                        updateUser.Parameters.Add(new SqlParameter("id", Id));
+                        updateUser.Parameters.Add(new SqlParameter("username", Username));
+                        updateUser.Parameters.Add(new SqlParameter("email", Email));
+                        updateUser.Parameters.Add(new SqlParameter("password", Password));
+                        updateUser.Parameters.Add(new SqlParameter("forename", Forename));
+                        updateUser.Parameters.Add(new SqlParameter("surname", Surname));
+                        updateUser.Parameters.Add(new SqlParameter("gender", GenderUpper));
+                        if(Dob != default)
+                            updateUser.Parameters.Add(new SqlParameter("dob", Dob));
+                        updateUser.Parameters.Add(new SqlParameter("address_1", Address1));
+                        updateUser.Parameters.Add(new SqlParameter("address_2", Address2));
+                        updateUser.Parameters.Add(new SqlParameter("address_3", Address3));
+                        updateUser.Parameters.Add(new SqlParameter("post_code", PostCode));
+                        updateUser.Parameters.Add(new SqlParameter("mobile_phone", MobilePhone));
+                        updateUser.Parameters.Add(new SqlParameter("home_phone", HomePhone));
+                        updateUser.Parameters.Add(new SqlParameter("work_phone", WorkPhone));
+                        updateUser.Parameters.Add(new SqlParameter("type", AccountType));
+                        updateUser.Parameters.Add(new SqlParameter("status", AccountStatus));
 
-
-                        SqlCommand UpdateUsername = new SqlCommand("UPDATE [user] SET username = @username WHERE user_id = @user_id", pOpenConn);
-                        UpdateUsername.Parameters.Add(new SqlParameter("user_id", Id));
-                        UpdateUsername.Parameters.Add(new SqlParameter("username", Username));
-
-                        UpdateUsername.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s username was updated successfully!", temp.FullName));
+                        updateUser.ExecuteNonQuery();
                     }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s username was not changed. Not updating {0}'s username.", temp.FullName));
-                    }
-
-
-                    if (Email != temp.Email || Email == "")
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s email...", temp.FullName));
-
-                        SqlCommand UpdateEmail = new SqlCommand("UPDATE [user] SET email = @email WHERE user_id = @user_id", pOpenConn);
-
-                        UpdateEmail.Parameters.Add(new SqlParameter("user_id", Id));
-                        if (Email == "")
-                        {
-                            UpdateEmail.Parameters.Add(new SqlParameter("email", DBNull.Value));
-                            Debug.WriteLine(string.Format("----------{0}'s email will be set to NULL in the database", temp.FullName));
-                        }
-                        else
-                            UpdateEmail.Parameters.Add(new SqlParameter("email", Email));
-
-                        UpdateEmail.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s email was updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s email was not changed. Not updating {0}'s email", temp.FullName));
-                    }
-
-                    if (Password.Length > 0 && Password != temp.Password || Password == "")
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s password...", temp.FullName));
-
-                        SqlCommand UpdatePwd = new SqlCommand("UPDATE [user] SET password = @password WHERE user_id = @user_id", pOpenConn);
-
-                        UpdatePwd.Parameters.Add(new SqlParameter("user_id", Id));
-                        if (Password == "")
-                        {
-                            UpdatePwd.Parameters.Add(new SqlParameter("password", DBNull.Value));
-                            Debug.WriteLine(string.Format("----------{0}'s password will be set to NULL in the database", temp.FullName));
-                        }
-                        else
-                            UpdatePwd.Parameters.Add(new SqlParameter("password", Password));
-
-                        UpdatePwd.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s password updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s password was not changed. Not updating {0}'s password.", temp.FullName));
-                    }
-
-                    if (Forename != temp.Forename)
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s forename. {1}'s forename will be changed to \"{2}\"...", temp.FullName, temp.Forename, Forename));
-
-                        if (string.IsNullOrEmpty(Forename))
-                        {
-                            string e = "The forename which was supplied was null or empty";
-                            Debug.WriteLine(string.Format("----------{0}. An exception will be thrown since forename is a mandatory field", e));
-                            throw new InvalidCastException(e);
-                        }
-
-                        SqlCommand UpdateForename = new SqlCommand("UPDATE [user] SET forename = @forename WHERE user_id = @user_id", pOpenConn);
-
-                        UpdateForename.Parameters.Add(new SqlParameter("user_id", Id));
-                        UpdateForename.Parameters.Add(new SqlParameter("forename", Forename));
-
-
-
-                        UpdateForename.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s forename updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s forename was not changed. Not updating {0}'s forename.", temp.FullName));
-                    }
-
-                    if (Surname != temp.Surname)
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s surname. {1}'s surname will be changed to \"{2}\"...", temp.FullName, temp.Surname, Surname));
-
-                        if (string.IsNullOrEmpty(Surname))
-                        {
-                            string e = "The surname which was supplied was null or empty";
-                            Debug.WriteLine(string.Format("----------{0}. An exception will be thrown since surname is a mandatory field", e));
-                            throw new InvalidCastException(e);
-                        }
-
-                        SqlCommand updateSurname = new SqlCommand("UPDATE [user] SET surname = @surname WHERE user_id = @user_id", pOpenConn);
-
-                        updateSurname.Parameters.Add(new SqlParameter("user_id", Id));
-                        updateSurname.Parameters.Add(new SqlParameter("surname", Surname));
-
-                        updateSurname.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s surname was updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s surname was not changed. Not updating {0}'s surname.", temp.FullName));
-                    }
-
-                    if (_gender != temp.GenderUpper || _gender == "")
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s gender...", temp.FullName));
-
-                        SqlCommand updateGender = new SqlCommand("UPDATE [user] SET gender = @gender WHERE user_id = @user_id", pOpenConn);
-
-                        updateGender.Parameters.Add(new SqlParameter("user_id", Id));
-                        if (_gender == "")
-                        {
-                            updateGender.Parameters.Add(new SqlParameter("gender", DBNull.Value));
-                            Debug.WriteLine(string.Format("----------gender will be set to NULL in the database"));
-                        }
-                        else
-                            updateGender.Parameters.Add(new SqlParameter("gender", _gender));
-
-                        updateGender.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s gender updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s gender was not changed. Not updating {0}'s gender.", temp.FullName));
-                    }
-
-                    if (Dob != temp.Dob || Dob.ToString() == "")
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s dob...", temp.FullName));
-
-                        SqlCommand UpdateDob = new SqlCommand("UPDATE [user] SET dob = @date_of_birth WHERE user_id = @user_id", pOpenConn);
-
-                        UpdateDob.Parameters.Add(new SqlParameter("user_id", Id));
-
-                        if (Dob == DateTime.MinValue)
-                        {
-                            Debug.WriteLine(string.Format("----------{0}'s dob will be set to NULL in the database", temp.FullName));
-                            UpdateDob.Parameters.Add(new SqlParameter("date_of_birth", DBNull.Value));
-                        }
-                        else
-                            UpdateDob.Parameters.Add(new SqlParameter("date_of_birth", Dob));
-
-                        UpdateDob.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s dob was updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s dob was not changed. Not updatg dob.", temp.FullName));
-                    }
-
-                    if (Address1 != temp.Address1 || Address1 == "")
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s address_1...", temp.FullName));
-
-                        SqlCommand UpdateAddress1 = new SqlCommand("UPDATE [user] SET address_1 = @address_1 WHERE user_id = @user_id", pOpenConn);
-
-                        UpdateAddress1.Parameters.Add(new SqlParameter("user_id", Id));
-                        if (Address1 == "")
-                        {
-                            UpdateAddress1.Parameters.Add(new SqlParameter("address_1", DBNull.Value));
-                            Debug.WriteLine(string.Format("----------{0}'s address1 will be set to NULL in the database", temp.FullName));
-                        }
-                        else
-                            UpdateAddress1.Parameters.Add(new SqlParameter("address_1", Address1));
-
-                        UpdateAddress1.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s address1 updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("{0}'s address1 was not changed. Not updating address1.", temp.FullName));
-                    }
-
-                    if (Address2 != temp.Address2 || Address2 == "")
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s address_2...", temp.FullName));
-
-                        SqlCommand UpdateAddress2 = new SqlCommand("UPDATE [user] SET address_2 = @address_2 WHERE user_id = @user_id", pOpenConn);
-
-                        UpdateAddress2.Parameters.Add(new SqlParameter("user_id", Id));
-                        if (Address2 == "")
-                        {
-                            UpdateAddress2.Parameters.Add(new SqlParameter("address_2", DBNull.Value));
-                            Debug.WriteLine(string.Format("----------{0}'s address_2 will be set to NULL in the database", temp.FullName));
-                        }
-
-                        else
-                            UpdateAddress2.Parameters.Add(new SqlParameter("address_2", Address2));
-
-                        UpdateAddress2.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s address_2 was updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s address_2 was not changed. Not updating address_2.", temp.FullName));
-                    }
-
-                    if (Address3 != temp.Address3 || Address3 == "")
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s address_3...", temp.FullName));
-
-                        SqlCommand UpdateAddress3 = new SqlCommand("UPDATE [user] SET address_3 = @address_3 WHERE user_id = @user_id", pOpenConn);
-
-                        UpdateAddress3.Parameters.Add(new SqlParameter("user_id", Id));
-                        if (Address3 == "")
-                        {
-                            UpdateAddress3.Parameters.Add(new SqlParameter("address_3", DBNull.Value));
-                            Debug.WriteLine(string.Format("----------{0}'s address_3 will be set to NULL in the database", temp.FullName));
-                        }
-                        else
-                            UpdateAddress3.Parameters.Add(new SqlParameter("address_3", Address3));
-
-                        UpdateAddress3.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s address_3 was updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s address_3 was not changed. Not updating {0}'s address_3.", temp.FullName));
-                    }
-
-                    if (PostCode != temp.PostCode || PostCode == "")
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s post_code...", temp.FullName));
-
-                        SqlCommand UpdatePostCode = new SqlCommand("UPDATE [user] SET post_code = @post_code WHERE user_id = @user_id", pOpenConn);
-
-                        UpdatePostCode.Parameters.Add(new SqlParameter("user_id", Id));
-                        if (PostCode == "")
-                        {
-                            UpdatePostCode.Parameters.Add(new SqlParameter("post_code", DBNull.Value));
-                            Debug.WriteLine(string.Format("----------{0}'s postCode will be set to NULL in the database", temp.FullName));
-                        }
-                        else
-                            UpdatePostCode.Parameters.Add(new SqlParameter("post_code", PostCode));
-
-                        UpdatePostCode.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s post_code was updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s post_code was not changed. Not updating {0}'s postcode.", temp.FullName));
-                    }
-
-                    if (MobilePhone != temp.MobilePhone || MobilePhone == "")
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s mobile phone...", temp.FullName));
-
-                        SqlCommand UpdateMobilePhone = new SqlCommand("UPDATE [user] SET mobile_phone = @mobile_phone WHERE user_id = @user_id", pOpenConn);
-
-                        UpdateMobilePhone.Parameters.Add(new SqlParameter("user_id", Id));
-                        if (MobilePhone == "")
-                        {
-                            UpdateMobilePhone.Parameters.Add(new SqlParameter("mobile_phone", DBNull.Value));
-                            Debug.WriteLine(string.Format("----------{0}'s mobilePhone will be set to NULL in the database", temp.FullName));
-                        }
-                        else
-                            UpdateMobilePhone.Parameters.Add(new SqlParameter("mobile_phone", MobilePhone));
-
-                        UpdateMobilePhone.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s mobilePhone updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("{0}'s mobilePhone was not changed. Not updating {0}'s mobilePhone.", temp.FullName));
-                    }
-
-                    if (HomePhone != temp.HomePhone || HomePhone == "")
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s homePhone...", temp.FullName));
-
-                        SqlCommand UpdateHomePhone = new SqlCommand("UPDATE [user] SET home_phone = @home_phone WHERE user_id = @user_id", pOpenConn);
-
-                        UpdateHomePhone.Parameters.Add(new SqlParameter("user_id", Id));
-                        if (HomePhone == "")
-                        {
-                            UpdateHomePhone.Parameters.Add(new SqlParameter("home_phone", DBNull.Value));
-                            Debug.WriteLine(string.Format("----------{0}'s homePhone will be set to NULL in the database", temp.FullName));
-                        }
-                        else
-                            UpdateHomePhone.Parameters.Add(new SqlParameter("home_phone", HomePhone));
-
-                        UpdateHomePhone.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s homePhone was updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s homePhone was not changed. Not updating {0}'s home phone.", temp.FullName));
-                    }
-
-                    if (WorkPhone != temp.WorkPhone || WorkPhone == "")
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s workPhone...", temp.FullName));
-
-                        SqlCommand updateWorkPhone = new SqlCommand("UPDATE [user] SET work_phone = @work_phone WHERE user_id = @user_id", pOpenConn);
-
-                        updateWorkPhone.Parameters.Add(new SqlParameter("user_id", Id));
-                        if (WorkPhone == "")
-                        {
-                            updateWorkPhone.Parameters.Add(new SqlParameter("work_phone", DBNull.Value));
-                            Debug.WriteLine(string.Format("----------{0}'s workPhone will be set to NULL in the database", temp.FullName));
-                        }
-                        else
-                            updateWorkPhone.Parameters.Add(new SqlParameter("work_phone", WorkPhone));
-
-                        updateWorkPhone.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s workPhone was updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s workPhone was not changed. Not updating {0}'s workPhone", temp.FullName));
-                    }
-
-                    if (AccountType != temp.AccountType)
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s accountType...", temp.FullName));
-
-                        SqlCommand updateAccountType = new SqlCommand("UPDATE [user] SET type = @type WHERE user_id = @user_id", pOpenConn);
-
-                        updateAccountType.Parameters.Add(new SqlParameter("user_id", Id));
-                        updateAccountType.Parameters.Add(new SqlParameter("type", AccountType));
-
-                        updateAccountType.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s accountType updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s accountType was not changed. Not updating {0}'s accountType.", temp.FullName));
-                    }
-
-                    if (AccountStatus != temp.AccountStatus)
-                    {
-                        Debug.WriteLine(string.Format("----------Updating {0}'s accountStatus...", temp.FullName));
-
-                        SqlCommand updateAccountStatus = new SqlCommand("UPDATE [user] SET status = @status WHERE user_id = @user_id", pOpenConn);
-
-                        updateAccountStatus.Parameters.Add(new SqlParameter("user_id", Id));
-                        updateAccountStatus.Parameters.Add(new SqlParameter("status", AccountStatus));
-
-                        updateAccountStatus.ExecuteNonQuery();
-
-                        Debug.WriteLine(string.Format("----------{0}'s accountStatus updated successfully!", temp.FullName));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(string.Format("----------{0}'s accountStatus was not changed. Not updating {0}'s accountStatus.", temp.FullName));
-                    }
-
                 }
                 catch (Exception e)
                 {
@@ -1617,26 +831,28 @@ namespace ParsnipData.Accounts
             try
             {
                 Debug.WriteLine(string.Format("Setting account with id = '{0}' to deleted", Id));
-                SqlCommand deleteAccount = new SqlCommand("UPDATE [user] SET deleted = @dateTimeNow WHERE user_id = @user_id", pOpenConn);
-                deleteAccount.Parameters.Add(new SqlParameter("user_id", Id.ToString()));
-                deleteAccount.Parameters.Add(new SqlParameter("dateTimeNow", Parsnip.AdjustedTime));
-
-                int recordsFound = deleteAccount.ExecuteNonQuery();
-                //Debug.WriteLine(string.Format("----------DbDelete() - Found {0} record(s) ", recordsFound));
-
-                if (recordsFound > 0)
+                using (SqlCommand deleteAccount = new SqlCommand("user_DELETE_WHERE_id", pOpenConn))
                 {
-                    //Debug.WriteLine("----------DbDelete() - Got user's details successfully!");
-                    //AccountLog.Debug("Got user's details successfully!");
-                    return true;
-                }
-                else
-                {
-                    Debug.WriteLine("----------DbDelete() - No user data was deleted");
-                    //AccountLog.Debug("Got user's details successfully!");
-                    return false;
-                }
+                    deleteAccount.CommandType = System.Data.CommandType.StoredProcedure;
 
+                    deleteAccount.Parameters.Add(new SqlParameter("id", Id.ToString()));
+
+                    int recordsFound = deleteAccount.ExecuteNonQuery();
+                    //Debug.WriteLine(string.Format("----------DbDelete() - Found {0} record(s) ", recordsFound));
+
+                    if (recordsFound > 0)
+                    {
+                        //Debug.WriteLine("----------DbDelete() - Got user's details successfully!");
+                        //AccountLog.Debug("Got user's details successfully!");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("----------DbDelete() - No user data was deleted");
+                        //AccountLog.Debug("Got user's details successfully!");
+                        return false;
+                    }
+                }
             }
             catch (Exception e)
             {

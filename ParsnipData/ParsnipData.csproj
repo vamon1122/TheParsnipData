@@ -53,12 +53,12 @@
     <Compile Include="Logs\Data.cs" />
     <Compile Include="Logs\Log.cs" />
     <Compile Include="Logs\LogEntry.cs" />
-    <Compile Include="Media\AccessToken.cs" />
-    <Compile Include="Media\Album.cs" />
+    <Compile Include="Media\MediaShare.cs" />
+    <Compile Include="Media\MediaTag.cs" />
     <Compile Include="Media\Image.cs" />
     <Compile Include="Media\Media.cs" />
     <Compile Include="Media\Video.cs" />
-    <Compile Include="Media\YoutubeVideo.cs" />
+    <Compile Include="Media\Youtube.cs" />
     <Compile Include="Parsnip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Accounts\Account.cs" />

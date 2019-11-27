@@ -20,8 +20,8 @@ namespace ParsnipData.Logs
                 {
                     conn.Open();
 
-                    SqlCommand deleteLogs = new SqlCommand("DELETE FROM log_entry", conn);
-                    deleteLogs.ExecuteNonQuery();
+                    SqlCommand deleteAllLogs = new SqlCommand("log_entry_delete", conn);
+                    deleteAllLogs.ExecuteNonQuery();
                 }
                 System.Diagnostics.Debug.WriteLine("Logs were cleared");
                 logEntries.Clear();
@@ -43,14 +43,17 @@ namespace ParsnipData.Logs
                 
                 using(SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
-                    conn.Open();
-                    SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM log_entry ORDER BY date_time_created DESC", conn);
-
-                    using(SqlDataReader reader = selectLogEntries.ExecuteReader())
+                    using (SqlCommand selectLogEntries = new SqlCommand("log_entry_select", conn))
                     {
-                        while (reader.Read())
+                        selectLogEntries.CommandType = System.Data.CommandType.StoredProcedure;
+                        
+                        conn.Open();
+                        using (SqlDataReader reader = selectLogEntries.ExecuteReader())
                         {
-                            logEntries.Add(new LogEntry(reader));
+                            while (reader.Read())
+                            {
+                                logEntries.Add(new LogEntry(reader));
+                            }
                         }
                     }
                 }

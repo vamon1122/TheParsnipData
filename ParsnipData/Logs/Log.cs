@@ -12,9 +12,13 @@ namespace ParsnipData.Logs
 {
     public class Log
     {
+        public static readonly Log Debug = Log.Select(3);
+
         private bool isNew;
-        public Guid Id { get; private set; }
         public DateTime DateTimeCreated { get; private set; }
+
+        public int Id { get; set; }
+
         public string Name { get; set;  }
         public string SessionId { get; private set; }
 
@@ -24,42 +28,30 @@ namespace ParsnipData.Logs
             AddValues(pReader);
         }
 
-        public Log(Guid pLogId) : this()
-        {
-            isNew = true;
-            Id = pLogId;
-            DateTimeCreated = Parsnip.AdjustedTime;
-
-        }
-
         Log()
         {
             SessionId = Cookie.Read("sessionId");
         }
 
+        /*
         public Log(string pName) : this()
         {
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
-
-                Debug.WriteLine("Creating new Log object with name = " + pName);
                 Name = pName;
 
-                if (NameExists(conn))
+
+                if (!SelectByName(conn))
                 {
-                    SelectByName(conn);
-                }
-                else
-                {
-                    Id = Guid.NewGuid();
                     DateTimeCreated = Parsnip.AdjustedTime;
                     Insert();
                 }
             }
         }
+        */
 
-        public static Log Default { get { return new Log("general"); } }
+        public static Log Default { get { return Log.Select(4); } }
 
         public List<LogEntry> GetLogEntries()
         {
@@ -70,14 +62,17 @@ namespace ParsnipData.Logs
                 using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
                     conn.Open();
-                    SqlCommand selectLogEntries = new SqlCommand("SELECT * FROM log_entry WHERE log_id = @log_id  ORDER BY date_time_created DESC", conn);
-                    selectLogEntries.Parameters.Add(new SqlParameter("log_id", Id));
-
-                    using (SqlDataReader reader = selectLogEntries.ExecuteReader())
+                    using (SqlCommand selectLogEntriesByLogId = new SqlCommand("log_entry_select_where_log_id", conn))
                     {
-                        while (reader.Read())
+                        selectLogEntriesByLogId.CommandType = System.Data.CommandType.StoredProcedure;
+                        selectLogEntriesByLogId.Parameters.Add(new SqlParameter("log_id", Id));
+
+                        using (SqlDataReader reader = selectLogEntriesByLogId.ExecuteReader())
                         {
-                            logEntries.Add(new LogEntry(reader));
+                            while (reader.Read())
+                            {
+                                logEntries.Add(new LogEntry(reader));
+                            }
                         }
                     }
                 }
@@ -92,199 +87,74 @@ namespace ParsnipData.Logs
 
         public static List<Log> GetAllLogs()
         {
-            bool logMe = false;
-
-            if (logMe)
-                Debug.WriteLine("----------Getting all logs...");
-
             var logs = new List<Log>();
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
 
-                SqlCommand GetLogs = new SqlCommand("SELECT * FROM log", conn);
-                using (SqlDataReader reader = GetLogs.ExecuteReader())
+                using (SqlCommand getAllLogs = new SqlCommand("log_select", conn))
                 {
-                    while (reader.Read())
+                    getAllLogs.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (SqlDataReader reader = getAllLogs.ExecuteReader())
                     {
-                        logs.Add(new Log(reader));
+                        while (reader.Read())
+                        {
+                            logs.Add(new Log(reader));
+                        }
                     }
                 }
-            }
-
-            foreach (Log temp in logs)
-            {
-                if (logMe)
-                    Debug.WriteLine(string.Format("Found log {0} with id {1}", temp.Name, temp.Id));
             }
 
             return logs;
         }
 
-        internal bool AddValues(SqlDataReader pReader)
+        internal bool AddValues(SqlDataReader reader)
         {
             try
             {
-                    isNew = false;
-                    Id = new Guid(pReader[0].ToString());
-                    DateTimeCreated = Convert.ToDateTime(pReader[1].ToString());
-                    Name = pReader[2].ToString();
+                isNew = false;
+                Id = (int)reader[0];
+                Name = reader[1].ToString();
+                DateTimeCreated = Convert.ToDateTime(reader[2].ToString());
                 
             }
             catch(Exception e)
             {
-                Debug.WriteLine("Exception whilst adding values to a log: " + e);
+                System.Diagnostics.Debug.WriteLine("Exception whilst adding values to a log: " + e);
                 return false;
             }
             return true;
         }
 
-        public bool Select()
+        public static Log Select(int id)
         {
+            Log log = null;
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
-                conn.Open();
-
-                if (Id != null && Id != Guid.Empty)
+                try
                 {
-                    if (IdExists(conn))
-                        return SelectById(conn);
-                    else
-                        return false;
-
-                }
-
-                if (Name != null && Name != "")
-                {
-                    if (NameExists(conn))
-                        return SelectByName(conn);
-                    else
-                        return false;
-                }
-
-                return false;
-
-                
-            }
-        }
-
-        bool SelectById(SqlConnection pOpenConn)
-        {
-            try
-            {
-                SqlCommand selectLog = new SqlCommand("SELECT * FROM log WHERE log_id = @log_id", pOpenConn);
-                selectLog.Parameters.Add(new SqlParameter("id", Id));
-
-                using (SqlDataReader reader = selectLog.ExecuteReader())
-                {
-                    while (reader.Read())
+                    using (SqlCommand selectLogByName = new SqlCommand("log_select_where_id", conn))
                     {
-                        AddValues(reader);
+                        selectLogByName.CommandType = System.Data.CommandType.StoredProcedure;
+                        selectLogByName.Parameters.Add(new SqlParameter("id", id));
+
+                        conn.Open();
+                        using (SqlDataReader reader = selectLogByName.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                log = new Log();
+                                log.AddValues(reader);
+                            }
+                        }
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Exception whilst selecting log by id: " + e);
-                return false;
-            }
-            return true;
-        }
-
-        bool SelectByName(SqlConnection pOpenConn)
-        {
-            try
-            {
-                SqlCommand selectLog = new SqlCommand("SELECT * FROM log WHERE name = @name", pOpenConn);
-                selectLog.Parameters.Add(new SqlParameter("name", Name));
-                
-                using(SqlDataReader reader = selectLog.ExecuteReader())
+                catch (Exception e)
                 {
-                    while (reader.Read())
-                    {
-                        AddValues(reader);
-                    }
+                    System.Diagnostics.Debug.WriteLine("Exception whilst selecting log by name: " + e);
                 }
-                
             }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Exception whilst selecting log by name: " + e);
-                return false;
-            }
-            return true;
-        }
-
-        public bool Exists()
-        {
-            using (SqlConnection openConn = new SqlConnection(Parsnip.ParsnipConnectionString))
-            {
-                openConn.Open();
-
-                if (IdExists(openConn))
-                {
-                    Debug.WriteLine("The log Id already existed!");
-                }
-
-                if (NameExists(openConn))
-                {
-                    Debug.WriteLine("The log name already existed!");
-                }
-
-                return true;
-            }
-        }
-
-        private bool IdExists(SqlConnection pOpenConn)
-        {
-            try
-            {
-                SqlCommand doesLogIdExist = new SqlCommand("SELECT COUNT(*) FROM log WHERE log_id = @log_id", pOpenConn);
-                doesLogIdExist.Parameters.Add(new SqlParameter("log_id", Id));
-
-                int logsFound;
-                using (SqlDataReader reader = doesLogIdExist.ExecuteReader())
-                {
-                    reader.Read();
-                    logsFound = Convert.ToInt16(reader[0]);
-                }
-
-                if (logsFound > 0)
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Exception whilst checking if log exists " + e);
-                return false;
-            }
-        }
-
-        private bool NameExists(SqlConnection pOpenConn)
-        {
-            try
-            {
-                SqlCommand doesLogNameExist = new SqlCommand("SELECT COUNT(*) FROM log WHERE name = @name", pOpenConn);
-                doesLogNameExist.Parameters.Add(new SqlParameter("name", Name));
-
-                int logsFound;
-                using (SqlDataReader reader = doesLogNameExist.ExecuteReader())
-                {
-                    reader.Read();
-                    logsFound = Convert.ToInt16(reader[0]);
-                }
-
-                if (logsFound > 0)
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Exception whilst checking if log exists " + e);
-                return false;
-            }
+            return log;
         }
 
         private bool Insert()
@@ -293,16 +163,17 @@ namespace ParsnipData.Logs
             {
                 using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
-                    conn.Open();
+                    using (SqlCommand insertLog = new SqlCommand("log_insert", conn))
+                    
+                    {
+                        insertLog.CommandType = System.Data.CommandType.StoredProcedure;
+                        insertLog.Parameters.Add(new SqlParameter("datetime_created", DateTimeCreated));
+                        insertLog.Parameters.Add(new SqlParameter("name", Name));
 
-                    SqlCommand insertLog = new SqlCommand("INSERT INTO log (log_id, date_time_created, name) VALUES(@log_id, @date_time_created, @name)", conn);
-                    insertLog.Parameters.Add(new SqlParameter("log_id", Id));
-                    insertLog.Parameters.Add(new SqlParameter("date_time_created", DateTimeCreated));
-                    insertLog.Parameters.Add(new SqlParameter("name", Name));
-
-                    insertLog.ExecuteNonQuery();
+                        conn.Open();
+                        insertLog.ExecuteNonQuery();
+                    }
                 }
-
             }    
             catch (Exception e)
             {

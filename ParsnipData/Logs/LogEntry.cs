@@ -13,8 +13,8 @@ namespace ParsnipData.Logs
     public class LogEntry
     {
         private bool isNew;
-        public Guid id { get; private set; }
-        public Guid log_id { get; set; }
+        public int id { get; private set; }
+        public int logId { get; set; }
         public Guid userId { get; private set;  } 
         public DateTime date { get; private set; }
         private string SessionId;
@@ -51,26 +51,19 @@ namespace ParsnipData.Logs
         internal bool AddValues(SqlDataReader pReader)
         {
             isNew = false;
-            id = new Guid(pReader[0].ToString());
-            log_id = new Guid(pReader[1].ToString());
+            id = (int)pReader[0];
+            logId = (int)pReader[1];
             date = Convert.ToDateTime(pReader[3].ToString());
-            _text = pReader[5].ToString();
-
-            if (pReader[2] != DBNull.Value) userId = new Guid(pReader[1].ToString());
-            if (pReader[4] != DBNull.Value) type = pReader[3].ToString();
+            _text = pReader[4].ToString();
 
             return true;
         }
 
         public LogEntry(Log pLog)
-        {
+        {  
             isNew = true;
             SessionId = SessionId = Cookies.Cookie.Read("ASP.NET_sessionId");
-            id = Guid.NewGuid();
-            if (pLog.Id == Guid.Empty)
-                throw new Exception("LogId was empty!");
-            Debug.WriteLine("----------Creating new log entry. Logid = " + log_id);
-            log_id = pLog.Id;
+            logId = pLog.Id;
             //userId = pUserId;
             date = Parsnip.AdjustedTime;
 
@@ -81,55 +74,21 @@ namespace ParsnipData.Logs
             string stage = "";
             try
             {
-                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+                using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
-                    conn.Open();
-
                     stage = "inserting LogEntry...";
-                    
-                    Debug.WriteLine("---------- BEN! - session_id = " + SessionId);
-                    
 
-                    SqlCommand insertLogEntry = new SqlCommand("INSERT INTO log_entry (log_entry_id, log_id, session_id, date_time_created, text) VALUES(@log_entry_id, @log_id, @session_id, @date_time_created, @text)", conn);
-                    insertLogEntry.Parameters.Add(new SqlParameter("log_entry_id", id));
-                    insertLogEntry.Parameters.Add(new SqlParameter("log_id", log_id));
-                    insertLogEntry.Parameters.Add(new SqlParameter("session_id", SessionId));
-                    insertLogEntry.Parameters.Add(new SqlParameter("text", text));
-                    insertLogEntry.Parameters.Add(new SqlParameter("date_time_created", date));
-
-
-                    
-
-                    Debug.WriteLine("text = " + text);
-                    Debug.WriteLine("_text = " + _text);
-
-                    
-                    
-
-                    insertLogEntry.ExecuteNonQuery();
-
-                    /*
-                    if (userId != null && userId != Guid.Empty)
+                    using(SqlCommand insertLogEntry = new SqlCommand("log_entry_insert", conn))
                     {
-                        stage = "UserId was null. Updating LogEntry...";
-                        SqlCommand insertLogEntry_updateUserId = new SqlCommand("UPDATE log_entry SET userId = @userId WHERE log_entry_id = @id", openConn);
-                        insertLogEntry_updateUserId.Parameters.Add(new SqlParameter("userId", userId));
-                        insertLogEntry_updateUserId.Parameters.Add(new SqlParameter("id", id));
+                        insertLogEntry.CommandType = System.Data.CommandType.StoredProcedure;
+                        insertLogEntry.Parameters.Add(new SqlParameter("log_id", logId));
+                        insertLogEntry.Parameters.Add(new SqlParameter("session_id", SessionId));
+                        insertLogEntry.Parameters.Add(new SqlParameter("text", text));
+                        insertLogEntry.Parameters.Add(new SqlParameter("datetime_created", date));
 
-                        insertLogEntry_updateUserId.ExecuteNonQuery();
+                        conn.Open();
+                        insertLogEntry.ExecuteNonQuery();
                     }
-                    */
-
-                    if (type != null)
-                    {
-                        stage = "type was null. Updating LogEntry...";
-                        SqlCommand insertLogEntry_updateType = new SqlCommand("UPDATE log_entry SET type = @type WHERE log_entry_id = @id", conn);
-                        insertLogEntry_updateType.Parameters.Add(new SqlParameter("type", type));
-                        insertLogEntry_updateType.Parameters.Add(new SqlParameter("id", id));
-
-                        insertLogEntry_updateType.ExecuteNonQuery();
-                    }
-
                 }
                 return true;
             }
