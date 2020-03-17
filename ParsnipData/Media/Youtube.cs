@@ -47,6 +47,7 @@ namespace ParsnipData.Media
         {
             ScrapeTitle();
             ScrapeThumbnail();
+            //int scale = Media.GetAspectScale(originalImage.Width, originalImage.Height);
         }
         private void ScrapeTitle()
         {
@@ -270,6 +271,13 @@ namespace ParsnipData.Media
                 Placeholder = reader[13].ToString().Trim();
                 Compressed = reader[14].ToString().Trim();
                 Original = (string)reader[15].ToString().Trim();
+
+                if(reader[16] != DBNull.Value)
+                    Alt = (string)reader[16].ToString().Trim();
+
+                XScale = (double)reader[17];
+
+                YScale = (double)reader[18];
 
                 CheckTitle();
 

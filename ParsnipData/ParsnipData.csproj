@@ -64,8 +64,5 @@
     <Compile Include="Accounts\Account.cs" />
     <Compile Include="Accounts\User.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Local_connections.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
