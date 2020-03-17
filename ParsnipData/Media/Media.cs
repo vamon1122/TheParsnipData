@@ -117,7 +117,7 @@ namespace ParsnipData.Media
                     {
                         while (reader.Read())
                         {
-                            media.Add(new Image(reader, loggedInUserId));
+                            media.Add(new Media(reader, loggedInUserId));
                         }
                     }
                 }
