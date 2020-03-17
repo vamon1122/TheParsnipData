@@ -69,32 +69,6 @@ namespace ParsnipData.Media
             }
             return video;
         }
-        public override bool Delete()
-        {
-            try
-            {
-                new LogEntry(Log.Debug) { text = "Attempting to delete uploaded video id = " + Id };
-
-                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
-                {
-                    using (SqlCommand deleteVideo = new SqlCommand("video_delete", conn))
-                    {
-                        deleteVideo.Parameters.Add(new SqlParameter("video_id", Id));
-                        conn.Open();
-                        int recordsAffected = deleteVideo.ExecuteNonQuery();
-                        new LogEntry(Log.Debug) { text = string.Format("{0} record(s) were affected", recordsAffected) };
-                    }
-                }
-            }
-            catch (Exception err)
-            {
-
-                new LogEntry(Log.Debug) { text = "There was an exception whilst DELETING the video: " + err };
-                return false;
-            }
-            new LogEntry(Log.Debug) { text = "Successfully deleted video with id = " + Id };
-            return true;
-        }
         protected override bool AddValues(SqlDataReader reader, int loggedInUserId)
         {
             try

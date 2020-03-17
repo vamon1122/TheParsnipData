@@ -447,14 +447,14 @@ namespace ParsnipData.Media
 
                     new LogEntry(DebugLog) { text = "Attempting to delete uploaded media id = " + Id };
 
-                    using (SqlCommand deleteImage = new SqlCommand("media_DELETE_WHERE_id", conn))
+                    using (SqlCommand deleteMedia = new SqlCommand("media_DELETE_WHERE_id", conn))
                     {
-                        deleteImage.CommandType = CommandType.StoredProcedure;
+                        deleteMedia.CommandType = CommandType.StoredProcedure;
 
-                        deleteImage.Parameters.Add(new SqlParameter("id", Id.ToString()));
+                        deleteMedia.Parameters.Add(new SqlParameter("id", Id.ToString()));
 
                         conn.Open();
-                        int recordsAffected = deleteImage.ExecuteNonQuery();
+                        int recordsAffected = deleteMedia.ExecuteNonQuery();
 
                         new LogEntry(DebugLog) { text = string.Format("{0} record(s) were affected", recordsAffected) };
                     }
