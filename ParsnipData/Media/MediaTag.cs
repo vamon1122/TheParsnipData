@@ -119,6 +119,21 @@ namespace ParsnipData.Media
             }
         }
 
+        public static void DeleteCreatedByUser(int userId)
+        {
+            using(var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+            {
+                using (var deleteCreatedByUser = new SqlCommand("media_tag_pair_DELETE_WHERE_media_created_by_user_id", conn))
+                {
+                    deleteCreatedByUser.CommandType = CommandType.StoredProcedure;
 
+                    deleteCreatedByUser.Parameters.AddWithValue("created_by_user_id", userId);
+                    deleteCreatedByUser.Parameters.AddWithValue("datetime_deleted", Parsnip.AdjustedTime);
+
+                    conn.Open();
+                    deleteCreatedByUser.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
