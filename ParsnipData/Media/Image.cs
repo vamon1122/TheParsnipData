@@ -91,40 +91,7 @@ namespace ParsnipData.Media
         #endregion
 
         #region CRUD
-        public new static Image Select(MediaId mediaId, int loggedInUserId)
-        {
-            Image image = null;
-            try
-            {
-                using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
-                {
-                    using (SqlCommand SelectImage = new SqlCommand("image_SELECT_WHERE_id", conn))
-                    {
-                        SelectImage.CommandType = CommandType.StoredProcedure;
-                        SelectImage.Parameters.Add(new SqlParameter("id", mediaId.ToString()));
-                        SelectImage.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
-
-                        int recordsFound = 0;
-                        conn.Open();
-                        using (SqlDataReader reader = SelectImage.ExecuteReader())
-                        {
-
-                            while (reader.Read())
-                            {
-                                image = new Image();
-                                image.AddValues(reader, loggedInUserId);
-                                recordsFound++;
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("There was an exception whilst getting image data: " + e);
-            }
-            return image;
-        }
+       
         #endregion
     }
 }

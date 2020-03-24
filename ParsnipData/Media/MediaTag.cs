@@ -12,17 +12,18 @@ using System.Data;
 
 namespace ParsnipData.Media
 {
-    public static class MediaTagIds
-    {
-        public const int Photos = 1;
-        public const int Videos = 2;
-        public const int Memes = 3;
-        public const int Amsterdam = 4;
-        public const int Portugal = 5;
-        public const int Krakow = 6;
-    }
     public class MediaTag
     {
+        public enum MediaTagIds
+        {
+            Photos = 1,
+            Videos = 2,
+            Memes = 3,
+            Amsterdam = 4,
+            Portugal = 5,
+            Krakow = 6
+        }
+
         public int Id { get; set; }
         public int CreatedById { get; set; }
         public DateTime DateCreated { get; set; }

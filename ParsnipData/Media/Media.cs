@@ -130,13 +130,13 @@ namespace ParsnipData.Media
             var mediaTagIds = new List<int>();
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
-                using (SqlCommand getImages = new SqlCommand("media_SELECT_media_tag_id", conn))
+                using (SqlCommand selectMediaTagIds = new SqlCommand("media_SELECT_media_tag_id", conn))
                 {
-                    getImages.CommandType = CommandType.StoredProcedure;
-                    getImages.Parameters.Add(new SqlParameter("media_id", Id.ToString()));
+                    selectMediaTagIds.CommandType = CommandType.StoredProcedure;
+                    selectMediaTagIds.Parameters.Add(new SqlParameter("media_id", Id.ToString()));
 
                     conn.Open();
-                    using (SqlDataReader reader = getImages.ExecuteReader())
+                    using (SqlDataReader reader = selectMediaTagIds.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -401,34 +401,34 @@ namespace ParsnipData.Media
                     {
 
 
-                        using (var updateImage = new SqlCommand("media_UPDATE", conn))
+                        using (var updateMedia = new SqlCommand("media_UPDATE", conn))
                         {
-                            updateImage.CommandType = CommandType.StoredProcedure;
+                            updateMedia.CommandType = CommandType.StoredProcedure;
 
-                            updateImage.Parameters.AddWithValue("id", Id.ToString());
-                            updateImage.Parameters.AddWithValue("title", Title);
-                            updateImage.Parameters.AddWithValue("description", Description);
-                            updateImage.Parameters.AddWithValue("alt", Alt);
-                            updateImage.Parameters.AddWithValue("datetime_captured", DateTimeCaptured);
-                            updateImage.Parameters.AddWithValue("media_tag_id", AlbumId);
+                            updateMedia.Parameters.AddWithValue("id", Id.ToString());
+                            updateMedia.Parameters.AddWithValue("title", Title);
+                            updateMedia.Parameters.AddWithValue("description", Description);
+                            updateMedia.Parameters.AddWithValue("alt", Alt);
+                            updateMedia.Parameters.AddWithValue("datetime_captured", DateTimeCaptured);
+                            updateMedia.Parameters.AddWithValue("media_tag_id", AlbumId);
                             //Needs updating so the person who updates is inserted here
-                            updateImage.Parameters.AddWithValue("media_tag_created_by_user_id", CreatedById);
+                            updateMedia.Parameters.AddWithValue("media_tag_created_by_user_id", CreatedById);
 
 
                             conn.Open();
-                            updateImage.ExecuteNonQuery();
+                            updateMedia.ExecuteNonQuery();
                         }
                     }
                 }
                 catch (Exception e)
                 {
                     string error =
-                        string.Format("[UacApi.Image.DbUpdate] There was an error whilst updating image: {0}", e);
+                        string.Format("There was an error whilst updating media: {0}", e);
                     Debug.WriteLine(error);
                     new LogEntry(Log.Default) { text = error };
                     return false;
                 }
-                new LogEntry(DebugLog) { text = string.Format("Image was successfully updated on the database!") };
+                new LogEntry(DebugLog) { text = string.Format("Media was successfully updated on the database!") };
                 return true;
             }
             else
