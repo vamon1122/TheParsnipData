@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ParsnipData.Accounts;
 using ParsnipData.Media;
-using ParsnipData.Logs;
+using ParsnipData.Logging;
 using System.Data.SqlClient;
 using ParsnipData;
 using System.Diagnostics;

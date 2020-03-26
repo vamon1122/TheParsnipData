@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using ParsnipData;
 using ParsnipData.Accounts;
-using ParsnipData.Logs;
+using ParsnipData.Logging;
 using System.Web.UI.WebControls;
 using System.Drawing.Imaging;
 using System.Drawing;

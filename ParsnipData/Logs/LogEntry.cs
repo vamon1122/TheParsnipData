@@ -8,12 +8,12 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using ParsnipData.Cookies;
 
-namespace ParsnipData.Logs
+namespace ParsnipData.Logging
 {
     public class LogEntry
     {
         private bool isNew;
-        public int id { get; private set; }
+        public int Id { get; private set; }
         public int logId { get; set; }
         public Guid userId { get; private set;  } 
         public DateTime date { get; private set; }
@@ -51,7 +51,7 @@ namespace ParsnipData.Logs
         internal bool AddValues(SqlDataReader pReader)
         {
             isNew = false;
-            id = (int)pReader[0];
+            Id = (int)pReader[0];
             logId = (int)pReader[1];
             date = Convert.ToDateTime(pReader[3].ToString());
             _text = pReader[4].ToString();
@@ -67,6 +67,11 @@ namespace ParsnipData.Logs
             //userId = pUserId;
             date = Parsnip.AdjustedTime;
 
+        }
+
+        public LogEntry(Log.Ids id)
+        {
+            logId = (int)id;
         }
 
         private bool Insert()

@@ -7,14 +7,14 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using ParsnipData;
 using ParsnipData.Accounts;
-using ParsnipData.Logs;
+using ParsnipData.Logging;
 using System.Data;
 
 namespace ParsnipData.Media
 {
     public class MediaTag
     {
-        public enum MediaTagIds
+        public enum Ids
         {
             Photos = 1,
             Videos = 2,

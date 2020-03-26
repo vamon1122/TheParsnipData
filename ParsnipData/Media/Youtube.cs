@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using ParsnipData;
 using ParsnipData.Accounts;
-using ParsnipData.Logs;
+using ParsnipData.Logging;
 using System.Web;
 using System.Net;
 using System.Data;
@@ -34,8 +34,7 @@ namespace ParsnipData.Media
         {
             DataId = dataId;
             DateTimeCaptured = Parsnip.AdjustedTime;
-            Log DebugLog = Log.Select(3);
-            new LogEntry(DebugLog) { text = "YoutubeVideo created with album_id = " + album.Id };
+            new LogEntry(Log.Debug) { text = "YoutubeVideo created with album_id = " + album.Id };
             AlbumId = album.Id;
             DateTimeCreated = Parsnip.AdjustedTime;
             CreatedById = createdBy.Id;
@@ -161,10 +160,10 @@ namespace ParsnipData.Media
                 {
                     string error = $"Failed to insert media into the database: {e}";
                     Debug.WriteLine(error);
-                    new LogEntry(Log.Default) { text = error };
+                    new LogEntry(Log.General) { text = error };
                     return false;
                 }
-                new LogEntry(Log.Default) { text = "Media was successfully inserted into the database!" };
+                new LogEntry(Log.General) { text = "Media was successfully inserted into the database!" };
                 return Update();
 
             }
@@ -207,10 +206,10 @@ namespace ParsnipData.Media
             {
                 string error = string.Format("There was an error whilst updating youtubeVideo: {0}", e);
                 Debug.WriteLine(error);
-                new LogEntry(Log.Default) { text = error };
+                new LogEntry(Log.General) { text = error };
                 return false;
             }
-            new LogEntry(DebugLog) { text = string.Format("YoutubeVideo was successfully updated on the database!") };
+            new LogEntry(Log.Debug) { text = string.Format("YoutubeVideo was successfully updated on the database!") };
             return true;
         }
         protected override bool AddValues(SqlDataReader reader, int loggedInUserId)

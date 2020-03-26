@@ -8,11 +8,41 @@ using System.Diagnostics;
 using ParsnipData;
 using ParsnipData.Cookies;
 
-namespace ParsnipData.Logs
+namespace ParsnipData.Logging
 {
     public class Log
     {
-        public static readonly Log Debug = Log.Select(3);
+        public static readonly Log General;
+        public static readonly Log Debug;
+        public static readonly Log Session;
+        public static readonly Log LogInOut;
+        public static readonly Log Access;
+        public static readonly Log AccessJustification;
+        public static readonly Log Test;
+
+        public enum Ids
+        {
+            General = 1,
+            Debug = 2,
+            Session = 3,
+            LogInOut = 4,
+            Access = 5,
+            AccessJustification = 6,
+            Test = 7
+        }
+
+        static Log()
+        {
+            General = Select(Ids.General);
+            Debug = Select(Ids.Debug);
+            Session = Select(Ids.Session);
+            LogInOut = Select(Ids.LogInOut);
+            Access = Select(Ids.Access);
+            AccessJustification = Select(Ids.AccessJustification);
+            Test = Select(Ids.Test);
+        }
+
+        
 
         private bool isNew;
         public DateTime DateTimeCreated { get; private set; }
@@ -51,7 +81,7 @@ namespace ParsnipData.Logs
         }
         */
 
-        public static Log Default { get { return Log.Select(4); } }
+        public static Log Default { get { return Log.Select(Ids.General); } }
 
         public List<LogEntry> GetLogEntries()
         {
@@ -87,25 +117,25 @@ namespace ParsnipData.Logs
 
         public static List<Log> GetAllLogs()
         {
-            var logs = new List<Log>();
+            var Log = new List<Log>();
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
             {
                 conn.Open();
 
-                using (SqlCommand getAllLogs = new SqlCommand("log_select", conn))
+                using (SqlCommand getAllLog = new SqlCommand("log_select", conn))
                 {
-                    getAllLogs.CommandType = System.Data.CommandType.StoredProcedure;
-                    using (SqlDataReader reader = getAllLogs.ExecuteReader())
+                    getAllLog.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (SqlDataReader reader = getAllLog.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            logs.Add(new Log(reader));
+                            Log.Add(new Log(reader));
                         }
                     }
                 }
             }
 
-            return logs;
+            return Log;
         }
 
         internal bool AddValues(SqlDataReader reader)
@@ -126,7 +156,7 @@ namespace ParsnipData.Logs
             return true;
         }
 
-        public static Log Select(int id)
+        public static Log Select(Ids id)
         {
             Log log = null;
             using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))

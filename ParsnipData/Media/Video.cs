@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using ParsnipData;
 using ParsnipData.Accounts;
-using ParsnipData.Logs;
+using ParsnipData.Logging;
 using System.Data;
 
 namespace ParsnipData.Media

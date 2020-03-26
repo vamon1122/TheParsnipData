@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using ParsnipData;
 
-namespace ParsnipData.Logs
+namespace ParsnipData.Logging
 {
     public static class Data
     {
@@ -20,10 +20,10 @@ namespace ParsnipData.Logs
                 {
                     conn.Open();
 
-                    SqlCommand deleteAllLogs = new SqlCommand("log_entry_delete", conn);
-                    deleteAllLogs.ExecuteNonQuery();
+                    SqlCommand deleteAllLog = new SqlCommand("log_entry_delete", conn);
+                    deleteAllLog.ExecuteNonQuery();
                 }
-                System.Diagnostics.Debug.WriteLine("Logs were cleared");
+                System.Diagnostics.Debug.WriteLine("Log were cleared");
                 logEntries.Clear();
                 
                 return true;

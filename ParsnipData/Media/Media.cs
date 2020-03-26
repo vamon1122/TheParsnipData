@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using ParsnipData;
 using ParsnipData.Accounts;
-using ParsnipData.Logs;
+using ParsnipData.Logging;
 using System.Data;
 using System.Drawing;
 using System.Web;
@@ -45,7 +45,6 @@ namespace ParsnipData.Media
         #endregion
 
         #region Extra Properties
-        protected static readonly Log DebugLog = Log.Select(3);
         public int AlbumId { get; set; }
         public virtual string[] AllowedFileExtensions { get { return _allowedFileExtensions; } }
         private static string[] _allowedFileExtensions = new string[] { "png", "gif", "jpg", "jpeg", "tiff" };
@@ -142,12 +141,12 @@ namespace ParsnipData.Media
                         {
                             if (Convert.ToInt16(reader[0]) != default)
                             {
-                                new LogEntry(DebugLog) { text = "An album id was found! = " + reader[0].ToString() };
+                                new LogEntry(Log.Debug) { text = "An album id was found! = " + reader[0].ToString() };
                                 mediaTagIds.Add((int)reader[0]);
                             }
                             else
                             {
-                                new LogEntry(DebugLog) { text = "A BLANK album id was found! Not adding Guid = " + reader[0].ToString() };
+                                new LogEntry(Log.Debug) { text = "A BLANK album id was found! Not adding Guid = " + reader[0].ToString() };
                             }
                         }
                     }
@@ -344,10 +343,10 @@ namespace ParsnipData.Media
                 {
                     string error = $"Failed to insert media into the database: {e}";
                     Debug.WriteLine(error);
-                    new LogEntry(Log.Default) { text = error };
+                    new LogEntry(Log.General) { text = error };
                     return false;
                 }
-                new LogEntry(Log.Default) { text = "Media was successfully inserted into the database!" };
+                new LogEntry(Log.General) { text = "Media was successfully inserted into the database!" };
                 return Update();
 
             }
@@ -425,10 +424,10 @@ namespace ParsnipData.Media
                     string error =
                         string.Format("There was an error whilst updating media: {0}", e);
                     Debug.WriteLine(error);
-                    new LogEntry(Log.Default) { text = error };
+                    new LogEntry(Log.General) { text = error };
                     return false;
                 }
-                new LogEntry(DebugLog) { text = string.Format("Media was successfully updated on the database!") };
+                new LogEntry(Log.Debug) { text = string.Format("Media was successfully updated on the database!") };
                 return true;
             }
             else
@@ -445,7 +444,7 @@ namespace ParsnipData.Media
                 using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
 
-                    new LogEntry(DebugLog) { text = "Attempting to delete uploaded media id = " + Id };
+                    new LogEntry(Log.Debug) { text = "Attempting to delete uploaded media id = " + Id };
 
                     using (SqlCommand deleteMedia = new SqlCommand("media_DELETE_WHERE_id", conn))
                     {
@@ -456,7 +455,7 @@ namespace ParsnipData.Media
                         conn.Open();
                         int recordsAffected = deleteMedia.ExecuteNonQuery();
 
-                        new LogEntry(DebugLog) { text = string.Format("{0} record(s) were affected", recordsAffected) };
+                        new LogEntry(Log.Debug) { text = string.Format("{0} record(s) were affected", recordsAffected) };
                     }
 
                 }
@@ -464,10 +463,10 @@ namespace ParsnipData.Media
             catch (Exception err)
             {
 
-                new LogEntry(DebugLog) { text = "There was an exception whilst DELETING the media: " + err };
+                new LogEntry(Log.Debug) { text = "There was an exception whilst DELETING the media: " + err };
                 return false;
             }
-            new LogEntry(DebugLog) { text = "Successfully deleted media with id = " + Id };
+            new LogEntry(Log.Debug) { text = "Successfully deleted media with id = " + Id };
             return true;
         }
         protected virtual bool AddValues(SqlDataReader reader, int loggedInUserId)
