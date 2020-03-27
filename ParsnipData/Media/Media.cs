@@ -50,6 +50,7 @@ namespace ParsnipData.Media
         private static string[] _allowedFileExtensions = new string[] { "png", "gif", "jpg", "jpeg", "tiff" };
         public virtual string UploadsDir { get; }
         public MediaShare MyMediaShare { get; set; }
+        public List<MediaTagPair> MediaTagPairs { get; set; }
         #endregion
 
         #region Constructors
@@ -358,6 +359,7 @@ namespace ParsnipData.Media
         public static Media Select(MediaId mediaId, int loggedInUserId)
         {
             Media media = null;
+            
             try
             {
                 using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
@@ -378,6 +380,15 @@ namespace ParsnipData.Media
                                 media = new Media();
                                 media.AddValues(reader, loggedInUserId);
                                 recordsFound++;
+                            }
+
+                            reader.NextResult();
+
+                            media.MediaTagPairs = new List<MediaTagPair>();
+                            while (reader.Read())
+                            {
+                                var mediaTag = new MediaTagPair(reader);
+                                media.MediaTagPairs.Add(mediaTag);
                             }
                         }
                     }

@@ -59,6 +59,15 @@ namespace ParsnipData.Media
                                 video = new Video();
                                 video.AddValues(reader, loggedInUserId);
                             }
+
+                            reader.NextResult();
+
+                            video.MediaTagPairs = new List<MediaTagPair>();
+                            while (reader.Read())
+                            {
+                                var mediaTag = new MediaTagPair(reader);
+                                video.MediaTagPairs.Add(mediaTag);
+                            }
                         }
                     }
                 }

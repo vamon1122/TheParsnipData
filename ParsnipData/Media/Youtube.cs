@@ -105,6 +105,15 @@ namespace ParsnipData.Media
                                 youtubeVideo = new Youtube();
                                 youtubeVideo.AddValues(reader, loggedInUserId);
                             }
+
+                            reader.NextResult();
+
+                            youtubeVideo.MediaTagPairs = new List<MediaTagPair>();
+                            while (reader.Read())
+                            {
+                                var mediaTag = new MediaTagPair(reader);
+                                youtubeVideo.MediaTagPairs.Add(mediaTag);
+                            }
                         }
                     }
 
