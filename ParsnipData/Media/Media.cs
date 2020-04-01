@@ -538,7 +538,7 @@ namespace ParsnipData.Media
                         string.IsNullOrWhiteSpace(reader[13].ToString()))
 
                     {
-                        if (loggedInUserId.ToString() != default)
+                        if (loggedInUserId.ToString() != default(int).ToString())
                         {
                             MyMediaShare = new MediaShare(Id, loggedInUserId);
                             MyMediaShare.Insert();
