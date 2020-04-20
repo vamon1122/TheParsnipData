@@ -36,6 +36,40 @@ namespace ParsnipData.Media
         #endregion
 
         #region CRUD
+        public override bool Insert()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+                {
+                    using (var insertVideo = new SqlCommand("video_INSERT", conn))
+                    {
+                        insertVideo.CommandType = CommandType.StoredProcedure;
+
+                        insertVideo.Parameters.AddWithValue("videoTitle", Title);
+                        insertVideo.Parameters.AddWithValue("videoFileName", VideoData.Compressed.Split('/').Last().Substring(0, VideoData.Compressed.Split('/').Last().Length - VideoData.Compressed.Split('.').Last().Length));
+                        insertVideo.Parameters.AddWithValue("thumbnailFileName", Original.Split('/').Last().Substring(0, Original.Split('/').Last().Length - Original.Split('.').Last().Length));
+                        insertVideo.Parameters.AddWithValue("thumbnailOriginalExt", Original.Split('.').Last());
+                        insertVideo.Parameters.AddWithValue("dateTimeCaptured", DateTimeCaptured);
+                        insertVideo.Parameters.AddWithValue("media_x_scale", XScale);
+                        insertVideo.Parameters.AddWithValue("media_y_scale", YScale);
+                        insertVideo.Parameters.AddWithValue("mediaTagId", MediaTagPairs[0]);
+                        insertVideo.Parameters.AddWithValue("createdByUserId", CreatedById);
+                        insertVideo.Parameters.AddWithValue("newMediaId", Id);
+                        insertVideo.Parameters.AddWithValue("now", Parsnip.AdjustedTime);
+
+                        conn.Open();
+                        insertVideo.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine($"There was an exception whilst inserting the video: {ex}");
+                return false;
+            }
+        }
         public new static Video Select(MediaId mediaId, int loggedInUserId)
         {
             Video video = null;
