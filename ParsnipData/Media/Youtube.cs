@@ -23,8 +23,6 @@ namespace ParsnipData.Media
         public override string Type { get { return "youtube"; } }
         public override string UploadsDir { get { return "Resources/Media/Youtube/Thumbnails/"; } }
         private static string[] _allowedFileExtensions = new string[0];
-        public override string[] AllowedFileExtensions { get { return _allowedFileExtensions; } }
-        
         #region Constructors
         private Youtube()
         {

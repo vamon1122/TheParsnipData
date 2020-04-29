@@ -46,8 +46,6 @@ namespace ParsnipData.Media
 
         #region Extra Properties
         public int AlbumId { get; set; }
-        public virtual string[] AllowedFileExtensions { get { return _allowedFileExtensions; } }
-        private static string[] _allowedFileExtensions = new string[] { "png", "gif", "jpg", "jpeg", "tiff" };
         public virtual string UploadsDir { get; }
         public MediaShare MyMediaShare { get; set; }
         public List<MediaTagPair> MediaTagPairs { get; set; }
@@ -64,11 +62,6 @@ namespace ParsnipData.Media
             AddValues(pReader, loggedInUserId);
         }
         #endregion
-
-        public static bool IsValidFileExtension(string pExtension)
-        {
-            return _allowedFileExtensions.Contains(pExtension);
-        }
 
         #region Get Media
         public static Media SelectLatestVideo(int loggedInUserId)
@@ -382,13 +375,16 @@ namespace ParsnipData.Media
                                 recordsFound++;
                             }
 
-                            reader.NextResult();
-
-                            media.MediaTagPairs = new List<MediaTagPair>();
-                            while (reader.Read())
+                            if (media != null)
                             {
-                                var mediaTag = new MediaTagPair(reader);
-                                media.MediaTagPairs.Add(mediaTag);
+                                reader.NextResult();
+
+                                media.MediaTagPairs = new List<MediaTagPair>();
+                                while (reader.Read())
+                                {
+                                    var mediaTag = new MediaTagPair(reader);
+                                    media.MediaTagPairs.Add(mediaTag);
+                                }
                             }
                         }
                     }

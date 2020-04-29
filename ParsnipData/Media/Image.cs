@@ -22,10 +22,15 @@ namespace ParsnipData.Media
 
         public override string Type { get { return "image"; } }
 
-        public override string[] AllowedFileExtensions { get { return new string[] { "png", "gif", "jpg", "jpeg", "tiff" }; } }
+        private static string[] AllowedFileExtensions = new string[] { "png", "gif", "jpg", "jpeg", "tiff" };
+        public static bool IsValidFileExtension(string ext)
+        {
+            return AllowedFileExtensions.Contains(ext.ToLower());
 
-        #region Constructors
-        public Image()
+        }
+
+    #region Constructors
+    public Image()
         {
 
         }
