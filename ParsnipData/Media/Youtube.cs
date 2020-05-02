@@ -14,6 +14,7 @@ using System.Data;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Text.RegularExpressions;
 
 namespace ParsnipData.Media
 {
@@ -40,6 +41,32 @@ namespace ParsnipData.Media
         #endregion
 
         #region Process Media
+        public static string ParseDataId(string url)
+        {
+            Regex regex = new Regex(@"^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$");
+            if (string.IsNullOrEmpty(url) || !regex.IsMatch(url) || (url.Length == 11 && !url.Contains('/') && !url.Contains('?')))
+            {
+                return null;
+            }
+
+            Uri uri = (url.Contains("https://") || url.Contains("http://")) ? new Uri(url) : new Uri($"https://{url}");
+            string dataId;
+
+            if (url.Contains("youtube.com/watch?v="))
+            {
+                dataId =  HttpUtility.ParseQueryString(uri.Query)["v"];
+            }
+            else if (url.Contains("youtu.be"))
+            {
+                dataId = uri.Segments[1];
+            }           
+            else
+            {
+                return null;
+            }
+
+            return dataId.Length == 11 ? dataId : null;
+        }
         public void Scrape()
         {
             ScrapeTitle();
