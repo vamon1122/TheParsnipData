@@ -31,6 +31,7 @@ namespace ParsnipData.Media
         }
         public Youtube(string dataId, User createdBy, MediaTag album)
         {
+            Id = MediaId.NewMediaId();
             DataId = dataId;
             DateTimeCaptured = Parsnip.AdjustedTime;
             new LogEntry(Log.Debug) { text = "YoutubeVideo created with album_id = " + album.Id };
