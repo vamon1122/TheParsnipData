@@ -14,6 +14,8 @@ namespace ParsnipData.Media
 {
     public class MediaTag
     {
+        public string Url { get; set; }
+
         public enum Ids
         {
             Photos = 1,
@@ -111,6 +113,7 @@ namespace ParsnipData.Media
                 {
                     Description = pReader[4].ToString().Trim();
                 }
+
                 return true;
             }
             catch (Exception e)

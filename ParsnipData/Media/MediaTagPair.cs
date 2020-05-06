@@ -15,6 +15,14 @@ namespace ParsnipData.Media
         public DateTime DateTimeDeleted { get; set; }
         public DateTime DateTimeCreated { get; set; }
 
+        public MediaTagPair(Media media, MediaTag mediaTag, ParsnipData.Accounts.User user)
+        {
+            MediaId = media.Id;
+            MediaTag = mediaTag;
+            CreatedByUserId = user.Id;
+            DateTimeCreated = ParsnipData.Parsnip.AdjustedTime;
+        }
+
         public MediaTagPair(SqlDataReader reader)
         {
             AddValues(reader);
@@ -32,6 +40,24 @@ namespace ParsnipData.Media
 
             if (reader[7] != DBNull.Value)
                 MediaTag.Description = reader[8].ToString();
+        }
+
+        public void Insert()
+        {
+            using(var conn = new SqlConnection(ParsnipData.Parsnip.ParsnipConnectionString))
+            {
+                using(var insertMediaTagPair = new SqlCommand("media_tag_pair_INSERT", conn))
+                {
+                    insertMediaTagPair.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    insertMediaTagPair.Parameters.AddWithValue("media_id", MediaId.ToString());
+                    insertMediaTagPair.Parameters.AddWithValue("media_tag_id", MediaTag.Id);
+                    insertMediaTagPair.Parameters.AddWithValue("media_tag_created_by_user_id", CreatedByUserId);
+
+                    conn.Open();
+                    insertMediaTagPair.ExecuteNonQuery();
+                }
+            }
         }
 
         public static void Delete(MediaId mediaId, int mediaTagId )
