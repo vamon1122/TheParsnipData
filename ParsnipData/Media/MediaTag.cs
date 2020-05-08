@@ -81,6 +81,33 @@ namespace ParsnipData.Media
             return media;
         }
 
+        public static MediaTag Select(int mediaTagId)
+        {
+            using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+            {
+                using(var selectMediaTagById = new SqlCommand("media_tag_SELECT_WHERE_id", conn))
+                {
+                    selectMediaTagById.CommandType = CommandType.StoredProcedure;
+
+                    selectMediaTagById.Parameters.AddWithValue("id", mediaTagId);
+
+                    conn.Open();
+
+                    MediaTag myMediaTag = new MediaTag(mediaTagId);
+
+                    using(var reader = selectMediaTagById.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            myMediaTag.AddValues(reader);
+                        }
+                    }
+
+                    return myMediaTag;
+                }
+            }
+        }
+
         public MediaTag(int id)
         {
             Id = id;
