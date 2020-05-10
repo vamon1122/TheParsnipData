@@ -180,6 +180,15 @@ namespace ParsnipData.Media
                                     var mediaTag = new MediaTagPair(reader);
                                     video.MediaTagPairs.Add(mediaTag);
                                 }
+
+                                reader.NextResult();
+
+                                video.MediaUserPairs = new List<MediaUserPair>();
+                                while (reader.Read())
+                                {
+                                    var mediaUserPair = new MediaUserPair(reader);
+                                    video.MediaUserPairs.Add(mediaUserPair);
+                                }
                             }
                         }
                     }

@@ -58,6 +58,7 @@
     <Compile Include="Media\Image.cs" />
     <Compile Include="Media\Media.cs" />
     <Compile Include="Media\MediaTagPair.cs" />
+    <Compile Include="Media\MediaUserPair.cs" />
     <Compile Include="Media\Video.cs" />
     <Compile Include="Media\Youtube.cs" />
     <Compile Include="Parsnip.cs" />

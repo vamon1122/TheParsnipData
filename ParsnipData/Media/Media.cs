@@ -49,6 +49,7 @@ namespace ParsnipData.Media
         public virtual string UploadsDir { get; }
         public MediaShare MyMediaShare { get; set; }
         public List<MediaTagPair> MediaTagPairs { get; set; }
+        public List<MediaUserPair> MediaUserPairs { get; set; }
         #endregion
 
         #region Constructors
@@ -384,6 +385,15 @@ namespace ParsnipData.Media
                                 {
                                     var mediaTag = new MediaTagPair(reader);
                                     media.MediaTagPairs.Add(mediaTag);
+                                }
+
+                                reader.NextResult();
+
+                                media.MediaUserPairs = new List<MediaUserPair>();
+                                while (reader.Read())
+                                {
+                                    var mediaUserPair = new MediaUserPair(reader);
+                                    media.MediaUserPairs.Add(mediaUserPair);
                                 }
                             }
                         }
