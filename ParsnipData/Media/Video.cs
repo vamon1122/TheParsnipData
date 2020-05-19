@@ -75,7 +75,7 @@ namespace ParsnipData.Media
                         var fullyQualifiedThumbnailDir = HttpContext.Current.Server.MapPath("~/" + relativeThumbnailDir);
                         thumbnailFile.SaveAs(fullyQualifiedThumbnailDir);
 
-                        var relativeVideoDir = VideoUploadsDir + "Compressed/" + generatedFileName + originalVideoFileExtension;
+                        var relativeVideoDir = VideoUploadsDir + "Originals/" + generatedFileName + originalVideoFileExtension;
                         var fullyQualifiedVideoDir = HttpContext.Current.Server.MapPath("~/" + relativeVideoDir);
                         videoFile.SaveAs(fullyQualifiedVideoDir);
 
