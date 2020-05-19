@@ -103,7 +103,7 @@ namespace ParsnipData.Media
                 client.DownloadFile(new Uri(ScrapeThumbnailUrl), $"{fullyQualifiedUploadsDir}/Originals/{generatedFileName}");
             }
 
-            ProcessMediaThumbnail(this, generatedFileName);
+            ProcessMediaThumbnail(this, generatedFileName, ".jpg");
         }
         #endregion
 

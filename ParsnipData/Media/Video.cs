@@ -90,7 +90,7 @@ namespace ParsnipData.Media
                         //properties when they are processed using the 'ResizeBitmap' function. This is done after the 
                         //resize. MAKE SURE THAT COMPRESSED IMAGE IS SCALED EXACTLY (it is used to get scale soon)
 
-                        ProcessMediaThumbnail(this, $"{generatedFileName}{originalThumbnailFileExtension}");
+                        ProcessMediaThumbnail(this, generatedFileName, originalThumbnailFileExtension);
                         VideoData = new VideoData();
                         VideoData.Original = relativeVideoDir;
                         VideoData.XScale = XScale;

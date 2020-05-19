@@ -169,12 +169,12 @@ namespace ParsnipData.Media
 
             return hcf;
         }
-        public static void ProcessMediaThumbnail(Media myMedia, string newFileName)
+        public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string newFileExt)
         {
 
             string fullyQualifiedUploadsDir = HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
 
-            System.Drawing.Image originalImage = Bitmap.FromFile($"{fullyQualifiedUploadsDir}Originals\\{newFileName}");
+            System.Drawing.Image originalImage = Bitmap.FromFile($"{fullyQualifiedUploadsDir}Originals\\{newFileName}{newFileExt}");
 
             int scale = Media.GetAspectScale(originalImage.Width, originalImage.Height);
 
@@ -256,16 +256,16 @@ namespace ParsnipData.Media
             //100 = max quality / larger size
             myEncoderParameter = new EncoderParameter(myEncoder, 85L);
             myEncoderParameters.Param[0] = myEncoderParameter;
-            compressedBitmap.Save(HttpContext.Current.Server.MapPath(myMedia.UploadsDir + "Compressed\\" + newFileName), myImageCodecInfo, myEncoderParameters);
+            compressedBitmap.Save(HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Compressed\\{newFileName}.jpg"), myImageCodecInfo, myEncoderParameters);
 
             myEncoderParameter = new EncoderParameter(myEncoder, 15L);
             myEncoderParameters.Param[0] = myEncoderParameter;
-            thumbnail.Save(HttpContext.Current.Server.MapPath(myMedia.UploadsDir + "Placeholders\\" + newFileName), myImageCodecInfo, myEncoderParameters);
+            thumbnail.Save(HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Placeholders\\{newFileName}.jpg"), myImageCodecInfo, myEncoderParameters);
 
             //ParsnipData.Media.Image image = new ParsnipData.Media.Image(uploadsDir + generatedFileName + newFileExtension, uploader, album);
-            myMedia.Original = myMedia.UploadsDir + "Originals/" + newFileName;
-            myMedia.Compressed = myMedia.UploadsDir + "Compressed/" + newFileName;
-            myMedia.Placeholder = myMedia.UploadsDir + "Placeholders/" + newFileName;
+            myMedia.Original = $"{myMedia.UploadsDir}Originals/{newFileName}{newFileExt}";
+            myMedia.Compressed = $"{myMedia.UploadsDir}Compressed/{newFileName}.jpg";
+            myMedia.Placeholder = $"{myMedia.UploadsDir}Placeholders/{newFileName}.jpg";
 
 
             myMedia.XScale = originalImage.Width / scale;
