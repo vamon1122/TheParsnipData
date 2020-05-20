@@ -92,7 +92,7 @@ namespace ParsnipData.Media
 
 
 
-            string generatedFileName = $"{Id}_{DataId}.jpg";
+            string generatedFileName = $"{Id}_{DataId}";
 
 
             string ScrapeThumbnailUrl = $"https://i.ytimg.com/vi/{DataId}/mqdefault.jpg";
@@ -100,7 +100,7 @@ namespace ParsnipData.Media
 
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile(new Uri(ScrapeThumbnailUrl), $"{fullyQualifiedUploadsDir}/Originals/{generatedFileName}");
+                client.DownloadFile(new Uri(ScrapeThumbnailUrl), $"{fullyQualifiedUploadsDir}/Originals/{generatedFileName}.jpg");
             }
 
             ProcessMediaThumbnail(this, generatedFileName, ".jpg");
