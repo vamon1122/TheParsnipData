@@ -16,15 +16,7 @@ namespace ParsnipData.Media
     {
         public string Url { get; set; }
 
-        public enum Ids
-        {
-            Photos = 1,
-            Videos = 2,
-            Memes = 3,
-            Amsterdam = 4,
-            Portugal = 5,
-            Krakow = 6
-        }
+        
 
         public int Id { get; set; }
         public int CreatedById { get; set; }
