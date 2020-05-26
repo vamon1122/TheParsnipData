@@ -38,7 +38,7 @@ namespace ParsnipData.Media
         {
             AddValues(pReader, loggedInUserId);
         }
-        public Image(User uploader, MediaTag album, HttpPostedFile originalFile)
+        public Image(User uploader, HttpPostedFile originalFile)
         {
             Id = MediaId.NewMediaId();
 
@@ -75,7 +75,6 @@ namespace ParsnipData.Media
                         ProcessMediaThumbnail(this, generatedFileName, originalFileExtension);
 
                         CreatedById = uploader.Id;
-                        AlbumId = album.Id;
 
                         DateTimeCreated = Parsnip.AdjustedTime;
                         DateTimeCaptured = DateTimeCreated;

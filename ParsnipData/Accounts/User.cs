@@ -327,6 +327,7 @@ namespace ParsnipData.Accounts
                 Cookie.WriteSession("persistentPassword", "");
                 Cookie.WriteSession("sessionUsername", "");
                 Cookie.WriteSession("sessionPassword", "");
+                Cookie.WriteSession("accountType", "");
                 return true;
             }
             catch

@@ -29,13 +29,11 @@ namespace ParsnipData.Media
         {
 
         }
-        public Youtube(string dataId, User createdBy, MediaTag album)
+        public Youtube(string dataId, User createdBy)
         {
             Id = MediaId.NewMediaId();
             DataId = dataId;
             DateTimeCaptured = Parsnip.AdjustedTime;
-            new LogEntry(Log.Debug) { text = "YoutubeVideo created with album_id = " + album.Id };
-            AlbumId = album.Id;
             DateTimeCreated = Parsnip.AdjustedTime;
             CreatedById = createdBy.Id;
         }

@@ -48,7 +48,7 @@ namespace ParsnipData.Media
             AddValues(pReader, loggedInUserId);
         }
 
-        public Video(User uploader, MediaTag album, HttpPostedFile videoFile, HttpPostedFile thumbnailFile)
+        public Video(User uploader, HttpPostedFile videoFile, HttpPostedFile thumbnailFile)
         {
             Id = MediaId.NewMediaId();
 
@@ -96,7 +96,6 @@ namespace ParsnipData.Media
                         VideoData.XScale = XScale;
                         VideoData.YScale = YScale;
                         CreatedById = uploader.Id;
-                        AlbumId = album.Id;
 
                         DateTimeCreated = Parsnip.AdjustedTime;
                         DateTimeCaptured = DateTimeCreated;
