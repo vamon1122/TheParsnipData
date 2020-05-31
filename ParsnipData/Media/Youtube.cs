@@ -194,7 +194,8 @@ namespace ParsnipData.Media
                             insertMedia.Parameters.AddWithValue("compressed_dir", Compressed);
                             insertMedia.Parameters.AddWithValue("placeholder_dir", Placeholder);
                             insertMedia.Parameters.AddWithValue("created_by_user_id", CreatedById);
-                            insertMedia.Parameters.AddWithValue("media_tag_id", AlbumId);
+                            if (AlbumId != default)
+                                insertMedia.Parameters.AddWithValue("media_tag_id", AlbumId);
 
                             conn.Open();
                             insertMedia.ExecuteNonQuery();

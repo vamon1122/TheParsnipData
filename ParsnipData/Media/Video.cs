@@ -128,7 +128,8 @@ namespace ParsnipData.Media
                         insertVideo.Parameters.AddWithValue("dateTimeCaptured", DateTimeCaptured);
                         insertVideo.Parameters.AddWithValue("media_x_scale", XScale);
                         insertVideo.Parameters.AddWithValue("media_y_scale", YScale);
-                        insertVideo.Parameters.AddWithValue("mediaTagId", AlbumId);
+                        if(AlbumId != default)
+                            insertVideo.Parameters.AddWithValue("mediaTagId", AlbumId);
                         insertVideo.Parameters.AddWithValue("createdByUserId", CreatedById);
                         insertVideo.Parameters.AddWithValue("newMediaId", Id.ToString());
                         insertVideo.Parameters.AddWithValue("now", Parsnip.AdjustedTime);
