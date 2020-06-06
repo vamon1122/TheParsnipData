@@ -140,8 +140,7 @@ namespace ParsnipData.Media
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("issue58: STOP TRYING TO RE-INSERT MEDIA SHARES!!!");
-                //throw ex;
+                new LogEntry(Log.Debug) { text = $"There was an exception whilst inserting the media share: {ex}" };
             }
         }
 
