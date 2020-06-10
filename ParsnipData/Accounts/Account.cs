@@ -26,7 +26,7 @@ namespace ParsnipData.Accounts
 
             if (myUser == null)
             {
-                new LogEntry(Log.Access) { text = String.Format("Someone tried to access the {0} page from {1} {2}, without logging in!", url, new User().PosessivePronoun, deviceType) };
+                new LogEntry(Log.Access) { Text = String.Format("Someone tried to access the {0} page from {1} {2}, without logging in!", url, new User().PosessivePronoun, deviceType) };
                 page.Response.Redirect(String.Format("login?url={0}", url));
             }
             else
@@ -36,10 +36,10 @@ namespace ParsnipData.Accounts
                     page.Session["userName"] = myUser.Username;
 
                     string Logtring = string.Format("{0} started a new session from {1} {2}. Session ID = {3}", myUser.FullName, myUser.PosessivePronoun, deviceType, page.Session.SessionID.ToString());
-                    new LogEntry(Log.Session) { text = Logtring };
+                    new LogEntry(Log.Session) { Text = Logtring };
                 }
                 else
-                    new LogEntry(Log.Session) { text = string.Format("{0} continued {1} session on {1} {2}. Session ID = {3}", myUser.FullName, myUser.PosessivePronoun, deviceType, page.Session.SessionID.ToString()) };
+                    new LogEntry(Log.Session) { Text = string.Format("{0} continued {1} session on {1} {2}. Session ID = {3}", myUser.FullName, myUser.PosessivePronoun, deviceType, page.Session.SessionID.ToString()) };
 
 
 
@@ -107,29 +107,29 @@ namespace ParsnipData.Accounts
                     {
                         if (!page.IsPostBack)
                         {
-                            new LogEntry(Log.Access) { text = String.Format("{0} accessed the {1} page from {2} {3}.", myUser.FullName, url, myUser.PosessivePronoun, deviceType, myUser.Forename, justification) };
+                            new LogEntry(Log.Access) { Text = String.Format("{0} accessed the {1} page from {2} {3}.", myUser.FullName, url, myUser.PosessivePronoun, deviceType, myUser.Forename, justification) };
                             DateTime start = DateTime.Now;
                             while (DateTime.Now < start.AddMilliseconds(1)) { }
-                            new LogEntry(Log.AccessJustification) { text = String.Format("{0} was allowed to access the {1} page because {2}", myUser.FullName, url, justification) };
+                            new LogEntry(Log.AccessJustification) { Text = String.Format("{0} was allowed to access the {1} page because {2}", myUser.FullName, url, justification) };
                         }
                         else
                         {
-                            new LogEntry(Log.Access) { text = String.Format("{0} reloaded the {1} page from {2} {3}.", myUser.FullName, url, myUser.PosessivePronoun, deviceType, myUser.Forename, justification) };
+                            new LogEntry(Log.Access) { Text = String.Format("{0} reloaded the {1} page from {2} {3}.", myUser.FullName, url, myUser.PosessivePronoun, deviceType, myUser.Forename, justification) };
                         }
                     }
                     else
                     {
                         if (!page.IsPostBack)
                         {
-                            new LogEntry(Log.Access) { text = String.Format("{0} tried to access the {1} page but access was denied.", myUser.FullName, url) };
+                            new LogEntry(Log.Access) { Text = String.Format("{0} tried to access the {1} page but access was denied.", myUser.FullName, url) };
                             DateTime start = DateTime.Now;
                             while (DateTime.Now < start.AddMilliseconds(1)) { }
-                            new LogEntry(Log.AccessJustification) { text = String.Format("{0} was denied access to the {1} page because {2} did not have sufficient permissions.", myUser.FullName, url, myUser.PosessivePronoun) };
+                            new LogEntry(Log.AccessJustification) { Text = String.Format("{0} was denied access to the {1} page because {2} did not have sufficient permissions.", myUser.FullName, url, myUser.PosessivePronoun) };
                             page.Response.Redirect(String.Format("access_denied?url={0}", url));
                         }
                         else
                         {
-                            new LogEntry(Log.Access) { text = String.Format("{0} tried to reload the page to access the {1} page but access was denied.", myUser.FullName, url) };
+                            new LogEntry(Log.Access) { Text = String.Format("{0} tried to reload the page to access the {1} page but access was denied.", myUser.FullName, url) };
                         }
                     }
 
@@ -139,14 +139,14 @@ namespace ParsnipData.Accounts
                     canAccess = false;
                     if (!page.IsPostBack)
                     {
-                        new LogEntry(Log.Access) { text = string.Format("{0} tried to access the {1} page from {2} {3} but access was denied.", myUser.FullName, url, myUser.PosessivePronoun, deviceType) };
+                        new LogEntry(Log.Access) { Text = string.Format("{0} tried to access the {1} page from {2} {3} but access was denied.", myUser.FullName, url, myUser.PosessivePronoun, deviceType) };
                         DateTime start = DateTime.Now;
                         while (DateTime.Now < start.AddMilliseconds(1)) { }
-                        new LogEntry(Log.AccessJustification) { text = string.Format("{0} was denied access to the {1} page because {2} account is not active!", myUser.FullName, url, myUser.PosessivePronoun) };
+                        new LogEntry(Log.AccessJustification) { Text = string.Format("{0} was denied access to the {1} page because {2} account is not active!", myUser.FullName, url, myUser.PosessivePronoun) };
                     }
                     else
                     {
-                        new LogEntry(Log.Access) { text = string.Format("{0} tried to reload the page to access the {1} page from {2} {3} but access was denied.", myUser.FullName, url, myUser.PosessivePronoun, deviceType) };
+                        new LogEntry(Log.Access) { Text = string.Format("{0} tried to reload the page to access the {1} page from {2} {3} but access was denied.", myUser.FullName, url, myUser.PosessivePronoun, deviceType) };
                     }
                 }
 

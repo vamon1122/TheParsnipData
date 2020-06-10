@@ -140,7 +140,7 @@ namespace ParsnipData.Media
             }
             catch (Exception ex)
             {
-                new LogEntry(Log.Debug) { text = $"There was an exception whilst inserting the media share: {ex}" };
+                new LogEntry(Log.Debug) { Text = $"There was an exception whilst inserting the media share: {ex}" };
             }
         }
 

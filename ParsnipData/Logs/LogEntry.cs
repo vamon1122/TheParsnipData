@@ -24,18 +24,23 @@ namespace ParsnipData.Logging
 
         private string _text;
 
-        public string text { get { return _text; } set {
+        public string Text 
+        { 
+            get 
+            { 
+                return _text; 
+            } 
+            set 
+            {
                 if (value.Length < 4001)
                 {
                     _text = value;
-                    Debug.WriteLine("----------[LOG ENTRY] - " + text);
+                    Debug.WriteLine("----------[LOG ENTRY] - " + Text);
                     if(isNew) Insert();
                 }
                 else
                 {
-                    throw new FormatException(
-                        String.Format("The value for type \"{0}\" is too long!",
-                        value));
+                    throw new FormatException($"The value for type \"{value}\" is too long!");
                 }
             }
         }
@@ -64,9 +69,7 @@ namespace ParsnipData.Logging
             isNew = true;
             SessionId = SessionId = Cookies.Cookie.Read("ASP.NET_sessionId");
             logId = pLog.Id;
-            //userId = pUserId;
             date = Parsnip.AdjustedTime;
-
         }
 
         public LogEntry(Log.Ids id)
@@ -88,7 +91,7 @@ namespace ParsnipData.Logging
                         insertLogEntry.CommandType = System.Data.CommandType.StoredProcedure;
                         insertLogEntry.Parameters.Add(new SqlParameter("log_id", logId));
                         insertLogEntry.Parameters.Add(new SqlParameter("session_id", SessionId));
-                        insertLogEntry.Parameters.Add(new SqlParameter("text", text));
+                        insertLogEntry.Parameters.Add(new SqlParameter("text", Text));
                         insertLogEntry.Parameters.Add(new SqlParameter("datetime_created", date));
 
                         conn.Open();

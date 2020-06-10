@@ -42,12 +42,12 @@ namespace ParsnipData.Media
         {
             Id = MediaId.NewMediaId();
 
-            new LogEntry(Log.Debug) { text = "POSTBACK with image" };
+            new LogEntry(Log.Debug) { Text = "POSTBACK with image" };
             if (originalFile.FileName.Length > 0)
             {
                 try
                 {
-                    new LogEntry(Log.Debug) { text = "Attempting to upload the photo" };
+                    new LogEntry(Log.Debug) { Text = "Attempting to upload the photo" };
 
                     string[] fileDir = originalFile.FileName.Split('\\');
                     string originalFileName = fileDir.Last();
@@ -86,7 +86,7 @@ namespace ParsnipData.Media
                 }
                 catch (Exception err)
                 {
-                    new LogEntry(Log.Debug) { text = "There was an exception whilst uploading the photo: " + err };
+                    new LogEntry(Log.Debug) { Text = "There was an exception whilst uploading the photo: " + err };
                 }
             }
 

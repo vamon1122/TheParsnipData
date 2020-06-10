@@ -206,11 +206,11 @@ namespace ParsnipData.Media
                 {
                     string error = $"Failed to insert media into the database: {e}";
                     Debug.WriteLine(error);
-                    new LogEntry(Log.General) { text = error };
+                    new LogEntry(Log.General) { Text = error };
                     return false;
                 }
-                new LogEntry(Log.General) { text = "Media was successfully inserted into the database!" };
-                return Update();
+                new LogEntry(Log.General) { Text = "Media was successfully inserted into the database!" };
+                return true;
 
             }
             else
@@ -233,7 +233,8 @@ namespace ParsnipData.Media
                         updateYoutubeVideo.Parameters.Add(new SqlParameter("description", Description));
                         updateYoutubeVideo.Parameters.Add(new SqlParameter("alt", Alt));
                         updateYoutubeVideo.Parameters.Add(new SqlParameter("datetime_captured", DateTimeCaptured));
-                        updateYoutubeVideo.Parameters.Add(new SqlParameter("media_tag_id", AlbumId));
+                        if(AlbumId != default)
+                            updateYoutubeVideo.Parameters.Add(new SqlParameter("media_tag_id", AlbumId));
 
                         //Needs updating so the person who updates is inserted here
                         updateYoutubeVideo.Parameters.AddWithValue("media_tag_created_by_user_id", CreatedById);
@@ -252,10 +253,10 @@ namespace ParsnipData.Media
             {
                 string error = string.Format("There was an error whilst updating youtubeVideo: {0}", e);
                 Debug.WriteLine(error);
-                new LogEntry(Log.General) { text = error };
+                new LogEntry(Log.General) { Text = error };
                 return false;
             }
-            new LogEntry(Log.Debug) { text = string.Format("YoutubeVideo was successfully updated on the database!") };
+            new LogEntry(Log.Debug) { Text = string.Format("YoutubeVideo was successfully updated on the database!") };
             return true;
         }
         protected override bool AddValues(SqlDataReader reader, int loggedInUserId)

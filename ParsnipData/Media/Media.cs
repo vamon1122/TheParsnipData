@@ -136,12 +136,12 @@ namespace ParsnipData.Media
                         {
                             if (Convert.ToInt16(reader[0]) != default)
                             {
-                                new LogEntry(Log.Debug) { text = "An album id was found! = " + reader[0].ToString() };
+                                new LogEntry(Log.Debug) { Text = "An album id was found! = " + reader[0].ToString() };
                                 mediaTagIds.Add((int)reader[0]);
                             }
                             else
                             {
-                                new LogEntry(Log.Debug) { text = "A BLANK album id was found! Not adding Guid = " + reader[0].ToString() };
+                                new LogEntry(Log.Debug) { Text = "A BLANK album id was found! Not adding Guid = " + reader[0].ToString() };
                             }
                         }
                     }
@@ -339,10 +339,10 @@ namespace ParsnipData.Media
                 {
                     string error = $"Failed to insert media into the database: {e}";
                     Debug.WriteLine(error);
-                    new LogEntry(Log.General) { text = error };
+                    new LogEntry(Log.General) { Text = error };
                     return false;
                 }
-                new LogEntry(Log.General) { text = "Media was successfully inserted into the database!" };
+                new LogEntry(Log.General) { Text = "Media was successfully inserted into the database!" };
                 return true;
 
             }
@@ -442,10 +442,10 @@ namespace ParsnipData.Media
                     string error =
                         string.Format("There was an error whilst updating media: {0}", e);
                     Debug.WriteLine(error);
-                    new LogEntry(Log.General) { text = error };
+                    new LogEntry(Log.General) { Text = error };
                     return false;
                 }
-                new LogEntry(Log.Debug) { text = string.Format("Media was successfully updated on the database!") };
+                new LogEntry(Log.Debug) { Text = string.Format("Media was successfully updated on the database!") };
                 return true;
             }
             else
@@ -462,7 +462,7 @@ namespace ParsnipData.Media
                 using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
                 {
 
-                    new LogEntry(Log.Debug) { text = "Attempting to delete uploaded media id = " + Id };
+                    new LogEntry(Log.Debug) { Text = "Attempting to delete uploaded media id = " + Id };
 
                     using (SqlCommand deleteMedia = new SqlCommand("media_DELETE_WHERE_id", conn))
                     {
@@ -473,7 +473,7 @@ namespace ParsnipData.Media
                         conn.Open();
                         int recordsAffected = deleteMedia.ExecuteNonQuery();
 
-                        new LogEntry(Log.Debug) { text = string.Format("{0} record(s) were affected", recordsAffected) };
+                        new LogEntry(Log.Debug) { Text = string.Format("{0} record(s) were affected", recordsAffected) };
                     }
 
                 }
@@ -481,10 +481,10 @@ namespace ParsnipData.Media
             catch (Exception err)
             {
 
-                new LogEntry(Log.Debug) { text = "There was an exception whilst DELETING the media: " + err };
+                new LogEntry(Log.Debug) { Text = "There was an exception whilst DELETING the media: " + err };
                 return false;
             }
-            new LogEntry(Log.Debug) { text = "Successfully deleted media with id = " + Id };
+            new LogEntry(Log.Debug) { Text = "Successfully deleted media with id = " + Id };
             return true;
         }
         protected virtual bool AddValues(SqlDataReader reader, int loggedInUserId)
