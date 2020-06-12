@@ -9,6 +9,7 @@ using ParsnipData;
 using ParsnipData.Accounts;
 using ParsnipData.Logging;
 using System.Data;
+using System.Runtime.Remoting.Messaging;
 
 namespace ParsnipData.Media
 {
@@ -22,7 +23,9 @@ namespace ParsnipData.Media
         public int CreatedById { get; set; }
         public DateTime DateCreated { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+
+        private string _description;
+        public string Description { get { return _description ?? $"See all photos and videos tagged with #{Name}";  } set { _description = value; } }
 
         public static List<MediaTag> GetAllTags()
         {
