@@ -10,6 +10,7 @@ using ParsnipData.Accounts;
 using ParsnipData.Logging;
 using System.Data;
 using System.Web;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace ParsnipData.Media
 {
@@ -43,7 +44,7 @@ namespace ParsnipData.Media
             VideoData = new VideoData();
         }
 
-        public Video(SqlDataReader pReader, int loggedInUserId) : this()
+        public Video(SqlDataReader pReader, int loggedInUserId = default) : this()
         {
             AddValues(pReader, loggedInUserId);
         }
@@ -200,7 +201,31 @@ namespace ParsnipData.Media
             }
             return video;
         }
-        protected override bool AddValues(SqlDataReader reader, int loggedInUserId)
+
+        public static List<Video> SelectUncompressed()
+        {
+            var uncompressedVideos = new List<Video>();
+            using(var conn = new SqlConnection(ParsnipData.Parsnip.ParsnipConnectionString))
+            {
+                using(var selectUncompressed = new SqlCommand("video_SELECT_WHERE_uncompressed", conn))
+                {
+                    selectUncompressed.CommandType = CommandType.StoredProcedure;
+
+                    conn.Open();
+
+                    using(var reader = selectUncompressed.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            uncompressedVideos.Add(new Video(reader));
+                        }
+                    }
+                }
+            }
+
+            return uncompressedVideos;
+        }
+        protected override bool AddValues(SqlDataReader reader, int loggedInUserId = default)
         {
             try
             {
