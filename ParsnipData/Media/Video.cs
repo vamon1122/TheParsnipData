@@ -225,6 +225,50 @@ namespace ParsnipData.Media
 
             return uncompressedVideos;
         }
+
+        public bool UpdateDirectories()
+        {
+            if (Id != default)
+            {
+
+                try
+                {
+                    using (var conn = new SqlConnection(ParsnipData.Parsnip.ParsnipConnectionString))
+                    {
+
+
+                        using (var updateMedia = new SqlCommand("video_UPDATE_directories", conn))
+                        {
+                            updateMedia.CommandType = CommandType.StoredProcedure;
+
+                            updateMedia.Parameters.AddWithValue("media_id", Id.ToString());
+                            updateMedia.Parameters.AddWithValue("compressed_dir", VideoData.Compressed);
+                            updateMedia.Parameters.AddWithValue("original_dir", VideoData.Original);
+
+
+                            conn.Open();
+                            updateMedia.ExecuteNonQuery();
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    string error =
+                        string.Format("There was an error whilst updating media: {0}", e);
+                    Debug.WriteLine(error);
+                    new LogEntry(Log.General) { Text = error };
+                    return false;
+                }
+                new LogEntry(Log.Debug) { Text = string.Format("Media was successfully updated on the database!") };
+                return true;
+            }
+            else
+            {
+                throw new System.InvalidOperationException(
+                    "Media cannot be updated. Media must be inserted into the database before it can be updated!");
+            }
+
+        }
         protected override bool AddValues(SqlDataReader reader, int loggedInUserId = default)
         {
             try
@@ -291,7 +335,7 @@ namespace ParsnipData.Media
                         string.IsNullOrWhiteSpace(reader[19].ToString()))
 
                     {
-                        if (loggedInUserId.ToString() != default)
+                        if (loggedInUserId != default)
                         {
                             MyMediaShare = new MediaShare(Id, loggedInUserId);
                             MyMediaShare.Insert();

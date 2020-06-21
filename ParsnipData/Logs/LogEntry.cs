@@ -67,7 +67,15 @@ namespace ParsnipData.Logging
         public LogEntry(Log pLog)
         {  
             isNew = true;
-            SessionId = SessionId = Cookies.Cookie.Read("ASP.NET_sessionId");
+            try
+            {
+                SessionId = Cookies.Cookie.Read("ASP.NET_sessionId");
+            }
+            catch
+            {
+                SessionId = "00000000";
+            }
+            
             logId = pLog.Id;
             date = Parsnip.AdjustedTime;
         }

@@ -14,7 +14,7 @@ namespace ParsnipData.Cookies
         {
             HttpCookie myCookie;
 
-            if (HttpContext.Current.Request.Cookies[pName] != null)
+            if (HttpContext.Current != null && HttpContext.Current.Request.Cookies[pName] != null)
             {
                 myCookie = HttpContext.Current.Request.Cookies[pName];
                 //System.Diagnostics.Debug.WriteLine("Cookie \"{0}\" = \"{1}\"", pName, myCookie.Value);
