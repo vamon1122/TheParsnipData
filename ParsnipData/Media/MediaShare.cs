@@ -154,11 +154,11 @@ namespace ParsnipData.Media
                     using (var updateMediaShare = new SqlCommand("media_share_view_INSERT", conn))
                     {
                         updateMediaShare.CommandType = CommandType.StoredProcedure;
-                        updateMediaShare.Parameters.Add(new SqlParameter("id", Id.ToString()));
+                        updateMediaShare.Parameters.Add(new SqlParameter("media_share_id", Id.ToString()));
                         if(viewedBy != null && !string.IsNullOrEmpty(viewedBy.Id.ToString()))
                             updateMediaShare.Parameters.Add(new SqlParameter("created_by_user_id", viewedBy.Id));
                         
-                        updateMediaShare.Parameters.Add(new SqlParameter("date_time_created", Parsnip.AdjustedTime));
+                        updateMediaShare.Parameters.Add(new SqlParameter("datetime_now", Parsnip.AdjustedTime));
 
                         conn.Open();
                         updateMediaShare.ExecuteNonQuery();
@@ -169,7 +169,6 @@ namespace ParsnipData.Media
             {
                 throw ex;
             }
-
             TimesUsed++;
         }
     }

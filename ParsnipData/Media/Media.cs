@@ -42,6 +42,7 @@ namespace ParsnipData.Media
         private string _placeholder;
         public string Compressed { get; set; }
         public string Original { get; set; }
+        public int ViewCount { get; set; }
         #endregion
 
         #region Extra Properties
@@ -351,6 +352,31 @@ namespace ParsnipData.Media
                 throw new InvalidOperationException("Media cannot be inserted. The media's property: src must be initialised before it can be inserted!");
             }
         }
+        public void View(User viewedBy)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+                {
+
+                    using (var updateMediaShare = new SqlCommand("media_view_INSERT", conn))
+                    {
+                        updateMediaShare.CommandType = CommandType.StoredProcedure;
+                        updateMediaShare.Parameters.Add(new SqlParameter("media_id", Id.ToString()));
+                        updateMediaShare.Parameters.Add(new SqlParameter("created_by_user_id", viewedBy.Id));
+                        updateMediaShare.Parameters.Add(new SqlParameter("datetime_now", Parsnip.AdjustedTime));
+
+                        conn.Open();
+                        updateMediaShare.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            ViewCount++;
+        }
         public static Media Select(MediaId mediaId, int loggedInUserId)
         {
             Media media = null;
@@ -395,6 +421,12 @@ namespace ParsnipData.Media
                                 {
                                     var mediaUserPair = new MediaUserPair(reader);
                                     media.MediaUserPairs.Add(mediaUserPair);
+                                }
+
+                                reader.NextResult();
+                                while (reader.Read())
+                                {
+                                    media.ViewCount = (int)reader[0];
                                 }
                             }
                         }
