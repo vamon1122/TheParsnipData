@@ -251,11 +251,12 @@ namespace ParsnipData.Accounts
                 {
                     try
                     {
-                        using (SqlCommand loginWithUsername = new SqlCommand("user_login_where_username", conn))
+                        using (var loginWithUsername = new SqlCommand("user_login_where_username", conn))
                         {
                             loginWithUsername.CommandType = System.Data.CommandType.StoredProcedure;
                             loginWithUsername.Parameters.Add(new SqlParameter("username", username));
                             loginWithUsername.Parameters.Add(new SqlParameter("password", password));
+                            loginWithUsername.Parameters.Add(new SqlParameter("datetime_now", Parsnip.AdjustedTime));
 
                             conn.Open();
 
@@ -280,14 +281,15 @@ namespace ParsnipData.Accounts
                 {
                     try
                     {
-                        using (SqlCommand loginWithUsername = new SqlCommand("user_login_where_email", conn))
+                        using (var loginWithEmail = new SqlCommand("user_login_where_email", conn))
                         {
 
-                            loginWithUsername.CommandType = System.Data.CommandType.StoredProcedure;
-                            loginWithUsername.Parameters.Add(new SqlParameter("email", username));
-                            loginWithUsername.Parameters.Add(new SqlParameter("password", password));
+                            loginWithEmail.CommandType = System.Data.CommandType.StoredProcedure;
+                            loginWithEmail.Parameters.Add(new SqlParameter("email", username));
+                            loginWithEmail.Parameters.Add(new SqlParameter("password", password));
+                            loginWithEmail.Parameters.Add(new SqlParameter("datetime_now", Parsnip.AdjustedTime));
 
-                            using (SqlDataReader reader = loginWithUsername.ExecuteReader())
+                            using (SqlDataReader reader = loginWithEmail.ExecuteReader())
                             {
                                 while (reader.Read())
                                 {
