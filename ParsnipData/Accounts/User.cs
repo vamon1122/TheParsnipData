@@ -710,6 +710,18 @@ namespace ParsnipData.Accounts
                             InsertIntoDb.Parameters.Add(new SqlParameter("datetime_created", Parsnip.AdjustedTime));
                             InsertIntoDb.Parameters.Add(new SqlParameter("type", AccountType));
                             InsertIntoDb.Parameters.Add(new SqlParameter("status", AccountStatus));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("email", Email));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("password", Password));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("gender", GenderUpper));
+                            if (Dob != default)
+                                InsertIntoDb.Parameters.Add(new SqlParameter("dob", Dob));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("address_1", Address1));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("address_2", Address2));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("address_3", Address3));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("post_code", PostCode));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("mobile_phone", MobilePhone));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("home_phone", HomePhone));
+                            InsertIntoDb.Parameters.Add(new SqlParameter("work_phone", WorkPhone));
 
                             InsertIntoDb.ExecuteNonQuery();
 
