@@ -53,6 +53,7 @@
     <Compile Include="Logs\Data.cs" />
     <Compile Include="Logs\Log.cs" />
     <Compile Include="Logs\LogEntry.cs" />
+    <Compile Include="Media\VideoSequence.cs" />
     <Compile Include="Media\MediaShare.cs" />
     <Compile Include="Media\MediaTag.cs" />
     <Compile Include="Media\Image.cs" />

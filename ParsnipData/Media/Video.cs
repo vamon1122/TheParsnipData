@@ -39,7 +39,7 @@ namespace ParsnipData.Media
         }
 
         #region Constructors
-        private Video()
+        protected Video()
         {
             VideoData = new VideoData();
         }
