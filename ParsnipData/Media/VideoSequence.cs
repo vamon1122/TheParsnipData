@@ -208,7 +208,7 @@ namespace ParsnipData.Media
             return VideoSequence;
         }
 
-        public static VideoSequence SelectOldestUnstitchedVideoSequence(int loggedInUserId)
+        public static VideoSequence SelectOldestUnstitchedVideoSequence()
         {
             var VideoSequence = new VideoSequence();
 
@@ -225,13 +225,13 @@ namespace ParsnipData.Media
                         {
                             while (reader.Read())
                             {
-                                VideoSequence = new VideoSequence(new Video(reader, loggedInUserId));
+                                VideoSequence = new VideoSequence(new Video(reader));
                             }
 
                             reader.NextResult();
                             while (reader.Read())
                             {
-                                VideoSequence.SequencedVideos.Add(new SequencedVideo(reader, loggedInUserId));
+                                VideoSequence.SequencedVideos.Add(new SequencedVideo(reader));
                             }
 
                         }
