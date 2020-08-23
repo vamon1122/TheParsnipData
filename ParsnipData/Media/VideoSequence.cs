@@ -108,10 +108,13 @@ namespace ParsnipData.Media
 
         public VideoSequence()
         {
+            SequencedVideos = new List<SequencedVideo>();
 
+            if (Video == null)
+                Video = new Video();
         }
 
-        public VideoSequence(Video video)
+        public VideoSequence(Video video) : this()
         {
             Video = video;
         }
