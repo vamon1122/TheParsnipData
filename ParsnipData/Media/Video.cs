@@ -202,9 +202,9 @@ namespace ParsnipData.Media
             return video;
         }
 
-        public static List<Video> SelectUncompressed()
+        public static Video SelectOldestUncompressed()
         {
-            var uncompressedVideos = new List<Video>();
+            var oldestUncompressedVideo = new Video();
             using(var conn = new SqlConnection(ParsnipData.Parsnip.ParsnipConnectionString))
             {
                 using(var selectUncompressed = new SqlCommand("video_SELECT_WHERE_uncompressed", conn))
@@ -215,15 +215,14 @@ namespace ParsnipData.Media
 
                     using(var reader = selectUncompressed.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if(reader.Read())
                         {
-                            uncompressedVideos.Add(new Video(reader));
+                            oldestUncompressedVideo = new Video(reader);
                         }
                     }
                 }
             }
-
-            return uncompressedVideos;
+            return oldestUncompressedVideo;
         }
 
         public bool UpdateDirectories()
