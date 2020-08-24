@@ -261,8 +261,6 @@ namespace ParsnipData.Media
         }
         protected override bool AddValues(SqlDataReader reader, int loggedInUserId)
         {
-            bool logMe = true;
-
             try
             {
                 Id = new MediaId(reader[0].ToString());
@@ -321,9 +319,9 @@ namespace ParsnipData.Media
                 if(reader[16] != DBNull.Value)
                     Alt = (string)reader[16].ToString().Trim();
 
-                XScale = (double)reader[17];
+                XScale = (short)reader[17];
 
-                YScale = (double)reader[18];
+                YScale = (short)reader[18];
 
                 CheckTitle();
 

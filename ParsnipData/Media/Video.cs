@@ -16,14 +16,16 @@ namespace ParsnipData.Media
 {
     public class VideoData
     {
-        public string Original { get; set; }
-        public string Compressed { get { return string.IsNullOrEmpty(_compressed) ? Original : _compressed; } set { _compressed = value; } }
-        private string _compressed;
-
-        private string _placeholder;
-        public string Placeholder { get { if (string.IsNullOrEmpty(_placeholder)) return "Resources/Media/Images/Web_Media/placeholder.gif"; else return _placeholder; } set { _placeholder = value; } }
-        public double YScale { get; set; }
-        public double XScale { get; set; }
+        public string OriginalFileDir { get; set; }
+        public string OriginalFileName { get { return OriginalFileDir.Split('/').Last(); } }
+        public string OriginalFileExtension { get { return $".{OriginalFileDir.Split('.').Last()}"; } }
+        public string CompressedFileDir { get; set; }
+        public string CompressedFileName { get { return CompressedFileDir.Split('/').Last(); } }
+        public string CompressedFileExtension { get { return $".{CompressedFileDir.Split('.').Last()}"; } }
+        public string VideoDir { get { return string.IsNullOrEmpty(CompressedFileDir) ? OriginalFileDir : CompressedFileDir; } }
+        public short YScale { get; set; }
+        public short XScale { get; set; }
+        public int Duration { get; set; }
     }
     public class Video : Media
     {
@@ -31,7 +33,7 @@ namespace ParsnipData.Media
         public override string UploadsDir { get { return "Resources/Media/Videos/Thumbnails/"; } }
         public string VideoUploadsDir { get { return "Resources/Media/Videos/"; } }
         public VideoData VideoData { get; }
-        private static string[] AllowedFileExtensions = new string[] { "mp4", "m4v", "mov" };
+        private static readonly string[] AllowedFileExtensions = new string[] { "mp4", "m4v", "mov" };
         public static bool IsValidFileExtension(string ext)
         {
             return AllowedFileExtensions.Contains(ext.ToLower());
@@ -93,7 +95,7 @@ namespace ParsnipData.Media
 
                         ProcessMediaThumbnail(this, generatedFileName, originalThumbnailFileExtension);
                         VideoData = new VideoData();
-                        VideoData.Original = relativeVideoDir;
+                        VideoData.OriginalFileDir = relativeVideoDir;
                         VideoData.XScale = XScale;
                         VideoData.YScale = YScale;
                         CreatedById = uploader.Id;
@@ -121,18 +123,20 @@ namespace ParsnipData.Media
                     {
                         insertVideo.CommandType = CommandType.StoredProcedure;
 
-                        insertVideo.Parameters.AddWithValue("videoTitle", Title);
-                        insertVideo.Parameters.AddWithValue("videoOriginalDir", VideoData.Original);
-                        insertVideo.Parameters.AddWithValue("thumbnailOriginalDir", Original);
-                        insertVideo.Parameters.AddWithValue("thumbnailCompressedDir", Compressed);
-                        insertVideo.Parameters.AddWithValue("thumbnailPlaceholderDir", Placeholder);
-                        insertVideo.Parameters.AddWithValue("dateTimeCaptured", DateTimeCaptured);
-                        insertVideo.Parameters.AddWithValue("media_x_scale", XScale);
-                        insertVideo.Parameters.AddWithValue("media_y_scale", YScale);
+                        if(!string.IsNullOrEmpty(Title))
+                            insertVideo.Parameters.AddWithValue("title", Title);
+
+                        insertVideo.Parameters.AddWithValue("original_dir", VideoData.OriginalFileDir);
+                        insertVideo.Parameters.AddWithValue("thumbnail_original_dir", Original);
+                        insertVideo.Parameters.AddWithValue("thumbnail_compressed_dir", Compressed);
+                        insertVideo.Parameters.AddWithValue("thumbnail_placeholder_dir", Placeholder);
+                        insertVideo.Parameters.AddWithValue("datetime_captured", DateTimeCaptured);
+                        insertVideo.Parameters.AddWithValue("thumbnail_x_scale", XScale);
+                        insertVideo.Parameters.AddWithValue("thumbnail_y_scale", YScale);
                         if(AlbumId != default)
-                            insertVideo.Parameters.AddWithValue("mediaTagId", AlbumId);
-                        insertVideo.Parameters.AddWithValue("createdByUserId", CreatedById);
-                        insertVideo.Parameters.AddWithValue("newMediaId", Id.ToString());
+                            insertVideo.Parameters.AddWithValue("media_tag_id", AlbumId);
+                        insertVideo.Parameters.AddWithValue("created_by_user_id", CreatedById);
+                        insertVideo.Parameters.AddWithValue("new_media_id", Id.ToString());
                         insertVideo.Parameters.AddWithValue("now", Parsnip.AdjustedTime);
 
                         conn.Open();
@@ -225,7 +229,7 @@ namespace ParsnipData.Media
             return oldestUncompressedVideo;
         }
 
-        public bool UpdateDirectories()
+        public override bool Update()
         {
             if (Id != default)
             {
@@ -234,16 +238,37 @@ namespace ParsnipData.Media
                 {
                     using (var conn = new SqlConnection(ParsnipData.Parsnip.ParsnipConnectionString))
                     {
-
-
-                        using (var updateMedia = new SqlCommand("video_UPDATE_directories", conn))
+                        using (var updateMedia = new SqlCommand("video_UPDATE", conn))
                         {
                             updateMedia.CommandType = CommandType.StoredProcedure;
 
                             updateMedia.Parameters.AddWithValue("media_id", Id.ToString());
-                            updateMedia.Parameters.AddWithValue("compressed_dir", VideoData.Compressed);
-                            updateMedia.Parameters.AddWithValue("original_dir", VideoData.Original);
 
+                            if (!string.IsNullOrEmpty(Title))
+                                updateMedia.Parameters.AddWithValue("title", Title);
+
+                            if (!string.IsNullOrEmpty(Description))
+                                updateMedia.Parameters.AddWithValue("description", Description);
+
+                            if (!string.IsNullOrEmpty(Alt))
+                                updateMedia.Parameters.AddWithValue("alt", Alt);
+
+                            if (DateTimeCaptured != null && DateTimeCaptured != DateTime.MinValue)
+                                updateMedia.Parameters.AddWithValue("datetime_captured", DateTimeCaptured);
+
+                            if (!string.IsNullOrEmpty(VideoData.CompressedFileDir))
+                                updateMedia.Parameters.AddWithValue("compressed_dir", VideoData.CompressedFileDir);
+
+                            updateMedia.Parameters.AddWithValue("original_dir", VideoData.OriginalFileDir);
+
+                            if (VideoData.XScale != default)
+                                updateMedia.Parameters.AddWithValue("x_scale", VideoData.XScale);
+
+                            if (VideoData.YScale != default)
+                                updateMedia.Parameters.AddWithValue("y_scale", VideoData.YScale);
+
+                            if (VideoData.Duration != default)
+                                updateMedia.Parameters.AddWithValue("duration", VideoData.Duration);
 
                             conn.Open();
                             updateMedia.ExecuteNonQuery();
@@ -289,23 +314,23 @@ namespace ParsnipData.Media
                 DateTimeCreated = Convert.ToDateTime(reader[5]);
 
                 if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
-                    VideoData.XScale = (double)reader[6];
+                    VideoData.XScale = (short)reader[6];
 
                 if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
-                    VideoData.YScale = (double)reader[7];
+                    VideoData.YScale = (short)reader[7];
 
                 if (reader[8] != DBNull.Value && !string.IsNullOrEmpty(reader[8].ToString()) && !string.IsNullOrWhiteSpace(reader[8].ToString()))
-                    VideoData.Original = reader[8].ToString().Trim();
+                    VideoData.OriginalFileDir = reader[8].ToString().Trim();
 
                 if (reader[9] != DBNull.Value && !string.IsNullOrEmpty(reader[9].ToString()) && !string.IsNullOrWhiteSpace(reader[9].ToString()))
-                    VideoData.Compressed = reader[9].ToString().Trim();
+                    VideoData.CompressedFileDir = reader[9].ToString().Trim();
 
 
                 if (reader[10] != DBNull.Value && !string.IsNullOrEmpty(reader[10].ToString()) && !string.IsNullOrWhiteSpace(reader[10].ToString()))
-                    XScale = (double)reader[10];
+                    XScale = (short)reader[10];
 
                 if (reader[11] != DBNull.Value && !string.IsNullOrEmpty(reader[11].ToString()) && !string.IsNullOrWhiteSpace(reader[11].ToString()))
-                    YScale = (double)reader[11];
+                    YScale = (short)reader[11];
 
                 if (reader[12] != DBNull.Value && !string.IsNullOrEmpty(reader[12].ToString()) && !string.IsNullOrWhiteSpace(reader[12].ToString()))
                     Original = reader[12].ToString().Trim();

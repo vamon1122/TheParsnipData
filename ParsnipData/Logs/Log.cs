@@ -42,9 +42,6 @@ namespace ParsnipData.Logging
             Test = Select(Ids.Test);
         }
 
-        
-
-        private bool isNew;
         public DateTime DateTimeCreated { get; private set; }
 
         public int Id { get; set; }
@@ -142,7 +139,6 @@ namespace ParsnipData.Logging
         {
             try
             {
-                isNew = false;
                 Id = (int)reader[0];
                 Name = reader[1].ToString();
                 DateTimeCreated = Convert.ToDateTime(reader[2].ToString());

@@ -45,7 +45,7 @@ namespace ParsnipData
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Exception whilst converting {mediaId} to ParsnipData.Media.MediaId");
+                Debug.WriteLine($"Exception whilst converting {mediaId} to ParsnipData.Media.MediaId: {ex}");
             }
             _id = mediaId;
         }

@@ -45,8 +45,6 @@ namespace ParsnipData.Logging
             }
         }
 
-        private static DateTime lastEntry;
-
         public LogEntry(SqlDataReader pReader)
         {
             isNew = false;

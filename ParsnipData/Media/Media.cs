@@ -36,13 +36,14 @@ namespace ParsnipData.Media
         public string Title { get; set; }
         public string Description { get; set; }
         public string Alt { get; set; }
-        public double XScale { get; set; }
-        public double YScale { get; set; }
+        public short XScale { get; set; }
+        public short YScale { get; set; }
         public string Placeholder { get { if (string.IsNullOrEmpty(_placeholder)) return "Resources/Media/Images/Web_Media/placeholder.gif"; else return _placeholder; } set { _placeholder = value; } }
         private string _placeholder;
         public string Compressed { get; set; }
         public string Original { get; set; }
         public int ViewCount { get; set; }
+        public long FileSize { get; set; }
         #endregion
 
         #region Extra Properties
@@ -170,12 +171,12 @@ namespace ParsnipData.Media
 
             return hcf;
         }
-        public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string newFileExt)
+        public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string originalFileExtension)
         {
 
             string fullyQualifiedUploadsDir = HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
 
-            System.Drawing.Image originalImage = Bitmap.FromFile($"{fullyQualifiedUploadsDir}Originals\\{newFileName}{newFileExt}");
+            System.Drawing.Image originalImage = Bitmap.FromFile($"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}");
 
             int scale = Media.GetAspectScale(originalImage.Width, originalImage.Height);
 
@@ -257,20 +258,20 @@ namespace ParsnipData.Media
             //100 = max quality / larger size
             myEncoderParameter = new EncoderParameter(myEncoder, 85L);
             myEncoderParameters.Param[0] = myEncoderParameter;
-            compressedBitmap.Save(HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Compressed\\{newFileName}.jpg"), myImageCodecInfo, myEncoderParameters);
+            compressedBitmap.Save(HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Compressed\\{newFileName}{newFileExtension}"), myImageCodecInfo, myEncoderParameters);
 
             myEncoderParameter = new EncoderParameter(myEncoder, 15L);
             myEncoderParameters.Param[0] = myEncoderParameter;
-            thumbnail.Save(HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Placeholders\\{newFileName}.jpg"), myImageCodecInfo, myEncoderParameters);
+            thumbnail.Save(HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Placeholders\\{newFileName}{newFileExtension}"), myImageCodecInfo, myEncoderParameters);
 
             //ParsnipData.Media.Image image = new ParsnipData.Media.Image(uploadsDir + generatedFileName + newFileExtension, uploader, album);
-            myMedia.Original = $"{myMedia.UploadsDir}Originals/{newFileName}{newFileExt}";
-            myMedia.Compressed = $"{myMedia.UploadsDir}Compressed/{newFileName}.jpg";
-            myMedia.Placeholder = $"{myMedia.UploadsDir}Placeholders/{newFileName}.jpg";
+            myMedia.Original = $"{myMedia.UploadsDir}Originals/{newFileName}{originalFileExtension}";
+            myMedia.Compressed = $"{myMedia.UploadsDir}Compressed/{newFileName}{newFileExtension}";
+            myMedia.Placeholder = $"{myMedia.UploadsDir}Placeholders/{newFileName}{newFileExtension}";
 
 
-            myMedia.XScale = originalImage.Width / scale;
-            myMedia.YScale = originalImage.Height / scale;
+            myMedia.XScale = Convert.ToInt16(originalImage.Width / scale);
+            myMedia.YScale = Convert.ToInt16(originalImage.Height / scale);
             //Change image quality
             //https://docs.microsoft.com/en-us/dotnet/api/system.drawing.image.save?view=netframework-4.8
 
@@ -521,8 +522,6 @@ namespace ParsnipData.Media
         }
         protected virtual bool AddValues(SqlDataReader reader, int loggedInUserId)
         {
-            bool logMe = false;
-
             try
             {
                 Id = new MediaId(reader[0].ToString());
@@ -541,14 +540,11 @@ namespace ParsnipData.Media
                 DateTimeCaptured = Convert.ToDateTime(reader[4]);
                 DateTimeCreated = Convert.ToDateTime(reader[5]);
 
-
-
-
                 if (reader[6] != DBNull.Value && !string.IsNullOrEmpty(reader[6].ToString()) && !string.IsNullOrWhiteSpace(reader[6].ToString()))
-                    XScale = (double)reader[6];
+                    XScale = (short)reader[6];
 
                 if (reader[7] != DBNull.Value && !string.IsNullOrEmpty(reader[7].ToString()) && !string.IsNullOrWhiteSpace(reader[7].ToString()))
-                    YScale = (double)reader[7];
+                    YScale = (short)reader[7];
 
                 if (reader[8] != DBNull.Value && !string.IsNullOrEmpty(reader[8].ToString()) && !string.IsNullOrWhiteSpace(reader[8].ToString()))
                     Original = reader[8].ToString().Trim();
