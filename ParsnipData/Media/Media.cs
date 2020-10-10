@@ -25,6 +25,57 @@ namespace ParsnipData.Media
             return new MediaId(NewParsnipIdString());
         }
     }
+    public class MediaStatus : IEquatable<MediaStatus>, IEquatable<string>
+    {
+        public MediaStatus(string value)
+        {
+            switch (value)
+            {
+                case "raw":
+                    Value = value;
+                    break;
+                case "processing":
+                    Value = value;
+                    break;
+                case "complete":
+                    Value = value;
+                    break;
+                case "error":
+                    Value = value;
+                    break;
+                default:
+                    Value = "raw";
+                    break;
+
+            }
+        }
+
+        public bool Equals(MediaStatus other)
+        {
+            if (this.Value != other.Value) return false;
+
+            return true;
+        }
+
+        public bool Equals(string other)
+        {
+            if (this.Value != other) return false;
+
+            return true;
+        }
+
+        public override string ToString()
+        {
+            return Value;
+        }
+
+        public string Value { get; }
+
+        public static readonly MediaStatus Unprocessed = new MediaStatus("raw");
+        public static readonly MediaStatus Processing = new MediaStatus("processing");
+        public static readonly MediaStatus Complete = new MediaStatus("complete");
+        public static readonly MediaStatus Error = new MediaStatus("error");
+    }
     public class Media
     {
         #region Database Properties
@@ -44,6 +95,7 @@ namespace ParsnipData.Media
         public string Original { get; set; }
         public int ViewCount { get; set; }
         public long FileSize { get; set; }
+        public MediaStatus Status { get; set; }
         #endregion
 
         #region Extra Properties
@@ -329,8 +381,11 @@ namespace ParsnipData.Media
                             insertMedia.Parameters.AddWithValue("compressed_dir", Compressed);
                             insertMedia.Parameters.AddWithValue("placeholder_dir", Placeholder);
                             insertMedia.Parameters.AddWithValue("created_by_user_id", CreatedById);
-                            if(AlbumId != default)
+                            if (AlbumId != default)
                                 insertMedia.Parameters.AddWithValue("media_tag_id", AlbumId);
+
+                            if (Type == "image" && !string.IsNullOrEmpty(Compressed) && !string.IsNullOrEmpty(Placeholder))
+                                insertMedia.Parameters.AddWithValue("status", MediaStatus.Complete);
 
                             conn.Open();
                             insertMedia.ExecuteNonQuery();
@@ -464,7 +519,6 @@ namespace ParsnipData.Media
                             //Needs updating so the person who updates is inserted here
                             updateMedia.Parameters.AddWithValue("media_tag_created_by_user_id", CreatedById);
 
-
                             conn.Open();
                             updateMedia.ExecuteNonQuery();
                         }
@@ -590,6 +644,7 @@ namespace ParsnipData.Media
                 }
 
                 Type = reader[16].ToString().Trim();
+                Status = new MediaStatus(reader[17].ToString().Trim());
 
                 return true;
             }

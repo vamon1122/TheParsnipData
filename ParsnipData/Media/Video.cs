@@ -270,6 +270,9 @@ namespace ParsnipData.Media
                             if (VideoData.Duration != default)
                                 updateMedia.Parameters.AddWithValue("duration", VideoData.Duration);
 
+                            if (Status != null)
+                                updateMedia.Parameters.AddWithValue("status", Status.ToString());
+
                             conn.Open();
                             updateMedia.ExecuteNonQuery();
                         }
@@ -374,6 +377,8 @@ namespace ParsnipData.Media
                 {
                     //These values are not necessarily returned in all queries
                 }
+
+                Status = new MediaStatus(reader[22].ToString().Trim());
 
                 return true;
             }
