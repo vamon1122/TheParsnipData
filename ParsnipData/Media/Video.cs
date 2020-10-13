@@ -229,11 +229,10 @@ namespace ParsnipData.Media
             return oldestUncompressedVideo;
         }
 
-        public override bool Update()
+        public bool UpdateMetadata()
         {
             if (Id != default)
             {
-
                 try
                 {
                     using (var conn = new SqlConnection(ParsnipData.Parsnip.ParsnipConnectionString))
@@ -244,22 +243,8 @@ namespace ParsnipData.Media
 
                             updateMedia.Parameters.AddWithValue("media_id", Id.ToString());
 
-                            if (!string.IsNullOrEmpty(Title))
-                                updateMedia.Parameters.AddWithValue("title", Title);
-
-                            if (!string.IsNullOrEmpty(Description))
-                                updateMedia.Parameters.AddWithValue("description", Description);
-
-                            if (!string.IsNullOrEmpty(Alt))
-                                updateMedia.Parameters.AddWithValue("alt", Alt);
-
-                            if (DateTimeCaptured != null && DateTimeCaptured != DateTime.MinValue)
-                                updateMedia.Parameters.AddWithValue("datetime_captured", DateTimeCaptured);
-
                             if (!string.IsNullOrEmpty(VideoData.CompressedFileDir))
                                 updateMedia.Parameters.AddWithValue("compressed_dir", VideoData.CompressedFileDir);
-
-                            updateMedia.Parameters.AddWithValue("original_dir", VideoData.OriginalFileDir);
 
                             if (VideoData.XScale != default)
                                 updateMedia.Parameters.AddWithValue("x_scale", VideoData.XScale);
