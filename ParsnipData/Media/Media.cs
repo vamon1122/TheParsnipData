@@ -385,7 +385,7 @@ namespace ParsnipData.Media
                                 insertMedia.Parameters.AddWithValue("media_tag_id", AlbumId);
 
                             if (Type == "image" && !string.IsNullOrEmpty(Compressed) && !string.IsNullOrEmpty(Placeholder))
-                                insertMedia.Parameters.AddWithValue("status", MediaStatus.Complete);
+                                insertMedia.Parameters.AddWithValue("status", MediaStatus.Complete.Value);
 
                             conn.Open();
                             insertMedia.ExecuteNonQuery();
