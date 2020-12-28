@@ -40,6 +40,22 @@ namespace ParsnipData.Media
 
         }
 
+        new public bool IsPortrait()
+        {
+            if (VideoData.XScale == default || VideoData.YScale == default)
+                throw new InvalidOperationException();
+
+            return VideoData.YScale > VideoData.XScale;
+        }
+
+        new public bool IsLandscape()
+        {
+            if (VideoData.XScale == default || VideoData.YScale == default)
+                throw new InvalidOperationException();
+
+            return VideoData.XScale > VideoData.YScale;
+        }
+
         #region Constructors
         internal Video()
         {

@@ -655,5 +655,21 @@ namespace ParsnipData.Media
             }
         }
         #endregion
+
+        public bool IsPortrait()
+        {
+            if (XScale == default || YScale == default)
+                throw new InvalidOperationException();
+
+            return YScale > XScale;
+        }
+
+        public bool IsLandscape()
+        {
+            if (XScale == default || YScale == default)
+                throw new InvalidOperationException();
+
+            return XScale > YScale;
+        }
     }
 }
