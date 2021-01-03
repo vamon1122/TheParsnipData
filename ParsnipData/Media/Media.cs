@@ -78,6 +78,11 @@ namespace ParsnipData.Media
     }
     public class Media
     {
+        private short _xScale;
+        private short _yScale;
+        private string _placeholder;
+        private string _compressed;
+
         #region Database Properties
         public MediaId Id { get; set; }
         public virtual string Type { get; set; }
@@ -87,11 +92,10 @@ namespace ParsnipData.Media
         public string Title { get; set; }
         public string Description { get; set; }
         public string Alt { get; set; }
-        public short XScale { get; set; }
-        public short YScale { get; set; }
-        public string Placeholder { get { if (string.IsNullOrEmpty(_placeholder)) return "Resources/Media/Images/Web_Media/placeholder.gif"; else return _placeholder; } set { _placeholder = value; } }
-        private string _placeholder;
-        public string Compressed { get; set; }
+        public short XScale { get { if (_xScale == default) return 16; else return _xScale; } set { _xScale = value; } }
+        public short YScale { get { if (_yScale == default) return 9; else return _yScale; } set { _yScale = value; } }
+        public string Placeholder { get { if (string.IsNullOrEmpty(_placeholder)) return "Resources/Media/Images/Web_Media/video_thumbnail_placeholder.jpg"; else return _placeholder; } set { _placeholder = value; } }
+        public string Compressed { get { if (string.IsNullOrEmpty(_compressed)) return "Resources/Media/Images/Web_Media/video_thumbnail.jpg"; else return _compressed; } set { _compressed = value; } }
         public string Original { get; set; }
         public int ViewCount { get; set; }
         public long FileSize { get; set; }
@@ -223,75 +227,70 @@ namespace ParsnipData.Media
 
             return hcf;
         }
-        public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string originalFileExtension)
+
+        public static Bitmap GenerateBitmapOfSize(System.Drawing.Image originalImage, double maxLongSide, double minShortSide)
         {
-
-            string fullyQualifiedUploadsDir = HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
-
-            System.Drawing.Image originalImage = Bitmap.FromFile($"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}");
-
-            int scale = Media.GetAspectScale(originalImage.Width, originalImage.Height);
-
-
-            //1280x720
-            double compressedLongSide = 1280;
-            double compressedMinShortSide = 200;
-            Bitmap compressedBitmap;
-            if (originalImage.Width < compressedMinShortSide || originalImage.Height < compressedMinShortSide)
+            if (originalImage.Width < minShortSide || originalImage.Height < minShortSide)
             {
-                compressedBitmap = originalImage.Width > originalImage.Height ? DrawNewBitmap(originalImage, (int)(originalImage.Width * (compressedMinShortSide / originalImage.Height)), (int)compressedMinShortSide) : DrawNewBitmap(originalImage, (int)((compressedMinShortSide / originalImage.Width) * originalImage.Height), (int)compressedMinShortSide);
+                return originalImage.Width > originalImage.Height ? DrawNewBitmap(originalImage, (int)(originalImage.Width * (minShortSide / originalImage.Height)), (int)minShortSide) : DrawNewBitmap(originalImage, (int)((minShortSide / originalImage.Width) * originalImage.Height), (int)minShortSide);
             }
-            else if (originalImage.Width > compressedLongSide || originalImage.Height > compressedLongSide)
+            else if (originalImage.Width > maxLongSide || originalImage.Height > maxLongSide)
             {
-                compressedBitmap = originalImage.Width > originalImage.Height ? DrawNewBitmap(originalImage, (int)compressedLongSide, (int)(originalImage.Height * (compressedLongSide / originalImage.Width))) : DrawNewBitmap(originalImage, (int)(originalImage.Width * (compressedLongSide / originalImage.Height)), (int)compressedLongSide);
+                return originalImage.Width > originalImage.Height ? DrawNewBitmap(originalImage, (int)maxLongSide, (int)(originalImage.Height * (maxLongSide / originalImage.Width))) : DrawNewBitmap(originalImage, (int)(originalImage.Width * (maxLongSide / originalImage.Height)), (int)maxLongSide);
             }
             else
             {
-                compressedBitmap = DrawNewBitmap(originalImage, originalImage.Width, originalImage.Height);
+                return DrawNewBitmap(originalImage, originalImage.Width, originalImage.Height);
             }
 
-            //One of the numbers must be a double in order for the result to be double
-            //Longest side of the thumbnail should be 250px
-            double thumbnailLongSide = 250;
-            Bitmap thumbnail = originalImage.Width > originalImage.Height ? DrawNewBitmap(originalImage, (int)thumbnailLongSide, (int)(originalImage.Height * (thumbnailLongSide / originalImage.Width))) : DrawNewBitmap(originalImage, (int)(originalImage.Width * (thumbnailLongSide / originalImage.Height)), (int)thumbnailLongSide);
-
-            if (originalImage.PropertyIdList.Contains(0x112)) //0x112 = Orientation
+            Bitmap DrawNewBitmap(System.Drawing.Image source, int width, int height)
             {
-                var prop = originalImage.GetPropertyItem(0x112);
+                Bitmap result = new Bitmap(width, height);
+                using (Graphics g = Graphics.FromImage(result))
+                {
+                    g.DrawImage(source, 0, 0, width, height);
+                }
+
+                return result;
+            }
+        }
+
+        public static RotateFlipType GetRotateFlipType(System.Drawing.Image image)
+        {
+            if (image.PropertyIdList.Contains(0x112)) //0x112 = Orientation
+            {
+                var prop = image.GetPropertyItem(0x112);
                 if (prop.Type == 3 && prop.Len == 2)
                 {
                     //invertScale = true;
-                    UInt16 orientationExif = BitConverter.ToUInt16(originalImage.GetPropertyItem(0x112).Value, 0);
+                    UInt16 orientationExif = BitConverter.ToUInt16(image.GetPropertyItem(0x112).Value, 0);
                     if (orientationExif == 8)
                     {
                         //We rotate the original image because we need the correct dimensions later on.
                         //This will not affect the original image because it has already been saved.
-                        originalImage.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                        compressedBitmap.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                        thumbnail.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                        return RotateFlipType.Rotate270FlipNone;
                     }
                     else if (orientationExif == 3)
                     {
-                        originalImage.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                        compressedBitmap.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                        thumbnail.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                        return RotateFlipType.Rotate180FlipNone;
                     }
                     else if (orientationExif == 6)
                     {
-                        originalImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                        compressedBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                        thumbnail.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                        return RotateFlipType.Rotate90FlipNone;
                     }
                 }
             }
+            return RotateFlipType.RotateNoneFlipNone;
+        }
 
+        public static void SaveBitmapWithCompression(Bitmap bitmap, Int64 quality, string newFileDir)
+        {
             //Change image quality
             //https://docs.microsoft.com/en-us/dotnet/api/system.drawing.image.save?view=netframework-4.8
             ImageCodecInfo myImageCodecInfo;
             System.Drawing.Imaging.Encoder myEncoder;
             EncoderParameter myEncoderParameter;
             EncoderParameters myEncoderParameters;
-            string newFileExtension = ".jpg";
 
             // Get an ImageCodecInfo object that represents the JPEG codec.
             myImageCodecInfo = GetEncoderInfo("image/jpeg");
@@ -308,24 +307,9 @@ namespace ParsnipData.Media
 
             //L value (e.g. 50L sets compression quality. 0 = min quality / smaller size, 
             //100 = max quality / larger size
-            myEncoderParameter = new EncoderParameter(myEncoder, 85L);
+            myEncoderParameter = new EncoderParameter(myEncoder, quality);
             myEncoderParameters.Param[0] = myEncoderParameter;
-            compressedBitmap.Save(HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Compressed\\{newFileName}{newFileExtension}"), myImageCodecInfo, myEncoderParameters);
-
-            myEncoderParameter = new EncoderParameter(myEncoder, 15L);
-            myEncoderParameters.Param[0] = myEncoderParameter;
-            thumbnail.Save(HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Placeholders\\{newFileName}{newFileExtension}"), myImageCodecInfo, myEncoderParameters);
-
-            //ParsnipData.Media.Image image = new ParsnipData.Media.Image(uploadsDir + generatedFileName + newFileExtension, uploader, album);
-            myMedia.Original = $"{myMedia.UploadsDir}Originals/{newFileName}{originalFileExtension}";
-            myMedia.Compressed = $"{myMedia.UploadsDir}Compressed/{newFileName}{newFileExtension}";
-            myMedia.Placeholder = $"{myMedia.UploadsDir}Placeholders/{newFileName}{newFileExtension}";
-
-
-            myMedia.XScale = Convert.ToInt16(originalImage.Width / scale);
-            myMedia.YScale = Convert.ToInt16(originalImage.Height / scale);
-            //Change image quality
-            //https://docs.microsoft.com/en-us/dotnet/api/system.drawing.image.save?view=netframework-4.8
+            bitmap.Save(newFileDir, myImageCodecInfo, myEncoderParameters);
 
             ImageCodecInfo GetEncoderInfo(string mimeType)
             {
@@ -340,15 +324,66 @@ namespace ParsnipData.Media
                 return null;
             }
         }
-        public static Bitmap DrawNewBitmap(System.Drawing.Image source, int width, int height)
-        {
-            Bitmap result = new Bitmap(width, height);
-            using (Graphics g = Graphics.FromImage(result))
-            {
-                g.DrawImage(source, 0, 0, width, height);
-            }
 
-            return result;
+        public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string originalFileExtension)
+        {
+
+            string fullyQualifiedUploadsDir = HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
+
+            System.Drawing.Image originalImage = Bitmap.FromFile($"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}");
+
+            int scale = Media.GetAspectScale(originalImage.Width, originalImage.Height);
+            myMedia.XScale = Convert.ToInt16(originalImage.Width / scale);
+            myMedia.YScale = Convert.ToInt16(originalImage.Height / scale);
+
+            //1280x720
+            Bitmap compressedBitmap = GenerateBitmapOfSize(originalImage, 1280, 200);
+            
+            //One of the numbers must be a double in order for the result to be double
+            //Longest side of the thumbnail should be 250px
+            Bitmap thumbnail = GenerateBitmapOfSize(originalImage, 250, 0);
+
+            RotateFlipType rotateFlipType = GetRotateFlipType(originalImage);
+            originalImage.RotateFlip(rotateFlipType);
+            compressedBitmap.RotateFlip(rotateFlipType);
+            thumbnail.RotateFlip(rotateFlipType);
+            
+            string newFileExtension = ".jpg";
+
+            SaveBitmapWithCompression(compressedBitmap, 85L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Compressed\\{newFileName}{newFileExtension}"));
+            SaveBitmapWithCompression(thumbnail, 15L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Placeholders\\{newFileName}{newFileExtension}"));
+
+            //ParsnipData.Media.Image image = new ParsnipData.Media.Image(uploadsDir + generatedFileName + newFileExtension, uploader, album);
+            myMedia.Original = $"{myMedia.UploadsDir}Originals/{newFileName}{originalFileExtension}";
+            myMedia.Compressed = $"{myMedia.UploadsDir}Compressed/{newFileName}{newFileExtension}";
+            myMedia.Placeholder = $"{myMedia.UploadsDir}Placeholders/{newFileName}{newFileExtension}";
+        }
+
+        public static void ProcessMediaThumbnail(string originalFileDir, string newFileName, string originalFileExtension)
+        {
+
+            string fullyQualifiedUploadsDir = HttpContext.Current.Server.MapPath(new Media().UploadsDir);
+
+            System.Drawing.Image originalImage = Bitmap.FromFile($"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}");
+
+            //1280x720
+            Bitmap compressedBitmap = GenerateBitmapOfSize(originalImage, 1280, 200);
+
+            //One of the numbers must be a double in order for the result to be double
+            //Longest side of the thumbnail should be 250px
+            Bitmap thumbnail = GenerateBitmapOfSize(originalImage, 250, 0);
+
+            RotateFlipType rotateFlipType = GetRotateFlipType(originalImage);
+            originalImage.RotateFlip(rotateFlipType);
+            compressedBitmap.RotateFlip(rotateFlipType);
+            thumbnail.RotateFlip(rotateFlipType);
+
+            string newFileExtension = ".jpg";
+
+            SaveBitmapWithCompression(compressedBitmap, 85L, HttpContext.Current.Server.MapPath($"{new Media().UploadsDir}Compressed\\{newFileName}{newFileExtension}"));
+            SaveBitmapWithCompression(thumbnail, 15L, HttpContext.Current.Server.MapPath($"{new Media().UploadsDir}Placeholders\\{newFileName}{newFileExtension}"));
+
+            //ParsnipData.Media.Image image = new ParsnipData.Media.Image(uploadsDir + generatedFileName + newFileExtension, uploader, album);
         }
         #endregion
 

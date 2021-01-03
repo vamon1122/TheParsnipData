@@ -55,7 +55,7 @@ namespace ParsnipData.Media
 
                     if (ParsnipData.Media.Image.IsValidFileExtension(originalFileExtension.Substring(1, originalFileExtension.Length - 1).ToLower()))
                     {
-                        string generatedFileName = $"{Id.ToString()}";
+                        string generatedFileName = $"{Id}";
 
                         var relativeDir = UploadsDir + "Originals/" + generatedFileName + originalFileExtension;
                         var fullyQualifiedDir = HttpContext.Current.Server.MapPath("~/" + relativeDir);

@@ -29,6 +29,7 @@ namespace ParsnipData.Media
     }
     public class Video : Media
     {
+        public List<VideoThumbnail> Thumbnails;
         public override string Type { get { return "video"; } }
         public override string UploadsDir { get { return "Resources/Media/Videos/Thumbnails/"; } }
         public string VideoUploadsDir { get { return "Resources/Media/Videos/"; } }
@@ -59,6 +60,7 @@ namespace ParsnipData.Media
         #region Constructors
         internal Video()
         {
+            Thumbnails = new List<VideoThumbnail>();
             VideoData = new VideoData();
         }
 
@@ -67,64 +69,38 @@ namespace ParsnipData.Media
             AddValues(pReader, loggedInUserId);
         }
 
-        public Video(User uploader, HttpPostedFile videoFile, HttpPostedFile thumbnailFile)
+        public Video(User uploader, HttpPostedFile videoFile)
         {
             Id = MediaId.NewMediaId();
 
             new LogEntry(Log.Debug) { Text = "POSTBACK with video" };
-            if (thumbnailFile.FileName.Length > 0)
+
+            try
             {
-                try
-                {
-                    new LogEntry(Log.Debug) { Text = "Attempting to upload the video thumbnail" };
+                string[] videoFileDir = videoFile.FileName.Split('\\');
+                string originalVideoFileName = videoFileDir.Last();
+                string originalVideoFileExtension = "." + originalVideoFileName.Split('.').Last();
 
-                    string[] thumbnailFileDir = thumbnailFile.FileName.Split('\\');
-                    string originalThumbnailFileName = thumbnailFileDir.Last();
-                    string originalThumbnailFileExtension = "." + originalThumbnailFileName.Split('.').Last();
+                string generatedFileName = $"{Id}";
 
-                    string[] videoFileDir = videoFile.FileName.Split('\\');
-                    string originalVideoFileName = videoFileDir.Last();
-                    string originalVideoFileExtension = "." + originalVideoFileName.Split('.').Last();
+                var relativeVideoDir = VideoUploadsDir + "Originals/" + generatedFileName + originalVideoFileExtension;
+                var fullyQualifiedVideoDir = HttpContext.Current.Server.MapPath("~/" + relativeVideoDir);
+                videoFile.SaveAs(fullyQualifiedVideoDir);
 
-                    if (ParsnipData.Media.Image.IsValidFileExtension(originalThumbnailFileExtension.Substring(1, originalThumbnailFileExtension.Length - 1).ToLower()))
-                    {
-                        string generatedFileName = $"{Id.ToString()}";
+                VideoData = new VideoData();
+                VideoData.OriginalFileDir = relativeVideoDir;
+                VideoData.XScale = XScale;
+                VideoData.YScale = YScale;
+                CreatedById = uploader.Id;
 
-                        var relativeThumbnailDir = UploadsDir + "Originals/" + generatedFileName + originalThumbnailFileExtension;
-                        var fullyQualifiedThumbnailDir = HttpContext.Current.Server.MapPath("~/" + relativeThumbnailDir);
-                        thumbnailFile.SaveAs(fullyQualifiedThumbnailDir);
-
-                        var relativeVideoDir = VideoUploadsDir + "Originals/" + generatedFileName + originalVideoFileExtension;
-                        var fullyQualifiedVideoDir = HttpContext.Current.Server.MapPath("~/" + relativeVideoDir);
-                        videoFile.SaveAs(fullyQualifiedVideoDir);
-
-                        Original = relativeThumbnailDir;
-
-                        //No resize is done here but image needs to go through the process so that it displays properly 
-                        //on PC's. If we use the 'original' bitmap, the image will display fine on mobile browser, fine 
-                        //on Windows File Explorer, but will be rotated in desktop browsers. However, I noticed that 
-                        //the thumbnail was displayed correctly at all times. So, I simply put the original image 
-                        //through the same process, and called the new image 'uncompressedImage'. *NOTE* we also need 
-                        //to rotate the new image (as we do with the thumbnail), as they loose their rotation 
-                        //properties when they are processed using the 'ResizeBitmap' function. This is done after the 
-                        //resize. MAKE SURE THAT COMPRESSED IMAGE IS SCALED EXACTLY (it is used to get scale soon)
-
-                        ProcessMediaThumbnail(this, generatedFileName, originalThumbnailFileExtension);
-                        VideoData = new VideoData();
-                        VideoData.OriginalFileDir = relativeVideoDir;
-                        VideoData.XScale = XScale;
-                        VideoData.YScale = YScale;
-                        CreatedById = uploader.Id;
-
-                        DateTimeCreated = Parsnip.AdjustedTime;
-                        DateTimeCaptured = DateTimeCreated;
-                    }
-                }
-                catch (Exception err)
-                {
-                    new LogEntry(Log.Debug) { Text = "There was an exception whilst uploading the photo: " + err };
-                }
+                DateTimeCreated = Parsnip.AdjustedTime;
+                DateTimeCaptured = DateTimeCreated;
             }
+            catch (Exception err)
+            {
+                new LogEntry(Log.Debug) { Text = "There was an exception whilst uploading the video: " + err };
+            }
+
         }
         #endregion
 
@@ -143,12 +119,7 @@ namespace ParsnipData.Media
                             insertVideo.Parameters.AddWithValue("title", Title);
 
                         insertVideo.Parameters.AddWithValue("original_dir", VideoData.OriginalFileDir);
-                        insertVideo.Parameters.AddWithValue("thumbnail_original_dir", Original);
-                        insertVideo.Parameters.AddWithValue("thumbnail_compressed_dir", Compressed);
-                        insertVideo.Parameters.AddWithValue("thumbnail_placeholder_dir", Placeholder);
                         insertVideo.Parameters.AddWithValue("datetime_captured", DateTimeCaptured);
-                        insertVideo.Parameters.AddWithValue("thumbnail_x_scale", XScale);
-                        insertVideo.Parameters.AddWithValue("thumbnail_y_scale", YScale);
                         if(AlbumId != default)
                             insertVideo.Parameters.AddWithValue("media_tag_id", AlbumId);
                         insertVideo.Parameters.AddWithValue("created_by_user_id", CreatedById);
@@ -209,6 +180,15 @@ namespace ParsnipData.Media
                                 {
                                     var mediaUserPair = new MediaUserPair(reader);
                                     video.MediaUserPairs.Add(mediaUserPair);
+                                }
+
+                                reader.NextResult();
+
+                                video.Thumbnails = new List<VideoThumbnail>();
+                                while (reader.Read())
+                                {
+                                    var videoThumbnail = new VideoThumbnail(reader);
+                                    video.Thumbnails.Add(videoThumbnail);
                                 }
                             }
                         }
