@@ -327,63 +327,40 @@ namespace ParsnipData.Media
 
         public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string originalFileExtension)
         {
-
+            string newFileExtension = ".jpg";
             string fullyQualifiedUploadsDir = HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
+            System.Drawing.Image originalImage;
+            Bitmap compressedBitmap;
+            Bitmap placeholderBitmap;
 
-            System.Drawing.Image originalImage = Bitmap.FromFile($"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}");
+            GenerateBitmaps();
+            UpdateMetadata();
 
-            int scale = Media.GetAspectScale(originalImage.Width, originalImage.Height);
-            myMedia.XScale = Convert.ToInt16(originalImage.Width / scale);
-            myMedia.YScale = Convert.ToInt16(originalImage.Height / scale);
+            void GenerateBitmaps()
+            {
+                originalImage = Bitmap.FromFile($"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}");
+                compressedBitmap = GenerateBitmapOfSize(originalImage, 1280, 200);
+                placeholderBitmap = GenerateBitmapOfSize(originalImage, 250, 0);
 
-            //1280x720
-            Bitmap compressedBitmap = GenerateBitmapOfSize(originalImage, 1280, 200);
-            
-            //One of the numbers must be a double in order for the result to be double
-            //Longest side of the thumbnail should be 250px
-            Bitmap thumbnail = GenerateBitmapOfSize(originalImage, 250, 0);
+                RotateFlipType rotateFlipType = GetRotateFlipType(originalImage);
+                originalImage.RotateFlip(rotateFlipType);
+                compressedBitmap.RotateFlip(rotateFlipType);
+                placeholderBitmap.RotateFlip(rotateFlipType);
 
-            RotateFlipType rotateFlipType = GetRotateFlipType(originalImage);
-            originalImage.RotateFlip(rotateFlipType);
-            compressedBitmap.RotateFlip(rotateFlipType);
-            thumbnail.RotateFlip(rotateFlipType);
-            
-            string newFileExtension = ".jpg";
+                SaveBitmapWithCompression(compressedBitmap, 85L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Compressed\\{newFileName}{newFileExtension}"));
+                SaveBitmapWithCompression(placeholderBitmap, 15L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Placeholders\\{newFileName}{newFileExtension}"));
+            }
 
-            SaveBitmapWithCompression(compressedBitmap, 85L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Compressed\\{newFileName}{newFileExtension}"));
-            SaveBitmapWithCompression(thumbnail, 15L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Placeholders\\{newFileName}{newFileExtension}"));
+            void UpdateMetadata()
+            {
+                int scale = Media.GetAspectScale(originalImage.Width, originalImage.Height);
+                myMedia.XScale = Convert.ToInt16(originalImage.Width / scale);
+                myMedia.YScale = Convert.ToInt16(originalImage.Height / scale);
 
-            //ParsnipData.Media.Image image = new ParsnipData.Media.Image(uploadsDir + generatedFileName + newFileExtension, uploader, album);
-            myMedia.Original = $"{myMedia.UploadsDir}Originals/{newFileName}{originalFileExtension}";
-            myMedia.Compressed = $"{myMedia.UploadsDir}Compressed/{newFileName}{newFileExtension}";
-            myMedia.Placeholder = $"{myMedia.UploadsDir}Placeholders/{newFileName}{newFileExtension}";
-        }
-
-        public static void ProcessMediaThumbnail(string originalFileDir, string newFileName, string originalFileExtension)
-        {
-
-            string fullyQualifiedUploadsDir = HttpContext.Current.Server.MapPath(new Media().UploadsDir);
-
-            System.Drawing.Image originalImage = Bitmap.FromFile($"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}");
-
-            //1280x720
-            Bitmap compressedBitmap = GenerateBitmapOfSize(originalImage, 1280, 200);
-
-            //One of the numbers must be a double in order for the result to be double
-            //Longest side of the thumbnail should be 250px
-            Bitmap thumbnail = GenerateBitmapOfSize(originalImage, 250, 0);
-
-            RotateFlipType rotateFlipType = GetRotateFlipType(originalImage);
-            originalImage.RotateFlip(rotateFlipType);
-            compressedBitmap.RotateFlip(rotateFlipType);
-            thumbnail.RotateFlip(rotateFlipType);
-
-            string newFileExtension = ".jpg";
-
-            SaveBitmapWithCompression(compressedBitmap, 85L, HttpContext.Current.Server.MapPath($"{new Media().UploadsDir}Compressed\\{newFileName}{newFileExtension}"));
-            SaveBitmapWithCompression(thumbnail, 15L, HttpContext.Current.Server.MapPath($"{new Media().UploadsDir}Placeholders\\{newFileName}{newFileExtension}"));
-
-            //ParsnipData.Media.Image image = new ParsnipData.Media.Image(uploadsDir + generatedFileName + newFileExtension, uploader, album);
+                myMedia.Original = $"{myMedia.UploadsDir}Originals/{newFileName}{originalFileExtension}";
+                myMedia.Compressed = $"{myMedia.UploadsDir}Compressed/{newFileName}{newFileExtension}";
+                myMedia.Placeholder = $"{myMedia.UploadsDir}Placeholders/{newFileName}{newFileExtension}";
+            }
         }
         #endregion
 
