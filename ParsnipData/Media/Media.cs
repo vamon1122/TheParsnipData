@@ -527,7 +527,8 @@ namespace ParsnipData.Media
                             updateMedia.Parameters.AddWithValue("description", Description);
                             updateMedia.Parameters.AddWithValue("alt", Alt);
                             updateMedia.Parameters.AddWithValue("datetime_captured", DateTimeCaptured);
-                            updateMedia.Parameters.AddWithValue("media_tag_id", AlbumId);
+                            if(AlbumId != default)
+                                updateMedia.Parameters.AddWithValue("media_tag_id", AlbumId);
                             //Needs updating so the person who updates is inserted here
                             updateMedia.Parameters.AddWithValue("media_tag_created_by_user_id", CreatedById);
 
