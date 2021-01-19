@@ -83,6 +83,7 @@ namespace ParsnipData.Accounts
                 }
             }
         }
+        public bool HasPluralPronoun { get { return SubjectiveGenderPronoun == "they"; } }
         public string PosessivePronoun
         {
             get
@@ -388,7 +389,8 @@ namespace ParsnipData.Accounts
 
             string validateSuccessString = validateSuccess ? "was validated successfully!" : "failed to be validated. See details below:";
 
-            new LogEntry(Log.General) { Text = string.Format("{0} {1}", FullName, validateSuccessString) };
+            if(!validateSuccess)
+                new LogEntry(Log.General) { Text = $"{FullName} {validateSuccessString}" };
 
             return validateSuccess;
 
@@ -396,13 +398,13 @@ namespace ParsnipData.Accounts
             {
                 if (Username.Length == 0)
                 {
-                    new LogEntry(Log.General) { Text = "Cannot create a user without a username! Username: " + Username };
+                    new LogEntry(Log.General) { Text = $"Cannot create a user without a username! Username: {Username}" };
                     ValidationErrors.Add("username cannot be blank");
                     return false;
                 }
                 else if (Username.Length > 50)
                 {
-                    new LogEntry(Log.General) { Text = String.Format("Username is {0} characters long. Username must be no longer than 50 characters!", Username.Length) };
+                    new LogEntry(Log.General) { Text = $"Username is {Username.Length} characters long. Username must be no longer than 50 characters!" };
                     return false;
                 }
                 else
@@ -441,32 +443,27 @@ namespace ParsnipData.Accounts
                             }
                             else
                             {
-                                //MyLog.Warning("Email address domain does not contain a \".\". Email address will be blank!");
-                                new LogEntry(Log.General) { Text = String.Format("Email address \"{0}\" does not contain a dot. Email addresses must contain a dot.", EmailAddress) };
+                                new LogEntry(Log.General) { Text = $"Email address \"{EmailAddress}\" does not contain a dot. Email addresses must contain a dot." };
                                 ValidationErrors.Add("email address must contain a dot");
                                 return false;
                             }
                         }
                         else
                         {
-                            //MyLog.Warning("Email address contains too many @'s. Email address will be blank!");
-                            new LogEntry(Log.General) { Text = String.Format("Email address \"{0}\" contains too many '@' signs. Email addresses must contain only one '@' sign.", EmailAddress) };
+                            new LogEntry(Log.General) { Text = $"Email address \"{EmailAddress}\" contains too many '@' signs. Email addresses must contain only one '@' sign." };
                             ValidationErrors.Add("email address cannot contain more than one @");
                             return false;
                         }
                     }
                     else
                     {
-                        new LogEntry(Log.General) { Text = String.Format("Email address \"{0}\" does not contain an '@' sign. Email addresses must contain an '@' sign.", EmailAddress) };
+                        new LogEntry(Log.General) { Text = $"Email address \"{EmailAddress}\" does not contain an '@' sign. Email addresses must contain an '@' sign." };
                         ValidationErrors.Add("email address must contain at least one @");
-                        //MyLog.Warning("Email address does not contain an \"@\" sign. Email address will be blank!");
                         return false;
                     }
                 }
                 else
                 {
-                    //Don't really need to be warned about blank fields.
-                    //MyLog.Warning(String.Format("Email \"{0}\" is made up from blank characters! Email address will be blank!", EmailVal));
                     return true;
                 }
             }
@@ -479,7 +476,7 @@ namespace ParsnipData.Accounts
                         return true;
                     else
                     {
-                        new LogEntry(Log.General) { Text = String.Format("----------Password \"{0}\" is too short. Passwords must be at least 5 characters long.", Password.Trim()) };
+                        new LogEntry(Log.General) { Text = $"Password \"{Password.Trim()}\" is too short. Passwords must be at least 5 characters long." };
                         ValidationErrors.Add("if you have a password, it must be at least 5 characters long");
                         return false;
                     }
@@ -496,7 +493,7 @@ namespace ParsnipData.Accounts
                     return true;
                 else
                 {
-                    new LogEntry(Log.General) { Text = String.Format("----------Forename \"{0}\" cannot be left blank!", Forename.Trim()) };
+                    new LogEntry(Log.General) { Text = "Forename cannot be left blank!" };
                     ValidationErrors.Add("forename cannot be blank");
                     return false;
                 }
@@ -508,7 +505,7 @@ namespace ParsnipData.Accounts
                     return true;
                 else
                 {
-                    new LogEntry(Log.General) { Text = String.Format("----------Surname \"{0}\" cannot be left blank!", Forename.Trim()) };
+                    new LogEntry(Log.General) { Text = "Surname cannot be left blank!" };
                     ValidationErrors.Add("surname cannot be blank");
                     return false;
                 }
@@ -529,7 +526,7 @@ namespace ParsnipData.Accounts
                         return true;
                     else
                     {
-                        new LogEntry(Log.General) { Text = String.Format("Gender \"{0}\" is not M, F or O. Gender must be M, F or O.", tempGender) };
+                        new LogEntry(Log.General) { Text = $"Gender \"{ tempGender}\" is not M, F or O. Gender must be M, F or O." };
                         ValidationErrors.Add("gender must be M, F or O");
                         return false;
                     };
@@ -736,7 +733,6 @@ namespace ParsnipData.Accounts
                     new LogEntry(Log.General) { Text = error };
                     return false;
                 }
-                new LogEntry(Log.General) { Text = string.Format("{0} was successfully inserted into the database!", FullName) };
                 return DbUpdate(pOpenConn);
             }
             else
@@ -829,7 +825,6 @@ namespace ParsnipData.Accounts
                     new LogEntry(Log.General) { Text = error };
                     return false;
                 }
-                new LogEntry(Log.General) { Text = string.Format("{0}'s details were successfully updated on the database!", FullName) };
                 return true;
             }
             else

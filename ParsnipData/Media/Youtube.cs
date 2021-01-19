@@ -209,7 +209,6 @@ namespace ParsnipData.Media
                     new LogEntry(Log.General) { Text = error };
                     return false;
                 }
-                new LogEntry(Log.General) { Text = "Media was successfully inserted into the database!" };
                 return true;
 
             }
@@ -249,14 +248,13 @@ namespace ParsnipData.Media
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                string error = string.Format("There was an error whilst updating youtubeVideo: {0}", e);
+                string error = string.Format("There was an error whilst updating youtubeVideo: {0}", ex);
                 Debug.WriteLine(error);
                 new LogEntry(Log.General) { Text = error };
                 return false;
             }
-            new LogEntry(Log.Debug) { Text = string.Format("YoutubeVideo was successfully updated on the database!") };
             return true;
         }
         protected override bool AddValues(SqlDataReader reader, int loggedInUserId)

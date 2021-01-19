@@ -73,8 +73,6 @@ namespace ParsnipData.Media
         {
             Id = MediaId.NewMediaId();
 
-            new LogEntry(Log.Debug) { Text = "POSTBACK with video" };
-
             try
             {
                 string[] videoFileDir = videoFile.FileName.Split('\\');
@@ -96,9 +94,9 @@ namespace ParsnipData.Media
                 DateTimeCreated = Parsnip.AdjustedTime;
                 DateTimeCaptured = DateTimeCreated;
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                new LogEntry(Log.Debug) { Text = "There was an exception whilst uploading the video: " + err };
+                new LogEntry(Log.Debug) { Text = $"There was an exception whilst uploading the video: {ex}" };
             }
 
         }
@@ -267,7 +265,6 @@ namespace ParsnipData.Media
                     new LogEntry(Log.General) { Text = error };
                     return false;
                 }
-                new LogEntry(Log.Debug) { Text = string.Format("Media was successfully updated on the database!") };
                 return true;
             }
             else

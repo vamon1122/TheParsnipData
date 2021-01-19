@@ -13,7 +13,7 @@ namespace ParsnipData.Accounts
 {
     public static class Account
     {
-        public static User SecurePage(string url, Page page, string deviceType, string accountType)
+        public static User SecurePage(string url, Page page, string deviceType, string accountType = "user", string pageDescription = null)
         {
             if (string.IsNullOrEmpty(deviceType) || string.IsNullOrWhiteSpace(deviceType))
             {
@@ -23,10 +23,10 @@ namespace ParsnipData.Accounts
             var myUser = User.LogIn();
             bool canAccess;
             string justification = "";
-
+            string feedback = "";
             if (myUser == null)
             {
-                new LogEntry(Log.Access) { Text = String.Format("Someone tried to access the {0} page from {1} {2}, without logging in!", url, new User().PosessivePronoun, deviceType) };
+                feedback += $"Someone tried to access the {url} page from {new User().PosessivePronoun} {deviceType}. " ;
                 page.Response.Redirect(String.Format("login?url={0}", url));
             }
             else
@@ -34,14 +34,10 @@ namespace ParsnipData.Accounts
                 if (page.Session["userName"] == null)
                 {
                     page.Session["userName"] = myUser.Username;
-
-                    string Logtring = string.Format("{0} started a new session from {1} {2}. Session ID = {3}", myUser.FullName, myUser.PosessivePronoun, deviceType, page.Session.SessionID.ToString());
-                    new LogEntry(Log.Session) { Text = Logtring };
+                    feedback += $"{myUser.FullName} started a <b>new session</b> ({page.Session.SessionID}) from {myUser.PosessivePronoun} {deviceType}. ";
                 }
                 else
-                    new LogEntry(Log.Session) { Text = string.Format("{0} continued {1} session on {1} {2}. Session ID = {3}", myUser.FullName, myUser.PosessivePronoun, deviceType, page.Session.SessionID.ToString()) };
-
-
+                    feedback += $"{myUser.FullName} continued {myUser.PosessivePronoun} session ({page.Session.SessionID}) on {myUser.PosessivePronoun} {deviceType}. " ;
 
 
                 if (myUser.AccountStatus == "active")
@@ -53,11 +49,11 @@ namespace ParsnipData.Accounts
                     else
                         accTypeDescriptor += "a";
 
-                    justification += string.Format("a) {0} account is active and b) ", myUser.PosessivePronoun);
+                    justification += $"a) {myUser.PosessivePronoun.First().ToString().ToUpper()}{myUser.PosessivePronoun.Substring(1)} account is active and b) ";
 
                     string accessGrantedJustification(string pRequiredAccess)
                     {
-                        return string.Format("this page requires {0} to have {1} access and {2} is {3} {4} which means that {2} has the required permission level.", myUser.ObjectiveGenderPronoun, pRequiredAccess, myUser.SubjectiveGenderPronoun, accTypeDescriptor, myUser.AccountType);
+                        return $"The page requires <b>{accountType}</b> permissions or higher and {myUser.SubjectiveGenderPronoun} is {accTypeDescriptor} <b>{myUser.AccountType}</b>.";
                     }
 
                     switch (accountType)
@@ -103,64 +99,31 @@ namespace ParsnipData.Accounts
                             break;
                     }
 
+                    feedback += $"{myUser.SubjectiveGenderPronoun.First().ToString().ToUpper()}{myUser.SubjectiveGenderPronoun.Substring(1)} {(canAccess ? $"{(myUser.HasPluralPronoun ? "are" : "is")} currently viewing" : "tried to view")} <a href=\"{url}\">{url}</a>{(string.IsNullOrEmpty(pageDescription) ? "" : $" ({pageDescription})")}. ";
+
                     if (canAccess)
                     {
-                        if (!page.IsPostBack)
-                        {
-                            new LogEntry(Log.Access) { Text = String.Format("{0} accessed the {1} page from {2} {3}.", myUser.FullName, url, myUser.PosessivePronoun, deviceType, myUser.Forename, justification) };
-                            DateTime start = DateTime.Now;
-                            while (DateTime.Now < start.AddMilliseconds(1)) { }
-                            new LogEntry(Log.AccessJustification) { Text = String.Format("{0} was allowed to access the {1} page because {2}", myUser.FullName, url, justification) };
-                        }
-                        else
-                        {
-                            new LogEntry(Log.Access) { Text = String.Format("{0} reloaded the {1} page from {2} {3}.", myUser.FullName, url, myUser.PosessivePronoun, deviceType, myUser.Forename, justification) };
-                        }
+                        DateTime start = DateTime.Now;
+                        while (DateTime.Now < start.AddMilliseconds(1)) { }
+                        new LogEntry(Log.AccessJustification) { Text = $"{feedback}{myUser.Forename} is allowed to {(page.IsPostBack ? "reload" : "access")} this page because {justification}" };
                     }
                     else
                     {
-                        if (!page.IsPostBack)
-                        {
-                            new LogEntry(Log.Access) { Text = String.Format("{0} tried to access the {1} page but access was denied.", myUser.FullName, url) };
-                            DateTime start = DateTime.Now;
-                            while (DateTime.Now < start.AddMilliseconds(1)) { }
-                            new LogEntry(Log.AccessJustification) { Text = String.Format("{0} was denied access to the {1} page because {2} did not have sufficient permissions.", myUser.FullName, url, myUser.PosessivePronoun) };
-                            page.Response.Redirect(String.Format("access_denied?url={0}", url));
-                        }
-                        else
-                        {
-                            new LogEntry(Log.Access) { Text = String.Format("{0} tried to reload the page to access the {1} page but access was denied.", myUser.FullName, url) };
-                        }
+                        DateTime start = DateTime.Now;
+                        while (DateTime.Now < start.AddMilliseconds(1)) { }
+                        new LogEntry(Log.AccessJustification) { Text = $"{feedback} {myUser.Forename} was not allowed to {(page.IsPostBack ? "reload" : "access")} the page because <b>{accountType}</b> permissions or higher are required wheras {myUser.SubjectiveGenderPronoun} only {(myUser.HasPluralPronoun ? "have" : "has")} <b>{myUser.AccountType}</b> permissions." };
+                        page.Response.Redirect(String.Format("access_denied?url={0}", url));
                     }
-
                 }
                 else
                 {
-                    canAccess = false;
-                    if (!page.IsPostBack)
-                    {
-                        new LogEntry(Log.Access) { Text = string.Format("{0} tried to access the {1} page from {2} {3} but access was denied.", myUser.FullName, url, myUser.PosessivePronoun, deviceType) };
-                        DateTime start = DateTime.Now;
-                        while (DateTime.Now < start.AddMilliseconds(1)) { }
-                        new LogEntry(Log.AccessJustification) { Text = string.Format("{0} was denied access to the {1} page because {2} account is not active!", myUser.FullName, url, myUser.PosessivePronoun) };
-                    }
-                    else
-                    {
-                        new LogEntry(Log.Access) { Text = string.Format("{0} tried to reload the page to access the {1} page from {2} {3} but access was denied.", myUser.FullName, url, myUser.PosessivePronoun, deviceType) };
-                    }
+                    DateTime start = DateTime.Now;
+                    while (DateTime.Now < start.AddMilliseconds(1)) { }
+                    new LogEntry(Log.AccessJustification) { Text = $"{feedback} {myUser.Forename} was not allowed to {(page.IsPostBack ? "reload" : "access")} to the page because {myUser.PosessivePronoun} account is inactive!" };
                 }
-
-
-
-
             }
-            
 
             return myUser;
-        }
-        public static User SecurePage(string url, Page page, string deviceType)
-        {
-            return SecurePage(url, page, deviceType, "user");
         }
     }
 }

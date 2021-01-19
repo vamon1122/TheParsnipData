@@ -37,13 +37,10 @@ namespace ParsnipData.Media
         {
             MediaId = video.Id;
 
-            new LogEntry(Log.Debug) { Text = "POSTBACK with video thumbnail" };
             if (thumbnailFile.FileName.Length > 0)
             {
                 try
                 {
-                    new LogEntry(Log.Debug) { Text = "Attempting to upload the video thumbnail" };
-
                     string[] thumbnailFileDir = thumbnailFile.FileName.Split('\\');
                     string originalThumbnailFileName = thumbnailFileDir.Last();
                     string originalThumbnailFileExtension = "." + originalThumbnailFileName.Split('.').Last();
@@ -81,7 +78,7 @@ namespace ParsnipData.Media
                 }
                 catch (Exception err)
                 {
-                    new LogEntry(Log.Debug) { Text = "There was an exception whilst uploading the video thumbnail: " + err };
+                    new LogEntry(Log.Debug) { Text = $"There was an exception whilst uploading the video thumbnail: {err}" };
                 }
             }
         }
@@ -191,12 +188,11 @@ namespace ParsnipData.Media
 
                 }
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                new LogEntry(Log.Debug) { Text = "There was an exception whilst DELETING the media: " + err };
+                new LogEntry(Log.Debug) { Text = $"There was an exception whilst DELETING the video thumbnail: {ex}" };
                 return false;
             }
-            new LogEntry(Log.Debug) { Text = "Successfully deleted media with id = " + MediaId };
             return true;
         }
     }
