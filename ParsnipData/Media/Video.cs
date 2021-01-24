@@ -34,7 +34,7 @@ namespace ParsnipData.Media
         public override string UploadsDir { get { return "Resources/Media/Videos/Thumbnails/"; } }
         public string VideoUploadsDir { get { return "Resources/Media/Videos/"; } }
         public VideoData VideoData { get; }
-        private static readonly string[] AllowedFileExtensions = new string[] { "mp4", "m4v", "mov" };
+        private static readonly string[] AllowedFileExtensions = new string[] { "mp4", "m4v", "mov", "mpg" };
         public static bool IsValidFileExtension(string ext)
         {
             return AllowedFileExtensions.Contains(ext.ToLower());
