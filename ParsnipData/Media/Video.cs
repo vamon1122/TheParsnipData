@@ -25,6 +25,8 @@ namespace ParsnipData.Media
         public string VideoDir { get { return string.IsNullOrEmpty(CompressedFileDir) ? OriginalFileDir : CompressedFileDir; } }
         public short YScale { get; set; }
         public short XScale { get; set; }
+        public int Height { get; set; }
+        public int Width { get; set; }
         public int Duration { get; set; }
     }
     public class Video : Media
@@ -58,7 +60,7 @@ namespace ParsnipData.Media
         }
 
         #region Constructors
-        internal Video()
+        public Video()
         {
             Thumbnails = new List<VideoThumbnail>();
             VideoData = new VideoData();
