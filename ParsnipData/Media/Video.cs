@@ -285,12 +285,18 @@ namespace ParsnipData.Media
                 {
                     using(var deleteAllThumbnails = new SqlCommand("video_thumbnail_DELETE_WHERE_media_id", conn))
                     {
+                        deleteAllThumbnails.CommandType = CommandType.StoredProcedure;
+
                         deleteAllThumbnails.Parameters.AddWithValue("media_id", Id.ToString());
 
                         conn.Open();
                         deleteAllThumbnails.ExecuteNonQuery();
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                new LogEntry(Log.Debug) { Text = $"There was an error whilst deleting video thumbnails for video {Id}: {ex}" };
             }
         }
 

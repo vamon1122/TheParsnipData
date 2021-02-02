@@ -34,6 +34,9 @@ namespace ParsnipData.Media
                 case "raw":
                     Value = value;
                     break;
+                case "reprocess":
+                    Value = value;
+                    break;
                 case "processing":
                     Value = value;
                     break;
@@ -72,6 +75,7 @@ namespace ParsnipData.Media
         public string Value { get; }
 
         public static readonly MediaStatus Unprocessed = new MediaStatus("raw");
+        public static readonly MediaStatus Reprocess = new MediaStatus("reprocess");
         public static readonly MediaStatus Processing = new MediaStatus("processing");
         public static readonly MediaStatus Complete = new MediaStatus("complete");
         public static readonly MediaStatus Error = new MediaStatus("error");
