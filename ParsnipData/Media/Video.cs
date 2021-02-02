@@ -276,6 +276,24 @@ namespace ParsnipData.Media
             }
 
         }
+
+        public void DeleteAllThumbnails()
+        {
+            try
+            {
+                using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+                {
+                    using(var deleteAllThumbnails = new SqlCommand("video_thumbnail_DELETE_WHERE_media_id", conn))
+                    {
+                        deleteAllThumbnails.Parameters.AddWithValue("media_id", Id.ToString());
+
+                        conn.Open();
+                        deleteAllThumbnails.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
         protected override bool AddValues(SqlDataReader reader, int loggedInUserId = default)
         {
             try
