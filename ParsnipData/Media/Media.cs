@@ -86,6 +86,7 @@ namespace ParsnipData.Media
         private short _yScale;
         private string _placeholder;
         private string _compressed;
+        private string _searchTerms;
 
         #region Database Properties
         public MediaId Id { get; set; }
@@ -104,6 +105,7 @@ namespace ParsnipData.Media
         public int ViewCount { get; set; }
         public long FileSize { get; set; }
         public MediaStatus Status { get; set; }
+        public string SearchTerms { get { return _searchTerms; } set { _searchTerms = string.IsNullOrEmpty(value) ? null : System.Text.RegularExpressions.Regex.Replace(value.ToLower(), "[^a-z0-9_ ]", ""); } }
         #endregion
 
         #region Extra Properties
@@ -529,6 +531,10 @@ namespace ParsnipData.Media
                                 updateMedia.Parameters.AddWithValue("media_tag_id", AlbumId);
                             //Needs updating so the person who updates is inserted here
                             updateMedia.Parameters.AddWithValue("media_tag_created_by_user_id", CreatedById);
+                            if (string.IsNullOrEmpty(SearchTerms))
+                                updateMedia.Parameters.AddWithValue("search_terms", DBNull.Value);
+                            else
+                                updateMedia.Parameters.AddWithValue("search_terms", SearchTerms);
 
                             conn.Open();
                             updateMedia.ExecuteNonQuery();
@@ -652,6 +658,16 @@ namespace ParsnipData.Media
                 Type = reader[16].ToString().Trim();
                 Status = new MediaStatus(reader[17].ToString().Trim());
 
+                try
+                {
+                    if (reader[18] != DBNull.Value && !string.IsNullOrEmpty(reader[18].ToString()))
+                        SearchTerms = reader[18].ToString().Trim();
+                }
+                catch (IndexOutOfRangeException)
+                {
+
+                }
+
                 return true;
             }
             catch (Exception ex)
@@ -714,28 +730,70 @@ namespace ParsnipData.Media
 
                         while (reader.Read())
                         {
+                            var media = new RankedMedia(reader, loggedInUserId);
+                            tempMedia.Add(media);
+                        }
+
+                        reader.NextResult();
+
+                        while (reader.Read())
+                        {
                             var user = new User(reader);
                             mediaSearchResult.Users.Add(user);
+                        }
+
+                        reader.NextResult();
+
+                        while (reader.Read())
+                        {
+                            var media = new RankedMedia(reader, loggedInUserId);
+                            tempMedia.Add(media);
                         }
                     }
                 }
 
                 foreach(var media in tempMedia)
                 {
-                    var searchStrings = text.Split(' ');
+                    var searchStrings = System.Text.RegularExpressions.Regex.Replace(text, "[^a-zA-Z0-9_ ]", "").Split(' ');
+                    var title = string.IsNullOrEmpty(media.Title)? "" : System.Text.RegularExpressions.Regex.Replace(media.Title, "[^a-zA-Z0-9_ ]", "");
 
-                    foreach(var s in searchStrings)
+                    foreach (var s in searchStrings)
                     {
                         //Only search for full words in titles (check for space before or after)
-                        if (media.Title.Contains(" "))
+                        if (title.Contains(" "))
                         {
-                            if (media.Title.IndexOf($" {s}", StringComparison.OrdinalIgnoreCase) >= 0)
+                            if (title.IndexOf($" {s}", StringComparison.OrdinalIgnoreCase) >= 0)
                                 media.RankScore++;
-                            else if (media.Title.IndexOf($"{s} ", StringComparison.OrdinalIgnoreCase) >= 0)
+                            else if (title.IndexOf($"{s} ", StringComparison.OrdinalIgnoreCase) >= 0)
                                 media.RankScore++;
+
+                            CheckSearchTerms();
                         }
-                        else if (media.Title.IndexOf($"{s}", StringComparison.OrdinalIgnoreCase) >= 0)
+                        else if (title.IndexOf($"{s}", StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
                             media.RankScore++;
+                            CheckSearchTerms();
+                        }
+                        else
+                        {
+                            CheckSearchTerms();
+                        }
+
+                        void CheckSearchTerms()
+                        {
+                            if (media.SearchTerms != null)
+                            {
+                                if (media.SearchTerms.Contains(" "))
+                                {
+                                    if (media.SearchTerms.IndexOf($"{s} ", StringComparison.OrdinalIgnoreCase) >= 0)
+                                        media.RankScore++;
+                                    else if (media.SearchTerms.IndexOf($" {s}", StringComparison.OrdinalIgnoreCase) >= 0)
+                                        media.RankScore++;
+                                }
+                                else if (media.SearchTerms.IndexOf($"{s}", StringComparison.OrdinalIgnoreCase) >= 0)
+                                    media.RankScore++;
+                            }
+                        }
                     }
                 }
 

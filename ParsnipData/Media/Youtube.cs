@@ -242,6 +242,8 @@ namespace ParsnipData.Media
                         updateYoutubeVideo.Parameters.AddWithValue("placeholder_dir", Placeholder);
                         updateYoutubeVideo.Parameters.AddWithValue("compressed_dir", Compressed);
                         updateYoutubeVideo.Parameters.AddWithValue("original_dir", Original);
+                        if (!string.IsNullOrEmpty(SearchTerms))
+                            updateYoutubeVideo.Parameters.AddWithValue("search_terms", SearchTerms);
 
                         conn.Open();
                         updateYoutubeVideo.ExecuteNonQuery();
@@ -320,6 +322,16 @@ namespace ParsnipData.Media
                 XScale = (short)reader[17];
 
                 YScale = (short)reader[18];
+
+                try
+                {
+                    if (reader[19] != DBNull.Value && !string.IsNullOrEmpty(reader[19].ToString()))
+                        SearchTerms = reader[19].ToString().Trim();
+                }
+                catch (IndexOutOfRangeException)
+                {
+
+                }
 
                 CheckTitle();
 

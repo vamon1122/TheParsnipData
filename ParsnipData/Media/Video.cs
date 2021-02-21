@@ -384,6 +384,16 @@ namespace ParsnipData.Media
 
                 Status = new MediaStatus(reader[22].ToString().Trim());
 
+                try
+                {
+                    if (reader[23] != DBNull.Value && !string.IsNullOrEmpty(reader[23].ToString()))
+                        SearchTerms = reader[23].ToString().Trim();
+                }
+                catch (IndexOutOfRangeException)
+                {
+
+                }
+
                 return true;
             }
             catch (Exception ex)
