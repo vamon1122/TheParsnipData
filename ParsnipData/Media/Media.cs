@@ -677,5 +677,84 @@ namespace ParsnipData.Media
 
             return XScale > YScale;
         }
+
+        public static MediaSearchResult Search(string text, int loggedInUserId)
+        {
+            var mediaSearchResult = new MediaSearchResult();
+            var tempMedia = new List<RankedMedia>();
+            using(var conn = new SqlConnection(ParsnipData.Parsnip.ParsnipConnectionString))
+            {
+                using (var searchForMedia = new SqlCommand("media_SEARCH_WHERE_text", conn))
+                {
+                    searchForMedia.CommandType = CommandType.StoredProcedure;
+
+                    searchForMedia.Parameters.AddWithValue("text", text);
+                    searchForMedia.Parameters.AddWithValue("logged_in_user_id", loggedInUserId);
+                    searchForMedia.Parameters.AddWithValue("now", Parsnip.AdjustedTime);
+
+                    conn.Open();
+                    using (SqlDataReader reader = searchForMedia.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            var media = new RankedMedia(reader, loggedInUserId);
+                            tempMedia.Add(media);
+                        }
+
+                        reader.NextResult();
+
+                        while (reader.Read())
+                        {
+                            var mediaTag = new MediaTag(reader);
+                            mediaSearchResult.MediaTags.Add(mediaTag);
+                        }
+
+                        reader.NextResult();
+
+                        while (reader.Read())
+                        {
+                            var user = new User(reader);
+                            mediaSearchResult.Users.Add(user);
+                        }
+                    }
+                }
+
+                foreach(var media in tempMedia)
+                {
+                    var searchStrings = text.Split(' ');
+
+                    foreach(var s in searchStrings)
+                    {
+                        //Only search for full words in titles (check for space before or after)
+                        if (media.Title.Contains(" "))
+                        {
+                            if (media.Title.IndexOf($" {s}", StringComparison.OrdinalIgnoreCase) >= 0)
+                                media.RankScore++;
+                            else if (media.Title.IndexOf($"{s} ", StringComparison.OrdinalIgnoreCase) >= 0)
+                                media.RankScore++;
+                        }
+                        else if (media.Title.IndexOf($"{s}", StringComparison.OrdinalIgnoreCase) >= 0)
+                            media.RankScore++;
+                    }
+                }
+
+                var maxScore = text.Split(' ').Count();
+                var halfScore = (double)maxScore / 2;
+                int minScore;
+
+                if (tempMedia.FindIndex(x => x.RankScore == maxScore) >= 0)
+                    minScore = maxScore;
+                else if (tempMedia.FindIndex(x => x.RankScore >= halfScore) >= 0)
+                    minScore = halfScore >= 1 ? Convert.ToInt16(halfScore) : 1;
+                else
+                    minScore = 1;
+                
+                mediaSearchResult.Media = tempMedia.Where(x => x.RankScore >= minScore).OrderByDescending(x => x.RankScore).ThenByDescending(x => x.DateTimeCaptured).ToList();
+
+
+                return mediaSearchResult;
+            }
+        }
     }
 }
