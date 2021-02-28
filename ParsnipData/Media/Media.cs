@@ -817,49 +817,17 @@ namespace ParsnipData.Media
 
                 foreach (var media in tempMedia)
                 {
-                    var searchStrings = System.Text.RegularExpressions.Regex.Replace(text.ToLower(), "[^a-zA-Z0-9_ ]", "").Split(' ');
-                    var title = string.IsNullOrEmpty(media.Title)? "" : System.Text.RegularExpressions.Regex.Replace(media.Title.ToLower(), "[^a-zA-Z0-9_ ]", "");
+                    var searchTerms = System.Text.RegularExpressions.Regex.Replace(text.ToLower(), "[^a-z0-9_ ]", "").Split(' ');
+                    var title = string.IsNullOrEmpty(media.Title) ? null : 
+                        $"{System.Text.RegularExpressions.Regex.Replace(media.Title.ToLower(), "[^a-z0-9_ ]", "")}".Split(' ');
+                    var mediaSearchTerms = string.IsNullOrEmpty(media.SearchTerms) ? null : media.SearchTerms.Split(' ');
 
-                    foreach (var s in searchStrings)
+                    foreach (var searchTerm in searchTerms)
                     {
-                        var scored = false;
-                        //Only search for full words in titles (check for space before or after)
-                        if (title.Contains(" "))
-                        {
-                            if (title.IndexOf($" {s}", StringComparison.OrdinalIgnoreCase) >= 0)
-                            {
-                                media.RankScore++;
-                                scored = true;
-                            }
-                            else if (title.IndexOf($"{s} ", StringComparison.OrdinalIgnoreCase) >= 0)
-                            {
-                                media.RankScore++;
-                                scored = true;
-                            }
-                        }
-                        else if (title.IndexOf($"{s}", StringComparison.OrdinalIgnoreCase) >= 0)
+                        if ((title != null && Array.IndexOf(title, searchTerm) >= 0) || 
+                            (mediaSearchTerms != null && Array.IndexOf(mediaSearchTerms, searchTerm) >= 0))
                         {
                             media.RankScore++;
-                            scored = true;
-                        }
-
-                        if(!scored)
-                            CheckSearchTerms();
-
-                        void CheckSearchTerms()
-                        {
-                            if (media.SearchTerms != null)
-                            {
-                                if (media.SearchTerms.Contains(" "))
-                                {
-                                    if (media.SearchTerms.IndexOf($"{s} ", StringComparison.OrdinalIgnoreCase) >= 0)
-                                        media.RankScore++;
-                                    else if (media.SearchTerms.IndexOf($" {s}", StringComparison.OrdinalIgnoreCase) >= 0)
-                                        media.RankScore++;
-                                }
-                                else if (media.SearchTerms.IndexOf($"{s}", StringComparison.OrdinalIgnoreCase) >= 0)
-                                    media.RankScore++;
-                            }
                         }
                     }
                 }
