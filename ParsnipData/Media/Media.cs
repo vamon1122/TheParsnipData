@@ -697,10 +697,8 @@ namespace ParsnipData.Media
         public static MediaSearchResult Search(string text, int loggedInUserId)
         {
             var mediaSearchResult = new MediaSearchResult();
-            var tempMedia = new List<RankedMedia>();
-            var tempMediaOnTitle = new List<RankedMedia>();
-            var tempMediaOnTag = new List<RankedMedia>();
-            var tempMediaOnUserTag = new List<RankedMedia>();
+            var tempMediaTagPair = new List<MediaTagPair>();
+            var tempMediaUserPair = new List<MediaUserPair>();
             using (var conn = new SqlConnection(ParsnipData.Parsnip.ParsnipConnectionString))
             {
                 using (var searchForMedia = new SqlCommand("media_SEARCH_WHERE_text", conn))
@@ -714,11 +712,10 @@ namespace ParsnipData.Media
                     conn.Open();
                     using (SqlDataReader reader = searchForMedia.ExecuteReader())
                     {
-
                         while (reader.Read())
                         {
                             var media = new RankedMedia(reader, loggedInUserId);
-                            tempMediaOnTitle.Add(media);
+                            mediaSearchResult.Media.Add(media);
                         }
 
                         reader.NextResult();
@@ -733,9 +730,14 @@ namespace ParsnipData.Media
 
                         while (reader.Read())
                         {
-                            var media = new RankedMedia(reader, loggedInUserId);
-                            media.SearchTerms = string.IsNullOrEmpty(media.SearchTerms) ? null : System.Text.RegularExpressions.Regex.Replace(media.SearchTerms, "[^a-zA-Z0-9_ ]", "");
-                            tempMediaOnTag.Add(media);
+                            var mediaTagPair = new MediaTagPair(reader);
+                            var media = mediaSearchResult.Media.SingleOrDefault(x => x.Id.Equals(mediaTagPair.MediaId));
+                            if(media != null) //(media not returned if deleted)
+                            {
+                                var tag = mediaSearchResult.MediaTags.SingleOrDefault(mediaTag => mediaTag.Id.Equals(mediaTagPair.MediaTag.Id));
+                                media.SearchTerms += $" {tag.Name} {tag.SearchTerms}";
+                                tempMediaTagPair.Add(mediaTagPair);
+                            }
                         }
 
                         reader.NextResult();
@@ -750,81 +752,28 @@ namespace ParsnipData.Media
 
                         while (reader.Read())
                         {
-                            var media = new RankedMedia(reader, loggedInUserId);
-                            media.SearchTerms = string.IsNullOrEmpty(media.SearchTerms) ? null : System.Text.RegularExpressions.Regex.Replace(media.SearchTerms, "[^a-zA-Z0-9_ ]", "");
-                            tempMediaOnUserTag.Add(media);
+                            var mediaUserPair = new MediaUserPair(reader);
+                            var media = mediaSearchResult.Media.SingleOrDefault(m => m.Id.Equals(mediaUserPair.MediaId));
+                            if (media != null) //(media not returned if deleted)
+                            {
+                                var user = mediaSearchResult.Users.SingleOrDefault(u => u.Id == mediaUserPair.UserId);
+                                media.SearchTerms += $" {user.FullName} {user.Username} {user.SearchTerms}";
+                                tempMediaUserPair.Add(mediaUserPair);
+                            }
                         }
                     }
                 }
 
-                //consolodate tags
-                foreach (var mediaOnTag in tempMediaOnTag.GroupBy(x => x.Id.ToString()).Select(x => x.First()))
+                foreach (var media in mediaSearchResult.Media)
                 {
-                    foreach (var m in tempMediaOnTag.Where(x => x.Id.ToString() == mediaOnTag.Id.ToString() && x.InstanceId.ToString() != mediaOnTag.InstanceId.ToString()))
-                    {
-                        mediaOnTag.SearchTerms += $" {m.SearchTerms}";
-                    }
-                }
-                tempMediaOnTag = tempMediaOnTag.GroupBy(x => x.Id.ToString()).Select(x => x.First()).ToList();
-
-                foreach (var mediaOnUserTag in tempMediaOnUserTag.GroupBy(x => x.Id.ToString()).Select(x => x.First()))
-                {
-                    foreach (var m in tempMediaOnUserTag.Where(x => x.Id.ToString() == mediaOnUserTag.Id.ToString() && x.InstanceId.ToString() != mediaOnUserTag.InstanceId.ToString()))
-                    {
-                        mediaOnUserTag.SearchTerms += $" {m.SearchTerms}";
-                    }
-                }
-                tempMediaOnUserTag = tempMediaOnUserTag.GroupBy(x => x.Id.ToString()).Select(x => x.First()).ToList();
-
-                //Remove duplicates
-                foreach (var mediaOnTitle in tempMediaOnTitle)
-                {
-                    var test = tempMediaOnTag.Where(x => x.Id.ToString() == mediaOnTitle.Id.ToString());
-                    foreach (var mediaOnTag in tempMediaOnTag.ToList())
-                    {
-                        if(mediaOnTitle.Id.ToString() == mediaOnTag.Id.ToString())
-                        {
-                            mediaOnTitle.SearchTerms+= $" {mediaOnTag.SearchTerms}";
-                            tempMediaOnTag.Remove(tempMediaOnTag.Where(x => x.InstanceId.ToString() == mediaOnTag.InstanceId.ToString()).First());
-                        }
-                    }
-
-                    foreach (var mediaOnUserTag in tempMediaOnUserTag.ToList())
-                    {
-                        if (mediaOnTitle.Id.ToString() == mediaOnUserTag.Id.ToString())
-                        {
-                            mediaOnTitle.SearchTerms += $" {mediaOnUserTag.SearchTerms}";
-                            tempMediaOnUserTag.Remove(mediaOnUserTag);
-                        }
-                    }
-                }
-
-                foreach (var mediaOnTag in tempMediaOnTag)
-                {
-                    foreach (var mediaOnUserTag in tempMediaOnUserTag.ToList())
-                    {
-                        if (mediaOnTag.Id.ToString() == mediaOnUserTag.Id.ToString())
-                        {
-                            mediaOnTag.SearchTerms += $" {mediaOnUserTag.SearchTerms}";
-                            tempMediaOnUserTag.Remove(mediaOnUserTag);
-                        }
-                    }
-                }
-
-                tempMedia.AddRange(tempMediaOnTitle);
-                tempMedia.AddRange(tempMediaOnTag);
-                tempMedia.AddRange(tempMediaOnUserTag);
-
-                foreach (var media in tempMedia)
-                {
-                    var searchTerms = System.Text.RegularExpressions.Regex.Replace(text.ToLower(), "[^a-z0-9_ ]", "").Split(' ');
-                    var title = string.IsNullOrEmpty(media.Title) ? null : 
+                    var searchedTerms = System.Text.RegularExpressions.Regex.Replace(text.ToLower(), "[^a-z0-9_ ]", "").Split(' ');
+                    var mediaTitle = string.IsNullOrEmpty(media.Title) ? null : 
                         $"{System.Text.RegularExpressions.Regex.Replace(media.Title.ToLower(), "[^a-z0-9_ ]", "")}".Split(' ');
                     var mediaSearchTerms = string.IsNullOrEmpty(media.SearchTerms) ? null : media.SearchTerms.Split(' ');
 
-                    foreach (var searchTerm in searchTerms)
+                    foreach (var searchTerm in searchedTerms)
                     {
-                        if ((title != null && Array.IndexOf(title, searchTerm) >= 0) || 
+                        if ((mediaTitle != null && Array.IndexOf(mediaTitle, searchTerm) >= 0) || 
                             (mediaSearchTerms != null && Array.IndexOf(mediaSearchTerms, searchTerm) >= 0))
                         {
                             media.RankScore++;
@@ -836,14 +785,14 @@ namespace ParsnipData.Media
                 var halfScore = (double)maxScore / 2;
                 int minScore;
 
-                if (tempMediaOnTitle.FindIndex(x => x.RankScore == maxScore) >= 0)
+                if (mediaSearchResult.Media.FindIndex(x => x.RankScore == maxScore) >= 0)
                     minScore = maxScore;
-                else if (tempMediaOnTitle.FindIndex(x => x.RankScore >= halfScore) >= 0)
+                else if (mediaSearchResult.Media.FindIndex(x => x.RankScore >= halfScore) >= 0)
                     minScore = halfScore >= 1 ? Convert.ToInt16(halfScore) : 1;
                 else
                     minScore = 1;
                 
-                mediaSearchResult.Media = tempMedia.Where(x => x.RankScore >= minScore).OrderByDescending(x => x.RankScore).ThenByDescending(x => x.DateTimeCaptured).ToList();
+                mediaSearchResult.Media = mediaSearchResult.Media.Where(x => x.RankScore >= minScore).OrderByDescending(x => x.RankScore).ThenByDescending(x => x.DateTimeCaptured).ToList();
 
 
                 return mediaSearchResult;

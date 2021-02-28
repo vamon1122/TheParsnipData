@@ -19,7 +19,7 @@ namespace ParsnipData
 
     
 
-    public class ParsnipId
+    public class ParsnipId : IEquatable<ParsnipId>, IEquatable<string>
     {
         public static readonly ParsnipId Empty = new ParsnipId();
 
@@ -63,6 +63,15 @@ namespace ParsnipData
         public override string ToString()
         {
             return _id;
+        }
+
+        public bool Equals(string other)
+        {
+            return this._id == other;
+        }
+        public bool Equals(ParsnipId other)
+        {
+            return this._id == other._id;
         }
     }
 }

@@ -31,15 +31,20 @@ namespace ParsnipData.Media
         public void AddValues(SqlDataReader reader)
         {
             MediaId = new MediaId(reader[0].ToString());
+            System.Diagnostics.Debug.WriteLine(Convert.ToInt32(reader[1]));
             MediaTag = new MediaTag((int)reader[1]);
             CreatedByUserId = (int)reader[2];
             DateTimeCreated = Convert.ToDateTime(reader[3]);
-            MediaTag.CreatedById = (int)reader[4];
-            MediaTag.DateCreated = Convert.ToDateTime(reader[5]);
-            MediaTag.Name = reader[6].ToString().Trim();
+            try
+            {
+                MediaTag.CreatedById = (int)reader[4];
+                MediaTag.DateCreated = Convert.ToDateTime(reader[5]);
+                MediaTag.Name = reader[6].ToString().Trim();
 
-            if (reader[7] != DBNull.Value)
-                MediaTag.Description = reader[8].ToString();
+                if (reader[7] != DBNull.Value)
+                    MediaTag.Description = reader[8].ToString();
+            }
+            catch (IndexOutOfRangeException) { };
         }
 
         public void Insert()

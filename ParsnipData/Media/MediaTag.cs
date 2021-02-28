@@ -26,6 +26,8 @@ namespace ParsnipData.Media
 
         private string _description;
         public string Description { get { return _description ?? $"See all photos and videos tagged with #{Name}";  } set { _description = value; } }
+        private string _searchTerms;
+        public string SearchTerms { get { return _searchTerms; } set { _searchTerms = string.IsNullOrEmpty(value) ? null : System.Text.RegularExpressions.Regex.Replace(value.ToLower(), "[^a-z0-9_ ]", ""); } }
 
         public static List<MediaTag> GetAllTags()
         {
@@ -135,6 +137,17 @@ namespace ParsnipData.Media
                 {
                     Description = pReader[4].ToString().Trim();
                 }
+
+                try
+                {
+                    if (pReader[5] != DBNull.Value &&
+                            !string.IsNullOrEmpty(pReader[5].ToString()) &&
+                            !string.IsNullOrWhiteSpace(pReader[5].ToString()))
+                    {
+                        SearchTerms = pReader[5].ToString().Trim();
+                    }
+                }
+                catch (IndexOutOfRangeException) { };
 
                 return true;
             }

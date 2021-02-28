@@ -149,6 +149,8 @@ namespace ParsnipData.Accounts
         public int createdByUserId { get { return _createdByUserId; } set { /*Debug.WriteLine(string.Format("----------createdByUserId is being set to = {0}", value));*/ _createdByUserId = value; } }
         public string FullName { get { return string.Format("{0} {1}", Forename, Surname); } }
         public List<string> ValidationErrors { get;  set; }
+        private string _searchTerms;
+        public string SearchTerms { get { return _searchTerms; } set { _searchTerms = string.IsNullOrEmpty(value) ? null : System.Text.RegularExpressions.Regex.Replace(value.ToLower(), "[^a-z0-9_ ]", ""); } }
         #endregion
 
         #region Constructors
@@ -663,6 +665,17 @@ namespace ParsnipData.Accounts
 
                 AccountType = pReader[17].ToString().Trim();
                 AccountStatus = pReader[18].ToString().Trim();
+
+                try
+                {
+                    if (pReader[21] != DBNull.Value &&
+                            !string.IsNullOrEmpty(pReader[21].ToString()) &&
+                            !string.IsNullOrWhiteSpace(pReader[21].ToString()))
+                    {
+                        SearchTerms = pReader[21].ToString().Trim();
+                    }
+                }
+                catch (IndexOutOfRangeException) { };
 
                 return true;
             }
