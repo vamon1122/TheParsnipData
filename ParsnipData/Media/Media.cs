@@ -696,7 +696,7 @@ namespace ParsnipData.Media
 
         public static MediaSearchResult Search(string text, int loggedInUserId)
         {
-            var mediaSearchResult = new MediaSearchResult();
+            var mediaSearchResult = new MediaSearchResult(text);
             var tempMediaTagPair = new List<MediaTagPair>();
             var tempMediaUserPair = new List<MediaUserPair>();
             using (var conn = new SqlConnection(ParsnipData.Parsnip.ParsnipConnectionString))

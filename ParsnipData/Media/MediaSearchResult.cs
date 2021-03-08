@@ -9,12 +9,15 @@ namespace ParsnipData.Media
 {
     public class MediaSearchResult
     {
-        public MediaSearchResult()
+        public MediaSearchResult(string searchTerms)
         {
+            SearchTerms = searchTerms;
             Media = new List<RankedMedia>();
             MediaTags = new List<MediaTag>();
             Users = new List<Accounts.User>();
         }
+
+        public string SearchTerms { get; set; }
 
         public List<RankedMedia> Media { get; set; }
 
