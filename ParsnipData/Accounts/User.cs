@@ -768,11 +768,15 @@ namespace ParsnipData.Accounts
                         conn.Open();
                         using (SqlDataReader reader = selectAccount.ExecuteReader())
                         {
-                            while (reader.Read())
+                            if (reader.Read())
                             {
                                 var myUser = new User();
                                 myUser.AddValues(reader);
                                 return myUser;
+                            }
+                            else
+                            {
+                                return null;
                             }
                         }
                     }

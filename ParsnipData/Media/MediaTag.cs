@@ -94,10 +94,10 @@ namespace ParsnipData.Media
 
                     using(var reader = selectMediaTagById.ExecuteReader())
                     {
-                        while (reader.Read())
-                        {
+                        if (reader.Read())
                             myMediaTag.AddValues(reader);
-                        }
+                        else
+                            return null;
                     }
 
                     return myMediaTag;
