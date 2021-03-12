@@ -23,9 +23,7 @@ namespace ParsnipData.Media
         public int CreatedById { get; set; }
         public DateTime DateCreated { get; set; }
         public string Name { get; set; }
-
-        private string _description;
-        public string Description { get { return _description ?? $"See all photos and videos tagged with #{Name}";  } set { _description = value; } }
+        public string Description { get; set; }
         private string _searchTerms;
         public string SearchTerms { get { return _searchTerms; } set { _searchTerms = string.IsNullOrEmpty(value) ? null : System.Text.RegularExpressions.Regex.Replace(value.ToLower(), "[^a-z0-9_ ]", ""); } }
 
