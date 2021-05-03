@@ -445,7 +445,7 @@ namespace ParsnipData.Media
             }
             ViewCount++;
         }
-        public static Media Select(MediaId mediaId, int loggedInUserId)
+        public static Media Select(MediaId mediaId, int loggedInUserId = default)
         {
             Media media = null;
             

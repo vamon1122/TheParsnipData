@@ -54,6 +54,7 @@
     <Compile Include="Logs\Log.cs" />
     <Compile Include="Logs\LogEntry.cs" />
     <Compile Include="Media\MediaSearchResult.cs" />
+    <Compile Include="Media\MediaView.cs" />
     <Compile Include="Media\RankedMedia.cs" />
     <Compile Include="Media\VideoSequence.cs" />
     <Compile Include="Media\MediaShare.cs" />
