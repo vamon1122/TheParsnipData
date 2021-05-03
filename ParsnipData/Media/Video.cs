@@ -27,7 +27,7 @@ namespace ParsnipData.Media
         public short XScale { get; set; }
         public int Height { get; set; }
         public int Width { get; set; }
-        public int Duration { get; set; }
+        public TimeSpan Duration { get; set; }
     }
     public class Video : Media
     {
@@ -249,7 +249,7 @@ namespace ParsnipData.Media
                                 updateMedia.Parameters.AddWithValue("y_scale", VideoData.YScale);
 
                             if (VideoData.Duration != default)
-                                updateMedia.Parameters.AddWithValue("duration", VideoData.Duration);
+                                updateMedia.Parameters.AddWithValue("duration", VideoData.Duration.Ticks);
 
                             if (Status != null)
                                 updateMedia.Parameters.AddWithValue("status", Status.ToString());
