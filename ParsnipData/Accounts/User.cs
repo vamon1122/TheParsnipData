@@ -147,7 +147,7 @@ namespace ParsnipData.Accounts
         public string AccountStatus { get { return _accountStatus; } set { /*Debug.WriteLine(string.Format("----------accountStatus is being set to = {0}", value));*/ _accountStatus = value; } }
         private int _createdByUserId;
         public int createdByUserId { get { return _createdByUserId; } set { /*Debug.WriteLine(string.Format("----------createdByUserId is being set to = {0}", value));*/ _createdByUserId = value; } }
-        public string FullName { get { return string.Format("{0} {1}", Forename, Surname); } }
+        public string FullName { get { return string.IsNullOrEmpty(Forename) ? "Someone who was not logged in" : string.Format("{0} {1}", Forename, Surname); } }
         public List<string> ValidationErrors { get;  set; }
         private string _searchTerms;
         public string SearchTerms { get { return _searchTerms; } set { _searchTerms = string.IsNullOrEmpty(value) ? null : Parsnip.SanitiseSearchString(value); } }
