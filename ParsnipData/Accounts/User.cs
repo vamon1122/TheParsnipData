@@ -150,7 +150,7 @@ namespace ParsnipData.Accounts
         public string FullName { get { return string.Format("{0} {1}", Forename, Surname); } }
         public List<string> ValidationErrors { get;  set; }
         private string _searchTerms;
-        public string SearchTerms { get { return _searchTerms; } set { _searchTerms = string.IsNullOrEmpty(value) ? null : System.Text.RegularExpressions.Regex.Replace(value.ToLower(), "[^a-z0-9_ ]", ""); } }
+        public string SearchTerms { get { return _searchTerms; } set { _searchTerms = string.IsNullOrEmpty(value) ? null : Parsnip.SanitiseSearchString(value); } }
         #endregion
 
         #region Constructors

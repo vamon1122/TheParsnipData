@@ -25,7 +25,7 @@ namespace ParsnipData.Media
         public string Name { get; set; }
         public string Description { get; set; }
         private string _searchTerms;
-        public string SearchTerms { get { return _searchTerms; } set { _searchTerms = string.IsNullOrEmpty(value) ? null : System.Text.RegularExpressions.Regex.Replace(value.ToLower(), "[^a-z0-9_ ]", ""); } }
+        public string SearchTerms { get { return _searchTerms; } set { _searchTerms = string.IsNullOrEmpty(value) ? null : Parsnip.SanitiseSearchString(value); } }
 
         public static List<MediaTag> GetAllTags()
         {

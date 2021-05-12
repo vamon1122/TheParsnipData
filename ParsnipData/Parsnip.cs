@@ -15,9 +15,11 @@ namespace ParsnipData
             ConfigurationManager.ConnectionStrings["ParsnipDb"].ConnectionString;
         
         public static DateTime AdjustedTime { get { return DateTime.Now.AddHours(8); } }
+
+        public static string SanitiseSearchString(string text) => System.Text.RegularExpressions.Regex.Replace(text.ToLower(), "[^a-z0-9_ ]", "");
     }
 
-    
+
 
     public class ParsnipId : IEquatable<ParsnipId>, IEquatable<string>
     {

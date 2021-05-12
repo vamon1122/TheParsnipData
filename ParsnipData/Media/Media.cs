@@ -105,7 +105,7 @@ namespace ParsnipData.Media
         public int ViewCount { get; set; }
         public long FileSize { get; set; }
         public MediaStatus Status { get; set; }
-        public string SearchTerms { get { return _searchTerms; } set { _searchTerms = string.IsNullOrEmpty(value) ? null : System.Text.RegularExpressions.Regex.Replace(value.ToLower(), "[^a-z0-9_ ]", ""); } }
+        public string SearchTerms { get { return _searchTerms; } set { _searchTerms = string.IsNullOrEmpty(value) ? null : Parsnip.SanitiseSearchString(value); } }
         #endregion
 
         #region Extra Properties
@@ -694,8 +694,10 @@ namespace ParsnipData.Media
             return XScale > YScale;
         }
 
+
         public static MediaSearchResult Search(string text, int loggedInUserId)
         {
+            text = Parsnip.SanitiseSearchString(text);
             var mediaSearchResult = new MediaSearchResult(text);
             var tempMediaTagPair = new List<MediaTagPair>();
             var tempMediaUserPair = new List<MediaUserPair>();
