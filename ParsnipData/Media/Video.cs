@@ -138,6 +138,39 @@ namespace ParsnipData.Media
                 return false;
             }
         }
+        public static List<Video> Select()
+        {
+            var videos = new List<Video>();
+            try
+            {
+                using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+                {
+                    using (SqlCommand selectVideo = new SqlCommand("video_SELECT", conn))
+                    {
+                        selectVideo.CommandType = CommandType.StoredProcedure;
+
+                        conn.Open();
+                        using (SqlDataReader reader = selectVideo.ExecuteReader())
+                        {
+
+                            while (reader.Read())
+                            {
+                                var video = new Video();
+                                video.AddValues(reader);
+                                videos.Add(video);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"There was an exception whilst getting all videos: {ex}");
+            }
+
+            return videos;
+        }
+
         public new static Video Select(MediaId mediaId, int loggedInUserId)
         {
             Video video = null;
