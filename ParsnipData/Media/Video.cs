@@ -17,11 +17,11 @@ namespace ParsnipData.Media
     public class VideoData
     {
         public string OriginalFileDir { get; set; }
-        public string OriginalFileName { get { return OriginalFileDir.Split('/').Last(); } }
-        public string OriginalFileExtension { get { return $".{OriginalFileDir.Split('.').Last()}"; } }
+        public string OriginalFileName { get { return OriginalFileDir?.Split('/').Last(); } }
+        public string OriginalFileExtension { get { return $".{OriginalFileDir?.Split('.').Last()}"; } }
         public string CompressedFileDir { get; set; }
-        public string CompressedFileName { get { return CompressedFileDir.Split('/').Last(); } }
-        public string CompressedFileExtension { get { return $".{CompressedFileDir.Split('.').Last()}"; } }
+        public string CompressedFileName { get { return CompressedFileDir?.Split('/').Last(); } }
+        public string CompressedFileExtension { get { return $".{CompressedFileDir?.Split('.').Last()}"; } }
         public string VideoDir { get { return string.IsNullOrEmpty(CompressedFileDir) ? OriginalFileDir : CompressedFileDir; } }
         public short YScale { get; set; }
         public short XScale { get; set; }
