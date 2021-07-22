@@ -129,36 +129,6 @@ namespace ParsnipData.Media
         #endregion
 
         #region Get Media
-        public static Media SelectLatestVideo(int loggedInUserId)
-        {
-            Media myMedia = null;
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
-                {
-                    conn.Open();
-                    using (SqlCommand getLatestVideo = new SqlCommand("media_SELECT_latest_video", conn))
-                    {
-                        getLatestVideo.CommandType = CommandType.StoredProcedure;
-                        getLatestVideo.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
-
-                        using (SqlDataReader reader = getLatestVideo.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                myMedia = new Media(reader, loggedInUserId);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return myMedia;
-        }
         public static List<Media> SelectByUserId(int userId, int loggedInUserId)
         {
             var media = new List<Media>();
@@ -799,6 +769,32 @@ namespace ParsnipData.Media
 
                 return mediaSearchResult;
             }
+        }
+
+        public static List<Media> SelectLatestMedia(int loggedInUserId)
+        {
+            List<Media> latestMedia = new List<Media>();
+
+            using (SqlConnection conn = new SqlConnection(Parsnip.ParsnipConnectionString))
+            {
+                conn.Open();
+                using (SqlCommand getLatestMedia = new SqlCommand("media_SELECT_latest", conn))
+                {
+                    getLatestMedia.CommandType = CommandType.StoredProcedure;
+                    getLatestMedia.Parameters.Add(new SqlParameter("now", Parsnip.AdjustedTime));
+                    getLatestMedia.Parameters.Add(new SqlParameter("logged_in_user_id", loggedInUserId));
+
+                    using (SqlDataReader reader = getLatestMedia.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            latestMedia.Add(new Media(reader, loggedInUserId));
+                        }
+                    }
+                }
+            }
+
+            return latestMedia;
         }
     }
 }
