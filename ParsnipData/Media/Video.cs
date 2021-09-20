@@ -290,8 +290,10 @@ namespace ParsnipData.Media
                             if (VideoData.Duration != default)
                                 updateMedia.Parameters.AddWithValue("duration", VideoData.Duration.Ticks);
 
-                            if (Status != null)
-                                updateMedia.Parameters.AddWithValue("status", Status.ToString());
+                            if (Status == null)
+                                throw new Exception("Media status not set");
+
+                            updateMedia.Parameters.AddWithValue("status", Status.ToString());
 
                             conn.Open();
                             updateMedia.ExecuteNonQuery();

@@ -25,9 +25,12 @@ namespace ParsnipData.Media
         public string Original { get; set; }
         public long FileSize { get; set; }
         public string UploadsDir { get { return "Resources/Media/Videos/Thumbnails/"; } }
-        public VideoThumbnail()
+        public VideoThumbnail(Media video, string remoteThumbnailsDir, string thumbnailIdentifier)
         {
-
+            MediaId = video.Id;
+            Placeholder = $"{remoteThumbnailsDir}/Placeholders/{video.Id}_{thumbnailIdentifier}.jpg";
+            Compressed = $"{remoteThumbnailsDir}/Compressed/{video.Id}_{thumbnailIdentifier}.jpg";
+            Original = $"{remoteThumbnailsDir}/Originals/{video.Id}_{thumbnailIdentifier}.png";
         }
         public VideoThumbnail(SqlDataReader reader)
         {

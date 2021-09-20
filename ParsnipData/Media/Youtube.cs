@@ -18,7 +18,7 @@ using System.Text.RegularExpressions;
 
 namespace ParsnipData.Media
 {
-    public class Youtube : Media
+    public class Youtube : Video
     {
         public string DataId { get; set; }
         public override string Type { get { return "youtube"; } }
@@ -28,6 +28,10 @@ namespace ParsnipData.Media
         private Youtube()
         {
 
+        }
+        public Youtube(SqlDataReader pReader, int loggedInUserId = default) : this()
+        {
+            AddValues(pReader, loggedInUserId);
         }
         public Youtube(string dataId, User createdBy)
         {
@@ -39,7 +43,6 @@ namespace ParsnipData.Media
         }
         #endregion
 
-        #region Process Media
         public static string ParseDataId(string url)
         {
             Regex regex = new Regex(@"^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$");
@@ -66,44 +69,6 @@ namespace ParsnipData.Media
 
             return dataId.Length == 11 ? dataId : null;
         }
-        public void Scrape()
-        {
-            ScrapeTitle();
-            ScrapeThumbnail();
-            //int scale = Media.GetAspectScale(originalImage.Width, originalImage.Height);
-        }
-        private void ScrapeTitle()
-        {
-            var api = $"http://youtube.com/get_video_info?video_id=" + DataId;
-
-            var youtubeApiResponse = WebUtility.UrlDecode(new WebClient().DownloadString(api));
-
-            int titleStart = youtubeApiResponse.IndexOf("\",\"title\":\"");
-            int titleEnd = youtubeApiResponse.IndexOf("\",\"lengthSeconds\":\"");
-
-            Title = youtubeApiResponse.Substring(titleStart + 11, titleEnd - titleStart - 11);
-        }
-        public void ScrapeThumbnail()
-        {
-            string uploadsDir = "Resources/Media/Youtube/Thumbnails/";
-            string fullyQualifiedUploadsDir = HttpContext.Current.Server.MapPath($"~/{uploadsDir}");
-
-
-
-            string generatedFileName = $"{Id}_{DataId}";
-
-
-            string ScrapeThumbnailUrl = $"https://i.ytimg.com/vi/{DataId}/mqdefault.jpg";
-
-
-            using (WebClient client = new WebClient())
-            {
-                client.DownloadFile(new Uri(ScrapeThumbnailUrl), $"{fullyQualifiedUploadsDir}/Originals/{generatedFileName}.jpg");
-            }
-
-            ProcessMediaThumbnail(this, generatedFileName, ".jpg");
-        }
-        #endregion
 
         #region CRUD
         public new static Youtube Select(MediaId youtubeVideoId, int loggedInUserId)
@@ -165,6 +130,28 @@ namespace ParsnipData.Media
             }
             return youtubeVideo;
         }
+        public static Youtube SelectOldestUnprocessed()
+        {
+            Youtube oldestUncompressedYoutube = null;
+            using (var conn = new SqlConnection(ParsnipData.Parsnip.ParsnipConnectionString))
+            {
+                using (var selectUnprocessed = new SqlCommand("youtube_SELECT_WHERE_unprocessed", conn))
+                {
+                    selectUnprocessed.CommandType = CommandType.StoredProcedure;
+
+                    conn.Open();
+
+                    using (var reader = selectUnprocessed.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            oldestUncompressedYoutube = new Youtube(reader);
+                        }
+                    }
+                }
+            }
+            return oldestUncompressedYoutube;
+        }
         public override bool Insert()
         {
             if (Compressed != null)
@@ -185,14 +172,7 @@ namespace ParsnipData.Media
 
                             insertMedia.Parameters.AddWithValue("media_id", Id.ToString());
                             insertMedia.Parameters.AddWithValue("data_id", DataId);
-                            insertMedia.Parameters.AddWithValue("type", Type);
-                            insertMedia.Parameters.AddWithValue("datetime_captured", DateTimeCaptured);
                             insertMedia.Parameters.AddWithValue("datetime_created", DateTimeCreated);
-                            insertMedia.Parameters.AddWithValue("x_scale", XScale);
-                            insertMedia.Parameters.AddWithValue("y_scale", YScale);
-                            insertMedia.Parameters.AddWithValue("original_dir", Original);
-                            insertMedia.Parameters.AddWithValue("compressed_dir", Compressed);
-                            insertMedia.Parameters.AddWithValue("placeholder_dir", Placeholder);
                             insertMedia.Parameters.AddWithValue("created_by_user_id", CreatedById);
                             if (AlbumId != default)
                                 insertMedia.Parameters.AddWithValue("media_tag_id", AlbumId);
@@ -216,48 +196,6 @@ namespace ParsnipData.Media
             {
                 throw new InvalidOperationException("Media cannot be inserted. The media's property: src must be initialised before it can be inserted!");
             }
-        }
-        public override bool Update()
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(ParsnipData.Parsnip.ParsnipConnectionString))
-                {
-                    using (SqlCommand updateYoutubeVideo = new SqlCommand("media_UPDATE", conn))
-                    {
-                        updateYoutubeVideo.CommandType = CommandType.StoredProcedure;
-
-                        updateYoutubeVideo.Parameters.Add(new SqlParameter("id", Id.ToString()));
-                        updateYoutubeVideo.Parameters.Add(new SqlParameter("title", Title));
-                        updateYoutubeVideo.Parameters.Add(new SqlParameter("description", Description));
-                        updateYoutubeVideo.Parameters.Add(new SqlParameter("alt", Alt));
-                        updateYoutubeVideo.Parameters.Add(new SqlParameter("datetime_captured", DateTimeCaptured));
-                        if(AlbumId != default)
-                            updateYoutubeVideo.Parameters.Add(new SqlParameter("media_tag_id", AlbumId));
-
-                        //Needs updating so the person who updates is inserted here
-                        updateYoutubeVideo.Parameters.AddWithValue("media_tag_created_by_user_id", CreatedById);
-                        updateYoutubeVideo.Parameters.AddWithValue("x_scale", XScale);
-                        updateYoutubeVideo.Parameters.AddWithValue("y_scale", YScale);
-                        updateYoutubeVideo.Parameters.AddWithValue("placeholder_dir", Placeholder);
-                        updateYoutubeVideo.Parameters.AddWithValue("compressed_dir", Compressed);
-                        updateYoutubeVideo.Parameters.AddWithValue("original_dir", Original);
-                        if (!string.IsNullOrEmpty(SearchTerms))
-                            updateYoutubeVideo.Parameters.AddWithValue("search_terms", SearchTerms);
-
-                        conn.Open();
-                        updateYoutubeVideo.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string error = string.Format("There was an error whilst updating youtubeVideo: {0}", ex);
-                Debug.WriteLine(error);
-                new LogEntry(Log.General) { Text = error };
-                return false;
-            }
-            return true;
         }
         protected override bool AddValues(SqlDataReader reader, int loggedInUserId)
         {
@@ -327,13 +265,17 @@ namespace ParsnipData.Media
                 {
                     if (reader[19] != DBNull.Value && !string.IsNullOrEmpty(reader[19].ToString()))
                         SearchTerms = reader[19].ToString().Trim();
+
+                    if (reader[20] != DBNull.Value)
+                        VideoData.CompressedFileDir = reader[20].ToString().Trim();
+
+                    if (reader[21] != DBNull.Value)
+                        VideoData.OriginalFileDir = reader[21].ToString().Trim();
                 }
                 catch (IndexOutOfRangeException)
                 {
 
                 }
-
-                CheckTitle();
 
                 return true;
             }
@@ -341,12 +283,6 @@ namespace ParsnipData.Media
             {
                 Debug.WriteLine("There was an error whilst reading the YoutubeVideo's values: " + ex);
                 return false;
-            }
-
-            void CheckTitle()
-            {
-                if (string.IsNullOrEmpty(Title))
-                    ScrapeTitle();
             }
         }
         #endregion
