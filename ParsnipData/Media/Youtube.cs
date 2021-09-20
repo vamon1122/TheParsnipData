@@ -114,6 +114,15 @@ namespace ParsnipData.Media
                                     var mediaUserPair = new MediaUserPair(reader);
                                     youtubeVideo.MediaUserPairs.Add(mediaUserPair);
                                 }
+
+                                reader.NextResult();
+
+                                youtubeVideo.Thumbnails = new List<VideoThumbnail>();
+                                while (reader.Read())
+                                {
+                                    var videoThumbnail = new VideoThumbnail(reader);
+                                    youtubeVideo.Thumbnails.Add(videoThumbnail);
+                                }
                             }
                         }
                     }
@@ -278,6 +287,8 @@ namespace ParsnipData.Media
                 {
 
                 }
+
+                Status = new MediaStatus(reader[21].ToString().Trim());
 
                 return true;
             }
