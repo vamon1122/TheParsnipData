@@ -288,7 +288,7 @@ namespace ParsnipData.Media
                                 updateMedia.Parameters.AddWithValue("y_scale", VideoData.YScale);
 
                             if (VideoData.Duration != default)
-                                updateMedia.Parameters.AddWithValue("duration", VideoData.Duration.Ticks);
+                                updateMedia.Parameters.AddWithValue("duration", VideoData.Duration.TotalSeconds);
 
                             if (Status == null)
                                 throw new Exception("Media status not set");
