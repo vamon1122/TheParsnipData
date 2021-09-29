@@ -257,9 +257,11 @@ namespace ParsnipData.Media
                 if(reader[16] != DBNull.Value)
                     Alt = (string)reader[16].ToString().Trim();
 
-                XScale = (short)reader[17];
+                if (reader[17] != DBNull.Value)
+                    XScale = (short)reader[17];
 
-                YScale = (short)reader[18];
+                if (reader[18] != DBNull.Value)
+                    YScale = (short)reader[18];
 
                 try
                 {
