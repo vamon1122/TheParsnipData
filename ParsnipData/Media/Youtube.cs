@@ -287,7 +287,7 @@ namespace ParsnipData.Media
 
                 }
 
-                Status = new MediaStatus(reader[21].ToString().Trim());
+                Status = new MediaStatus(reader[22].ToString().Trim());
 
                 return true;
             }
