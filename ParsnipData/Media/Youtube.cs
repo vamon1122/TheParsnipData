@@ -22,7 +22,6 @@ namespace ParsnipData.Media
     {
         public string DataId { get; set; }
         public override string Type { get { return "youtube"; } }
-        public override string UploadsDir { get { return "Resources/Media/Youtube/Thumbnails/"; } }
         private static string[] _allowedFileExtensions = new string[0];
         #region Constructors
         private Youtube()
