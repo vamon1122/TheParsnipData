@@ -46,6 +46,9 @@ namespace ParsnipData.Media
                 case "error":
                     Value = value;
                     break;
+                case "scraping":
+                    Value = value;
+                    break;
                 default:
                     Value = "raw";
                     break;
@@ -79,6 +82,7 @@ namespace ParsnipData.Media
         public static readonly MediaStatus Processing = new MediaStatus("processing");
         public static readonly MediaStatus Complete = new MediaStatus("complete");
         public static readonly MediaStatus Error = new MediaStatus("error");
+        public static readonly MediaStatus Scraping = new MediaStatus("scraping");
     }
     public class Media
     {
@@ -477,7 +481,7 @@ namespace ParsnipData.Media
             }
             return media;
         }
-        public virtual bool Update()
+        public virtual bool Update(bool isNew = false)
         {
             if (Id != default)
             {
@@ -493,8 +497,8 @@ namespace ParsnipData.Media
                             updateMedia.CommandType = CommandType.StoredProcedure;
 
                             updateMedia.Parameters.AddWithValue("id", Id.ToString());
-                            updateMedia.Parameters.AddWithValue("title", Title);
-                            updateMedia.Parameters.AddWithValue("description", Description);
+                            updateMedia.Parameters.AddWithValue("title", string.IsNullOrWhiteSpace(Title) ? null : Title);
+                            updateMedia.Parameters.AddWithValue("description", string.IsNullOrWhiteSpace(Description) ? null : Description);
                             updateMedia.Parameters.AddWithValue("alt", Alt);
                             updateMedia.Parameters.AddWithValue("datetime_captured", DateTimeCaptured);
                             if(AlbumId != default)
@@ -505,6 +509,7 @@ namespace ParsnipData.Media
                                 updateMedia.Parameters.AddWithValue("search_terms", DBNull.Value);
                             else
                                 updateMedia.Parameters.AddWithValue("search_terms", SearchTerms);
+                            updateMedia.Parameters.AddWithValue("is_new", isNew);
 
                             conn.Open();
                             updateMedia.ExecuteNonQuery();

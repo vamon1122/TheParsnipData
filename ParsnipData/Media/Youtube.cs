@@ -22,6 +22,7 @@ namespace ParsnipData.Media
     {
         public string DataId { get; set; }
         public override string Type { get { return "youtube"; } }
+        public bool IsNew { get => Status.Equals(MediaStatus.Unprocessed) || Status.Equals(MediaStatus.Scraping); }
         private static string[] _allowedFileExtensions = new string[0];
         #region Constructors
         private Youtube()
