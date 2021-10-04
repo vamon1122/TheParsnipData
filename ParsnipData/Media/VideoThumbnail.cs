@@ -133,8 +133,12 @@ namespace ParsnipData.Media
                         insertVideoThumbnail.Parameters.AddWithValue("compressed_dir", Compressed);
                         insertVideoThumbnail.Parameters.AddWithValue("original_dir", Original);
 
+                        var returnParameter = insertVideoThumbnail.Parameters.Add("@ReturnVal", SqlDbType.Int);
+                        returnParameter.Direction = ParameterDirection.ReturnValue;
                         conn.Open();
                         insertVideoThumbnail.ExecuteNonQuery();
+                        var result = returnParameter.Value;
+                        DisplayOrder = Convert.ToInt16(result);
                     }
                 }
                 return true;
@@ -159,8 +163,12 @@ namespace ParsnipData.Media
                         setAsActive.Parameters.AddWithValue("media_id", MediaId.ToString());
                         setAsActive.Parameters.AddWithValue("display_order", DisplayOrder);
 
+                        var returnParameter = setAsActive.Parameters.Add("@ReturnVal", SqlDbType.Int);
+                        returnParameter.Direction = ParameterDirection.ReturnValue;
                         conn.Open();
                         setAsActive.ExecuteNonQuery();
+                        var result = returnParameter.Value;
+                        DisplayOrder = Convert.ToInt16(result);
                     }
                 }
             }

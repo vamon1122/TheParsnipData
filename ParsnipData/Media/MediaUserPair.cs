@@ -31,6 +31,14 @@ namespace ParsnipData.Media
             DateTimeCreated = ParsnipData.Parsnip.AdjustedTime;
         }
 
+        public MediaUserPair(Media media, string name, ParsnipData.Accounts.User createdByUser)
+        {
+            MediaId = media.Id;
+            Name = name;
+            CreatedByUserId = createdByUser.Id;
+            DateTimeCreated = ParsnipData.Parsnip.AdjustedTime;
+        }
+
         public MediaUserPair(SqlDataReader reader)
         {
             AddValues(reader);
@@ -79,7 +87,13 @@ namespace ParsnipData.Media
                     insertMediaUserPair.CommandType = System.Data.CommandType.StoredProcedure;
 
                     insertMediaUserPair.Parameters.AddWithValue("media_id", MediaId.ToString());
-                    insertMediaUserPair.Parameters.AddWithValue("user_id", UserId);
+                    if (Name.Contains(' '))
+                    {
+                        insertMediaUserPair.Parameters.AddWithValue("forename", Name.Split(' ')[0]);
+                        insertMediaUserPair.Parameters.AddWithValue("surname", Name.Split(' ')[1]);
+                    }
+                    else insertMediaUserPair.Parameters.AddWithValue("username", Name);
+
                     insertMediaUserPair.Parameters.AddWithValue("created_by_user_id", CreatedByUserId);
 
                     conn.Open();

@@ -56,7 +56,7 @@ namespace ParsnipData.Media
                     insertMediaTagPair.CommandType = System.Data.CommandType.StoredProcedure;
 
                     insertMediaTagPair.Parameters.AddWithValue("media_id", MediaId.ToString());
-                    insertMediaTagPair.Parameters.AddWithValue("media_tag_id", MediaTag.Id);
+                    insertMediaTagPair.Parameters.AddWithValue("media_tag_name", MediaTag.Name);
                     insertMediaTagPair.Parameters.AddWithValue("media_tag_created_by_user_id", CreatedByUserId);
 
                     conn.Open();

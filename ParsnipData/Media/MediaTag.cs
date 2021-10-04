@@ -108,6 +108,8 @@ namespace ParsnipData.Media
             Id = id;
         }
 
+        public MediaTag(string name) => Name = name;
+
         public MediaTag(SqlDataReader pReader)
         {
             AddValues(pReader);
