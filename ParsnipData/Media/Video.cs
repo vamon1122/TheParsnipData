@@ -28,6 +28,7 @@ namespace ParsnipData.Media
         public int Height { get; set; }
         public int Width { get; set; }
         public TimeSpan Duration { get; set; }
+        public decimal Framerate { get; set; }
     }
     public class Video : Media
     {
