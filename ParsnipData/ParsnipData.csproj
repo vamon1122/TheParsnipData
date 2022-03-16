@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cookies\Cookie.cs" />
+    <Compile Include="Fraction.cs" />
     <Compile Include="Logs\Data.cs" />
     <Compile Include="Logs\Log.cs" />
     <Compile Include="Logs\LogEntry.cs" />
