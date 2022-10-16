@@ -22,7 +22,6 @@ namespace ParsnipData.Cookies
             }
             else
             {
-                Debug.WriteLine(String.Format("----------Failed to read cookie \"{0}\"", pName));
                 return null;
             }
             

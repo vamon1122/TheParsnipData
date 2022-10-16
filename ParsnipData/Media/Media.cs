@@ -394,7 +394,7 @@ namespace ParsnipData.Media
                 throw new InvalidOperationException("Media cannot be inserted. The media's property: src must be initialised before it can be inserted!");
             }
         }
-        public void View(User viewedBy)
+        public void View(User viewedBy, bool isScroll = false, DateTime? timeViewStarted = null, TimeSpan? thresholdTimespan = null, TimeSpan? totalSeconds = null)
         {
             try
             {
@@ -406,7 +406,13 @@ namespace ParsnipData.Media
                         updateMediaShare.CommandType = CommandType.StoredProcedure;
                         updateMediaShare.Parameters.Add(new SqlParameter("media_id", Id.ToString()));
                         updateMediaShare.Parameters.Add(new SqlParameter("created_by_user_id", viewedBy.Id));
-                        updateMediaShare.Parameters.Add(new SqlParameter("datetime_now", Parsnip.AdjustedTime));
+                        updateMediaShare.Parameters.Add(new SqlParameter("datetime_view_started", timeViewStarted ?? Parsnip.AdjustedTime));
+                        updateMediaShare.Parameters.Add(new SqlParameter("is_scroll", isScroll));
+                        if (isScroll)
+                        {
+                            updateMediaShare.Parameters.Add(new SqlParameter("threshold_timespan", thresholdTimespan));
+                            updateMediaShare.Parameters.Add(new SqlParameter("view_timespan", totalSeconds));
+                        }
 
                         conn.Open();
                         updateMediaShare.ExecuteNonQuery();
@@ -635,7 +641,7 @@ namespace ParsnipData.Media
 
                 try
                 {
-                    if (reader[18] != DBNull.Value && !string.IsNullOrEmpty(reader[18].ToString()))
+                    if (reader.FieldCount > 18 && reader[18] != DBNull.Value && !string.IsNullOrEmpty(reader[18].ToString()))
                         SearchTerms = reader[18].ToString().Trim();
                 }
                 catch (IndexOutOfRangeException)

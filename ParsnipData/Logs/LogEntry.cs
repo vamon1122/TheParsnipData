@@ -35,7 +35,7 @@ namespace ParsnipData.Logging
                 if (value.Length < 4001)
                 {
                     _text = value;
-                    Debug.WriteLine("----------[LOG ENTRY] - " + Text);
+                    Debug.WriteLine("[LOG] " + Text);
                     if(isNew) Insert();
                 }
                 else
@@ -62,12 +62,12 @@ namespace ParsnipData.Logging
             return true;
         }
 
-        public LogEntry(Log pLog)
+        public LogEntry(Log pLog, string sessionId = null)
         {  
             isNew = true;
             try
             {
-                SessionId = Cookies.Cookie.Read("ASP.NET_sessionId");
+                SessionId = sessionId ?? Cookies.Cookie.Read("ASP.NET_sessionId");
             }
             catch
             {

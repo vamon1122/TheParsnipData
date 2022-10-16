@@ -328,11 +328,11 @@ namespace ParsnipData.Accounts
         {
             try
             {
-                Cookie.WriteSession("persistentUsername", "");
-                Cookie.WriteSession("persistentPassword", "");
-                Cookie.WriteSession("sessionUsername", "");
-                Cookie.WriteSession("sessionPassword", "");
-                Cookie.WriteSession("accountType", "");
+                Cookie.WriteSession("persistentUsername", null);
+                Cookie.WriteSession("persistentPassword", null);
+                Cookie.WriteSession("sessionUsername", null);
+                Cookie.WriteSession("sessionPassword", null);
+                Cookie.WriteSession("accountType", null);
                 return true;
             }
             catch
@@ -666,16 +666,12 @@ namespace ParsnipData.Accounts
                 AccountType = pReader[17].ToString().Trim();
                 AccountStatus = pReader[18].ToString().Trim();
 
-                try
+                if (pReader.FieldCount > 21 && pReader[21] != DBNull.Value &&
+                        !string.IsNullOrEmpty(pReader[21].ToString()) &&
+                        !string.IsNullOrWhiteSpace(pReader[21].ToString()))
                 {
-                    if (pReader[21] != DBNull.Value &&
-                            !string.IsNullOrEmpty(pReader[21].ToString()) &&
-                            !string.IsNullOrWhiteSpace(pReader[21].ToString()))
-                    {
-                        SearchTerms = pReader[21].ToString().Trim();
-                    }
+                    SearchTerms = pReader[21].ToString().Trim();
                 }
-                catch (IndexOutOfRangeException) { };
 
                 return true;
             }

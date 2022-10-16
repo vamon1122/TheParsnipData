@@ -31,7 +31,6 @@ namespace ParsnipData.Media
         public void AddValues(SqlDataReader reader)
         {
             MediaId = new MediaId(reader[0].ToString());
-            System.Diagnostics.Debug.WriteLine(Convert.ToInt32(reader[1]));
             MediaTag = new MediaTag((int)reader[1]);
             CreatedByUserId = (int)reader[2];
             DateTimeCreated = Convert.ToDateTime(reader[3]);
@@ -42,7 +41,7 @@ namespace ParsnipData.Media
                 MediaTag.Name = reader[6].ToString().Trim();
 
                 if (reader[7] != DBNull.Value)
-                    MediaTag.Description = reader[8].ToString();
+                    MediaTag.Description = reader[7].ToString();
             }
             catch (IndexOutOfRangeException) { };
         }

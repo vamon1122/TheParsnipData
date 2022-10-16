@@ -140,7 +140,7 @@ namespace ParsnipData.Media
 
                 try
                 {
-                    if (pReader[5] != DBNull.Value &&
+                    if (pReader.FieldCount > 5 && pReader[5] != DBNull.Value &&
                             !string.IsNullOrEmpty(pReader[5].ToString()) &&
                             !string.IsNullOrWhiteSpace(pReader[5].ToString()))
                     {
