@@ -680,7 +680,7 @@ namespace ParsnipData.Media
 
         public static MediaSearchResult Search(string text, int loggedInUserId)
         {
-            text = Parsnip.SanitiseSearchString(text);
+            text = System.Text.RegularExpressions.Regex.Replace(Parsnip.SanitiseSearchString(System.Text.RegularExpressions.Regex.Replace(text, " {2,}", " ")).ToLower(), "[^a-z0-9_ ]", "").RemoveStrings(WebConfigurationManager.OpenWebConfiguration("~").AppSettings.Settings["IgnoreSearchTerms"].Value.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries));
             var mediaSearchResult = new MediaSearchResult(text);
             var tempMediaTagPair = new List<MediaTagPair>();
             var tempMediaUserPair = new List<MediaUserPair>();
@@ -751,7 +751,10 @@ namespace ParsnipData.Media
 
                 foreach (var media in mediaSearchResult.Media)
                 {
-                    var searchedTerms = System.Text.RegularExpressions.Regex.Replace(text.ToLower(), "[^a-z0-9_ ]", "").RemoveStrings(WebConfigurationManager.OpenWebConfiguration("~").AppSettings.Settings["IgnoreSearchTerms"].Value.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)).Split(' ');
+                    //var searchedTerms = System.Text.RegularExpressions.Regex.Replace(text.ToLower(), "[^a-z0-9_ ]", "").RemoveStrings(WebConfigurationManager.OpenWebConfiguration("~").AppSettings.Settings["IgnoreSearchTerms"].Value.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)).Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    //var searchedTerms = System.Text.RegularExpressions.Regex.Replace(System.Text.RegularExpressions.Regex.Replace(text.ToLower(), "[^a-z0-9_ ]", ""), " {2,}", " ").RemoveStrings(WebConfigurationManager.OpenWebConfiguration("~").AppSettings.Settings["IgnoreSearchTerms"].Value.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)).Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    //var searchedTerms = System.Text.RegularExpressions.Regex.Replace(System.Text.RegularExpressions.Regex.Replace(text.ToLower(), " {2,}", " "), "[^a-z0-9_ ]", "").RemoveStrings(WebConfigurationManager.OpenWebConfiguration("~").AppSettings.Settings["IgnoreSearchTerms"].Value.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)).Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    var searchedTerms = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     var mediaTitle = string.IsNullOrEmpty(media.Title) ? null : 
                         $"{System.Text.RegularExpressions.Regex.Replace(media.Title.ToLower(), "[^a-z0-9_ ]", "")}".Split(' ');
                     var mediaSearchTerms = string.IsNullOrEmpty(media.SearchTerms) ? null : media.SearchTerms.Split(' ');

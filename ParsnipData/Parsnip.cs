@@ -26,6 +26,11 @@ namespace ParsnipData
 
             return stringToEdit;
         }
+
+        public static string[] Split(this string myString, char separator, StringSplitOptions removeEmptyEntries)
+        {
+            return myString.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        }
     }
 
 
