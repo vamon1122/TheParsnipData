@@ -17,6 +17,20 @@ namespace ParsnipData
         public static DateTime AdjustedTime { get { return DateTime.Now.AddHours(8); } }
 
         public static string SanitiseSearchString(string text) => System.Text.RegularExpressions.Regex.Replace(text.ToLower(), "[^a-z0-9_ ]", "");
+
+        public static string RemoveStrings(this string stringToEdit, string[] stringsToRemove)
+        {
+            stringToEdit += " ";
+            
+            foreach(var s in stringsToRemove)
+                stringToEdit = stringToEdit.Replace($" {s.Trim()} ", " ");
+
+            return stringToEdit.Substring(0, stringToEdit.Length - 1);
+        }
+
+        public static string[] Split(this string stringToSplit, char separator, StringSplitOptions stringSplitOptions) =>
+            stringToSplit.Split(new[] { separator }, stringSplitOptions);
+        
     }
 
 

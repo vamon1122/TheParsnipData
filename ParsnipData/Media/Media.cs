@@ -12,6 +12,7 @@ using System.Data;
 using System.Drawing;
 using System.Web;
 using System.Drawing.Imaging;
+using System.Configuration;
 
 namespace ParsnipData.Media
 {
@@ -678,7 +679,17 @@ namespace ParsnipData.Media
 
         public static MediaSearchResult Search(string text, int loggedInUserId)
         {
-            text = Parsnip.SanitiseSearchString(text);
+            text = System.Text.RegularExpressions.Regex.Replace
+            (
+                Parsnip.SanitiseSearchString
+                (
+                    System.Text.RegularExpressions.Regex.Replace(text, " {2,}", " ")
+                ).ToLower(), "[^a-z0-9_ ]", ""
+            ).RemoveStrings
+            (
+                ConfigurationManager.AppSettings["IgnoreSearchTerms"]
+                    .Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            );
             var mediaSearchResult = new MediaSearchResult(text);
             var tempMediaTagPair = new List<MediaTagPair>();
             var tempMediaUserPair = new List<MediaUserPair>();
@@ -749,7 +760,7 @@ namespace ParsnipData.Media
 
                 foreach (var media in mediaSearchResult.Media)
                 {
-                    var searchedTerms = System.Text.RegularExpressions.Regex.Replace(text.ToLower(), "[^a-z0-9_ ]", "").Split(' ');
+                    var searchedTerms = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     var mediaTitle = string.IsNullOrEmpty(media.Title) ? null : 
                         $"{System.Text.RegularExpressions.Regex.Replace(media.Title.ToLower(), "[^a-z0-9_ ]", "")}".Split(' ');
                     var mediaSearchTerms = string.IsNullOrEmpty(media.SearchTerms) ? null : media.SearchTerms.Split(' ');
@@ -764,7 +775,8 @@ namespace ParsnipData.Media
                     }
                 }
 
-                var maxScore = text.Split(' ').Count();
+                //StringSplitOptions.RemoveEmptyEntries prevents blanks from atting to the max score
+                var maxScore = text.Split(' ', StringSplitOptions.RemoveEmptyEntries).Count();
                 var halfScore = (double)maxScore / 2;
                 int minScore;
 
