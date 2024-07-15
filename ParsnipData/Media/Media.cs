@@ -12,6 +12,8 @@ using System.Data;
 using System.Drawing;
 using System.Web;
 using System.Drawing.Imaging;
+using System.Configuration;
+using System.Web.Configuration;
 
 namespace ParsnipData.Media
 {
@@ -749,7 +751,7 @@ namespace ParsnipData.Media
 
                 foreach (var media in mediaSearchResult.Media)
                 {
-                    var searchedTerms = System.Text.RegularExpressions.Regex.Replace(text.ToLower(), "[^a-z0-9_ ]", "").Split(' ');
+                    var searchedTerms = System.Text.RegularExpressions.Regex.Replace(text.ToLower(), "[^a-z0-9_ ]", "").RemoveStrings(WebConfigurationManager.OpenWebConfiguration("~").AppSettings.Settings["IgnoreSearchTerms"].Value.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)).Split(' ');
                     var mediaTitle = string.IsNullOrEmpty(media.Title) ? null : 
                         $"{System.Text.RegularExpressions.Regex.Replace(media.Title.ToLower(), "[^a-z0-9_ ]", "")}".Split(' ');
                     var mediaSearchTerms = string.IsNullOrEmpty(media.SearchTerms) ? null : media.SearchTerms.Split(' ');
