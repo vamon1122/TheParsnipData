@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Diagnostics;
+using ParsnipData.Logging;
 
 namespace ParsnipData
 {
@@ -20,11 +21,12 @@ namespace ParsnipData
 
         public static string RemoveStrings(this string stringToEdit, string[] stringsToRemove)
         {
-            foreach(var s in stringsToRemove) {
-                stringToEdit = stringToEdit.Replace(s.Trim(), "");
-            }
+            stringToEdit += " ";
+            
+            foreach(var s in stringsToRemove)
+                stringToEdit = stringToEdit.Replace($" {s.Trim()} ", " ");
 
-            return stringToEdit;
+            return stringToEdit.Substring(0, stringToEdit.Length - 1);
         }
 
         public static string[] Split(this string myString, char separator, StringSplitOptions removeEmptyEntries)

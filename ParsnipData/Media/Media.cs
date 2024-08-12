@@ -776,15 +776,24 @@ namespace ParsnipData.Media
 
                     foreach (var searchTerm in searchedTerms)
                     {
-                        if ((mediaTitle != null && Array.IndexOf(mediaTitle, searchTerm) >= 0) || 
+                        if ((mediaTitle != null && Array.IndexOf(mediaTitle, searchTerm) >= 0) ||
                             (mediaSearchTerms != null && Array.IndexOf(mediaSearchTerms, searchTerm) >= 0))
                         {
                             media.RankScore++;
                         }
+
+                        //if (mediaSearchTerms != null && Array.IndexOf(mediaSearchTerms, searchTerm) >= 0)
+                        //{
+                        //    media.RankScore += mediaSearchTerms.Count(mst => mst.ToLower() == searchTerm.ToLower());
+                        //}
+                        //else if (mediaTitle != null && Array.IndexOf(mediaTitle, searchTerm) >= 0) media.RankScore++;
                     }
+
+                    //media.Title += $" Rank={media.RankScore}";
                 }
 
-                var maxScore = text.Split(' ').Count();
+                //StringSplitOptions.RemoveEmptyEntries prevents blanks from atting to the max score
+                var maxScore = text.Split(' ', StringSplitOptions.RemoveEmptyEntries).Count();
                 var halfScore = (double)maxScore / 2;
                 int minScore;
 
