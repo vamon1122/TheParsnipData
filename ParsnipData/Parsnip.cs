@@ -31,6 +31,17 @@ namespace ParsnipData
         public static string[] Split(this string stringToSplit, char separator, StringSplitOptions stringSplitOptions) =>
             stringToSplit.Split(new[] { separator }, stringSplitOptions);
         
+        public static string GetAtsAndTagsAsString(this Media.Media myMedia)
+        {
+            var returnValue = string.Empty;
+            var tags = new List<Tuple<char, string>>();
+            myMedia.MediaUserPairs.ForEach(p => tags.Add(new Tuple<char, string>('@', p.Name)));
+            myMedia.MediaTagPairs.ForEach(p => tags.Add(new Tuple<char, string>('#', p.MediaTag.Name)));
+            tags.OrderBy(t => t.Item2).ToList().ForEach(t => returnValue += $"{t.Item1}{t.Item2} ");
+            returnValue.TrimEnd();
+
+            return returnValue;
+        }
     }
 
 
