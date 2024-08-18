@@ -13,6 +13,11 @@ using System.Drawing;
 using System.Web;
 using System.Drawing.Imaging;
 using System.Configuration;
+using System.Web.Configuration;
+using FreeImageAPI;
+using System.Web.UI.WebControls;
+using ImageMagick;
+using System.IO;
 
 namespace ParsnipData.Media
 {
@@ -184,7 +189,7 @@ namespace ParsnipData.Media
             return mediaTagIds;
         }
         #endregion
-        
+
         #region Process Media
         public static int GetAspectScale(int width, int height)
         {
@@ -259,6 +264,43 @@ namespace ParsnipData.Media
             return RotateFlipType.RotateNoneFlipNone;
         }
 
+        //public static void RotateFlipMagickImage(MagickImage image)
+        //{
+        //    var orientation = image.GetAttribute("EXIF:Orientation");
+
+        //    switch (orientation)
+        //    {
+        //        case "3":
+        //            image.Rotate(180);
+        //            break;
+        //        case "6":
+        //            image.Rotate(90);
+        //            break;
+        //        case "8":
+        //            image.Rotate(-90);
+        //            break;
+        //    }
+        //}
+
+        //public static RotateFlipType GetRotateFlipType(MagickImage image)
+        //{
+        //    //var orientation = image.GetAttribute("EXIF:Orientation");
+        //    var orientation = image.Orientation;
+        //    //image.AutoOrient();
+
+        //    switch (orientation)
+        //    {
+        //        case OrientationType.BottomRight:
+        //            return RotateFlipType.Rotate180FlipNone;
+        //        case OrientationType.RightTop:
+        //            return RotateFlipType.Rotate90FlipNone;
+        //        case OrientationType.LeftBottom:
+        //            return RotateFlipType.Rotate270FlipNone;
+        //    }
+
+        //    return RotateFlipType.RotateNoneFlipNone;
+        //}
+
         public static void SaveBitmapWithCompression(Bitmap bitmap, Int64 quality, string newFileDir)
         {
             //Change image quality
@@ -301,10 +343,11 @@ namespace ParsnipData.Media
             }
         }
 
-        public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string originalFileExtension)
+        public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string originalFileExtension, string localOverride = null)
         {
             string newFileExtension = ".jpg";
-            string fullyQualifiedUploadsDir = HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
+            //string fullyQualifiedUploadsDir = HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
+            string fullyQualifiedUploadsDir = localOverride ?? HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
             System.Drawing.Image originalImage;
             Bitmap compressedBitmap;
             Bitmap placeholderBitmap;
@@ -314,21 +357,206 @@ namespace ParsnipData.Media
 
             void GenerateBitmaps()
             {
-                originalImage = Bitmap.FromFile($"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}");
+                var originalDir = $"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}";
+                //originalImage = originalFileExtension.ToLower() == ".dng" ? FreeImage.GetBitmap(FreeImage.LoadEx(originalDir)) : Bitmap.FromFile(originalDir);
+
+                RotateFlipType rotateFlipType = RotateFlipType.RotateNoneFlipNone;
+
+                if (originalFileExtension.ToLower() == ".dng" || originalFileExtension.ToLower() == ".heic")
+                {
+                    #region freeimage
+                    if (false)
+                    {
+                        //var imageThing = FreeImage.LoadEx(originalDir);
+                        var imageThing = FreeImageAPI.FreeImage.Load(FREE_IMAGE_FORMAT.FIF_RAW, originalDir, FREE_IMAGE_LOAD_FLAGS.DEFAULT);
+
+                        #region Convert from HDR to SDR
+                        //I found that DRAGO made skin tones a bit orange
+                        //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(imageThing, FREE_IMAGE_TMO.FITMO_DRAGO03, 1.0, 0.85);
+                        //I found that REINHARD makes things a bit dark
+                        //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(imageThing, FREE_IMAGE_TMO.FITMO_REINHARD05, 0.6, 0.4);
+                        //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(imageThing, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.8);
+                        //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(imageThing, FREE_IMAGE_TMO.FITMO_REINHARD05, 0.9, 0.5);
+                        FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(imageThing, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.5);
+                        //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(imageThing, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.3);
+                        //I found that FATTAL was very bright and washed out
+                        //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(imageThing, FREE_IMAGE_TMO.FITMO_FATTAL02, 1.0, 0.85);
+
+                        //REINHARD seems like the best bet? Maybe just increase gamma?
+
+                        //Stops at 31 if this is removed (but still have the last one 3/3)
+                        //Stops at 41 if I remove 3/3 but not this
+                        //Stops at 23 if I remove both
+                        FreeImageAPI.FreeImage.Unload(imageThing);
+                        imageThing = sdrDib;
+                        #endregion
+
+                        //Only FIT_BITMAPS can be vonverted to C# bitmaps. Convert to FIT_BITMAP if not already
+                        if (FreeImageAPI.FreeImage.GetImageType(imageThing) != FREE_IMAGE_TYPE.FIT_BITMAP)
+                        {
+                            FIBITMAP temp = FreeImageAPI.FreeImage.ConvertToType(imageThing, FREE_IMAGE_TYPE.FIT_BITMAP, true);
+                            //Doesn't seem to mind whether this one is unloaded or not for some reason.
+                            //Leaving it in because it seems wrong not to unload... strange though!
+                            FreeImageAPI.FreeImage.Unload(imageThing);
+                            imageThing = temp;
+                        }
+                        var bitmap = FreeImage.GetBitmap(imageThing);
+                        //Fixes stopping at 41
+                        FreeImageAPI.FreeImage.Unload(imageThing);
+                        originalImage = bitmap;
+                    }
+                    #endregion
+                    else
+                    {
+                        using (var image = new MagickImage(originalDir))
+                        {
+                            //rotateFlipType = GetRotateFlipType(image);
+                            image.AutoOrient();
+
+                            #region shite
+                            //if (image.Depth == 16 || image.Depth == 32)
+                            //{
+                            //    #region shite
+                            //    //image.ColorSpace = ColorSpace.sRGB;
+                            //    image.ColorSpace = ColorSpace.RGB;
+                            //    image.Equalize();
+                            //    image.AutoGamma();
+                            //    image.AutoLevel();
+                            //    ////image.BrightnessContrast(new Percentage(50), new Percentage(50));
+                            //    ////image.GammaCorrect(1.5);
+                            //    ////image.AutoLevel();
+
+                            //    ////image.BrightnessContrast(new Percentage(20), new Percentage(20));
+
+                            //    //image.Modulate(new Percentage(110), new Percentage(150), new Percentage(100));
+                            //    //image.GammaCorrect(1.6);
+                            //    ////image.Level(0, Convert.ToUInt16(Quantum.Max * 0.8));
+                            //    //image.Equalize();
+                            //    //image.AutoGamma();
+                            //    //image.AutoLevel();
+
+                            //    //image.Ton
+                            //    #endregion
+
+                            //    var imageThing = FreeImageAPI.FreeImage.Load(FREE_IMAGE_FORMAT.FIF_RAW, originalDir, FREE_IMAGE_LOAD_FLAGS.DEFAULT);
+
+                            //    FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(imageThing, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.5);
+                            //    FreeImageAPI.FreeImage.Unload(imageThing);
+                            //    imageThing = sdrDib;
+                            //}
+                            using (var memoryStream = new System.IO.MemoryStream())
+                            {
+                                image.Write(memoryStream, MagickFormat.Bmp);
+                                memoryStream.Position = 0;
+
+
+                                if (image.Depth == 16 || image.Depth == 32)
+                                {
+                                    //https://github.com/imazen/freeimage/blob/master/Source/FreeImage/ToneMapping.cpp
+                                    //REINHARD DEFAULT 0,0 (intensity, contrast)
+                                    //DRAGO DEFAULT 2.2, 0 (gamma, exposure)
+                                    //FATTAL DEFAULT 0.5, 0.85 (saturation, attenuation)
+
+                                    var hrdDib = FreeImageAPI.FreeImage.LoadFromStream(memoryStream);
+                                    FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.3); //Holy Grail
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_REINHARD05, 2, 0.3); //Reinhard 2 //No difference
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.5); //Reinhard 3 //Too washed out
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_REINHARD05, 0.8, 0.5); //Reinhard 4 //Also washed out
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_REINHARD05, 0.8, 0.3); //Reinhard 5 //Just dark
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_DRAGO03, 1.0, 0.3); //Drago 1
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_DRAGO03, 0.8, 0.2); //Drago 2
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_DRAGO03, 2.2, 0.3); //Drago 3
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_DRAGO03, 2.2, 0.2); //Drago 4
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_DRAGO03, 1.8, 0.3); //Drago 5
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_DRAGO03, 1.6, 0.3); //Drago 6 //Contender??
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_DRAGO03, 1.4, 0.3); //Drago 7 //Best drago??
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_DRAGO03, 1.2, 0.3); //Drago 8 //Colour perfect??
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_DRAGO03, 1.2, 0.4); //Drago 9
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_DRAGO03, 1.2, 0.2); //Drago 10
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_DRAGO03, 1, 0.3); //Drago 11
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_FATTAL02, 1.0, 0.3); //Fattal 1
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_FATTAL02, 0.5, 0.85); //Fattal 2 (Default)
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_FATTAL02, 0.5, 1); //Fattal 3
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_FATTAL02, 0.5, 1.5); //Fattal 4 //No difference
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_FATTAL02, 0.7, 1.0); //Fattal 5
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_FATTAL02, 1, 1.0); //Fattal 6
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_FATTAL02, 0, 0); //Fattal 7
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_FATTAL02, 0, 0.5); //Fattal 8
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_FATTAL02, 0.5, 0); //Fattal 9
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_FATTAL02, 0.5, 2); //Fattal 10 //Best so far
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_FATTAL02, 0.5, 3); //Fattal 11 NOPE - 2 is max
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_FATTAL02, 1, 2); //Fattal 12
+                                    //FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_FATTAL02, 0, 2); //Fattal 13
+                                    FreeImage.AdjustBrightness(sdrDib, 10); //Uncomment for Holy Grail
+                                    //FreeImage.AdjustContrast(sdrDib, -10);
+                                    FreeImageAPI.FreeImage.Unload(hrdDib);
+                                    originalImage = FreeImage.GetBitmap(sdrDib);
+                                    FreeImageAPI.FreeImage.Unload(sdrDib);
+                                }
+                                else
+                                {
+                                    originalImage = new Bitmap(memoryStream);
+                                }
+                            }
+                        }
+                        #endregion
+
+                        //if (image.Depth == 16 || image.Depth == 32)
+                        //{
+                        //    #region shite
+                        //    //image.ColorSpace = ColorSpace.sRGB;
+                        //    image.ColorSpace = ColorSpace.RGB;
+                        //    image.Equalize();
+                        //    image.AutoGamma();
+                        //    image.AutoLevel();
+                        //    ////image.BrightnessContrast(new Percentage(50), new Percentage(50));
+                        //    ////image.GammaCorrect(1.5);
+                        //    ////image.AutoLevel();
+
+                        //    ////image.BrightnessContrast(new Percentage(20), new Percentage(20));
+
+                        //    //image.Modulate(new Percentage(110), new Percentage(150), new Percentage(100));
+                        //    //image.GammaCorrect(1.6);
+                        //    ////image.Level(0, Convert.ToUInt16(Quantum.Max * 0.8));
+                        //    //image.Equalize();
+                        //    //image.AutoGamma();
+                        //    //image.AutoLevel();
+
+                        //    //image.Ton
+                        //    #endregion
+                        //}
+                        //using (var memoryStream = new System.IO.MemoryStream())
+                        //    {
+                        //        image.Write(memoryStream, MagickFormat.Bmp);
+
+                        //        originalImage = new System.Drawing.Bitmap(memoryStream);
+                        //    }
+                        //}
+                    }
+                }
+                else
+                {
+                    originalImage = Bitmap.FromFile(originalDir);
+                    rotateFlipType = GetRotateFlipType(originalImage);
+                }
+
                 compressedBitmap = GenerateBitmapOfSize(originalImage, 1280, 200);
                 placeholderBitmap = GenerateBitmapOfSize(originalImage, 250, 0);
 
-                RotateFlipType rotateFlipType = GetRotateFlipType(originalImage);
+
                 originalImage.RotateFlip(rotateFlipType);
                 compressedBitmap.RotateFlip(rotateFlipType);
                 placeholderBitmap.RotateFlip(rotateFlipType);
 
-                SaveBitmapWithCompression(compressedBitmap, 85L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Compressed\\{newFileName}{newFileExtension}"));
-                SaveBitmapWithCompression(placeholderBitmap, 15L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Placeholders\\{newFileName}{newFileExtension}"));
+                SaveBitmapWithCompression(compressedBitmap, 85L, $"{fullyQualifiedUploadsDir}\\Compressed\\{newFileName}{newFileExtension}");
+                SaveBitmapWithCompression(placeholderBitmap, 15L, $"{fullyQualifiedUploadsDir}\\Placeholders\\{newFileName}{newFileExtension}");
             }
 
             void UpdateMetadata()
             {
+
+
+
                 int scale = Media.GetAspectScale(originalImage.Width, originalImage.Height);
                 myMedia.XScale = Convert.ToInt16(originalImage.Width / scale);
                 myMedia.YScale = Convert.ToInt16(originalImage.Height / scale);
@@ -429,7 +657,7 @@ namespace ParsnipData.Media
         public static Media Select(MediaId mediaId, int loggedInUserId = default)
         {
             Media media = null;
-            
+
             try
             {
                 using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
@@ -508,7 +736,7 @@ namespace ParsnipData.Media
                             updateMedia.Parameters.AddWithValue("description", string.IsNullOrWhiteSpace(Description) ? null : Description);
                             updateMedia.Parameters.AddWithValue("alt", Alt);
                             updateMedia.Parameters.AddWithValue("datetime_captured", DateTimeCaptured);
-                            if(AlbumId != default)
+                            if (AlbumId != default)
                                 updateMedia.Parameters.AddWithValue("media_tag_id", AlbumId);
                             //Needs updating so the person who updates is inserted here
                             updateMedia.Parameters.AddWithValue("media_tag_created_by_user_id", CreatedById);
@@ -726,7 +954,7 @@ namespace ParsnipData.Media
                         {
                             var mediaTagPair = new MediaTagPair(reader);
                             var media = mediaSearchResult.Media.SingleOrDefault(x => x.Id.Equals(mediaTagPair.MediaId));
-                            if(media != null) //(media not returned if deleted)
+                            if (media != null) //(media not returned if deleted)
                             {
                                 var tag = mediaSearchResult.MediaTags.SingleOrDefault(mediaTag => mediaTag.Id.Equals(mediaTagPair.MediaTag.Id));
                                 media.SearchTerms += $" {tag.Name} {tag.SearchTerms}";
@@ -761,13 +989,13 @@ namespace ParsnipData.Media
                 foreach (var media in mediaSearchResult.Media)
                 {
                     var searchedTerms = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                    var mediaTitle = string.IsNullOrEmpty(media.Title) ? null : 
+                    var mediaTitle = string.IsNullOrEmpty(media.Title) ? null :
                         $"{System.Text.RegularExpressions.Regex.Replace(media.Title.ToLower(), "[^a-z0-9_ ]", "")}".Split(' ');
                     var mediaSearchTerms = string.IsNullOrEmpty(media.SearchTerms) ? null : media.SearchTerms.Split(' ');
 
                     foreach (var searchTerm in searchedTerms)
                     {
-                        if ((mediaTitle != null && Array.IndexOf(mediaTitle, searchTerm) >= 0) || 
+                        if ((mediaTitle != null && Array.IndexOf(mediaTitle, searchTerm) >= 0) ||
                             (mediaSearchTerms != null && Array.IndexOf(mediaSearchTerms, searchTerm) >= 0))
                         {
                             media.RankScore++;
@@ -786,7 +1014,7 @@ namespace ParsnipData.Media
                     minScore = halfScore >= 1 ? Convert.ToInt16(halfScore) : 1;
                 else
                     minScore = 1;
-                
+
                 mediaSearchResult.Media = mediaSearchResult.Media.Where(x => x.RankScore >= minScore).OrderByDescending(x => x.RankScore).ThenByDescending(x => x.DateTimeCaptured).ToList();
 
 

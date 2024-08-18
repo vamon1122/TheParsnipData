@@ -36,6 +36,15 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FreeImageNET, Version=3.17.0.5, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\..\packages\FreeImageNET.3.17.1\lib\net461\FreeImageNET.dll</HintPath>
+    </Reference>
+    <Reference Include="Magick.NET-Q16-HDRI-AnyCPU, Version=13.10.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Magick.NET-Q16-HDRI-AnyCPU.13.10.0\lib\netstandard20\Magick.NET-Q16-HDRI-AnyCPU.dll</HintPath>
+    </Reference>
+    <Reference Include="Magick.NET.Core, Version=13.10.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Magick.NET.Core.13.10.0\lib\netstandard20\Magick.NET.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -72,5 +81,15 @@
     <Compile Include="Accounts\Account.cs" />
     <Compile Include="Accounts\User.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Magick.NET-Q16-HDRI-AnyCPU.13.10.0\build\netstandard20\Magick.NET-Q16-HDRI-AnyCPU.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Magick.NET-Q16-HDRI-AnyCPU.13.10.0\build\netstandard20\Magick.NET-Q16-HDRI-AnyCPU.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\Magick.NET-Q16-HDRI-AnyCPU.13.10.0\build\netstandard20\Magick.NET-Q16-HDRI-AnyCPU.targets" Condition="Exists('..\..\packages\Magick.NET-Q16-HDRI-AnyCPU.13.10.0\build\netstandard20\Magick.NET-Q16-HDRI-AnyCPU.targets')" />
 </Project>

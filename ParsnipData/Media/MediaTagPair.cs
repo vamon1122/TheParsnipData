@@ -15,11 +15,11 @@ namespace ParsnipData.Media
         public DateTime DateTimeDeleted { get; set; }
         public DateTime DateTimeCreated { get; set; }
 
-        public MediaTagPair(Media media, MediaTag mediaTag, ParsnipData.Accounts.User user)
+        public MediaTagPair(Media media, MediaTag mediaTag, int userId)
         {
             MediaId = media.Id;
             MediaTag = mediaTag;
-            CreatedByUserId = user.Id;
+            CreatedByUserId = userId;
             DateTimeCreated = ParsnipData.Parsnip.AdjustedTime;
         }
 
