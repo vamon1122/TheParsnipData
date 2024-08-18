@@ -13,6 +13,8 @@ using System.Drawing;
 using System.Web;
 using System.Drawing.Imaging;
 using System.Configuration;
+using FreeImageAPI;
+using ImageMagick;
 
 namespace ParsnipData.Media
 {
@@ -301,10 +303,10 @@ namespace ParsnipData.Media
             }
         }
 
-        public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string originalFileExtension)
+        public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string originalFileExtension, string localOverride = null)
         {
             string newFileExtension = ".jpg";
-            string fullyQualifiedUploadsDir = HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
+            var fullyQualifiedUploadsDir = localOverride ?? HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
             System.Drawing.Image originalImage;
             Bitmap compressedBitmap;
             Bitmap placeholderBitmap;
@@ -314,17 +316,26 @@ namespace ParsnipData.Media
 
             void GenerateBitmaps()
             {
-                originalImage = Bitmap.FromFile($"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}");
+                var systemDrawingBitmapFormats = new string[] { ".png", ".gif", ".jpg", ".jpeg", ".tiff" };
+                var originalDir = $"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}";
+                var rotateFlipType = RotateFlipType.RotateNoneFlipNone;
+
+                if (systemDrawingBitmapFormats.Contains(originalFileExtension.ToLower()))
+                {
+                    originalImage = Bitmap.FromFile(originalDir);
+                    rotateFlipType = GetRotateFlipType(originalImage);
+                }
+                else originalImage = bitmapFromHDRFormat(originalDir);
+
                 compressedBitmap = GenerateBitmapOfSize(originalImage, 1280, 200);
                 placeholderBitmap = GenerateBitmapOfSize(originalImage, 250, 0);
 
-                RotateFlipType rotateFlipType = GetRotateFlipType(originalImage);
                 originalImage.RotateFlip(rotateFlipType);
                 compressedBitmap.RotateFlip(rotateFlipType);
                 placeholderBitmap.RotateFlip(rotateFlipType);
 
-                SaveBitmapWithCompression(compressedBitmap, 85L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Compressed\\{newFileName}{newFileExtension}"));
-                SaveBitmapWithCompression(placeholderBitmap, 15L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Placeholders\\{newFileName}{newFileExtension}"));
+                SaveBitmapWithCompression(compressedBitmap, 85L, $"{fullyQualifiedUploadsDir}\\Compressed\\{newFileName}{newFileExtension}");
+                SaveBitmapWithCompression(placeholderBitmap, 15L, $"{fullyQualifiedUploadsDir}\\Placeholders\\{newFileName}{newFileExtension}");
             }
 
             void UpdateMetadata()
@@ -336,6 +347,38 @@ namespace ParsnipData.Media
                 myMedia.Original = $"{myMedia.UploadsDir}Originals/{newFileName}{originalFileExtension}";
                 myMedia.Compressed = $"{myMedia.UploadsDir}Compressed/{newFileName}{newFileExtension}";
                 myMedia.Placeholder = $"{myMedia.UploadsDir}Placeholders/{newFileName}{newFileExtension}";
+            }
+        
+            Bitmap bitmapFromHDRFormat(string originalDir)
+            {
+                using (var image = new MagickImage(originalDir))
+                {
+                    image.AutoOrient();
+
+                    using (var memoryStream = new System.IO.MemoryStream())
+                    {
+                        image.Write(memoryStream, MagickFormat.Bmp);
+                        //It is necessary to move the position of the memory-stream to 0 in-order for FreeImage
+                        //to be able to load the stream correctly. It is not necessarily required that
+                        //System.Drawing.Bitmap have the pointer set to 0, however it is aparrently
+                        //general good practice for stream handling. It is implied that the stream should be
+                        //ready to be read from (without the bitmap constructor having to set the position
+                        //of the pointer.
+                        memoryStream.Position = 0;
+
+                        if (image.Depth == 16 || image.Depth == 32)
+                        {
+                            var hrdDib = FreeImage.LoadFromStream(memoryStream);
+                            var sdrDib = FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.3);
+                            FreeImage.AdjustBrightness(sdrDib, 10);
+                            FreeImage.Unload(hrdDib);
+                            var bitmap = FreeImage.GetBitmap(sdrDib);
+                            FreeImage.Unload(sdrDib);
+                            return bitmap;
+                        }
+                        else return new Bitmap(memoryStream);
+                    }
+                }
             }
         }
         #endregion
@@ -508,7 +551,7 @@ namespace ParsnipData.Media
                             updateMedia.Parameters.AddWithValue("description", string.IsNullOrWhiteSpace(Description) ? null : Description);
                             updateMedia.Parameters.AddWithValue("alt", Alt);
                             updateMedia.Parameters.AddWithValue("datetime_captured", DateTimeCaptured);
-                            if(AlbumId != default)
+                            if (AlbumId != default)
                                 updateMedia.Parameters.AddWithValue("media_tag_id", AlbumId);
                             //Needs updating so the person who updates is inserted here
                             updateMedia.Parameters.AddWithValue("media_tag_created_by_user_id", CreatedById);
@@ -726,7 +769,7 @@ namespace ParsnipData.Media
                         {
                             var mediaTagPair = new MediaTagPair(reader);
                             var media = mediaSearchResult.Media.SingleOrDefault(x => x.Id.Equals(mediaTagPair.MediaId));
-                            if(media != null) //(media not returned if deleted)
+                            if (media != null) //(media not returned if deleted)
                             {
                                 var tag = mediaSearchResult.MediaTags.SingleOrDefault(mediaTag => mediaTag.Id.Equals(mediaTagPair.MediaTag.Id));
                                 media.SearchTerms += $" {tag.Name} {tag.SearchTerms}";
@@ -761,13 +804,13 @@ namespace ParsnipData.Media
                 foreach (var media in mediaSearchResult.Media)
                 {
                     var searchedTerms = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                    var mediaTitle = string.IsNullOrEmpty(media.Title) ? null : 
+                    var mediaTitle = string.IsNullOrEmpty(media.Title) ? null :
                         $"{System.Text.RegularExpressions.Regex.Replace(media.Title.ToLower(), "[^a-z0-9_ ]", "")}".Split(' ');
                     var mediaSearchTerms = string.IsNullOrEmpty(media.SearchTerms) ? null : media.SearchTerms.Split(' ');
 
                     foreach (var searchTerm in searchedTerms)
                     {
-                        if ((mediaTitle != null && Array.IndexOf(mediaTitle, searchTerm) >= 0) || 
+                        if ((mediaTitle != null && Array.IndexOf(mediaTitle, searchTerm) >= 0) ||
                             (mediaSearchTerms != null && Array.IndexOf(mediaSearchTerms, searchTerm) >= 0))
                         {
                             media.RankScore++;
