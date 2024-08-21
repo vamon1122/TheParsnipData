@@ -366,7 +366,26 @@ namespace ParsnipData.Media
                         //of the pointer.
                         memoryStream.Position = 0;
 
-                        if (image.Depth == 16 || image.Depth == 32)
+                        var statistics = image.Statistics();
+
+                        // Display statistics
+
+                        //Console.WriteLine($"Minimum: {statistics.Composite().Minimum}");
+                        //Console.WriteLine($"Maximum: {statistics.Composite().Maximum}");
+
+                        var mean = statistics.Composite().Mean;
+                        var standardDeviation = statistics.Composite().StandardDeviation;
+                        Console.WriteLine($"Kurtosis: {statistics.Composite().Kurtosis}");
+                        Console.WriteLine($"Depth: {statistics.Composite().Depth}");
+                        Console.WriteLine($"Chanel: {statistics.Composite().Channel}");
+                        Console.WriteLine($"Entropy: {statistics.Composite().Entropy}");
+                        //Console.WriteLine($"Mean: {statistics.Composite().Mean}");
+                        //Console.WriteLine($"Standard Deviation: {statistics.Composite().StandardDeviation}");
+
+
+                        Console.WriteLine(useFilter() ? "HDR" : "SDR");
+
+                        if (useFilter())
                         {
                             var hrdDib = FreeImage.LoadFromStream(memoryStream);
                             var sdrDib = FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.3);
@@ -377,11 +396,70 @@ namespace ParsnipData.Media
                             return bitmap;
                         }
                         else return new Bitmap(memoryStream);
+
+                        bool useFilter()
+                        {
+                            if (mean < 21000 && standardDeviation > 14000) return true;
+                            else if (mean < 14000) return true;
+                            return false;
+                        }
                     }
                 }
             }
         }
         #endregion
+
+        //public static bool IsHdr(string filePath)
+        //{
+        //    using (MagickImage image = new MagickImage(filePath))
+        //    {
+        //        // Check for HDR-related properties
+        //        if (image.HasAlpha) // Example condition for HDR
+        //        {
+        //            return true;
+        //        }
+
+        //        // Check for specific HDR tags in the metadata
+        //        var exifProfile = image.GetExifProfile();
+        //        if (exifProfile != null)
+        //        {
+        //            var isoSpeed = exifProfile.GetValue(ExifTag.ISOSpeedRatings);
+        //            if (isoSpeed != null && isoSpeed.Value is ushort[] isoValues)
+        //            {
+        //                foreach (var iso in isoValues)
+        //                {
+        //                    if (iso > 800) // Example condition for HDR
+        //                    {
+        //                        return true;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return false;
+        //}
+
+        //public static bool IsHDR(string imagePath)
+        //{
+        //    using (var image = new MagickImage(imagePath))
+        //    {
+        //        // Check if the image format is one commonly used for HDR
+        //        if (image.Format == MagickFormat.Exr || image.Format == MagickFormat.Hdr)
+        //        {
+        //            return true;
+        //        }
+
+        //        // Check pixel values for HDR characteristics
+        //        foreach (var pixel in image.GetPixels())
+        //        {
+        //            if (pixel.ToColor().R > 1.0 || pixel.ToColor().G > 1.0 || pixel.ToColor().B > 1.0)
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //    }
+        //    return false;
+        //}
 
         #region CRUD
         public virtual bool Insert()
