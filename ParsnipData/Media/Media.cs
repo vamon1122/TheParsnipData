@@ -366,7 +366,7 @@ namespace ParsnipData.Media
                         //of the pointer.
                         memoryStream.Position = 0;
 
-                        if (image.Depth == 16 || image.Depth == 32)
+                        if (useFilter())
                         {
                             var hrdDib = FreeImage.LoadFromStream(memoryStream);
                             var sdrDib = FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.3);
@@ -377,6 +377,16 @@ namespace ParsnipData.Media
                             return bitmap;
                         }
                         else return new Bitmap(memoryStream);
+
+                        bool useFilter()
+                        {
+                            var statistics = image.Statistics();
+                            var mean = statistics.Composite().Mean;
+                            var standardDeviation = statistics.Composite().StandardDeviation;
+                            if (mean < 21000 && standardDeviation > 14000) return true;
+                            else if (mean < 14000) return true;
+                            return false;
+                        }
                     }
                 }
             }
