@@ -15,6 +15,8 @@ using System.Drawing.Imaging;
 using System.Configuration;
 using FreeImageAPI;
 using ImageMagick;
+using MetadataExtractor;
+using MetadataExtractor.Formats.Exif;
 
 namespace ParsnipData.Media
 {
@@ -366,7 +368,7 @@ namespace ParsnipData.Media
                         //of the pointer.
                         memoryStream.Position = 0;
 
-                        if (useFilter())
+                        if (useFilter4())
                         {
                             var hrdDib = FreeImage.LoadFromStream(memoryStream);
                             var sdrDib = FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.3);
@@ -378,12 +380,208 @@ namespace ParsnipData.Media
                         }
                         else return new Bitmap(memoryStream);
 
-                        bool useFilter()
+                        bool useFilter4()
+                        {
+                            Console.WriteLine();
+
+                            var statistics = image.Statistics();
+                            var mean = statistics.Composite().Mean;
+                            var standardDeviation = statistics.Composite().StandardDeviation;
+                            Console.WriteLine($"Mean={mean} StandardDeviation={standardDeviation}");
+                            //if (mean < 21000 && standardDeviation > 14125) return true;
+
+                            var directories = ImageMetadataReader.ReadMetadata(originalDir);
+                            var subIfDirectory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
+                            var x = subIfDirectory.Parent.GetDescription(0xc62a);
+                            var xx = x.Split('/');
+                            var xy = Convert.ToDouble(xx[0]);
+                            var xz = Convert.ToDouble(xx[1]);
+                            var xxx = xy / xz;
+
+                            //if (mean < 19729 && standardDeviation > 14125 || mean < 14000)
+                            //if (mean < 20566 && standardDeviation > 14125 || mean < 14000) //Perfect??1
+                            //if (mean < 21000 && standardDeviation > 14500 || mean < 14000) //Perfect??2
+
+
+                            //if (mean < 20000 && standardDeviation > 14000 || mean < 14000) //Fails on IMG_3319 (Mean = 20565) and IMG_3338 (Mean = 20103)
+                            //if (mean < 21000 && standardDeviation > 14000 || mean < 14000) //Fails on IMG_3448 (Standard Deviation = 14063.211070048) 
+
+
+                            //if (mean < 24000 && standardDeviation > 14500 || mean < 16000) //Perfect??6 - Fixes IMG_3340, IMG_3326 & IMG_3323
+                            //if (mean < 26241 && standardDeviation > 14500 || mean < 16000) //IMG_3325 & IMG_3324
+                            if (mean < 26241 && standardDeviation > 14500 || mean < 20000 && xxx < 3.08 && /*standardDeviation < 11256*/ standardDeviation > 11258 || xxx < 2 && mean > 18000 /*&&*/ /*standardDeviation < 11000*/ /*standardDeviation < 11256*/ || mean < 14000) //Perfect??9 IMG_3369, IMG_3367, IMG_3370, IMG_3368
+                            {
+                                //if (xxx < 1.397 || xxx > 3.72)
+                                //if (xxx < 1.397 || xxx > 3.5)
+                                //if (xxx < 1.397 || xxx > 3.509) //Fix IMG_3312
+                                //if (xxx < 1.397 || xxx > 3.6) //Pefect??3 - NOPE - Breaks on IMG_3406 & IMG_3407
+                                //if (xxx < 1.397 || xxx > 3.873) //Fixes IMG_3406 & IMG_3407
+                                //if (xxx < 1.4 || xxx > 3.9) //Perfect??4 Fails on IMG_2614 because xxx = 1.39708840847015
+                                //if (xxx < 1.5 || xxx > 4) //Fails on IMG_3534 because xxx = 3.94003987312317. Fails on IMG_2614 because xxx = 1.39708840847015
+                                //if (xxx < 1.3 || xxx > 3.9) //Perfect??5
+                                if (xxx < 1.66 || xxx > 3.9) //Perfect??8 Fixes IMG_3414 but Breaks IMG_2614.DNG
+                                {
+                                    //if(mean < 13000 && standardDeviation > 15000) //Perfect??7
+                                    //if (mean < 13000 && standardDeviation > 9200 && (xxx > 1.39 || standardDeviation > 17000))
+                                    if ((mean < 15000 /*&& standardDeviation > 10000*/ && xxx > 1.39 ||standardDeviation > 19000) && !(xxx > 3.9 && standardDeviation < 10000)) //Perfect??8
+                                    {
+                                        Console.Write($"SUPER SPECIAL1 ");
+                                        Console.ForegroundColor = ConsoleColor.Green;
+                                        Console.Write("is");
+                                        Console.ResetColor();
+                                        Console.WriteLine($" HDR {xxx}");
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        Console.Write($"SPECIAL ");
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.Write("is NOT");
+                                        Console.ResetColor();
+                                        Console.WriteLine($" HDR {xxx}");
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    Console.Write("Standard ");
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.Write("is");
+                                    Console.ResetColor();
+                                    Console.WriteLine($" HDR {xxx}");
+                                    return true;
+                                }
+                            }
+
+                            //if (xxx > 2.5)
+                            //{
+                            //    Console.WriteLine($"SPECIAL is HDR {xxx}");
+                            //    return true;
+                            //}
+                            //else
+                            //{
+                            //    Console.WriteLine($"Standard is NOT HDR {xxx}");
+                            //    return false;
+                            //}
+                            //if(xxx < 3.08)
+                            //{
+                            //    Console.Write($"SUPER SPECIAL2 ");
+                            //    Console.ForegroundColor = ConsoleColor.Green;
+                            //    Console.Write("is");
+                            //    Console.ResetColor();
+                            //    Console.WriteLine($" HDR {xxx}");
+                            //    return true;
+                            //}
+                            //else
+                            //{
+                                Console.Write($"Standard ");
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write("is NOT");
+                                Console.ResetColor();
+                                Console.WriteLine($" HDR {xxx}");
+                                return false;
+                            //}
+                            
+                        }
+
+                        bool useFilter3()
+                        {
+                            var directories = ImageMetadataReader.ReadMetadata(originalDir);
+                            var subIfDirectory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
+                            var x = subIfDirectory.Parent.GetDescription(0xc62a);
+                            Console.WriteLine();
+                            var xx = x.Split('/');
+                            var xy = Convert.ToDouble(xx[0]);
+                            var xz = Convert.ToDouble(xx[1]);
+                            var xxx = xy / xz;
+
+                            bool returnValue;
+
+                            
+
+                            if(useFilter1())
+                            {
+                                //IMG_2614 VS IMG_3448
+                                //if (xxx < 1.02 || xxx > 3.94)
+                                //if (xxx < 1.745 || xxx > 3.72)
+                                if (xxx < 1.397 || xxx > 3.72)
+                                {
+                                    returnValue = false;
+                                    Console.WriteLine($"SPECIAL is NOT HDR {xxx}");
+                                }
+                                else
+                                {
+                                    returnValue = true;
+                                    Console.WriteLine($"Standard is HDR {xxx}");
+                            }
+                        }
+                            else
+                            {
+                                Console.WriteLine($"Standard is NOT HDR {xxx}");
+                                returnValue = false;
+                            }
+                                
+                            
+
+
+
+                            return returnValue;
+                        }
+
+                        bool useFilter2()
+                        {
+                            var directories = ImageMetadataReader.ReadMetadata(originalDir);
+                            var subIfDirectory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
+                            if(subIfDirectory != null)
+                            {
+                                var sampelsPerPixel = subIfDirectory.GetDescription(ExifDirectoryBase.TagSamplesPerPixel);
+                                //var bitsPerSample = subIfDirectory.GetDescription(ExifDirectoryBase.TagBitsPerSample);
+                                var bitsPerSample = subIfDirectory.Parent.GetDescription(ExifDirectoryBase.TagBitsPerSample);
+                                var planarConfiguration = subIfDirectory.GetDescription(ExifDirectoryBase.TagPlanarConfiguration);
+                                var photometricInterpretation = subIfDirectory.Parent.GetDescription(ExifDirectoryBase.TagPhotometricInterpretation);
+                                var colorSpace = subIfDirectory.Parent.GetDescription(ExifDirectoryBase.TagColorSpace);
+                                var brightness = subIfDirectory.Parent.GetDescription(ExifDirectoryBase.TagBrightnessValue);
+                                var apeture = subIfDirectory.Parent.GetDescription(ExifDirectoryBase.TagAperture);
+                                var x = subIfDirectory.Parent.GetDescription(0xc62a);
+                                var y = subIfDirectory.Parent.GetDescription(0xc62a);
+                                var z = subIfDirectory.Parent.GetDescription(0xc62a);
+                                Console.WriteLine();
+                                var xx = x.Split('/');
+                                var xy = Convert.ToDecimal(xx[0]);
+                                var xz = Convert.ToDecimal(xx[1]);
+                                var xxx = xy / xz;
+                                Console.WriteLine($"UseFilter1 = {useFilter1()}");
+                                Console.WriteLine($"x = {x} = {xxx}");
+                                //Console.WriteLine($"x = {y}");
+                                //Console.WriteLine($"x = {z}");
+                                //Console.WriteLine($"Color space = {colorSpace}");
+                                //Console.WriteLine($"Brightness value = {brightness}");
+                                //Console.WriteLine($"Apeture = {apeture}");
+
+                                //Console.WriteLine($"Photometric interpretation = {photometricInterpretation}");
+                                //Console.WriteLine($"Samples per pixel = {sampelsPerPixel}");
+                                //Console.WriteLine($"Bits per sample = {bitsPerSample}");
+                                //Console.WriteLine($"Planar configuration = {planarConfiguration}");
+
+
+                                //var exposureTime = subIfDirectory.GetDescription(ExifDirectoryBase.TagExposureTime);
+                                //var iso = subIfDirectory.GetDescription(ExifDirectoryBase.TagIsoEquivalent);
+                                //Console.WriteLine($"Exposure time = {exposureTime}");
+                                //Console.WriteLine($"ISO = {iso}");
+                            }
+
+                            
+                            return false;
+                        }
+
+                        bool useFilter1()
                         {
                             var statistics = image.Statistics();
                             var mean = statistics.Composite().Mean;
                             var standardDeviation = statistics.Composite().StandardDeviation;
-                            if (mean < 21000 && standardDeviation > 14000) return true;
+                            Console.WriteLine($"Mean={mean} StandardDeviation={standardDeviation}");
+                            //if (mean < 21000 && standardDeviation > 14125) return true;
+                            if (mean < 19729 && standardDeviation > 14125) return true;
                             else if (mean < 14000) return true;
                             return false;
                         }
