@@ -188,7 +188,7 @@ namespace ParsnipData.Media
             return mediaTagIds;
         }
         #endregion
-        
+
         #region Process Media
         public static int GetAspectScale(int width, int height)
         {
@@ -350,7 +350,7 @@ namespace ParsnipData.Media
                 myMedia.Compressed = $"{myMedia.UploadsDir}Compressed/{newFileName}{newFileExtension}";
                 myMedia.Placeholder = $"{myMedia.UploadsDir}Placeholders/{newFileName}{newFileExtension}";
             }
-        
+
             Bitmap bitmapFromHDRFormat(string originalDir)
             {
                 using (var image = new MagickImage(originalDir))
@@ -409,7 +409,7 @@ namespace ParsnipData.Media
 
                             //if (mean < 24000 && standardDeviation > 14500 || mean < 16000) //Perfect??6 - Fixes IMG_3340, IMG_3326 & IMG_3323
                             //if (mean < 26241 && standardDeviation > 14500 || mean < 16000) //IMG_3325 & IMG_3324
-                            if (mean < 26241 && standardDeviation > 14500 || mean < 20000 && xxx < 3.08 && /*standardDeviation < 11256*/ standardDeviation > 11258 || xxx < 2 && mean > 18000 /*&&*/ /*standardDeviation < 11000*/ /*standardDeviation < 11256*/ || mean < 14000) //Perfect??9 IMG_3369, IMG_3367, IMG_3370, IMG_3368
+                            if (mean < 26241 && standardDeviation > 14500 || mean < 20000 && xxx < 3.08 && /*standardDeviation < 11256*/ standardDeviation > 11258 || xxx < 2 && mean > 18000 && standardDeviation < 11000 /*standardDeviation < 11256*/ || mean < 14000) //Perfect??10 (skipped 9 by accident) IMG_3369, IMG_3367, IMG_3370, IMG_3368
                             {
                                 //if (xxx < 1.397 || xxx > 3.72)
                                 //if (xxx < 1.397 || xxx > 3.5)
@@ -423,7 +423,7 @@ namespace ParsnipData.Media
                                 {
                                     //if(mean < 13000 && standardDeviation > 15000) //Perfect??7
                                     //if (mean < 13000 && standardDeviation > 9200 && (xxx > 1.39 || standardDeviation > 17000))
-                                    if ((mean < 15000 /*&& standardDeviation > 10000*/ && xxx > 1.39 ||standardDeviation > 19000) && !(xxx > 3.9 && standardDeviation < 10000)) //Perfect??8
+                                    if ((mean < 15000 /*&& standardDeviation > 10000*/ && xxx > 1.39 || standardDeviation > 19000) && !(xxx > 3.9 && standardDeviation < 10000)) //Perfect??8
                                     {
                                         Console.Write($"SUPER SPECIAL1 ");
                                         Console.ForegroundColor = ConsoleColor.Green;
@@ -474,14 +474,14 @@ namespace ParsnipData.Media
                             //}
                             //else
                             //{
-                                Console.Write($"Standard ");
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.Write("is NOT");
-                                Console.ResetColor();
-                                Console.WriteLine($" HDR {xxx}");
-                                return false;
+                            Console.Write($"Standard ");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("is NOT");
+                            Console.ResetColor();
+                            Console.WriteLine($" HDR {xxx}");
+                            return false;
                             //}
-                            
+
                         }
 
                         bool useFilter3()
@@ -497,9 +497,9 @@ namespace ParsnipData.Media
 
                             bool returnValue;
 
-                            
 
-                            if(useFilter1())
+
+                            if (useFilter1())
                             {
                                 //IMG_2614 VS IMG_3448
                                 //if (xxx < 1.02 || xxx > 3.94)
@@ -513,15 +513,15 @@ namespace ParsnipData.Media
                                 {
                                     returnValue = true;
                                     Console.WriteLine($"Standard is HDR {xxx}");
+                                }
                             }
-                        }
                             else
                             {
                                 Console.WriteLine($"Standard is NOT HDR {xxx}");
                                 returnValue = false;
                             }
-                                
-                            
+
+
 
 
 
@@ -532,7 +532,7 @@ namespace ParsnipData.Media
                         {
                             var directories = ImageMetadataReader.ReadMetadata(originalDir);
                             var subIfDirectory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
-                            if(subIfDirectory != null)
+                            if (subIfDirectory != null)
                             {
                                 var sampelsPerPixel = subIfDirectory.GetDescription(ExifDirectoryBase.TagSamplesPerPixel);
                                 //var bitsPerSample = subIfDirectory.GetDescription(ExifDirectoryBase.TagBitsPerSample);
@@ -570,7 +570,7 @@ namespace ParsnipData.Media
                                 //Console.WriteLine($"ISO = {iso}");
                             }
 
-                            
+
                             return false;
                         }
 
@@ -680,7 +680,7 @@ namespace ParsnipData.Media
         public static Media Select(MediaId mediaId, int loggedInUserId = default)
         {
             Media media = null;
-            
+
             try
             {
                 using (var conn = new SqlConnection(Parsnip.ParsnipConnectionString))
@@ -1037,7 +1037,7 @@ namespace ParsnipData.Media
                     minScore = halfScore >= 1 ? Convert.ToInt16(halfScore) : 1;
                 else
                     minScore = 1;
-                
+
                 mediaSearchResult.Media = mediaSearchResult.Media.Where(x => x.RankScore >= minScore).OrderByDescending(x => x.RankScore).ThenByDescending(x => x.DateTimeCaptured).ToList();
 
 
