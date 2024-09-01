@@ -409,7 +409,9 @@ namespace ParsnipData.Media
 
                             //if (mean < 24000 && standardDeviation > 14500 || mean < 16000) //Perfect??6 - Fixes IMG_3340, IMG_3326 & IMG_3323
                             //if (mean < 26241 && standardDeviation > 14500 || mean < 16000) //IMG_3325 & IMG_3324
-                            if (mean < 26241 && standardDeviation > 14500 || mean < 20000 && xxx < 3.08 && /*standardDeviation < 11256*/ standardDeviation > 11258 || xxx < 2 && mean > 18000 && standardDeviation < 11000 /*standardDeviation < 11256*/ || mean < 14000) //Perfect??10 (skipped 9 by accident) IMG_3369, IMG_3367, IMG_3370, IMG_3368
+                            //if (mean < 26241 && standardDeviation > 14500 || mean < 20000 && xxx < 3.08 && /*standardDeviation < 11256*/ standardDeviation > 11258 || xxx < 2 && mean > 18000 && standardDeviation < 11000 /*standardDeviation < 11256*/ || mean < 14000) //Perfect??10 (skipped 9 by accident) IMG_3369, IMG_3367, IMG_3370, IMG_3368
+                            //if (mean < 26241 && standardDeviation > 14500 || mean < 20000 && /*xxx < 3.08*/ xxx < 3.33 && /*standardDeviation < 11256*/ /*standardDeviation > 11258*/ standardDeviation > 12153 || xxx < 2 && mean > 18000 && standardDeviation < 11000 /*standardDeviation < 11256*/ || mean < 14000) //Perfect??11 - Fixes IMG_3366
+                            if (mean < 26241 && standardDeviation > 14500 || mean < 20000 && xxx < 3.33 && standardDeviation > 12153 || xxx < 2 && mean > 18000 && standardDeviation < /*11000*/ 9200 || mean < 14000) //Perfect??12 Fixes IMG_3551, IMG_3552, IMG_3553, IMG_3554, IMG_3555, IMG_3556, IMG_3557, IMG_3558, IMG_3559, IMG_3560, IMG_3561, IMG_3564, IMG_3565
                             {
                                 //if (xxx < 1.397 || xxx > 3.72)
                                 //if (xxx < 1.397 || xxx > 3.5)
