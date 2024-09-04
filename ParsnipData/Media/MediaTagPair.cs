@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ParsnipData.Accounts;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -15,11 +16,13 @@ namespace ParsnipData.Media
         public DateTime DateTimeDeleted { get; set; }
         public DateTime DateTimeCreated { get; set; }
 
-        public MediaTagPair(Media media, MediaTag mediaTag, ParsnipData.Accounts.User user)
+        public MediaTagPair(Media media, MediaTag mediaTag, User user) : this(media, mediaTag, user.Id) { }
+
+        public MediaTagPair(Media media, MediaTag mediaTag, int userId)
         {
             MediaId = media.Id;
             MediaTag = mediaTag;
-            CreatedByUserId = user.Id;
+            CreatedByUserId = userId;
             DateTimeCreated = ParsnipData.Parsnip.AdjustedTime;
         }
 

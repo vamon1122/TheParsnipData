@@ -303,10 +303,10 @@ namespace ParsnipData.Media
             }
         }
 
-        public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string originalFileExtension)
+        public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string originalFileExtension, string localOverride = null)
         {
             string newFileExtension = ".jpg";
-            string fullyQualifiedUploadsDir = HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
+            var fullyQualifiedUploadsDir = localOverride ?? HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
             System.Drawing.Image originalImage;
             Bitmap compressedBitmap;
             Bitmap placeholderBitmap;
@@ -334,8 +334,8 @@ namespace ParsnipData.Media
                 compressedBitmap.RotateFlip(rotateFlipType);
                 placeholderBitmap.RotateFlip(rotateFlipType);
 
-                SaveBitmapWithCompression(compressedBitmap, 85L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Compressed\\{newFileName}{newFileExtension}"));
-                SaveBitmapWithCompression(placeholderBitmap, 15L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Placeholders\\{newFileName}{newFileExtension}"));
+                SaveBitmapWithCompression(compressedBitmap, 85L, $"{fullyQualifiedUploadsDir}\\Compressed\\{newFileName}{newFileExtension}");
+                SaveBitmapWithCompression(placeholderBitmap, 15L, $"{fullyQualifiedUploadsDir}\\Placeholders\\{newFileName}{newFileExtension}");
             }
 
             void UpdateMetadata()
