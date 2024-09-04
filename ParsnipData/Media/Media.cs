@@ -17,6 +17,18 @@ using FreeImageAPI;
 using ImageMagick;
 using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using System.IO;
+using Aspose.Imaging.FileFormats.Jpeg;
+using Aspose.Imaging;
+using Aspose.Imaging.FileFormats.Jpeg;
+using Aspose.Imaging.Exif;
+using Emgu.CV;
+using Emgu.CV.CvEnum;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 namespace ParsnipData.Media
 {
@@ -226,7 +238,7 @@ namespace ParsnipData.Media
             Bitmap DrawNewBitmap(System.Drawing.Image source, int width, int height)
             {
                 Bitmap result = new Bitmap(width, height);
-                using (Graphics g = Graphics.FromImage(result))
+                using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(result))
                 {
                     g.DrawImage(source, 0, 0, width, height);
                 }
@@ -235,7 +247,7 @@ namespace ParsnipData.Media
             }
         }
 
-        public static RotateFlipType GetRotateFlipType(System.Drawing.Image image)
+        public static System.Drawing.RotateFlipType GetRotateFlipType(System.Drawing.Image image)
         {
             if (image.PropertyIdList.Contains(0x112)) //0x112 = Orientation
             {
@@ -248,19 +260,19 @@ namespace ParsnipData.Media
                     {
                         //We rotate the original image because we need the correct dimensions later on.
                         //This will not affect the original image because it has already been saved.
-                        return RotateFlipType.Rotate270FlipNone;
+                        return System.Drawing.RotateFlipType.Rotate270FlipNone;
                     }
                     else if (orientationExif == 3)
                     {
-                        return RotateFlipType.Rotate180FlipNone;
+                        return System.Drawing.RotateFlipType.Rotate180FlipNone;
                     }
                     else if (orientationExif == 6)
                     {
-                        return RotateFlipType.Rotate90FlipNone;
+                        return System.Drawing.RotateFlipType.Rotate90FlipNone;
                     }
                 }
             }
-            return RotateFlipType.RotateNoneFlipNone;
+            return System.Drawing.RotateFlipType.RotateNoneFlipNone;
         }
 
         public static void SaveBitmapWithCompression(Bitmap bitmap, Int64 quality, string newFileDir)
@@ -320,7 +332,9 @@ namespace ParsnipData.Media
             {
                 var systemDrawingBitmapFormats = new string[] { ".png", ".gif", ".jpg", ".jpeg", ".tiff" };
                 var originalDir = $"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}";
-                var rotateFlipType = RotateFlipType.RotateNoneFlipNone;
+                var rotateFlipType = System.Drawing.RotateFlipType.RotateNoneFlipNone;
+
+                
 
                 if (systemDrawingBitmapFormats.Contains(originalFileExtension.ToLower()))
                 {
@@ -328,6 +342,7 @@ namespace ParsnipData.Media
                     rotateFlipType = GetRotateFlipType(originalImage);
                 }
                 else originalImage = bitmapFromHDRFormat(originalDir);
+                Console.WriteLine($"IsHDR? {IsHDR(originalDir)}");
 
                 compressedBitmap = GenerateBitmapOfSize(originalImage, 1280, 200);
                 placeholderBitmap = GenerateBitmapOfSize(originalImage, 250, 0);
@@ -351,6 +366,118 @@ namespace ParsnipData.Media
                 myMedia.Placeholder = $"{myMedia.UploadsDir}Placeholders/{newFileName}{newFileExtension}";
             }
 
+            bool IsHDR(string imagePath)
+            {
+                using (var image = SixLabors.ImageSharp.Image.Load<Rgba32>(imagePath))
+                {
+                    // Generate the histogram
+                    var histogram = new int[256];
+                    image.ProcessPixelRows(accessor =>
+                    {
+                        for (int y = 0; y < accessor.Height; y++)
+                        {
+                            var row = accessor.GetRowSpan(y);
+                            for (int x = 0; x < row.Length; x++)
+                            {
+                                var pixel = row[x];
+                                int luminance = (int)(0.2126 * pixel.R + 0.7152 * pixel.G + 0.0722 * pixel.B);
+                                histogram[luminance]++;
+                            }
+                        }
+                    });
+
+                    // Analyze the histogram for HDR characteristics
+                    int threshold = 10; // Example threshold for HDR detection
+                    int highLuminanceCount = histogram.Skip(200).Sum();
+                    int lowLuminanceCount = histogram.Take(56).Sum();
+
+                    return highLuminanceCount > threshold && lowLuminanceCount > threshold;
+                }
+            }
+
+            //bool IsHdrDng(string inputPath)
+            //{
+            //    // Read the metadata
+            //    var directories = ImageMetadataReader.ReadMetadata(inputPath);
+            //    var subIfdDirectory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
+
+            //    if (subIfdDirectory != null)
+            //    {
+            //        // Check for HDR-related tags (this is an example, actual tags may vary)
+            //        var exposureTime = subIfdDirectory.GetDescription(ExifDirectoryBase.TagExposureTime);
+            //        var iso = subIfdDirectory.GetDescription(ExifDirectoryBase.TagIsoEquivalent);
+
+            //        // Simple heuristic: if exposure time is very short and ISO is high, it might be HDR
+            //        if (exposureTime != null && iso != null)
+            //        {
+            //            double exposure = double.Parse(exposureTime);
+            //            int isoValue = int.Parse(iso);
+
+            //            if (exposure < 0.01 && isoValue > 800)
+            //            {
+            //                return true;
+            //            }
+            //        }
+            //    }
+
+            //    // Load the image and analyze pixel values
+            //    Mat image = CvInvoke.Imread(inputPath, ImreadModes.AnyDepth | ImreadModes.Color);
+            //    double minVal = 0, maxVal = 0;
+            //    System.Drawing.Point minLoc = new System.Drawing.Point(), maxLoc = new System.Drawing.Point(); // Initialize points
+            //    CvInvoke.MinMaxLoc(image, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+
+            //    // Simple heuristic: if the range of pixel values is very large, it might be HDR
+            //    if (maxVal - minVal > 1000) // Adjust threshold as needed
+            //    {
+            //        return true;
+            //    }
+
+            //    return false;
+            //}
+
+            //Bitmap bitmapFromHDRFormat4(string originalDir)
+            //{
+            //    //Mat hdrImage = CvInvoke.Imread(originalDir, ImreadModes.AnyDepth | ImreadModes.Color);
+            //    //var exposureTime = subIfdDirectory.GetDescription(ExifDirectoryBase.TagExposureTime);
+            //    //var iso = subIfdDirectory.GetDescription(ExifDirectoryBase.TagIsoEquivalent);
+            //}
+
+            Bitmap bitmapFromHDRFormat3(string originalDir)
+            {
+                // Set the license
+                //License license = new License();
+                //license.SetLicense("Aspose.Imaging.lic");
+
+                // Load an existing image into a memory stream
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    // Assuming you have an image file to load
+                    using (Aspose.Imaging.Image image = Aspose.Imaging.Image.Load(originalDir))
+                    {
+                        //image.
+                        //if (image is RasterImage rasterImage)
+                        //{
+                        //    ExifData exifData = rasterImage.ExifData;
+                        //}
+                        //image.Save(memoryStream, new Aspose.Imaging.ImageOptions.JpegOptions()
+                        //{
+                        //    Quality = 100, // Set the quality of the JPEG
+                        //    ColorType = JpegCompressionColorMode.Rgb // Ensure 
+                        //});
+                        // ImgData x;
+                        //Console.WriteLine($"Apeture = {image.ImgData.ImageOtherParameters.Aperture}")
+                    }
+
+                    // Reset the position of the memory stream to the beginning
+                    memoryStream.Position = 0;
+
+                    // Create a Bitmap from the memory stream
+                    Bitmap bitmap = new Bitmap(memoryStream);
+
+                    return bitmap;
+                }
+            }
+
             Bitmap bitmapFromHDRFormat(string originalDir)
             {
                 using (var image = new MagickImage(originalDir))
@@ -368,6 +495,23 @@ namespace ParsnipData.Media
                         //of the pointer.
                         memoryStream.Position = 0;
 
+                        //if (useFilter5())
+                        //{
+                        //    Console.Write($"FILTER5 ");
+                        //    Console.ForegroundColor = ConsoleColor.Green;
+                        //    Console.Write("is");
+                        //    Console.ResetColor();
+                        //    Console.WriteLine($" HDR");
+                        //}
+                        //else
+                        //{
+                        //    Console.Write($"FILTER5 ");
+                        //    Console.ForegroundColor = ConsoleColor.Red;
+                        //    Console.Write("is NOT");
+                        //    Console.ResetColor();
+                        //    Console.WriteLine($" HDR");
+                        //}
+
                         if (useFilter4())
                         {
                             var hrdDib = FreeImage.LoadFromStream(memoryStream);
@@ -379,6 +523,39 @@ namespace ParsnipData.Media
                             return bitmap;
                         }
                         else return new Bitmap(memoryStream);
+
+                        bool useFilter5()
+                        {
+                            memoryStream.Position = 0;
+                            using (var image2 = SixLabors.ImageSharp.Image.Load<Rgba32>(memoryStream))
+                            {
+                                return isHdr();
+
+                                if (isHdr())
+                                {
+                                    // Apply SDR conversion logic here
+                                    image2.Mutate(ctx => ctx.Brightness(0.8f)); // Example adjustment
+                                }
+                                //image2.Save(outputStream);
+
+                                bool isHdr()
+                                {
+                                    var exifProfile = image2.Metadata.ExifProfile;
+                                    if (exifProfile != null)
+                                    {
+                                        var exposureTime = exifProfile.GetValue(SixLabors.ImageSharp.Metadata.Profiles.Exif.ExifTag.ExposureTime);
+                                        var brightnessValue = exifProfile.GetValue(SixLabors.ImageSharp.Metadata.Profiles.Exif.ExifTag.BrightnessValue);
+                                        var contrast = exifProfile.GetValue(SixLabors.ImageSharp.Metadata.Profiles.Exif.ExifTag.Contrast);
+
+                                        // Simple check for HDR characteristics
+                                        return exposureTime != null && brightnessValue != null && contrast != null;
+                                    }
+                                    return false;
+                                }
+                            }
+
+
+                        }
 
                         bool useFilter4()
                         {
@@ -414,7 +591,15 @@ namespace ParsnipData.Media
                             //if (mean < 26241 && standardDeviation > 14500 || mean < 20000 && xxx < 3.33 && standardDeviation > 12153 || xxx < 2 && mean > 18000 && standardDeviation < /*11000*/ 9200 || mean < 14000) //Perfect??12 Fixes IMG_3551, IMG_3552, IMG_3553, IMG_3554, IMG_3555, IMG_3556, IMG_3557, IMG_3558, IMG_3559, IMG_3560, IMG_3561, IMG_3564, IMG_3565
                             //if (mean < 26241 && standardDeviation > /*14500*/ 15100 || mean < /*20000*/ 20104 && xxx < 3.33 && standardDeviation > 12153 || xxx < 2 && mean > 18000 && standardDeviation < 9200 || mean < 14000) //Perfect??13 Fixes IMG_3536
                             //if (mean < 26241 && standardDeviation > 15100 || mean < 20104 && xxx < 3.33 && standardDeviation > 12153 || xxx < 2 && mean > 18000 && standardDeviation < 9200 || mean < 14000 || mean > 36000) //Perfect??14 Fixes IMG_3378, IMG_3379, IMG_3380
-                            if (mean < 26241 && standardDeviation > /*15100*/ /*15700*/ 15630 && (xxx > 3.5 || standardDeviation > 15900) /* && xxx < 2.6*/ || mean < 20104 && xxx < 3.33 && standardDeviation > 12153 || xxx < 2 && mean > 18000 && standardDeviation < 9200 || mean < 14000 || mean > 36000) //Perfect??15 Fixes IMG_3425 & IMG_3426
+                            //if (mean < 26241 && standardDeviation > /*15100*/ /*15700*/ 15630 && (xxx > 3.5 || standardDeviation > 15900) /* && xxx < 2.6*/ || mean < 20104 && xxx < 3.33 && standardDeviation > 12153 || xxx < 2 && mean > 18000 && standardDeviation < 9200 || mean < 14000 || mean > 36000) //Perfect??15 Fixes IMG_3425 & IMG_3426
+                            //if (mean < 26241 && standardDeviation > 15630 && (xxx > 3.5 || standardDeviation > 15900) || mean < 20104 && xxx < 3.33 && standardDeviation > 12153 && xxx > /*3.1*/ /*3.07*/ 3.01 || xxx < 2 && mean > 18000 && standardDeviation < 9200 || mean < 14000 || mean > 36000) //Perfect??16 Fixes IMG_3485, IMG_3488, IMG_3486, IMG_3487, IMG_3489
+
+                            if (mean < 26241 && standardDeviation > 15630 && xxx > /*3.5*/ 3.73
+                                || mean < 26241 /*23500*/ && mean > 19000 && standardDeviation > /*16016*/ 15630 && xxx < 3.73
+                                || mean < 20104 && xxx < 3.33 && standardDeviation > 12153 && xxx > 3.01
+                                || xxx < 2 && mean > 18000 && standardDeviation < 9200
+                                || mean < 14000
+                                || mean > 36000) //Fixes IMG_3451 & IMG_3452
                             {
                                 //if (xxx < 1.397 || xxx > 3.72)
                                 //if (xxx < 1.397 || xxx > 3.5)
