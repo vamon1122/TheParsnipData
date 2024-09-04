@@ -154,8 +154,12 @@ PublishScripts/
 # NuGet Packages
 *.nupkg
 # The packages folder can be ignored because of Package Restore
-**/packages/*
+# However I am paranoid about packages being removed from NuGet,
+# or NuGet itself being retired one day... so I have commented this out for now
+#**/packages/*
 # except build/, which is used as an MSBuild target.
+#This isn't necessarry since I have commented the above,
+# leaving in just incase it gets forgotten :P
 !**/packages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/packages/repositories.config
