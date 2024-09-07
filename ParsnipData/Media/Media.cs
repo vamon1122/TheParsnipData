@@ -357,6 +357,7 @@ namespace ParsnipData.Media
                 using (var image = new MagickImage(originalDir))
                 {
                     image.AutoOrient();
+                    image.Clahe(1024, 1024, 128, 2.0);
 
                     using (var memoryStream = new System.IO.MemoryStream())
                     {
@@ -370,8 +371,9 @@ namespace ParsnipData.Media
                         memoryStream.Position = 0;
 
                         var hrdDib = FreeImage.LoadFromStream(memoryStream);
-                        var sdrDib = FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.3);
-                        FreeImage.AdjustBrightness(sdrDib, 10);
+                        //var sdrDib = FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.5);
+                        FIBITMAP sdrDib = FreeImageAPI.FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_DRAGO03, 1.75, 0.3);
+                        //FreeImage.AdjustBrightness(sdrDib, 10);
                         FreeImage.Unload(hrdDib);
                         var bitmap = FreeImage.GetBitmap(sdrDib);
                         FreeImage.Unload(sdrDib);
