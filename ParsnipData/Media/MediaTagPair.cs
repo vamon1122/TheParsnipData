@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ParsnipData.Accounts;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -15,11 +16,13 @@ namespace ParsnipData.Media
         public DateTime DateTimeDeleted { get; set; }
         public DateTime DateTimeCreated { get; set; }
 
-        public MediaTagPair(Media media, MediaTag mediaTag, ParsnipData.Accounts.User user)
+        public MediaTagPair(Media media, MediaTag mediaTag, User user) : this(media, mediaTag, user.Id) { }
+
+        public MediaTagPair(Media media, MediaTag mediaTag, int userId)
         {
             MediaId = media.Id;
             MediaTag = mediaTag;
-            CreatedByUserId = user.Id;
+            CreatedByUserId = userId;
             DateTimeCreated = ParsnipData.Parsnip.AdjustedTime;
         }
 
@@ -48,19 +51,26 @@ namespace ParsnipData.Media
 
         public void Insert()
         {
-            using(var conn = new SqlConnection(ParsnipData.Parsnip.ParsnipConnectionString))
+            try
             {
-                using(var insertMediaTagPair = new SqlCommand("media_tag_pair_INSERT", conn))
+                using(var conn = new SqlConnection(ParsnipData.Parsnip.ParsnipConnectionString))
                 {
-                    insertMediaTagPair.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var insertMediaTagPair = new SqlCommand("media_tag_pair_INSERT", conn))
+                    {
+                        insertMediaTagPair.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    insertMediaTagPair.Parameters.AddWithValue("media_id", MediaId.ToString());
-                    insertMediaTagPair.Parameters.AddWithValue("media_tag_name", MediaTag.Name);
-                    insertMediaTagPair.Parameters.AddWithValue("media_tag_created_by_user_id", CreatedByUserId);
+                        insertMediaTagPair.Parameters.AddWithValue("media_id", MediaId.ToString());
+                        insertMediaTagPair.Parameters.AddWithValue("media_tag_name", MediaTag.Name);
+                        insertMediaTagPair.Parameters.AddWithValue("media_tag_created_by_user_id", CreatedByUserId);
 
-                    conn.Open();
-                    insertMediaTagPair.ExecuteNonQuery();
+                        conn.Open();
+                        insertMediaTagPair.ExecuteNonQuery();
+                    }
                 }
+            }
+            catch
+            {
+                throw new Exception($"There was an exception whilst inserting #{MediaTag.Name} into the database.");
             }
         }
 
