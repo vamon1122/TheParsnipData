@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
+  <Target Name="LogPlatformTarget" AfterTargets="Build">
+    <Message Text="Platform Target: $(PlatformTarget)" Importance="high" />
+  </Target>
   <ItemGroup>
     <Reference Include="Magick.NET-Q16-HDRI-AnyCPU, Version=13.10.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
       <HintPath>..\packages\Magick.NET-Q16-HDRI-AnyCPU.13.10.0\lib\netstandard20\Magick.NET-Q16-HDRI-AnyCPU.dll</HintPath>
@@ -90,8 +93,13 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\lib\FreeImage.dll">
+  <ItemGroup Condition="'$(PlatformTarget)' == 'x64'">
+    <Content Include="..\lib\x64\FreeImage.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup Condition="'$(PlatformTarget)' == 'x86'">
+    <Content Include="..\lib\x86\FreeImage.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
