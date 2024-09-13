@@ -13,6 +13,9 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using System.Web;
 using System.Data;
+using MetadataExtractor.Formats.Exif;
+using MetadataExtractor;
+using System.IO;
 
 namespace ParsnipData.Media
 {
@@ -27,6 +30,12 @@ namespace ParsnipData.Media
         {
             return AllowedFileExtensions.Contains(ext.ToLower());
 
+        }
+
+        public static DateTime GetDateTimeCreated(FileInfo file)
+        {
+            var dateTimeCreated = ImageMetadataReader.ReadMetadata(file.FullName).OfType<ExifIfd0Directory>().FirstOrDefault()?.GetDescription(ExifIfd0Directory.TagDateTime);
+            return dateTimeCreated != null ? DateTime.ParseExact(dateTimeCreated, "yyyy:MM:dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture) : file.DateTimeFileCreated();
         }
 
     #region Constructors
@@ -74,7 +83,7 @@ namespace ParsnipData.Media
                         CreatedById = uploader.Id;
 
                         DateTimeCreated = Parsnip.AdjustedTime;
-                        DateTimeCaptured = DateTimeCreated;
+                        DateTimeCaptured = GetDateTimeCreated(new FileInfo(fullyQualifiedDir));
                     }
                     else
                     {

@@ -11,6 +11,9 @@ using ParsnipData.Logging;
 using System.Data;
 using System.Web;
 using System.Runtime.InteropServices.WindowsRuntime;
+using MetadataExtractor.Formats.QuickTime;
+using MetadataExtractor;
+using System.IO;
 
 namespace ParsnipData.Media
 {
@@ -60,6 +63,17 @@ namespace ParsnipData.Media
             return VideoData.XScale > VideoData.YScale;
         }
 
+        public static DateTime GetDateTimeCreated(FileInfo file)
+        {
+            var metaDateTimeCreated = DateTime.ParseExact(ImageMetadataReader.ReadMetadata(file.FullName).OfType<QuickTimeMovieHeaderDirectory>().FirstOrDefault().GetDescription(QuickTimeMovieHeaderDirectory.TagCreated), "ddd MMM dd HH:mm:ss yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            var fileDateTimeCreated = file.DateTimeFileCreated();
+
+            return metaDateTimeCreated.ToString() != "01/01/1904 00:00:00" &&
+                //Added this check because there is a bug in iCloud shared albums where videos somehow end up on your PC with incorrect date in the video metatata but correct data in the file metatata    
+                metaDateTimeCreated < fileDateTimeCreated ?
+                metaDateTimeCreated : fileDateTimeCreated;
+        }
+
         #region Constructors
         public Video()
         {
@@ -95,7 +109,7 @@ namespace ParsnipData.Media
                 CreatedById = uploader.Id;
 
                 DateTimeCreated = Parsnip.AdjustedTime;
-                DateTimeCaptured = DateTimeCreated;
+                DateTimeCaptured = GetDateTimeCreated(new FileInfo(fullyQualifiedVideoDir));
             }
             catch (Exception ex)
             {
