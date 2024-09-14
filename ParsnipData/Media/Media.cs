@@ -15,6 +15,7 @@ using System.Drawing.Imaging;
 using System.Configuration;
 using FreeImageAPI;
 using ImageMagick;
+using System.IO;
 
 namespace ParsnipData.Media
 {
@@ -371,6 +372,7 @@ namespace ParsnipData.Media
 
                         if (image.Depth < 16) return new Bitmap(memoryStream);
 
+                        loadFreeImageDLL();
                         var hrdDib = FreeImage.LoadFromStream(memoryStream);
                         var sdrDib = FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.3);
                         FreeImage.AdjustBrightness(sdrDib, 10);
@@ -378,6 +380,12 @@ namespace ParsnipData.Media
                         var bitmap = FreeImage.GetBitmap(sdrDib);
                         FreeImage.Unload(sdrDib);
                         return bitmap;
+
+                        void loadFreeImageDLL()
+                        {
+                            var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+                            File.Copy($"{currentDirectory}\\{(System.Environment.Is64BitProcess ? "x64" : "x86")}\\FreeImage.dll", $"{currentDirectory}\\FreeImage.dll");
+                        }
                     }
                 }
             }

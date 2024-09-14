@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -93,14 +93,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup Condition="'$(PlatformTarget)' == 'x64'">
+  <ItemGroup Condition="'$(PlatformTarget)' == 'x64' Or '$(PlatformTarget)' == 'AnyCPU'">
     <Content Include="..\lib\x64\FreeImage.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>x64\FreeImage.dll</TargetPath>
     </Content>
   </ItemGroup>
-  <ItemGroup Condition="'$(PlatformTarget)' == 'x86'">
+  <ItemGroup Condition="'$(PlatformTarget)' == 'x86' Or '$(PlatformTarget)' == 'AnyCPU'">
     <Content Include="..\lib\x86\FreeImage.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>x86\FreeImage.dll</TargetPath>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
