@@ -13,6 +13,9 @@ using System.Drawing;
 using System.Web;
 using System.Drawing.Imaging;
 using System.Configuration;
+using FreeImageAPI;
+using ImageMagick;
+using System.IO;
 
 namespace ParsnipData.Media
 {
@@ -314,11 +317,20 @@ namespace ParsnipData.Media
 
             void GenerateBitmaps()
             {
-                originalImage = Bitmap.FromFile($"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}");
+                var systemDrawingBitmapFormats = new string[] { ".png", ".gif", ".jpg", ".jpeg", ".tiff" };
+                var originalDir = $"{fullyQualifiedUploadsDir}Originals\\{newFileName}{originalFileExtension}";
+                var rotateFlipType = RotateFlipType.RotateNoneFlipNone;
+
+                if (systemDrawingBitmapFormats.Contains(originalFileExtension.ToLower()))
+                {
+                    originalImage = Bitmap.FromFile(originalDir);
+                    rotateFlipType = GetRotateFlipType(originalImage);
+                }
+                else originalImage = bitmapFromHDRFormat(originalDir);
+
                 compressedBitmap = GenerateBitmapOfSize(originalImage, 1280, 200);
                 placeholderBitmap = GenerateBitmapOfSize(originalImage, 250, 0);
 
-                RotateFlipType rotateFlipType = GetRotateFlipType(originalImage);
                 originalImage.RotateFlip(rotateFlipType);
                 compressedBitmap.RotateFlip(rotateFlipType);
                 placeholderBitmap.RotateFlip(rotateFlipType);
@@ -336,6 +348,49 @@ namespace ParsnipData.Media
                 myMedia.Original = $"{myMedia.UploadsDir}Originals/{newFileName}{originalFileExtension}";
                 myMedia.Compressed = $"{myMedia.UploadsDir}Compressed/{newFileName}{newFileExtension}";
                 myMedia.Placeholder = $"{myMedia.UploadsDir}Placeholders/{newFileName}{newFileExtension}";
+            }
+        
+            Bitmap bitmapFromHDRFormat(string originalDir)
+            {
+                //.NET Framework version of FreeImage doesn't support DNG
+                //ImageMagick doesn't do tone mapping
+                //OpenCV doesn't support DNG and is more complicated to implement
+                using (var image = new MagickImage(originalDir))
+                {
+                    image.AutoOrient();
+
+                    using (var memoryStream = new System.IO.MemoryStream())
+                    {
+                        image.Write(memoryStream, MagickFormat.Bmp);
+                        //It is necessary to move the position of the memory-stream to 0 in-order for FreeImage
+                        //to be able to load the stream correctly. It is not necessarily required that
+                        //System.Drawing.Bitmap have the pointer set to 0, however it is aparrently
+                        //general good practice for stream handling. It is implied that the stream should be
+                        //ready to be read from (without the bitmap constructor having to set the position
+                        //of the pointer
+                        memoryStream.Position = 0;
+
+                        if (image.Depth < 16) return new Bitmap(memoryStream);
+
+                        loadFreeImageDLL();
+                        var hrdDib = FreeImage.LoadFromStream(memoryStream);
+                        var sdrDib = FreeImage.ToneMapping(hrdDib, FREE_IMAGE_TMO.FITMO_REINHARD05, 1, 0.3);
+                        FreeImage.AdjustBrightness(sdrDib, 10);
+                        FreeImage.Unload(hrdDib);
+                        var bitmap = FreeImage.GetBitmap(sdrDib);
+                        FreeImage.Unload(sdrDib);
+                        return bitmap;
+
+                        void loadFreeImageDLL()
+                        {
+                            var environment = System.Environment.Is64BitProcess ? "x64" : "x86";
+                            var currentDirectory = HttpContext.Current == null ? Directory.GetCurrentDirectory() : HttpContext.Current.Server.MapPath("~/bin");
+                            var destination = $"{currentDirectory}\\FreeImage.dll";
+                            if (!File.Exists(destination))
+                                File.Copy($"{currentDirectory}\\{environment}\\FreeImage.dll", destination);
+                        }
+                    }
+                }
             }
         }
         #endregion
