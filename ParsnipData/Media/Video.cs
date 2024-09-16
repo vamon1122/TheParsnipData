@@ -11,6 +11,10 @@ using ParsnipData.Logging;
 using System.Data;
 using System.Web;
 using System.Runtime.InteropServices.WindowsRuntime;
+using MetadataExtractor.Formats.QuickTime;
+using MetadataExtractor;
+using System.IO;
+using MetadataExtractor.Util;
 
 namespace ParsnipData.Media
 {
@@ -60,6 +64,28 @@ namespace ParsnipData.Media
             return VideoData.XScale > VideoData.YScale;
         }
 
+        public static DateTime GetDateTimeCreated(FileInfo file)
+        {
+            //Added this check because I found that some MOV / MP4 files had no metadata
+            //which meant that the FileType is 'FileType.Unknown. However, checking for
+            //FileType.QuickTime as this will error without QuickTime data anyway.
+            //I have not come across any images without their EXIF metadata and I have
+            //tried and tried to strip EXIF data from DNG images to no avail. For this
+            //reason I am not adding a similar check to Image.GetDateTimeCreated
+            using (var stream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read))
+            {
+                if (FileTypeDetector.DetectFileType(stream) != FileType.QuickTime) return file.DateTimeFileCreated();
+            }
+
+            var metaDateTimeCreated = DateTime.ParseExact(ImageMetadataReader.ReadMetadata(file.FullName).OfType<QuickTimeMovieHeaderDirectory>().FirstOrDefault().GetDescription(QuickTimeMovieHeaderDirectory.TagCreated), "ddd MMM dd HH:mm:ss yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            var fileDateTimeCreated = file.DateTimeFileCreated();
+
+            return metaDateTimeCreated.ToString() != "01/01/1904 00:00:00" &&
+                //Added this check because there is a bug in iCloud shared albums where videos somehow end up on your PC with incorrect date in the video metatata but correct data in the file metatata    
+                metaDateTimeCreated < fileDateTimeCreated ?
+                metaDateTimeCreated : fileDateTimeCreated;
+        }
+
         #region Constructors
         public Video()
         {
@@ -95,7 +121,7 @@ namespace ParsnipData.Media
                 CreatedById = uploader.Id;
 
                 DateTimeCreated = Parsnip.AdjustedTime;
-                DateTimeCaptured = DateTimeCreated;
+                DateTimeCaptured = GetDateTimeCreated(new FileInfo(fullyQualifiedVideoDir));
             }
             catch (Exception ex)
             {

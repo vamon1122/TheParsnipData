@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 
 namespace ParsnipData
 {
@@ -42,6 +43,9 @@ namespace ParsnipData
 
             return returnValue;
         }
+
+        public static DateTime DateTimeFileCreated(this FileInfo file) =>
+            file.CreationTime < file.LastWriteTime ? file.CreationTime : file.LastWriteTime;
     }
 
 
