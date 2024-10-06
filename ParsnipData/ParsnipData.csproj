@@ -91,12 +91,14 @@
     <Content Include="..\lib\x64\FreeImage.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>x64\FreeImage.dll</TargetPath>
+      <Visible>false</Visible>
     </Content>
   </ItemGroup>
   <ItemGroup Condition="'$(PlatformTarget)' == 'x86' Or '$(PlatformTarget)' == 'AnyCPU'">
     <Content Include="..\lib\x86\FreeImage.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>x86\FreeImage.dll</TargetPath>
+      <Visible>false</Visible>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

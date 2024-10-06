@@ -7,12 +7,13 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using ParsnipData.Media;
 
 namespace ParsnipData
 {
     public static class Parsnip
     {
-        internal static readonly string ParsnipConnectionString = 
+        public static readonly string ParsnipConnectionString =
             ConfigurationManager.ConnectionStrings["ParsnipDb"].ConnectionString;
         
         public static DateTime AdjustedTime { get { return DateTime.Now.AddHours(8); } }
@@ -46,6 +47,12 @@ namespace ParsnipData
 
         public static DateTime DateTimeFileCreated(this FileInfo file) =>
             file.CreationTime < file.LastWriteTime ? file.CreationTime : file.LastWriteTime;
+
+        public static DateTime DateTimeCreated(this FileInfo file)
+        {
+            var extension = file.Extension.Length > 0 ? file.Extension.Substring(1) : string.Empty;
+            return Image.IsValidFileExtension(extension) ? Image.GetDateTimeCreated(file) : Video.IsValidFileExtension(extension) ? Video.GetDateTimeCreated(file) : file.DateTimeFileCreated();
+        }
     }
 
 

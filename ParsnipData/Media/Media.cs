@@ -304,10 +304,10 @@ namespace ParsnipData.Media
             }
         }
 
-        public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string originalFileExtension)
+        public static void ProcessMediaThumbnail(Media myMedia, string newFileName, string originalFileExtension, string localOverride = null)
         {
             string newFileExtension = ".jpg";
-            string fullyQualifiedUploadsDir = HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
+            string fullyQualifiedUploadsDir = localOverride ?? HttpContext.Current.Server.MapPath(myMedia.UploadsDir);
             System.Drawing.Image originalImage;
             Bitmap compressedBitmap;
             Bitmap placeholderBitmap;
@@ -335,8 +335,8 @@ namespace ParsnipData.Media
                 compressedBitmap.RotateFlip(rotateFlipType);
                 placeholderBitmap.RotateFlip(rotateFlipType);
 
-                SaveBitmapWithCompression(compressedBitmap, 85L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Compressed\\{newFileName}{newFileExtension}"));
-                SaveBitmapWithCompression(placeholderBitmap, 15L, HttpContext.Current.Server.MapPath($"{myMedia.UploadsDir}Placeholders\\{newFileName}{newFileExtension}"));
+                SaveBitmapWithCompression(compressedBitmap, 85L, $"{fullyQualifiedUploadsDir}\\Compressed\\{newFileName}{newFileExtension}");
+                SaveBitmapWithCompression(placeholderBitmap, 15L, $"{fullyQualifiedUploadsDir}\\Placeholders\\{newFileName}{newFileExtension}");
             }
 
             void UpdateMetadata()
@@ -417,7 +417,7 @@ namespace ParsnipData.Media
                             insertMedia.Parameters.AddWithValue("id", Id.ToString());
                             insertMedia.Parameters.AddWithValue("type", Type);
                             insertMedia.Parameters.AddWithValue("datetime_captured", DateTimeCaptured);
-                            insertMedia.Parameters.AddWithValue("datetime_created", DateTimeCreated);
+                            insertMedia.Parameters.AddWithValue("datetime_created", Parsnip.AdjustedTime);
                             insertMedia.Parameters.AddWithValue("x_scale", XScale);
                             insertMedia.Parameters.AddWithValue("y_scale", YScale);
                             insertMedia.Parameters.AddWithValue("original_dir", Original);
@@ -439,7 +439,12 @@ namespace ParsnipData.Media
                 {
                     string error = $"Failed to insert media into the database: {e}";
                     Debug.WriteLine(error);
-                    new LogEntry(Log.General) { Text = error };
+                    try
+                    {
+                        new LogEntry(Log.General) { Text = error };
+                    }
+                    catch { }
+
                     return false;
                 }
                 return true;
@@ -711,6 +716,14 @@ namespace ParsnipData.Media
             {
                 Debug.WriteLine("There was an error whilst reading the media's values: " + ex);
                 return false;
+            }
+        }
+        public void InsertTags(List<MediaTag> tags)
+        {
+            foreach (var tag in tags)
+            {
+                var pair = new MediaTagPair(this, tag, 1);
+                pair.Insert();
             }
         }
         #endregion
